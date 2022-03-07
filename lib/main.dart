@@ -9,7 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  //await Firebase.initializeApp();
   runApp(
       MultiProvider(providers: [
     ChangeNotifierProvider<navigatorProvider>(create: (_) => navigatorProvider()),

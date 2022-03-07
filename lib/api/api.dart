@@ -4,24 +4,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  Future<dynamic> get({required String uri}) async {
-    http.Response response = await http.get(Uri.parse(uri));
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+  Future<dynamic> get({required String url}) async {
+    http.Response response = await http.get(Uri.parse(url));
+    if (json.decode(response.body)["code"] == "200") {
+      return jsonDecode(response.body)["message"];
     } else {
       throw Exception(
-          'there is a problem with status code ${response.statusCode}');
+          'there is a problem with status code ${json.decode(response.body)["code"] == "200"}');
     }
   }
 
   Future<dynamic> post({
     required String url,
     @required dynamic body,
-    @required String? taken,
+    @required String? token,
   }) async {
     Map<String, String> headers = {};
-    if (taken != null) {
-      headers.addAll({'Authorization': 'Bearer $taken'});
+    if (token != null) {
+      headers.addAll({'Authorization': 'Bearer $token'});
     }
 
     http.Response response = await http.post(
@@ -29,12 +29,12 @@ class Api {
       body: body,
       headers: headers,
     );
-    if (response.statusCode == 200) {
-      Map<String, dynamic> data = jsonDecode(response.body);
+    if (json.decode(response.body)["code"] == "200") {
+      Map<String, dynamic> data = jsonDecode(response.body)["message"];
       return data;
     } else {
       throw Exception(
-          'there is a problem with status code ${response.statusCode} with body ${jsonDecode(response.body)}');
+          'there is a problem with status code ${json.decode(response.body)["code"] == "200"} with body ${jsonDecode(response.body)["message"]}');
     }
 
   }
