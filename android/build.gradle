@@ -1,0 +1,34 @@
+buildscript {
+    repositories {
+       // mavenCentral()
+        jcenter()
+        google()
+
+        //maven {   url "https://maven.google.com"   }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.3'
+        classpath 'com.google.gms:goaogle-services:4.3.8'
+    }
+}
+
+allprojects {
+    repositories {
+        //mavenCentral()
+        jcenter()
+        google()
+        maven { url 'https://dl.bintray.com/android/android-tools' }
+        //maven {url 'https://dl.google.com/dl/android/maven2'}
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    project.evaluationDependsOn(':app')
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
