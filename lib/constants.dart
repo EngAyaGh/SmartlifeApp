@@ -7,3 +7,4 @@ const kfontfamily='Pacifico';
 const kfontfamily2='Cairo';
 const kfontfamily3='Amiri';
 const url='https://aya.epaysadaka.com/api/';
+const kKeepMeLoggedIn="loginstate";

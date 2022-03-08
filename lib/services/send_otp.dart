@@ -20,7 +20,7 @@ class  AuthServices{
       'email':email,
       'otp':otp
     } );
-    return result=="done login"? true:false;
+    return result=="done"? true:false;
   }
 
 }

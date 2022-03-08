@@ -1,9 +1,11 @@
+import 'package:crm_smart/provider/authprovider.dart';
 import 'package:crm_smart/provider/bottomNav.dart';
 import 'package:crm_smart/ui/screen/client/clients.dart';
 import 'package:crm_smart/ui/screen/login.dart';
 import 'package:crm_smart/ui/screen/mainpage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,28 +16,49 @@ void main() async{
   runApp(
       MultiProvider(providers: [
     ChangeNotifierProvider<navigatorProvider>(create: (_) => navigatorProvider()),
+        ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
   ], child:MyApp()));
 }
 
 class MyApp extends StatelessWidget {
+  bool isUserLoggedIn = false;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return FutureBuilder<SharedPreferences>(
+        future: SharedPreferences.getInstance(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            //Center(child: CircularProgressIndicator(),)
+            return MaterialApp(
+              home: Scaffold(
+                body: Center(
+                  child: Text('Loading....'),
+                ),
+              ),
+            );
+          } else {
+            isUserLoggedIn =
+                snapshot.data!.getBool(kKeepMeLoggedIn) ?? false;
 
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: kMainColor,
-        backgroundColor: Colors.white,
-        brightness: Brightness.light,
-      ),
-      home: Directionality(textDirection: TextDirection.rtl,
-      child: login()),
-    );
+            return
+              MaterialApp(
+
+                  debugShowCheckedModeBanner: false,
+                  title: 'Flutter Demo',
+                  theme: ThemeData(
+                    primaryColor: kMainColor,
+                    backgroundColor: Colors.white,
+                    brightness: Brightness.light,
+                  ),
+                  home: Directionality(textDirection: TextDirection.rtl,
+                    child: isUserLoggedIn ? main_page() : login(),
+                  ));
+          }
+        });
   }
 }
-
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;

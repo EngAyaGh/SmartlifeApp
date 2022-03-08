@@ -38,9 +38,13 @@ class Api {
     print(result);
     print(json.decode(result)["code"]);
     if (json.decode(result)["code"] == "200") {
-      Map<String, dynamic> data = jsonDecode(result)["message"];
-      print("in json data is $data");
-      return data;
+      /*String data="";
+      if(jsonDecode(result)["message"]=="done")
+        data =jsonDecode(result)["message"] ;
+      else
+        Map<String, dynamic>  jsonDecode(result)["message"];*/
+      //print("in json data is $data");
+      return jsonDecode(result)["message"];
     } else {
       throw Exception(
           'there is a problem with status code ${json.decode(result)["code"] == "200"} with body ${jsonDecode(result)["message"]}');
