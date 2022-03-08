@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
@@ -29,12 +30,20 @@ class Api {
       body: body,
       headers: headers,
     );
-    if (json.decode(response.body)["code"] == "200") {
-      Map<String, dynamic> data = jsonDecode(response.body)["message"];
+
+    String result= response.body;
+    int idx = result.indexOf("{");
+    int length=result.length;
+    result=result.substring(idx,length);
+    print(result);
+    print(json.decode(result)["code"]);
+    if (json.decode(result)["code"] == "200") {
+      Map<String, dynamic> data = jsonDecode(result)["message"];
+      print("in json data is $data");
       return data;
     } else {
       throw Exception(
-          'there is a problem with status code ${json.decode(response.body)["code"] == "200"} with body ${jsonDecode(response.body)["message"]}');
+          'there is a problem with status code ${json.decode(result)["code"] == "200"} with body ${jsonDecode(result)["message"]}');
     }
 
   }

@@ -1,5 +1,6 @@
 import 'package:crm_smart/provider/bottomNav.dart';
 import 'package:crm_smart/ui/screen/client/clients.dart';
+import 'package:crm_smart/ui/screen/login.dart';
 import 'package:crm_smart/ui/screen/mainpage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
       ),
       home: Directionality(textDirection: TextDirection.rtl,
-      child: main_page()),
+      child: login()),
     );
   }
 }
@@ -49,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    return main_page();
+    return login();
  // This trailing comma makes auto-formatting nicer for build methods.
 
   }

@@ -1,32 +1,43 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import '../../constants.dart';
 
 class CustomFormField extends StatelessWidget {
    CustomFormField(
-      {this.onChanged,this.hintText});
+      {this.onChanged,this.hintText,this.icon,this.con,this.vaild});
   String? hintText;
  Function(String)? onChanged;
-  String? validateEmail(String email){
-    String pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(email))
-      return 'Please make sure your email address is valid';
+String? Function(String?)? vaild;
+    IconData? icon;
+    TextEditingController? con;
+    //TextInputType? inputType;
 
-  }
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-
-      validator: (data){
-        if(data!.isEmpty){
-          return 'الحقل فارغ';
-
-        }
-        validateEmail(data);
-
-      },
+      validator: vaild,
       onChanged: onChanged,
+      controller: con,
+      decoration: InputDecoration(
+        hintText: hintText,
+        prefixIcon: Icon(
+         icon,
+          color: kMainColor,
+        ),
+        //filled: false,
+        //fillColor: Colors.white,
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(color: Colors.black)),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(color: Colors.black)),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(color: Colors.black)),
+      ),
     );
   }
 }
