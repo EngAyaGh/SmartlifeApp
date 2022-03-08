@@ -10,6 +10,7 @@ class AuthProvider with ChangeNotifier {
 
   void changeboolValue(){
     sendcode=!sendcode;
+    notifyListeners();
   }
 
   void setvalueButton(value){

@@ -1,8 +1,11 @@
 import 'package:crm_smart/provider/authprovider.dart';
 import 'package:crm_smart/provider/bottomNav.dart';
+import 'package:crm_smart/provider/switch_provider.dart';
 import 'package:crm_smart/ui/screen/client/clients.dart';
 import 'package:crm_smart/ui/screen/login.dart';
 import 'package:crm_smart/ui/screen/mainpage.dart';
+import 'package:crm_smart/ui/screen/product/product.dart';
+import 'package:crm_smart/ui/test.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,6 +20,8 @@ void main() async{
       MultiProvider(providers: [
     ChangeNotifierProvider<navigatorProvider>(create: (_) => navigatorProvider()),
         ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
+        ChangeNotifierProvider<switch_provider>(create: (_) => switch_provider()),
+
   ], child:MyApp()));
 }
 
@@ -53,7 +58,7 @@ class MyApp extends StatelessWidget {
                     brightness: Brightness.light,
                   ),
                   home: Directionality(textDirection: TextDirection.rtl,
-                    child: isUserLoggedIn ? main_page() : login(),
+                    child: isUserLoggedIn ? addProduct() : addProduct(),
                   ));
           }
         });

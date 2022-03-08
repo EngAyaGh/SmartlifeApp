@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants.dart';
+import '../../labeltext.dart';
 import 'mainpage.dart';
 
 class login extends StatefulWidget {
@@ -43,6 +44,7 @@ class _loginState extends State<login> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(40),
+        //SingleChild
         child: Form(
           key: _globalKey,
           child: Column(
@@ -52,11 +54,11 @@ class _loginState extends State<login> {
                 con: _textcontroller,
                 vaild: (data) {
                   if (data!.isEmpty) {
-                    return 'الحقل فارغ';
+                    return message_empty;
                   }
                  if( val.sendcode )return validateEmail(data);
                 },
-                hintText:val.sendcode ?  "Enter your Email":"Enter your code",
+                hintText:val.sendcode ? hintEmailText:hintCodeText,
                 onChanged: (data) {
                   valueField = data;
                   valEmail=val.sendcode?data:valEmail ;
@@ -66,7 +68,7 @@ class _loginState extends State<login> {
                 height: 30,
               ),
               CustomButton(
-                text: val.sendcode? "Send Code" : "Verfiy Code",
+                text: val.sendcode? textbutton_code : textbutton_code2,
                 onTap: () async {
                 if(_globalKey.currentState!.validate()){
                    //print('before ${_textcontroller!.text}');
@@ -79,7 +81,7 @@ class _loginState extends State<login> {
                     }
                     else{
                       _scaffoldKey.currentState!.showSnackBar(new SnackBar(
-                          content: new Text("This Email is not exist")
+                          content: new Text(emailError)
                       ));
                     }
                   } else {
@@ -94,7 +96,7 @@ class _loginState extends State<login> {
                     }
                     else{
                       _scaffoldKey.currentState!.showSnackBar(new SnackBar(
-                          content: new Text("The Code Verfiy is incorrect")
+                          content: new Text(codeverifyError)
                       ));
                     }
                   }

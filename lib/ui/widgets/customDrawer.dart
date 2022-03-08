@@ -1,5 +1,7 @@
+import 'package:crm_smart/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -24,18 +26,24 @@ class CustomDrawer extends StatelessWidget {
             ],
           ),
           ListTile(
-            title: Text('Add Products'),
+            title: Text(' الدولة'),
             leading: Icon(Icons.add_box_outlined),
           ),
           ListTile(
-            title: Text('Add Gategory'),
+            title: Text('إدارة المستخدمين'),
             leading: Icon(Icons.add_box_outlined),
           ),
           ListTile(
-            title: Text('logout'),
+            title: Text('المنتجات'),
+            leading: Icon(Icons.add_box_outlined),
+          ),
+          ListTile(
+            title: Text('تسجيل خروج'),
             leading: Icon(Icons.exit_to_app),
-            onTap: ()  {
-
+            onTap: () async {
+              SharedPreferences preferences =
+              await SharedPreferences.getInstance();
+              preferences.setBool(kKeepMeLoggedIn, false);
             },
           )
         ],
