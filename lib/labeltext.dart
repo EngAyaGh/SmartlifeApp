@@ -13,3 +13,4 @@ const String  label_name_product="اسم المنتج";
 const String  label_name_price="سعر المنتج";
 const String  label_name_package="اسم الباقة ";
 const String label_turnVat="تفعيل الضريبة";
+const String label_button_addProduct="إضافة منتج";

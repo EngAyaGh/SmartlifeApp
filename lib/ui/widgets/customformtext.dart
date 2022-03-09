@@ -6,14 +6,15 @@ import '../../constants.dart';
 
 class CustomFormField extends StatelessWidget {
    CustomFormField(
-      {this.onChanged,this.hintText,this.icon,this.con,this.vaild,this.label});
+      {this.onChanged,this.hintText,this.icon,this.con,this.vaild,this.label,this.inputType});
   String? hintText;
  Function(String)? onChanged;
 String? Function(String?)? vaild;
     IconData? icon;
     TextEditingController? con;
     String? label;
-    //TextInputType? inputType;
+
+    TextInputType? inputType;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,12 @@ String? Function(String?)? vaild;
       validator: vaild,
       onChanged: onChanged,
       controller: con,
+      keyboardType:  inputType,
+      /*inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly
+      ],*/
       decoration: InputDecoration(
+
         labelText: label,
         hintText: hintText,
         prefixIcon: Icon(

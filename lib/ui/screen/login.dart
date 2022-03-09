@@ -1,5 +1,5 @@
 import 'package:crm_smart/provider/authprovider.dart';
-import 'package:crm_smart/services/send_otp.dart';
+import 'package:crm_smart/services/AuthService.dart';
 import 'package:crm_smart/ui/widgets/custombutton.dart';
 import 'package:crm_smart/ui/widgets/customformtext.dart';
 import 'package:flutter/cupertino.dart';

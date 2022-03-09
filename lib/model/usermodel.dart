@@ -1,29 +1,29 @@
 class UserModel {
   UserModel({
-    required this.idUser,
-    required this.nameUser,
-    required this.email,
-    required this.mobile,
-    required this.codeVerfiy,
-    required this.fkCountry,
-    required this.typeAdministration,
+     this.idUser,
+     this.nameUser,
+     this.email,
+     this.mobile,
+     this.codeVerfiy,
+     this.fkCountry,
+     this.typeAdministration,
 
-    required this.typeLevel,
+     this.typeLevel,
     this.fkRegoin,
-    required this.nameCountry,
+     //this.nameCountry,
     this.nameRegoin,
   });
-  late final String idUser;
-  late final String nameUser;
-  late final String email;
-  late final String mobile;
-  late final String codeVerfiy;
-  late final String fkCountry;
-  late final String typeAdministration;
-  late final String typeLevel;
-  late final Null fkRegoin;
-  late final String nameCountry;
-  late final Null nameRegoin;
+    String? idUser;
+    String? nameUser;
+    String? email;
+    String? mobile;
+    String? codeVerfiy;
+    String? fkCountry;
+    String? typeAdministration;
+    String? typeLevel;
+    int? fkRegoin;
+    //String? nameCountry;
+    String? nameRegoin;
 
   UserModel.fromJson(Map<String, dynamic> json){
     idUser = json['id_user'];
@@ -34,9 +34,8 @@ class UserModel {
     fkCountry = json['fk_country'];
     typeAdministration = json['type_administration'];
     typeLevel = json['type_level'];
-    fkRegoin = null;
-    nameCountry = json['nameCountry'];
-    nameRegoin = null;
+    fkRegoin = json['fk_regoin'];;
+    //nameCountry = json['nameCountry'];
   }
 
   Map<String, dynamic> toJson() {
@@ -50,7 +49,7 @@ class UserModel {
     _data['type_administration'] = typeAdministration;
     _data['type_level'] = typeLevel;
     _data['fk_regoin'] = fkRegoin;
-    _data['nameCountry'] = nameCountry;
+
     _data['name_regoin'] = nameRegoin;
     return _data;
   }
