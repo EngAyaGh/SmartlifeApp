@@ -1,18 +1,18 @@
 class ProductModel {
   ProductModel({
-    required this.idProduct,
+    this.idProduct,
     required this.nameProduct,
     required this.priceProduct,
     required this.type,
     required this.fkCountry,
     required this.fkConfig,
   });
-  late final String idProduct;
+   String? idProduct;
   late final String nameProduct;
   late final String priceProduct;
   late final String type;
-  late final String fkCountry;
-  late final String fkConfig;
+  late final int fkCountry;
+  int? fkConfig;
 
   ProductModel.fromJson(Map<String, dynamic> json){
     idProduct = json['id_product'];
@@ -25,7 +25,7 @@ class ProductModel {
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['id_product'] = idProduct;
+    //_data['id_product'] = idProduct;
     _data['nameProduct'] = nameProduct;
     _data['priceProduct'] = priceProduct;
     _data['type'] = type;

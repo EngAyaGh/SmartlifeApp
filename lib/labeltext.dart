@@ -4,7 +4,7 @@
 const String message_empty='الحقل فارغ';
 const String hintEmailText= "Enter your Email";
 const String hintCodeText=  "Enter your code";
-const String codeverifyError= "The Code Verfiy is incorrect";
+const String codeverifyError= "The Pin Code is incorrect";
 const String emailError= "This Email is not exist";
 const String textbutton_code= "Send Code";
 const String textbutton_code2= "Verfiy Code";

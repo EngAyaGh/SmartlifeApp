@@ -16,7 +16,7 @@ class  AuthServices{
   }
   Future<bool> verfiy_otp(String email,String otp) async {
     String result = await Api()
-        .post( url:url+"Auth/send_otp.php",body: {
+        .post( url:url+"Auth/check_otp.php",body: {
       'email':email,
       'otp':otp
     } );

@@ -1,3 +1,4 @@
+import 'package:crm_smart/model/productmodel.dart';
 import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/provider/switch_provider.dart';
 import 'package:crm_smart/services/ProductService.dart';
@@ -16,6 +17,7 @@ class addProduct extends StatelessWidget {
   int valtype_product=0;
   String nameprod="";
   double price=0;
+   ProductModel? pd;
   @override
   Widget build(BuildContext context) {
     
@@ -29,6 +31,7 @@ class addProduct extends StatelessWidget {
                label: label_name_product,
                onChanged: (val){
                  nameprod=val;
+
                },
              ),
               SizedBox(height: 20,),
@@ -45,7 +48,7 @@ class addProduct extends StatelessWidget {
               inputType:TextInputType.number,
                label:  label_name_price,
                onChanged: (val){
-                price=double.parse(val);
+                price=double.parse(val.toString());
 
                 },
 
@@ -67,6 +70,7 @@ class addProduct extends StatelessWidget {
                     value: isSwitched.isSwitched,
                     onChanged: (value) {
                       valtaxrate=value;
+
                      isSwitched.changeboolValue();
                       }),
                 ],
@@ -85,6 +89,7 @@ class addProduct extends StatelessWidget {
                           current: selectedProvider.isSelected,
                           onTab: (selected) {
                           valtype_product= selected;
+
                             selectedProvider.selectValue(selected);
                           }),
                     );
@@ -97,15 +102,26 @@ class addProduct extends StatelessWidget {
                 print(nameprod);
                 print(price);
                 print(valtype_product);
-                print(valtaxrate);
+                print(valtaxrate?1:null);
+                int country=1;
 
-                await ProductService().addProduct({
-                  "nameProduct":nameprod ,
-                  "priceProduct": price,
-                  "type":valtype_product ,
-                  "fk_country": 1,
-                  "fk_config": valtaxrate?1:null,
-                });
+              // pd=  ProductModel(
+              //
+              //       nameProduct: nameprod,
+              //       priceProduct:"122",// price.toString(),
+              //       type:valtype_product.toString(),
+              //       fkCountry: 1.toString(),
+              //       fkConfig: valtaxrate?1:null);
+              //   print(pd!.toJson());
+              await ProductService().addProduct(
+                  {
+                    'nameProduct': nameprod,
+                    'priceProduct': price.toString(),
+                    'type': valtype_product.toString(),
+                    'fk_country': country.toString(),
+                    'fk_config':valtaxrate?1:null,
+                  });
+
               },)
             ],
           ),

@@ -6,8 +6,12 @@ import '../constants.dart';
 class ProductService{
 
   Future<bool> addProduct( Map<String,dynamic> body) async {
+    print("$body");
+
     String result = await Api()
-        .post( url:url+"products/addProduct.php",body: body );
+        .post( url:url+"products/addProduct.php",
+        body: body);
+    print("safdsf");
     return result=="done"? true:false;
   }
   //id_product
