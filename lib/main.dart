@@ -6,6 +6,7 @@ import 'package:crm_smart/ui/screen/client/clients.dart';
 import 'package:crm_smart/ui/screen/login.dart';
 import 'package:crm_smart/ui/screen/mainpage.dart';
 import 'package:crm_smart/ui/screen/product/addproduct.dart';
+import 'package:crm_smart/ui/screen/selectCountryScreen.dart';
 import 'package:crm_smart/ui/test.dart';
 import 'package:crm_smart/ui/test2.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
                     brightness: Brightness.light,
                   ),
                   home: Directionality(textDirection: TextDirection.rtl,
-                    child: isUserLoggedIn ? addProduct() : addProduct(),
+                    child: isUserLoggedIn ? select_country() : select_country(),
                   ));
           }
         });

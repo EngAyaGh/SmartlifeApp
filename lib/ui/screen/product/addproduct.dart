@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:crm_smart/model/productmodel.dart';
 import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/provider/switch_provider.dart';
@@ -5,10 +7,12 @@ import 'package:crm_smart/services/ProductService.dart';
 import 'package:crm_smart/ui/widgets/custombutton.dart';
 import 'package:crm_smart/ui/widgets/customformtext.dart';
 import 'package:crm_smart/ui/widgets/group_button.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../constants.dart';
 import '../../../labeltext.dart';
 
 class addProduct extends StatelessWidget {
@@ -99,29 +103,27 @@ class addProduct extends StatelessWidget {
               SizedBox(height: 20,),
               CustomButton(text:label_button_addProduct,
               onTap: () async{
-                print(nameprod);
-                print(price);
-                print(valtype_product);
-                print(valtaxrate?1:null);
-                int country=1;
-
-              // pd=  ProductModel(
-              //
-              //       nameProduct: nameprod,
-              //       priceProduct:"122",// price.toString(),
-              //       type:valtype_product.toString(),
-              //       fkCountry: 1.toString(),
-              //       fkConfig: valtaxrate?1:null);
-              //   print(pd!.toJson());
-              await ProductService().addProduct(
-                  {
+               var response = await Dio().post(
+                  url+"products/addProduct.php",
+                  data: {
                     'nameProduct': nameprod,
                     'priceProduct': price.toString(),
                     'type': valtype_product.toString(),
-                    'fk_country': country.toString(),
-                    'fk_config':valtaxrate?1:null,
+                    'fk_country': "1",
+                    'fk_config':"",//valtaxrate?1:null
                   });
-
+                // dynamic  body= {
+                //   'nameProduct': nameprod,
+                //   'priceProduct': price.toString(),
+                //   'type': valtype_product.toString(),
+                //   'fk_country': 1.toString(),
+                // };
+                // //'fk_config':valtaxrate?1:null;
+                // if(valtaxrate)body.addAll({'fk_config': valtaxrate});
+                //
+                // await ProductService().addProduct(
+                //        body
+                //   );
               },)
             ],
           ),

@@ -1,12 +1,19 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
+  // headers: {
+  // "Accept": "application/json",
+  // "Access-Control-Allow-Origin": "*"}
   Future<dynamic> get({required String url}) async {
-    http.Response response = await http.get(Uri.parse(url));
+    http.Response response = await http.get(
+      Uri.parse(url),
+
+    );
     if (json.decode(response.body)["code"] == "200") {
       return jsonDecode(response.body)["message"];
     } else {
