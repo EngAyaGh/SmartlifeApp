@@ -21,7 +21,7 @@ class _MyDropDown extends State<select_country>{
 
   late List<CountryModel> Countrylist=[];
  late CountryModel? select_dataItem=null;
- String _selected="1";
+ String? _selected=null;
   var data;
   List<String> _states = ["Choose a state"];
   List<String> _lgas = ["Choose .."];
@@ -39,8 +39,6 @@ class _MyDropDown extends State<select_country>{
   @override
   void initState()  {
     Countrylist=[];
-    print("jghkjlkjlkjljl");
-   // getCountryAll();
 
     super.initState();
   }
@@ -64,11 +62,9 @@ class _MyDropDown extends State<select_country>{
     future:getCountryAll(),
     builder: (BuildContext, Countrylist){
     if (Countrylist.data != null) {
-      print("bb Countrylist.data is "+select_dataItem!.nameCountry);
       return Container( //wrapper for Country list
                     child:DropdownButton(
                       isExpanded: true,
-                      //value:"",//Countrylist[0].nameCountry,
                       hint: Text("Select Country"),
                       items: Countrylist.data!.map((countryone){
                         return DropdownMenuItem(
@@ -81,20 +77,6 @@ class _MyDropDown extends State<select_country>{
                       onChanged: (value) {
                         _onSelectedState(value.toString());
                        // FocusScope.of(context).requestFocus(new FocusNode());
-
-                        // setState(() {
-                        //   _selected=value.toString();
-                        //  // select_dataItem = value as CountryModel;
-                        //
-                        // });
-                        // if( value!=null||value.toString().isNotEmpty) {
-                        //   print(value);
-                        //   print("hhhh" + value.toString());
-                        //
-                        //   data = await RegoinService()
-                        //       .getRegoinByCountry(
-                        //       int.parse(value.toString()));
-                        // }
 
                       },
                     ),
@@ -113,9 +95,6 @@ class _MyDropDown extends State<select_country>{
                   margin: EdgeInsets.only(top:30),
                   child:buildCity(),
 
-                  //if there is error then show error message,
-                  //else check if data is null,
-                  //if not then show city list,
 
                 )
               ]
@@ -132,8 +111,6 @@ class _MyDropDown extends State<select_country>{
     });
 
     if( value!=null&&value.toString().isNotEmpty) {
-        print(value);
-        print("hhhh" + value.toString());
 
         data = await RegoinService()
             .getRegoinByCountry(
