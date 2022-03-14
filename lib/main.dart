@@ -1,5 +1,6 @@
 import 'package:crm_smart/provider/authprovider.dart';
 import 'package:crm_smart/provider/bottomNav.dart';
+import 'package:crm_smart/provider/config_vm.dart';
 import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/provider/switch_provider.dart';
 import 'package:crm_smart/ui/screen/client/clients.dart';
@@ -9,6 +10,7 @@ import 'package:crm_smart/ui/screen/product/addproduct.dart';
 import 'package:crm_smart/ui/screen/selectCountryScreen.dart';
 import 'package:crm_smart/ui/test.dart';
 import 'package:crm_smart/ui/test2.dart';
+import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,6 +27,8 @@ void main() async{
         ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
         ChangeNotifierProvider<switch_provider>(create: (_) => switch_provider()),
         ChangeNotifierProvider<selected_button_provider>(create: (_) => selected_button_provider()),
+        ChangeNotifierProvider<country_vm>(create: (_) => country_vm()),
+        ChangeNotifierProvider<config_vm>(create: (_) => config_vm()),
 
   ], child:MyApp()));
 }
@@ -53,7 +57,6 @@ class MyApp extends StatelessWidget {
 
             return
               MaterialApp(
-
                   debugShowCheckedModeBanner: false,
                   title: 'Flutter Demo',
                   theme: ThemeData(

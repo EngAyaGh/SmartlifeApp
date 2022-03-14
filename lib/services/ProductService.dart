@@ -11,8 +11,7 @@ class ProductService{
     String result = await Api()
         .post( url:url+"products/addProduct.php",
         body: body);
-    print("safdsf");
-    return result=="done"? true:false;
+    return result !="error"? true:false;
   }
   //id_product
   Future<bool> updateProduct( Map<String,dynamic> body,int idproduct) async {

@@ -11,8 +11,8 @@ class AuthProvider with ChangeNotifier {
     sendcode=!sendcode;
     notifyListeners();
   }
-bool isLoading=false;
 
+  bool isLoading=false;
   void changeboolValueisLoading(bool val){
     isLoading=val;
     notifyListeners();

@@ -4,9 +4,13 @@ import 'package:crm_smart/model/Error_model.dart';
 import 'package:crm_smart/model/countrymodel.dart';
 import 'package:crm_smart/model/regoin_model.dart';
 import 'package:crm_smart/services/RegoinServices.dart';
+import 'package:crm_smart/ui/screen/product/addproduct.dart';
+import 'package:crm_smart/ui/widgets/custombutton.dart';
+import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 //import http package manually
 
 class select_country extends StatefulWidget{
@@ -34,7 +38,6 @@ class _MyDropDown extends State<select_country>{
   // do not use http://localhost/ for your local machine, Android emulation do not recognize localhost
   // insted use your local ip address or your live URL,
   // hit "ipconfig" on Windows or "ip a" on Linux to get IP Address
-
 
   @override
   void initState()  {
@@ -73,9 +76,9 @@ class _MyDropDown extends State<select_country>{
                         );
                       }).toList(),
                       value:_selected, //select_dataItem!.idCountry ,
-
                       onChanged: (value) {
                         _onSelectedState(value.toString());
+                        Provider.of<country_vm>(context,listen: false).setIDCountry(value.toString());
                        // FocusScope.of(context).requestFocus(new FocusNode());
 
                       },
@@ -96,7 +99,18 @@ class _MyDropDown extends State<select_country>{
                   child:buildCity(),
 
 
-                )
+                ),
+                SizedBox(height: 25,),
+                CustomButton(
+                  text: 'دخول',
+                  onTap:()
+                  {
+
+                    // Navigator.pushAndRemoveUntil(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) => addProduct()), (route) => false );
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>addProduct()));
+                },),
               ]
           ),
         )
@@ -154,6 +168,7 @@ Widget buildCity(){
           value: _selectedLGA,
           onChanged: (value){
             _onSelectedLGA(value.toString());
+            Provider.of<country_vm>(context,listen: false).setIDRegoin(value.toString());
           }
       );
     }else{
