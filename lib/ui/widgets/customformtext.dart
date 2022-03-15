@@ -19,7 +19,7 @@ String? Function(String?)? vaild;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-
+      //textDirection: TextDirection.rtl,
       validator: vaild,
       onChanged: onChanged,
       controller: con,

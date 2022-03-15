@@ -18,13 +18,13 @@ class Api {
       return jsonDecode(response.body)["message"];
     } else {
       throw Exception(
-          'there is a problem with status code ${json.decode(response.body)["code"] == "200"}');
+          '${json.decode(response.body)["code"] == "200"}');
     }
   }
 
   Future<dynamic> post({
     required String url,
-    @required dynamic body,
+    @required dynamic? body,
     @required String? token,
   }) async {
     Map<String, String> headers = {};
@@ -54,7 +54,7 @@ class Api {
       return jsonDecode(result)["message"];
     } else {
       throw Exception(
-          'there is a problem with status code ${json.decode(result)["code"] == "200"} with body ${jsonDecode(result)["message"]}');
+          '${json.decode(result)["code"] == "200"}');
     }
 
   }

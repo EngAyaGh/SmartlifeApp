@@ -13,14 +13,14 @@ import '../constants.dart';
 
 class RegoinService{
 
-  Future<Object> getRegoinByCountry(int fk_country) async {
+  Future<Object> getRegoinByCountry(String fk_country) async {
     print("before fds");
     List<RegoinModel> _Regoinlist=[];
 
     try{
       List<dynamic> data= await Api()
         .get(url:url+ 'country/get_regoinByIdCountry.php?fk_country=$fk_country');
-      print("getttting"+data.length.toString());
+
     for (int i = 0; i < data.length; i++) {
       _Regoinlist.add(RegoinModel.fromJSON(data[i]));
     }}

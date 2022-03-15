@@ -74,7 +74,6 @@ class _loginState extends State<login> {
                   text: val.sendcode? textbutton_code : textbutton_code2,
                   onTap: () async {
                   if(_globalKey.currentState!.validate()){
-
                     //print('before ${_textcontroller!.text}');
                     _globalKey.currentState!.save();
                     // print('after ${_textcontroller!.text}');

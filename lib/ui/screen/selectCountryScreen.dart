@@ -23,8 +23,9 @@ class select_country extends StatefulWidget{
 class _MyDropDown extends State<select_country>{
 
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   late List<CountryModel> Countrylist=[];
- late CountryModel? select_dataItem=null;
+ //late CountryModel? select_dataItem=null;
  String? _selected=null;
   var data;
   List<String> _states = ["Choose a state"];
@@ -42,6 +43,7 @@ class _MyDropDown extends State<select_country>{
   @override
   void initState()  {
     Countrylist=[];
+    getCountryAll();
 
     super.initState();
   }
@@ -51,26 +53,34 @@ class _MyDropDown extends State<select_country>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
          appBar: AppBar(
            title:Text(""),
           backgroundColor: Colors.lightBlue,),
 
         body:Container(
-          padding:EdgeInsets.all(30),
+          padding:EdgeInsets.only(top: 10,right: 35,left: 35,bottom: 30),
           child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+            textDirection: TextDirection.rtl,
               children:<Widget>[
 
-    FutureBuilder<List<CountryModel>>(
-        initialData: Countrylist,
-    future:getCountryAll(),
-    builder: (BuildContext, Countrylist){
-    if (Countrylist.data != null) {
-      return Container( //wrapper for Country list
+    // FutureBuilder<List<CountryModel>>(
+    //     initialData: Countrylist,
+    // future:getCountryAll(),
+    // builder: (BuildContext, Countrylist){
+    // if (Countrylist.data != null) {
+    //   return
+
+                Container(
+        //wrapper for Country list
                     child:DropdownButton(
+                      
                       isExpanded: true,
-                      hint: Text("Select Country"),
-                      items: Countrylist.data!.map((countryone){
+                      hint: Text("حدد البلد"),
+                      items: Countrylist.map((countryone){
                         return DropdownMenuItem(
+                          
                           child: Text(countryone.nameCountry), //label of item
                           value: countryone.idCountry.toString(), //value of item
                         );
@@ -79,18 +89,20 @@ class _MyDropDown extends State<select_country>{
                       onChanged: (value) {
                         _onSelectedState(value.toString());
                         Provider.of<country_vm>(context,listen: false).setIDCountry(value.toString());
+                        print("provider country selected change");
+                        print(Provider.of<country_vm>(context,listen: false).id_country);
                        // FocusScope.of(context).requestFocus(new FocusNode());
 
                       },
                     ),
 
-                  );}
-                   if(Countrylist.data == null){
-               return Text("No Data");
-        }
-            return CircularProgressIndicator();
-        }
-                ),
+                  ),
+    //}
+                   if(Countrylist == null)
+                      Text("No Data"),
+              //CircularProgressIndicator(),
+        // }
+        //         ),
                 _isLoading
                     ? CircularProgressIndicator()
                     :
@@ -105,11 +117,16 @@ class _MyDropDown extends State<select_country>{
                   text: 'دخول',
                   onTap:()
                   {
-
                     // Navigator.pushAndRemoveUntil(
                     //     context,
                     //     MaterialPageRoute(builder: (context) => addProduct()), (route) => false );
+                    if(_selected!=null)
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>addProduct()));
+                    else {
+                      _scaffoldKey.currentState!.showSnackBar(new SnackBar(
+                          content: new Text("من فضلك اختر البلد")
+                      ));
+                    }
                 },),
               ]
           ),
@@ -128,7 +145,7 @@ class _MyDropDown extends State<select_country>{
 
         data = await RegoinService()
             .getRegoinByCountry(
-            int.parse(value.toString()));
+           value.toString());
       }
     setState(() {
       _isLoading = false;
@@ -148,16 +165,16 @@ Widget buildCity(){
     Text("لا يوجد مناطق"):
     cityList();
   }else {
-    return Text("Choose Country please");
+    return Text("من فضلك حدد الدولة");
   }
 }
-  Widget cityList(){ //widget function for city list
+  Widget cityList() { //widget function for city list
     List<RegoinModel> citylist =[];
     if(data != null)
    {
      citylist=data as List<RegoinModel>;
       return DropdownButton(
-          hint: Text("Select City"),
+          hint: Text("حددالمنطقة"),
           isExpanded: true,
           items: citylist.map((cityOne){
             return DropdownMenuItem(
@@ -188,7 +205,7 @@ Widget buildCity(){
  Future < List<CountryModel>> getCountryAll()async {
 
     Countrylist=(await RegoinService().getAllCountry())!;
-    select_dataItem=Countrylist[0];
+    //select_dataItem=Countrylist[0];
     print(Countrylist.length);//default country
     return Countrylist;
   }
