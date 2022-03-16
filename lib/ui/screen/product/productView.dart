@@ -1,30 +1,68 @@
 
 import 'package:crm_smart/model/productmodel.dart';
 import 'package:crm_smart/ui/widgets/cardProduct.dart';
+import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProductView extends StatelessWidget {
+import '../../../constants.dart';
+import 'addproduct.dart';
+
+class ProductView extends StatefulWidget {
    ProductView({Key? key}) : super(key: key);
+
+  @override
+  _ProductViewState createState() => _ProductViewState();
+}
+
+class _ProductViewState extends State<ProductView> {
  bool _isLoading=false;
+ List<ProductModel> _listProd=[];
+@override
+void initState() {
+   String id_country=Provider.of<country_vm>(context,listen: false).id_country;
+   Provider.of<product_vm>(context,listen: false).getproduct_vm(id_country);//.then((value) => _isLoading=false);
+  super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Provider.of<product_vm>(context).getproduct_vm(context);
-    List<ProductModel> _listProd=Provider.of<product_vm>(context).listProduct;
+    _listProd=Provider.of<product_vm>(context,listen: true).listProduct;
+
     print(_listProd);
     return Scaffold(
-      appBar: AppBar(title: Text('products'),),
+      floatingActionButton:FloatingActionButton(
+        backgroundColor: kMainColor,
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>addProduct()));
+
+        },
+        tooltip: 'إضافة منتج',
+        child: Icon(Icons.add),
+      ),
+      appBar: AppBar(title: Text('المنتجات'),),
       body: _isLoading?
           Center(child: CircularProgressIndicator(),)
           :(_listProd.isEmpty
-          ? Center(child: Text('no products added',style: TextStyle(fontSize: 22),),)
-      :ListView(
-        children: _listProd
-            .map(
-                (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
-        ).toList(),
+          ? Center(child: Text('لا يوجد منتجات',style: TextStyle(fontSize: 22),),)
+      :Padding(
+        padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
+        child: Container(
+          height: MediaQuery
+              .of(context)
+              .size
+              .height *0.95,
+          child: ListView.separated(
+            itemCount: _listProd.length,
+            separatorBuilder: (BuildContext context, int index) => const Divider(),
+            itemBuilder: (BuildContext context, int index)=> Builder(builder: (context)=>CardProduct( itemProd: _listProd[index],)) ,
+            //     _listProd.map(
+            //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
+            // ).toList(),
+          ),
+        ),
       )
       ),
     );

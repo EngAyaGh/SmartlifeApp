@@ -13,8 +13,10 @@ import 'country_vm.dart';
 class product_vm extends ChangeNotifier{
   List<ProductModel> listProduct=[];
 
-  Future<void> getproduct_vm(context) async {
-    listProduct =await ProductService().getAllProduct("1");//Provider.of<country_vm>(context).id_country);
+  Future<void> getproduct_vm(String fk) async {
+
+    listProduct =await ProductService().getAllProduct(fk);
+
     notifyListeners();
   }
 }

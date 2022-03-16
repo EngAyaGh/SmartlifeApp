@@ -12,7 +12,6 @@ class Api {
   Future<dynamic> get({required String url}) async {
     http.Response response = await http.get(
       Uri.parse(url),
-
     );
     if (json.decode(response.body)["code"] == "200") {
       return jsonDecode(response.body)["message"];

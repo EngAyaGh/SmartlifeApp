@@ -49,7 +49,10 @@ class addProduct extends StatelessWidget {
       print("build 2");
 
     return Scaffold(
-
+      appBar: AppBar( leading: IconButton(
+        icon: Icon(Icons.arrow_back, color: Colors.black),
+        onPressed: () => Navigator.of(context).pop(),
+      ), title: Text('إضافة منتج'),),
       body: ModalProgressHUD(
         inAsyncCall: Provider.of<LoadProvider>(context).isLoadingAddProd,
         child: SingleChildScrollView(

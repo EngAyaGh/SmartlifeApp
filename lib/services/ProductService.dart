@@ -25,7 +25,8 @@ try{
     return result=="done"? true:false;
   }
   Future<List<ProductModel>> getAllProduct(String fk_country) async {
-    List<dynamic> data = await Api()
+    List<dynamic> data =[];
+    data=await Api()
         .get(url:url+ 'products/getAllProduct.php?fk_country=$fk_country');
 
     List<ProductModel> prodlist = [];
