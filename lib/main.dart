@@ -8,12 +8,14 @@ import 'package:crm_smart/ui/screen/client/clients.dart';
 import 'package:crm_smart/ui/screen/login.dart';
 import 'package:crm_smart/ui/screen/mainpage.dart';
 import 'package:crm_smart/ui/screen/product/addproduct.dart';
+import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/screen/selectCountryScreen.dart';
 import 'package:crm_smart/ui/test.dart';
 import 'package:crm_smart/ui/test2.dart';
 import 'package:crm_smart/ui/widgets/levelcombox.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
+import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,6 +36,7 @@ void main() async{
         ChangeNotifierProvider<config_vm>(create: (_) => config_vm()),
         ChangeNotifierProvider<level_vm>(create: (_) => level_vm()),
         ChangeNotifierProvider<LoadProvider>(create: (_) => LoadProvider()),
+        ChangeNotifierProvider<product_vm>(create: (_) => product_vm()),
 
   ], child:MyApp()));
 }
@@ -70,7 +73,7 @@ class MyApp extends StatelessWidget {
                     brightness: Brightness.light,
                   ),
                   home: Directionality(textDirection: TextDirection.rtl,
-                    child: isUserLoggedIn ? levelCombox() : levelCombox(),
+                    child: isUserLoggedIn ? ProductView() : ProductView(),
                   ));
           }
         });

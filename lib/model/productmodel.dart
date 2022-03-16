@@ -6,13 +6,15 @@ class ProductModel {
     required this.type,
     required this.fkCountry,
     required this.fkConfig,
+    this.value_config
   });
    String? idProduct;
   late final String nameProduct;
   late final String priceProduct;
   late final String type;
-  late final int fkCountry;
-  int? fkConfig;
+  late final String fkCountry;
+  String? fkConfig;
+  late final String? value_config;
 
   ProductModel.fromJson(Map<String, dynamic> json){
     idProduct = json['id_product'];
@@ -21,6 +23,7 @@ class ProductModel {
     type = json['type'];
     fkCountry = json['fk_country'];
     fkConfig = json['fk_config'];
+    value_config = json['value_config'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,6 +34,7 @@ class ProductModel {
     _data['type'] = type;
     _data['fk_country'] = fkCountry;
     _data['fk_config'] = fkConfig;
+    _data['value_config']=value_config;
     return _data;
   }
 }

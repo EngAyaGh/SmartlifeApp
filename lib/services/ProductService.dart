@@ -24,20 +24,21 @@ try{
     );
     return result=="done"? true:false;
   }
-  Future<List<ProductModel>> getAllProduct(int fk_country) async {
+  Future<List<ProductModel>> getAllProduct(String fk_country) async {
     List<dynamic> data = await Api()
-        .get(url:url+ 'products/getAllProduct.php?$fk_country');
+        .get(url:url+ 'products/getAllProduct.php?fk_country=$fk_country');
 
     List<ProductModel> prodlist = [];
 
     for (int i = 0; i < data.length; i++) {
       prodlist.add(ProductModel.fromJson(data[i]));
     }
+    print(prodlist);
     return prodlist;
   }
   Future<List<ProductModel>> getAllProductById(int idproduct) async {
     List<dynamic> data = await Api()
-        .get(url:url+ 'products/getProductById.php?$idproduct');
+        .get(url:url+ 'products/getProductById.php?idproduct=$idproduct');
 
     List<ProductModel> prodlist = [];
 

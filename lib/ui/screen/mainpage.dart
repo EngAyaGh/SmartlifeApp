@@ -28,7 +28,7 @@ class _main_pageState extends State<main_page> {
 
   @override
   Widget build(BuildContext context) {
-   //var indexProvider= Provider.of<navigatorProvider>(context);
+    //var indexProvider= Provider.of<navigatorProvider>(context);
     print("after build");
     return Scaffold(
       appBar:customAppbar(),

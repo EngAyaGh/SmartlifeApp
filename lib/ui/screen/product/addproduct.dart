@@ -34,7 +34,7 @@ class addProduct extends StatelessWidget {
    TextEditingController _textprice=TextEditingController();
    late var taxrate;
    bool _isLoading = false;
-   void settaxrate(context){
+   void settaxrate(context) {
      List<ConfigModel> _listconfg=Provider.of<config_vm>(context,listen: false).listofconfig;
      print("build 3");
      taxrate= _listconfg.firstWhere((element) => element.name_config=='taxrate');
