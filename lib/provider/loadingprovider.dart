@@ -10,4 +10,9 @@ class LoadProvider with ChangeNotifier {
     isLoadingAddProd=val;
     notifyListeners();
   }
+  bool isLoadinglevelcombox=false;
+  void changeboolisLoadinglevel(bool val){
+    isLoadinglevelcombox=val;
+    notifyListeners();
+  }
 }
