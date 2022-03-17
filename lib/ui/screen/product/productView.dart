@@ -18,7 +18,7 @@ class ProductView extends StatefulWidget {
 }
 
 class _ProductViewState extends State<ProductView> {
- bool _isLoading=false;
+ bool _isLoading=true;
  List<ProductModel> _listProd=[];
 @override
 void initState() {
@@ -30,9 +30,10 @@ void initState() {
   @override
   Widget build(BuildContext context) {
     _listProd=Provider.of<product_vm>(context,listen: true).listProduct;
-
+    _isLoading =_listProd.isEmpty?false:false;
     print(_listProd);
     return Scaffold(
+
       floatingActionButton:FloatingActionButton(
         backgroundColor: kMainColor,
         onPressed: (){
@@ -42,11 +43,11 @@ void initState() {
         tooltip: 'إضافة منتج',
         child: Icon(Icons.add),
       ),
-      appBar: AppBar(title: Text('المنتجات'),),
+      appBar: AppBar(title: Text('المنتجات',style: TextStyle(color: kWhiteColor),textAlign: TextAlign.center,),),
       body: _isLoading?
           Center(child: CircularProgressIndicator(),)
           :(_listProd.isEmpty
-          ? Center(child: Text('لا يوجد منتجات',style: TextStyle(fontSize: 22),),)
+          ? Center(child: Text('لا يوجد منتجات',style: TextStyle(fontSize: 22,color: kWhiteColor),),)
       :Padding(
         padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
         child: Container(

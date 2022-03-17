@@ -67,7 +67,7 @@ class CardProduct extends StatelessWidget {
                                   ],
                                 ),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
 
                                   children: [
                                     Text(' السعر',style:TextStyle(fontFamily: kfontfamily2),),

@@ -72,7 +72,8 @@ class MyApp extends StatelessWidget {
                     backgroundColor: Colors.white,
                     brightness: Brightness.light,
                   ),
-                  home: Directionality(textDirection: TextDirection.rtl,
+                  home: Directionality(
+                    textDirection: TextDirection.rtl,
                     child: isUserLoggedIn ? ProductView() : ProductView(),
                   ));
           }

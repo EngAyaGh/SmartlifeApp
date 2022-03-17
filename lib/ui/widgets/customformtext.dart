@@ -5,34 +5,48 @@ import 'package:flutter/services.dart';
 import '../../constants.dart';
 
 class CustomFormField extends StatelessWidget {
-   CustomFormField(
-      {this.onChanged,this.hintText,this.icon,this.con,this.vaild,this.label,this.inputType});
+  CustomFormField(
+      {this.onChanged,
+      this.hintText,
+      this.icon,
+      this.con,
+      this.vaild,
+      this.label,
+      this.inputType,
+      this.maxline});
   String? hintText;
- Function(String)? onChanged;
-String? Function(String?)? vaild;
-    IconData? icon;
-    TextEditingController? con;
-    String? label;
-
-    TextInputType? inputType;
+  Function(String)? onChanged;
+  String? Function(String?)? vaild;
+  IconData? icon;
+  TextEditingController? con;
+  String? label;
+  int? maxline;
+  TextInputType? inputType;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      //textDirection: TextDirection.rtl,
+      maxLines: maxline,
+
+      textDirection: TextDirection.rtl,
       validator: vaild,
       onChanged: onChanged,
       controller: con,
-      keyboardType:  inputType,
+      keyboardType: inputType,
+
       /*inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.digitsOnly
       ],*/
       decoration: InputDecoration(
+        hintTextDirection: TextDirection.rtl,
+alignLabelWithHint: true,
 
         labelText: label,
+        labelStyle: TextStyle(color: kMainColor,),
         hintText: hintText,
+
         prefixIcon: Icon(
-         icon,
+          icon,
           color: kMainColor,
         ),
         //filled: false,
