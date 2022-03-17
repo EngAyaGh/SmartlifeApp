@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-const kMainColor = Color(0xfff2c131);
+const kMainColor = Colors.lightBlue;//Color(0xfff2c131);
 const kWhiteColor = Colors.white;
-const kLogo = 'assets/images/logo.png';
+const kLogo = 'assest/images/logo.png';
 const kUnActiveColor=Colors.lightBlueAccent;//Color(0xdff4dc8c);
 const kfontfamily='Pacifico';
 const kfontfamily2='Cairo';

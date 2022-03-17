@@ -37,6 +37,7 @@ class CustomFormField extends StatelessWidget {
       /*inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.digitsOnly
       ],*/
+
       decoration: InputDecoration(
         hintTextDirection: TextDirection.rtl,
 alignLabelWithHint: true,

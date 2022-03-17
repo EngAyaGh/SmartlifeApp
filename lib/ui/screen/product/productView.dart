@@ -36,9 +36,8 @@ void initState() {
 
       floatingActionButton:FloatingActionButton(
         backgroundColor: kMainColor,
-        onPressed: (){
+        onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context)=>addProduct()));
-
         },
         tooltip: 'إضافة منتج',
         child: Icon(Icons.add),

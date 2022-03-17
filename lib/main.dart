@@ -4,12 +4,14 @@ import 'package:crm_smart/provider/config_vm.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/provider/switch_provider.dart';
+import 'package:crm_smart/routes/routes.dart';
 import 'package:crm_smart/ui/screen/client/clients.dart';
 import 'package:crm_smart/ui/screen/login.dart';
 import 'package:crm_smart/ui/screen/mainpage.dart';
 import 'package:crm_smart/ui/screen/product/addproduct.dart';
 import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/screen/selectCountryScreen.dart';
+import 'package:crm_smart/ui/screen/user/alluser.dart';
 import 'package:crm_smart/ui/test.dart';
 import 'package:crm_smart/ui/test2.dart';
 import 'package:crm_smart/ui/widgets/levelcombox.dart';
@@ -17,6 +19,7 @@ import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -64,7 +67,11 @@ class MyApp extends StatelessWidget {
                 snapshot.data!.getBool(kKeepMeLoggedIn) ?? false;
 
             return
-              MaterialApp(
+              GetMaterialApp(
+                //  home: AllUserScreen(),
+                initialRoute: AppRoutes.allUser,
+                getPages: AppRoutes.routes,
+
                   debugShowCheckedModeBanner: false,
                   title: 'Flutter Demo',
                   theme: ThemeData(
@@ -74,7 +81,7 @@ class MyApp extends StatelessWidget {
                   ),
                   home: Directionality(
                     textDirection: TextDirection.rtl,
-                    child: isUserLoggedIn ? ProductView() : ProductView(),
+                    child: isUserLoggedIn ? AllUserScreen() : AllUserScreen(),
                   ));
           }
         });
