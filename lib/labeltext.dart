@@ -15,5 +15,15 @@ const String  label_name_package="اسم الباقة ";
 const String label_turnVat="تفعيل الضريبة";
 const String label_button_addProduct="إضافة منتج";
 ///////////label text product///////////
-const String label_errorAddProd="لقد حصل خطأ ما أثناء إضافة المنتج";
+const String label_errorAddProd="لقد حصل خطأ ما ";
 const String label_doneAddProduct="تمت إضافة المنتج بنجاح";
+//////////////////label text user/////////
+const String label_manage='الإدارات';
+const String label_level='المستوى';
+const String label_regoin='المنطقة';
+const String label_mobile='رقم الجوال';
+const String label_Addeduser=" تمت إضافة بيانات الموظف بنجاح";
+
+
+
+

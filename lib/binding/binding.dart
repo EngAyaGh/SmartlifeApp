@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 class UserBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(AllUserVMController());
+    //Get.put(AllUserVMController());
+    Get.lazyPut(()=>AllUserVMController());
     Get.put(UserVMController());
   }
 }

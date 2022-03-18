@@ -3,6 +3,7 @@ import 'package:crm_smart/services/AuthService.dart';
 import 'package:crm_smart/ui/screen/product/addproduct.dart';
 import 'package:crm_smart/ui/widgets/custombutton.dart';
 import 'package:crm_smart/ui/widgets/customformtext.dart';
+import 'package:crm_smart/ui/widgets/customlogo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,13 +47,15 @@ class _loginState extends State<login> {
       body: ModalProgressHUD(
         inAsyncCall: Provider.of<AuthProvider>(context).isLoading,
        child:  Padding(
-          padding: const EdgeInsets.all(40),
+          padding: const EdgeInsets.only(bottom :20, right: 30,left: 30),
           //SingleChild
           child: Form(
             key: _globalKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                CustomLogo(),
+                SizedBox(height: 20,),
                 CustomFormField(
                   con: _textcontroller,
                   vaild: (data) {

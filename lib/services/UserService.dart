@@ -7,13 +7,13 @@ import '../constants.dart';
 
 class UserService{
 
-Future<UserModel> addUser(body) async {
-  Map<String, dynamic> data = await Api().post(
+Future<String> addUser(body) async {
+  String data = await Api().post(
     url:url+'users/addUser.php',
     body:body,
-    token: '',
+    //token: '',
   );
-  return UserModel.fromJson(data);
+  return data;//UserModel.fromJson(data);
 }
 Future<UserModel> UpdateUser({
   required int idUser,

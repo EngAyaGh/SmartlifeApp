@@ -9,7 +9,7 @@ class customtabview extends StatelessWidget {
       children: <Widget>[
         Icon(Icons.add),
         Icon(Icons.description),
-        Icon(Icons.add),
+        //Icon(Icons.add),
       ],
     );
   }

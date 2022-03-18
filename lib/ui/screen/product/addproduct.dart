@@ -30,6 +30,8 @@ class addProduct extends StatelessWidget {
   String nameprod = "";
   double price = 0;
   ProductModel? pd;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   final _globalKey = GlobalKey<FormState>();
   TextEditingController _textName = TextEditingController();
   TextEditingController _textprice = TextEditingController();
@@ -52,7 +54,7 @@ class addProduct extends StatelessWidget {
     print("build 2");
 
     return Scaffold(
-
+key: _scaffoldKey,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: kWhiteColor),
@@ -177,14 +179,17 @@ class addProduct extends StatelessWidget {
                                     valtaxrate ? taxrate.id_config : "null" //
                               }).then((value) => value
                                       ? clear(context)
-                                      : Fluttertoast.showToast(
-                                          backgroundColor:
-                                              Colors.lightBlueAccent,
-                                          msg: label_errorAddProd, // message
-                                          toastLength:
-                                              Toast.LENGTH_SHORT, // length
-                                          gravity: ToastGravity.CENTER, //
-                                        ));
+                                      : _scaffoldKey.currentState!.showSnackBar(
+                                SnackBar(content: Text(label_errorAddProd))
+                              )
+                                         // Fluttertoast.showToast(
+                                         //  backgroundColor:
+                                         //      Colors.lightBlueAccent,
+                                         //  msg: label_errorAddProd, // message
+                                         //  toastLength:
+                                         //      Toast.LENGTH_SHORT, // length
+                                         //  gravity: ToastGravity.CENTER, //
+                                        );
                             }
                           },
                         )
@@ -204,12 +209,15 @@ class addProduct extends StatelessWidget {
     _textName.text = "";
     _textprice.text = "";
     Provider.of<switch_provider>(context, listen: false).changeboolValue(false);
-    Fluttertoast.showToast(
-      backgroundColor: Colors.lightBlueAccent,
-
-      msg: label_doneAddProduct, // message
-      toastLength: Toast.LENGTH_SHORT, // length
-      gravity: ToastGravity.BOTTOM_LEFT, //
+    _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(content: Text(label_doneAddProduct))
     );
+    // Fluttertoast.showToast(
+    //   backgroundColor: Colors.lightBlueAccent,
+    //
+    //   msg: label_doneAddProduct, // message
+    //   toastLength: Toast.LENGTH_SHORT, // length
+    //   gravity: ToastGravity.BOTTOM_LEFT, //
+    // );
   }
 }

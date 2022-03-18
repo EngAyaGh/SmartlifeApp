@@ -38,19 +38,19 @@ class _customtabBarState extends State<customtabBar> {
           ],
         ),
         Text(
-          'قيد الموافقة',
+          'الانتظار ',
           style: TextStyle(
             color: _tabBarIndex == 1 ? Colors.black : kUnActiveColor,
             fontSize: _tabBarIndex == 1 ? 16 : null,
           ),
         ),
-        Text(
-          'قيد الاشتراك',
-          style: TextStyle(
-            color: _tabBarIndex == 2 ? Colors.black : kUnActiveColor,
-            fontSize: _tabBarIndex == 2 ? 16 : null,
-          ),
-        ),
+        // Text(
+        //   'قيد الاشتراك',
+        //   style: TextStyle(
+        //     color: _tabBarIndex == 2 ? Colors.black : kUnActiveColor,
+        //     fontSize: _tabBarIndex == 2 ? 16 : null,
+        //   ),
+        // ),
       ],
     );
   }

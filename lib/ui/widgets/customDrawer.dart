@@ -1,8 +1,13 @@
 import 'package:crm_smart/constants.dart';
+import 'package:crm_smart/routes/routes.dart';
+import 'package:crm_smart/ui/screen/product/productView.dart';
+import 'package:crm_smart/ui/screen/user/alluser.dart';
+import 'package:crm_smart/ui/screen/user/userview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:get/get.dart';
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
 
@@ -20,7 +25,6 @@ class CustomDrawer extends StatelessWidget {
             children: [
               CircleAvatar(
                 //,
-
               ),
 
             ],
@@ -32,10 +36,16 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             title: Text('إدارة المستخدمين'),
             leading: Icon(Icons.add_box_outlined),
+            onTap: (){
+              Get.to(() =>Routes.allUserScreen);
+            },
           ),
           ListTile(
             title: Text('المنتجات'),
             leading: Icon(Icons.add_box_outlined),
+            onTap: (){
+              ProductView();
+            },
           ),
           ListTile(
             title: Text('تسجيل خروج'),

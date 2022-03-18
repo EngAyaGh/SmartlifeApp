@@ -14,7 +14,8 @@ import '../constants.dart';
 class RegoinService{
 
   Future<Object> getRegoinByCountry(String fk_country) async {
-    print("before fds");
+
+    print("before regoin");
     List<RegoinModel> _Regoinlist=[];
 
     try{

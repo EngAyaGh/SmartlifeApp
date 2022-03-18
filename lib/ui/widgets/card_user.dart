@@ -22,7 +22,7 @@ class CardUsers extends StatelessWidget {
         if (controllerUsers.isLoading.value) {
           return const Center(
             child: CircularProgressIndicator(
-              color: Colors.black,
+              color: kMainColor,
             ),
           );
         } else {
@@ -47,7 +47,8 @@ class CardUsers extends StatelessWidget {
                     onTap: () {
                       Get.to(() => UserScreen(
                         userModel: controllerUsers.usersList[index],
-                      ));
+                      )
+                      );
                     });
               },
             ),
@@ -64,10 +65,11 @@ class CardUsers extends StatelessWidget {
     required Function() onTap,
   }) {
     return Padding(
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(20),
       child: InkWell(
         onTap: onTap,
         child: Container(
+
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,
@@ -86,13 +88,20 @@ class CardUsers extends StatelessWidget {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 150,
+                  height: 120,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius:2,
+                        blurRadius: 3,
+                      ),
+                    ],
                   ),
-                  child: Image.asset(
-                     kLogo), //Image.asset('assets\images\smartlife.jpeg'),
+                  child:Icon(Icons.person),
+                  //Image.asset(kLogo), //Image.asset('assets\images\smartlife.jpeg'),
                 ),
                 const SizedBox(
                   height: 20,

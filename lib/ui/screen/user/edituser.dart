@@ -17,7 +17,9 @@ class EditUser extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+
+            },
             icon: const Icon(Icons.edit),
           ),
         ],

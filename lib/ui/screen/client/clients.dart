@@ -57,9 +57,9 @@ class client_dashboard extends StatefulWidget {
     Widget build(BuildContext context) {
       print('build tabbar');
       int _tabBarIndex = 0;
-      TabController _tabcontroller=TabController(length: 3, vsync: this);
+      TabController _tabcontroller=TabController(length: 2, vsync: this);
       return DefaultTabController(
-      length: 3,
+      length: 2,
       child:Scaffold(
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,19 +103,19 @@ class client_dashboard extends StatefulWidget {
                   ],
                 ),
                 Text(
-                  'قيد الموافقة',
+                  'الانتظار ',
                   style: TextStyle(
                     //color: _tabBarIndex == 1 ? Colors.black : kUnActiveColor,
                     //fontSize: _tabBarIndex == 1 ? 16 : null,
                   ),
                 ),
-                Text(
-                  'قيد الاشتراك',
-                  style: TextStyle(
-                    //color: _tabBarIndex == 2 ? Colors.black : kUnActiveColor,
-                    //fontSize: _tabBarIndex == 2 ? 16 : null,
-                  ),
-                ),
+                // Text(
+                //   'قيد الاشتراك',
+                //   style: TextStyle(
+                //     //color: _tabBarIndex == 2 ? Colors.black : kUnActiveColor,
+                //     //fontSize: _tabBarIndex == 2 ? 16 : null,
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -128,7 +128,7 @@ class client_dashboard extends StatefulWidget {
                 children: <Widget>[
                   tabclients(),
                   Icon(Icons.description),
-                  Icon(Icons.add),
+                  //Icon(Icons.add),
                 ],
               ),
             )

@@ -18,6 +18,7 @@ import 'package:crm_smart/ui/widgets/levelcombox.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
+import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +39,7 @@ void main() async{
         ChangeNotifierProvider<country_vm>(create: (_) => country_vm()),
         ChangeNotifierProvider<config_vm>(create: (_) => config_vm()),
         ChangeNotifierProvider<level_vm>(create: (_) => level_vm()),
+        ChangeNotifierProvider<regoin_vm>(create: (_) => regoin_vm()),
         ChangeNotifierProvider<LoadProvider>(create: (_) => LoadProvider()),
         ChangeNotifierProvider<product_vm>(create: (_) => product_vm()),
 
@@ -68,9 +70,9 @@ class MyApp extends StatelessWidget {
 
             return
               GetMaterialApp(
-                //  home: AllUserScreen(),
-                initialRoute: AppRoutes.allUser,
+                initialRoute: Routes.allUserScreen,
                 getPages: AppRoutes.routes,
+                home: AllUserScreen(),
 
                   debugShowCheckedModeBanner: false,
                   title: 'Flutter Demo',
@@ -79,10 +81,11 @@ class MyApp extends StatelessWidget {
                     backgroundColor: Colors.white,
                     brightness: Brightness.light,
                   ),
-                  home: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: isUserLoggedIn ? AllUserScreen() : AllUserScreen(),
-                  ));
+                  // home: Directionality(
+                  //   textDirection: TextDirection.rtl,
+                  //   child: isUserLoggedIn ? main_page() : main_page(),
+                  // )
+              );
           }
         });
   }

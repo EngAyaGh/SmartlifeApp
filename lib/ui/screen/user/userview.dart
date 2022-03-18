@@ -41,13 +41,13 @@ class UserScreen extends StatelessWidget {
               icon: const Icon(Icons.edit)),
         ],
         title: TextUtilis(
-          color: Colors.amberAccent,
+          color: Colors.white,
           fontSize: 35,
           fontWeight: FontWeight.bold,
           textstring: userModel.nameUser.toString(),
           underline: TextDecoration.none,
         ),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: kMainColor,
         centerTitle: true,
         elevation: 0,
       ),
@@ -78,17 +78,18 @@ class UserScreen extends StatelessWidget {
 
   Widget imageProfile(context) {
     return Container(
-      height: 150,
+      height: 70,
       child: Stack(
         children: [
-          Obx(() {
-            return CircleAvatar(
-              radius: 80.0,
-              backgroundImage: controllerUser.imagefile == null
-                  ? const AssetImage(kLogo)
-                  : const AssetImage(kLogo),
-            );
-          }),
+          // Obx(() {
+          //   return CircleAvatar(
+          //     radius: 80.0,
+          //
+          //     backgroundImage: //controllerUser.imagefile == null
+          //      AssetImage(kLogo)//const AssetImage(kLogo)
+          //         //: const AssetImage(kLogo),
+          //   );
+          // }),
           Positioned(
             bottom: 20.0,
             right: 20.0,
@@ -101,7 +102,7 @@ class UserScreen extends StatelessWidget {
               },
               child: Icon(
                 Icons.camera,
-                color: Colors.green,
+                color: kMainColor,
                 size: 25,
               ),
             ),
@@ -232,7 +233,7 @@ class UserScreen extends StatelessWidget {
                 icon: const Icon(
                   Icons.email,
                   size: 20,
-                  color: Colors.blueAccent,
+                  color: kMainColor,
                 ),
               ),
             ],
@@ -256,7 +257,7 @@ class UserScreen extends StatelessWidget {
                   controllerUser.onPressPhone(userModel.mobile.toString());
                 },
                 child: TextUtilis(
-                  color: Colors.blueAccent,
+                  color:kMainColor,
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
                   textstring: userModel.mobile.toString(),
