@@ -56,7 +56,9 @@ void initState() {
           child: ListView.separated(
             itemCount: _listProd.length,
             separatorBuilder: (BuildContext context, int index) => const Divider(),
-            itemBuilder: (BuildContext context, int index)=> Builder(builder: (context)=>CardProduct( itemProd: _listProd[index],)) ,
+            itemBuilder: (BuildContext context, int index)=>
+                Builder(builder:
+                    (context)=>CardProduct( itemProd: _listProd[index],)) ,
             //     _listProd.map(
             //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
             // ).toList(),

@@ -70,9 +70,9 @@ class MyApp extends StatelessWidget {
 
             return
               GetMaterialApp(
-                initialRoute: Routes.select_country,
+                initialRoute: Routes.allUserScreen,
                 getPages: AppRoutes.routes,
-                home: select_country(),
+                home: AllUserScreen(),
 
                   debugShowCheckedModeBanner: false,
                   title: 'Flutter Demo',

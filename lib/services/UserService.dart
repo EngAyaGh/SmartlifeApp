@@ -15,16 +15,16 @@ Future<String> addUser(body) async {
   );
   return data;//UserModel.fromJson(data);
 }
-Future<UserModel> UpdateUser({
+Future<String> UpdateUser({
   required String? idUser,
   Map<String, dynamic>? body,
 }) async {
-  Map<String, dynamic> data = await Api().post(
+ String result = await Api().post(
     url: url+'users/updateuser_patch.php?id_user=$idUser',
     body: body,
     //token: '',
   );
-  return UserModel.fromJson(data);
+ return result;
 }
 
 

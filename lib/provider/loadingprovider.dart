@@ -9,9 +9,15 @@ class LoadProvider with ChangeNotifier {
   void changeboolValueisLoading(bool val){
     isLoadingAddProd=val;
     notifyListeners();
-  } bool isLoadingAddUser=false;
+  }
+  bool isLoadingAddUser=false;
   void changeboolValueUser(bool val){
     isLoadingAddUser=val;
+    notifyListeners();
+  }
+  bool isLoadingupdateprod=false;
+  void changeLoadingupdateprod(bool val){
+    isLoadingupdateprod=val;
     notifyListeners();
   }
 

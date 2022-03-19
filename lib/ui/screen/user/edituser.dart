@@ -49,10 +49,11 @@ class _EditUserState extends State<EditUser> {
     regoin=widget.userModel.fkRegoin.toString();
     print(level);
     print(regoin);
+
     Provider.of<level_vm>(context,listen: false).changeVal(level.toString());
-if(regoin!=null)
-    Provider.of<regoin_vm>(context,listen: false).changeVal(regoin);
-else
+     if(regoin!=null)
+        Provider.of<regoin_vm>(context,listen: false).changeVal(regoin);
+     else
     Provider.of<regoin_vm>(context,listen: false).changeVal(null);
 
     return Scaffold(
@@ -188,13 +189,25 @@ else
     Provider.of<LoadProvider>(context, listen: false)
         .changeboolValueUser(false);
     final index=controllerUsers.usersList.indexWhere((element) => element.idUser==widget.userModel.idUser);
-    controllerUsers.usersList[index]
-       = UserModel.fromJson( body);
+    body.addAll(
+        {
+          'nameUser': controllerUsers.usersList[index].nameUser,
+          'id_user': controllerUsers.usersList[index].idUser.toString(),
+          'code_verfiy': controllerUsers.usersList[index].codeVerfiy.toString(),
+          'fk_country': controllerUsers.usersList[index].fkCountry.toString(),
+          //'code_verfiy': controllerUsers.usersList[index].codeVerfiy.toString(),
+          'nameCountry': controllerUsers.usersList[index].nameCountry.toString(),
+          'name_regoin': controllerUsers.usersList[index].nameRegoin.toString(),
+          'name_level': controllerUsers.usersList[index].name_level.toString(),
+
+    });
+
+    controllerUsers.usersList[index] = UserModel.fromJson( body);
     descriptionController.text = "";
     mobileController.text = "";
     emailController.text = "";
     _scaffoldKey.currentState!.showSnackBar(
-        SnackBar(content: Text(label_Edituser))
+        SnackBar(content: Text(label_Edituser) )
     );
   }
 

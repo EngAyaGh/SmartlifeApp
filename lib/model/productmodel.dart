@@ -13,7 +13,7 @@ class ProductModel {
   late final String priceProduct;
   late final String type;
   late final String fkCountry;
-  String? fkConfig;
+  late String? fkConfig;
   late final String? value_config;
 
   ProductModel.fromJson(Map<String, dynamic> json){

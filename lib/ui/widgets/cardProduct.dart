@@ -1,4 +1,5 @@
 import 'package:crm_smart/model/productmodel.dart';
+import 'package:crm_smart/ui/screen/product/editproduct.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +89,10 @@ class CardProduct extends StatelessWidget {
                             Row(
                               children: [
                                 new IconButton(
-                                  icon: Icon(Icons.edit, color: kMainColor,), onPressed: () {
+                                  icon: Icon(Icons.edit, color: kMainColor,),
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(
+                                        builder: (context)=>EditProduct(productModel: itemProd,)));
 
                                 },
                                   //onPressed: BOOKMARK,

@@ -17,9 +17,9 @@ try{
     }
   }
   //id_product
-  Future<bool> updateProduct( Map<String,dynamic> body,int idproduct) async {
+  Future<bool> updateProduct( Map<String,dynamic> body,String idproduct) async {
     String result = await Api()
-        .post( url:url+"products/updateProduct.php?$idproduct",body:
+        .post( url:url+"products/updateProduct.php?id_product=$idproduct",body:
     body
     );
     return result=="done"? true:false;

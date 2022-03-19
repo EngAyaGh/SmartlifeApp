@@ -1,5 +1,5 @@
-import 'dart:convert';
-import 'dart:html';
+
+
 
 import 'package:crm_smart/model/configmodel.dart';
 import 'package:crm_smart/model/productmodel.dart';
@@ -7,70 +7,82 @@ import 'package:crm_smart/provider/config_vm.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/provider/switch_provider.dart';
-import 'package:crm_smart/services/ProductService.dart';
 import 'package:crm_smart/ui/widgets/custombutton.dart';
 import 'package:crm_smart/ui/widgets/customformtext.dart';
 import 'package:crm_smart/ui/widgets/group_button.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../labeltext.dart';
 
-class addProduct extends StatefulWidget {
-  addProduct({Key? key}) : super(key: key);
+class EditProduct extends StatefulWidget {
+   EditProduct({Key? key,required this.productModel}) : super(key: key);
 
-  @override
-  _addProductState createState() => _addProductState();
+  ProductModel productModel;
+
+   @override
+  _EditProductState createState() => _EditProductState();
 }
 
-class _addProductState extends State<addProduct> {
-  bool valtaxrate = false;
-
-  int valtype_product = 0;
-
-  String nameprod = "";
-
-  double price = 0;
-
-  ProductModel? pd;
-
+class _EditProductState extends State<EditProduct> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   final _globalKey = GlobalKey<FormState>();
-
   TextEditingController _textName = TextEditingController();
 
   TextEditingController _textprice = TextEditingController();
+  int valtype_product = 0;
+  bool valtaxrate = false;
 
   late var taxrate;
-
   bool _isLoading = false;
+  String nameprod = "";
+  double price = 0;
 
-  void settaxrate(context) {
+  @override
+  void initState()  {
+
+    nameprod= _textName.text=widget.productModel.nameProduct;
+    _textprice.text=widget.productModel.priceProduct;
+    price=double.parse(_textprice.text.toString());
+    valtype_product=int.parse( widget.productModel.type);
+    valtype_product == 0 ? 1 : 0;
+    print(widget.productModel.fkConfig);
+    valtaxrate=widget.productModel.fkConfig==null?false:true;
+    print(valtaxrate);
+
+    Provider.of<selected_button_provider>(context,listen: false).selectValue(valtype_product);
+
+    Provider.of<switch_provider>(context,listen: false).changeboolValue(valtaxrate);
+
+    super.initState();
+
+  }
+   void settaxrate(context) {
     List<ConfigModel> _listconfg =
         Provider.of<config_vm>(context, listen: false).listofconfig;
     print("build 3");
     taxrate =
         _listconfg.firstWhere((element) => element.name_config == 'taxrate');
-  }
+    print(taxrate);
 
+  }
   @override
   Widget build(BuildContext context) {
     String idCountry = Provider.of<country_vm>(context).id_country;
     print("build add prod");
     print(idCountry);
     Provider.of<config_vm>(context, listen: false).getAllConfig(idCountry);
-    print("build 2");
+    // Provider.of<LoadProvider>(context, listen: false)
+    //     .changeLoadingupdateprod(false);
+
 
     return Scaffold(
-key: _scaffoldKey,
+      key: _scaffoldKey,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: kWhiteColor),
@@ -79,11 +91,12 @@ key: _scaffoldKey,
         //title: Text('إضافة منتج',textAlign: TextAlign.center,style: TextStyle(color: kWhiteColor),),
       ),
       body: ModalProgressHUD(
-        inAsyncCall: Provider.of<LoadProvider>(context).isLoadingAddProd,
+        inAsyncCall: Provider.of<LoadProvider>(context).isLoadingupdateprod,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(45),
             child: Form(
+
               key: _globalKey,
               child: Column(
                 textDirection: TextDirection.rtl,
@@ -94,19 +107,19 @@ key: _scaffoldKey,
                   ),
                   Consumer<selected_button_provider>(
                       builder: (context, selectedProvider, child) {
-                    return Center(
-                      child: ButtonGroup(
-                          color: kMainColor,
-                          //secondaryColor: Colors.white,
-                          titles: ["برامج", "أجهزة"], //[0,1]
-                          current: selectedProvider.isSelected,
-                          onTab: (selected) {
-                            valtype_product = selected;
-                            valtype_product == 0 ? 1 : 0;
-                            selectedProvider.selectValue(selected);
-                          }),
-                    );
-                  }),
+                        return Center(
+                          child: ButtonGroup(
+                              color: kMainColor,
+                              //secondaryColor: Colors.white,
+                              titles: ["برامج", "أجهزة"], //[0,1]
+                              current: selectedProvider.isSelected,
+                              onTab: (selected) {
+                                valtype_product = selected;
+                                valtype_product == 0 ? 1 : 0;
+                                selectedProvider.selectValue(selected);
+                              }),
+                        );
+                      }),
                   SizedBox(
                     height: 20,
                   ),
@@ -150,6 +163,7 @@ key: _scaffoldKey,
                   ),
                   Center(
                     child: Consumer<switch_provider>(
+                      //on off tax
                       builder: (context, isSwitched, child) {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -160,8 +174,10 @@ key: _scaffoldKey,
                                 activeColor: kMainColor,
                                 value: isSwitched.isSwitched,
                                 onChanged: (value) {
+
                                   valtaxrate = value;
                                   isSwitched.changeboolValue(value);
+
                                 }),
                           ],
                         );
@@ -174,37 +190,40 @@ key: _scaffoldKey,
                   _isLoading
                       ? CircularProgressIndicator()
                       : CustomButton(
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          text: label_button_addProduct,
-                          onTap: () async {
-                            if (_globalKey.currentState!.validate()) {
-                              _globalKey.currentState!.save();
-                              Provider.of<LoadProvider>(context, listen: false)
-                                  .changeboolValueisLoading(true);
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    text: "تعديل",
+                    onTap: () async {
+                      if (_globalKey.currentState!.validate()) {
+                        _globalKey.currentState!.save();
+                        Provider.of<LoadProvider>(context, listen: false)
+                            .changeLoadingupdateprod(true);
 
-                              settaxrate(context);
-                              Provider.of<product_vm>(context, listen: false)
-                                  .addproduct_vm({
-                                'nameProduct': nameprod,
-                                'priceProduct': price.toString(),
-                                'type': valtype_product.toString(),
-                                'fk_country': idCountry,
-                                'fk_config':
-                                    valtaxrate ? taxrate.id_config : "null" //
-                              }).then((value) => value
-                                      ? clear(context)
-                                      : error()
-                                         // Fluttertoast.showToast(
-                                         //  backgroundColor:
-                                         //      Colors.lightBlueAccent,
-                                         //  msg: label_errorAddProd, // message
-                                         //  toastLength:
-                                         //      Toast.LENGTH_SHORT, // length
-                                         //  gravity: ToastGravity.CENTER, //
-                                        );
-                            }
-                          },
-                        )
+                        settaxrate(context);
+                        print(valtype_product);
+                        Provider.of<product_vm>(context, listen: false)
+                            .updateproduct_vm(
+                           {
+                          'nameProduct': nameprod,
+                          'priceProduct': price.toString(),
+                          'type': valtype_product.toString(),
+                           'fk_country':idCountry,
+                          'fk_config':
+                          valtaxrate ? taxrate.id_config : "null" //
+                        },widget.productModel.idProduct.toString())
+                            .then((value) => value
+                            ? clear(context)
+                            : error()
+                          // Fluttertoast.showToast(
+                          //  backgroundColor:
+                          //      Colors.lightBlueAccent,
+                          //  msg: label_errorAddProd, // message
+                          //  toastLength:
+                          //      Toast.LENGTH_SHORT, // length
+                          //  gravity: ToastGravity.CENTER, //
+                        );
+                      }
+                    },
+                  )
                 ],
               ),
             ),
@@ -213,31 +232,29 @@ key: _scaffoldKey,
       ),
     );
   }
-
-void error(){
-  Provider.of<LoadProvider>(context, listen: false)
-      .changeboolValueisLoading(false);
-  _scaffoldKey.currentState!.showSnackBar(
-  SnackBar(content: Text(label_errorAddProd))
-     );
-   }
-
-  void clear(context) {
+  clear(body) {
+    //label_Edituser
     Provider.of<LoadProvider>(context, listen: false)
-        .changeboolValueisLoading(false);
+        .changeLoadingupdateprod(false);
+    final index=
+    Provider.of<switch_provider>(context, listen: false).changeboolValue(false);
+
+    // controllerUsers.usersList.indexWhere((element) =>
+    // element.idUser==widget.userModel.idUser);
+    // controllerUsers.usersList[index] = UserModel.fromJson( body);
 
     _textName.text = "";
     _textprice.text = "";
-    Provider.of<switch_provider>(context, listen: false).changeboolValue(false);
+
     _scaffoldKey.currentState!.showSnackBar(
-        SnackBar(content: Text(label_doneAddProduct))
+        SnackBar(content: Text(label_Edituser))
     );
-    // Fluttertoast.showToast(
-    //   backgroundColor: Colors.lightBlueAccent,
-    //
-    //   msg: label_doneAddProduct, // message
-    //   toastLength: Toast.LENGTH_SHORT, // length
-    //   gravity: ToastGravity.BOTTOM_LEFT, //
-    // );
+  }
+
+  error() {
+    Provider.of<LoadProvider>(context, listen: false)
+        .changeLoadingupdateprod(false);
+    _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(content: Text(label_errorAddProd)));
   }
 }
