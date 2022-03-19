@@ -10,6 +10,7 @@ class UserModel {
   String? fkRegoin;
   String? nameCountry;
   String? nameRegoin;
+  String? name_level;
 
   UserModel({
     required this.idUser,
@@ -23,6 +24,7 @@ class UserModel {
     required this.fkRegoin,
     required this.nameCountry,
     required this.nameRegoin,
+    this.name_level
   });
 
   factory UserModel.fromJson(jsonData) {
@@ -38,6 +40,7 @@ class UserModel {
       fkRegoin: jsonData['fk_regoin'],
       nameCountry: jsonData['nameCountry'],
       nameRegoin: jsonData['name_regoin'],
+      name_level: jsonData['name_level'],
     );
   }
 }

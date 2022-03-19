@@ -16,8 +16,10 @@ import 'edituser.dart';
 
 class UserScreen extends StatelessWidget {
   final UserModel userModel;
+  final int index;
   UserScreen({
     required this.userModel,
+    required this.index,
     Key? key,
   }) : super(key: key);
 
@@ -35,7 +37,7 @@ class UserScreen extends StatelessWidget {
           IconButton(
               onPressed: () {
                 Get.to(() => EditUser(
-                  userModel: controllerUsers.usersList[0],
+                  userModel: controllerUsers.usersList[index],
                 ));
               },
               icon: const Icon(Icons.edit)),
@@ -208,16 +210,16 @@ class UserScreen extends StatelessWidget {
           ),
           RowWidget(
             name: 'Region',
-            des: userModel.nameRegoin.toString(),
+            des: userModel.nameRegoin.toString()=="null"?"":userModel.nameRegoin.toString(),
           ),
           RowWidget(
             name: 'Level',
-            des: userModel.typeLevel.toString(),
+            des: userModel.name_level.toString(),
           ),
-          RowWidget(
-            name: 'Added by',
-            des: 'added',
-          ),
+          // RowWidget(
+          //   name: 'Added by',
+          //   des: 'added',
+          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

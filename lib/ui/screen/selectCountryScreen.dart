@@ -5,12 +5,15 @@ import 'package:crm_smart/model/countrymodel.dart';
 import 'package:crm_smart/model/regoin_model.dart';
 import 'package:crm_smart/services/RegoinServices.dart';
 import 'package:crm_smart/ui/screen/product/addproduct.dart';
+import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/widgets/custombutton.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+
+import '../../constants.dart';
 //import http package manually
 
 class select_country extends StatefulWidget{
@@ -55,8 +58,9 @@ class _MyDropDown extends State<select_country>{
     return Scaffold(
       key: _scaffoldKey,
          appBar: AppBar(
+
            title:Text(""),
-          backgroundColor: Colors.lightBlue,),
+          backgroundColor: kMainColor,),
 
         body:Container(
           padding:EdgeInsets.only(top: 10,right: 35,left: 35,bottom: 30),
@@ -121,7 +125,7 @@ class _MyDropDown extends State<select_country>{
                     //     context,
                     //     MaterialPageRoute(builder: (context) => addProduct()), (route) => false );
                     if(_selected!=null)
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>addProduct()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductView()));
                     else {
                       _scaffoldKey.currentState!.showSnackBar(new SnackBar(
                           content: new Text("من فضلك اختر البلد")

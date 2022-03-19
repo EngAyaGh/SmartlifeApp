@@ -38,6 +38,7 @@ class CardUsers extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return buildCardUsers(
+                  email: controllerUsers.usersList[index].email.toString(),
                     name: controllerUsers.usersList[index].nameUser.toString(),
                     typeAdministration: controllerUsers
                         .usersList[index].typeAdministration
@@ -47,6 +48,7 @@ class CardUsers extends StatelessWidget {
                     onTap: () {
                       Get.to(() => UserScreen(
                         userModel: controllerUsers.usersList[index],
+                        index: index,
                       )
                       );
                     });
@@ -60,6 +62,7 @@ class CardUsers extends StatelessWidget {
 
   Widget buildCardUsers({
     required String name,
+    required String email,
     required String typeAdministration,
     required String image,
     required Function() onTap,
@@ -88,7 +91,7 @@ class CardUsers extends StatelessWidget {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 120,
+                  height: 80,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15),
@@ -113,6 +116,18 @@ class CardUsers extends StatelessWidget {
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                     textstring: name,
+                    underline: TextDecoration.none,
+                  ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),    Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: TextUtilis(
+                    color: Colors.black,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    textstring: email,
                     underline: TextDecoration.none,
                   ),
                 ),

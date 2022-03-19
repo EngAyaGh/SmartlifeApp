@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 class levelCombox extends StatefulWidget {
    levelCombox({Key? key,this.onChanged,this.selected}) : super(key: key);
-  String? selected=null;
+   String? selected=null;
    Function(String?)? onChanged;
 
   @override
@@ -52,7 +52,6 @@ void initState()  {
         hint: Text("حدد الصلاحية"),
         items: _list.map((level_one){
           return DropdownMenuItem(
-
             child: Text(level_one.nameLevel), //label of item
             value: level_one.idLevel.toString(), //value of item
           );

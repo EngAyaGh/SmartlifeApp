@@ -16,13 +16,13 @@ Future<String> addUser(body) async {
   return data;//UserModel.fromJson(data);
 }
 Future<UserModel> UpdateUser({
-  required int idUser,
+  required String? idUser,
   Map<String, dynamic>? body,
 }) async {
   Map<String, dynamic> data = await Api().post(
-    url: url+'users/updateuser_patch.php/$idUser',
+    url: url+'users/updateuser_patch.php?id_user=$idUser',
     body: body,
-    token: '',
+    //token: '',
   );
   return UserModel.fromJson(data);
 }
@@ -41,14 +41,14 @@ Future<List<UserModel>> usersServices() async {
 }
 
 Future<UserModel> userByIdServices({required int idUser}) async {
-  UserModel data = await Api().get(url: url+'users/getuserByID.php/$idUser');
+  UserModel data = await Api().get(url: url+'users/getuserByID.php?id_user=$idUser');
 
   return data;
 }
 
 Future<UserModel> userByUserNAmeServices({required String userName}) async {
   UserModel data =
-  await Api().get(url: url+'users/getuserByName.php/$userName');
+  await Api().get(url: url+'users/getuserByName.php?txtsearch=$userName');
 
   return data;
 }

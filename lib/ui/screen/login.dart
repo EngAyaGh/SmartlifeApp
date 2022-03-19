@@ -1,6 +1,8 @@
 import 'package:crm_smart/provider/authprovider.dart';
 import 'package:crm_smart/services/AuthService.dart';
 import 'package:crm_smart/ui/screen/product/addproduct.dart';
+import 'package:crm_smart/ui/screen/product/productView.dart';
+import 'package:crm_smart/ui/screen/selectCountryScreen.dart';
 import 'package:crm_smart/ui/widgets/custombutton.dart';
 import 'package:crm_smart/ui/widgets/customformtext.dart';
 import 'package:crm_smart/ui/widgets/customlogo.dart';
@@ -90,6 +92,8 @@ class _loginState extends State<login> {
 
                       }
                       else{
+                        Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(false);
+
                         _scaffoldKey.currentState!.showSnackBar(new SnackBar(
                             content: new Text(emailError)
                         ));
@@ -102,12 +106,15 @@ class _loginState extends State<login> {
                       if (await AuthServices().verfiy_otp(valEmail,valueField!)) {
                         Navigator.pushAndRemoveUntil(
                             context,
-                            MaterialPageRoute(builder: (context) => addProduct()),
-                                (route) => false );
+                            MaterialPageRoute(
+                                builder: (context) => select_country()),
+                              (rouets)=>false);
                         SharedPreferences preferences  = await SharedPreferences.getInstance();
                         preferences.setBool(kKeepMeLoggedIn, true);
                       }
                       else{
+                        Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(false);
+
                         _scaffoldKey.currentState!.showSnackBar(new SnackBar(
                             content: new Text(codeverifyError)
                         ));

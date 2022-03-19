@@ -23,20 +23,36 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../../../labeltext.dart';
 
-class addProduct extends StatelessWidget {
+class addProduct extends StatefulWidget {
   addProduct({Key? key}) : super(key: key);
+
+  @override
+  _addProductState createState() => _addProductState();
+}
+
+class _addProductState extends State<addProduct> {
   bool valtaxrate = false;
+
   int valtype_product = 0;
+
   String nameprod = "";
+
   double price = 0;
+
   ProductModel? pd;
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   final _globalKey = GlobalKey<FormState>();
+
   TextEditingController _textName = TextEditingController();
+
   TextEditingController _textprice = TextEditingController();
+
   late var taxrate;
+
   bool _isLoading = false;
+
   void settaxrate(context) {
     List<ConfigModel> _listconfg =
         Provider.of<config_vm>(context, listen: false).listofconfig;
@@ -179,9 +195,7 @@ key: _scaffoldKey,
                                     valtaxrate ? taxrate.id_config : "null" //
                               }).then((value) => value
                                       ? clear(context)
-                                      : _scaffoldKey.currentState!.showSnackBar(
-                                SnackBar(content: Text(label_errorAddProd))
-                              )
+                                      : error()
                                          // Fluttertoast.showToast(
                                          //  backgroundColor:
                                          //      Colors.lightBlueAccent,
@@ -201,6 +215,14 @@ key: _scaffoldKey,
       ),
     );
   }
+
+void error(){
+  Provider.of<LoadProvider>(context, listen: false)
+      .changeboolValueisLoading(false);
+  _scaffoldKey.currentState!.showSnackBar(
+  SnackBar(content: Text(label_errorAddProd))
+  );
+}
 
   void clear(context) {
     Provider.of<LoadProvider>(context, listen: false)

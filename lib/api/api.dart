@@ -53,7 +53,7 @@ class Api {
       return jsonDecode(result)["message"];
     } else {
       throw Exception(
-          '${json.decode(result)["code"]}');
+          '${json.decode(result)["message"]}');
     }
 
   }
