@@ -10,3 +10,13 @@ const kfontfamily3='Amiri';
 const url='https://aya.epaysadaka.com/api/';
 const kKeepMeLoggedIn="loginstate";
 const Ktoast=Color(0xfff2c131);
+List<String> listtext=[
+  'مشرف مبيعات',
+  'موظف مبيعات',
+  'إدارة عناية بالعملاء',
+  'موظف دعم',
+  'مدير دعم',
+  'إدارة عليا',
+  'الإدارة المالية',
+  'ادارة التحصيل',
+  'إدارة العمليات'];

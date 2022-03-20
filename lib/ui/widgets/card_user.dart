@@ -47,7 +47,7 @@ class CardUsers extends StatelessWidget {
                     'image   ...controllerUsers.usersList[index].toString()',
                     onTap: () {
                       Get.to(() => UserScreen(
-                        userModel: controllerUsers.usersList[index],
+                        // userModel: controllerUsers.usersList[index],
                         index: index,
                       )
                       );

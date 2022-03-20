@@ -43,4 +43,21 @@ class UserModel {
       name_level: jsonData['name_level'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+     _data['id_user']=idUser;
+     _data['nameUser']=nameUser;
+     _data['email']=email;
+     _data['mobile']=mobile;
+     _data['code_verfiy']=codeVerfiy;
+     _data['fk_country']=fkCountry;
+     _data['type_administration']=typeAdministration;
+     _data['type_level']=typeLevel;
+     _data['fk_regoin']=fkRegoin;
+     _data['nameCountry']=nameCountry;
+     _data['name_regoin']=nameRegoin;
+     _data['name_level']=name_level;
+    return _data;
+  }
 }

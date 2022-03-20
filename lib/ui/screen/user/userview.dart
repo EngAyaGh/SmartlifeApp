@@ -15,10 +15,10 @@ import '../../../constants.dart';
 import 'edituser.dart';
 
 class UserScreen extends StatelessWidget {
-  final UserModel userModel;
+  //final UserModel userModel;
   final int index;
   UserScreen({
-    required this.userModel,
+  //  required this.userModel,
     required this.index,
     Key? key,
   }) : super(key: key);
@@ -37,7 +37,8 @@ class UserScreen extends StatelessWidget {
           IconButton(
               onPressed: () {
                 Get.to(() => EditUser(
-                  userModel: controllerUsers.usersList[index],
+                  index: index,
+                 //userModel: controllerUsers.usersList[index],
                 ));
               },
               icon: const Icon(Icons.edit)),
@@ -46,7 +47,7 @@ class UserScreen extends StatelessWidget {
           color: Colors.white,
           fontSize: 35,
           fontWeight: FontWeight.bold,
-          textstring: userModel.nameUser.toString(),
+          textstring: controllerUsers.usersList[index].nameUser.toString(),
           underline: TextDecoration.none,
         ),
         backgroundColor: kMainColor,
@@ -206,15 +207,15 @@ class UserScreen extends StatelessWidget {
         children: [
           RowWidget(
             name: 'Description',
-            des: userModel.typeAdministration.toString(),
+            des: controllerUsers.usersList[index].typeAdministration.toString(),
           ),
           RowWidget(
             name: 'Region',
-            des: userModel.nameRegoin.toString()=="null"?"":userModel.nameRegoin.toString(),
+            des: controllerUsers.usersList[index].nameRegoin.toString()=="null"?"":controllerUsers.usersList[index].nameRegoin.toString(),
           ),
           RowWidget(
             name: 'Level',
-            des: userModel.name_level.toString(),
+            des: controllerUsers.usersList[index].name_level.toString(),
           ),
           // RowWidget(
           //   name: 'Added by',
@@ -227,7 +228,7 @@ class UserScreen extends StatelessWidget {
                 color: Colors.black,
                 fontSize: 35,
                 fontWeight: FontWeight.bold,
-                textstring: userModel.email.toString(),
+                textstring: controllerUsers.usersList[index].email.toString(),
                 underline: TextDecoration.none,
               ),
               IconButton(
@@ -256,13 +257,13 @@ class UserScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () async {
-                  controllerUser.onPressPhone(userModel.mobile.toString());
+                  controllerUser.onPressPhone(controllerUsers.usersList[index].mobile.toString());
                 },
                 child: TextUtilis(
                   color:kMainColor,
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
-                  textstring: userModel.mobile.toString(),
+                  textstring: controllerUsers.usersList[index].mobile.toString(),
                   underline: TextDecoration.none,
                 ),
               ),

@@ -20,14 +20,14 @@ class levelCombox extends StatefulWidget {
 class _levelComboxState extends State<levelCombox> {
   @override
 void initState()  {
-
-  Provider.of<level_vm>(context,listen: false).getlevel();
+    // Provider.of<level_vm>(context,listen: false).listoflevel;
+    Provider.of<level_vm>(context,listen: false).getlevel();
+print("init level combox");
   super.initState();
 
 }
   @override
   Widget build(BuildContext context) {
-
   return
       Padding(
           padding: const EdgeInsets.all(10),
@@ -42,8 +42,10 @@ void initState()  {
   }
 
   Widget _levelcombo(context){
+
     List<LevelModel> _list=Provider.of<level_vm>(context,listen: true).listoflevel;
-     if(_list.isEmpty)
+    print("build combox level");
+    if(_list.isEmpty)
        return  Text("لا يوجد بيانات");
            else{
     return Container(
@@ -59,7 +61,7 @@ void initState()  {
         value:  Provider.of<level_vm>(context,listen: false).selectedValueLevel, //select_dataItem!.idCountry ,
         onChanged:(value){
           Provider.of<level_vm>(context,listen: false).changeVal(value.toString());
-print(Provider.of<level_vm>(context,listen: false).selectedValueLevel);
+          print(Provider.of<level_vm>(context,listen: false).selectedValueLevel);
         },
       ),
 

@@ -2,6 +2,7 @@ import 'package:crm_smart/provider/authprovider.dart';
 import 'package:crm_smart/provider/bottomNav.dart';
 import 'package:crm_smart/provider/config_vm.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
+import 'package:crm_smart/provider/manage_provider.dart';
 import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/provider/switch_provider.dart';
 import 'package:crm_smart/routes/routes.dart';
@@ -42,6 +43,7 @@ void main() async{
         ChangeNotifierProvider<regoin_vm>(create: (_) => regoin_vm()),
         ChangeNotifierProvider<LoadProvider>(create: (_) => LoadProvider()),
         ChangeNotifierProvider<product_vm>(create: (_) => product_vm()),
+        ChangeNotifierProvider<manage_provider>(create: (_) => manage_provider()),
 
   ], child:MyApp()));
 }
@@ -72,7 +74,10 @@ class MyApp extends StatelessWidget {
               GetMaterialApp(
                 initialRoute: Routes.allUserScreen,
                 getPages: AppRoutes.routes,
-                home: AllUserScreen(),
+                home:  Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: isUserLoggedIn ? AllUserScreen():AllUserScreen(),
+                ),
 
                   debugShowCheckedModeBanner: false,
                   title: 'Flutter Demo',

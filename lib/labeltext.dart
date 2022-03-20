@@ -24,16 +24,6 @@ const String label_regoin='المنطقة';
 const String label_mobile='رقم الجوال';
 const String label_Addeduser=" تمت إضافة البيانات بنجاح";
 const String label_Edituser=" تم تعديل البيانات بنجاح";
-const List<String> listtext=[
-  'مشرف مبيعات',
-  'موظف مبيعات',
-  'إدارة عناية بالعملاء',
-  'موظف دعم',
-  'مدير دعم',
-  'إدارة عليا',
-  'الإدارة المالية',
-  'ادارة التحصيل',
-  'إدارة العمليات'];
 
 
 
