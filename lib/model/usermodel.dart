@@ -13,17 +13,17 @@ class UserModel {
   String? name_level;
 
   UserModel({
-    required this.idUser,
-    required this.nameUser,
-    required this.email,
-    required this.mobile,
-    required this.codeVerfiy,
-    required this.fkCountry,
-    required this.typeAdministration,
-    required this.typeLevel,
-    required this.fkRegoin,
-    required this.nameCountry,
-    required this.nameRegoin,
+     this.idUser,
+     this.nameUser,
+     this.email,
+     this.mobile,
+     this.codeVerfiy,
+     this.fkCountry,
+     this.typeAdministration,
+     this.typeLevel,
+     this.fkRegoin,
+     this.nameCountry,
+     this.nameRegoin,
     this.name_level
   });
 

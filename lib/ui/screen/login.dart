@@ -59,6 +59,7 @@ class _loginState extends State<login> {
                 CustomLogo(),
                 SizedBox(height: 20,),
                 CustomFormField(
+                  radius: 10,
                   con: _textcontroller,
                   vaild: (data) {
                     if (data!.isEmpty) {
@@ -102,8 +103,8 @@ class _loginState extends State<login> {
                     else {
                       print(valEmail);
                       Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(true);
-
-                      if (await AuthServices().verfiy_otp(valEmail,valueField!)) {
+                      String? res=await AuthServices().verfiy_otp(valEmail,valueField!);
+                      if (res!="false") {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
@@ -111,6 +112,8 @@ class _loginState extends State<login> {
                               (rouets)=>false);
                         SharedPreferences preferences  = await SharedPreferences.getInstance();
                         preferences.setBool(kKeepMeLoggedIn, true);
+                        preferences.setString("id_user",res!);
+
                       }
                       else{
                         Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(false);

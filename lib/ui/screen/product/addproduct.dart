@@ -111,6 +111,7 @@ key: _scaffoldKey,
                     height: 20,
                   ),
                   CustomFormField(
+                    radius: 15,
                     maxline: 3,
                     vaild: (value) {
                       if (value!.isEmpty) {
@@ -127,6 +128,7 @@ key: _scaffoldKey,
                     height: 20,
                   ),
                   CustomFormField(
+                    radius: 15,
                     vaild: (value) {
                       if (value!.isEmpty) {
                         return 'Please enter a  price ';

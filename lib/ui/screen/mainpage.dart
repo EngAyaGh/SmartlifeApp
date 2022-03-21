@@ -1,9 +1,13 @@
 import 'package:crm_smart/provider/bottomNav.dart';
 import 'package:crm_smart/ui/widgets/appbar.dart';
 import 'package:crm_smart/ui/widgets/customDrawer.dart';
+import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants.dart';
 import 'client/clients.dart';
@@ -17,6 +21,8 @@ class main_page extends StatefulWidget {
 }
 
 class _main_pageState extends State<main_page> {
+  final controllerUsers = Get.find<AllUserVMController>();
+
   final _key = GlobalKey<ScaffoldState>();
   int _selectedIndex = 0; //New
 
@@ -24,6 +30,12 @@ class _main_pageState extends State<main_page> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState()  {
+    controllerUsers.getcurrentUser();
+    super.initState();
   }
 
   @override

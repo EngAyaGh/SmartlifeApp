@@ -5,6 +5,7 @@ import 'package:crm_smart/ui/widgets/tabview.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import 'addClient.dart';
 
 class client_dashboard extends StatefulWidget {
   const client_dashboard({Key? key}) : super(key: key);
@@ -140,7 +141,11 @@ class client_dashboard extends StatefulWidget {
        // body:_switchcaseBody(0),
         floatingActionButton: FloatingActionButton(
           backgroundColor: kMainColor,
-      onPressed: (){},
+      onPressed: (){
+
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>addClient()));
+
+      },
       tooltip: 'إضافة عميل',
       child: Icon(Icons.add),
         ),

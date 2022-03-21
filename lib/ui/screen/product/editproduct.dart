@@ -124,6 +124,7 @@ class _EditProductState extends State<EditProduct> {
                     height: 20,
                   ),
                   CustomFormField(
+                    radius: 15,
                     maxline: 3,
                     vaild: (value) {
                       if (value!.isEmpty) {
@@ -140,6 +141,7 @@ class _EditProductState extends State<EditProduct> {
                     height: 20,
                   ),
                   CustomFormField(
+                    radius: 15,
                     vaild: (value) {
                       if (value!.isEmpty) {
                         return 'Please enter a  price ';

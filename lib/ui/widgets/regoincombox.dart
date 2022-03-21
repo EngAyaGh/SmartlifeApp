@@ -24,10 +24,14 @@ class _RegoinComboxState extends State<RegoinCombox> {
   List<RegoinModel> _list=[];
   @override
   void initState()  {
-    String id_country=Provider.of<country_vm>(context,listen: false).id_country;
 
-   Provider.of<regoin_vm>(context,listen: false).getregoin(id_country);
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
 
+      String id_country=Provider.of<country_vm>(context,listen: false).id_country;
+
+      Provider.of<regoin_vm>(context,listen: false).getregoin(id_country);
+
+    });
     super.initState();
 
   }
@@ -49,15 +53,17 @@ class _RegoinComboxState extends State<RegoinCombox> {
   }
 
  Widget  citycombo(context){
-   _list= Provider.of<regoin_vm>(context,listen: true).listregoin;
-   if(_list.isEmpty)
-     return  Text("لا يوجد بيانات");
-   else{
+  // _list= Provider.of<regoin_vm>(context,listen: true).listregoin;
+   return  Consumer<regoin_vm>(
+       builder: (context,regoinllist,child){
+     if(regoinllist.listregoin.isEmpty)
+       return  Text("لا يوجد بيانات");
+     else{
    return Container(
      child:DropdownButton(
        isExpanded: true,
        hint: Text("حددالمنطقة"),
-       items: _list.map((level_one){
+       items: regoinllist.listregoin.map((level_one){
          return DropdownMenuItem(
 
            child: Text(level_one.name_regoin), //label of item
@@ -72,5 +78,7 @@ class _RegoinComboxState extends State<RegoinCombox> {
 
 
    );}
+       });
+   //return Text("error");
  }
 }

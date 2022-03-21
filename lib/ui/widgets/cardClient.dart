@@ -51,12 +51,12 @@ class cardClient extends StatelessWidget {
                           children: [
                             Column(
                               children: [
-                                CircleAvatar(
-                                  radius: 40,
-
-                                 // backgroundImage:Image.asset('assest/images/logo.png',fit: BoxFit.fill,).image,
-                                ),
-                                Text('logo client'),
+                                // CircleAvatar(
+                                //   radius: 40,
+                                //
+                                //  // backgroundImage:Image.asset('assest/images/logo.png',fit: BoxFit.fill,).image,
+                                // ),
+                                // Text('logo client'),
                               ],
                             ),
                             //Spacer(flex: 200,),

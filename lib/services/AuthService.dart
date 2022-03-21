@@ -21,7 +21,7 @@ class  AuthServices{
           return false;
         }
   }
-  Future<bool> verfiy_otp(String email,String otp) async {
+  Future<String?> verfiy_otp(String email,String otp) async {
     String? result;
     try{
       result= await Api()
@@ -29,10 +29,12 @@ class  AuthServices{
       'email':email,
       'otp':otp
     } );
-    return result=="done"? true:false;}
+    return result!="code is wrong"? result:"false";
+
+    }
     catch(e){
 
-    return false;
+    return "false";
     }
   }
 
