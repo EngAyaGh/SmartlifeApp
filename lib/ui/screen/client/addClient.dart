@@ -65,10 +65,10 @@ class addClient extends StatelessWidget {
                   SizedBox(
                     height: 5,
                   ),
-                  RowEdit(name: label_client, des: 'required'),
+                  RowEdit(name: label_cliententerprise, des: 'required'),
                   EditTextFormField(
                     obscureText: false,
-                    hintText: label_client,
+                    hintText: label_cliententerprise,
                     vaild: (value) {
                       if (value!.isEmpty) {
                         return label_empty;
@@ -170,7 +170,6 @@ class addClient extends StatelessWidget {
                       child: Text(label_clientadd),
                       onPressed: () {
                         if (_globalKey.currentState!.validate()) {
-                          //print('before ${_textcontroller!.text}');
                           _globalKey.currentState!.save();
                         }
                       },
