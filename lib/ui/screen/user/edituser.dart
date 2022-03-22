@@ -56,8 +56,6 @@ class _EditUserState extends State<EditUser> {
     // WidgetsBinding.instance?.addPostFrameCallback((_) {
     //
     // });
-
-
     print("init");
     super.initState();
   }
@@ -86,6 +84,7 @@ class _EditUserState extends State<EditUser> {
     //});
     // Provider.of<level_vm>(context,listen: false).getlevel();
 
+    //  return Obx(() {
 
     return Scaffold(
       appBar: AppBar(
@@ -218,6 +217,7 @@ class _EditUserState extends State<EditUser> {
         ),
       ),
     );
+      //});
   }
 
   clear(body) {

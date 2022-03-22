@@ -26,25 +26,30 @@ class _main_pageState extends State<main_page> {
   final _key = GlobalKey<ScaffoldState>();
   int _selectedIndex = 0; //New
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //   });
+  // }
 
   @override
   void initState()  {
-    controllerUsers.getcurrentUser();
+    //controllerUsers.getcurrentUser();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    //controllerUsers.getcurrentUser();
+
     //var indexProvider= Provider.of<navigatorProvider>(context);
     print("after build");
     return Scaffold(
       appBar:customAppbar(),
-        drawer: CustomDrawer(),
+        drawer:
+        //Obx(() {
+       CustomDrawer(),
+       // }),
           bottomNavigationBar:Consumer<navigatorProvider>(
             builder: (context, indexProvider, child) {
               return BottomNavigationBar(

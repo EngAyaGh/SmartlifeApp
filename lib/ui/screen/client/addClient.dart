@@ -11,16 +11,19 @@ import '../../../constants.dart';
 import '../../../labeltext.dart';
 
 class addClient extends StatelessWidget {
-   addClient({Key? key}) : super(key: key);
+  addClient({Key? key}) : super(key: key);
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-   final TextEditingController nameclientController = TextEditingController();
+  final _globalKey = GlobalKey<FormState>();
 
-   final TextEditingController nameController = TextEditingController();
+  final TextEditingController nameclientController = TextEditingController();
 
-   final TextEditingController mobileController = TextEditingController();
-   final TextEditingController typejobController = TextEditingController();
-   final TextEditingController cityController = TextEditingController();
-   final TextEditingController locationController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+
+  final TextEditingController mobileController = TextEditingController();
+  final TextEditingController typejobController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController regoinController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,103 +35,149 @@ class addClient extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body:ModalProgressHUD(
+      body: ModalProgressHUD(
         inAsyncCall: Provider.of<LoadProvider>(context).isLoadingAddclient,
         child: SingleChildScrollView(
-          child: Padding(
-            padding:EdgeInsets.only(top: 10,right: 20,left: 20), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
-            child: Column(
-              textDirection: TextDirection.rtl,
+          child: Form(
+            key: _globalKey,
+            child: Padding(
+              padding: EdgeInsets.only(
+                  top: 10,
+                  right: 20,
+                  left:
+                      20), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+              child: Column(
+                //textDirection: TextDirection.rtl,
 
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RowEdit(name:label_clientname, des: 'required'),
-                EditTextFormField(
-                  hintText: label_clientname,
-                  obscureText: false,
-                  controller: nameclientController,
-                ),
-                SizedBox(height: 5,),
-                RowEdit(name: label_client, des: 'required'),
-                CustomFormField(
-                  radius: 10,
-                  vaild: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter a  name of  ';
-                    }
-                  },
-                  con: nameController,//اسم المؤسسة
-                  label: label_client,
-                  onChanged: (val) {
-                   // nameprod = val;
-                  },
-                ),
-                SizedBox(height: 5,),
-                RowEdit(name: label_client_typejob, des: 'Required'),
-                CustomFormField(
-                  radius: 10,
-                  vaild: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter a  name of  ';
-                    }
-                  },
-                  con: typejobController,//اسم المؤسسة
-                  label: label_client_typejob,
-                  onChanged: (val) {
-                    // nameprod = val;
-                  },
-                ),
-                SizedBox(height: 5,),
-
-                //admin
-                RowEdit(name:label_clientcity, des: 'Required'),
-                EditTextFormField(
-                  hintText:label_clientcity,
-                  obscureText: false,
-                  controller: cityController,
-                ),
-                //manage
-                SizedBox(height: 5,),
-                RowEdit(name: label_clientmobile, des: 'Required'),
-                EditTextFormField(
-                  hintText: '+966000000000',
-                  obscureText: false,
-                  controller: mobileController,
-                ),
-                //RowEdit(name: 'Image', des: ''),
-                SizedBox(height: 15,),
-                RowEdit(name: label_clientlocation, des: ''),
-                EditTextFormField(
-                  hintText: 'location',
-                  obscureText: false,
-                  controller: locationController,
-                ),
-                ////////////////////////////////////////////////
-                SizedBox(height: 15,),
-                RowEdit(name: label_clientregoin, des: ''),
-                CustomFormField(
-                  radius: 10,
-                  hintText: label_clientregoin,
-
-                  label: label_clientregoin,
-
-                ),
-                //show chose image
-                SizedBox(height: 15,),
-                RowEdit(name: label_clientdate, des: ''),
-
-                SizedBox(height: 15,),
-                RowEdit(name: label_clientnameuser, des: ''),
-                SizedBox(height: 15,),
-                RowEdit(name: label_clienttype, des: ''),
-
-                Center(
-                  child: TextButton(
-                    child: Text(label_clientadd),
-                    onPressed: (){},
+                //crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RowEdit(name: label_clientname, des: 'required'),
+                  EditTextFormField(
+                    vaild: (value) {
+                      if (value!.isEmpty) {
+                        return label_empty;
+                      }
+                    },
+                    hintText: label_clientname,
+                    obscureText: false,
+                    controller: nameclientController,
                   ),
-                )
-              ],
+                  SizedBox(
+                    height: 5,
+                  ),
+                  RowEdit(name: label_client, des: 'required'),
+                  EditTextFormField(
+                    obscureText: false,
+                    hintText: label_client,
+                    vaild: (value) {
+                      if (value!.isEmpty) {
+                        return label_empty;
+                      }
+                    },
+                    controller: nameController, //اسم المؤسسة
+                    //label: label_client,
+                    onChanged: (val) {
+                      // nameprod = val;
+                    },
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  RowEdit(name: label_client_typejob, des: 'Required'),
+                  EditTextFormField(
+                    hintText: label_client_typejob,
+                    obscureText: false,
+                    vaild: (value) {
+                      if (value!.isEmpty) {
+                        return label_empty;
+                      }
+                    },
+                    controller: typejobController, //اسم المؤسسة
+                    label: label_client_typejob,
+                    onChanged: (val) {
+                      // nameprod = val;
+                    },
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+
+                  //admin
+                  RowEdit(name: label_clientcity, des: 'Required'),
+                  EditTextFormField(
+                    vaild: (value) {
+                      if (value!.isEmpty) {
+                        return label_empty;
+                      }
+                    },
+                    hintText: label_clientcity,
+                    obscureText: false,
+                    controller: cityController,
+                  ),
+                  //manage
+                  SizedBox(
+                    height: 5,
+                  ),
+                  RowEdit(name: label_clientmobile, des: 'Required'),
+                  EditTextFormField(
+                    vaild: (value) {
+                      if (value!.isEmpty) {
+                        return label_empty;
+                      }
+                    },
+                    hintText: '+966000000000',
+                    obscureText: false,
+                    controller: mobileController,
+                  ),
+                  //RowEdit(name: 'Image', des: ''),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  RowEdit(name: label_clientlocation, des: ''),
+                  EditTextFormField(
+                    hintText: 'location',
+                    obscureText: false,
+                    controller: locationController,
+                  ),
+                  ////////////////////////////////////////////////
+                  SizedBox(
+                    height: 15,
+                  ),
+                  RowEdit(name: label_clientregoin, des: ''),
+                  EditTextFormField(
+                    obscureText: false,
+                    hintText: label_clientregoin,
+                    label: label_clientregoin,
+                    controller: regoinController,
+                  ),
+                  //show chose image
+                  SizedBox(
+                    height: 15,
+                  ),
+                  RowEdit(name: label_clientdate, des: ''),
+
+                  SizedBox(
+                    height: 15,
+                  ),
+                  RowEdit(name: label_clientnameuser, des: ''),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  RowEdit(name: label_clienttype, des: ''),
+
+                  Center(
+                    child: TextButton(
+                      child: Text(label_clientadd),
+                      onPressed: () {
+                        if (_globalKey.currentState!.validate()) {
+                          //print('before ${_textcontroller!.text}');
+                          _globalKey.currentState!.save();
+                        }
+                      },
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

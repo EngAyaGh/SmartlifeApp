@@ -30,7 +30,8 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Obx(
+            () {return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         actions: [
@@ -76,7 +77,7 @@ class UserScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
+    );});
   }
 
   Widget imageProfile(context) {

@@ -11,10 +11,13 @@ import 'package:crm_smart/ui/screen/user/alluser.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
-  static const mainpage = Routes.mainpage;
+  //static const mainpage = Routes.mainpage;
 
   static final routes = [
-    GetPage(name:  Routes.mainpage, page: () => const main_page()),
+    GetPage(name:  Routes.mainpage, page: () => const main_page(),
+      bindings: [
+      UserBinding(),
+    ],),
     GetPage(name:  Routes.login, page: () =>  login()),
     GetPage(name:  Routes.productview, page: () =>  ProductView()),
     GetPage(name:  Routes.select_country, page: () =>  select_country()),

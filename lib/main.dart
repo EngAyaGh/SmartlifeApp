@@ -74,7 +74,10 @@ class MyApp extends StatelessWidget {
               GetMaterialApp(
                 initialRoute: Routes.mainpage,
                 getPages: AppRoutes.routes,
-                home:  Directionality(
+                home:
+                //main_page(),
+
+                Directionality(
                   textDirection: TextDirection.rtl,
                   child: isUserLoggedIn ? main_page():main_page(),
                 ),

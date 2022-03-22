@@ -5,19 +5,29 @@ import 'package:flutter/material.dart';
 class EditTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final bool obscureText;
-
   final String hintText;
+  Function(String)? onChanged;
+  String? Function(String?)? vaild;
 
-  const EditTextFormField(
-      {required this.hintText,
+  String? label;
+  EditTextFormField(
+       {required this.hintText,
         required this.obscureText,
         required this.controller,
-        Key? key})
+        this.onChanged,
+        this.vaild,
+         this.label,
+
+        Key? key
+       })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+
+      onChanged: onChanged,
+      validator: vaild,
       obscureText: obscureText,
       controller: controller,
       cursorColor: Colors.black,

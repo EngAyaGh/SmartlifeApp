@@ -11,56 +11,62 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
 class CustomDrawer extends StatelessWidget {
-   CustomDrawer({Key? key}) : super(key: key);
+  CustomDrawer({Key? key}) : super(key: key);
   final controllerUsers = Get.find<AllUserVMController>();
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      elevation: 10,
-      child: ListView(
-        children: [
-          UserAccountsDrawerHeader(
-              accountName: Text(controllerUsers.currentUser.value.nameUser.toString()),
-              accountEmail: Text(controllerUsers.currentUser.value.email.toString())),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              CircleAvatar(
-                //,
-              ),
+    controllerUsers.getcurrentUser();
 
-            ],
-          ),
-          ListTile(
-            title: Text(' الدولة'),
-            leading: Icon(Icons.add_box_outlined),
-          ),
-          ListTile(
-            title: Text('إدارة المستخدمين'),
-            leading: Icon(Icons.add_box_outlined),
-            onTap: (){
-              Get.to(() =>Routes.allUserScreen);
-            },
-          ),
-          ListTile(
-            title: Text('المنتجات'),
-            leading: Icon(Icons.add_box_outlined),
-            onTap: (){
-              ProductView();
-            },
-          ),
-          ListTile(
-            title: Text('تسجيل خروج'),
-            leading: Icon(Icons.exit_to_app),
-            onTap: () async {
-              SharedPreferences preferences =
-              await SharedPreferences.getInstance();
-              preferences.setBool(kKeepMeLoggedIn, false);
-            },
-          )
-        ],
-      ),
-    );
+    return Obx(() {
+     // print(controllerUsers.currentUser.value.nameUser.toString());
+      return Drawer(
+        elevation: 10,
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+                accountName:
+                    Text(controllerUsers.currentUser.value.nameUser.toString()),
+                accountEmail:
+                    Text(controllerUsers.currentUser.value.email.toString())),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                CircleAvatar(
+                    //,
+                    ),
+              ],
+            ),
+            ListTile(
+              title: Text(' الدولة'),
+              leading: Icon(Icons.add_box_outlined),
+            ),
+            ListTile(
+              title: Text('إدارة المستخدمين'),
+              leading: Icon(Icons.add_box_outlined),
+              onTap: () {
+                Get.to(() => Routes.allUserScreen);
+              },
+            ),
+            ListTile(
+              title: Text('المنتجات'),
+              leading: Icon(Icons.add_box_outlined),
+              onTap: () {
+                ProductView();
+              },
+            ),
+            ListTile(
+              title: Text('تسجيل خروج'),
+              leading: Icon(Icons.exit_to_app),
+              onTap: () async {
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+                preferences.setBool(kKeepMeLoggedIn, false);
+              },
+            )
+          ],
+        ),
+      );
+    });
   }
 }
