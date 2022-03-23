@@ -80,7 +80,8 @@ class CardProduct extends StatelessWidget {
 
                                   children: [
                                     Text(' قيمة الضريبة',style:TextStyle(fontFamily: kfontfamily2),),
-                                    Text(itemProd.value_config==null?'no taxrate':itemProd.value_config.toString(),
+
+                                    Text(itemProd.value_config==null||itemProd.value_config=="null"?'no taxrate':itemProd.value_config.toString(),
                                       style:TextStyle(fontFamily: kfontfamily2),),
                                   ],
                                 ),

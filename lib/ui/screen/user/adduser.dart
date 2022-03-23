@@ -78,8 +78,7 @@ class _addUserState extends State<addUser> {
                 isExpanded: true,
                 hint: Text("حددالإدارة"),
                 items: listtext.map(
-                        (level_one)
-                {
+                        (level_one) {
                   return DropdownMenuItem(
 
                     child: Text(level_one), //label of item

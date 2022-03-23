@@ -27,6 +27,7 @@ class _RegoinComboxState extends State<RegoinCombox> {
 
     WidgetsBinding.instance?.addPostFrameCallback((_) {
 
+      //Provider.of<country_vm>(context,listen: false).ge
       String id_country=Provider.of<country_vm>(context,listen: false).id_country;
 
       Provider.of<regoin_vm>(context,listen: false).getregoin(id_country);

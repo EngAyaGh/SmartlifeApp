@@ -38,45 +38,60 @@ class _EditProductState extends State<EditProduct> {
   int valtype_product = 0;
   bool valtaxrate = false;
 
-  late var taxrate;
+  late ConfigModel taxrate;
   bool _isLoading = false;
   String nameprod = "";
   double price = 0;
-
+  String? idCountry;
   @override
   void initState()  {
 
+
+    print(widget.productModel.fkConfig);
+    valtaxrate=widget.productModel.fkConfig==null||widget.productModel.fkConfig=="null"?false:true;
+    print(valtaxrate);
+    print(valtaxrate);
+
+
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
+        idCountry= Provider.of<country_vm>(context,listen: false).id_country;
+        print("build edit prod");
+        print(idCountry);
+        Provider.of<config_vm>(context, listen: false).getAllConfig(idCountry!);
+        print(Provider.of<config_vm>(context, listen: false).listofconfig);
+        ////////////////////////////////
+        Provider.of<selected_button_provider>(context,listen: false).selectValue(valtype_product);
+        Provider.of<switch_provider>(context,listen: false).changeboolValue(valtaxrate);
+        print("valtaxrate");
+
+      });
     nameprod= _textName.text=widget.productModel.nameProduct;
     _textprice.text=widget.productModel.priceProduct;
     price=double.parse(_textprice.text.toString());
     valtype_product=int.parse( widget.productModel.type);
     valtype_product == 0 ? 1 : 0;
-    print(widget.productModel.fkConfig);
-    valtaxrate=widget.productModel.fkConfig==null?false:true;
-    print(valtaxrate);
-
-    Provider.of<selected_button_provider>(context,listen: false).selectValue(valtype_product);
-
-    Provider.of<switch_provider>(context,listen: false).changeboolValue(valtaxrate);
 
     super.initState();
 
   }
    void settaxrate(context) {
+
     List<ConfigModel> _listconfg =
         Provider.of<config_vm>(context, listen: false).listofconfig;
     print("build 3");
     taxrate =
         _listconfg.firstWhere((element) => element.name_config == 'taxrate');
     print(taxrate);
-
   }
+
   @override
   Widget build(BuildContext context) {
-    String idCountry = Provider.of<country_vm>(context).id_country;
-    print("build add prod");
-    print(idCountry);
-    Provider.of<config_vm>(context, listen: false).getAllConfig(idCountry);
+    //
+    // idCountry= Provider.of<country_vm>(context,listen: false).id_country;
+    // print("build edit prod");
+    // print(idCountry);
+    // Provider.of<config_vm>(context, listen: false).getAllConfig(idCountry!);
+    // print(Provider.of<config_vm>(context, listen: false).listofconfig);
     // Provider.of<LoadProvider>(context, listen: false)
     //     .changeLoadingupdateprod(false);
 
@@ -176,7 +191,6 @@ class _EditProductState extends State<EditProduct> {
                                 activeColor: kMainColor,
                                 value: isSwitched.isSwitched,
                                 onChanged: (value) {
-
                                   valtaxrate = value;
                                   isSwitched.changeboolValue(value);
 
@@ -201,17 +215,25 @@ class _EditProductState extends State<EditProduct> {
                             .changeLoadingupdateprod(true);
 
                         settaxrate(context);
+                        print("update");
                         print(valtype_product);
+                        print(valtaxrate);
+                        print(taxrate.id_config);
+                        valtype_product=   Provider.of<selected_button_provider>(context,listen: false)
+                            .isSelected;
+                        valtaxrate=  Provider.of<switch_provider>(context,listen: false).isSwitched;
                         Provider.of<product_vm>(context, listen: false)
                             .updateproduct_vm(
                            {
-                          'nameProduct': nameprod,
-                          'priceProduct': price.toString(),
-                          'type': valtype_product.toString(),
+                           'nameProduct': nameprod,
+                           'priceProduct': price.toString(),
+                           'type': valtype_product.toString(),
                            'fk_country':idCountry,
-                          'fk_config':
-                          valtaxrate ? taxrate.id_config : "null" //
-                        },widget.productModel.idProduct.toString())
+                           'fk_config': valtaxrate ? taxrate.id_config : "null",
+                             "value_config":valtaxrate ?taxrate.value_config:"null",
+                             "id_product": widget.productModel.idProduct.toString()
+                           },
+                            widget.productModel.idProduct.toString())
                             .then((value) => value
                             ? clear(context)
                             : error()
@@ -238,15 +260,15 @@ class _EditProductState extends State<EditProduct> {
     //label_Edituser
     Provider.of<LoadProvider>(context, listen: false)
         .changeLoadingupdateprod(false);
-    final index=
-    Provider.of<switch_provider>(context, listen: false).changeboolValue(false);
+    // final index=
+     //Provider.of<switch_provider>(context, listen: false).changeboolValue(false);
 
     // controllerUsers.usersList.indexWhere((element) =>
     // element.idUser==widget.userModel.idUser);
     // controllerUsers.usersList[index] = UserModel.fromJson( body);
 
-    _textName.text = "";
-    _textprice.text = "";
+    // _textName.text = "";
+    // _textprice.text = "";
 
     _scaffoldKey.currentState!.showSnackBar(
         SnackBar(content: Text(label_Edituser))

@@ -49,25 +49,39 @@ class _addProductState extends State<addProduct> {
 
   TextEditingController _textprice = TextEditingController();
 
-  late var taxrate;
+  late ConfigModel taxrate;
 
   bool _isLoading = false;
 
   void settaxrate(context) {
+
     List<ConfigModel> _listconfg =
         Provider.of<config_vm>(context, listen: false).listofconfig;
-    print("build 3");
+    print("build 3 add");
     taxrate =
         _listconfg.firstWhere((element) => element.name_config == 'taxrate');
-  }
 
+    print(taxrate);
+  }
+  String? idCountry;
   @override
+  void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      idCountry= Provider
+          .of<country_vm>(context,listen: false)
+          .id_country;
+      print("build add prod");
+      print(idCountry);
+      Provider.of<config_vm>(context, listen: false).getAllConfig(idCountry!);
+      print("build 2");
+      //print(Provider.of<config_vm>(context, listen: false).listofconfig[0]);
+    });
+    super.initState();
+
+  }
+    @override
   Widget build(BuildContext context) {
-    String idCountry = Provider.of<country_vm>(context).id_country;
-    print("build add prod");
-    print(idCountry);
-    Provider.of<config_vm>(context, listen: false).getAllConfig(idCountry);
-    print("build 2");
+
 
     return Scaffold(
 key: _scaffoldKey,
@@ -104,6 +118,7 @@ key: _scaffoldKey,
                             valtype_product = selected;
                             valtype_product == 0 ? 1 : 0;
                             selectedProvider.selectValue(selected);
+                            print(selected);
                           }),
                     );
                   }),
@@ -162,7 +177,7 @@ key: _scaffoldKey,
                                 activeColor: kMainColor,
                                 value: isSwitched.isSwitched,
                                 onChanged: (value) {
-                                  valtaxrate = value;
+                                  //valtaxrate = value;
                                   isSwitched.changeboolValue(value);
                                 }),
                           ],
@@ -185,6 +200,11 @@ key: _scaffoldKey,
                                   .changeboolValueisLoading(true);
 
                               settaxrate(context);
+                              valtaxrate=
+                                  Provider.of<switch_provider>(context, listen: false)
+                                      .isSwitched;
+                              valtype_product=   Provider.of<selected_button_provider>(context,listen: false)
+                              .isSelected;
                               Provider.of<product_vm>(context, listen: false)
                                   .addproduct_vm({
                                 'nameProduct': nameprod,
@@ -192,8 +212,10 @@ key: _scaffoldKey,
                                 'type': valtype_product.toString(),
                                 'fk_country': idCountry,
                                 'fk_config':
-                                    valtaxrate ? taxrate.id_config : "null" //
-                              }).then((value) => value
+                                    valtaxrate ? taxrate.id_config : "null",
+                                "value_config":valtaxrate ?taxrate.value_config:"null"
+                                //
+                              }).then((value) => value!="false"
                                       ? clear(context)
                                       : error()
                                          // Fluttertoast.showToast(

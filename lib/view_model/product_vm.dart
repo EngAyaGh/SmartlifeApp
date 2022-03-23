@@ -16,9 +16,10 @@ class product_vm extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> addproduct_vm(Map<String, dynamic?> body) async {
-    bool res = await ProductService().addProduct(body);
-    if (res) {
+  Future<String> addproduct_vm(Map<String, dynamic?> body) async {
+    String res = await ProductService().addProduct(body);
+    if (res!="false") {
+      body.addAll({'id_product':res});
       listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
     }

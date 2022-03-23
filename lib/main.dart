@@ -72,14 +72,14 @@ class MyApp extends StatelessWidget {
 
             return
               GetMaterialApp(
-                initialRoute: Routes.allClientUser,
+                initialRoute: Routes.allUserScreen,
                 getPages: AppRoutes.routes,
                 home:
                 //main_page(),
 
                 Directionality(
                   textDirection: TextDirection.rtl,
-                  child: isUserLoggedIn ? client_dashboard():client_dashboard(),
+                  child: isUserLoggedIn ? AllUserScreen():AllUserScreen(),
                 ),
 
                   debugShowCheckedModeBanner: false,
