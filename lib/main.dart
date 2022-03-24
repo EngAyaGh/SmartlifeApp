@@ -39,7 +39,7 @@ void main() async{
         ChangeNotifierProvider<selected_button_provider>(create: (_) => selected_button_provider()),
         ChangeNotifierProvider<country_vm>(create: (_) => country_vm()),
         ChangeNotifierProvider<config_vm>(create: (_) => config_vm()),
-        ChangeNotifierProvider<level_vm>(create: (_) => level_vm()),
+         ChangeNotifierProvider<level_vm>(create: (_) => level_vm()),
         ChangeNotifierProvider<regoin_vm>(create: (_) => regoin_vm()),
         ChangeNotifierProvider<LoadProvider>(create: (_) => LoadProvider()),
         ChangeNotifierProvider<product_vm>(create: (_) => product_vm()),
@@ -72,14 +72,14 @@ class MyApp extends StatelessWidget {
 
             return
               GetMaterialApp(
-                initialRoute: Routes.allUserScreen,
+                initialRoute: Routes.allClientUser,
                 getPages: AppRoutes.routes,
                 home:
                 //main_page(),
 
                 Directionality(
                   textDirection: TextDirection.rtl,
-                  child: isUserLoggedIn ? AllUserScreen():AllUserScreen(),
+                  child: isUserLoggedIn ? client_dashboard():client_dashboard(),
                 ),
 
                   debugShowCheckedModeBanner: false,

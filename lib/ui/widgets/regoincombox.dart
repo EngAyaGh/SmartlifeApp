@@ -25,13 +25,17 @@ class _RegoinComboxState extends State<RegoinCombox> {
   @override
   void initState()  {
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-
+   WidgetsBinding.instance?.addPostFrameCallback((_) {
+      Provider.of<regoin_vm>(context,listen: false).clearvalues();
       //Provider.of<country_vm>(context,listen: false).ge
       String id_country=Provider.of<country_vm>(context,listen: false).id_country;
 
       Provider.of<regoin_vm>(context,listen: false).getregoin(id_country);
+     // Provider.of<regoin_vm>(context,listen: false).listregoin;
 
+      Provider.of<regoin_vm>(context,listen: false).changeVal(widget.selected);
+      print("init regoin combox///////");
+      print(widget.selected);
     });
     super.initState();
 
@@ -54,17 +58,26 @@ class _RegoinComboxState extends State<RegoinCombox> {
   }
 
  Widget  citycombo(context){
-  // _list= Provider.of<regoin_vm>(context,listen: true).listregoin;
-   return  Consumer<regoin_vm>(
-       builder: (context,regoinllist,child){
-     if(regoinllist.listregoin.isEmpty)
+  List<RegoinModel> regoinllist=[];
+  regoinllist= Provider.of<regoin_vm>(context,listen: true).listregoin;
+  print("build regoin combox"+regoinllist.length.toString());
+
+  WidgetsBinding.instance?.addPostFrameCallback((_) {
+
+ });
+  print("build after regoin combox"+regoinllist.length.toString());
+
+  //  return  Consumer<regoin_vm>(
+  //      builder: (context,regoinllist,child){
+         //regoinllist=  context.read<regoin_vm>();
+     if(regoinllist.isEmpty)
        return  Text("لا يوجد بيانات");
      else{
    return Container(
      child:DropdownButton(
        isExpanded: true,
        hint: Text("حددالمنطقة"),
-       items: regoinllist.listregoin.map((level_one){
+       items: regoinllist.map((level_one){
          return DropdownMenuItem(
 
            child: Text(level_one.name_regoin), //label of item
@@ -79,7 +92,7 @@ class _RegoinComboxState extends State<RegoinCombox> {
 
 
    );}
-       });
+      // });
    //return Text("error");
  }
 }

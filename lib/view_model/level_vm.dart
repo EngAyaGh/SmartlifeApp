@@ -14,6 +14,12 @@ class level_vm extends ChangeNotifier{
     selectedValueLevel=val;
     notifyListeners();
   }
+  void clearvalues(){
+    listoflevel=[];
+    selectedValueLevel=null;
+    notifyListeners();
+
+  }
   Future<void> getlevel()async {
     //listoflevel=[];
     List<dynamic> data=[];

@@ -18,14 +18,23 @@ class levelCombox extends StatefulWidget {
 
 
 class _levelComboxState extends State<levelCombox> {
+
   @override
 void initState()  {
 
-    // Provider.of<level_vm>(context,listen: false).listoflevel;
 
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-
+      // _list  =Provider.of<level_vm>(context,listen: true);
+      // Provider.of<level_vm>(context,listen: false).changeVal(null);
+      // Provider.of<level_vm>(context,listen: false).listoflevel=[];
+      Provider.of<level_vm>(context,listen: false).clearvalues();
       Provider.of<level_vm>(context,listen: false).getlevel();
+
+      Provider.of<level_vm>(context,listen: false).changeVal(widget.selected);
+
+      print("init level combox");
+
+
     });
   super.initState();
 
@@ -38,13 +47,13 @@ void initState()  {
   @override
   Widget build(BuildContext context) {
 
-      print("init level combox");
-      print( Provider.of<level_vm>(context,listen: false).selectedValueLevel);
+      //print( Provider.of<level_vm>(context,listen: false).selectedValueLevel);
 
   return
       Padding(
           padding: const EdgeInsets.all(10),
-          child: _levelcombo(context)
+          child:
+          _levelcombo(context)
           // (data !=null)?
           // ( (data as  List<LevelModel>).isEmpty ? Text("لا يوجد بيانات")
           //     :  _levelcombo(context))
@@ -56,40 +65,50 @@ void initState()  {
 
   Widget _levelcombo(context) {
 
-    //List<LevelModel> _list=Provider.of<level_vm>(context,listen: true).listoflevel;
+    List<LevelModel> _list=[];
+
     print("build combox level");
+    _list  =Provider.of<level_vm>(context,listen: true).listoflevel;
 
-    return  Consumer<level_vm>(
-        builder: (context,levellist,child){
-      if(levellist.listoflevel.isEmpty)
-        return  Text("لا يوجد بيانات");
-      else{
-        print("inside else");
-        print( Provider.of<level_vm>(context,listen: false).selectedValueLevel);
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
 
-        return Container(
-        child:DropdownButton(
+    });
+
+    if (_list.isEmpty)
+      return Text("لا يوجد بيانات");
+    else {
+      print("inside else");
+      //print(Provider.of<level_vm>(context, listen: false).selectedValueLevel);
+
+      return Container(
+        child: DropdownButton(
           isExpanded: true,
           hint: Text("حدد الصلاحية"),
-          items: levellist.listoflevel.map((level_one) {
+          items: _list.map((level_one) {
             return DropdownMenuItem(
               child: Text(level_one.nameLevel), //label of item
               value: level_one.idLevel.toString(), //value of item
             );
           }).toList(),
-          value:  Provider.of<level_vm>(context,listen: false).selectedValueLevel, //select_dataItem!.idCountry ,
-          onChanged:(value){
-
-            Provider.of<level_vm>(context,listen: false).changeVal(value.toString());
-            print(Provider.of<level_vm>(context,listen: false).selectedValueLevel);
+          value:
+          //_list!.selectedValueLevel.toString(),
+          Provider.of<level_vm>(context, listen: false).selectedValueLevel,
+          //select_dataItem!.idCountry ,
+          onChanged: (value) {
+            Provider.of<level_vm>(context, listen: false).changeVal(value.toString());
+            //_list!.changeVal(value.toString());
+            //print(Provider.of<level_vm>(context, listen: false).selectedValueLevel);
           },
         ),
 
 
       );
+    }
+      // Consumer<level_vm>(
+      //   builder: (context, levellist, child) {
 
-      }
-    });
+
+      //  });
      //return Text("error");
   }
 }
