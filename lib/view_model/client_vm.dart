@@ -24,6 +24,10 @@ class client_vm extends ChangeNotifier {
     listClientbyCurrentUser = await ClientService().getClientbyuser(fk_user);
     notifyListeners();
   }
+  Future<void> getclientByRegoin(String fk_user) async {
+    listClientbyCurrentUser = await ClientService().getClientbyuser(fk_user);
+    notifyListeners();
+  }
 
   Future<String> addclient_vm(Map<String, dynamic?> body) async {
     String res = await ClientService().addClient(body);

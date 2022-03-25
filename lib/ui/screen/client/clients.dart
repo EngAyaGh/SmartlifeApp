@@ -2,18 +2,23 @@ import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/widgets/bottomnavigatorbar.dart';
 import 'package:crm_smart/ui/widgets/tabar.dart';
 import 'package:crm_smart/ui/widgets/tabview.dart';
+import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../constants.dart';
 import 'addClient.dart';
+import 'package:get/get.dart';
 
 class client_dashboard extends StatefulWidget {
-  const client_dashboard({Key? key}) : super(key: key);
+   client_dashboard({Key? key}) : super(key: key);
+
 
   @override
   State<StatefulWidget> createState() => _client_dashboard();
 }
   class _client_dashboard extends State<client_dashboard> with TickerProviderStateMixin{
+    final controllerUsers = Get.find<AllUserVMController>();
 
     Widget _switchcaseBody(int _selectedIndex){
       var _selectedView;
@@ -55,10 +60,17 @@ class client_dashboard extends StatefulWidget {
   }
 
     @override
+    void initState()  {
+      super.initState();
+  }
+    @override
     Widget build(BuildContext context) {
-      print('build tabbar');
-      int _tabBarIndex = 0;
-      TabController _tabcontroller=TabController(length: 2, vsync: this);
+      controllerUsers.getcurrentUser();
+
+      print(controllerUsers.currentUser.value.idUser);
+     print('build tabbar');
+     int _tabBarIndex = 0;
+     TabController _tabcontroller=TabController(length: 2, vsync: this);
       return DefaultTabController(
       length: 2,
       child:Scaffold(
@@ -123,7 +135,7 @@ class client_dashboard extends StatefulWidget {
             Container(
               margin: EdgeInsets.only(bottom: 1),
               padding: const EdgeInsets.all(20),
-              height: MediaQuery.of(context).size.height*0.6,
+              height: MediaQuery.of(context).size.height*0.9,
               child: TabBarView(
                 controller: _tabcontroller,
                 children: <Widget>[
@@ -136,7 +148,7 @@ class client_dashboard extends StatefulWidget {
 
           ],
         ),
-      //  appBar: _switchcaseAppBar(0),
+       //  appBar: _switchcaseAppBar(0),
 
        // body:_switchcaseBody(0),
         floatingActionButton: FloatingActionButton(

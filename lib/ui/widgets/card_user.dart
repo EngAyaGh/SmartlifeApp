@@ -17,8 +17,7 @@ class CardUsers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-          () {
+    return Obx( () {
         if (controllerUsers.isLoading.value) {
           return const Center(
             child: CircularProgressIndicator(
@@ -49,7 +48,7 @@ class CardUsers extends StatelessWidget {
                       Get.to(() => UserScreen(
                         // userModel: controllerUsers.usersList[index],
                         index: index,
-                      )
+                      ),
                       );
                     });
               },

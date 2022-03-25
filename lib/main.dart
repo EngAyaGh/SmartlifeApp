@@ -16,6 +16,7 @@ import 'package:crm_smart/ui/screen/user/alluser.dart';
 import 'package:crm_smart/ui/test.dart';
 import 'package:crm_smart/ui/test2.dart';
 import 'package:crm_smart/ui/widgets/levelcombox.dart';
+import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
@@ -44,6 +45,7 @@ void main() async{
         ChangeNotifierProvider<LoadProvider>(create: (_) => LoadProvider()),
         ChangeNotifierProvider<product_vm>(create: (_) => product_vm()),
         ChangeNotifierProvider<manage_provider>(create: (_) => manage_provider()),
+        ChangeNotifierProvider<client_vm>(create: (_) => client_vm()),
 
   ], child:MyApp()));
 }
@@ -66,7 +68,8 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             );
-          } else {
+          }
+          else {
             isUserLoggedIn =
                 snapshot.data!.getBool(kKeepMeLoggedIn) ?? false;
 
@@ -74,13 +77,13 @@ class MyApp extends StatelessWidget {
               GetMaterialApp(
                 initialRoute: Routes.allClientUser,
                 getPages: AppRoutes.routes,
-                home:
+                home:client_dashboard(),
                 //main_page(),
 
-                Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: isUserLoggedIn ? client_dashboard():client_dashboard(),
-                ),
+                // Directionality(
+                //   textDirection: TextDirection.rtl,
+                //   child: isUserLoggedIn ? client_dashboard():client_dashboard(),
+                // ),
 
                   debugShowCheckedModeBanner: false,
                   title: 'Flutter Demo',

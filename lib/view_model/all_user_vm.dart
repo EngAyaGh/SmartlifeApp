@@ -27,6 +27,7 @@ class AllUserVMController extends GetxController {
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? id =preferences.getString('id_user');
+    print("in get user");
     print(usersList[0].nameUser);
     final index=usersList.indexWhere((element) => element.idUser=="1");
 
@@ -35,6 +36,7 @@ class AllUserVMController extends GetxController {
   }
   void getUsers() async {
     var users = await UserService().usersServices();
+    print("in getuser getx");
     try {
       isLoading(true);
       if (users.isNotEmpty) {

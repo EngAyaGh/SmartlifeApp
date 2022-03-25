@@ -54,9 +54,9 @@ class ClientService{
     return prodlist;
   }
   //
-  Future<List<ClientModel>> getAllProductById(int idclient) async {
+  Future<List<ClientModel>> getAllClientByRegoin(String regoin) async {
     List<dynamic> data = await Api()
-        .get(url:url+ 'products/getProductById.php?idproduct=$idclient');
+        .get(url:url+ 'client/getclientByRegoin.php?fk_regoin=$regoin');
 
     List<ClientModel> prodlist = [];
 

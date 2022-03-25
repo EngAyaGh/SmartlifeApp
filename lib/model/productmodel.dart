@@ -1,4 +1,5 @@
 class ProductModel {
+
   ProductModel({
     this.idProduct,
     required this.nameProduct,

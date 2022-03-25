@@ -31,7 +31,8 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-            () {return Scaffold(
+            () {
+              return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         actions: [
