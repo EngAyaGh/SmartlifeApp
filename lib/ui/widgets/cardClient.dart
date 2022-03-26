@@ -110,7 +110,7 @@ class cardClient extends StatelessWidget {
                                     child:
                                     Row(
                                       children: [
-                                        Text(itemClient.nameRegoin.toString(),
+                                        Text(itemClient.name_regoin.toString(),
                                           style: TextStyle(
                                               fontFamily: kfontfamily2),),
 
@@ -133,7 +133,7 @@ class cardClient extends StatelessWidget {
                                   children: [
                                     Text(itemClient.nameUser.toString(),
                                       style: TextStyle(
-                                          fontFamily: kfontfamily3),),
+                                          fontFamily: kfontfamily3 ),),
                                     Text('  موظف المبيعات', style: TextStyle(
                                         fontFamily: kfontfamily3),),
                                   ],

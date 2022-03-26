@@ -211,8 +211,7 @@ key: _scaffoldKey,
                                 'priceProduct': price.toString(),
                                 'type': valtype_product.toString(),
                                 'fk_country': idCountry,
-                                'fk_config':
-                                    valtaxrate ? taxrate.id_config : "null",
+                                'fk_config': valtaxrate ? taxrate.id_config : "null",
                                 "value_config":valtaxrate ?taxrate.value_config:"null"
                                 //
                               }).then((value) => value!="false"

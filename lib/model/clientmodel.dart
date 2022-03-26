@@ -16,7 +16,7 @@ class ClientModel {
      this.reasonChange,
      this.reasonTransfer,
      this.nameCountry,
-     this.nameRegoin,
+
      this.nameUser,
     this.name_regoin,
   });
@@ -36,7 +36,7 @@ class ClientModel {
   late final String? reasonChange;
   late final String? reasonTransfer;
   late final String? nameCountry;
-  late final String? nameRegoin;
+
   late final String? nameUser;
   late final String? name_regoin;
 
@@ -57,7 +57,6 @@ class ClientModel {
     reasonChange = json['reason_change'];
     reasonTransfer = json['reason_transfer'];
     nameCountry = json['nameCountry'];
-    nameRegoin = json['name_regoin'];
     nameUser = json['nameUser'];
     name_regoin = json['name_regoin'];
   }
@@ -80,7 +79,7 @@ class ClientModel {
     _data['reason_change'] = reasonChange;
     _data['reason_transfer'] = reasonTransfer;
     _data['nameCountry'] = nameCountry;
-    _data['name_regoin'] = nameRegoin;
+    _data['name_regoin'] = name_regoin;
     _data['nameUser'] = nameUser;
     return _data;
   }

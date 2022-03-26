@@ -176,23 +176,32 @@ class addClient extends StatelessWidget {
                         if (_globalKey.currentState!.validate()) {
                           _globalKey.currentState!.save();
 
-                          Provider.of<client_vm>(context,listen: false).addclient_vm(
-                            {
+                          Provider.of<client_vm>(context,listen: false)
+                              .addclient_vm( {
                               'name_client': nameclientController.text,
                               'name_enterprise': nameEnterpriseController.text,
                               'type_job':typejobController.text,
                               'city': cityController.text,
-                              'location':locationController.text,
-                              "fk_regoin":controllerUsers.currentUser.value.fkRegoin,
+                              'location':locationController.text==null?"null":locationController.text,
+                              "fk_regoin":controllerUsers.currentUser.value.fkRegoin==null?"null":controllerUsers.currentUser.value.fkRegoin,
                               //"date_create": ,
                               "type_client":"تفاوض",
                               "fk_user":controllerUsers.currentUser.value.idUser,
-                             // "date_transfer":,
+                              // "date_transfer":,
                               "mobile":mobileController.text,
                               //"date_changetype":,
-
-
-                            }
+                            },controllerUsers.currentUser.value.nameUser.toString(),
+                              controllerUsers.currentUser.value.nameRegoin.toString()
+                          ).then((value) => value!="false"
+                              ? clear(context)
+                              : error()
+                            // Fluttertoast.showToast(
+                            //  backgroundColor:
+                            //      Colors.lightBlueAccent,
+                            //  msg: label_errorAddProd, // message
+                            //  toastLength:
+                            //      Toast.LENGTH_SHORT, // length
+                            //  gravity: ToastGravity.CENTER, //
                           );
 
                         }
@@ -206,5 +215,26 @@ class addClient extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  clear(BuildContext context) {
+
+    nameEnterpriseController.text="";
+    nameclientController.text="";
+    locationController.text="";
+    mobileController.text="";
+    cityController.text="";
+    typejobController.text="";
+    _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(content: Text(label_Addeduser))
+    );
+    print("succ");
+  }
+
+  error() {
+    _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(content: Text(label_errorAddProd))
+    );
+    print("error");
   }
 }

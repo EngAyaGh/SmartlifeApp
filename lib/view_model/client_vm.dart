@@ -29,10 +29,16 @@ class client_vm extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> addclient_vm(Map<String, dynamic?> body) async {
+  Future<String> addclient_vm(Map<String, dynamic?> body,String username,String regoin) async {
     String res = await ClientService().addClient(body);
     if (res!="false") {
-      listClient.insert(0, ClientModel.fromJson(body));
+      body.addAll({
+        'id_clients':res,
+        'nameUser':username,
+        'name_regoin':regoin
+      });
+
+      listClientbyCurrentUser.insert(0, ClientModel.fromJson(body));
       notifyListeners();
     }
     return res;

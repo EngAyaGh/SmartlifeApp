@@ -13,8 +13,10 @@ class ClientService{
       String result = await Api()
           .post( url:url+"client/clientAdd.php",
           body: body);
+      print(result);
       return result !="error"? result:"false";}
     catch(e){
+      print(e);
       return "false";
     }
   }
