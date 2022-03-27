@@ -21,16 +21,23 @@ import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'binding/binding.dart';
 import 'constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  // void main() async {
+  //   //WidgetsFlutterBinding.ensureInitialized(); // uncomment if needed for resource initialization
+  //   GlobalBindings().dependencies();
+  //   runApp(MyApp());
+  // }
   //await Firebase.initializeApp();
   runApp(
       MultiProvider(providers: [
@@ -46,6 +53,7 @@ void main() async{
         ChangeNotifierProvider<product_vm>(create: (_) => product_vm()),
         ChangeNotifierProvider<manage_provider>(create: (_) => manage_provider()),
         ChangeNotifierProvider<client_vm>(create: (_) => client_vm()),
+        ChangeNotifierProvider<user_vm_provider>(create: (_) => user_vm_provider()),
 
   ], child:MyApp()));
 }
@@ -75,6 +83,7 @@ class MyApp extends StatelessWidget {
 
             return
               GetMaterialApp(
+                //initialBinding: UserBinding(),
                 initialRoute: Routes.allClientUser,
                 getPages: AppRoutes.routes,
                 home:client_dashboard(),

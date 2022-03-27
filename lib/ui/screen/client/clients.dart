@@ -18,7 +18,7 @@ class client_dashboard extends StatefulWidget {
   State<StatefulWidget> createState() => _client_dashboard();
 }
   class _client_dashboard extends State<client_dashboard> with TickerProviderStateMixin{
-    final controllerUsers = Get.find<AllUserVMController>();
+  //  final controllerUsers = Get.find<AllUserVMController>();
 
     Widget _switchcaseBody(int _selectedIndex){
       var _selectedView;
@@ -61,14 +61,15 @@ class client_dashboard extends StatefulWidget {
 
     @override
     void initState()  {
+
+      print("init tabbar");
       super.initState();
   }
     @override
     Widget build(BuildContext context) {
-      controllerUsers.getcurrentUser();
 
-      print(controllerUsers.currentUser.value.idUser);
-     print('build tabbar');
+
+      //print('build tabbar '+controllerUsers.currentUser.value.idUser.toString());
      int _tabBarIndex = 0;
      TabController _tabcontroller=TabController(length: 2, vsync: this);
       return DefaultTabController(

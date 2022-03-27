@@ -8,8 +8,9 @@ import 'package:provider/provider.dart';
 import '../../constants.dart';
 
 class CardProduct extends StatelessWidget {
-   CardProduct( {required this.itemProd, Key? key}) : super(key: key);
+   CardProduct( {required this.itemProd,required this.scaffoldKey, Key? key}) : super(key: key);
   ProductModel itemProd;
+   final GlobalKey<ScaffoldState> scaffoldKey;
   @override
   Widget build(BuildContext context) {
 
@@ -99,7 +100,22 @@ class CardProduct extends StatelessWidget {
                                   //onPressed: BOOKMARK,
                                 ),
                                 new IconButton(
-                                  icon: Icon(Icons.delete), onPressed: () {  },
+
+                                  icon: Icon(Icons.delete), onPressed: () async {
+
+                                  String res =await Provider.of<product_vm>(context).deleteProduct(itemProd.idProduct);
+                                    if(res=="remove error")
+                                      scaffoldKey.currentState!.showSnackBar(
+                                          SnackBar(content: Text("لا يمكن حذف هذا المنتج"))
+                                      );
+                                    else{
+                                      if(res!='error')
+                                        scaffoldKey.currentState!.showSnackBar(
+                                            SnackBar(content: Text("تم الحذف بنجاح"))
+                                        );
+                                    }
+
+                                },
                                   //onPressed: COPY,
                                 ),
                               ],

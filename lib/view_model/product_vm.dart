@@ -35,10 +35,22 @@ class product_vm extends ChangeNotifier {
     }
     return res;
   }
+  Future<String> deleteProduct(String? id_product) async {
+    String res = await ProductService().deleteProductById(id_product!);
+
+      if(res=="done"){
+        final index=listProduct.indexWhere((element) => element.idProduct==id_product);
+        listProduct.removeAt(index);
+        notifyListeners();
+
+    }
+    return res;
+    }
+
+  }
 
 
 
-}
 
 
 

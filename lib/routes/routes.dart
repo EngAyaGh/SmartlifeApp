@@ -24,9 +24,9 @@ class AppRoutes {
     GetPage(name:  Routes.login, page: () =>  login()),
 
     GetPage(name:  Routes.allClientUser, page: () =>  client_dashboard(),
-      bindings: [
-        UserBinding(),
-      ],
+      // bindings: [
+      //   UserBinding(),
+      // ],
     ),
     GetPage(name:  Routes.tabclients, page: () =>  tabclients(),
       bindings: [

@@ -18,7 +18,9 @@ class ProductView extends StatefulWidget {
 }
 
 class _ProductViewState extends State<ProductView> {
- bool _isLoading=true;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  bool _isLoading=true;
  List<ProductModel> _listProd=[];
 @override
 void initState() {
@@ -33,6 +35,7 @@ void initState() {
     _isLoading =_listProd.isEmpty?false:false;
     print(_listProd);
     return Scaffold(
+      key: _scaffoldKey,
       floatingActionButton:FloatingActionButton(
         backgroundColor: kMainColor,
         onPressed: () {
@@ -58,7 +61,7 @@ void initState() {
             separatorBuilder: (BuildContext context, int index) => const Divider(),
             itemBuilder: (BuildContext context, int index)=>
                 Builder(builder:
-                    (context)=>CardProduct( itemProd: _listProd[index],)) ,
+                    (context)=>CardProduct( itemProd: _listProd[index],scaffoldKey: _scaffoldKey)) ,
             //     _listProd.map(
             //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
             // ).toList(),

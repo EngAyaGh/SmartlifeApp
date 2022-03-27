@@ -24,26 +24,30 @@ class AllUserVMController extends GetxController {
     //getcurrentUser();
   }
   Future<void> getcurrentUser() async {
+try {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  String? id = preferences.getString('id_user');
+  print("in get user" + usersList[0].nameUser.toString());
 
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String? id =preferences.getString('id_user');
-    print("in get user");
-    print(usersList[0].nameUser);
-    final index=usersList.indexWhere((element) => element.idUser=="1");
+  final index = usersList.indexWhere((element) => element.idUser == "1");
 
-    currentUser.value=  usersList[index].obs.value;
-
+  currentUser.value = usersList[index].obs.value;
+}
+catch(e){print('exp error is '+e.toString());}
   }
   void getUsers() async {
-    var users = await UserService().usersServices();
-    print("in getuser getx");
+
     try {
+      var users = await UserService().usersServices();
+      print("in getAlluser getx");
       isLoading(true);
       if (users.isNotEmpty) {
         usersList.addAll(users);
       }
-    } finally {
+    } catch(e){print('exp error in get all user is '+e.toString());}
+    finally {
       isLoading(false);
     }
+
   }
 }

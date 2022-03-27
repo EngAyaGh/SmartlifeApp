@@ -14,18 +14,19 @@ import 'country_vm.dart';
 class client_vm extends ChangeNotifier {
   List<ClientModel> listClient = [];
   List<ClientModel> listClientbyCurrentUser = [];
+  List<ClientModel> listClientbyRegoin = [];
 
   Future<void> getclient_vm() async {
     listClient = await ClientService().getAllClient();
 
     notifyListeners();
   }
-  Future<void> getclientByIdUser_vm(String fk_user) async {
-    listClientbyCurrentUser = await ClientService().getClientbyuser(fk_user);
+  Future<void> getclientByIdUser_vm(String? fk_user) async {
+    listClientbyCurrentUser = await ClientService().getClientbyuser(fk_user!);
     notifyListeners();
   }
   Future<void> getclientByRegoin(String fk_user) async {
-    listClientbyCurrentUser = await ClientService().getClientbyuser(fk_user);
+    listClientbyRegoin = await ClientService().getAllClientByRegoin(fk_user);
     notifyListeners();
   }
 

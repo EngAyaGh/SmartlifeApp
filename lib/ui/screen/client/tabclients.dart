@@ -1,8 +1,12 @@
+import 'dart:html';
+
 import 'package:crm_smart/model/clientmodel.dart';
+import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/ui/widgets/cardClient.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -16,37 +20,55 @@ class tabclients extends StatefulWidget {
 }
 
 class _tabclientsState extends State<tabclients> {
-   final controllerUsers = Get.find<AllUserVMController>();
-
+  // final controllerUsers = Get.find<AllUserVMController>();
    List<ClientModel> _list=[];
-
+   String? iduser;
    bool _isLoading=true;
    @override
    void initState()  {
-     Provider.of<client_vm>(context,listen: false)
-         .getclientByIdUser_vm(
-         controllerUsers.currentUser.value.idUser.toString()
-     );
-     // WidgetsBinding.instance?.addPostFrameCallback((_) {
-     //
-     // });
-     super.initState();
+
+      // WidgetsBinding.instance?.addPostFrameCallback((_) {
+      // Provider.of<user_vm_provider>(context,listen: false).getclient_vm();
+       Provider.of<user_vm_provider>(context,listen: false).getcurrentuser();
+      // WidgetsBinding.instance?.addPostFrameCallback((_) {
+       UserModel? us = Provider
+             .of<user_vm_provider>(context, listen: false).currentUser;
+         iduser = us!.idUser.toString();
+
+         print("init tabview " + iduser.toString());
+
+      // iduser!=null?
+       Provider.of<client_vm>(context, listen: false)
+             .getclientByIdUser_vm(iduser.toString());
+       //:_isLoading=true;
+      // });
+       super.initState();
+
+   // });
+    // print( controllerUsers.currentUser.value.idUser);
    }
+
   @override
   Widget build(BuildContext context) {
-    Provider.of<client_vm>(context,listen: false)
-        .getclientByIdUser_vm(
-        controllerUsers.currentUser.value.idUser.toString()
-    );
-    //controllerUsers.getcurrentUser();
-    print("build sd");
-    //print(controllerUsers.currentUser.value.idUser.toString());
-  //.then((value) => _isLoading=false);
 
-    // WidgetsBinding.instance?.addPostFrameCallback((_) {
-    // });
-    _list=(context).read<client_vm>().listClientbyCurrentUser;
-    _isLoading =_list.isEmpty?false:false;
+      _list=Provider.of<client_vm>(context,listen: true).listClientbyCurrentUser;
+
+    //});
+//
+// controllerUsers.getcurrentUser();
+// Provider.of<client_vm>(context,listen: false)
+//     .getclientByIdUser_vm(
+//     controllerUsers.currentUser.value.idUser.toString()
+// );
+// _list=(context).read<client_vm>().listClientbyCurrentUser;
+// _isLoading =_list.isEmpty?true:false;
+//
+    //_list=(context).read<client_vm>().listClientbyCurrentUser;
+    _isLoading =_list.isEmpty||_list==null ?true:false;
+  // setState(() {
+  //
+  // });
+
 
     print('build tabview');
     return Scaffold(

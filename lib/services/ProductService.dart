@@ -37,7 +37,7 @@ try{
     print(prodlist);
     return prodlist;
   }
-  Future<List<ProductModel>> getAllProductById(int idproduct) async {
+  Future<List<ProductModel>> getAllProductById(String idproduct) async {
     List<dynamic> data = await Api()
         .get(url:url+ 'products/getProductById.php?idproduct=$idproduct');
 
@@ -47,5 +47,10 @@ try{
       prodlist.add(ProductModel.fromJson(data[i]));
     }
     return prodlist;
+  }
+  Future<String> deleteProductById(String idproduct) async {
+   String res= await Api()
+        .get(url:url+ 'products/deleteProduct.php?fk_product=$idproduct');
+   return res;
   }
 }

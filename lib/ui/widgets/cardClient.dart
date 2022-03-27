@@ -14,11 +14,11 @@ import 'package:get/get.dart';
 class cardClient extends StatelessWidget {
   cardClient({Key? key,required this.itemClient}) : super(key: key);
   ClientModel itemClient;
-  final controllerUsers = Get.find<AllUserVMController>();
+  //final controllerUsers = Get.find<AllUserVMController>();
 
   @override
   Widget build(BuildContext context) {
-    //controllerUsers.getcurrentUser();
+   // controllerUsers.getcurrentUser();
 
     //return Obx( () {
       return Container(
