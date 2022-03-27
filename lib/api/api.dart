@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -16,8 +15,7 @@ class Api {
     if (json.decode(response.body)["code"] == "200") {
       return jsonDecode(response.body)["message"];
     } else {
-      throw Exception(
-          '${json.decode(response.body)["code"] == "200"}');
+      throw Exception('${json.decode(response.body)["code"] == "200"}');
     }
   }
 
@@ -37,10 +35,10 @@ class Api {
       headers: headers,
     );
 
-    String result= response.body;
+    String result = response.body;
     int idx = result.indexOf("{");
-    int length=result.length;
-    result=result.substring(idx,length);
+    int length = result.length;
+    result = result.substring(idx, length);
     print(result);
     print(json.decode(result)["code"]);
     if (json.decode(result)["code"] == "200") {
@@ -52,9 +50,7 @@ class Api {
       //print("in json data is $data");
       return jsonDecode(result)["message"];
     } else {
-      throw Exception(
-          '${json.decode(result)["message"]}');
+      throw Exception('${json.decode(result)["message"]}');
     }
-
   }
 }

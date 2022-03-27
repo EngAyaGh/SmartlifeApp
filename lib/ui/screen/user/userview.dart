@@ -1,6 +1,3 @@
-
-
-
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/ui/widgets/row_widget.dart';
 import 'package:crm_smart/ui/widgets/text_uitil.dart';
@@ -18,7 +15,7 @@ class UserScreen extends StatelessWidget {
   //final UserModel userModel;
   final int index;
   UserScreen({
-  //  required this.userModel,
+    //  required this.userModel,
     required this.index,
     Key? key,
   }) : super(key: key);
@@ -30,54 +27,78 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-            () {return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {
-                Get.to(() => EditUser(
-                  index: index,
-                 //userModel: controllerUsers.usersList[index],
-                ));
-              },
-              icon: const Icon(Icons.edit)),
-        ],
-        title: TextUtilis(
-          color: Colors.white,
-          fontSize: 35,
-          fontWeight: FontWeight.bold,
-          textstring: controllerUsers.usersList[index].nameUser.toString(),
-          underline: TextDecoration.none,
-        ),
-        backgroundColor: kMainColor,
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: Column(
-        children: [
-          imageProfile(context),
-          Expanded(
-            child: info(),
-            // child: ListView.separated(
-            //   controller: scrollController,
-            //   itemCount: 6,
-            //   separatorBuilder: (context, index) => const Padding(
-            //     padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-            //     child: Divider(
-            //       color: Colors.grey,
-            //       thickness: 1,
-            //     ),
-            //   ),
-            //   itemBuilder: (context, index) {
-            //      return infoUser(name: userModel.nameUser.toString());
-            //   },
-            // ),
+    return Obx(() {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Get.to(() => EditUser(
+                        index: index,
+                        //userModel: controllerUsers.usersList[index],
+                      ));
+                },
+                icon: const Icon(Icons.edit)),
+          ],
+          title: TextUtilis(
+            color: Colors.white,
+            fontSize: 35,
+            fontWeight: FontWeight.bold,
+            textstring: controllerUsers.usersList[index].nameUser.toString(),
+            underline: TextDecoration.none,
           ),
-        ],
-      ),
-    );});
+          backgroundColor: kMainColor,
+          centerTitle: true,
+          elevation: 0,
+        ),
+        body: Center(
+          child: Container(
+            margin: EdgeInsets.only(left: 30, right: 30),
+            width: double.infinity,
+            height: 400,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 3,
+                  blurRadius: 5,
+                ),
+              ],
+            ),
+            child: Center(
+              child: Directionality(
+                textDirection: TextDirection.rtl,
+                child: Column(
+                  children: [
+                    imageProfile(context),
+                    Expanded(
+                      child: info(),
+                      // child: ListView.separated(
+                      //   controller: scrollController,
+                      //   itemCount: 6,
+                      //   separatorBuilder: (context, index) => const Padding(
+                      //     padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                      //     child: Divider(
+                      //       color: Colors.grey,
+                      //       thickness: 1,
+                      //     ),
+                      //   ),
+                      //   itemBuilder: (context, index) {
+                      //      return infoUser(name: userModel.nameUser.toString());
+                      //   },
+                      // ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    });
   }
 
   Widget imageProfile(context) {
@@ -212,7 +233,10 @@ class UserScreen extends StatelessWidget {
           ),
           RowWidget(
             name: 'Region',
-            des: controllerUsers.usersList[index].nameRegoin.toString()=="null"?"":controllerUsers.usersList[index].nameRegoin.toString(),
+            des:
+                controllerUsers.usersList[index].nameRegoin.toString() == "null"
+                    ? ""
+                    : controllerUsers.usersList[index].nameRegoin.toString(),
           ),
           RowWidget(
             name: 'Level',
@@ -258,13 +282,15 @@ class UserScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () async {
-                  controllerUser.onPressPhone(controllerUsers.usersList[index].mobile.toString());
+                  controllerUser.onPressPhone(
+                      controllerUsers.usersList[index].mobile.toString());
                 },
                 child: TextUtilis(
-                  color:kMainColor,
+                  color: kMainColor,
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
-                  textstring: controllerUsers.usersList[index].mobile.toString(),
+                  textstring:
+                      controllerUsers.usersList[index].mobile.toString(),
                   underline: TextDecoration.none,
                 ),
               ),

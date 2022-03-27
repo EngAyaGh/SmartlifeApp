@@ -24,23 +24,17 @@ class product_vm extends ChangeNotifier {
     }
     return res;
   }
-  Future<bool> updateproduct_vm(Map<String, dynamic?> body,String id_product) async {
-    bool res = await ProductService().updateProduct(body,id_product);
+
+  Future<bool> updateproduct_vm(
+      Map<String, dynamic?> body, String id_product) async {
+    bool res = await ProductService().updateProduct(body, id_product);
     if (res) {
-      final index=listProduct.indexWhere((element) => element.idProduct==id_product);
-      listProduct[index]=ProductModel.fromJson(body);
+      final index =
+          listProduct.indexWhere((element) => element.idProduct == id_product);
+      listProduct[index] = ProductModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
     }
     return res;
   }
-
-
-
 }
-
-
-
-
-
-

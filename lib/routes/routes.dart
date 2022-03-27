@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:crm_smart/binding/binding.dart';
 import 'package:crm_smart/ui/screen/client/clients.dart';
 import 'package:crm_smart/ui/screen/login.dart';
@@ -15,14 +11,17 @@ class AppRoutes {
   //static const mainpage = Routes.mainpage;
 
   static final routes = [
-    GetPage(name:  Routes.mainpage, page: () => const main_page(),
+    GetPage(
+      name: Routes.mainpage,
+      page: () => const main_page(),
       bindings: [
-      UserBinding(),
-    ],),
-    GetPage(name:  Routes.login, page: () =>  login()),
-    GetPage(name:  Routes.allClientUser, page: () =>  client_dashboard()),
-    GetPage(name:  Routes.productview, page: () =>  ProductView()),
-    GetPage(name:  Routes.select_country, page: () =>  select_country()),
+        UserBinding(),
+      ],
+    ),
+    GetPage(name: Routes.login, page: () => login()),
+    GetPage(name: Routes.allClientUser, page: () => client_dashboard()),
+    GetPage(name: Routes.productview, page: () => ProductView()),
+    GetPage(name: Routes.select_country, page: () => select_country()),
     GetPage(
       name: Routes.allUserScreen,
       page: () => AllUserScreen(),
@@ -34,8 +33,6 @@ class AppRoutes {
 }
 
 class Routes {
-
-
   static const allUserScreen = '/allUserScreen';
   static const allClientUser = '/client_dashboard';
   static const userScreen = '/userScreen';

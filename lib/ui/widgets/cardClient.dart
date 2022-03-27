@@ -23,125 +23,149 @@ class cardClient extends StatelessWidget {
         ],
         color: Colors.white30,
       ),
-
       child: Center(
         child: InkWell(
           //splashColor: Colors.blue.withAlpha(30),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>Detail_Client()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Detail_Client()));
           },
           child: Container(
-            decoration:BoxDecoration(
+            decoration: BoxDecoration(
               color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(30)) ,),
+              borderRadius: BorderRadius.only(bottomRight: Radius.circular(30)),
+            ),
             height: 190,
             child: Padding(
               padding: EdgeInsets.all(12.0),
-              child: Flex(
-                direction: Axis.vertical,
-                children:[ 
-                  Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30, right: 40),
+                child: Flex(
+                  direction: Axis.vertical,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Column(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
                               children: [
-                                // CircleAvatar(
-                                //   radius: 40,
-                                //
-                                //  // backgroundImage:Image.asset('assest/images/logo.png',fit: BoxFit.fill,).image,
-                                // ),
-                                // Text('logo client'),
-                              ],
-                            ),
-                            //Spacer(flex: 200,),
-                            /*new ButtonBar(
-                          children: <Widget>[
-                        new IconButton(
-                          icon: Icon(Icons.tab), onPressed: () {  },
-                          //onPressed: REFRESH,
-                        ),
-                        new IconButton(
-                          icon: Icon(Icons.person, color: kMainColor,), onPressed: () {  },
-                          //onPressed: BOOKMARK,
-                        ),
-                        new IconButton(
-                          icon: Icon(Icons.content_copy), onPressed: () {  },
-                          //onPressed: COPY,
-                        ),
-                          ],
-                        )*/
-
-                          ],
-                        ),
-                        Column(
-                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Positioned(
-                                top: 100,
-                                left: 0
-                                ,right: 0,
-                                child: Text('المنطقة',style: TextStyle(fontFamily: kfontfamily2 ),)),
-                            Text('المدينة',style:TextStyle(fontFamily: kfontfamily2),),
-
-                            Text('موظف المبيعات',style:TextStyle(fontFamily: kfontfamily3),)
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text('حالة العميل',style: TextStyle(fontFamily: kfontfamily2),),
-
-                            ButtonBar(
-                              children: <Widget>[
-                                new IconButton(
-                                  icon: Icon(Icons.person), onPressed: () {  },
-                                  //onPressed: REFRESH,
+                                Column(
+                                  children: [
+                                    // CircleAvatar(
+                                    //   radius: 40,
+                                    //
+                                    //  // backgroundImage:Image.asset('assest/images/logo.png',fit: BoxFit.fill,).image,
+                                    // ),
+                                    // Text('logo client'),
+                                  ],
                                 ),
-
-
-                          ],
-                        ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton(style: ButtonStyle(backgroundColor:  MaterialStateProperty.all(kMainColor)),
-                                    onPressed: (){},
-                                    child: Text('Approve')),
+                                //Spacer(flex: 200,),
+                                /*new ButtonBar(
+                            children: <Widget>[
+                          new IconButton(
+                            icon: Icon(Icons.tab), onPressed: () {  },
+                            //onPressed: REFRESH,
+                          ),
+                          new IconButton(
+                            icon: Icon(Icons.person, color: kMainColor,), onPressed: () {  },
+                            //onPressed: BOOKMARK,
+                          ),
+                          new IconButton(
+                            icon: Icon(Icons.content_copy), onPressed: () {  },
+                            //onPressed: COPY,
+                          ),
+                            ],
+                          )*/
                               ],
                             ),
-                      ],)
-
+                            Column(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Positioned(
+                                    top: 100,
+                                    left: 0,
+                                    right: 0,
+                                    child: Text(
+                                      'المنطقة',
+                                      style:
+                                          TextStyle(fontFamily: kfontfamily2),
+                                    )),
+                                Text(
+                                  'المدينة',
+                                  style: TextStyle(fontFamily: kfontfamily2),
+                                ),
+                                Text(
+                                  'موظف المبيعات',
+                                  style: TextStyle(fontFamily: kfontfamily3),
+                                )
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'حالة العميل',
+                                  style: TextStyle(fontFamily: kfontfamily2),
+                                ),
+                                ButtonBar(
+                                  children: <Widget>[
+                                    new IconButton(
+                                      icon: Icon(Icons.person),
+                                      onPressed: () {},
+                                      //onPressed: REFRESH,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    kMainColor)),
+                                        onPressed: () {},
+                                        child: Text('Approve')),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    const MySeparator(color: Colors.grey),
+                    //for last line invoice
+                    Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        child: Row(
+                          //crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all(kMainColor)),
+                                onPressed: () {},
+                                child: Text('invoice')),
+                            Spacer(),
+                            Text('18/November/2021')
+                          ],
+                        ),
+                        height: 25),
                   ],
                 ),
-           ], ),
-                  SizedBox(height: 15,),
-                  const MySeparator(color: Colors.grey),
-                  Container(
-                    margin: const EdgeInsets.only(top: 10),
-                      child: Row(
-                        //crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(style: ButtonStyle(backgroundColor:  MaterialStateProperty.all(kMainColor)),
-                              onPressed: (){},
-                              child: Text('invoice')),
-                          Spacer(),
-                          Text('18/November/2021')
-                        ],
-                      ),
-
-                      height: 25),
-              ],),
+              ),
+            ),
           ),
         ),
-      ),),
+      ),
     );
   }
 }

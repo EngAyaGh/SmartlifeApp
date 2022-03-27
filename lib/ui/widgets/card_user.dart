@@ -1,5 +1,3 @@
-
-
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/ui/screen/user/userview.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
@@ -18,9 +16,10 @@ class CardUsers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-          () {
+      () {
         if (controllerUsers.isLoading.value) {
-          return const Center(
+          return Padding(
+            padding: const EdgeInsets.all(200),
             child: CircularProgressIndicator(
               color: kMainColor,
             ),
@@ -38,19 +37,18 @@ class CardUsers extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return buildCardUsers(
-                  email: controllerUsers.usersList[index].email.toString(),
+                    email: controllerUsers.usersList[index].email.toString(),
                     name: controllerUsers.usersList[index].nameUser.toString(),
                     typeAdministration: controllerUsers
                         .usersList[index].typeAdministration
                         .toString(),
                     image:
-                    'image   ...controllerUsers.usersList[index].toString()',
+                        'image   ...controllerUsers.usersList[index].toString()',
                     onTap: () {
                       Get.to(() => UserScreen(
-                        // userModel: controllerUsers.usersList[index],
-                        index: index,
-                      )
-                      );
+                            // userModel: controllerUsers.usersList[index],
+                            index: index,
+                          ));
                     });
               },
             ),
@@ -72,7 +70,6 @@ class CardUsers extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
-
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,
@@ -86,65 +83,69 @@ class CardUsers extends StatelessWidget {
           ),
           child: Padding(
             padding: EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius:2,
-                        blurRadius: 3,
-                      ),
-                    ],
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 2,
+                          blurRadius: 3,
+                        ),
+                      ],
+                    ),
+                    child: Icon(Icons.person),
+                    //Image.asset(kLogo), //Image.asset('assets\images\smartlife.jpeg'),
                   ),
-                  child:Icon(Icons.person),
-                  //Image.asset(kLogo), //Image.asset('assets\images\smartlife.jpeg'),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: TextUtilis(
-                    color: Colors.black,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    textstring: name,
-                    underline: TextDecoration.none,
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),    Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: TextUtilis(
-                    color: Colors.black,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    textstring: email,
-                    underline: TextDecoration.none,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: TextUtilis(
+                      color: Colors.black,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      textstring: name,
+                      underline: TextDecoration.none,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: TextUtilis(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.normal,
-                    textstring: typeAdministration,
-                    underline: TextDecoration.none,
+                  const SizedBox(
+                    height: 8,
                   ),
-                )
-              ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: TextUtilis(
+                      color: Colors.black,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      textstring: email,
+                      underline: TextDecoration.none,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: TextUtilis(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal,
+                      textstring: typeAdministration,
+                      underline: TextDecoration.none,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

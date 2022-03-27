@@ -38,144 +38,182 @@ class addClient extends StatelessWidget {
       body: ModalProgressHUD(
         inAsyncCall: Provider.of<LoadProvider>(context).isLoadingAddclient,
         child: SingleChildScrollView(
-          child: Form(
-            key: _globalKey,
+          child: Directionality(
+            textDirection: TextDirection.rtl,
             child: Padding(
-              padding: EdgeInsets.only(
-                  top: 10,
-                  right: 20,
-                  left:
-                      20), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
-              child: Column(
-                //textDirection: TextDirection.rtl,
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 40),
+              child: Form(
+                key: _globalKey,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: 10,
+                      right: 20,
+                      left:
+                          20), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+                  child: Column(
+                    //textDirection: TextDirection.rtl,
 
-                //crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RowEdit(name: label_clientname, des: 'required'),
-                  EditTextFormField(
-                    vaild: (value) {
-                      if (value!.isEmpty) {
-                        return label_empty;
-                      }
-                    },
-                    hintText: label_clientname,
-                    obscureText: false,
-                    controller: nameclientController,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  RowEdit(name: label_cliententerprise, des: 'required'),
-                  EditTextFormField(
-                    obscureText: false,
-                    hintText: label_cliententerprise,
-                    vaild: (value) {
-                      if (value!.isEmpty) {
-                        return label_empty;
-                      }
-                    },
-                    controller: nameController, //اسم المؤسسة
-                    //label: label_client,
-                    onChanged: (val) {
-                      // nameprod = val;
-                    },
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  RowEdit(name: label_client_typejob, des: 'Required'),
-                  EditTextFormField(
-                    hintText: label_client_typejob,
-                    obscureText: false,
-                    vaild: (value) {
-                      if (value!.isEmpty) {
-                        return label_empty;
-                      }
-                    },
-                    controller: typejobController, //اسم المؤسسة
-                    label: label_client_typejob,
-                    onChanged: (val) {
-                      // nameprod = val;
-                    },
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
+                    //crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RowEdit(name: label_clientname, des: 'required'),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      EditTextFormField(
+                        vaild: (value) {
+                          if (value!.isEmpty) {
+                            return label_empty;
+                          }
+                        },
+                        hintText: label_clientname,
+                        obscureText: false,
+                        controller: nameclientController,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
 
-                  //admin
-                  RowEdit(name: label_clientcity, des: 'Required'),
-                  EditTextFormField(
-                    vaild: (value) {
-                      if (value!.isEmpty) {
-                        return label_empty;
-                      }
-                    },
-                    hintText: label_clientcity,
-                    obscureText: false,
-                    controller: cityController,
-                  ),
-                  //manage
-                  SizedBox(
-                    height: 5,
-                  ),
-                  RowEdit(name: label_clientmobile, des: 'Required'),
-                  EditTextFormField(
-                    vaild: (value) {
-                      if (value!.isEmpty) {
-                        return label_empty;
-                      }
-                    },
-                    hintText: '+966000000000',
-                    obscureText: false,
-                    controller: mobileController,
-                  ),
-                  //RowEdit(name: 'Image', des: ''),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  RowEdit(name: label_clientlocation, des: ''),
-                  EditTextFormField(
-                    hintText: 'location',
-                    obscureText: false,
-                    controller: locationController,
-                  ),
-                  ////////////////////////////////////////////////
-                  SizedBox(
-                    height: 15,
-                  ),
-                  RowEdit(name: label_clientregoin, des: ''),
-                  EditTextFormField(
-                    obscureText: false,
-                    hintText: label_clientregoin,
-                    label: label_clientregoin,
-                    controller: regoinController,
-                  ),
-                  //show chose image
-                  SizedBox(
-                    height: 15,
-                  ),
-                  RowEdit(name: label_clientdate, des: ''),
+                      RowEdit(name: label_cliententerprise, des: 'required'),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      EditTextFormField(
+                        obscureText: false,
+                        hintText: label_cliententerprise,
+                        vaild: (value) {
+                          if (value!.isEmpty) {
+                            return label_empty;
+                          }
+                        },
+                        controller: nameController, //اسم المؤسسة
+                        //label: label_client,
+                        onChanged: (val) {
+                          // nameprod = val;
+                        },
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
 
-                  SizedBox(
-                    height: 15,
-                  ),
-                  RowEdit(name: label_clientnameuser, des: ''),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  RowEdit(name: label_clienttype, des: ''),
+                      RowEdit(name: label_client_typejob, des: 'Required'),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      EditTextFormField(
+                        hintText: label_client_typejob,
+                        obscureText: false,
+                        vaild: (value) {
+                          if (value!.isEmpty) {
+                            return label_empty;
+                          }
+                        },
+                        controller: typejobController, //اسم المؤسسة
+                        label: label_client_typejob,
+                        onChanged: (val) {
+                          // nameprod = val;
+                        },
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
 
-                  Center(
-                    child: TextButton(
-                      child: Text(label_clientadd),
-                      onPressed: () {
-                        if (_globalKey.currentState!.validate()) {
-                          _globalKey.currentState!.save();
-                        }
-                      },
-                    ),
-                  )
-                ],
+                      //admin
+                      RowEdit(name: label_clientcity, des: 'Required'),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      EditTextFormField(
+                        vaild: (value) {
+                          if (value!.isEmpty) {
+                            return label_empty;
+                          }
+                        },
+                        hintText: label_clientcity,
+                        obscureText: false,
+                        controller: cityController,
+                      ),
+                      //manage
+                      SizedBox(
+                        height: 15,
+                      ),
+
+                      RowEdit(name: label_clientmobile, des: 'Required'),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      EditTextFormField(
+                        vaild: (value) {
+                          if (value!.isEmpty) {
+                            return label_empty;
+                          }
+                        },
+                        hintText: '+966000000000',
+                        obscureText: false,
+                        controller: mobileController,
+                      ),
+                      //RowEdit(name: 'Image', des: ''),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      RowEdit(name: label_clientlocation, des: ''),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      EditTextFormField(
+                        hintText: 'location',
+                        obscureText: false,
+                        controller: locationController,
+                      ),
+                      ////////////////////////////////////////////////
+                      SizedBox(
+                        height: 15,
+                      ),
+                      RowEdit(name: label_clientregoin, des: ''),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      EditTextFormField(
+                        obscureText: false,
+                        hintText: label_clientregoin,
+                        label: label_clientregoin,
+                        controller: regoinController,
+                      ),
+                      //show chose image
+                      SizedBox(
+                        height: 15,
+                      ),
+                      RowEdit(name: label_clientdate, des: ''),
+
+                      SizedBox(
+                        height: 15,
+                      ),
+                      RowEdit(name: label_clientnameuser, des: ''),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      RowEdit(name: label_clienttype, des: ''),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Center(
+                        child: TextButton(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(kMainColor)),
+                          child: Text(
+                            label_clientadd,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () {
+                            if (_globalKey.currentState!.validate()) {
+                              _globalKey.currentState!.save();
+                            }
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
           ),

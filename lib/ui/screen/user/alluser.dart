@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:crm_smart/ui/widgets/card_user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,22 +12,24 @@ class AllUserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-      backgroundColor: kMainColor,
-      onPressed: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>addUser()));
-
-      },
-      tooltip: 'إضافة موظف',
-
-      child: Icon(Icons.add),
-    ),
+        backgroundColor: kMainColor,
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => addUser()));
+        },
+        tooltip: 'إضافة موظف',
+        child: Icon(Icons.add),
+      ),
       appBar: AppBar(
-        title: Text('الموظفين',style: TextStyle(color: kWhiteColor),),
+        title: Text(
+          'الموظفين',
+          style: TextStyle(color: kWhiteColor),
+        ),
+        centerTitle: true,
 
         //centerTitle: true,
       ),
       body: Column(
-
         children: [
           // const SizedBox(
           //   height: 20,

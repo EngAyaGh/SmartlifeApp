@@ -11,12 +11,12 @@ class ButtonGroup extends StatelessWidget {
   final Color? secondaryColor;
 
   const ButtonGroup({
-Key? key,
+    Key? key,
     this.titles,
     this.onTab,
-     current,
-     color,
-     secondaryColor,
+    current,
+    color,
+    secondaryColor,
   })  : assert(titles != null),
         current = current ?? 0,
         color = color ?? Colors.blue,
@@ -27,6 +27,7 @@ Key? key,
   Widget build(BuildContext context) {
     return Material(
       color: color,
+      elevation: 0,
       borderRadius: BorderRadius.circular(_radius),
       child: Padding(
         padding: const EdgeInsets.all(_outerPadding),
@@ -34,6 +35,7 @@ Key? key,
           borderRadius: BorderRadius.circular(_radius - _outerPadding),
           child: IntrinsicHeight(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: _buttonList(),
             ),
@@ -49,7 +51,7 @@ Key? key,
       buttons.add(_button(titles![i], i));
       buttons.add(
         VerticalDivider(
-          width: 1.0,
+          width: 2.0,
           color: (i == current || i + 1 == current) ? color : secondaryColor,
           thickness: 1.5,
           indent: 5.0,
@@ -69,26 +71,26 @@ Key? key,
   }
 
   Widget _activeButton(String title) => FlatButton(
-    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-    disabledColor: secondaryColor,
-    disabledTextColor: color,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.zero,
-    ),
-    child: Text(title),
-    onPressed: null,
-  );
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        disabledColor: secondaryColor,
+        disabledTextColor: color,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
+        ),
+        child: Text(title),
+        onPressed: null,
+      );
 
   Widget _inActiveButton(String title, int index) => FlatButton(
-    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-    color: Colors.transparent,
-    textColor: Colors.white,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.zero,
-    ),
-    child: Text(title),
-    onPressed: () {
-      if (onTab != null) onTab!(index);
-    },
-  );
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        color: Colors.transparent,
+        textColor: Colors.white,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
+        ),
+        child: Text(title),
+        onPressed: () {
+          if (onTab != null) onTab!(index);
+        },
+      );
 }
