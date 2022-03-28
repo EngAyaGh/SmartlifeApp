@@ -1,6 +1,7 @@
 import 'package:crm_smart/model/productmodel.dart';
 import 'package:crm_smart/ui/screen/product/dialog.dart';
 import 'package:crm_smart/ui/screen/product/editproduct.dart';
+import 'package:crm_smart/ui/widgets/text_form.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import '../../constants.dart';
 class CardProduct extends StatelessWidget {
   CardProduct({required this.itemProd, Key? key}) : super(key: key);
   ProductModel itemProd;
+
   @override
   Widget build(BuildContext context) {
     // return Container(
@@ -141,7 +143,10 @@ class CardProduct extends StatelessWidget {
                                     Icons.delete,
                                     color: Colors.black26,
                                   ),
-                                  onPressed: () => {}
+                                  onPressed: () => {
+                                        Provider.of<product_vm>(context)
+                                            .removeOneProduct(itemProd)
+                                      }
 
                                   //onPressed: COPY,
                                   ),

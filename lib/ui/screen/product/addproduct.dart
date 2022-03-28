@@ -11,6 +11,7 @@ import 'package:crm_smart/services/ProductService.dart';
 import 'package:crm_smart/ui/widgets/custombutton.dart';
 import 'package:crm_smart/ui/widgets/customformtext.dart';
 import 'package:crm_smart/ui/widgets/group_button.dart';
+import 'package:crm_smart/ui/widgets/text_form.dart';
 import 'package:crm_smart/ui/widgetuser/container_boxShadows.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
@@ -51,6 +52,7 @@ class _addProductState extends State<addProduct> {
   TextEditingController _textName = TextEditingController();
 
   TextEditingController _textprice = TextEditingController();
+  TextEditingController text = TextEditingController();
 
   late var taxrate;
 
@@ -118,6 +120,8 @@ class _addProductState extends State<addProduct> {
                   SizedBox(
                     height: 20,
                   ),
+                  TextFormField(
+                      readOnly: true, obscureText: true, controller: text),
                   Consumer<selected_button_provider>(
                       builder: (context, selectedProvider, child) {
                     return ContainerShadows(
@@ -126,6 +130,7 @@ class _addProductState extends State<addProduct> {
                       margin: EdgeInsets.only(),
                       child: Center(
                         child:
+
                             // GroupButton(
                             //   buttons: ['أجهزة', 'برامج'],
                             //   borderRadius: BorderRadius.circular(20),
@@ -138,6 +143,7 @@ class _addProductState extends State<addProduct> {
                             //     selectedProvider.selectValue(index);
                             //   },
                             // ),
+
                             ButtonGroup(
                           color: kMainColor,
 
@@ -154,6 +160,7 @@ class _addProductState extends State<addProduct> {
                       ),
                     );
                   }),
+
                   SizedBox(
                     height: 25,
                   ),

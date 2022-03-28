@@ -1,31 +1,27 @@
-
-
 import 'package:flutter/material.dart';
 
 class EditTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final bool obscureText;
   final String hintText;
+
   Function(String)? onChanged;
   String? Function(String?)? vaild;
 
   String? label;
   EditTextFormField(
-       {required this.hintText,
-        required this.obscureText,
-        required this.controller,
-        this.onChanged,
-        this.vaild,
-         this.label,
-
-        Key? key
-       })
+      {required this.hintText,
+      required this.obscureText,
+      required this.controller,
+      this.onChanged,
+      this.vaild,
+      this.label,
+      Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-
       onChanged: onChanged,
       validator: vaild,
       obscureText: obscureText,
