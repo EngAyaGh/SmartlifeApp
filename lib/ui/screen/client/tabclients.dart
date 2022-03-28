@@ -69,13 +69,12 @@ class _tabclientsState extends State<tabclients> {
   //
   // });
 
-
     print('build tabview');
     return Scaffold(
       body:_isLoading?
         Center(child: CircularProgressIndicator(),)
         :(_list.isEmpty
-    ? Center(child: Text('لا يوجد منتجات',style: TextStyle(fontSize: 22,color: kWhiteColor),),)
+    ? Center(child: Text('لا يوجد عملاء',style: TextStyle(fontSize: 22,color: kWhiteColor),),)
         :Padding(
     padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
     child:
@@ -87,7 +86,7 @@ class _tabclientsState extends State<tabclients> {
               return SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: cardClient(itemClient: _list[index],),
+                    child: cardClient(itemClient: _list[index], iduser: iduser.toString()),
                   ));
             }),
       ),

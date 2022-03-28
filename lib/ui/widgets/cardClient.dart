@@ -1,6 +1,7 @@
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/ui/screen/client/detail_client.dart';
+import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
 import 'package:crm_smart/ui/widgets/separatorLine.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,16 +13,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
 class cardClient extends StatelessWidget {
-  cardClient({Key? key,required this.itemClient}) : super(key: key);
+  cardClient({Key? key,required this.iduser,required this.itemClient}) : super(key: key);
   ClientModel itemClient;
+  String iduser;
   //final controllerUsers = Get.find<AllUserVMController>();
 
   @override
   Widget build(BuildContext context) {
-   // controllerUsers.getcurrentUser();
-
+    // controllerUsers.getcurrentUser();
     //return Obx( () {
-      return Container(
+    return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(bottomRight: Radius.circular(30)),
           boxShadow: <BoxShadow>[
@@ -188,10 +189,17 @@ class cardClient extends StatelessWidget {
                           //crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ElevatedButton(style: ButtonStyle(
+                            ElevatedButton
+                              (style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
                                     kMainColor)),
-                                onPressed: () {},
+                                onPressed: () {
+                                  //iduser
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                                      addinvoice(iduser: iduser, idClient: itemClient.idClients.toString())));
+
+
+                                },
                                 child: Text('invoice')),
                             Spacer(),
                             Text('18/November/2021')

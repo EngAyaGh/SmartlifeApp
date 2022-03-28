@@ -23,7 +23,6 @@ class regoin_vm extends ChangeNotifier{
     listregoin=[];
     selectedValueLevel=null;
     notifyListeners();
-
   }
   Future<void> getregoin(String? fk_country)async {
 

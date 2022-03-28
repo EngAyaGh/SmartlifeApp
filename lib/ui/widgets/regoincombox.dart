@@ -85,6 +85,7 @@ class _RegoinComboxState extends State<RegoinCombox> {
          );
        }).toList(),
        value:Provider.of<regoin_vm>(context,listen: false).selectedValueLevel,//select_dataItem!.idCountry ,
+
        onChanged:(value){
          Provider.of<regoin_vm>(context,listen: false).changeVal(value.toString());
        },

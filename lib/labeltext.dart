@@ -39,6 +39,16 @@ const String label_clientnameuser='اسم الموظف';
 const String label_clientadd='إضافة عميل';
 
 const String label_empty='Value is Empty';
+/////////////////////////////////////////
 
+const String label_amount_paid='المبلغ المدفوع';
+const String label_renew='التجديد السنوي';
 
+const String label_typepay='طريقة الدفع';
+const String label_typeinstall='طريقة التركيب للعميل';
+
+const String label_note='ملاحظات المبيعات';
+const String label_image=' صورة السجل التجاري';
+const String label_total='إجمالي الفاتورة';
+const String label_addinvoice='حفظ';
 

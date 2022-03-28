@@ -31,7 +31,7 @@ double radius;
     return TextFormField(
       maxLines: maxline,
 
-      textDirection: TextDirection.rtl,
+      //textDirection: TextDirection.rtl,
       validator: vaild,
       onChanged: onChanged,
       controller: con,
@@ -54,7 +54,7 @@ double radius;
           color: kMainColor,
         ),
         filled: true,
-        fillColor: Colors.grey.shade200,
+        fillColor: Colors.white,
         // hintStyle: const TextStyle(
         //     color: Colors.black45, fontSize: 16, fontWeight: FontWeight.w500),
         //filled: false,

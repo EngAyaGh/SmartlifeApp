@@ -1,4 +1,5 @@
 import 'package:crm_smart/ui/screen/client/tabclients.dart';
+import 'package:crm_smart/ui/screen/invoice/add_invoice_product.dart';
 import 'package:crm_smart/ui/widgets/bottomnavigatorbar.dart';
 import 'package:crm_smart/ui/widgets/tabar.dart';
 import 'package:crm_smart/ui/widgets/tabview.dart';
@@ -140,7 +141,8 @@ class client_dashboard extends StatefulWidget {
               child: TabBarView(
                 controller: _tabcontroller,
                 children: <Widget>[
-                  tabclients(),
+                  add_invoiceProduct(),
+                  //tabclients(),
                   Icon(Icons.description),
                   //Icon(Icons.add),
                 ],

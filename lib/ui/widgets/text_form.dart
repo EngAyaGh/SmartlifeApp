@@ -2,22 +2,29 @@
 
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
+
 class EditTextFormField extends StatelessWidget {
   final TextEditingController controller;
-  final bool obscureText;
+   bool? obscureText=false;
   final String hintText;
   Function(String)? onChanged;
   String? Function(String?)? vaild;
-
+  int? maxline;
   String? label;
+  IconData? icon;
+  TextInputType? inputType;
+
   EditTextFormField(
        {required this.hintText,
-        required this.obscureText,
+         this.obscureText,
         required this.controller,
         this.onChanged,
         this.vaild,
          this.label,
-
+         this.icon,
+this.maxline,
+         this.inputType,
         Key? key
        })
       : super(key: key);
@@ -26,13 +33,19 @@ class EditTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
 
+      maxLines:maxline ,
       onChanged: onChanged,
       validator: vaild,
-      obscureText: obscureText,
+      obscureText: false,
       controller: controller,
       cursorColor: Colors.black,
-      keyboardType: TextInputType.text,
+
+      keyboardType: inputType,
       decoration: InputDecoration(
+        prefixIcon: Icon(
+          icon,
+          color: kMainColor,
+        ),
         hintStyle: const TextStyle(
             color: Colors.black45, fontSize: 16, fontWeight: FontWeight.w500),
         hintText: hintText,
