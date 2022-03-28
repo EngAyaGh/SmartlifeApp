@@ -1,4 +1,5 @@
 import 'package:crm_smart/model/productmodel.dart';
+import 'package:crm_smart/ui/screen/product/dialog.dart';
 import 'package:crm_smart/ui/screen/product/editproduct.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:flutter/cupertino.dart';
@@ -136,13 +137,14 @@ class CardProduct extends StatelessWidget {
                                 //onPressed: BOOKMARK,
                               ),
                               new IconButton(
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Colors.black38,
-                                ),
-                                onPressed: () {},
-                                //onPressed: COPY,
-                              ),
+                                  icon: Icon(
+                                    Icons.delete,
+                                    color: Colors.black26,
+                                  ),
+                                  onPressed: () => {}
+
+                                  //onPressed: COPY,
+                                  ),
                             ],
                           ),
                         ],

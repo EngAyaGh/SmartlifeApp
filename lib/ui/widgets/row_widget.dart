@@ -1,4 +1,3 @@
-
 import 'package:crm_smart/ui/widgets/text_uitil.dart';
 import 'package:flutter/material.dart';
 
@@ -31,9 +30,12 @@ class RowWidget extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(
+          height: 10,
+        ),
         const Divider(
-          color: Colors.grey,
-          thickness: 2,
+          color: Colors.black38,
+          thickness: 1,
         ),
       ],
     );

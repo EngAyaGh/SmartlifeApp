@@ -73,7 +73,7 @@ class addClient extends StatelessWidget {
                         height: 15,
                       ),
 
-                      RowEdit(name: label_cliententerprise, des: 'required'),
+                      RowEdit(name: label_cliententerprise, des: 'مطلوب'),
                       SizedBox(
                         height: 5,
                       ),
@@ -95,7 +95,7 @@ class addClient extends StatelessWidget {
                         height: 15,
                       ),
 
-                      RowEdit(name: label_client_typejob, des: 'Required'),
+                      RowEdit(name: label_client_typejob, des: 'مطلوب'),
                       SizedBox(
                         height: 5,
                       ),
@@ -118,7 +118,7 @@ class addClient extends StatelessWidget {
                       ),
 
                       //admin
-                      RowEdit(name: label_clientcity, des: 'Required'),
+                      RowEdit(name: label_clientcity, des: 'مطلوب'),
                       SizedBox(
                         height: 5,
                       ),
@@ -137,7 +137,7 @@ class addClient extends StatelessWidget {
                         height: 15,
                       ),
 
-                      RowEdit(name: label_clientmobile, des: 'Required'),
+                      RowEdit(name: label_clientmobile, des: 'مطلوب'),
                       SizedBox(
                         height: 5,
                       ),

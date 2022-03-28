@@ -11,6 +11,7 @@ import 'package:crm_smart/services/ProductService.dart';
 import 'package:crm_smart/ui/widgets/custombutton.dart';
 import 'package:crm_smart/ui/widgets/customformtext.dart';
 import 'package:crm_smart/ui/widgets/group_button.dart';
+import 'package:crm_smart/ui/widgetuser/container_boxShadows.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:dio/dio.dart';
@@ -22,6 +23,8 @@ import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../labeltext.dart';
+
+import 'package:group_button/group_button.dart';
 
 class addProduct extends StatefulWidget {
   addProduct({Key? key}) : super(key: key);
@@ -91,26 +94,51 @@ class _addProductState extends State<addProduct> {
                 textDirection: TextDirection.rtl,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // Container(
+                  //   width: double.infinity,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(20),
+                  //     color: Colors.white,
+                  //     boxShadow: [
+                  //       BoxShadow(
+                  //         color: Colors.grey.withOpacity(0.2),
+                  //         spreadRadius: 3,
+                  //         blurRadius: 5,
+                  //       ),
+                  //     ],
+                  //   ),
+                  //   child: GroupButton(
+                  //     buttons: ['bodour', 'Ayman'],
+                  //     buttonWidth: 200,
+                  //     selectedButton: 1,
+                  //     onSelected: (index, isSelected) =>
+                  //         print('$index helllo $isSelected'),
+                  //   ),
+                  // ),
                   SizedBox(
                     height: 20,
                   ),
                   Consumer<selected_button_provider>(
                       builder: (context, selectedProvider, child) {
-                    return Container(
+                    return ContainerShadows(
                       width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 3,
-                            blurRadius: 5,
-                          ),
-                        ],
-                      ),
+                      height: 35,
+                      margin: EdgeInsets.only(),
                       child: Center(
-                        child: ButtonGroup(
+                        child:
+                            // GroupButton(
+                            //   buttons: ['أجهزة', 'برامج'],
+                            //   borderRadius: BorderRadius.circular(20),
+                            //   buttonWidth: 200,
+                            //   selectedButton: 1,
+                            //   onSelected: (int index, bool isSelected) {
+                            //     valtype_product = index;
+
+                            //     valtype_product == 0 ? 1 : 0;
+                            //     selectedProvider.selectValue(index);
+                            //   },
+                            // ),
+                            ButtonGroup(
                           color: kMainColor,
 
                           //secondaryColor: Colors.white,
@@ -129,20 +157,10 @@ class _addProductState extends State<addProduct> {
                   SizedBox(
                     height: 25,
                   ),
-                  Container(
+                  ContainerShadows(
                     width: double.infinity,
                     height: 400,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 3,
-                          blurRadius: 5,
-                        ),
-                      ],
-                    ),
+                    margin: EdgeInsets.only(),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 70),

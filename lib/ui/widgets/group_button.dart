@@ -1,7 +1,8 @@
+import 'package:crm_smart/constants.dart';
 import 'package:flutter/material.dart';
 
 class ButtonGroup extends StatelessWidget {
-  static const double _radius = 10.0;
+  static const double _radius = 18.0;
   static const double _outerPadding = 2.0;
 
   final int? current;
@@ -19,7 +20,7 @@ class ButtonGroup extends StatelessWidget {
     secondaryColor,
   })  : assert(titles != null),
         current = current ?? 0,
-        color = color ?? Colors.blue,
+        color = color ?? kMainColor,
         secondaryColor = secondaryColor ?? Colors.white,
         super(key: key);
 
@@ -34,10 +35,13 @@ class ButtonGroup extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(_radius - _outerPadding),
           child: IntrinsicHeight(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: _buttonList(),
+            child: Container(
+              width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: _buttonList(),
+              ),
             ),
           ),
         ),
@@ -74,10 +78,8 @@ class ButtonGroup extends StatelessWidget {
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         disabledColor: secondaryColor,
         disabledTextColor: color,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero,
-        ),
-        child: Text(title),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        child: Container(width: 185, child: Text(title)),
         onPressed: null,
       );
 
@@ -85,10 +87,10 @@ class ButtonGroup extends StatelessWidget {
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         color: Colors.transparent,
         textColor: Colors.white,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
         ),
-        child: Text(title),
+        child: Container(width: 185, child: Text(title)),
         onPressed: () {
           if (onTab != null) onTab!(index);
         },
