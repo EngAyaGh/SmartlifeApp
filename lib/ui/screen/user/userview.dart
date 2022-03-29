@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:js';
 
 import 'package:crm_smart/model/usermodel.dart';
+import 'package:crm_smart/ui/screen/user/image_profile.dart';
 import 'package:crm_smart/ui/widgets/row_edit.dart';
 import 'package:crm_smart/ui/widgets/row_widget.dart';
 import 'package:crm_smart/ui/widgets/text_uitil.dart';
@@ -66,35 +67,34 @@ class UserScreen extends StatelessWidget {
             child: Center(
               child: Directionality(
                 textDirection: TextDirection.rtl,
-                child: Column(
-                  children: [
-                    GetBuilder<UserVMController>(
-                      init: UserVMController(),
-                      builder: (controller) => Padding(
+                child: Obx(
+                  () => Column(
+                    children: [
+                      Padding(
                         padding: const EdgeInsets.only(
                           top: 10,
                         ),
-                        child: imageProfile(context),
+                        child: ImageProfile(),
                       ),
-                    ),
-                    Expanded(
-                      child: info(),
-                      // child: ListView.separated(
-                      //   controller: scrollController,
-                      //   itemCount: 6,
-                      //   separatorBuilder: (context, index) => const Padding(
-                      //     padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                      //     child: Divider(
-                      //       color: Colors.grey,
-                      //       thickness: 1,
-                      //     ),
-                      //   ),
-                      //   itemBuilder: (context, index) {
-                      //      return infoUser(name: userModel.nameUser.toString());
-                      //   },
-                      // ),
-                    ),
-                  ],
+                      Expanded(
+                        child: info(),
+                        // child: ListView.separated(
+                        //   controller: scrollController,
+                        //   itemCount: 6,
+                        //   separatorBuilder: (context, index) => const Padding(
+                        //     padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                        //     child: Divider(
+                        //       color: Colors.grey,
+                        //       thickness: 1,
+                        //     ),
+                        //   ),
+                        //   itemBuilder: (context, index) {
+                        //      return infoUser(name: userModel.nameUser.toString());
+                        //   },
+                        // ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -104,89 +104,41 @@ class UserScreen extends StatelessWidget {
     });
   }
 
-  Widget imageProfile(context) {
-    return Center(
-      child: Stack(
-        children: [
-          CircleAvatar(
-            radius: 80.0,
-            backgroundImage: //controllerUser.imagefile == null
-                controllerUser.imageFile == null
-                    ? AssetImage('assest/images/logo.png')
-                    : controllerUser.saveImage(),
+  // Widget imageProfile(context) {
+  //   return Center(
+  //     child: Stack(
+  //       children: [
+  //         CircleAvatar(
+  //           radius: 80.0,
+  //           backgroundImage: //controllerUser.imagefile == null
+  //               controllerUser.imageFile == null
+  //                   ? AssetImage('assest/images/logo.png')
+  //                   : controllerUser.saveImage(),
 
-            //const AssetImage(kLogo)
-            //: const AssetImage(kLogo),
-          ),
-          Positioned(
-            bottom: 20.0,
-            right: 20.0,
-            child: InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: ((builder) => bottomSheet()),
-                );
-              },
-              child: Icon(
-                Icons.camera,
-                color: kMainColor,
-                size: 25,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget bottomSheet() {
-    return Container(
-      height: 100.0,
-      width: double.infinity,
-      margin: EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 20,
-      ),
-      child: Column(children: [
-        TextUtilis(
-          color: Colors.black45,
-          fontSize: 20,
-          fontWeight: FontWeight.normal,
-          textstring: 'chose profile photo',
-          underline: TextDecoration.none,
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton.icon(
-              onPressed: () {
-                //controllerUser.takedPhoto(ImageSource.camera);
-                controllerUser.openCamera();
-              },
-              icon: Icon(
-                Icons.camera,
-              ),
-              label: Text('Camera'),
-            ),
-            TextButton.icon(
-              onPressed: () {
-                controllerUser.openGallery();
-              },
-              icon: Icon(
-                Icons.open_in_browser,
-                //Icons.browse_gallery,
-              ),
-              label: Text('Gallery'),
-            ),
-          ],
-        )
-      ]),
-    );
-  }
+  //           //const AssetImage(kLogo)
+  //           //: const AssetImage(kLogo),
+  //         ),
+  //         Positioned(
+  //           bottom: 20.0,
+  //           right: 20.0,
+  //           child: InkWell(
+  //             onTap: () {
+  //               showModalBottomSheet(
+  //                 context: context,
+  //                 builder: ((builder) => bottomSheet()),
+  //               );
+  //             },
+  //             child: Icon(
+  //               Icons.camera,
+  //               color: kMainColor,
+  //               size: 25,
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   // Widget infoUser() {
   //   return Padding(
@@ -315,7 +267,10 @@ class UserScreen extends StatelessWidget {
                       underline: TextDecoration.none,
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        controllerUser.onPressEmail(
+                            controllerUsers.usersList[index].email.toString());
+                      },
                       icon: const Icon(
                         Icons.email,
                         size: 20,

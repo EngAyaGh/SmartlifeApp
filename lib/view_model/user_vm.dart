@@ -1,54 +1,36 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserVMController extends GetxController {
-  // PickedFile? imageFile;
-  final ImagePicker _picker = ImagePicker();
-
-  File? imageFile;
+  var isProbicpicpathSet = false.obs;
+  var profilepicpath = "".obs;
 
   void onPressPhone(String phone) async {
     await FlutterPhoneDirectCaller.callNumber(phone);
   }
 
-  void onPressEmail() {}
-
-  void takedPhoto(ImageSource source) async {
-    // final pickedFile = (await _picker.getImage(
-    //   source: source,
-    // ))!;
-    // imageFile = pickedFile;
-    // update();
-  }
-
-  openCamera() async {
-    var picture = (await ImagePicker().pickImage(source: ImageSource.camera));
-    imageFile = picture as File?;
-    update();
-  }
-
-  openGallery() async {
-    var picGalery =
-        (await ImagePicker().pickImage(source: ImageSource.gallery));
-    imageFile = picGalery as File?;
-
-    update();
-  }
-
-  saveImage() {
-    // var saveimg = FileImage(File(imageFile!.path));
-    // update();
-    // return saveimg;
-    return Image.file(
-      imageFile!,
-      width: 100,
-      height: 100,
+  void onPressEmail(String path) {
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: path,
+      queryParameters: {
+        'subject :': 'Here is Subject .....',
+        'body :': 'Add body here .....',
+      },
+      // query: encodeQueryParameters(<String, String>{
+      //   'subject': 'Example Subject & Symbols are allowed!'
+      // }),
     );
+
+    launch(emailLaunchUri.toString());
+  }
+
+  void setProfileImagePath(String path) {
+    profilepicpath.value = path;
+    isProbicpicpathSet.value = true;
   }
 }

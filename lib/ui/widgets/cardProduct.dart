@@ -1,5 +1,5 @@
 import 'package:crm_smart/model/productmodel.dart';
-import 'package:crm_smart/ui/screen/product/dialog.dart';
+
 import 'package:crm_smart/ui/screen/product/editproduct.dart';
 import 'package:crm_smart/ui/widgets/text_form.dart';
 import 'package:crm_smart/view_model/product_vm.dart';

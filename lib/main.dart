@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
             isUserLoggedIn = snapshot.data!.getBool(kKeepMeLoggedIn) ?? false;
 
             return GetMaterialApp(
-              initialRoute: Routes.productview,
+              initialRoute: Routes.allUserScreen,
               getPages: AppRoutes.routes,
               home:
                   //main_page(),

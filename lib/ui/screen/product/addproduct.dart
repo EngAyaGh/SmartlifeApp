@@ -120,8 +120,7 @@ class _addProductState extends State<addProduct> {
                   SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                      readOnly: true, obscureText: true, controller: text),
+
                   Consumer<selected_button_provider>(
                       builder: (context, selectedProvider, child) {
                     return ContainerShadows(
