@@ -1,0 +1,44 @@
+
+
+import 'package:crm_smart/api/api.dart';
+import 'package:crm_smart/model/invoiceModel.dart';
+
+import '../constants.dart';
+
+class Invoice_Service {
+
+
+  Future<List<InvoiceModel>> getinvoicebyclient(String fk_idClient) async {
+    List<dynamic> data =[];
+    data=await Api()
+        .get(url:url+ 'client/invoice/get_invoice_ByIdClient.php?fk_idClient=$fk_idClient');
+
+    List<InvoiceModel> prodlist = [];
+
+    for (int i = 0; i < data.length; i++) {
+      prodlist.add(InvoiceModel.fromJson(data[i]));
+    }
+    print(prodlist);
+    return prodlist;
+  }
+  Future<String> addInvoice( Map<String,dynamic?> body) async {
+    print("$body");
+    try{
+      String result = await Api()
+          .post( url:url+"client/invoice/addinvoice.php",
+          body: body);
+      print(result);
+      return result !="error"? result:"false";}
+    catch(e){
+      print(e);
+      return "false";
+    }
+  }
+  Future<bool> updateInvoice( Map<String,dynamic> body,String idInvoice) async {
+    String result = await Api()
+        .post( url:url+"client/invoice/updateinvoice.php?id_invoice=$idInvoice",body:
+    body
+    );
+    return result=="done"? true:false;
+  }
+}

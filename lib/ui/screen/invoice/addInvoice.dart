@@ -2,6 +2,7 @@ import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/ui/widgets/row_edit.dart';
 import 'package:crm_smart/ui/widgets/text_form.dart';
 import 'package:crm_smart/ui/widgets/text_uitil.dart';
+import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
@@ -209,36 +210,38 @@ class addinvoice extends StatelessWidget {
                       ),
                       child: Text(label_addinvoice ,style: TextStyle(color: Colors.white),),
                       onPressed: () async {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>add_invoiceProduct()));
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context)=>add_invoiceProduct()
+                        ));
 
-                        //
-                        // if (_globalKey.currentState!.validate()) {
-                        //   _globalKey.currentState!.save();
-                        //
-                        //   // Provider.of<client_vm>(context,listen: false)
-                        //   //     .addclient_vm( {
-                        //   //
-                        //   //   'renewYear': renewController.text,
-                        //   //   'typePay':typepayController==null,
-                        //   //   //"date_create": ,
-                        //   //   "typeInstallation":typeinstallController,
-                        //   //   "amountPaid":amount_paidController.text,
-                        //   //
-                        //   //   "fkIdClient":idClient,
-                        //   //   "fkIdUser":iduser,
-                        //   //
-                        //   //   "total":totalController.text,
-                        //   //   "notes":noteController.text,
-                        //   //   //"date_changetype":,
-                        //   // },
-                        //   //
-                        //   // ).then((value) => value!="false"
-                        //   //     ? clear(context)
-                        //   //     : error()
-                        //   //
-                        //   // );
-                        //
-                        // }
+
+                        if (_globalKey.currentState!.validate()) {
+                          _globalKey.currentState!.save();
+
+                          Provider.of<invoice_vm>(context,listen: false)
+                              .add_invoiceclient_vm( {
+
+                            'renewYear': renewController.text,
+                            'typePay':typepayController==null,
+                            //"date_create": ,
+                            "typeInstallation":typeinstallController,
+                            "amountPaid":amount_paidController.text,
+
+                            "fkIdClient":idClient,
+                            "fkIdUser":iduser,
+
+                            "total":totalController.text,
+                            "notes":noteController.text,
+                            //"date_changetype":,
+                          },
+
+                          ).then((value) => value!="false"
+                              ? clear(context)
+                              : error()
+
+                          );
+
+                        }
                       },
                     ),
                   )
@@ -250,4 +253,8 @@ class addinvoice extends StatelessWidget {
       ),
     );
   }
+
+  clear(BuildContext context) {}
+
+  error() {}
 }

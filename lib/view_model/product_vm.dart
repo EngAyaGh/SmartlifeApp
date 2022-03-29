@@ -1,5 +1,6 @@
 import 'dart:js';
 
+import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/productmodel.dart';
 import 'package:crm_smart/services/ProductService.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +10,16 @@ import 'country_vm.dart';
 
 class product_vm extends ChangeNotifier {
   List<ProductModel> listProduct = [];
+  List<ProductsInvoice> listproductinvoic=[];
+void addlist(value){
+  listproductinvoic.add(value);
+  notifyListeners();
+}
+void removelist(index){
+  listproductinvoic.removeAt(index);
+  notifyListeners();
+}
+
 
   Future<void> getproduct_vm(String fk) async {
     listProduct = await ProductService().getAllProduct(fk);

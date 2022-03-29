@@ -28,7 +28,7 @@ class InvoiceModel {
     String? nameUser;
     String? nameClient;
     String? total;
-    List<Products>? products;
+    List<ProductsInvoice>? products;
 
   InvoiceModel.fromJson(Map<String, dynamic> json){
     idInvoice = json['id_invoice'];
@@ -43,7 +43,8 @@ class InvoiceModel {
     notes = json['notes'];
     nameUser = json['nameUser'];
     nameClient = json['name_client'];
-    products = List.from(json['products']).map((e)=>Products.fromJson(e)).toList();
+    total = json['total'];
+    products = List.from(json['products']).map((e)=>ProductsInvoice.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -60,44 +61,46 @@ class InvoiceModel {
     _data['notes'] = notes;
     _data['nameUser'] = nameUser;
     _data['name_client'] = nameClient;
+    _data['total'] = total;
+
     _data['products'] = products!.map((e)=>e.toJson()).toList();
     return _data;
   }
 }
 
-class Products {
-  Products({
-    required this.idInvoiceProduct,
-    required this.fkIdInvoice,
-    required this.fkProduct,
-    required this.amount,
-    required this.price,
-    required this.taxtotal,
-    required this.rateAdmin,
-    required this.rateUser,
-    required this.idProduct,
-    required this.nameProduct,
-    required this.priceProduct,
-    required this.type,
-    required this.fkCountry,
-    required this.fkConfig,
+class ProductsInvoice {
+  ProductsInvoice({
+     this.idInvoiceProduct,
+     this.fkIdInvoice,
+     this.fkProduct,
+     this.amount,
+     this.price,
+     this.taxtotal,
+     this.rateAdmin,
+     this.rateUser,
+     this.idProduct,
+     this.nameProduct,
+     this.priceProduct,
+     this.type,
+     this.fkCountry,
+     this.fkConfig,
   });
-  late final String idInvoiceProduct;
-  late final String fkIdInvoice;
-  late final String fkProduct;
-  late final String amount;
-  late final String price;
-  late final String taxtotal;
-  late final String rateAdmin;
-  late final String rateUser;
+  late final String? idInvoiceProduct;
+  late final String? fkIdInvoice;
+  late final String? fkProduct;
+  late final String? amount;
+  late final String? price;
+  late final String? taxtotal;
+  late final String? rateAdmin;
+  late final String? rateUser;
   String? idProduct;
   String? nameProduct;
-  late final String priceProduct;
+  late final String? priceProduct;
   String? type;
-  late final String fkCountry;
+  late final String? fkCountry;
   String? fkConfig;
 
-  Products.fromJson(Map<String, dynamic> json){
+  ProductsInvoice.fromJson(Map<String, dynamic> json){
     idInvoiceProduct = json['id_invoice_product'];
     fkIdInvoice = json['fk_id_invoice'];
     fkProduct = json['fk_product'];

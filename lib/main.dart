@@ -33,6 +33,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+
   // void main() async {
   //   //WidgetsFlutterBinding.ensureInitialized(); // uncomment if needed for resource initialization
   //   GlobalBindings().dependencies();
@@ -40,6 +41,7 @@ void main() async{
   // }
   //await Firebase.initializeApp();
   runApp(
+
       MultiProvider(providers: [
     ChangeNotifierProvider<navigatorProvider>(create: (_) => navigatorProvider()),
         ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),

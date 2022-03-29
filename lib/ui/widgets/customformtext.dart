@@ -15,10 +15,15 @@ class CustomFormField extends StatelessWidget {
       this.label,
       this.inputType,
       this.maxline,
+     this.onsave,
+    this.ontap,
+      required this.read,
       required this.radius,});
 
   String? hintText;
+  Function()? ontap;
   Function(String)? onChanged;
+  Function(String?)? onsave;
   String? Function(String?)? vaild;
   IconData? icon;
   TextEditingController? con;
@@ -26,21 +31,22 @@ class CustomFormField extends StatelessWidget {
   int? maxline;
   TextInputType? inputType;
 double radius;
+  bool read=false;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       maxLines: maxline,
-
+onTap: ontap,
       //textDirection: TextDirection.rtl,
       validator: vaild,
       onChanged: onChanged,
       controller: con,
       keyboardType: inputType,
-
+onSaved: onsave,
       /*inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.digitsOnly
       ],*/
-
+      readOnly: read,
       decoration: InputDecoration(
         hintTextDirection: TextDirection.rtl,
         alignLabelWithHint: true,

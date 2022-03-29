@@ -126,6 +126,7 @@ key: _scaffoldKey,
                     height: 20,
                   ),
                   CustomFormField(
+                    read: false,
                     radius: 15,
                     maxline: 3,
                     vaild: (value) {
@@ -143,6 +144,7 @@ key: _scaffoldKey,
                     height: 20,
                   ),
                   CustomFormField(
+                    read: false,
                     radius: 15,
                     vaild: (value) {
                       if (value!.isEmpty) {

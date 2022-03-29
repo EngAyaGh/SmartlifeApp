@@ -139,6 +139,7 @@ class _EditProductState extends State<EditProduct> {
                     height: 20,
                   ),
                   CustomFormField(
+                    read: false,
                     radius: 15,
                     maxline: 3,
                     vaild: (value) {
@@ -156,6 +157,7 @@ class _EditProductState extends State<EditProduct> {
                     height: 20,
                   ),
                   CustomFormField(
+                    read: false,
                     radius: 15,
                     vaild: (value) {
                       if (value!.isEmpty) {
