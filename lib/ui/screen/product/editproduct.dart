@@ -13,6 +13,7 @@ import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:group_button/group_button.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
@@ -41,6 +42,8 @@ class _EditProductState extends State<EditProduct> {
   bool _isLoading = false;
   String nameprod = "";
   double price = 0;
+
+  late int selectButton = 0;
 
   @override
   void initState() {
@@ -111,16 +114,39 @@ class _EditProductState extends State<EditProduct> {
                         height: 35,
                         margin: EdgeInsets.only(),
                         child: Center(
-                          child: ButtonGroup(
-                              color: kMainColor,
-                              //secondaryColor: Colors.white,
-                              titles: ["برامج", "أجهزة"], //[0,1]
-                              current: selectedProvider.isSelected,
-                              onTab: (selected) {
-                                valtype_product = selected;
-                                valtype_product == 0 ? 1 : 0;
-                                selectedProvider.selectValue(selected);
-                              }),
+                          child: GroupButton(
+                            options: GroupButtonOptions(
+                              borderRadius: BorderRadius.circular(20),
+                              buttonWidth: 200,
+                              elevation: 0,
+                              selectedColor: kMainColor,
+                            ),
+                            controller: GroupButtonController(
+                              selectedIndex: selectButton,
+                              onDisablePressed: (i) =>
+                                  print('Button #$i is disabled'),
+                            ),
+                            buttons: ['أجهزة', 'برامج'],
+                            onSelected: (int index, bool isSelected) {
+                              valtype_product = index;
+                              valtype_product == 0 ? 1 : 0;
+                              selectedProvider.selectValue(index);
+                              setState(() {
+                                selectButton = index;
+                              });
+                              debugPrint('Button #$index $isSelected');
+                            },
+                          ),
+                          //  ButtonGroup(
+                          //     color: kMainColor,
+                          //     //secondaryColor: Colors.white,
+                          //     titles: ["برامج", "أجهزة"], //[0,1]
+                          //     current: selectedProvider.isSelected,
+                          //     onTab: (selected) {
+                          //       valtype_product = selected;
+                          //       valtype_product == 0 ? 1 : 0;
+                          //       selectedProvider.selectValue(selected);
+                          //     }),
                         ),
                       ),
                     );
@@ -130,7 +156,7 @@ class _EditProductState extends State<EditProduct> {
                   ),
                   ContainerShadows(
                     width: double.infinity,
-                    height: 450,
+                    height: 400,
                     margin: EdgeInsets.only(),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -138,10 +164,10 @@ class _EditProductState extends State<EditProduct> {
                       child: Column(
                         children: [
                           Container(
-                            width: 400,
+                            width: 300,
                             child: CustomFormField(
                               radius: 15,
-                              maxline: 3,
+                              maxline: 1,
                               vaild: (value) {
                                 if (value!.isEmpty) {
                                   return 'Please enter a  name of product ';

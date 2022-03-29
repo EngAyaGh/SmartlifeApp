@@ -66,6 +66,8 @@ class _addProductState extends State<addProduct> {
         _listconfg.firstWhere((element) => element.name_config == 'taxrate');
   }
 
+  late int selectButton = 0;
+
   @override
   Widget build(BuildContext context) {
     String idCountry = Provider.of<country_vm>(context).id_country;
@@ -128,34 +130,43 @@ class _addProductState extends State<addProduct> {
                       height: 35,
                       margin: EdgeInsets.only(),
                       child: Center(
-                        child:
-
-                            // GroupButton(
-                            //   buttons: ['أجهزة', 'برامج'],
-                            //   borderRadius: BorderRadius.circular(20),
-                            //   buttonWidth: 200,
-                            //   selectedButton: 1,
-                            //   onSelected: (int index, bool isSelected) {
-                            //     valtype_product = index;
-
-                            //     valtype_product == 0 ? 1 : 0;
-                            //     selectedProvider.selectValue(index);
-                            //   },
-                            // ),
-
-                            ButtonGroup(
-                          color: kMainColor,
-
-                          //secondaryColor: Colors.white,
-                          titles: ["برامج", "أجهزة"], //[0,1]
-                          current: selectedProvider.isSelected,
-
-                          onTab: (selected) {
-                            valtype_product = selected;
+                        child: GroupButton(
+                          options: GroupButtonOptions(
+                            borderRadius: BorderRadius.circular(20),
+                            buttonWidth: 200,
+                            elevation: 0,
+                            selectedColor: kMainColor,
+                          ),
+                          controller: GroupButtonController(
+                            selectedIndex: selectButton,
+                            onDisablePressed: (i) =>
+                                print('Button #$i is disabled'),
+                          ),
+                          buttons: ['أجهزة', 'برامج'],
+                          onSelected: (int index, bool isSelected) {
+                            valtype_product = index;
                             valtype_product == 0 ? 1 : 0;
-                            selectedProvider.selectValue(selected);
+                            selectedProvider.selectValue(index);
+                            setState(() {
+                              selectButton = index;
+                            });
+                            debugPrint('Button #$index $isSelected');
                           },
                         ),
+
+                        //     ButtonGroup(
+                        //   color: kMainColor,
+
+                        //   //secondaryColor: Colors.white,
+                        //   titles: ["برامج", "أجهزة"], //[0,1]
+                        //   current: selectedProvider.isSelected,
+
+                        //   onTab: (selected) {
+                        //     valtype_product = selected;
+                        //     valtype_product == 0 ? 1 : 0;
+                        //     selectedProvider.selectValue(selected);
+                        //   },
+                        // ),
                       ),
                     );
                   }),
