@@ -10,13 +10,26 @@ class invoice_vm extends ChangeNotifier{
   List<InvoiceModel> listinvoice=[];
   List<DeletedinvoiceModel> listdeletedinvoice=[];
   List<ProductsInvoice> listproductinvoic=[];
+  List<DeletedinvoiceModel> listdeleted=[];
   //List<>
-  void addlist(value){
+  void addlistproductinvoic(value){
     listproductinvoic.add(value);
     notifyListeners();
   }
-  void removelist(index){
+  void removelistproductinvoic(index){
     listproductinvoic.removeAt(index);
+    notifyListeners();
+  }
+  void updatelistproducetInvoice(){
+
+    notifyListeners();
+  }
+  void addlistinvoicedeleted(value){
+    listdeleted.add(value);
+    notifyListeners();
+  }
+  void removeinvoicedeleted(index){
+    listdeleted.removeAt(index);
     notifyListeners();
   }
 
@@ -37,8 +50,8 @@ class invoice_vm extends ChangeNotifier{
     return res;
   }
 
-  Future<bool> update_invoiceclient_vm(Map<String, dynamic?> body,String idInvoice) async {
-    bool res = await Invoice_Service().updateInvoice(body,idInvoice);
+  Future<bool> update_invoiceclient_vm(Map<String, dynamic?> body,String? idInvoice) async {
+    bool res = await Invoice_Service().updateInvoice(body,idInvoice!);
     if (res) {
       final index=listinvoice.indexWhere((element) => element.idInvoice==idInvoice);
       listinvoice[index]=InvoiceModel.fromJson(body);
@@ -73,6 +86,7 @@ class invoice_vm extends ChangeNotifier{
     listdeletedinvoice = await Invoice_Service().getinvoice_deleted(fk_regoin!);
     notifyListeners();
   }
+
 }
 
 

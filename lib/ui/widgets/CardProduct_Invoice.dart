@@ -1,8 +1,10 @@
+import 'package:crm_smart/model/deleteinvoicemodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/productmodel.dart';
 
 import 'package:crm_smart/ui/screen/product/editproduct.dart';
 import 'package:crm_smart/ui/widgets/text_form.dart';
+import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +13,13 @@ import 'package:provider/provider.dart';
 import '../../constants.dart';
 
 class CardProduct_invoice extends StatelessWidget {
-  CardProduct_invoice({required this.itemProd, Key? key}) : super(key: key);
+  CardProduct_invoice({
+    required this.itemProd,index,
+    required this.iduser,
+    required this.idclient, Key? key}) : super(key: key);
   ProductsInvoice itemProd;
-
+  int index=0;
+  String? idclient,iduser;
   @override
   Widget build(BuildContext context) {
     double totaltax = 0;
@@ -160,11 +166,29 @@ class CardProduct_invoice extends StatelessWidget {
                               new IconButton(
                                   icon: Icon(
                                     Icons.delete,
-                                    color: Colors.black26,
+                                    color: kMainColor,
                                   ),
                                   onPressed: () => {
-                                    // Provider.of<product_vm>(context)
-                                    //     .removeOneProduct(itemProd)
+
+                                    if(itemProd.idInvoiceProduct!=null)
+                                      {
+                                        // Provider.of<invoice_vm>(context,listen: false)
+                                        //     .listproductinvoic[index].isdeleted=true,
+
+                                        Provider.of<invoice_vm>(context,listen: false)
+                                            .removelistproductinvoic(index),
+                                        Provider.of<invoice_vm>(
+                                            context, listen: false)
+                                            .deleteProductInInvoice(
+                                            itemProd.idInvoiceProduct)
+                                      }
+                                    else
+                                      {
+
+                                        Provider.of<invoice_vm>(context,listen: false)
+                                          .removelistproductinvoic(index)
+
+                                      }
                                   }
 
                                 //onPressed: COPY,

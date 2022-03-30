@@ -2,6 +2,7 @@ import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/ui/screen/client/detail_client.dart';
 import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
+import 'package:crm_smart/ui/screen/invoice/invoces.dart';
 import 'package:crm_smart/ui/widgets/separatorLine.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,7 +14,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
 class cardClient extends StatelessWidget {
-  cardClient({Key? key,required this.iduser,required this.itemClient}) : super(key: key);
+  cardClient(
+      { Key? key,
+        required this.iduser,
+        required this.itemClient}) : super(key: key);
   ClientModel itemClient;
   String iduser;
   //final controllerUsers = Get.find<AllUserVMController>();
@@ -111,7 +115,8 @@ class cardClient extends StatelessWidget {
                                     child:
                                     Row(
                                       children: [
-                                        Text(itemClient.name_regoin.toString(),
+                                        Text(
+                                          itemClient.name_regoin.toString(),
                                           style: TextStyle(
                                               fontFamily: kfontfamily2),),
 
@@ -195,11 +200,20 @@ class cardClient extends StatelessWidget {
                                     kMainColor)),
                                 onPressed: () {
                                   //iduser
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                                      addinvoice(iduser: iduser, idClient: itemClient.idClients.toString())));
+                                  Navigator.push(context,
+                                      MaterialPageRoute(
+                                      builder: (context)=>
+                                      invoices(
+                                          fkclient:  itemClient.idClients.toString(),
+                                          fkuser:    itemClient.fkUser.toString(),
+                                      )
 
+                                      ));
 
                                 },
+                                // addinvoice(
+                                //     iduser: iduser,
+                                //     idClient: itemClient.idClients.toString()
                                 child: Text('invoice')),
                             Spacer(),
                             Text('18/November/2021')

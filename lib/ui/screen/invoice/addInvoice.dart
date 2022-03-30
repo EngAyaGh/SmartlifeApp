@@ -1,3 +1,4 @@
+import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/ui/widgets/row_edit.dart';
 import 'package:crm_smart/ui/widgets/text_form.dart';
@@ -13,23 +14,83 @@ import '../../../constants.dart';
 import '../../../labeltext.dart';
 import 'add_invoice_product.dart';
 
-class addinvoice extends StatelessWidget {
-   addinvoice({required this.iduser,required this.idClient, Key? key}) : super(key: key);
-   String idClient,iduser;
+class addinvoice extends StatefulWidget {
+   addinvoice({
+     this.invoice,
+     required this.iduser,
+     required this.idClient,
+     required this.indexinvoice, Key? key}) : super(key: key);
+
+   String? idClient,iduser;
+   InvoiceModel? invoice;
+  late int indexinvoice;
+  @override
+  _addinvoiceState createState() => _addinvoiceState();
+}
+
+class _addinvoiceState extends State<addinvoice> {
    final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
    final _globalKey = GlobalKey<FormState>();
 
-   final TextEditingController totalController = TextEditingController();
+   late final String  totalController ;//= TextEditingController();
 
    final TextEditingController amount_paidController = TextEditingController();
 
    final TextEditingController renewController = TextEditingController();
-   late final String? typepayController ;
-    String? typeinstallController;
-   final TextEditingController noteController = TextEditingController();
-   final TextEditingController imageController = TextEditingController();
 
-  @override
+   late final String? typepayController ;
+
+    String? typeinstallController;
+
+   final TextEditingController noteController = TextEditingController();
+
+   final TextEditingController imageController = TextEditingController();
+   InvoiceModel? _invoice;
+   @override
+   void initState()  {
+     _invoice=widget.invoice;
+if(_invoice!=null){//in mode edit
+  totalController=_invoice!.total.toString();
+  amount_paidController.text=_invoice!.amountPaid.toString();
+  renewController.text=_invoice!.renewYear.toString();
+  typepayController!=_invoice!.typePay.toString();
+  typeinstallController!=_invoice!.typeInstallation.toString();
+  noteController.text=_invoice!.notes.toString();
+  imageController.text=_invoice!.imageRecord.toString();
+  Provider.of<invoice_vm>(context,listen: false)
+      .listproductinvoic= _invoice!.products!;
+}else{
+  Provider.of<invoice_vm>(context,listen: false)
+      .listinvoice.add(
+      InvoiceModel(
+        renewYear: renewController.text,
+        typePay: typepayController,
+        //"date_create": ,
+        typeInstallation:typeinstallController,
+        amountPaid:amount_paidController.text,
+
+        fkIdClient:widget.idClient,
+        fkIdUser:widget.iduser,
+
+        total:totalController,
+        notes:noteController.text,
+      ));
+  int index;
+if( Provider.of<invoice_vm>(context,listen: false)
+    .listinvoice.length>0) {
+ index = Provider
+      .of<invoice_vm>(context, listen: false)
+      .listinvoice
+      .length - 1;
+}else index=0;
+  widget.indexinvoice=index;
+
+}
+     super.initState();
+
+   }
+     @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
@@ -122,7 +183,8 @@ class addinvoice extends StatelessWidget {
                    ),
                    child: GroupButton(
 
-                     controller: GroupButtonController(selectedIndex: 0),
+                     controller: GroupButtonController(
+                         selectedIndex:typepayController==null? 0:int.tryParse( typepayController!)),
                        options: GroupButtonOptions(
                            buttonWidth: 100,
                            borderRadius: BorderRadius.circular(10)),
@@ -137,7 +199,9 @@ class addinvoice extends StatelessWidget {
                   ),
                   RowEdit(name: label_typeinstall, des: 'Required'),
                   GroupButton(
-                      controller: GroupButtonController(selectedIndex: 0),
+                      controller: GroupButtonController(
+                          selectedIndex: typeinstallController==null
+                              ? 0 : int.tryParse( typeinstallController!)),
                       options: GroupButtonOptions(
                           buttonWidth: 100,
 
@@ -187,7 +251,8 @@ class addinvoice extends StatelessWidget {
                         color: Colors.black38,
                         fontSize: 35,
                         fontWeight: FontWeight.normal,
-                        textstring: '00000',
+                        textstring: Provider.of<invoice_vm>(context,listen: false)
+                            .listinvoice[widget.indexinvoice].total.toString(),//totalController,
                         underline: TextDecoration.none,
                       ),
                     ],
@@ -196,53 +261,128 @@ class addinvoice extends StatelessWidget {
                     height: 15,
                   ),
                   Center(
-                    child: TextButton(
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
-                        elevation: MaterialStateProperty.all(8),
-                        shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
+                    child: Row(
+                      children: [
+                        TextButton(
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+                            elevation: MaterialStateProperty.all(8),
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
 
-                                borderRadius: BorderRadius.circular(75))),
-                        backgroundColor: MaterialStateProperty.all(Colors.lightBlue),
-                        shadowColor: MaterialStateProperty.all(
-                            Theme.of(context).colorScheme.onSurface),
-                      ),
-                      child: Text(label_addinvoice ,style: TextStyle(color: Colors.white),),
-                      onPressed: () async {
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context)=>add_invoiceProduct()
-                        ));
+                                    borderRadius: BorderRadius.circular(75))),
+                            backgroundColor: MaterialStateProperty.all(Colors.lightBlue),
+                            shadowColor: MaterialStateProperty.all(
+                                Theme.of(context).colorScheme.onSurface),
+                          ),
+
+                          child: Text('حفظ' ,style: TextStyle(color: Colors.white),),
+                          onPressed: () async {
+
+                            if (_globalKey.currentState!.validate()) {
+                              _globalKey.currentState!.save();
+                              if(_invoice!=null){
+                                Provider.of<invoice_vm>(context,listen: false)
+                                    .update_invoiceclient_vm( {
+
+                                  "renewYear": renewController.text,
+                                  "typePay": typepayController,
+                                  "date_create": DateTime.now().toString(),
+                                  "typeInstallation":typeinstallController,
+                                  "amountPaid":amount_paidController.text,
+
+                                  "fkIdClient":widget.idClient,
+                                  "fkIdUser":widget.iduser,
+
+                                  "total":totalController,
+                                  "notes":noteController.text,
+                                  //"date_changetype":,
+                                },_invoice!.idInvoice
+
+                                ).then((value) => value!="false"
+                                    ? clear(context)
+                                    : error()
+
+                                );
+                              }
+                              else{
+                                Provider.of<invoice_vm>(context,listen: false)
+                                    .add_invoiceclient_vm( {
+
+                                  "renewYear": renewController.text,
+                                  "typePay": typepayController,
+                                  //"date_create": ,
+                                  "typeInstallation":typeinstallController,
+                                  "amountPaid":amount_paidController.text,
+
+                                  "fkIdClient":widget.idClient,
+                                  "fkIdUser":widget.iduser,
+
+                                  "total":totalController,
+                                  "notes":noteController.text,
+                                  //"date_changetype":,
+                                },
+
+                                ).then((value) => value!="false"
+                                    ? clear(context)
+                                    : error()
+
+                                );
+                              }
 
 
-                        if (_globalKey.currentState!.validate()) {
-                          _globalKey.currentState!.save();
-
-                          Provider.of<invoice_vm>(context,listen: false)
-                              .add_invoiceclient_vm( {
-
-                            'renewYear': renewController.text,
-                            'typePay':typepayController==null,
-                            //"date_create": ,
-                            "typeInstallation":typeinstallController,
-                            "amountPaid":amount_paidController.text,
-
-                            "fkIdClient":idClient,
-                            "fkIdUser":iduser,
-
-                            "total":totalController.text,
-                            "notes":noteController.text,
-                            //"date_changetype":,
+                            }
                           },
+                        ),
+                        ElevatedButton
+                          (  //منتجات الفاتورة
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    kMainColor)),
+                            onPressed: () {
+                              if(_invoice==null){
 
-                          ).then((value) => value!="false"
-                              ? clear(context)
-                              : error()
+                                // Provider.of<invoice_vm>(context,listen: false)
+                                //  .listinvoice.
+                                //       {
+                                //       renewYear: renewController.text,
+                                //       typePay: typepayController,
+                                //       //"date_create": ,
+                                //       typeInstallation:typeinstallController,
+                                //       amountPaid:amount_paidController.text,
+                                //
+                                //       fkIdClient:widget.idClient,
+                                //       fkIdUser:widget.iduser,
+                                //
+                                //       total:totalController,
+                                //       notes:noteController.text,}
+                                //     ));
+                              Navigator.push(context, MaterialPageRoute(
+                                  builder: (context)=>
+                                      add_invoiceProduct(
+                                        invoice:
+                                        Provider.of<invoice_vm>(context,listen: false)
+                                            .listinvoice[widget.indexinvoice],
+                                       indexinvoic:  widget.indexinvoice,
+                                      )
+                              ));
+                            }
 
-                          );
+                            else{
 
-                        }
-                      },
+                        Navigator.push(context, MaterialPageRoute(
+                        builder: (context)=>
+                        add_invoiceProduct(
+                        invoice:_invoice,
+                            indexinvoic:
+                            widget.indexinvoice,
+                        // Provider.of<invoice_vm>(context,listen: false)
+                        //     .listinvoice[index],
+                        )
+                        ));
+                        }},
+                            child: Text("منتجات الفاتورة")),
+                      ],
                     ),
                   )
                 ],

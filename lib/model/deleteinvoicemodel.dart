@@ -1,23 +1,23 @@
 class DeletedinvoiceModel {
   DeletedinvoiceModel({
-    required this.idDeleteInvoice,
+     this.idDeleteInvoice,
     required this.fkUser,
     required this.fkClient,
     required this.dateDelete,
-    required this.nameEnterprise,
-    required this.nameClient,
-    this.mobileclient,
+     this.nameEnterprise,
+     this.nameClient,
+     this.mobileclient,
      this.city,
      this.nameUser,
      this.email,
      this.mobileuser,
   });
-  late final String idDeleteInvoice;
-  late final String fkUser;
-  late final String fkClient;
+  late final String? idDeleteInvoice;
+  late final String? fkUser;
+  late final String? fkClient;
   late final String dateDelete;
-  late final String nameEnterprise;
-  late final String nameClient;
+  late final String? nameEnterprise;
+  late final String? nameClient;
   late final String? mobileclient;
    late final String? city;
    late final String? nameUser;

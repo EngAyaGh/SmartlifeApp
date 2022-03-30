@@ -16,8 +16,12 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
 class add_invoiceProduct extends StatefulWidget {
-  add_invoiceProduct({Key? key}) : super(key: key);
-
+  add_invoiceProduct(
+      {
+        required this.invoice,required this.indexinvoic,
+    Key? key}) : super(key: key);
+  InvoiceModel? invoice;
+  int indexinvoic;
   @override
   _add_invoiceProductState createState() => _add_invoiceProductState();
 }
@@ -38,6 +42,7 @@ class _add_invoiceProductState extends State<add_invoiceProduct> {
   late int index=0;
   @override
   void initState() {
+
     _taxuser.text='';_taxuser_value='';
     _taxadmin.text='';_taxadmin_value='';
     _textprice.text='0';
@@ -91,6 +96,32 @@ void calculate(){
     listProduct = Provider.of<product_vm>(context, listen: true).listProduct;
 
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.pop(context);
+          }, icon:Icon( Icons.arrow_back,color: kWhiteColor)),
+          IconButton(onPressed: (){
+            double _total=0;
+
+
+             List<ProductsInvoice>? pinv=
+                  Provider.of<invoice_vm>(context,listen: false)
+                  .listproductinvoic;
+            for(int i=0;
+            i<pinv.length;i++){
+              _total=_total+double.parse(pinv[i].price.toString());
+            }
+            Provider.of<invoice_vm>(context,listen: false)
+                .listinvoice[widget.indexinvoic].total=_total.toString();
+            Provider.of<invoice_vm>(context,listen: false)
+                .updatelistproducetInvoice();
+            widget.invoice!.products=pinv;
+            Navigator.pop(context);
+
+          }, icon:Icon( Icons.check_rounded,color: kWhiteColor,)),
+        ],
+      ),
       body: Container(
         child: Column(
         children: [
@@ -193,14 +224,18 @@ void calculate(){
                 SizedBox(height: 5,),
 
                 ElevatedButton
-                  (style: ButtonStyle(
+                  (
+                    style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
                         kMainColor)),
                     onPressed: () {
                       //iduser
-                      final index=listProduct.indexWhere((element) => element.idProduct==selectedvalue);
+                      final index=listProduct.indexWhere(
+                              (element) => element.idProduct==selectedvalue);
                       ProductModel pm=listProduct[index];
                       ProductsInvoice  pp=ProductsInvoice(
+                        fkclient:widget.invoice!.fkIdClient ,
+                        fkuser: widget.invoice!.fkIdUser,
                         fkProduct:pm.idProduct,
                         fkConfig: pm.fkConfig,
                         fkCountry: pm.fkCountry,
@@ -211,7 +246,9 @@ void calculate(){
                         nameProduct: pm.nameProduct
                       );
                       listAdded.add(pp);
-                      Provider.of<invoice_vm>(context,listen: false).addlist(pp);
+                      Provider.of<invoice_vm>(context,listen: false)
+                          .addlistproductinvoic(pp);
+
                     },
                     child: Text('إضافة')),
               ],
@@ -238,7 +275,12 @@ void calculate(){
                           child: ListView.builder(
                             itemCount: data.listproductinvoic.length,
                             itemBuilder: (context, index) {
-                              return CardProduct_invoice(itemProd: data.listproductinvoic[index]);
+                              return CardProduct_invoice(
+                                  itemProd: data.listproductinvoic[index],
+                                  index: index,
+                                  iduser: widget.invoice!.fkIdUser,
+                                  idclient:widget.invoice!.fkIdClient ,
+                              );
                             },),
                   ),
                 ),

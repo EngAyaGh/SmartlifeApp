@@ -28,6 +28,8 @@ class InvoiceModel {
     String? nameUser;
     String? nameClient;
     String? total;
+    String? name_enterprise;
+
     List<ProductsInvoice>? products;
 
   InvoiceModel.fromJson(Map<String, dynamic> json){
@@ -62,7 +64,7 @@ class InvoiceModel {
     _data['nameUser'] = nameUser;
     _data['name_client'] = nameClient;
     _data['total'] = total;
-
+    _data['name_enterprise'] = name_enterprise;
     _data['products'] = products!.map((e)=>e.toJson()).toList();
     return _data;
   }
@@ -84,6 +86,10 @@ class ProductsInvoice {
      this.type,
      this.fkCountry,
      this.fkConfig,
+     this.isdeleted,
+    this.fkclient,
+    this.fkuser
+
   });
   late final String? idInvoiceProduct;
   late final String? fkIdInvoice;
@@ -99,7 +105,9 @@ class ProductsInvoice {
   String? type;
   late final String? fkCountry;
   String? fkConfig;
-
+  bool? isdeleted =false;
+  String? fkuser;
+  String? fkclient;
   ProductsInvoice.fromJson(Map<String, dynamic> json){
     idInvoiceProduct = json['id_invoice_product'];
     fkIdInvoice = json['fk_id_invoice'];
