@@ -10,15 +10,8 @@ import 'country_vm.dart';
 
 class product_vm extends ChangeNotifier {
   List<ProductModel> listProduct = [];
-  List<ProductsInvoice> listproductinvoic=[];
-void addlist(value){
-  listproductinvoic.add(value);
-  notifyListeners();
-}
-void removelist(index){
-  listproductinvoic.removeAt(index);
-  notifyListeners();
-}
+
+
 
 
   Future<void> getproduct_vm(String fk) async {

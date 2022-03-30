@@ -18,6 +18,7 @@ import 'package:crm_smart/ui/test2.dart';
 import 'package:crm_smart/ui/widgets/levelcombox.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
+import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
@@ -56,6 +57,7 @@ void main() async{
         ChangeNotifierProvider<manage_provider>(create: (_) => manage_provider()),
         ChangeNotifierProvider<client_vm>(create: (_) => client_vm()),
         ChangeNotifierProvider<user_vm_provider>(create: (_) => user_vm_provider()),
+        ChangeNotifierProvider<invoice_vm>(create: (_) => invoice_vm()),
 
   ], child:MyApp()));
 }

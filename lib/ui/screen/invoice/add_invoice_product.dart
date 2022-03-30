@@ -7,6 +7,7 @@ import 'package:crm_smart/ui/widgets/regoincombox.dart';
 import 'package:crm_smart/ui/widgets/row_edit.dart';
 import 'package:crm_smart/ui/widgets/text_form.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
+import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -210,7 +211,7 @@ void calculate(){
                         nameProduct: pm.nameProduct
                       );
                       listAdded.add(pp);
-                      Provider.of<product_vm>(context,listen: false).addlist(pp);
+                      Provider.of<invoice_vm>(context,listen: false).addlist(pp);
                     },
                     child: Text('إضافة')),
               ],
@@ -231,7 +232,7 @@ void calculate(){
                         .size
                         .height *0.7,
                     child:
-                    Consumer<product_vm>(
+                    Consumer<invoice_vm>(
                       builder: (_, data, __) =>
                           Expanded(
                           child: ListView.builder(

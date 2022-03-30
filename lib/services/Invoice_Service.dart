@@ -1,6 +1,7 @@
 
 
 import 'package:crm_smart/api/api.dart';
+import 'package:crm_smart/model/deleteinvoicemodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 
 import '../constants.dart';
@@ -40,5 +41,29 @@ class Invoice_Service {
     body
     );
     return result=="done"? true:false;
+  }
+  Future<String> deleteInvoiceById(String id_invoice) async {
+    String res= await Api()
+        .get(url:url+ 'client/invoice/deleteinvoice.php?id_invoice=$id_invoice');
+    return res;
+  }
+  Future<String> deleteProductInInvoice(String id_invoice_product) async {
+    String res= await Api()
+        .get(url:url+ 'client/invoice/deleteinvoice_product.php?id_invoice_product=$id_invoice_product');
+    return res;
+  }
+
+  Future<List<DeletedinvoiceModel>> getinvoice_deleted(String fk_regoin) async {
+    List<dynamic> data =[];
+    data=await Api()
+        .get(url:url+ 'client/invoice/get_invoice_deleted.php?fk_regoin=$fk_regoin');
+
+    List<DeletedinvoiceModel> prodlist = [];
+
+    for (int i = 0; i < data.length; i++) {
+      prodlist.add(DeletedinvoiceModel.fromJson(data[i]));
+    }
+    print(prodlist);
+    return prodlist;
   }
 }

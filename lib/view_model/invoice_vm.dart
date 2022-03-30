@@ -1,5 +1,6 @@
 
 
+import 'package:crm_smart/model/deleteinvoicemodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/services/Invoice_Service.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +8,18 @@ import 'package:flutter/cupertino.dart';
 class invoice_vm extends ChangeNotifier{
 
   List<InvoiceModel> listinvoice=[];
+  List<DeletedinvoiceModel> listdeletedinvoice=[];
+  List<ProductsInvoice> listproductinvoic=[];
+  //List<>
+  void addlist(value){
+    listproductinvoic.add(value);
+    notifyListeners();
+  }
+  void removelist(index){
+    listproductinvoic.removeAt(index);
+    notifyListeners();
+  }
+
   Future<void> get_invoiceclient(String? fk_client) async {
     listinvoice = await Invoice_Service().getinvoicebyclient(fk_client!);
     notifyListeners();
@@ -34,19 +47,37 @@ class invoice_vm extends ChangeNotifier{
     }
     return res;
   }
-  // Future<String> delete_invoice(String? id_product) async {
-  //   String res = await ProductService().deleteProductById(id_product!);
-  //
-  //   if(res=="done"){
-  //     final index=listProduct.indexWhere((element) => element.idProduct==id_product);
-  //     listProduct.removeAt(index);
-  //     notifyListeners();
-  //
-  //   }
-  //   return res;
-  // }
-  // Future<void> get_invoice_deleted(String? fk_user) async {
-  //   listinvoice = await ClientService().getClientbyuser(fk_user!);
-  //   notifyListeners();
-  // }
+  Future<String> delete_invoice(String? id_invoice) async {
+    String res = await Invoice_Service().deleteInvoiceById(id_invoice!);
+
+    if(res=="done"){
+      final index=listinvoice.indexWhere((element) => element.idInvoice==id_invoice);
+      listinvoice.removeAt(index);
+      notifyListeners();
+
+    }
+    return res;
+  }
+  Future<String> deleteProductInInvoice(String? idInvoiceProduct) async {
+    String res = await Invoice_Service().deleteProductInInvoice(idInvoiceProduct!);
+
+    if(res=="done"){
+      final index=listproductinvoic.indexWhere((element) => element.idInvoiceProduct==idInvoiceProduct);
+      listproductinvoic.removeAt(index);
+      notifyListeners();
+
+    }
+    return res;
+  }
+  Future<void> get_invoice_deleted(String? fk_regoin) async {
+    listdeletedinvoice = await Invoice_Service().getinvoice_deleted(fk_regoin!);
+    notifyListeners();
+  }
 }
+
+
+
+
+
+
+
