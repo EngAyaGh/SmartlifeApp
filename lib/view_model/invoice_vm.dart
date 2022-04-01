@@ -41,10 +41,24 @@ class invoice_vm extends ChangeNotifier{
     String res = await Invoice_Service().addInvoice(body);
     if (res!="false") {
       body.addAll({
-        'id_clients':res,
-
+        'idInvoice':res,
+        "products":listproductinvoic.map((e)=>e.toJson()).toList()
       });
       listinvoice.insert(0, InvoiceModel.fromJson(body));
+      //listinvoice[0].products=listproductinvoic;
+      notifyListeners();
+    }
+    return res;
+  }
+  Future<String> add_invoiceProduct_vm(Map<String, dynamic?>? body) async {
+    print('$body');
+    String res = await Invoice_Service().addInvoiceProduct(body!);
+
+    if (res!="false") {
+      body.addAll({
+        'idInvoiceProduct':res,
+      });
+      listproductinvoic.insert(0, ProductsInvoice.fromJson(body));
       notifyListeners();
     }
     return res;

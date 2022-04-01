@@ -14,7 +14,11 @@ void setCurrentIndex(value){
 }
 List<Widget> pages = <Widget>[
   client_dashboard(),
-  invoices(),
+  Icon(
+    Icons.note,
+    size: 150,
+  ),
+  //invoices(),
   Icon(
     Icons.chat,
     size: 150,

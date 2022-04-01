@@ -1,5 +1,7 @@
 
 
+import 'dart:convert';
+
 import 'package:crm_smart/api/api.dart';
 import 'package:crm_smart/model/deleteinvoicemodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
@@ -10,13 +12,16 @@ class Invoice_Service {
 
 
   Future<List<InvoiceModel>> getinvoicebyclient(String fk_idClient) async {
-    List<dynamic> data =[];
+    var
     data=await Api()
         .get(url:url+ 'client/invoice/get_invoice_ByIdClient.php?fk_idClient=$fk_idClient');
-
+    print(data);
     List<InvoiceModel> prodlist = [];
-
+    // final json = "[" + data[i] + "]";
     for (int i = 0; i < data.length; i++) {
+      print(i);
+
+      //print("data "+ "[" + data[i] + "]");
       prodlist.add(InvoiceModel.fromJson(data[i]));
     }
     print(prodlist);
@@ -27,6 +32,20 @@ class Invoice_Service {
     try{
       String result = await Api()
           .post( url:url+"client/invoice/addinvoice.php",
+          body: body);
+      print(result);
+      return result !="error"? result:"false";
+    }
+    catch(e) {
+      print(e);
+      return "false";
+    }
+  }
+  Future<String> addInvoiceProduct( Map<String,dynamic?> body) async {
+    print("$body");
+    try{
+      String result = await Api()
+          .post( url:url+"client/invoice/addinvoice_product.php",
           body: body);
       print(result);
       return result !="error"? result:"false";}

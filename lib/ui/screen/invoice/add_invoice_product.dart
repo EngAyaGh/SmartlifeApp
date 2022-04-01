@@ -58,35 +58,39 @@ class _add_invoiceProductState extends State<add_invoiceProduct> {
 void calculate(){
     setState(() {
       double totaltax=0;
-      _textprice.text=listProduct[index].priceProduct;
-      String? taxCountry=listProduct[index].value_config;
-      print(taxCountry);
-      if(taxCountry!=null)
+      if(listProduct.isNotEmpty){
+        _textprice.text=listProduct[index].priceProduct;
+        String? taxCountry=listProduct[index].value_config;
+        print(taxCountry);
+        if(taxCountry!=null)
         {
           double pricewithtax=double.parse(_textprice.text)* double.parse(taxCountry)/100;
           print(pricewithtax);
           _textprice.text =(double.parse(_textprice.text) +pricewithtax).toString();
         }
-          if(_taxadmin.text!=''&&_taxuser.text!='')
-          {
-            totaltax = double.parse(_taxadmin.text)+double.parse( _taxuser.text);
-            //_textprice.text=totaltax.toString();
-          }
-          else {
-            print('inside else '+_taxadmin.text);
-            print('inside else '+_taxuser.text);
-            if(_taxadmin.text!='')
-              totaltax=double.parse(_taxadmin.text);
-            if(_taxuser.text!='')
-              totaltax=double.parse( _taxuser.text);
-          }
-          double pricewithouttax=double.parse(_textprice.text)* totaltax/100;
-          _textprice.text =(double.parse(_textprice.text)-pricewithouttax).toString();
-          print( _textprice.text);
-          double totalprice=double.parse(_textprice.text)
-              *double.parse( _amount.text);
-          _textprice.text=totalprice.toString();
+        if(_taxadmin.text!=''&&_taxuser.text!='')
+        {
+          totaltax = double.parse(_taxadmin.text)+double.parse( _taxuser.text);
+          //_textprice.text=totaltax.toString();
         }
+        else {
+          print('inside else '+_taxadmin.text);
+          print('inside else '+_taxuser.text);
+          if(_taxadmin.text!='')
+            totaltax=double.parse(_taxadmin.text);
+          if(_taxuser.text!='')
+            totaltax=double.parse( _taxuser.text);
+        }
+        double pricewithouttax=double.parse(_textprice.text)* totaltax/100;
+        _textprice.text =(double.parse(_textprice.text)-pricewithouttax).toString();
+        print( _textprice.text);
+        double totalprice=double.parse(_textprice.text)
+            *double.parse( _amount.text.isEmpty?'1':_amount.text);
+        _textprice.text=totalprice.toString();
+      }
+
+    }
+
 
     );
 
@@ -98,25 +102,29 @@ void calculate(){
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: (){
-            Navigator.pop(context);
-          }, icon:Icon( Icons.arrow_back,color: kWhiteColor)),
+          // IconButton(onPressed: (){
+          //   Navigator.pop(context);
+          // }, icon:Icon( Icons.arrow_back,color: kWhiteColor)),
+          //
           IconButton(onPressed: (){
             double _total=0;
-
-
              List<ProductsInvoice>? pinv=
                   Provider.of<invoice_vm>(context,listen: false)
                   .listproductinvoic;
-            for(int i=0;
-            i<pinv.length;i++){
+            for(int i=0; i<pinv.length;i++){
               _total=_total+double.parse(pinv[i].price.toString());
             }
             Provider.of<invoice_vm>(context,listen: false)
                 .listinvoice[widget.indexinvoic].total=_total.toString();
-            Provider.of<invoice_vm>(context,listen: false)
-                .updatelistproducetInvoice();
+            print(_total.toString());
+               print( Provider.of<invoice_vm>(context,listen: false)
+               .listinvoice[widget.indexinvoic].total);
             widget.invoice!.products=pinv;
+            Provider.of<invoice_vm>(context,listen: false)
+                .listinvoice[widget.indexinvoic].products=pinv;
+            Provider.of<invoice_vm>(context,listen: false)
+                .updatelistproducetInvoice();//to refresh total in list invoice
+
             Navigator.pop(context);
 
           }, icon:Icon( Icons.check_rounded,color: kWhiteColor,)),
@@ -196,6 +204,7 @@ void calculate(){
                     //   //TextBox.fromLTRBD(20, 20, 20, 20,TextDirection.rtl),
                   ],
                 ),
+
                 SizedBox(height: 5,),
 
                 Row(
@@ -234,18 +243,27 @@ void calculate(){
                               (element) => element.idProduct==selectedvalue);
                       ProductModel pm=listProduct[index];
                       ProductsInvoice  pp=ProductsInvoice(
+                         //idInvoiceProduct: null,
+                        fkIdInvoice: widget.invoice!.idInvoice==null
+                            ? '0' :  widget.invoice!.idInvoice.toString(),
                         fkclient:widget.invoice!.fkIdClient ,
                         fkuser: widget.invoice!.fkIdUser,
                         fkProduct:pm.idProduct,
                         fkConfig: pm.fkConfig,
                         fkCountry: pm.fkCountry,
                         price: _textprice.text,
-                        amount: _amount.text,
+                        amount: _amount.text.isEmpty?'1':_amount.text,
                         rateAdmin: _taxadmin.text,
                         rateUser: _taxuser.text,
-                        nameProduct: pm.nameProduct
+                        nameProduct: pm.nameProduct,
+                        type: listProduct[index].type,
+                        idProduct: listProduct[index].idProduct,
+                        idInvoiceProduct: "null",
+                        priceProduct: listProduct[index].priceProduct,
+                        taxtotal: listProduct[index].value_config==null?"null":listProduct[index].value_config
                       );
                       listAdded.add(pp);
+                      print(pp.nameProduct);
                       Provider.of<invoice_vm>(context,listen: false)
                           .addlistproductinvoic(pp);
 
@@ -269,21 +287,22 @@ void calculate(){
                         .size
                         .height *0.7,
                     child:
-                    Consumer<invoice_vm>(
-                      builder: (_, data, __) =>
-                          Expanded(
-                          child: ListView.builder(
-                            itemCount: data.listproductinvoic.length,
-                            itemBuilder: (context, index) {
-                              return CardProduct_invoice(
-                                  itemProd: data.listproductinvoic[index],
-                                  index: index,
-                                  iduser: widget.invoice!.fkIdUser,
-                                  idclient:widget.invoice!.fkIdClient ,
-                              );
-                            },),
+                   Consumer<invoice_vm>(
+                        builder: (_, data, __) =>
+                            Expanded(
+                            child: ListView.builder(
+                              itemCount: data.listproductinvoic.length,
+                              itemBuilder: (context, index) {
+                                return CardProduct_invoice(
+                                    itemProd: data.listproductinvoic[index],
+                                    index: index,
+                                    iduser: widget.invoice!.fkIdUser,
+                                    idclient:widget.invoice!.fkIdClient ,
+                                );
+                              },),
                   ),
                 ),
+
                   ),),
               ],
             ),

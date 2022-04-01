@@ -142,8 +142,8 @@ class client_dashboard extends StatefulWidget {
               child: TabBarView(
                 controller: _tabcontroller,
                 children: <Widget>[
-                  addinvoice( iduser: '1',idClient: '1',),
-                  //tabclients(),
+
+                  tabclients(),
                   Icon(Icons.description),
                   //Icon(Icons.add),
                 ],

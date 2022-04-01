@@ -7,11 +7,13 @@ import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/provider/switch_provider.dart';
 import 'package:crm_smart/routes/routes.dart';
 import 'package:crm_smart/ui/screen/client/clients.dart';
+import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/screen/login.dart';
 import 'package:crm_smart/ui/screen/mainpage.dart';
 import 'package:crm_smart/ui/screen/product/addproduct.dart';
 import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/screen/selectCountryScreen.dart';
+import 'package:crm_smart/ui/screen/support/support_add.dart';
 import 'package:crm_smart/ui/screen/user/alluser.dart';
 import 'package:crm_smart/ui/test.dart';
 import 'package:crm_smart/ui/test2.dart';
@@ -88,9 +90,9 @@ class MyApp extends StatelessWidget {
             return
               GetMaterialApp(
                 //initialBinding: UserBinding(),
-                initialRoute: Routes.allClientUser,
+                initialRoute: Routes.tabclients,
                 getPages: AppRoutes.routes,
-                home:client_dashboard(),
+                home:tabclients(),
                 //main_page(),
 
                 // Directionality(

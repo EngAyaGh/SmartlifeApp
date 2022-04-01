@@ -94,37 +94,43 @@ class CardProduct_invoice extends StatelessWidget {
                                   ],
                                 ),
                                 Row(
-                                  // mainAxisAlignment:
-                                  //     MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                                   children: [
-                                    Text(
-                                      ' السعر : ',
-                                      style:
-                                      TextStyle(fontFamily: kfontfamily2),
-                                    ),
-                                    Text(
-                                      itemProd.price.toString(),
-                                      style:
-                                      TextStyle(fontFamily: kfontfamily2),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  // mainAxisAlignment:
-                                  //     MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Text(
-                                      ' الكمية : ',
-                                      style:
-                                      TextStyle(fontFamily: kfontfamily2),
-                                    ),
-                                    Text(
-                                      itemProd.amount.toString(),
-                                      style:
-                                      TextStyle(fontFamily: kfontfamily2),
-                                    ),
-                                  ],
-                                ),
+                                 Row(
+                                   // mainAxisAlignment:
+                                   //     MainAxisAlignment.spaceEvenly,
+                                   children: [
+                                     Text(
+                                       ' السعر : ',
+                                       style:
+                                       TextStyle(fontFamily: kfontfamily2),
+                                     ),
+                                     Text(
+                                       itemProd.price.toString(),
+                                       style:
+                                       TextStyle(fontFamily: kfontfamily2),
+                                     ),
+                                   ],
+                                 ),
+                                 Row(
+                                   // mainAxisAlignment:
+                                   //     MainAxisAlignment.spaceEvenly,
+                                   children: [
+                                     Text(
+                                       ' الكمية : ',
+                                       style:
+                                       TextStyle(fontFamily: kfontfamily2),
+                                     ),
+                                     Text(
+                                       itemProd.amount.toString(),
+                                       style:
+                                       TextStyle(fontFamily: kfontfamily2),
+                                     ),
+                                   ],
+                                 ),
+                               ],
+                             ),
                                 Row(
                                   // mainAxisAlignment:
                                   //     MainAxisAlignment.spaceEvenly,
@@ -148,21 +154,21 @@ class CardProduct_invoice extends StatelessWidget {
                           //this Row --> for icon
                           Row(
                             children: [
-                              new IconButton(
-                                icon: Icon(
-                                  Icons.edit,
-                                  color: kMainColor,
-                                ),
-                                onPressed: () {
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => EditProduct(
-                                  //           productModel: itemProd,
-                                  //         )));
-                                },
-                                //onPressed: BOOKMARK,
-                              ),
+                              // new IconButton(
+                              //   icon: Icon(
+                              //     Icons.edit,
+                              //     color: kMainColor,
+                              //   ),
+                              //   onPressed: () {
+                              //     // Navigator.push(
+                              //     //     context,
+                              //     //     MaterialPageRoute(
+                              //     //         builder: (context) => EditProduct(
+                              //     //           productModel: itemProd,
+                              //     //         )));
+                              //   },
+                              //   //onPressed: BOOKMARK,
+                              // ),
                               new IconButton(
                                   icon: Icon(
                                     Icons.delete,

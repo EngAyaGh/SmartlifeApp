@@ -9,6 +9,7 @@ import 'package:crm_smart/ui/screen/login.dart';
 import 'package:crm_smart/ui/screen/mainpage.dart';
 import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/screen/selectCountryScreen.dart';
+import 'package:crm_smart/ui/screen/support/support_add.dart';
 import 'package:crm_smart/ui/screen/user/alluser.dart';
 import 'package:get/get.dart';
 
@@ -34,6 +35,7 @@ class AppRoutes {
       ],),
     GetPage(name:  Routes.productview, page: () =>  ProductView()),
     GetPage(name:  Routes.select_country, page: () =>  select_country()),
+    GetPage(name:  Routes.support_add, page: () =>  support_add()),
     GetPage(
       name: Routes.allUserScreen,
       page: () => AllUserScreen(),
@@ -55,4 +57,5 @@ class Routes {
   static const productview = '/ProductView';
   static const login = '/login';
   static const select_country = '/select_country';
+  static const support_add = '/support_add';
 }

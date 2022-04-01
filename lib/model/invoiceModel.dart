@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class InvoiceModel {
   InvoiceModel({
      this.idInvoice,
@@ -12,7 +14,7 @@ class InvoiceModel {
      this.notes,
      this.nameUser,
      this.nameClient,
-     this.products,
+     required this.products,
      this.total
   });
     String? idInvoice;
@@ -29,24 +31,52 @@ class InvoiceModel {
     String? nameClient;
     String? total;
     String? name_enterprise;
+  //Map<String, dynamic> products;
+   List<ProductsInvoice>? products;
+  // var products;
+  InvoiceModel.fromJson(Map<String, dynamic> jsondata){
+    print(jsondata);
+    idInvoice = jsondata['id_invoice'];
+    dateCreate = jsondata['date_create'];
+    typePay = jsondata['type_pay'];
+    renewYear = jsondata['renew_year'];
+    typeInstallation = jsondata['type_installation'];
+    imageRecord = jsondata['image_record'];
+    fkIdClient = jsondata['fk_idClient'];
+    fkIdUser = jsondata['fk_idUser'];
+    amountPaid = jsondata['amount_paid'];
+    notes = jsondata['notes'];
+    nameUser = jsondata['nameUser'];
+    nameClient = jsondata['name_client'];
+    total = jsondata['total'];
+    products=getproud(jsondata['products']);
+      //  json.decode(
+       // jsondata['products']
+   // )//  jsondata['products']
+   // .map(
+       //     (e) {
+              //print('eee'+json.decode(e));
+        //      ProductsInvoice.fromJson(e);
+              //print('eee'+e);
+       // }).toList();
+    //     .add(
+    //     ProductsInvoice.fromJson(
+    //         json.decode(jsondata['products'])
+    //     )
+    // );
+    //     (json.decode(jsondata['products']) as List)
+    // .map((e) => ProductsInvoice.fromJson(e)).toList();
+       //List.from(
 
-    List<ProductsInvoice>? products;
-
-  InvoiceModel.fromJson(Map<String, dynamic> json){
-    idInvoice = json['id_invoice'];
-    dateCreate = json['date_create'];
-    typePay = json['type_pay'];
-    renewYear = json['renew_year'];
-    typeInstallation = json['type_installation'];
-    imageRecord = json['image_record'];
-    fkIdClient = json['fk_idClient'];
-    fkIdUser = json['fk_idUser'];
-    amountPaid = json['amount_paid'];
-    notes = json['notes'];
-    nameUser = json['nameUser'];
-    nameClient = json['name_client'];
-    total = json['total'];
-    products = List.from(json['products']).map((e)=>ProductsInvoice.fromJson(e)).toList();
+        //);
+    // (){
+    //   for (int i = 0; i < jsondata['products'].length; i++) {
+    //   products!.add(
+    //       ProductsInvoice.fromJson(jsondata['products'][i]));
+    // }
+    // return products;
+    // }
+    //
   }
 
   Map<String, dynamic> toJson() {
@@ -65,8 +95,20 @@ class InvoiceModel {
     _data['name_client'] = nameClient;
     _data['total'] = total;
     _data['name_enterprise'] = name_enterprise;
-    _data['products'] = products!.map((e)=>e.toJson()).toList();
+    _data['products'] =
+        products!.map((e)=>e.toJson()).toList();
     return _data;
+  }
+  List<ProductsInvoice> getproud(data){
+    List<ProductsInvoice> prodlist = [];
+    for (int i = 0; i < data.length; i++) {
+      print(i);
+
+      //print("data "+ "[" + data[i] + "]");
+      prodlist.add(ProductsInvoice.fromJson(data[i]));
+    }
+    return prodlist;
+
   }
 }
 
@@ -109,6 +151,8 @@ class ProductsInvoice {
   String? fkuser;
   String? fkclient;
   ProductsInvoice.fromJson(Map<String, dynamic> json){
+    print('in product from json ');
+    print(json);
     idInvoiceProduct = json['id_invoice_product'];
     fkIdInvoice = json['fk_id_invoice'];
     fkProduct = json['fk_product'];

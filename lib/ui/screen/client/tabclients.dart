@@ -51,7 +51,8 @@ class _tabclientsState extends State<tabclients> {
   @override
   Widget build(BuildContext context) {
 
-      _list=Provider.of<client_vm>(context,listen: true).listClientbyCurrentUser;
+      _list=Provider.of<client_vm>(context,listen: true)
+          .listClientbyCurrentUser;
 
     //});
 //

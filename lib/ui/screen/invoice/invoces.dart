@@ -25,15 +25,20 @@ class _invoicesState extends State<invoices> {
    @override
    void initState() {
 
-     Provider.of<invoice_vm>(context,listen: false).get_invoiceclient(widget.fkclient);//.then((value) => _isLoading=false);
+     Provider.of<invoice_vm>(context,listen: false)
+         .get_invoiceclient(widget.fkclient);
+     print('init invoice  '+widget.fkclient);
+     //.then((value) => _isLoading=false);
      super.initState();
    }
 
    @override
    Widget build(BuildContext context) {
-     listinvoice=Provider.of<invoice_vm>(context,listen: true).listinvoice;
+     listinvoice=Provider.of<invoice_vm>(context,listen: true)
+         .listinvoice;
+     print(listinvoice.length);
     setState(() {
-      _isLoading =listinvoice.isEmpty?true:false;
+      _isLoading =listinvoice.isEmpty?false:false;
     });
      print(listinvoice);
      return Scaffold(
@@ -42,11 +47,13 @@ class _invoicesState extends State<invoices> {
          backgroundColor: kMainColor,
          onPressed: () {
            Navigator.push(
-               context, MaterialPageRoute(builder: (context)=>
+               context, MaterialPageRoute(
+               builder: (context)=>
                addinvoice(
                    iduser: widget.fkuser,
                    idClient: widget.fkclient,
-                   indexinvoice: listinvoice.length-1
+                   indexinvoice: listinvoice.length>0?
+                   listinvoice.length-1:0
                )));
          },
          tooltip: 'إضافة فاتورة',
@@ -72,8 +79,8 @@ class _invoicesState extends State<invoices> {
                      (context)=>
                          CardInvoiceClient(
                          itemProd: listinvoice[index],
-
-                         scaffoldKey: _scaffoldKey, indexinvoice: index,)) ,
+                         //scaffoldKey: _scaffoldKey,
+                         indexinvoice: index,)) ,
              //     _listProd.map(
              //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
              // ).toList(),
