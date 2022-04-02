@@ -1,6 +1,6 @@
 import 'package:crm_smart/provider/bottomNav.dart';
-import 'package:crm_smart/ui/widgets/appbar.dart';
-import 'package:crm_smart/ui/widgets/customDrawer.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/appbar.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/customDrawer.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

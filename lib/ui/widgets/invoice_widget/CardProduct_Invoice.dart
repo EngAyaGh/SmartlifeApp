@@ -3,14 +3,14 @@ import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/productmodel.dart';
 
 import 'package:crm_smart/ui/screen/product/editproduct.dart';
-import 'package:crm_smart/ui/widgets/text_form.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants.dart';
+import '../../../constants.dart';
 
 class CardProduct_invoice extends StatelessWidget {
   CardProduct_invoice({
@@ -39,7 +39,7 @@ class CardProduct_invoice extends StatelessWidget {
 
 
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(2),
       child: Center(
         // child: InkWell(
         //   //splashColor: Colors.blue.withAlpha(30),
@@ -56,24 +56,22 @@ class CardProduct_invoice extends StatelessWidget {
                   color: Colors.black87.withOpacity(0.2),
                 ),
               ],
-              borderRadius: BorderRadius.all(Radius.circular(15)),
+              borderRadius: BorderRadius.all(Radius.circular(1)),
             ),
-            height: 120,
+            height: 70,
             child: Padding(
-              padding: EdgeInsets.all(12.0),
+              padding: EdgeInsets.all(2),
               child: Flex(
                 direction: Axis.vertical,
                 children: [
                   Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           //this column --> information
                           Container(
-                            margin: EdgeInsets.only(
-                              right: 20,
-                            ),
+
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -81,11 +79,11 @@ class CardProduct_invoice extends StatelessWidget {
                                   // mainAxisAlignment:
                                   //     MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Text(
-                                      ' اسم المنتج : ',
-                                      style:
-                                      TextStyle(fontFamily: kfontfamily2),
-                                    ),
+                                    // Text(
+                                    //   ' اسم المنتج : ',
+                                    //   style:
+                                    //   TextStyle(fontFamily: kfontfamily2),
+                                    // ),
                                     Text(
                                       itemProd.nameProduct.toString(),
                                       style:
@@ -111,12 +109,7 @@ class CardProduct_invoice extends StatelessWidget {
                                        style:
                                        TextStyle(fontFamily: kfontfamily2),
                                      ),
-                                   ],
-                                 ),
-                                 Row(
-                                   // mainAxisAlignment:
-                                   //     MainAxisAlignment.spaceEvenly,
-                                   children: [
+                                     SizedBox(width: 3,),
                                      Text(
                                        ' الكمية : ',
                                        style:
@@ -127,48 +120,75 @@ class CardProduct_invoice extends StatelessWidget {
                                        style:
                                        TextStyle(fontFamily: kfontfamily2),
                                      ),
+                                     SizedBox(width: 3,),
+                                     Text(
+                                       ' قيمة الحسم : ',
+                                       style:
+                                       TextStyle(fontFamily: kfontfamily2),
+                                     ),
+                                     Text(
+                                       totaltax.toString(),
+                                       style:
+                                       TextStyle(fontFamily: kfontfamily2),
+                                     ),
                                    ],
                                  ),
+                                 // Row(
+                                 //   // mainAxisAlignment:
+                                 //   //     MainAxisAlignment.spaceEvenly,
+                                 //   children: [
+                                 //     Text(
+                                 //       ' الكمية : ',
+                                 //       style:
+                                 //       TextStyle(fontFamily: kfontfamily2),
+                                 //     ),
+                                 //     Text(
+                                 //       itemProd.amount.toString(),
+                                 //       style:
+                                 //       TextStyle(fontFamily: kfontfamily2),
+                                 //     ),
+                                 //   ],
+                                 // ),
                                ],
                              ),
-                                Row(
-                                  // mainAxisAlignment:
-                                  //     MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Text(
-                                      ' قيمة الحسم : ',
-                                      style:
-                                      TextStyle(fontFamily: kfontfamily2),
-                                    ),
-                                    Text(
-
-                                          totaltax.toString(),
-                                      style:
-                                      TextStyle(fontFamily: kfontfamily2),
-                                    ),
-                                  ],
-                                ),
+                                // Row(
+                                //   // mainAxisAlignment:
+                                //   //     MainAxisAlignment.spaceEvenly,
+                                //   children: [
+                                //     Text(
+                                //       ' قيمة الحسم : ',
+                                //       style:
+                                //       TextStyle(fontFamily: kfontfamily2),
+                                //     ),
+                                //     Text(
+                                //
+                                //           totaltax.toString(),
+                                //       style:
+                                //       TextStyle(fontFamily: kfontfamily2),
+                                //     ),
+                                //   ],
+                                // ),
                               ],
                             ),
                           ),
                           //this Row --> for icon
                           Row(
                             children: [
-                              // new IconButton(
-                              //   icon: Icon(
-                              //     Icons.edit,
-                              //     color: kMainColor,
-                              //   ),
-                              //   onPressed: () {
-                              //     // Navigator.push(
-                              //     //     context,
-                              //     //     MaterialPageRoute(
-                              //     //         builder: (context) => EditProduct(
-                              //     //           productModel: itemProd,
-                              //     //         )));
-                              //   },
-                              //   //onPressed: BOOKMARK,
-                              // ),
+                              new IconButton(
+                                icon: Icon(
+                                  Icons.edit,
+                                  color: kMainColor,
+                                ),
+                                onPressed: () {
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => EditProduct(
+                                  //           productModel: itemProd,
+                                  //         )));
+                                },
+                                //onPressed: BOOKMARK,
+                              ),
                               new IconButton(
                                   icon: Icon(
                                     Icons.delete,

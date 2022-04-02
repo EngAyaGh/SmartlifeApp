@@ -2,8 +2,8 @@
 
 
 import 'package:crm_smart/model/usermodel.dart';
-import 'package:crm_smart/ui/widgets/row_widget.dart';
-import 'package:crm_smart/ui/widgets/text_uitil.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/row_widget.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/user_vm.dart';
 import 'package:flutter/material.dart';

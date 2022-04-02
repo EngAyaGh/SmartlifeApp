@@ -56,15 +56,18 @@ class Invoice_Service {
   }
   Future<bool> updateInvoice( Map<String,dynamic> body,String idInvoice) async {
     String result = await Api()
-        .post( url:url+"client/invoice/updateinvoice.php?id_invoice=$idInvoice",body:
+        .post( url:url+"client/invoice/updateinvoice.php",body:
     body
     );
     return result=="done"? true:false;
   }
-  Future<String> deleteInvoiceById(String id_invoice) async {
-    String res= await Api()
-        .get(url:url+ 'client/invoice/deleteinvoice.php?id_invoice=$id_invoice');
-    return res;
+  Future<String> deleteInvoiceById(String? id_invoice) async {
+    print("id_invoice "+id_invoice!);
+
+   String res= await Api()
+        .post(url:url+ 'client/invoice/deleteinvoice.php?id_invoice=$id_invoice');
+   print("delete in services "+res);
+   return res;
   }
   Future<String> deleteProductInInvoice(String id_invoice_product) async {
     String res= await Api()

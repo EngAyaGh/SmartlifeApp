@@ -1,9 +1,9 @@
 import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
 import 'package:crm_smart/ui/screen/invoice/add_invoice_product.dart';
-import 'package:crm_smart/ui/widgets/bottomnavigatorbar.dart';
-import 'package:crm_smart/ui/widgets/tabar.dart';
-import 'package:crm_smart/ui/widgets/tabview.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/bottomnavigatorbar.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/tabar.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/tabview.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -20,7 +20,7 @@ class client_dashboard extends StatefulWidget {
   State<StatefulWidget> createState() => _client_dashboard();
 }
   class _client_dashboard extends State<client_dashboard> with TickerProviderStateMixin{
-  //  final controllerUsers = Get.find<AllUserVMController>();
+  // final controllerUsers = Get.find<AllUserVMController>();
 
     Widget _switchcaseBody(int _selectedIndex){
       var _selectedView;

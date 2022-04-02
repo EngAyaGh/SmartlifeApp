@@ -16,6 +16,7 @@ class Api {
     if (json.decode(response.body)["code"] == "200") {
       return jsonDecode(response.body)["message"];
     } else {
+      print("ex is ${json.decode(response.body)["code"] == "200"}");
       throw Exception(
           '${json.decode(response.body)["code"] == "200"}');
     }
@@ -52,6 +53,7 @@ class Api {
       //print("in json data is $data");
       return jsonDecode(result)["message"];
     } else {
+
       throw Exception(
           '${json.decode(result)["message"]}');
     }

@@ -38,13 +38,18 @@ class invoice_vm extends ChangeNotifier{
     notifyListeners();
   }
   Future<String> add_invoiceclient_vm(Map<String, dynamic?> body) async {
+    //print('$body');
     String res = await Invoice_Service().addInvoice(body);
     if (res!="false") {
       body.addAll({
-        'idInvoice':res,
+        'id_invoice':res,
         "products":listproductinvoic.map((e)=>e.toJson()).toList()
       });
+      print('in add invoice vm');
+      print('$body');
       listinvoice.insert(0, InvoiceModel.fromJson(body));
+      print("////////////////////////////////////////////");
+      print('${listinvoice[0].idInvoice}');
       //listinvoice[0].products=listproductinvoic;
       notifyListeners();
     }
@@ -58,7 +63,7 @@ class invoice_vm extends ChangeNotifier{
       body.addAll({
         'idInvoiceProduct':res,
       });
-      listproductinvoic.insert(0, ProductsInvoice.fromJson(body));
+      //listproductinvoic.insert(0, ProductsInvoice.fromJson(body));
       notifyListeners();
     }
     return res;
@@ -68,21 +73,26 @@ class invoice_vm extends ChangeNotifier{
     bool res = await Invoice_Service().updateInvoice(body,idInvoice!);
     if (res) {
       final index=listinvoice.indexWhere((element) => element.idInvoice==idInvoice);
+      body.addAll({
+        "products":listproductinvoic.map((e)=>e.toJson()).toList()
+      });
       listinvoice[index]=InvoiceModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
     }
+    //print(res.toString());
     return res;
   }
   Future<String> delete_invoice(String? id_invoice) async {
-    String res = await Invoice_Service().deleteInvoiceById(id_invoice!);
 
-    if(res=="done"){
+    String res = await Invoice_Service().deleteInvoiceById(id_invoice!);
+    print("res in delete invoice "+res);
+    //if(res=="done"){
       final index=listinvoice.indexWhere((element) => element.idInvoice==id_invoice);
       listinvoice.removeAt(index);
       notifyListeners();
 
-    }
+    //}
     return res;
   }
   Future<String> deleteProductInInvoice(String? idInvoiceProduct) async {
@@ -100,6 +110,19 @@ class invoice_vm extends ChangeNotifier{
     listdeletedinvoice = await Invoice_Service().getinvoice_deleted(fk_regoin!);
     notifyListeners();
   }
+  void disposValue(index){
+    print("dispose "+index.toString());
+    if(index!=-1)
+    listinvoice.removeAt(index);
+    else
+     {
+
+       listinvoice=[];
+     }
+    listproductinvoic=[];
+    notifyListeners();
+  }
+
 
 }
 

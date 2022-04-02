@@ -49,6 +49,7 @@ class InvoiceModel {
     nameUser = jsondata['nameUser'];
     nameClient = jsondata['name_client'];
     total = jsondata['total'];
+    name_enterprise=jsondata['name_enterprise'];
     products=getproud(jsondata['products']);
       //  json.decode(
        // jsondata['products']
@@ -133,7 +134,7 @@ class ProductsInvoice {
     this.fkuser
 
   });
-  late final String? idInvoiceProduct;
+  late  String? idInvoiceProduct;
   late final String? fkIdInvoice;
   late final String? fkProduct;
   late final String? amount;

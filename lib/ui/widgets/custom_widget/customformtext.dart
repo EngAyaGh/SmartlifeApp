@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../constants.dart';
+import '../../../constants.dart';
 
 class CustomFormField extends StatelessWidget {
   CustomFormField({
@@ -30,7 +30,7 @@ class CustomFormField extends StatelessWidget {
   String? label;
   int? maxline;
   TextInputType? inputType;
-double radius;
+  double radius;
   bool read=false;
   @override
   Widget build(BuildContext context) {

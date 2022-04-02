@@ -6,7 +6,7 @@ import 'package:crm_smart/model/regoin_model.dart';
 import 'package:crm_smart/services/RegoinServices.dart';
 import 'package:crm_smart/ui/screen/product/addproduct.dart';
 import 'package:crm_smart/ui/screen/product/productView.dart';
-import 'package:crm_smart/ui/widgets/custombutton.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

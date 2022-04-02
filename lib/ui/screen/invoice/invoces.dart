@@ -1,17 +1,18 @@
+import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
-import 'package:crm_smart/ui/widgets/Card_invoice_client.dart';
+import 'package:crm_smart/ui/widgets/invoice_widget/Card_invoice_client.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 
 import '../../../constants.dart';
 
 class invoices extends StatefulWidget {
-   invoices({required this.fkclient,required this.fkuser, Key? key}) : super(key: key);
+   invoices({required this.itemClient, required this.fkclient,required this.fkuser, Key? key}) : super(key: key);
    String fkclient,fkuser;
-
+   ClientModel itemClient;
   @override
   _invoicesState createState() => _invoicesState();
 }
@@ -27,6 +28,7 @@ class _invoicesState extends State<invoices> {
 
      Provider.of<invoice_vm>(context,listen: false)
          .get_invoiceclient(widget.fkclient);
+
      print('init invoice  '+widget.fkclient);
      //.then((value) => _isLoading=false);
      super.initState();
@@ -36,7 +38,8 @@ class _invoicesState extends State<invoices> {
    Widget build(BuildContext context) {
      listinvoice=Provider.of<invoice_vm>(context,listen: true)
          .listinvoice;
-     print(listinvoice.length);
+
+     print("in build invoices "+listinvoice.length.toString());
     setState(() {
       _isLoading =listinvoice.isEmpty?false:false;
     });
@@ -50,6 +53,8 @@ class _invoicesState extends State<invoices> {
                context, MaterialPageRoute(
                builder: (context)=>
                addinvoice(
+                 //add new invoice
+                   itemClient:widget.itemClient,
                    iduser: widget.fkuser,
                    idClient: widget.fkclient,
                    indexinvoice: listinvoice.length>0?
@@ -59,7 +64,19 @@ class _invoicesState extends State<invoices> {
          tooltip: 'إضافة فاتورة',
          child: Icon(Icons.add),
        ),
-       appBar: AppBar(title: Text('فواتير العميل',style: TextStyle(color: kWhiteColor),textAlign: TextAlign.center,),),
+       appBar: AppBar(
+         leading: IconButton(
+           icon: Icon(Icons.arrow_back, color: kWhiteColor),
+           onPressed: (){
+             Provider.of<invoice_vm>(context,listen: false)
+            .disposValue(-1);
+             Navigator.of(context).pop();
+             },
+         ),
+         title: Text('فواتير العميل',style:
+         TextStyle(color: kWhiteColor),
+           textAlign: TextAlign.center,),
+       ),
        body: _isLoading?
        Center(child: CircularProgressIndicator(),)
            :(listinvoice.isEmpty
@@ -73,12 +90,14 @@ class _invoicesState extends State<invoices> {
                .height *0.95,
            child: ListView.separated(
              itemCount: listinvoice.length,
-             separatorBuilder: (BuildContext context, int index) => const Divider(),
+             separatorBuilder: (BuildContext context, int index)
+             => const Divider(),
              itemBuilder: (BuildContext context, int index)=>
                  Builder(builder:
                      (context)=>
                          CardInvoiceClient(
                          itemProd: listinvoice[index],
+                           itemClient :  widget.itemClient,
                          //scaffoldKey: _scaffoldKey,
                          indexinvoice: index,)) ,
              //     _listProd.map(

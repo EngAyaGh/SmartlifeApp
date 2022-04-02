@@ -2,7 +2,7 @@
 
 
 
-import 'package:crm_smart/ui/widgets/card_user.dart';
+import 'package:crm_smart/ui/widgets/user_widget/card_user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

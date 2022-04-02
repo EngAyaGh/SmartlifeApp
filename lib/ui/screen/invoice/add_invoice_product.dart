@@ -1,11 +1,11 @@
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/productmodel.dart';
-import 'package:crm_smart/ui/widgets/CardProduct_Invoice.dart';
-import 'package:crm_smart/ui/widgets/cardProduct.dart';
-import 'package:crm_smart/ui/widgets/customformtext.dart';
-import 'package:crm_smart/ui/widgets/regoincombox.dart';
-import 'package:crm_smart/ui/widgets/row_edit.dart';
-import 'package:crm_smart/ui/widgets/text_form.dart';
+import 'package:crm_smart/ui/widgets/invoice_widget/CardProduct_Invoice.dart';
+import 'package:crm_smart/ui/widgets/product_widget/cardProduct.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
+import 'package:crm_smart/ui/widgets/combox_widget/regoincombox.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
@@ -101,11 +101,17 @@ void calculate(){
 
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          // IconButton(onPressed: (){
-          //   Navigator.pop(context);
-          // }, icon:Icon( Icons.arrow_back,color: kWhiteColor)),
-          //
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back, color: kWhiteColor),
+        //   onPressed: () {
+        //                Navigator.of(context).pop();
+        //   },
+        // ),
+         actions: [
+        //   IconButton(onPressed: (){
+        //     Navigator.pop(context);
+        //   }, icon:Icon( Icons.arrow_back,color: kWhiteColor)),
+
           IconButton(onPressed: (){
             double _total=0;
              List<ProductsInvoice>? pinv=
@@ -119,9 +125,11 @@ void calculate(){
             print(_total.toString());
                print( Provider.of<invoice_vm>(context,listen: false)
                .listinvoice[widget.indexinvoic].total);
+
             widget.invoice!.products=pinv;
             Provider.of<invoice_vm>(context,listen: false)
                 .listinvoice[widget.indexinvoic].products=pinv;
+
             Provider.of<invoice_vm>(context,listen: false)
                 .updatelistproducetInvoice();//to refresh total in list invoice
 
@@ -134,9 +142,9 @@ void calculate(){
         child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(5),
             child: Container(
-              height:MediaQuery.of(context).size.height*0.37,
+              height:MediaQuery.of(context).size.height*0.3,
               child: Column(
               children: [
                 Container(
@@ -162,33 +170,34 @@ void calculate(){
                     },
                   ),
                 ),
+               // SizedBox(height: 5,),
+
+                // Row(
+                //   children: [
+                //     Flexible(
+                //       child: CustomFormField(
+                //         onChanged: (val) {
+                //           _taxadmin_value=val;
+                //          calculate();
+                //         },
+                //           inputType: TextInputType.number,
+                //
+                //           read: false,con: _taxadmin,
+                //           label: 'نسبة الخصم المتاحة للمشرف', radius: 20),
+                //     ),
+                //
+                //     SizedBox(width: 50,),
+                //     Text('%'),
+                //     //TextBox.fromLTRBD(20, 20, 20, 20,TextDirection.rtl),
+                //   ],
+                // ),
                 SizedBox(height: 5,),
 
                 Row(
                   children: [
                     Flexible(
                       child: CustomFormField(
-                        onChanged: (val) {
-                          _taxadmin_value=val;
-                         calculate();
-                        },
-                          inputType: TextInputType.number,
 
-                          read: false,con: _taxadmin,
-                          label: 'نسبة الخصم المتاحة للمشرف', radius: 20),
-                    ),
-
-                    SizedBox(width: 70,),
-                    Text('%'),
-                    //TextBox.fromLTRBD(20, 20, 20, 20,TextDirection.rtl),
-                  ],
-                ),
-                SizedBox(height: 5,),
-
-                Row(
-                  children: [
-                    Flexible(
-                      child: CustomFormField(
                         read: false,
                           onChanged: (val) {
                             _taxuser_value=val;
@@ -197,9 +206,26 @@ void calculate(){
                           inputType: TextInputType.number,
 
                           con: _taxuser,
-                          label: 'نسبة الخصم المتاحة للموظف', radius: 20),
+                          label: 'نسبة الخصم المتاحة للموظف',
+                          radius: 10),
                     ),
-                    SizedBox(width: 70,),
+                    SizedBox(width: 10,),
+                    Text('%'),
+                    SizedBox(width: 10,),
+                    Flexible(
+                      child: CustomFormField(
+                          onChanged: (val) {
+                            _taxadmin_value=val;
+                            calculate();
+                          },
+                          inputType: TextInputType.number,
+
+                          read: false,con: _taxadmin,
+                          label: 'نسبة الخصم المتاحة للمشرف',
+                          radius: 10),
+                    ),
+
+                    SizedBox(width: 10,),
                     Text('%'),
                     //   //TextBox.fromLTRBD(20, 20, 20, 20,TextDirection.rtl),
                   ],
@@ -218,14 +244,16 @@ void calculate(){
                         calculate();
                       },
                       inputType: TextInputType.number,
-                      label: 'الكمية', radius: 20,con: _amount,)),
-                    SizedBox(height: 5,),
-
-                    Flexible(child: CustomFormField(
+                      label: 'الكمية', radius: 10,con: _amount,)),
+                    SizedBox(width: 10,),
+                    Flexible(
+                        child: CustomFormField(
                         ontap: calculate,
-                        read: true,
+                        read: false,
                         con: _textprice,
-                        label: 'السعر', radius: 20)),
+                        label: 'السعر', radius: 10)),
+                    Text( Provider.of<country_vm>(context, listen: true)
+                        .currency),
 
                   ],
                 ),
@@ -249,7 +277,7 @@ void calculate(){
                         fkclient:widget.invoice!.fkIdClient ,
                         fkuser: widget.invoice!.fkIdUser,
                         fkProduct:pm.idProduct,
-                        fkConfig: pm.fkConfig,
+                        fkConfig: pm.fkConfig==null?"null": pm.fkConfig,
                         fkCountry: pm.fkCountry,
                         price: _textprice.text,
                         amount: _amount.text.isEmpty?'1':_amount.text,
@@ -278,14 +306,14 @@ void calculate(){
             child:
             Column(
               children: [
-                Text('منتجات الفاتورة'),
+                //Text('منتجات الفاتورة'),
                 Padding(
                   padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
                   child: Container(
                     height: MediaQuery
                         .of(context)
                         .size
-                        .height *0.7,
+                        .height *0.75,
                     child:
                    Consumer<invoice_vm>(
                         builder: (_, data, __) =>

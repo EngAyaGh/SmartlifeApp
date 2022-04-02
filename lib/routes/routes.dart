@@ -24,10 +24,10 @@ class AppRoutes {
     ),
     GetPage(name:  Routes.login, page: () =>  login()),
 
-    GetPage(name:  Routes.allClientUser, page: () =>  client_dashboard(),
-      // bindings: [
-      //   UserBinding(),
-      // ],
+    GetPage(name:  Routes.client_dashboard, page: () =>  client_dashboard(),
+      bindings: [
+        UserBinding(),
+      ],
     ),
     GetPage(name:  Routes.tabclients, page: () =>  tabclients(),
       bindings: [
@@ -50,7 +50,7 @@ class Routes {
 
 
   static const allUserScreen = '/allUserScreen';
-  static const allClientUser = '/client_dashboard';
+  static const client_dashboard = '/client_dashboard';
   static const tabclients = '/tabclients';
   static const userScreen = '/userScreen';
   static const mainpage = '/main_page';

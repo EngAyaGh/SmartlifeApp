@@ -3,7 +3,7 @@ import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/ui/screen/client/detail_client.dart';
 import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
 import 'package:crm_smart/ui/screen/invoice/invoces.dart';
-import 'package:crm_smart/ui/widgets/separatorLine.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/separatorLine.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -204,6 +204,7 @@ class cardClient extends StatelessWidget {
                                       MaterialPageRoute(
                                       builder: (context)=>
                                       invoices(
+                                          itemClient:itemClient,
                                           fkclient:  itemClient.idClients.toString(),
                                           fkuser:    itemClient.fkUser.toString(),
                                       )

@@ -15,9 +15,8 @@ import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/screen/selectCountryScreen.dart';
 import 'package:crm_smart/ui/screen/support/support_add.dart';
 import 'package:crm_smart/ui/screen/user/alluser.dart';
-import 'package:crm_smart/ui/test.dart';
-import 'package:crm_smart/ui/test2.dart';
-import 'package:crm_smart/ui/widgets/levelcombox.dart';
+
+import 'package:crm_smart/ui/widgets/combox_widget/levelcombox.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
@@ -90,9 +89,9 @@ class MyApp extends StatelessWidget {
             return
               GetMaterialApp(
                 //initialBinding: UserBinding(),
-                initialRoute: Routes.tabclients,
+                initialRoute: Routes.client_dashboard,
                 getPages: AppRoutes.routes,
-                home:tabclients(),
+                home:client_dashboard(),
                 //main_page(),
 
                 // Directionality(

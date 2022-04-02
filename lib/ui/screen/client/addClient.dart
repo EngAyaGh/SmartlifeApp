@@ -1,7 +1,9 @@
+import 'dart:js';
+
 import 'package:crm_smart/provider/loadingprovider.dart';
-import 'package:crm_smart/ui/widgets/customformtext.dart';
-import 'package:crm_smart/ui/widgets/row_edit.dart';
-import 'package:crm_smart/ui/widgets/text_form.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,9 +34,9 @@ class addClient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final controllerUsers = Get.find<AllUserVMController>();
+     //final controllerUsers = Get.find<AllUserVMController>();
 
-     //controllerUsers.getcurrentUser();
+     controllerUsers.getcurrentUser();
 
     return Scaffold(
       key: _scaffoldKey,
@@ -175,7 +177,8 @@ class addClient extends StatelessWidget {
 
                         if (_globalKey.currentState!.validate()) {
                           _globalKey.currentState!.save();
-
+                          Provider.of<LoadProvider>(context, listen: false)
+                              .changebooladdclient(true);
                           Provider.of<client_vm>(context,listen: false)
                               .addclient_vm( {
                               'name_client': nameclientController.text,
@@ -194,7 +197,7 @@ class addClient extends StatelessWidget {
                               controllerUsers.currentUser.value.nameRegoin.toString()
                           ).then((value) => value!="false"
                               ? clear(context)
-                              : error()
+                              : error(context)
                             // Fluttertoast.showToast(
                             //  backgroundColor:
                             //      Colors.lightBlueAccent,
@@ -219,6 +222,8 @@ class addClient extends StatelessWidget {
 
   clear(BuildContext context) {
 
+    Provider.of<LoadProvider>(context, listen: false)
+        .changebooladdclient(false);
     nameEnterpriseController.text="";
     nameclientController.text="";
     locationController.text="";
@@ -231,7 +236,9 @@ class addClient extends StatelessWidget {
     print("succ");
   }
 
-  error() {
+  error(context) {
+    Provider.of<LoadProvider>(context, listen: false)
+        .changebooladdclient(false);
     _scaffoldKey.currentState!.showSnackBar(
         SnackBar(content: Text(label_errorAddProd))
     );

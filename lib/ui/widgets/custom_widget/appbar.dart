@@ -1,8 +1,8 @@
-import 'package:crm_smart/ui/widgets/customTextStyle.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/customTextStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
+import '../../../constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 class customAppbar extends StatelessWidget implements PreferredSizeWidget{
   const customAppbar({Key? key}) : super(key: key);

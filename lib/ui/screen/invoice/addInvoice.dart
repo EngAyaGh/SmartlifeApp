@@ -1,8 +1,9 @@
+import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
-import 'package:crm_smart/ui/widgets/row_edit.dart';
-import 'package:crm_smart/ui/widgets/text_form.dart';
-import 'package:crm_smart/ui/widgets/text_uitil.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +17,12 @@ import 'add_invoice_product.dart';
 
 class addinvoice extends StatefulWidget {
    addinvoice({
+     required this.itemClient,
      this.invoice,
      required this.iduser,
      required this.idClient,
      required this.indexinvoice, Key? key}) : super(key: key);
-
+   ClientModel itemClient;
    String? idClient,iduser;
    InvoiceModel? invoice;
   late int indexinvoice;
@@ -33,7 +35,7 @@ class _addinvoiceState extends State<addinvoice> {
 
    final _globalKey = GlobalKey<FormState>();
 
-   late final String  totalController ;//= TextEditingController();
+   late  String  totalController ;//= TextEditingController();
 
    final TextEditingController amount_paidController = TextEditingController();
 
@@ -49,9 +51,11 @@ class _addinvoiceState extends State<addinvoice> {
    InvoiceModel? _invoice;
    @override
    void initState()  {
+     print('init in addinvoice screen main');
      totalController='0';
      _invoice=widget.invoice;
-if(_invoice!=null){//in mode edit
+if(_invoice!=null){
+  //in mode edit
   totalController=_invoice!.total.toString();
   amount_paidController.text=_invoice!.amountPaid.toString();
   renewController.text=_invoice!.renewYear.toString();
@@ -59,6 +63,9 @@ if(_invoice!=null){//in mode edit
   typeinstallController!=_invoice!.typeInstallation.toString();
   noteController.text=_invoice!.notes.toString();
   imageController.text=_invoice!.imageRecord.toString();
+  Provider.of<invoice_vm>(context,listen: false)
+      .listinvoice[widget.indexinvoice].products=_invoice!.products;
+
   Provider.of<invoice_vm>(context,listen: false)
       .listproductinvoic= _invoice!.products!;
 }
@@ -89,7 +96,10 @@ if( Provider.of<invoice_vm>(context,listen: false)
       .length - 1;
 }else index=0;
   widget.indexinvoice=index;//invoice is new
-
+  Provider.of<invoice_vm>(context,listen: false)
+      .listinvoice[widget.indexinvoice].products=[];
+  Provider.of<invoice_vm>(context,listen: false)
+      .listproductinvoic= [];
 }
      super.initState();
 
@@ -102,11 +112,36 @@ if( Provider.of<invoice_vm>(context,listen: false)
 
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: kWhiteColor),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            print("in on pop addinvoice screen "+Provider.of<invoice_vm>(context,listen: false)
+                .listinvoice[widget.indexinvoice].idInvoice.toString());
+
+            if(Provider.of<invoice_vm>(context,listen: false)
+                .listinvoice[widget.indexinvoice].idInvoice == null
+                // ||
+                // int.tryParse(Provider.of<invoice_vm>(context,listen: false)
+                // .listinvoice[widget.indexinvoice].idInvoice.toString())!>0
+            ){
+          //clear cach invoice with it's product's
+              Provider.of<invoice_vm>(context,listen: false).listproductinvoic=[];
+              Provider.of<invoice_vm>(context,listen: false)
+                  .listinvoice[widget.indexinvoice].products=[];
+              Provider.of<invoice_vm>(context,listen: false)
+                  .disposValue(widget.indexinvoice);
+            }else{
+
+              Provider.of<invoice_vm>(context,listen: false).listproductinvoic=[];
+              Provider.of<invoice_vm>(context,listen: false)
+                  .listinvoice[widget.indexinvoice].products=[];
+            }
+            ////
+
+            Navigator.of(context).pop();
+            },
         ),
       ),
       body: ModalProgressHUD(
-        inAsyncCall: Provider.of<LoadProvider>(context).isLoadingAddclient,
+        inAsyncCall: Provider.of<LoadProvider>(context).isLoadingAddinvoice,
         child: SingleChildScrollView(
           child: Form(
             key: _globalKey,
@@ -128,7 +163,51 @@ if( Provider.of<invoice_vm>(context,listen: false)
                   //   controller: totalController,
                   // ),
 
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextUtilis(
+                        color: Colors.black,
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                        textstring: label_total,
+                        underline: TextDecoration.none,
+                      ),
+                      SizedBox(width: 3,),
+                      TextUtilis(
+                        color: Colors.black,
+                        fontSize: 35,
+                        fontWeight: FontWeight.normal,
+                        textstring:
+                        Provider.of<invoice_vm>(context,listen: true)
+                            .listinvoice[widget.indexinvoice]
+                            .total.toString(),//totalController,
+                        underline: TextDecoration.none,
+                      ),
+                      SizedBox(width: 10,),
+                      ElevatedButton
+                        (  //منتجات الفاتورة
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  kMainColor)),
+                          onPressed: () {
 
+
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context)=>
+                                    add_invoiceProduct(
+                                      invoice:
+                                      Provider.of<invoice_vm>(context,listen: false)
+                                          .listinvoice[widget.indexinvoice],
+                                      indexinvoic:  widget.indexinvoice,
+                                    )
+                            ));
+
+
+                          },
+                          child: Text("منتجات الفاتورة")),
+                    ],
+                  ),
 
                   SizedBox(
                     height: 5,
@@ -242,29 +321,7 @@ if( Provider.of<invoice_vm>(context,listen: false)
                   SizedBox(
                     height: 15,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextUtilis(
-                        color: Colors.black,
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                        textstring: label_total,
-                        underline: TextDecoration.none,
-                      ),
-                      SizedBox(width: 3,),
-                      TextUtilis(
-                        color: Colors.black38,
-                        fontSize: 35,
-                        fontWeight: FontWeight.normal,
-                        textstring: 
-                        Provider.of<invoice_vm>(context,listen: true)
-                            .listinvoice[widget.indexinvoice]
-                            .total.toString(),//totalController,
-                        underline: TextDecoration.none,
-                      ),
-                    ],
-                  ),
+
                   SizedBox(
                     height: 15,
                   ),
@@ -292,12 +349,20 @@ if( Provider.of<invoice_vm>(context,listen: false)
 
                               // if((_invoice!.products!=null&&_invoice!.products.isNotEmpty)
                               //     ||(
-                                if(  Provider.of<invoice_vm>(context,listen: false)
+                              //print("widget.indexinvoice"+widget.indexinvoice.toString());
+                              if(  Provider.of<invoice_vm>(context,listen: false)
                                   .listinvoice[widget.indexinvoice].products!=null
-                                      && Provider.of<invoice_vm>(context,listen: false)
+                                  &&
+                                  Provider.of<invoice_vm>(context,listen: false)
                                       .listinvoice[widget.indexinvoice].products!.isNotEmpty)
 
                               {
+                                Provider.of<LoadProvider>(context, listen: false)
+                                    .changebooladdinvoice(true);
+
+                                totalController= Provider.of<invoice_vm>(context,listen: false)
+                                    .listinvoice[widget.indexinvoice]
+                                    .total.toString();
 
                                 _globalKey.currentState!.save();
                                 List<ProductsInvoice>? _products=[];
@@ -311,7 +376,7 @@ if( Provider.of<invoice_vm>(context,listen: false)
 
                                 if (
                                 //_invoice!.idInvoice != null ||
-                                    Provider
+                                Provider
                                     .of<invoice_vm>(context, listen: false)
                                     .listinvoice[widget.indexinvoice]
                                     .idInvoice != null) {
@@ -328,10 +393,12 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                   Provider.of<invoice_vm>(
                                       context, listen: false)
                                       .update_invoiceclient_vm({
-
+                                    "name_enterprise":widget.itemClient.nameEnterprise,
+                                    "name_client":widget.itemClient.nameClient,
+                                    "nameUser":widget.itemClient.nameUser,
                                     "renew_year": renewController.text,
                                     "type_pay": typepayController,
-                                    "date_create": DateTime.now().toString(),
+                                    //"date_create": DateTime.now().toString(),
                                     "type_installation": typeinstallController,
                                     "amount_paid": amount_paidController.text,
 
@@ -341,32 +408,15 @@ if( Provider.of<invoice_vm>(context,listen: false)
 
                                     "total": totalController,
                                     "notes": noteController.text,
+                                    "id_invoice":invoiceID
 
                                     //"date_changetype":,
                                   },invoiceID
                                   ).then((value) =>
                                   value != false
                                       ? clear(context,invoiceID.toString(),_products)
-                                      : error()
-
+                                      : error(context)
                                   );
-                                  ///
-                                  // for(int i=0;i<_products.length;i++)
-                                  // {
-                                  //   if(_products[i].idInvoiceProduct==null){
-                                  //     Map<String, dynamic?> body=_products[i].toJson();
-                                  //     // body!.addAll({
-                                  //     //   'fk_id_invoice':res,
-                                  //     // });
-                                  //     Provider
-                                  //         .of<invoice_vm>(context, listen: false)
-                                  //         .listproductinvoic.removeAt(i);
-                                  //
-                                  //     Provider.of<invoice_vm>(context,listen: false)
-                                  //         .add_invoiceProduct_vm(body);
-                                  //
-                                  //   }
-                                  // }
                                 }
                                 else {
                                   Provider
@@ -376,10 +426,12 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                   Provider.of<invoice_vm>(
                                       context, listen: false)
                                       .add_invoiceclient_vm( {
-
+                                    "name_enterprise":widget.itemClient.nameEnterprise,
+                                    "name_client":widget.itemClient.nameClient,
+                                    "nameUser":widget.itemClient.nameUser,
                                     "renew_year": renewController.text,
                                     "type_pay": typepayController,
-                                    //"date_create": DateTime.now().toString(),
+                                    "date_create": DateTime.now().toString(),
                                     "type_installation": typeinstallController,
                                     "amount_paid": amount_paidController.text,
                                     "image_record":imageController.text,
@@ -393,7 +445,7 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                   ).then((value) =>
                                   value != "false"
                                       ?clear(context,value,_products)
-                                      : error()
+                                      : error(context)
 
                                   );
 
@@ -408,65 +460,7 @@ if( Provider.of<invoice_vm>(context,listen: false)
                             }
                           },
                         ),
-                        ElevatedButton
-                          (  //منتجات الفاتورة
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    kMainColor)),
-                            onPressed: () {
 
-                             if(_invoice==null){
-
-                                // Provider.of<invoice_vm>(context,listen: false)
-                                //  .listinvoice.
-                                //       {
-                                //       renewYear: renewController.text,
-                                //       typePay: typepayController,
-                                //       //"date_create": ,
-                                //       typeInstallation:typeinstallController,
-                                //       amountPaid:amount_paidController.text,
-                                //
-                                //       fkIdClient:widget.idClient,
-                                //       fkIdUser:widget.iduser,
-                                //
-                                //       total:totalController,
-                                //       notes:noteController.text,}
-                                //     ));
-                              Navigator.push(context, MaterialPageRoute(
-                                  builder: (context)=>
-                                      add_invoiceProduct(
-                                        invoice:
-                                        Provider.of<invoice_vm>(context,listen: false)
-                                            .listinvoice[widget.indexinvoice],
-                                       indexinvoic:  widget.indexinvoice,
-                                      )
-                              ));
-                            }
-
-                            else {
-                               Navigator.push(context, MaterialPageRoute(
-                                   builder: (context) =>
-                                       add_invoiceProduct(
-                                         invoice:
-                                         Provider
-                                             .of<invoice_vm>(
-                                             context, listen: false)
-                                             .listinvoice[widget.indexinvoice],
-                                         indexinvoic: widget.indexinvoice,
-                                       )
-                               ));
-                               // Navigator.push(context, MaterialPageRoute(
-                               // builder: (context)=>
-                               // add_invoiceProduct(
-                               // invoice:_invoice,
-                               //     indexinvoic:
-                               //     widget.indexinvoice,
-                               // Provider.of<invoice_vm>(context,listen: false)
-                               //     .listinvoice[index],
-                             }
-
-                        },
-                            child: Text("منتجات الفاتورة")),
                       ],
                     ),
                   )
@@ -479,7 +473,7 @@ if( Provider.of<invoice_vm>(context,listen: false)
     );
   }
 
-  clear(BuildContext context,String value,List<ProductsInvoice>? _products) {
+  clear(BuildContext context,String value,List<ProductsInvoice>? _products) async {
      print('in clear');
      widget.indexinvoice = 0;
      _products=   Provider
@@ -495,26 +489,47 @@ if( Provider.of<invoice_vm>(context,listen: false)
         Map<String, dynamic?> body=_products[i].toJson();
         if(value!="")//update
         {
-          body.addAll({
+
+        }
+        body.addAll({
           'fk_id_invoice':value,
         });
-        }
-        Provider
-            .of<invoice_vm>(context, listen: false)
-            .listproductinvoic.removeAt(i);
+        // Provider
+        //     .of<invoice_vm>(context, listen: false)
+        //     .listproductinvoic.removeAt(i);
 
-        Provider.of<invoice_vm>(context,listen: false)
+       String res=await Provider.of<invoice_vm>(context,listen: false)
             .add_invoiceProduct_vm(body);
 
+        if (res!="false") {
+          body.addAll({
+            'idInvoiceProduct':res,
+          });
+          Provider
+              .of<invoice_vm>(context, listen: false)
+              .listproductinvoic[i].idInvoiceProduct=res;
       }
-    }
+    }//if
+    }//for loop
+     Provider
+         .of<invoice_vm>(context, listen: false)
+         .listinvoice[widget.indexinvoice].products= Provider
+         .of<invoice_vm>(context, listen: false)
+         .listproductinvoic;
+      Provider
+          .of<invoice_vm>(context, listen: false).updatelistproducetInvoice();
+
+     Provider.of<LoadProvider>(context, listen: false)
+         .changebooladdinvoice(false);
      _scaffoldKey.currentState!.showSnackBar(
          SnackBar(content: Text('تمت الإضافة بنجاح'))
      );
   }
 
-  error() {
-
+  error(context) {
+   print("error method");
+    Provider.of<LoadProvider>(context, listen: false)
+        .changebooladdinvoice(false);
     _scaffoldKey.currentState!.showSnackBar(
         SnackBar(content: Text('هناك خطأ ما'))
     );

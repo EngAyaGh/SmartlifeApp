@@ -3,7 +3,7 @@
 
 
 import 'package:crm_smart/model/regoin_model.dart';
-import 'package:crm_smart/ui/widgets/levelcombox.dart';
+import 'package:crm_smart/ui/widgets/combox_widget/levelcombox.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:flutter/cupertino.dart';

@@ -1,3 +1,4 @@
+import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/deleteinvoicemodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/productmodel.dart';
@@ -5,19 +6,22 @@ import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
 import 'package:crm_smart/ui/screen/product/editproduct.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
+import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants.dart';
+import '../../../constants.dart';
 
 class CardInvoiceClient extends StatefulWidget {
   CardInvoiceClient(
-      {required this.itemProd,required this.indexinvoice, Key? key}) : super(key: key);
+      { required this.itemClient,required this.itemProd,
+        required this.indexinvoice, Key? key}) : super(key: key);
   InvoiceModel itemProd;
+  ClientModel itemClient;
   int indexinvoice;
-  late String _currentUser;
+  late String _currentUser="";
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 
@@ -28,13 +32,14 @@ class CardInvoiceClient extends StatefulWidget {
 class _CardInvoiceClientState extends State<CardInvoiceClient> {
 
   @override void initState() {
-    widget._currentUser= Provider.of<user_vm_provider>(context,listen: false)
-      .currentUser!.idUser.toString();
+    widget._currentUser= "1";
+      //   Provider.of<user_vm_provider>(context,listen: false)
+      // .currentUser!.idUser.toString();
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-
+    print('build card client invoice  ${widget.itemProd.idInvoice}');
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
@@ -138,6 +143,7 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                                 onPressed: () {
                                    Navigator.push(context, MaterialPageRoute(
                                        builder: (context)=>addinvoice(//edit invoice
+                                           itemClient:widget.itemClient,
                                          iduser:widget.itemProd.fkIdUser ,
                                          idClient: widget.itemProd.fkIdClient,
                                          invoice: widget.itemProd,
@@ -151,7 +157,6 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                                 icon: Icon(Icons.delete), onPressed: () async {
 
                                // if(itemProd.idInvoice!=null)
-
                                 Provider.of<invoice_vm>(context,listen: false)
                                     .addlistinvoicedeleted(
                                     DeletedinvoiceModel(
@@ -161,6 +166,9 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                                         dateDelete: DateTime.now().toString(),
                                         //city:itemProd.
                                       nameClient: widget.itemProd.nameClient,
+                                      nameEnterprise: widget.itemClient.nameEnterprise,
+                                      mobileclient: widget.itemClient.mobile,
+                                      //mobileuser:widget.itemClient. ,
                                       nameUser: widget.itemProd.nameUser,//موظف المبيعات
                                 )
                                 );

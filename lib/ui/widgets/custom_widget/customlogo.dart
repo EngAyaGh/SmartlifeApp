@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
+import '../../../constants.dart';
 
 class CustomLogo extends StatelessWidget {
   const CustomLogo({Key? key}) : super(key: key);

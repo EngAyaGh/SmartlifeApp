@@ -1,5 +1,5 @@
 
-import 'package:crm_smart/ui/widgets/text_uitil.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
 import 'package:flutter/material.dart';
 
 class RowWidget extends StatelessWidget {

@@ -1,6 +1,6 @@
 
 import 'package:crm_smart/model/productmodel.dart';
-import 'package:crm_smart/ui/widgets/cardProduct.dart';
+import 'package:crm_smart/ui/widgets/product_widget/cardProduct.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:flutter/cupertino.dart';

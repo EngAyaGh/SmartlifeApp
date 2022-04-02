@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants.dart';
+import '../../../constants.dart';
 
 class CardProduct extends StatelessWidget {
    CardProduct( {required this.itemProd, this.scaffoldKey, Key? key}) : super(key: key);
