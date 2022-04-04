@@ -24,8 +24,10 @@ class _ProductViewState extends State<ProductView> {
  List<ProductModel> _listProd=[];
 @override
 void initState() {
-   String id_country=Provider.of<country_vm>(context,listen: false).id_country;
-   Provider.of<product_vm>(context,listen: false).getproduct_vm(id_country);//.then((value) => _isLoading=false);
+   String id_country=Provider.of<country_vm>
+     (context,listen: false).id_country;
+   Provider.of<product_vm>(context,listen: false)
+       .getproduct_vm(id_country);//.then((value) => _isLoading=false);
   super.initState();
   }
 

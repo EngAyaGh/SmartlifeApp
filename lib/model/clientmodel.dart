@@ -1,4 +1,6 @@
-class ClientModel {
+import 'package:crm_smart/Repository/cache_repo.dart';
+
+class ClientModel extends CacheRepository{
   ClientModel({
      this.idClients,
      this.nameClient,

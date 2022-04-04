@@ -15,6 +15,9 @@ class product_vm extends ChangeNotifier {
 
 
   Future<void> getproduct_vm(String fk) async {
+    //if(listProduct.isEmpty)
+
+    listProduct=[];
     listProduct = await ProductService().getAllProduct(fk);
 
     notifyListeners();
@@ -40,6 +43,7 @@ class product_vm extends ChangeNotifier {
     return res;
   }
   Future<String> deleteProduct(String? id_product) async {
+
     String res = await ProductService().deleteProductById(id_product!);
 
       if(res=="done"){

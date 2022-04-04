@@ -5,6 +5,11 @@ import 'package:flutter/cupertino.dart';
 
 class LoadProvider with ChangeNotifier {
 
+  bool isLoadingdelete=false;
+  void changebooldelete(bool val){
+    isLoadingdelete=val;
+    notifyListeners();
+  }
   bool isLoadingViewClient=false;
   void changeboolViewClient(bool val){
     isLoadingViewClient=val;

@@ -154,26 +154,55 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                               ),
                               new IconButton(
 
-                                icon: Icon(Icons.delete), onPressed: () async {
+                                icon: Icon(Icons.delete),
+                                onPressed: () async {
+                                bool result = await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('التأكيد'),
+                                      content: Text('هل تريد حذف الفاتورة'),
+                                      actions: <Widget>[
+                                        new FlatButton(
+                                          onPressed: () {
 
-                               // if(itemProd.idInvoice!=null)
-                                Provider.of<invoice_vm>(context,listen: false)
-                                    .addlistinvoicedeleted(
-                                    DeletedinvoiceModel(
+                                            Navigator.of(context, rootNavigator: true)
+                                                .pop(false); // dismisses only the dialog and returns false
+                                          },
+                                          child: Text('لا'),
+                                        ),
+                                        FlatButton(
+                                          onPressed: ()async {
+                                            Navigator.of(context, rootNavigator: true)
+                                                .pop(true);
+                                            // dismisses only the dialog and returns true
+                                            // if(itemProd.idInvoice!=null)
+                                            Provider.of<invoice_vm>(context,listen: false)
+                                                .addlistinvoicedeleted(
+                                                DeletedinvoiceModel(
 
-                                        fkClient:widget.itemProd.fkIdClient,
-                                        fkUser: widget._currentUser,//cuerrent user
-                                        dateDelete: DateTime.now().toString(),
-                                        //city:itemProd.
-                                      nameClient: widget.itemProd.nameClient,
-                                      nameEnterprise: widget.itemClient.nameEnterprise,
-                                      mobileclient: widget.itemClient.mobile,
-                                      //mobileuser:widget.itemClient. ,
-                                      nameUser: widget.itemProd.nameUser,//موظف المبيعات
-                                )
+                                                  fkClient:widget.itemProd.fkIdClient,
+                                                  fkUser: widget._currentUser,//cuerrent user
+                                                  dateDelete: DateTime.now().toString(),
+                                                  //city:itemProd.
+                                                  nameClient: widget.itemProd.nameClient,
+                                                  nameEnterprise: widget.itemClient.nameEnterprise,
+                                                  mobileclient: widget.itemClient.mobile,
+                                                  //mobileuser:widget.itemClient. ,
+                                                  nameUser: widget.itemProd.nameUser,//موظف المبيعات
+                                                )
+                                            );
+                                            Provider.of<invoice_vm>(context,listen: false)
+                                                .delete_invoice(widget.itemProd.idInvoice);
+                                          },
+                                          child: Text('نعم'),
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 );
-                                Provider.of<invoice_vm>(context,listen: false)
-                                    .delete_invoice(widget.itemProd.idInvoice);
+
+
                               },
                                 //onPressed: COPY,
                               ),

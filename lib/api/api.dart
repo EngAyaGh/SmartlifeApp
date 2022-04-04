@@ -31,11 +31,54 @@ class Api {
     if (token != null) {
       headers.addAll({'Authorization': 'Bearer $token'});
     }
-
     http.Response response = await http.post(
       Uri.parse(url),
       body: body,
       headers: headers,
+    );
+    http.Response responsed = await http.delete(
+      Uri.parse(url),
+      body: body,
+      headers: headers,
+    );
+
+    String result= response.body;
+    int idx = result.indexOf("{");
+    int length=result.length;
+    result=result.substring(idx,length);
+    print(result);
+    print(json.decode(result)["code"]);
+    if (json.decode(result)["code"] == "200") {
+      /*String data="";
+      if(jsonDecode(result)["message"]=="done")
+        data =jsonDecode(result)["message"] ;
+      else
+        Map<String, dynamic>  jsonDecode(result)["message"];*/
+      //print("in json data is $data");
+      return jsonDecode(result)["message"];
+    } else {
+
+      throw Exception(
+          '${json.decode(result)["message"]}');
+    }
+
+  }
+
+
+  Future<dynamic> delete({
+    required String url,
+    @required dynamic? body,
+    @required String? token,
+  }) async {
+    Map<String, String> headers = {};
+    if (token != null) {
+      headers.addAll({'Authorization': 'Bearer $token'});
+    }
+
+    http.Response response = await http.delete(
+      Uri.parse(url),
+      body: body,
+      headers: {},
     );
 
     String result= response.body;

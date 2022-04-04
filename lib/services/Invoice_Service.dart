@@ -27,6 +27,19 @@ class Invoice_Service {
     print(prodlist);
     return prodlist;
   }
+  Future<List<InvoiceModel>> getinvoicebyregoin(String regoin) async {
+    var
+    data=await Api()
+        .get(url:url+ 'client/invoice/getinvoicebyregoin.php?fk_regoin=$regoin');
+    print(data);
+    List<InvoiceModel> prodlist = [];
+    for (int i = 0; i < data.length; i++) {
+      print(i);
+      prodlist.add(InvoiceModel.fromJson(data[i]));
+    }
+    print(prodlist);
+    return prodlist;
+  }
   Future<String> addInvoice( Map<String,dynamic?> body) async {
     print("$body");
     try{
@@ -62,12 +75,20 @@ class Invoice_Service {
     return result=="done"? true:false;
   }
   Future<String> deleteInvoiceById(String? id_invoice) async {
+    try{
     print("id_invoice "+id_invoice!);
 
    String res= await Api()
-        .post(url:url+ 'client/invoice/deleteinvoice.php?id_invoice=$id_invoice');
+        .post(url:url
+       + 'client/invoice/deleteinvoice.php',
+       body: {"id_invoice":id_invoice});
+
    print("delete in services "+res);
    return res;
+    }
+    catch(e){
+      return "res";
+        }
   }
   Future<String> deleteProductInInvoice(String id_invoice_product) async {
     String res= await Api()

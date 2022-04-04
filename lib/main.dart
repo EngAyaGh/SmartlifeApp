@@ -58,7 +58,9 @@ void main() async{
         ChangeNotifierProvider<manage_provider>(create: (_) => manage_provider()),
         ChangeNotifierProvider<client_vm>(create: (_) => client_vm()),
         ChangeNotifierProvider<user_vm_provider>(create: (_) => user_vm_provider()),
-        ChangeNotifierProvider<invoice_vm>(create: (_) => invoice_vm()),
+        ChangeNotifierProvider<invoice_vm>(create: (_) => invoice_vm(
+
+        )),
 
   ], child:MyApp()));
 }
@@ -89,9 +91,9 @@ class MyApp extends StatelessWidget {
             return
               GetMaterialApp(
                 //initialBinding: UserBinding(),
-                initialRoute: Routes.client_dashboard,
+                initialRoute: Routes.productview,
                 getPages: AppRoutes.routes,
-                home:client_dashboard(),
+                home:ProductView(),
                 //main_page(),
 
                 // Directionality(

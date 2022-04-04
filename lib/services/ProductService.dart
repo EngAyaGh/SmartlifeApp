@@ -50,7 +50,9 @@ try{
   }
   Future<String> deleteProductById(String idproduct) async {
    String res= await Api()
-        .get(url:url+ 'products/deleteProduct.php?fk_product=$idproduct');
+        .delete(url:url+ 'products/deleteProduct.php?fk_product=$idproduct'
+   ,headers:{'Authorization': 'Bearer $token'};
+   );
    return res;
   }
 }

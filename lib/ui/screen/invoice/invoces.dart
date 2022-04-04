@@ -25,9 +25,11 @@ class _invoicesState extends State<invoices> {
 
    @override
    void initState() {
-
+   List<InvoiceModel> list= Provider.of<invoice_vm>(context,listen: false)
+     .listinvoicebyregoin;
+     //get info from list client_invoice
      Provider.of<invoice_vm>(context,listen: false)
-         .get_invoiceclient(widget.fkclient);
+         .get_invoiceclient(widget.fkclient,list);
 
      print('init invoice  '+widget.fkclient);
      //.then((value) => _isLoading=false);
@@ -37,7 +39,7 @@ class _invoicesState extends State<invoices> {
    @override
    Widget build(BuildContext context) {
      listinvoice=Provider.of<invoice_vm>(context,listen: true)
-         .listinvoice;
+         .listinvoiceClient;
 
      print("in build invoices "+listinvoice.length.toString());
     setState(() {

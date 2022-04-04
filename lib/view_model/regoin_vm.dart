@@ -25,13 +25,15 @@ class regoin_vm extends ChangeNotifier{
     notifyListeners();
   }
   Future<void> getregoin(String? fk_country)async {
-
-    List<dynamic> data=[];
-    data= await Api()
-        .get(url:url+ 'country/get_regoinByIdCountry.php?fk_country=$fk_country');
-    if(data !=null) {
-      for (int i = 0; i < data.length; i++) {
-        listregoin.add(RegoinModel.fromJSON(data[i]));
+    if(listregoin.isEmpty) {
+      List<dynamic> data = [];
+      data = await Api()
+          .get(url: url +
+          'country/get_regoinByIdCountry.php?fk_country=$fk_country');
+      if (data != null) {
+        for (int i = 0; i < data.length; i++) {
+          listregoin.add(RegoinModel.fromJSON(data[i]));
+        }
       }
     }
     notifyListeners();

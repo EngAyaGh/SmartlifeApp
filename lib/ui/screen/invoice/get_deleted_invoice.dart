@@ -1,8 +1,11 @@
 
 
 //import 'package:flutter/cupertino.dart';
+import 'package:crm_smart/model/deleteinvoicemodel.dart';
+import 'package:crm_smart/ui/widgets/invoice_widget/card_deleted.dart';
+import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 class deletedinvoice extends StatefulWidget {
   const deletedinvoice({Key? key}) : super(key: key);
 
@@ -13,6 +16,8 @@ class deletedinvoice extends StatefulWidget {
 class _deletedinvoiceState extends State<deletedinvoice> {
   @override
   Widget build(BuildContext context) {
+    context.watch<invoice_vm>().get_invoice_deleted("1");
+    List<DeletedinvoiceModel> _listdeletedinvoice= context.watch<invoice_vm>().listdeletedinvoice;
     return
       Scaffold(
       body:Padding(
@@ -23,16 +28,17 @@ class _deletedinvoiceState extends State<deletedinvoice> {
               .size
               .height *0.95,
           child: ListView.separated(
-            itemCount: listinvoice.length,
+            itemCount: _listdeletedinvoice.length,
             separatorBuilder: (BuildContext context, int index) => const Divider(),
             itemBuilder: (BuildContext context, int index)=>
                 Builder(builder:
                     (context)=>
-                    CardInvoiceClient(
-                      itemProd: listinvoice[index],
-                      itemClient :  widget.itemClient,
+                        card_deleted(
+                      card: _listdeletedinvoice[index],
+                      //itemClient :  widget.itemClient,
                       //scaffoldKey: _scaffoldKey,
-                      indexinvoice: index,)) ,
+                      //indexinvoice: index,
+                        )) ,
             //     _listProd.map(
             //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
             // ).toList(),

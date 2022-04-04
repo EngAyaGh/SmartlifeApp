@@ -1,8 +1,8 @@
 
 
-
 import 'dart:js';
 
+import 'package:crm_smart/Repository/invoice_repo/cach_data_source.dart';
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/services/ProductService.dart';
 import 'package:crm_smart/services/clientService.dart';
@@ -11,21 +11,51 @@ import 'package:provider/provider.dart';
 
 import 'country_vm.dart';
 
+const CACHE_ClientByUser_KEY = "CACHE_Client_KEY";
+const CACHE_ClientByUser_INTERVAL = 60 * 1000; // 1 MINUTE IN MILLIS
+
 class client_vm extends ChangeNotifier {
   List<ClientModel> listClient = [];
   List<ClientModel> listClientbyCurrentUser = [];
   List<ClientModel> listClientbyRegoin = [];
 
   Future<void> getclient_vm() async {
+    if(listClient.isEmpty)
     listClient = await ClientService().getAllClient();
-
     notifyListeners();
   }
   Future<void> getclientByIdUser_vm(String? fk_user) async {
-    listClientbyCurrentUser = await ClientService().getClientbyuser(fk_user!);
+    cahe_data_source_client().clearCache();
+    listClientbyCurrentUser=[];
+    listClientbyCurrentUser = await ClientService()
+        .getClientbyuser(fk_user!);
+
+    List<ClientModel>? list=await cahe_data_source_client()
+        .getCache(CACHE_ClientByUser_KEY, CACHE_ClientByUser_INTERVAL);
+
+    if(listClientbyCurrentUser.isEmpty){
+      print("inside get from api client");
+      listClientbyCurrentUser =
+      await ClientService().getClientbyuser(fk_user);
+
+      if(listClientbyCurrentUser!=null) {
+        print("nukkkkklllll");
+      await cahe_data_source_client().saveToCache(listClientbyCurrentUser,
+          CACHE_ClientByUser_KEY);
+      }
+      else {
+        print("elsssssss");
+      }
+    }else{
+      if(list!=null){
+      print('inside get from cache client');
+      listClientbyCurrentUser.addAll(list);
+      }
+    }
     notifyListeners();
   }
   Future<void> getclientByRegoin(String fk_user) async {
+    if(listClientbyRegoin.isEmpty)
     listClientbyRegoin = await ClientService().getAllClientByRegoin(fk_user);
     notifyListeners();
   }

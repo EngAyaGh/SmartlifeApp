@@ -7,6 +7,7 @@ import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardClient.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 // import 'package:flutter/cupertino.dart';
@@ -25,6 +26,7 @@ class _tabclientsState extends State<tabclients> {
   // final controllerUsers = Get.find<AllUserVMController>();
    List<ClientModel> _list=[];
    String? iduser;
+   UserModel? user;
    bool _isLoading=false;
    @override
    void initState()  {
@@ -33,15 +35,19 @@ class _tabclientsState extends State<tabclients> {
  //  try{   // Provider.of<user_vm_provider>(context,listen: false).getclient_vm();
        Provider.of<user_vm_provider>(context,listen: false).getcurrentuser();
       // WidgetsBinding.instance?.addPostFrameCallback((_) {
-       UserModel? us = Provider
+     user  = Provider
              .of<user_vm_provider>(context, listen: false).currentUser;
-         iduser = us!.idUser.toString();
+         print('user $user');//null value
+         iduser = user!.idUser.toString();
 
          print("init tabview " + iduser.toString());
 
       // iduser!=null?
        Provider.of<client_vm>(context, listen: false)
              .getclientByIdUser_vm(iduser.toString());
+
+       Provider.of<invoice_vm>(context, listen: false)
+           .get_invoicesbyRegoin(user!.fkRegoin);
        //:_isLoading=true;
       // });
       //  Provider.of<LoadProvider>(context, listen: false)
@@ -62,8 +68,8 @@ class _tabclientsState extends State<tabclients> {
   @override
   Widget build(BuildContext context) {
 
-      _list=Provider.of<client_vm>(context,listen: true)
-          .listClientbyCurrentUser;
+      // _list=Provider.of<client_vm>(context,listen: true)
+      //     .listClientbyCurrentUser;
 
     //});
 //
@@ -88,33 +94,49 @@ class _tabclientsState extends State<tabclients> {
 
     print('build tabview');
     return Scaffold(
-      body:
-      _isLoading?
-        Center(child: CircularProgressIndicator(),)
-        :(_list.isEmpty
-    ? Center(child: Text('لا يوجد عملاء',style: TextStyle(fontSize: 22,color: kWhiteColor),),)
-        :
+      body:RefreshIndicator(
+          onRefresh: ()async{
+            // Provider.of<invoice_vm>(context, listen: false)
+            //     .get_invoicesbyRegoin(us.fkRegoin);
+            await context.read<invoice_vm>()
+                .get_invoicesbyRegoin(user!.fkRegoin);
+
+            await context.read<client_vm>()
+                .getclientByIdUser_vm(iduser.toString());
+          },
+    //   _isLoading?
+    //     Center(child: CircularProgressIndicator(),)
+    //     :(_list.isEmpty
+    // ? Center(child: Text('لا يوجد عملاء',style: TextStyle(fontSize: 22,color: kWhiteColor),),)
+    //     :
     //   ModalProgressHUD(
     //       inAsyncCall:Provider.of<LoadProvider>(context)
     //           .isLoadingViewClient,
     //     opacity: 0.01,
-        //child:
-          Padding(
+    // child:
+     child: Padding(
     padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
-    child:
-        Container(
-          child: ListView.builder(
+    child: Center(
+          child:
+    Consumer<client_vm>(
+    builder: (context,value,child){
+    return value.listClientbyCurrentUser.length==0?
+    CircularProgressIndicator()
+        :ListView.builder(
               scrollDirection: Axis.vertical,
-              itemCount: _list.length,
+              itemCount: value.listClientbyCurrentUser.length,
               itemBuilder: (context, index) {
                 return SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: cardClient(itemClient: _list[index], iduser: iduser.toString()),
+                      padding: const EdgeInsets.all(2),
+                      child: cardClient(
+                          itemClient:
+                      value.listClientbyCurrentUser[index],
+                          iduser: iduser.toString()),
                     ));
-              }),
-        ),
-           )
+              });
+       } ),
+    )  )
        ));
   }
 }

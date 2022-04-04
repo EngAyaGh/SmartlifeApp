@@ -27,6 +27,7 @@ class cardClient extends StatelessWidget {
     // controllerUsers.getcurrentUser();
     //return Obx( () {
     return Container(
+
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(bottomRight: Radius.circular(30)),
           boxShadow: <BoxShadow>[
@@ -49,52 +50,21 @@ class cardClient extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(30)),),
-              height: 190,
+                borderRadius: BorderRadius.all( Radius.circular(5)),),
+              height: 130,//MediaQuery.of(context).size.height*0.15,
               child: Padding(
-                padding: EdgeInsets.all(12.0),
+                padding: EdgeInsets.all(6),
                 child: Flex(
                   direction: Axis.vertical,
                   children: [
                     Column(
+                      textDirection: TextDirection.rtl,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              children: [
-                                Column(
-                                  children: [
-                                    // CircleAvatar(
-                                    //   radius: 40,
-                                    //
-                                    //  // backgroundImage:Image.asset('assest/images/logo.png',fit: BoxFit.fill,).image,
-                                    // ),
-                                    // Text('logo client'),
-                                  ],
-                                ),
-                                //Spacer(flex: 200,),
-                                /*new ButtonBar(
-                            children: <Widget>[
-                          new IconButton(
-                            icon: Icon(Icons.tab), onPressed: () {  },
-                            //onPressed: REFRESH,
-                          ),
-                          new IconButton(
-                            icon: Icon(Icons.person, color: kMainColor,), onPressed: () {  },
-                            //onPressed: BOOKMARK,
-                          ),
-                          new IconButton(
-                            icon: Icon(Icons.content_copy), onPressed: () {  },
-                            //onPressed: COPY,
-                          ),
-                            ],
-                          )*/
 
-                              ],
-                            ),
                             Column(
                               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -122,28 +92,34 @@ class cardClient extends StatelessWidget {
 
                                         Text('  المنطقة', style: TextStyle(
                                             fontFamily: kfontfamily2),),
+                                        SizedBox(width: 3,),
+                                        Text(itemClient.nameUser.toString(),
+                                          style: TextStyle(
+                                              fontFamily: kfontfamily3 ),),
+                                        Text('  موظف المبيعات', style: TextStyle(
+                                            fontFamily: kfontfamily3),),
                                       ],
                                     )),
-                                Row(
-                                  children: [
-                                    Text(itemClient.city.toString(),
-                                      style: TextStyle(
-                                          fontFamily: kfontfamily2),),
-                                    Text('   المدينة', style: TextStyle(
-                                        fontFamily: kfontfamily2),),
-                                  ],
-                                ),
-
-                                Row(
-
-                                  children: [
-                                    Text(itemClient.nameUser.toString(),
-                                      style: TextStyle(
-                                          fontFamily: kfontfamily3 ),),
-                                    Text('  موظف المبيعات', style: TextStyle(
-                                        fontFamily: kfontfamily3),),
-                                  ],
-                                )
+                                // Row(
+                                //   children: [
+                                //     Text(itemClient.city.toString(),
+                                //       style: TextStyle(
+                                //           fontFamily: kfontfamily2),),
+                                //     Text('   المدينة', style: TextStyle(
+                                //         fontFamily: kfontfamily2),),
+                                //   ],
+                                // ),
+                                //
+                                // Row(
+                                //
+                                //   children: [
+                                //     Text(itemClient.nameUser.toString(),
+                                //       style: TextStyle(
+                                //           fontFamily: kfontfamily3 ),),
+                                //     Text('  موظف المبيعات', style: TextStyle(
+                                //         fontFamily: kfontfamily3),),
+                                //   ],
+                                // )
                               ],
                             ),
                             Column(
@@ -155,8 +131,8 @@ class cardClient extends StatelessWidget {
                                     Text(itemClient.typeClient.toString(),
                                       style: TextStyle(
                                           fontFamily: kfontfamily2),),
-                                    Text('   حالة العميل', style: TextStyle(
-                                        fontFamily: kfontfamily2),),
+                                    // Text('   حالة العميل', style: TextStyle(
+                                    //     fontFamily: kfontfamily2),),
                                   ],
                                 ),
 
@@ -168,12 +144,6 @@ class cardClient extends StatelessWidget {
                                       //onPressed: REFRESH,
                                     ),
 
-
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
                                     ElevatedButton(style: ButtonStyle(
                                         backgroundColor: MaterialStateProperty
                                             .all(kMainColor)),
@@ -181,12 +151,22 @@ class cardClient extends StatelessWidget {
                                         child: Text('Approve')),
                                   ],
                                 ),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.center,
+                                //   children: [
+                                //     // ElevatedButton(style: ButtonStyle(
+                                //     //     backgroundColor: MaterialStateProperty
+                                //     //         .all(kMainColor)),
+                                //     //     onPressed: () {},
+                                //     //     child: Text('Approve')),
+                                //   ],
+                                // ),
                               ],)
 
                           ],
                         ),
                       ],),
-                    SizedBox(height: 15,),
+                    SizedBox(height: 7,),
                     const MySeparator(color: Colors.grey),
                     Container(
                         margin: const EdgeInsets.only(top: 10),
@@ -221,7 +201,8 @@ class cardClient extends StatelessWidget {
                           ],
                         ),
 
-                        height: 25),
+                        height:18// MediaQuery.of(context).size.height*0.2
+                    ),
                   ],),
               ),
             ),

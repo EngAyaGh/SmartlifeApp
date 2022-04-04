@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-class InvoiceModel {
+import 'package:crm_smart/Repository/cache_repo.dart';
+
+class InvoiceModel extends CacheRepository{
   InvoiceModel({
      this.idInvoice,
      this.dateCreate,
@@ -113,7 +115,7 @@ class InvoiceModel {
   }
 }
 
-class ProductsInvoice {
+class ProductsInvoice extends CacheRepository{
   ProductsInvoice({
      this.idInvoiceProduct,
      this.fkIdInvoice,

@@ -1,8 +1,10 @@
 import 'package:crm_smart/model/productmodel.dart';
+import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/ui/screen/product/editproduct.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
@@ -102,18 +104,56 @@ class CardProduct extends StatelessWidget {
                                 new IconButton(
 
                                   icon: Icon(Icons.delete), onPressed: () async {
+                                  bool result = await showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return ModalProgressHUD(
+                                        inAsyncCall: Provider.of<LoadProvider>(context)
+                                            .isLoadingdelete,
 
-                                  String res =await Provider.of<product_vm>(context).deleteProduct(itemProd.idProduct);
-                                    if(res=="remove error")
-                                      scaffoldKey!.currentState!.showSnackBar(
-                                          SnackBar(content: Text("لا يمكن حذف هذا المنتج"))
+                                        child: AlertDialog(
+                                          title: Text('تأكيد'),
+                                          content: Text('هل تريد الحذف'),
+                                          actions: <Widget>[
+                                            new FlatButton(
+                                              onPressed: () {
+                                                Navigator.of(context, rootNavigator: true)
+                                                    .pop(false); // dismisses only the dialog and returns false
+                                              },
+                                              child: Text('لا'),
+                                            ),
+                                            FlatButton(
+                                              onPressed: ()async {
+                                                Provider.of<LoadProvider>(context,listen: false)
+                                                    .changebooldelete(true);
+                                                String res =await Provider.of<product_vm>(context,listen: false)
+                                                    .deleteProduct(itemProd.idProduct);
+                                                Provider.of<LoadProvider>(context,listen: false)
+                                                    .changebooldelete(false);
+                                                if(res=="remove error")
+                                                  scaffoldKey!.currentState!.showSnackBar(
+                                                      SnackBar(content: Text("لا يمكن حذف هذا المنتج"))
+                                                  );
+                                                else{
+                                                  if(res!='error')
+                                                    scaffoldKey!.currentState!.showSnackBar(
+                                                        SnackBar(content: Text("تم الحذف بنجاح"))
+                                                    );
+                                                }
+
+                                                Navigator.of(context, rootNavigator: true)
+                                                    .pop(true); // dismisses only the dialog and returns true
+                                              },
+                                              child: Text('نعم'),
+                                            ),
+                                          ],
+                                        ),
                                       );
-                                    else{
-                                      if(res!='error')
-                                        scaffoldKey!.currentState!.showSnackBar(
-                                            SnackBar(content: Text("تم الحذف بنجاح"))
-                                        );
-                                    }
+                                    },
+                                  );
+
+
+
 
                                 },
                                   //onPressed: COPY,

@@ -112,7 +112,8 @@ void calculate(){
         //     Navigator.pop(context);
         //   }, icon:Icon( Icons.arrow_back,color: kWhiteColor)),
 
-          IconButton(onPressed: (){
+          IconButton(
+              onPressed: (){
             double _total=0;
              List<ProductsInvoice>? pinv=
                   Provider.of<invoice_vm>(context,listen: false)
@@ -121,14 +122,14 @@ void calculate(){
               _total=_total+double.parse(pinv[i].price.toString());
             }
             Provider.of<invoice_vm>(context,listen: false)
-                .listinvoice[widget.indexinvoic].total=_total.toString();
+                .listinvoiceClient[widget.indexinvoic].total=_total.toString();
             print(_total.toString());
                print( Provider.of<invoice_vm>(context,listen: false)
-               .listinvoice[widget.indexinvoic].total);
+               .listinvoiceClient[widget.indexinvoic].total);
 
             widget.invoice!.products=pinv;
             Provider.of<invoice_vm>(context,listen: false)
-                .listinvoice[widget.indexinvoic].products=pinv;
+                .listinvoiceClient[widget.indexinvoic].products=pinv;
 
             Provider.of<invoice_vm>(context,listen: false)
                 .updatelistproducetInvoice();//to refresh total in list invoice
@@ -139,204 +140,184 @@ void calculate(){
         ],
       ),
       body: Container(
-        child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(5),
-            child: Container(
-              height:MediaQuery.of(context).size.height*0.3,
-              child: Column(
-              children: [
-                Container(
-                  child: DropdownButton(
-                    isExpanded: true,
-                    hint: Text("اختر منتج"),
-                    items: listProduct.map((level_one) {
-                      return DropdownMenuItem(
-                        child: Text(level_one.nameProduct), //label of item
-                        value: level_one.idProduct, //value of item
-                      );
-                    }).toList(),
-                    value:
-                        selectedvalue, //select_dataItem!.idCountry ,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedvalue = value.toString();
-                       index=listProduct.indexWhere(
-                                (element) => element.idProduct==selectedvalue);
-                        calculate();
-                      });
-                      //Provider.of<regoin_vm>(context,listen: false).changeVal(value.toString());
-                    },
+        color: Colors.white38,
+        child: Padding(
+          padding: const EdgeInsets.all(30),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all( Radius.circular(30)),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    offset: Offset(1.0, 1.0),
+                    blurRadius: 8.0,
+                    color: Colors.black87.withOpacity(0.2),
                   ),
-                ),
-               // SizedBox(height: 5,),
+                ],),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(25),
+                child: Column(
+                  textDirection: TextDirection.rtl,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
 
-                // Row(
-                //   children: [
-                //     Flexible(
-                //       child: CustomFormField(
-                //         onChanged: (val) {
-                //           _taxadmin_value=val;
-                //          calculate();
-                //         },
-                //           inputType: TextInputType.number,
-                //
-                //           read: false,con: _taxadmin,
-                //           label: 'نسبة الخصم المتاحة للمشرف', radius: 20),
-                //     ),
-                //
-                //     SizedBox(width: 50,),
-                //     Text('%'),
-                //     //TextBox.fromLTRBD(20, 20, 20, 20,TextDirection.rtl),
-                //   ],
-                // ),
-                SizedBox(height: 5,),
-
-                Row(
                   children: [
-                    Flexible(
-                      child: CustomFormField(
-
-                        read: false,
-                          onChanged: (val) {
-                            _taxuser_value=val;
-                            calculate();
-                          },
-                          inputType: TextInputType.number,
-
-                          con: _taxuser,
-                          label: 'نسبة الخصم المتاحة للموظف',
-                          radius: 10),
-                    ),
-                    SizedBox(width: 10,),
-                    Text('%'),
-                    SizedBox(width: 10,),
-                    Flexible(
-                      child: CustomFormField(
-                          onChanged: (val) {
-                            _taxadmin_value=val;
-                            calculate();
-                          },
-                          inputType: TextInputType.number,
-
-                          read: false,con: _taxadmin,
-                          label: 'نسبة الخصم المتاحة للمشرف',
-                          radius: 10),
-                    ),
-
-                    SizedBox(width: 10,),
-                    Text('%'),
-                    //   //TextBox.fromLTRBD(20, 20, 20, 20,TextDirection.rtl),
-                  ],
-                ),
-
-                SizedBox(height: 5,),
-
-                Row(
-                  children: [
-                    Flexible(child: CustomFormField(
-                      read: false,
-                      onChanged: (val) {
-                        print(val);
-                        if(val==null)_amount_value='1';
-                        _amount_value=val;
-                        calculate();
+                    DropdownButton(
+                      isExpanded: true,
+                      hint: Text("اختر منتج"),
+                      items: listProduct.map((level_one) {
+                        return DropdownMenuItem(
+                          child: Text(level_one.nameProduct), //label of item
+                          value: level_one.idProduct, //value of item
+                        );
+                      }).toList(),
+                      value:
+                      selectedvalue, //select_dataItem!.idCountry ,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedvalue = value.toString();
+                          index=listProduct.indexWhere(
+                                  (element) => element.idProduct==selectedvalue);
+                          calculate();
+                        });
+                        //Provider.of<regoin_vm>(context,listen: false).changeVal(value.toString());
                       },
-                      inputType: TextInputType.number,
-                      label: 'الكمية', radius: 10,con: _amount,)),
-                    SizedBox(width: 10,),
-                    Flexible(
-                        child: CustomFormField(
-                        ontap: calculate,
-                        read: false,
-                        con: _textprice,
-                        label: 'السعر', radius: 10)),
-                    Text( Provider.of<country_vm>(context, listen: true)
-                        .currency),
+                    ),
+                    SizedBox(height: 5,),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: CustomFormField(
 
-                  ],
-                ),
+                              read: false,
+                              onChanged: (val) {
+                                _taxuser_value=val;
+                                calculate();
+                              },
+                              inputType: TextInputType.number,
 
-                SizedBox(height: 5,),
+                              con: _taxuser,
+                              label: 'نسبة الخصم المتاحة للموظف',
+                              radius: 10),
+                        ),
+                        SizedBox(width: 10,),
+                        Text('%'),
+                        SizedBox(width: 10,),
+                        Flexible(
+                          child: CustomFormField(
+                              onChanged: (val) {
+                                _taxadmin_value=val;
+                                calculate();
+                              },
+                              inputType: TextInputType.number,
 
-                ElevatedButton
-                  (
-                    style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        kMainColor)),
-                    onPressed: () {
-                      //iduser
-                      final index=listProduct.indexWhere(
-                              (element) => element.idProduct==selectedvalue);
-                      ProductModel pm=listProduct[index];
-                      ProductsInvoice  pp=ProductsInvoice(
-                         //idInvoiceProduct: null,
-                        fkIdInvoice: widget.invoice!.idInvoice==null
-                            ? '0' :  widget.invoice!.idInvoice.toString(),
-                        fkclient:widget.invoice!.fkIdClient ,
-                        fkuser: widget.invoice!.fkIdUser,
-                        fkProduct:pm.idProduct,
-                        fkConfig: pm.fkConfig==null?"null": pm.fkConfig,
-                        fkCountry: pm.fkCountry,
-                        price: _textprice.text,
-                        amount: _amount.text.isEmpty?'1':_amount.text,
-                        rateAdmin: _taxadmin.text,
-                        rateUser: _taxuser.text,
-                        nameProduct: pm.nameProduct,
-                        type: listProduct[index].type,
-                        idProduct: listProduct[index].idProduct,
-                        idInvoiceProduct: "null",
-                        priceProduct: listProduct[index].priceProduct,
-                        taxtotal: listProduct[index].value_config==null?"null":listProduct[index].value_config
-                      );
-                      listAdded.add(pp);
-                      print(pp.nameProduct);
-                      Provider.of<invoice_vm>(context,listen: false)
-                          .addlistproductinvoic(pp);
+                              read: false,con: _taxadmin,
+                              label: 'نسبة الخصم المتاحة للمشرف',
+                              radius: 10),
+                        ),
 
-                    },
-                    child: Text('إضافة')),
-              ],
-              ),
-            ),
-          ),
-          Container(
-            // height:  MediaQuery.of(context).size.height/2,
-            child:
-            Column(
-              children: [
-                //Text('منتجات الفاتورة'),
-                Padding(
-                  padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
-                  child: Container(
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height *0.75,
-                    child:
-                   Consumer<invoice_vm>(
+                        SizedBox(width: 10,),
+                        Text('%'),
+                        //   //TextBox.fromLTRBD(20, 20, 20, 20,TextDirection.rtl),
+                      ],
+                    ),
+
+                    SizedBox(height: 5,),
+
+                    Row(
+                      children: [
+                        Flexible(child: CustomFormField(
+                          read: false,
+                          onChanged: (val) {
+                            print(val);
+                            if(val==null)_amount_value='1';
+                            _amount_value=val;
+                            calculate();
+                          },
+                          inputType: TextInputType.number,
+                          label: 'الكمية', radius: 10,con: _amount,)),
+                        SizedBox(width: 10,),
+                        Flexible(
+                            child: CustomFormField(
+                                ontap: calculate,
+                                read: false,
+                                con: _textprice,
+                                label: 'السعر', radius: 10)),
+                        Text( Provider.of<country_vm>(context, listen: true)
+                            .currency),
+
+                      ],
+                    ),
+
+                    SizedBox(height: 5,),
+
+                    ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                kMainColor)),
+                        onPressed: () {
+                          //iduser
+                          final index=listProduct.indexWhere(
+                                  (element) => element.idProduct==selectedvalue);
+                          ProductModel pm=listProduct[index];
+                          ProductsInvoice  pp=ProductsInvoice(
+                            //idInvoiceProduct: null,
+                              fkIdInvoice: widget.invoice!.idInvoice==null
+                                  ? '0' :  widget.invoice!.idInvoice.toString(),
+                              fkclient:widget.invoice!.fkIdClient ,
+                              fkuser: widget.invoice!.fkIdUser,
+                              fkProduct:pm.idProduct,
+                              fkConfig: pm.fkConfig==null?"null": pm.fkConfig,
+                              fkCountry: pm.fkCountry,
+                              price: _textprice.text,
+                              amount: _amount.text.isEmpty?'1':_amount.text,
+                              rateAdmin: _taxadmin.text,
+                              rateUser: _taxuser.text,
+                              nameProduct: pm.nameProduct,
+                              type: listProduct[index].type,
+                              idProduct: listProduct[index].idProduct,
+                              idInvoiceProduct: "null",
+                              priceProduct: listProduct[index].priceProduct,
+                              taxtotal: listProduct[index].value_config==null?"null":listProduct[index].value_config
+                          );
+                          listAdded.add(pp);
+                          print(pp.nameProduct);
+                          Provider.of<invoice_vm>(context,listen: false)
+                              .addlistproductinvoic(pp);
+
+                        },
+                        child: Text('إضافة')),
+                    SizedBox(height: 3,),
+                    Container(
+                      height: MediaQuery.of(context).size.height*0.75,
+                      child: Consumer<invoice_vm>(
                         builder: (_, data, __) =>
                             Expanded(
-                            child: ListView.builder(
-                              itemCount: data.listproductinvoic.length,
-                              itemBuilder: (context, index) {
-                                return CardProduct_invoice(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: data.listproductinvoic.length,
+                                itemBuilder: (context, index) {
+                                  return CardProduct_invoice(
                                     itemProd: data.listproductinvoic[index],
                                     index: index,
                                     iduser: widget.invoice!.fkIdUser,
                                     idclient:widget.invoice!.fkIdClient ,
-                                );
-                              },),
+                                  );
+                                },),
+                            ),
+                      ),
+                    ),
+                  ],
                   ),
-                ),
 
-                  ),),
-              ],
+                ],
+                  ),
+              ),
             ),
           ),
-        ],
-          ),
+        ),
       ),
     );
   }

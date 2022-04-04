@@ -17,6 +17,7 @@ class user_vm_provider extends ChangeNotifier{
   }
   Future<void> getcurrentuser() async {
     try {
+      if(userall!.isEmpty)
       userall = await  UserService().usersServices();
 
       SharedPreferences preferences = await SharedPreferences.getInstance();
