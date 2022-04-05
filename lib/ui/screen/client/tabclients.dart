@@ -30,25 +30,39 @@ class _tabclientsState extends State<tabclients> {
    bool _isLoading=false;
    @override
    void initState()  {
+     super.initState();
 
       // WidgetsBinding.instance?.addPostFrameCallback((_) {
  //  try{   // Provider.of<user_vm_provider>(context,listen: false).getclient_vm();
-       Provider.of<user_vm_provider>(context,listen: false).getcurrentuser();
+ //       Provider.of<user_vm_provider>(context,listen: false)
+ //           .getcurrentuser();
       // WidgetsBinding.instance?.addPostFrameCallback((_) {
-     user  = Provider
-             .of<user_vm_provider>(context, listen: false).currentUser;
-         print('user $user');//null value
-         iduser = user!.idUser.toString();
 
-         print("init tabview " + iduser.toString());
+    //  user  = Provider
+    //          .of<user_vm_provider>(context, listen: false)
+    //      .currentUser;
+    //    Future.microtask(() =>{
+    //    context.read<user_vm_provider>().getcurrentuser(),
+    //
+    //     user=     Provider.of<user_vm_provider>(context, listen: false).currentUser,
+    //        Provider.of<client_vm>(context, listen: false)
+    //        .getclientByIdUser_vm(
+    //            user!.idUser.toString())
+    //    } );
+
+     // user=context.read<user_vm_provider>().currentUser;
+     //     print('user $user');//null value
+     //     iduser = user!.idUser!;
+
+        // print("init tabview " + iduser.toString());
 
       // iduser!=null?
-       Provider.of<client_vm>(context, listen: false)
-             .getclientByIdUser_vm(iduser.toString());
 
-       Provider.of<invoice_vm>(context, listen: false)
-           .get_invoicesbyRegoin(user!.fkRegoin);
-       //:_isLoading=true;
+
+       // Provider.of<invoice_vm>(context, listen: false)
+       //     .get_invoicesbyRegoin(user!.fkRegoin);
+       //
+       // //:_isLoading=true;
       // });
       //  Provider.of<LoadProvider>(context, listen: false)
       //      .changeboolViewClient(false);
@@ -59,12 +73,27 @@ class _tabclientsState extends State<tabclients> {
    //     .changeboolViewClient(true);
    //_isLoading =false;
 
-   super.initState();
 
    // });
     // print( controllerUsers.currentUser.value.idUser);
-   }
 
+   }
+   @override
+   void didChangeDependencies() {
+     setState(() {
+      // isLoading = true;
+     });
+     Future.delayed(Duration(milliseconds: 30)).then((_) async {
+       await    Provider.of<client_vm>(context, listen: false)
+           .getclientByIdUser_vm();
+       // user=context.read<user_vm_provider>().currentUser;
+       // await    Provider.of<client_vm>(context, listen: false)
+       //     .getclientByIdUser_vm(user!.idUser);
+
+      }
+     );
+     super.didChangeDependencies();
+   }
   @override
   Widget build(BuildContext context) {
 
@@ -102,7 +131,7 @@ class _tabclientsState extends State<tabclients> {
                 .get_invoicesbyRegoin(user!.fkRegoin);
 
             await context.read<client_vm>()
-                .getclientByIdUser_vm(iduser.toString());
+                .getclientByIdUser_vm();
           },
     //   _isLoading?
     //     Center(child: CircularProgressIndicator(),)

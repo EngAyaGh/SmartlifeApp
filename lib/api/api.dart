@@ -36,11 +36,7 @@ class Api {
       body: body,
       headers: headers,
     );
-    http.Response responsed = await http.delete(
-      Uri.parse(url),
-      body: body,
-      headers: headers,
-    );
+
 
     String result= response.body;
     int idx = result.indexOf("{");
@@ -49,12 +45,7 @@ class Api {
     print(result);
     print(json.decode(result)["code"]);
     if (json.decode(result)["code"] == "200") {
-      /*String data="";
-      if(jsonDecode(result)["message"]=="done")
-        data =jsonDecode(result)["message"] ;
-      else
-        Map<String, dynamic>  jsonDecode(result)["message"];*/
-      //print("in json data is $data");
+
       return jsonDecode(result)["message"];
     } else {
 
@@ -66,6 +57,7 @@ class Api {
 
 
   Future<dynamic> delete({
+
     required String url,
     @required dynamic? body,
     @required String? token,
@@ -75,10 +67,20 @@ class Api {
       headers.addAll({'Authorization': 'Bearer $token'});
     }
 
+   // var response = await Dio().delete(
+   //      url,queryParameters: {'fk_product':1,},
     http.Response response = await http.delete(
       Uri.parse(url),
-      body: body,
-      headers: {},
+     //   headers:   {
+     //    "Accept": "application/json",
+     //    "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+     //
+     // "Access-Control-Allow-Credentials": 'true', // Required for cookies, authorization headers with HTTPS
+     //   'Content-Type': 'application/json; charset=UTF-8',
+     //  //  "Access-Control-Allow-Headers":
+     //  // "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+     // // "Access-Control-Allow-Methods": "*"
+     // },
     );
 
     String result= response.body;

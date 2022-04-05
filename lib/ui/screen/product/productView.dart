@@ -26,8 +26,9 @@ class _ProductViewState extends State<ProductView> {
 void initState() {
    String id_country=Provider.of<country_vm>
      (context,listen: false).id_country;
+   //Provider.of<product_vm>(context,listen: false).listProduct=[];
    Provider.of<product_vm>(context,listen: false)
-       .getproduct_vm(id_country);//.then((value) => _isLoading=false);
+       .getproduct_vm("1");//.then((value) => _isLoading=false);
   super.initState();
   }
 
@@ -60,10 +61,12 @@ void initState() {
               .height *0.95,
           child: ListView.separated(
             itemCount: _listProd.length,
-            separatorBuilder: (BuildContext context, int index) => const Divider(),
+            separatorBuilder: (BuildContext context, int index) =>
+            const Divider(height: 1,),
             itemBuilder: (BuildContext context, int index)=>
                 Builder(builder:
-                    (context)=>CardProduct( itemProd: _listProd[index],scaffoldKey: _scaffoldKey)) ,
+                    (context)=>CardProduct( itemProd:
+                    _listProd[index],scaffoldKey: _scaffoldKey)) ,
             //     _listProd.map(
             //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
             // ).toList(),

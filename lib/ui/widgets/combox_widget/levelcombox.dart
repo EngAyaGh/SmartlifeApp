@@ -27,10 +27,11 @@ void initState()  {
       // _list  =Provider.of<level_vm>(context,listen: true);
       // Provider.of<level_vm>(context,listen: false).changeVal(null);
       // Provider.of<level_vm>(context,listen: false).listoflevel=[];
-      Provider.of<level_vm>(context,listen: false).clearvalues();
+     // Provider.of<level_vm>(context,listen: false).clearvalues();
       Provider.of<level_vm>(context,listen: false).getlevel();
 
-      Provider.of<level_vm>(context,listen: false).changeVal(widget.selected);
+      Provider.of<level_vm>(context,listen: false)
+          .changeVal(widget.selected);
 
       print("init level combox");
 
@@ -92,10 +93,12 @@ void initState()  {
           }).toList(),
           value:
           //_list!.selectedValueLevel.toString(),
-          Provider.of<level_vm>(context, listen: false).selectedValueLevel,
+          Provider.of<level_vm>(context, listen: false)
+              .selectedValueLevel,
           //select_dataItem!.idCountry ,
           onChanged: (value) {
-            Provider.of<level_vm>(context, listen: false).changeVal(value.toString());
+            Provider.of<level_vm>(context, listen: false)
+                .changeVal(value.toString());
             //_list!.changeVal(value.toString());
             //print(Provider.of<level_vm>(context, listen: false).selectedValueLevel);
           },

@@ -26,14 +26,18 @@ class _RegoinComboxState extends State<RegoinCombox> {
   void initState()  {
 
    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      Provider.of<regoin_vm>(context,listen: false).clearvalues();
+     //Provider.of<regoin_vm>(context,listen: false).clearvalues();
       //Provider.of<country_vm>(context,listen: false).ge
-      String id_country=Provider.of<country_vm>(context,listen: false).id_country;
 
-      Provider.of<regoin_vm>(context,listen: false).getregoin(id_country);
+      String id_country=Provider.of<country_vm>(context,listen: false)
+          .id_country;
+
+      Provider.of<regoin_vm>(context,listen: false)
+          .getregoin(id_country);
      // Provider.of<regoin_vm>(context,listen: false).listregoin;
 
-      Provider.of<regoin_vm>(context,listen: false).changeVal(widget.selected);
+      Provider.of<regoin_vm>(context,listen: false)
+          .changeVal(widget.selected);
       print("init regoin combox///////");
       print(widget.selected);
     });
@@ -84,10 +88,12 @@ class _RegoinComboxState extends State<RegoinCombox> {
            value: level_one.id.toString(), //value of item
          );
        }).toList(),
-       value:Provider.of<regoin_vm>(context,listen: false).selectedValueLevel,//select_dataItem!.idCountry ,
+       value:Provider.of<regoin_vm>(context,listen: false)
+           .selectedValueLevel,//select_dataItem!.idCountry ,
 
        onChanged:(value){
-         Provider.of<regoin_vm>(context,listen: false).changeVal(value.toString());
+         Provider.of<regoin_vm>(context,listen: false)
+             .changeVal(value.toString());
        },
      ),
 

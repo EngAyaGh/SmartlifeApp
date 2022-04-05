@@ -49,7 +49,7 @@ class CardProduct extends StatelessWidget {
                   ],
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
-              height:110,
+              height:80,
               child: Padding(
                 padding: EdgeInsets.all(12.0),
                 child: Flex(
@@ -63,7 +63,7 @@ class CardProduct extends StatelessWidget {
                             Column(
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
                                     Text(' اسم المنتج',style:TextStyle(fontFamily: kfontfamily2),),
                                     Text(itemProd.nameProduct,style:TextStyle(fontFamily: kfontfamily2),),
@@ -71,23 +71,25 @@ class CardProduct extends StatelessWidget {
                                   ],
                                 ),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                                   children: [
                                     Text(' السعر',style:TextStyle(fontFamily: kfontfamily2),),
                                     Text(itemProd.priceProduct,style:TextStyle(fontFamily: kfontfamily2),),
+                                 SizedBox(width: 5,),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                                      children: [
+                                        Text(' قيمة الضريبة',style:TextStyle(fontFamily: kfontfamily2),),
+
+                                        Text(itemProd.value_config==null||itemProd.value_config=="null"?'no taxrate':itemProd.value_config.toString(),
+                                          style:TextStyle(fontFamily: kfontfamily2),),
+                                      ],
+                                    ),
                                   ],
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-                                  children: [
-                                    Text(' قيمة الضريبة',style:TextStyle(fontFamily: kfontfamily2),),
-
-                                    Text(itemProd.value_config==null||itemProd.value_config=="null"?'no taxrate':itemProd.value_config.toString(),
-                                      style:TextStyle(fontFamily: kfontfamily2),),
-                                  ],
-                                ),
                               ],
                             ),
                             Row(
@@ -130,15 +132,27 @@ class CardProduct extends StatelessWidget {
                                                     .deleteProduct(itemProd.idProduct);
                                                 Provider.of<LoadProvider>(context,listen: false)
                                                     .changebooldelete(false);
+                                                print(res);
                                                 if(res=="remove error")
                                                   scaffoldKey!.currentState!.showSnackBar(
                                                       SnackBar(content: Text("لا يمكن حذف هذا المنتج"))
                                                   );
                                                 else{
-                                                  if(res!='error')
+
+                                                    if(res=="done")
+                                                      scaffoldKey!.currentState!.showSnackBar(
+                                                          SnackBar(content: Text("تم الحذف بنجاح")) );
+                                                    else
+                                                          if(res=='bad requst')
                                                     scaffoldKey!.currentState!.showSnackBar(
-                                                        SnackBar(content: Text("تم الحذف بنجاح"))
-                                                    );
+                                                        SnackBar(content: Text("ارسال خاطئ")));
+                                                        else
+                                                          if(res=='error')
+                                                            scaffoldKey!.currentState!.showSnackBar(
+                                                                SnackBar(content: Text(" هناك مشكلة ما أثناء حذف المنتج")));
+                                                          else
+                                                        scaffoldKey!.currentState!.showSnackBar(
+                                                        SnackBar(content: Text("يوجد مشكلة ما ")));
                                                 }
 
                                                 Navigator.of(context, rootNavigator: true)

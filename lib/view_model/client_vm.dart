@@ -4,6 +4,7 @@ import 'dart:js';
 
 import 'package:crm_smart/Repository/invoice_repo/cach_data_source.dart';
 import 'package:crm_smart/model/clientmodel.dart';
+import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/ProductService.dart';
 import 'package:crm_smart/services/clientService.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,20 +16,31 @@ const CACHE_ClientByUser_KEY = "CACHE_Client_KEY";
 const CACHE_ClientByUser_INTERVAL = 60 * 1000; // 1 MINUTE IN MILLIS
 
 class client_vm extends ChangeNotifier {
+  UserModel? usercurrent;
   List<ClientModel> listClient = [];
   List<ClientModel> listClientbyCurrentUser = [];
   List<ClientModel> listClientbyRegoin = [];
 
+  // client_vm(UserModel? currentUser){
+  //
+  //   usercurrent=currentUser;
+  //   notifyListeners();
+  // }
+
+  void setvalue(user){
+    usercurrent=user;
+    notifyListeners();
+  }
   Future<void> getclient_vm() async {
     if(listClient.isEmpty)
     listClient = await ClientService().getAllClient();
     notifyListeners();
   }
-  Future<void> getclientByIdUser_vm(String? fk_user) async {
+  Future<void> getclientByIdUser_vm() async {
     cahe_data_source_client().clearCache();
     listClientbyCurrentUser=[];
     listClientbyCurrentUser = await ClientService()
-        .getClientbyuser(fk_user!);
+        .getClientbyuser(usercurrent!.idUser.toString());
 
     List<ClientModel>? list=await cahe_data_source_client()
         .getCache(CACHE_ClientByUser_KEY, CACHE_ClientByUser_INTERVAL);
@@ -36,7 +48,7 @@ class client_vm extends ChangeNotifier {
     if(listClientbyCurrentUser.isEmpty){
       print("inside get from api client");
       listClientbyCurrentUser =
-      await ClientService().getClientbyuser(fk_user);
+      await ClientService().getClientbyuser(usercurrent!.idUser.toString());
 
       if(listClientbyCurrentUser!=null) {
         print("nukkkkklllll");

@@ -9,13 +9,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 class user_vm_provider extends ChangeNotifier{
 
   List<UserModel>? userall=[];
-   UserModel? currentUser;
+   UserModel? currentUser=
+   UserModel(
+       nameUser: "aya",fkCountry: "1",fkRegoin: "1",idUser: "1");
 
   Future<void> getclient_vm() async {
     userall = await  UserService().usersServices();
     notifyListeners();
   }
-  Future<void> getcurrentuser() async {
+  Future<bool> getcurrentuser() async {
     try {
       if(userall!.isEmpty)
       userall = await  UserService().usersServices();
@@ -30,6 +32,7 @@ class user_vm_provider extends ChangeNotifier{
     }
     catch(e){print('exp error is '+e.toString());}
     notifyListeners();
+    return true;
   }
 
 }

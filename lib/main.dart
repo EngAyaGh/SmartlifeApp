@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:crm_smart/provider/authprovider.dart';
 import 'package:crm_smart/provider/bottomNav.dart';
 import 'package:crm_smart/provider/config_vm.dart';
@@ -35,7 +37,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-
+  Provider.debugCheckInvalidValueType = null;
   // void main() async {
   //   //WidgetsFlutterBinding.ensureInitialized(); // uncomment if needed for resource initialization
   //   GlobalBindings().dependencies();
@@ -45,7 +47,9 @@ void main() async{
   runApp(
 
       MultiProvider(providers: [
-    ChangeNotifierProvider<navigatorProvider>(create: (_) => navigatorProvider()),
+        ChangeNotifierProvider<user_vm_provider>(create: (_) => user_vm_provider()),
+
+        ChangeNotifierProvider<navigatorProvider>(create: (_) => navigatorProvider()),
         ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
         ChangeNotifierProvider<switch_provider>(create: (_) => switch_provider()),
         ChangeNotifierProvider<selected_button_provider>(create: (_) => selected_button_provider()),
@@ -56,11 +60,14 @@ void main() async{
         ChangeNotifierProvider<LoadProvider>(create: (_) => LoadProvider()),
         ChangeNotifierProvider<product_vm>(create: (_) => product_vm()),
         ChangeNotifierProvider<manage_provider>(create: (_) => manage_provider()),
-        ChangeNotifierProvider<client_vm>(create: (_) => client_vm()),
-        ChangeNotifierProvider<user_vm_provider>(create: (_) => user_vm_provider()),
-        ChangeNotifierProvider<invoice_vm>(create: (_) => invoice_vm(
-
-        )),
+        //ChangeNotifierProvider<client_vm>(create: (_) => client_vm()),
+        ChangeNotifierProxyProvider<user_vm_provider,client_vm>(
+             create: (_)=> client_vm(),
+              //   Provider.of<user_vm_provider>(_, listen: false).currentUser),
+            update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
+              //  client_vm(value.currentUser)
+        ),
+        ChangeNotifierProvider<invoice_vm>(create: (_) => invoice_vm()),
 
   ], child:MyApp()));
 }
@@ -91,9 +98,9 @@ class MyApp extends StatelessWidget {
             return
               GetMaterialApp(
                 //initialBinding: UserBinding(),
-                initialRoute: Routes.productview,
+                initialRoute: Routes.client_dashboard,
                 getPages: AppRoutes.routes,
-                home:ProductView(),
+                home:client_dashboard(),
                 //main_page(),
 
                 // Directionality(

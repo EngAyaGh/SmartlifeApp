@@ -70,10 +70,15 @@ class _EditUserState extends State<EditUser> {
 
     emailController.text =
         controllerUsers.usersList[widget.index].email.toString();
+
     mobileController.text =
         controllerUsers.usersList[widget.index].mobile.toString();
-    level = controllerUsers.usersList[widget.index].typeLevel.toString();
-    regoin = controllerUsers.usersList[widget.index].fkRegoin.toString();
+
+    level = controllerUsers
+        .usersList[widget.index].typeLevel.toString();
+
+    regoin = controllerUsers
+        .usersList[widget.index].fkRegoin.toString();
 
     print("level inside build main screen" + level!);
     print("regoin " + regoin!);
@@ -93,8 +98,46 @@ class _EditUserState extends State<EditUser> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.edit),
+            onPressed: () {
+              regoin = Provider.of<regoin_vm>(context, listen: false)
+                  .selectedValueLevel;
+              level = Provider.of<level_vm>(context, listen: false)
+                  .selectedValueLevel;
+
+              //String id_country=Provider.of<country_vm>(context,listen: false).id_country;
+              print("level in update button" + level.toString());
+              print("regoin in update button" + regoin.toString());
+              if (level != null) {
+                Provider.of<LoadProvider>(context, listen: false)
+                    .changeboolUpdateUser(true);
+                dynamic body = {
+                  'email': emailController.text != null
+                      ? emailController.text
+                      : "",
+                  'mobile': mobileController.text != null
+                      ? mobileController.text
+                      : "",
+                  //'fk_country': id_country,
+                  'type_administration':
+                  namemanage != null ? namemanage : "",
+                  'type_level': level,
+                  'fk_regoin': regoin != null ? regoin : "null",
+                };
+                UserService()
+                    .UpdateUser(
+                    body: body,
+                    idUser: controllerUsers
+                        .usersList[widget.index].idUser)
+                    .then((value) => value != "error" ||
+                    value != "email is not exist"
+                    ? clear(body)
+                    : error());
+              } else {
+                _scaffoldKey.currentState!.showSnackBar(SnackBar(
+                    content: Text('حدد مستوى للصلاحية من فضلك')));
+              }
+            },
+            icon: const Icon(Icons.check),
           ),
         ],
         title: const Text('Edit User'),
@@ -174,53 +217,17 @@ class _EditUserState extends State<EditUser> {
 
                 //show chose image
 
-                Center(
-                  child: TextButton(
-                      // style: ButtonStyle(backgroundColor:Color(Colors.lightBlue)),
-                      onPressed: () {
-                        regoin = Provider.of<regoin_vm>(context, listen: false)
-                            .selectedValueLevel;
-                        level = Provider.of<level_vm>(context, listen: false)
-                            .selectedValueLevel;
-
-                        //String id_country=Provider.of<country_vm>(context,listen: false).id_country;
-                        print("level in update button" + level.toString());
-                        print("regoin in update button" + regoin.toString());
-                        if (level != null) {
-                          Provider.of<LoadProvider>(context, listen: false)
-                              .changeboolUpdateUser(true);
-                          dynamic body = {
-                            'email': emailController.text != null
-                                ? emailController.text
-                                : "",
-                            'mobile': mobileController.text != null
-                                ? mobileController.text
-                                : "",
-                            //'fk_country': id_country,
-                            'type_administration':
-                                namemanage != null ? namemanage : "",
-                            'type_level': level,
-                            'fk_regoin': regoin != null ? regoin : "null",
-                          };
-                          UserService()
-                              .UpdateUser(
-                                  body: body,
-                                  idUser: controllerUsers
-                                      .usersList[widget.index].idUser)
-                              .then((value) => value != "error" ||
-                                      value != "email is not exist"
-                                  ? clear(body)
-                                  : error());
-                        } else {
-                          _scaffoldKey.currentState!.showSnackBar(SnackBar(
-                              content: Text('حدد مستوى للصلاحية من فضلك')));
-                        }
-                      },
-                      child: Text(
-                        'تعديل ',
-                        style: TextStyle(color: kMainColor),
-                      )),
-                )
+                // Center(
+                //   child: TextButton(
+                //       // style: ButtonStyle(backgroundColor:Color(Colors.lightBlue)),
+                //       onPressed: () {
+                //
+                //       },
+                //       child: Text(
+                //         'تعديل ',
+                //         style: TextStyle(color: kMainColor),
+                //       )),
+                // )
               ],
             ),
           ),

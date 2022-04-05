@@ -19,13 +19,13 @@ class regoin_vm extends ChangeNotifier{
     selectedValueLevel=val;
     notifyListeners();
   }
-  void clearvalues(){
+  void clearvalues() {
     listregoin=[];
     selectedValueLevel=null;
     notifyListeners();
   }
   Future<void> getregoin(String? fk_country)async {
-    if(listregoin.isEmpty) {
+    //if(listregoin.isEmpty) {
       List<dynamic> data = [];
       data = await Api()
           .get(url: url +
@@ -42,7 +42,7 @@ class regoin_vm extends ChangeNotifier{
 
 
 
-  }
+  //}
 
 
 }

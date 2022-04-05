@@ -16,8 +16,9 @@ class product_vm extends ChangeNotifier {
 
   Future<void> getproduct_vm(String fk) async {
     //if(listProduct.isEmpty)
-
-    listProduct=[];
+    //listProduct=[];
+    listProduct.clear();
+    notifyListeners();
     listProduct = await ProductService().getAllProduct(fk);
 
     notifyListeners();
@@ -43,9 +44,9 @@ class product_vm extends ChangeNotifier {
     return res;
   }
   Future<String> deleteProduct(String? id_product) async {
-
+    //listProduct=[];
     String res = await ProductService().deleteProductById(id_product!);
-
+    print(res);
       if(res=="done"){
         final index=listProduct.indexWhere((element) => element.idProduct==id_product);
         listProduct.removeAt(index);

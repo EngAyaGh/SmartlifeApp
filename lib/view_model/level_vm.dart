@@ -22,6 +22,7 @@ class level_vm extends ChangeNotifier{
   }
   Future<void> getlevel()async {
     //listoflevel=[];
+    if(listoflevel.isEmpty){
     List<dynamic> data=[];
     data= await Api()
         .get(url:url+ 'config/getLevel.php');
@@ -31,6 +32,7 @@ class level_vm extends ChangeNotifier{
        }}
        notifyListeners();
        //return data;
+  }
   }
 
 
