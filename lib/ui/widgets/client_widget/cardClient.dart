@@ -1,6 +1,7 @@
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/ui/screen/client/detail_client.dart';
+import 'package:crm_smart/ui/screen/client/editClient.dart';
 import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
 import 'package:crm_smart/ui/screen/invoice/invoces.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/separatorLine.dart';
@@ -139,8 +140,20 @@ class cardClient extends StatelessWidget {
                                 ButtonBar(
                                   children: <Widget>[
                                     new IconButton(
-                                      icon: Icon(Icons.person),
-                                      onPressed: () {},
+                                      icon: Icon(Icons.edit),
+                                      onPressed: () {
+
+                                        Navigator.push(context,
+                                            MaterialPageRoute(
+                                                builder: (context)=>
+                                                    editclient(
+                                                      itemClient:itemClient,
+                                                      fkclient:  itemClient.idClients.toString(),
+                                                      fkuser:    itemClient.fkUser.toString(),
+                                                    )
+
+                                            ));
+                                      },
                                       //onPressed: REFRESH,
                                     ),
 

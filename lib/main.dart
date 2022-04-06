@@ -25,6 +25,7 @@ import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
+import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -68,6 +69,7 @@ void main() async{
               //  client_vm(value.currentUser)
         ),
         ChangeNotifierProvider<invoice_vm>(create: (_) => invoice_vm()),
+  ChangeNotifierProvider<typeclient>(create: (_)=> typeclient()),
 
   ], child:MyApp()));
 }

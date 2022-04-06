@@ -18,6 +18,7 @@ import '../../../labeltext.dart';
 
 class addClient extends StatelessWidget {
   addClient({Key? key}) : super(key: key);
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _globalKey = GlobalKey<FormState>();
 
@@ -154,21 +155,21 @@ class addClient extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  RowEdit(name: label_clientregoin, des: ''),
-                  //show chose image
-                  SizedBox(
-                    height: 15,
-                  ),
-                  RowEdit(name: label_clientdate, des: ''),
-
-                  SizedBox(
-                    height: 15,
-                  ),
-                  RowEdit(name: label_clientnameuser, des: controllerUsers.currentUser.value.nameUser.toString()),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  RowEdit(name: label_clienttype, des: "تفاوض"),
+                  // RowEdit(name: label_clientregoin, des: ''),
+                  // //show chose image
+                  // SizedBox(
+                  //   height: 15,
+                  // ),
+                  // RowEdit(name: label_clientdate, des: ''),
+                  //
+                  // SizedBox(
+                  //   height: 15,
+                  // ),
+                  // RowEdit(name: label_clientnameuser, des: controllerUsers.currentUser.value.nameUser.toString()),
+                  // SizedBox(
+                  //   height: 15,
+                  // ),
+                  // RowEdit(name: label_clienttype, des: "تفاوض"),
 
                   Center(
                     child: TextButton(

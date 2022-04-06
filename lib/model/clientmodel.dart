@@ -21,6 +21,12 @@ class ClientModel extends CacheRepository{
 
      this.nameUser,
     this.name_regoin,
+
+    this.date_price,
+    this.offer_price,
+    this.desc_reason,
+    this.user_do,
+    this.value_back
   });
   late final String? idClients;
   late final String? nameClient;
@@ -42,6 +48,13 @@ class ClientModel extends CacheRepository{
   late final String? nameUser;
   late final String? name_regoin;
 
+  late final String? offer_price;
+  late final String? date_price;
+
+  late final String? user_do;
+  late final String? desc_reason;//منسحب
+  late final String? value_back;
+
   ClientModel.fromJson(Map<String, dynamic> json){
     idClients = json['id_clients'];
     nameClient = json['name_client'];
@@ -61,6 +74,13 @@ class ClientModel extends CacheRepository{
     nameCountry = json['nameCountry'];
     nameUser = json['nameUser'];
     name_regoin = json['name_regoin'];
+    /////////////////////////////
+    offer_price=json['offer_price'];
+    date_price=json['date_price'];
+
+    user_do = json['user_do'];
+    desc_reason=json['desc_reason'];
+    value_back=json['value_back'];
   }
 
   Map<String, dynamic> toJson() {
@@ -83,6 +103,13 @@ class ClientModel extends CacheRepository{
     _data['nameCountry'] = nameCountry;
     _data['name_regoin'] = name_regoin;
     _data['nameUser'] = nameUser;
+
+     _data['offer_price'] = offer_price;
+     _data['date_price'] = date_price;
+
+     _data['user_do'] = user_do;
+     _data['desc_reason'] = desc_reason;
+     _data['value_back'] = value_back;
     return _data;
   }
 

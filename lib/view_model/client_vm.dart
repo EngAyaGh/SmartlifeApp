@@ -87,8 +87,8 @@ class client_vm extends ChangeNotifier {
     return res;
   }
 
-  Future<bool> updateclient_vm(Map<String, dynamic?> body,String id_client) async {
-    bool res = await ClientService().updateClient(body,id_client);
+  Future<bool> updateclient_vm(Map<String, dynamic?> body,String? id_client) async {
+    bool res = await ClientService().updateClient(body,id_client!);
     if (res) {
       final index=listClient.indexWhere((element) => element.idClients==id_client);
       listClient[index]=ClientModel.fromJson(body);

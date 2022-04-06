@@ -27,12 +27,17 @@ class user_vm_provider extends ChangeNotifier{
       print("in get user" + userall![0].nameUser.toString());
 
       final index = userall!.indexWhere((element) => element.idUser == "1");
-
+      if(index>=0){
       currentUser = userall![index];
+      return true;
+      }
     }
-    catch(e){print('exp error is '+e.toString());}
+    catch(e){
+      print('exp error is '+e.toString());
+      return false;
+    }
     notifyListeners();
-    return true;
+    return false;
   }
 
 }
