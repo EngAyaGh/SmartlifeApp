@@ -32,42 +32,45 @@ class client_vm extends ChangeNotifier {
     notifyListeners();
   }
   Future<void> getclient_vm() async {
-    if(listClient.isEmpty)
+   // if(listClient.isEmpty)
     listClient = await ClientService().getAllClient();
     notifyListeners();
   }
   Future<void> getclientByIdUser_vm() async {
-    cahe_data_source_client().clearCache();
-    listClientbyCurrentUser=[];
-    listClientbyCurrentUser = await ClientService()
+    // cahe_data_source_client().clearCache();
+     listClientbyCurrentUser.clear();
+
+     notifyListeners();
+
+     listClientbyCurrentUser = await ClientService()
         .getClientbyuser(usercurrent!.idUser.toString());
 
-    List<ClientModel>? list=await cahe_data_source_client()
-        .getCache(CACHE_ClientByUser_KEY, CACHE_ClientByUser_INTERVAL);
-
-    if(listClientbyCurrentUser.isEmpty){
-      print("inside get from api client");
-      listClientbyCurrentUser =
-      await ClientService().getClientbyuser(usercurrent!.idUser.toString());
-
-      if(listClientbyCurrentUser!=null) {
-        print("nukkkkklllll");
-      await cahe_data_source_client().saveToCache(listClientbyCurrentUser,
-          CACHE_ClientByUser_KEY);
-      }
-      else {
-        print("elsssssss");
-      }
-    }else{
-      if(list!=null){
-      print('inside get from cache client');
-      listClientbyCurrentUser.addAll(list);
-      }
-    }
+    // List<ClientModel>? list=await cahe_data_source_client()
+    //     .getCache(CACHE_ClientByUser_KEY, CACHE_ClientByUser_INTERVAL);
+    //
+    // if(listClientbyCurrentUser.isEmpty){
+    //   print("inside get from api client");
+    //   listClientbyCurrentUser =
+    //   await ClientService().getClientbyuser(usercurrent!.idUser.toString());
+    //
+    //   if(listClientbyCurrentUser!=null) {
+    //     print("nukkkkklllll");
+    //   await cahe_data_source_client().saveToCache(listClientbyCurrentUser,
+    //       CACHE_ClientByUser_KEY);
+    //   }
+    //   else {
+    //     print("elsssssss");
+    //   }
+    // }else{
+    //   if(list!=null){
+    //   print('inside get from cache client');
+    //   listClientbyCurrentUser.addAll(list);
+    //   }
+    // }
     notifyListeners();
   }
   Future<void> getclientByRegoin(String fk_user) async {
-    if(listClientbyRegoin.isEmpty)
+    //if(listClientbyRegoin.isEmpty)
     listClientbyRegoin = await ClientService().getAllClientByRegoin(fk_user);
     notifyListeners();
   }
@@ -90,8 +93,17 @@ class client_vm extends ChangeNotifier {
   Future<bool> updateclient_vm(Map<String, dynamic?> body,String? id_client) async {
     bool res = await ClientService().updateClient(body,id_client!);
     if (res) {
-      final index=listClient.indexWhere((element) => element.idClients==id_client);
-      listClient[index]=ClientModel.fromJson(body);
+      int index=listClientbyCurrentUser.indexWhere((element) => element.idClients==id_client);
+      body.addAll({
+        'id_clients':id_client,
+        'nameUser':listClientbyCurrentUser[index].nameUser,
+        'name_regoin':listClientbyCurrentUser[index].name_regoin.toString(),
+        'fk_regoin':listClientbyCurrentUser[index].fkRegoin,
+        'fk_user':listClientbyCurrentUser[index].fkUser,
+        'nameCountry':listClientbyCurrentUser[index].nameCountry,
+        'date_price':listClientbyCurrentUser[index].date_price,
+      });
+      listClientbyCurrentUser[index]=ClientModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
     }

@@ -46,7 +46,7 @@ class ClientService{
     List<dynamic> data =[];
     data=await Api()
         .get(url:url+ 'client/getclientbyuser.php?fk_user=$fk_user');
-print(data);
+     print(data);
     List<ClientModel> prodlist = [];
 
     for (int i = 0; i < data.length; i++) {

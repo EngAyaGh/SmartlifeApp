@@ -3,6 +3,7 @@
 import 'package:crm_smart/Repository/invoice_repo/cach_data_source.dart';
 import 'package:crm_smart/model/deleteinvoicemodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
+import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/Invoice_Service.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -15,12 +16,14 @@ const CACHE_Invoice_Deleted_KEY = "CACHE_Invoice_Deleted_KEY";
 const CACHE_Invoice_Deleted_INTERVAL = 60 * 1000; // 30s in millis
 
 class invoice_vm extends ChangeNotifier{
-  invoice_vm(){
+  UserModel? usercurrent;
+  invoice_vm() {
     //get_invoicesbyRegoin("");
   }
- // late cahe_data_source? localDataSource;
-  // RemoteDataSource _remoteDataSource;
-  // LocalDataSource _localDataSource;
+  void setvalue(user){
+    usercurrent=user;
+    notifyListeners();
+  }
   List<InvoiceModel> listinvoiceClient=[];
   List<DeletedinvoiceModel> listdeletedinvoice=[];
   List<ProductsInvoice> listproductinvoic=[];
@@ -62,30 +65,32 @@ class invoice_vm extends ChangeNotifier{
     //   listinvoiceClient=[];
     notifyListeners();
   }
-  Future<void> get_invoicesbyRegoin(String? regoin) async {
-    listinvoicebyregoin=[];
-    cahe_data_source_invoice().clearCache();
-    listinvoicebyregoin = await Invoice_Service().getinvoicebyregoin(regoin!);
-
-    List<InvoiceModel>? val=await cahe_data_source_invoice()
-        .getCache(CACHE_InvoiceClient_KEY, CACHE_InvoiceClient_INTERVAL)   ;
-    if(listinvoicebyregoin.isEmpty)
-    {
-      print("inside get from api invoice");
-      //listinvoicebyregoin=[];
-      listinvoicebyregoin = await Invoice_Service().getinvoicebyregoin(regoin);
-      if(listinvoicebyregoin!=null){
-        //listinvoicebyregoin=[];
-        await  cahe_data_source_invoice()
-       .saveToCache(listinvoicebyregoin, CACHE_InvoiceClient_KEY);}
-    }
-    else {
-      if(val!=null)// valid time
-     {
-       print("inside get from cache invoice");
-       listinvoicebyregoin.addAll(val);
-     }
-    }
+  Future<void> get_invoicesbyRegoin() async {
+    //listinvoicebyregoin=[];
+    //cahe_data_source_invoice().clearCache();
+    listinvoicebyregoin = await Invoice_Service()
+        .getinvoicebyregoin(usercurrent!.fkRegoin!);
+    // List<InvoiceModel>? val=await cahe_data_source_invoice()
+    //     .getCache(CACHE_InvoiceClient_KEY, CACHE_InvoiceClient_INTERVAL)   ;
+    // if(listinvoicebyregoin.isEmpty)
+    // {
+    //   print("inside get from api invoice");
+    //   //listinvoicebyregoin=[];
+    //   listinvoicebyregoin = await Invoice_Service()
+    //       .getinvoicebyregoin(usercurrent!.fkRegoin!);
+    //
+    //   if(listinvoicebyregoin!=null){
+    //     //listinvoicebyregoin=[];
+    //     await  cahe_data_source_invoice()
+    //    .saveToCache(listinvoicebyregoin, CACHE_InvoiceClient_KEY);}
+    // }
+    // else {
+    //   if(val!=null)// valid time
+    //  {
+    //    print("inside get from cache invoice");
+    //    listinvoicebyregoin.addAll(val);
+    //  }
+    // }
     notifyListeners();
   }
   Future<String> add_invoiceclient_vm(Map<String, dynamic?> body) async {
@@ -126,6 +131,7 @@ class invoice_vm extends ChangeNotifier{
     if (res) {
       final index=listinvoiceClient.indexWhere((element) => element.idInvoice==idInvoice);
       body.addAll({
+        "id_invoice":idInvoice,
         "products":listproductinvoic.map((e)=>e.toJson()).toList()
       });
       listinvoiceClient[index]=InvoiceModel.fromJson(body);
@@ -135,6 +141,7 @@ class invoice_vm extends ChangeNotifier{
     //print(res.toString());
     return res;
   }
+
   Future<String> delete_invoice(String? id_invoice) async {
 
     int index=listinvoiceClient.indexWhere(

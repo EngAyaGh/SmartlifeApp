@@ -69,7 +69,7 @@ void main() async{
               //  client_vm(value.currentUser)
         ),
         ChangeNotifierProvider<invoice_vm>(create: (_) => invoice_vm()),
-  ChangeNotifierProvider<typeclient>(create: (_)=> typeclient()),
+        ChangeNotifierProvider<typeclient>(create: (_)=> typeclient()),
 
   ], child:MyApp()));
 }

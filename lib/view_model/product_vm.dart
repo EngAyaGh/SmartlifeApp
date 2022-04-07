@@ -17,8 +17,8 @@ class product_vm extends ChangeNotifier {
   Future<void> getproduct_vm(String fk) async {
     //if(listProduct.isEmpty)
     //listProduct=[];
-    listProduct.clear();
-    notifyListeners();
+    // listProduct.clear();
+    // notifyListeners();
     listProduct = await ProductService().getAllProduct(fk);
 
     notifyListeners();

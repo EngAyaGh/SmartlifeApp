@@ -76,13 +76,14 @@ class _tabclientsState extends State<tabclients> {
 
    // });
     // print( controllerUsers.currentUser.value.idUser);
-
+    //  Provider.of<client_vm>(context, listen: false)
+    //        .getclientByIdUser_vm();
    }
    @override
    void didChangeDependencies() {
-     setState(() {
-      // isLoading = true;
-     });
+     // setState(() {
+     //  // isLoading = true;
+     // });
      Future.delayed(Duration(milliseconds: 30)).then((_) async {
        await    Provider.of<client_vm>(context, listen: false)
            .getclientByIdUser_vm();
@@ -127,11 +128,12 @@ class _tabclientsState extends State<tabclients> {
           onRefresh: ()async{
             // Provider.of<invoice_vm>(context, listen: false)
             //     .get_invoicesbyRegoin(us.fkRegoin);
-            await context.read<invoice_vm>()
-                .get_invoicesbyRegoin(user!.fkRegoin);
+            // await context.read<invoice_vm>()
+            //     .get_invoicesbyRegoin();
 
-            await context.read<client_vm>()
-                .getclientByIdUser_vm();
+            await Provider.of<client_vm>(context, listen: false).getclientByIdUser_vm();
+
+            // context.read<client_vm>()
           },
     //   _isLoading?
     //     Center(child: CircularProgressIndicator(),)
@@ -147,8 +149,8 @@ class _tabclientsState extends State<tabclients> {
     padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
     child: Center(
           child:
-    Consumer<client_vm>(
-    builder: (context,value,child){
+    Consumer<client_vm> (
+    builder: (context,value,child) {
     return value.listClientbyCurrentUser.length==0?
     CircularProgressIndicator()
         :ListView.builder(

@@ -9,7 +9,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class user_vm_provider extends ChangeNotifier{
 
   List<UserModel>? userall=[];
-   UserModel? currentUser=
+  late String? selecteduser=null;
+
+  void changevalueuser(String s){
+    selecteduser=s;
+    notifyListeners();
+  }
+
+  UserModel? currentUser=
    UserModel(
        nameUser: "aya",fkCountry: "1",fkRegoin: "1",idUser: "1");
 

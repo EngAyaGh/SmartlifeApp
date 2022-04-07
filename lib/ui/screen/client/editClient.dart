@@ -1,6 +1,7 @@
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
+import 'package:crm_smart/ui/screen/client/transfer_client.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
@@ -46,7 +47,8 @@ class _editclientState extends State<editclient> {
   @override
   void initState()  {
 
-    currentUser=Provider.of<user_vm_provider>(context,listen: false).currentUser!;
+    currentUser=Provider.of<user_vm_provider>(context,listen: false)
+        .currentUser!;
     nameclientController.text=widget.itemClient.nameClient!.toString();
     nameEnterpriseController.text=widget.itemClient.nameEnterprise!.toString();
     mobileController.text=widget.itemClient.mobile!.toString();
@@ -59,15 +61,25 @@ class _editclientState extends State<editclient> {
     typeclient_provider.selectedValuemanag=widget.itemClient.typeClient.toString();
     typeclient_provider.getreasons();
     print( typeclient_provider.selectedValuemanag);
-    offerpriceController.text=widget.itemClient.offer_price==null?"":widget.itemClient.offer_price!;
+    offerpriceController.text=widget.itemClient.offer_price==null
+        ?"":widget.itemClient.offer_price!;
     print(offerpriceController.text);
-    resaonController.text=widget.itemClient.reasonChange==null?"":widget.itemClient.reasonChange!.toString();//
-    valueBackController.text=widget.itemClient.value_back==null?"":widget.itemClient.value_back!.toString();
-    descresaonController.text=widget.itemClient.desc_reason==null?"":widget.itemClient.desc_reason!.toString();
+    resaonController.text=widget.itemClient.reasonChange==null
+        ? "":widget.itemClient.reasonChange!.toString();//
+
+    valueBackController.text=widget.itemClient.value_back==null
+        ?"":widget.itemClient.value_back!.toString();
+
+    descresaonController.text=widget.itemClient.desc_reason==null
+        ?"":widget.itemClient.desc_reason!.toString();
+
+    typeclient_provider.selectedValueOut=typeclient_provider.selectedValuemanag=="منسحب"?
+    resaonController.text:null;
 
     String val=typeclient_provider.selectedValuemanag=="منسحب"
         ?widget.itemClient.dateChangetype.toString()
-        :DateTime.now().toString();
+        :formatter.format(DateTime.now());
+    // String output = ;
     _currentDate=DateTime.parse(val);
     super.initState();
   }
@@ -78,13 +90,15 @@ class _editclientState extends State<editclient> {
 
       Widget dialog =
       SimpleDialog(
-
+        elevation: 5,
+        //backgroundColor: Colors.yellowAccent,
+        shape: StadiumBorder(),
         contentPadding: EdgeInsets.all(10),
         title: Text(''),
         children: [
           RowEdit(name: "اسباب الإنسحاب", des: 'required'),
           Consumer<typeclient>(
-      builder: (context, cart, child){
+          builder: (context, cart, child){
             return DropdownButton(
               isExpanded: true,
               //hint: Text("حدد حالة العميل"),
@@ -131,6 +145,7 @@ class _editclientState extends State<editclient> {
           SizedBox(height: 6,),
           Center(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
                   style: ButtonStyle(
@@ -174,6 +189,7 @@ class _editclientState extends State<editclient> {
         _globalKey.currentState!.save();
         Provider.of<LoadProvider>(context, listen: false)
             .changebooladdclient(true);
+
         Provider.of<client_vm>(context, listen: false)
             .updateclient_vm({
           'name_client': nameclientController.text,
@@ -189,8 +205,9 @@ class _editclientState extends State<editclient> {
           //"fk_user":widget.fkuser,
           // "date_transfer":,
           "mobile": mobileController.text,
-          "date_changetype": typeclient_provider.selectedValuemanag == "منسحب"?
-        formatter.format(_currentDate):"",
+          "date_changetype": //typeclient_provider.selectedValuemanag == "منسحب"?
+            formatter.format(_currentDate),//:"null",
+
           "offer_price": offerpriceController.text,
           "reason_change":
           typeclient_provider.selectedValuemanag == "منسحب"
@@ -204,6 +221,7 @@ class _editclientState extends State<editclient> {
               .toString(),
           "desc_reason":  typeclient_provider.selectedValuemanag == "منسحب"
           ?descresaonController.text:"",
+
           "value_back": typeclient_provider.selectedValuemanag == "منسحب"
           ?valueBackController.text:"",
         }, widget.itemClient.idClients,
@@ -214,7 +232,7 @@ class _editclientState extends State<editclient> {
 
         );
       }
-      }, icon: Icon(Icons.check)),
+      }, icon: Icon(Icons.check,color: kWhiteColor)),
           ],
         ),
         body: ModalProgressHUD(
@@ -364,7 +382,20 @@ class _editclientState extends State<editclient> {
                       obscureText: false,
                       controller: resaonController,
                     ):Text(''),
-
+                    typeclient_provider.selectedValuemanag=="عرض سعر"|| typeclient_provider.selectedValuemanag=="تفاوض"?
+                    Center(
+                      child:   ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                kMainColor)),
+                        onPressed: () {
+                          Navigator.push(context,MaterialPageRoute(
+                              builder: (context)=>transferClient(),fullscreenDialog: true
+                          ));
+                        },
+                        child: Text('تحويل العميل'),
+                      ),
+                    ):Text(""),
                   ],
                 ),
               ),
@@ -395,6 +426,7 @@ class _editclientState extends State<editclient> {
 
   Future<void> _selectDate(BuildContext context, DateTime currentDate) async {
     String output = formatter.format(currentDate);
+
     final DateTime? pickedDate = await showDatePicker(
         context: context,
         currentDate: currentDate,
