@@ -1,11 +1,13 @@
 import 'dart:js';
 
+import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -31,13 +33,13 @@ class addClient extends StatelessWidget {
   final TextEditingController cityController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
   final TextEditingController regoinController = TextEditingController();
-  final controllerUsers = Get.find<AllUserVMController>();
-
+  //final controllerUsers = Get.find<AllUserVMController>();
+late final UserModel _user;
   @override
   Widget build(BuildContext context) {
      //final controllerUsers = Get.find<AllUserVMController>();
-
-     controllerUsers.getcurrentUser();
+    _user=Provider.of<user_vm_provider>(context,listen: true).currentUser!;
+    // controllerUsers.getcurrentUser();
 
     return Scaffold(
       key: _scaffoldKey,
@@ -187,15 +189,15 @@ class addClient extends StatelessWidget {
                               'type_job':typejobController.text,
                               'city': cityController.text,
                               'location':locationController.text==null?"null":locationController.text,
-                              "fk_regoin":controllerUsers.currentUser.value.fkRegoin==null?"null":controllerUsers.currentUser.value.fkRegoin,
+                              "fk_regoin":_user.fkRegoin==null?"null":_user.fkRegoin,
                               //"date_create": ,
                               "type_client":"تفاوض",
-                              "fk_user":controllerUsers.currentUser.value.idUser,
+                              "fk_user":_user.idUser,
                               // "date_transfer":,
                               "mobile":mobileController.text,
                               //"date_changetype":,
-                            },controllerUsers.currentUser.value.nameUser.toString(),
-                              controllerUsers.currentUser.value.nameRegoin.toString()
+                            },_user.nameUser.toString(),
+                              _user.nameRegoin.toString()
                           ).then((value) => value!="false"
                               ? clear(context)
                               : error(context)

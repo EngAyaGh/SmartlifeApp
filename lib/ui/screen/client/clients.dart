@@ -1,3 +1,4 @@
+import 'package:crm_smart/api/fcm.dart';
 import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
 import 'package:crm_smart/ui/screen/invoice/add_invoice_product.dart';
@@ -63,7 +64,7 @@ class client_dashboard extends StatefulWidget {
 
     @override
     void initState()  {
-
+      FCM().getmessge();
       print("init tabbar");
       super.initState();
   }

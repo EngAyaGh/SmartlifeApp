@@ -3,6 +3,7 @@
 
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/UserService.dart';
+import 'package:dartz/dartz_unsafe.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,6 +24,15 @@ class user_vm_provider extends ChangeNotifier{
   Future<void> getclient_vm() async {
     userall = await  UserService().usersServices();
     notifyListeners();
+  }
+  bool getfilteruser(String filter){
+    UserModel? user;
+    userall!.map(
+            (e) {
+              e.nameUser!.contains(filter);return true;
+            }
+    );
+    return false;
   }
   Future<bool> getcurrentuser() async {
     try {

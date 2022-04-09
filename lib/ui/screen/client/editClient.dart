@@ -10,6 +10,7 @@ import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
@@ -58,6 +59,11 @@ class _editclientState extends State<editclient> {
     regoinController.text=widget.itemClient.name_regoin!.toString();
     //////////////////////////////////////////////////////////
     typeclient_provider=Provider.of<typeclient>(context,listen: false);
+    typeclient_provider.type_of_client
+    =widget.itemClient.typeClient=="مشترك"?
+    ['مستبعد','منسحب']
+    :widget.itemClient.typeClient=="منسحب"? ['مشترك'] :['تفاوض','عرض سعر','مستبعد','منسحب'];
+
     typeclient_provider.selectedValuemanag=widget.itemClient.typeClient.toString();
     typeclient_provider.getreasons();
     print( typeclient_provider.selectedValuemanag);
@@ -117,7 +123,7 @@ class _editclientState extends State<editclient> {
             );},
           ),
           SizedBox(height: 3,),
-          CustomFormField(
+          EditTextFormField(
             vaild: (value) {
               if (value!.isEmpty) {
                 return label_empty;
@@ -125,16 +131,18 @@ class _editclientState extends State<editclient> {
             },
             hintText: "وصف سبب الإنسحاب",
             //obscureText: false,
-            con: descresaonController, read: false,
-            radius: 5,
+          //  con: descresaonController, read: false,
+            //radius: 5,
             maxline: 5,
+            controller: descresaonController,
           ),
           SizedBox(height: 3,),
-          CustomFormField(
-            read: false,
+          EditTextFormField(
+            //read: false,
             hintText: 'المبلغ المسترجع',
             //obscureText: false,
-            con: valueBackController, radius: 5,
+            controller: valueBackController,
+            //radius: 5,
           ),
           SizedBox(height: 3,),
           RowEdit(name: "تاريخ الإنسحاب", des: 'required'),
@@ -348,7 +356,8 @@ class _editclientState extends State<editclient> {
                       height: 15,
                     ),
                     RowEdit(name: label_clienttype, des: ""),
-                  DropdownButton(
+
+                    DropdownButton(
                     isExpanded: true,
                     //hint: Text("حدد حالة العميل"),
                     items: typeclient_provider.type_of_client.map((level_one) {
@@ -370,6 +379,19 @@ class _editclientState extends State<editclient> {
 
                     },
                   ),
+                    typeclient_provider.selectedValuemanag=="منسحب"?
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              kMainColor)),
+                      onPressed: () {
+
+                        showDialog<void>(
+                            context: context,
+                            builder: (context) => dialog);
+                      },
+                      child: Text('خيارات الإنسحاب'),
+                    ):
                     typeclient_provider.selectedValuemanag=="عرض سعر"?
                     EditTextFormField(
                       hintText: 'عرض سعر',
@@ -382,13 +404,15 @@ class _editclientState extends State<editclient> {
                       obscureText: false,
                       controller: resaonController,
                     ):Text(''),
-                    typeclient_provider.selectedValuemanag=="عرض سعر"|| typeclient_provider.selectedValuemanag=="تفاوض"?
+                    typeclient_provider.selectedValuemanag=="عرض سعر"
+                        || typeclient_provider.selectedValuemanag=="تفاوض"?
                     Center(
                       child:   ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                                 kMainColor)),
                         onPressed: () {
+
                           Navigator.push(context,MaterialPageRoute(
                               builder: (context)=>transferClient(),fullscreenDialog: true
                           ));

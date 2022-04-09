@@ -60,4 +60,15 @@ class UserModel {
      _data['name_level']=name_level;
     return _data;
   }
-}
+  ///this method will prevent the override of toString
+  String userAsString() {
+    return "${this.nameUser}";
+   // return '#${this.idUser} ${this.nameUser}';
+  }
+
+    ///this method will prevent the override of toString
+    bool getfilteruser(String filter) {
+      return this.nameUser.toString().contains(filter);
+    }
+  }
+

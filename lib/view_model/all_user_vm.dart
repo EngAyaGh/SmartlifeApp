@@ -1,7 +1,6 @@
 
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/UserService.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';

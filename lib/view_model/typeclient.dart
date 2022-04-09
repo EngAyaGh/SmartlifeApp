@@ -5,7 +5,8 @@ import 'package:crm_smart/services/configService.dart';
 import 'package:flutter/cupertino.dart';
 
 class typeclient extends ChangeNotifier{
-  List<String> type_of_client=['تفاوض','عرض سعر','مستبعد','منسحب'];
+  List<String> type_of_client=[];
+ // List<String> type_of_client=['تفاوض','عرض سعر','مستبعد','منسحب'];
   List<ReasonModel> type_of_out=[]; //أسباب الانسحاب
 
   late String? selectedValuemanag=null;

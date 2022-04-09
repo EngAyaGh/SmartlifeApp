@@ -131,7 +131,8 @@ class _tabclientsState extends State<tabclients> {
             // await context.read<invoice_vm>()
             //     .get_invoicesbyRegoin();
 
-            await Provider.of<client_vm>(context, listen: false).getclientByIdUser_vm();
+            await Provider.of<client_vm>(context, listen: false)
+                .getclientByIdUser_vm();
 
             // context.read<client_vm>()
           },

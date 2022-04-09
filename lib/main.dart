@@ -34,11 +34,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'binding/binding.dart';
 import 'constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-void main() async{
+void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
-  Provider.debugCheckInvalidValueType = null;
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+    apiKey: "AIzaSyDQVScJ2gMSCwAWh1zTnjtzOk2SGWSjStI",
+    authDomain: "crmapp-8f9de.firebaseapp.com",
+    projectId: "crmapp-8f9de",
+    storageBucket: "crmapp-8f9de.appspot.com",
+    messagingSenderId: "102540138446",
+    appId: "1:102540138446:web:e27c67c1e82e1711e5fd9f",
+    measurementId: "G-0J8633DETC"),
+  );
+  //Provider.debugCheckInvalidValueType = null;
+
   // void main() async {
   //   //WidgetsFlutterBinding.ensureInitialized(); // uncomment if needed for resource initialization
   //   GlobalBindings().dependencies();
