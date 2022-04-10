@@ -17,6 +17,7 @@ import 'package:crm_smart/ui/test.dart';
 import 'package:crm_smart/ui/test2.dart';
 import 'package:crm_smart/ui/widgets/levelcombox.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
+import 'package:crm_smart/view_model/event_provider.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
@@ -70,28 +71,33 @@ class MyApp extends StatelessWidget {
           } else {
             isUserLoggedIn = snapshot.data!.getBool(kKeepMeLoggedIn) ?? false;
 
-            return GetMaterialApp(
-              initialRoute: Routes.productview,
-              getPages: AppRoutes.routes,
-              home:
-                  //main_page(),
+            return ChangeNotifierProvider(
+              create: (context) => EventProvider(),
+              child: GetMaterialApp(
+                initialRoute: AppRoutes.homePage,
+                getPages: AppRoutes.routes,
 
-                  Directionality(
-                textDirection: TextDirection.rtl,
-                child: isUserLoggedIn ? client_dashboard() : client_dashboard(),
+                // home:
+                //     //main_page(),
+
+                //     Directionality(
+                //   textDirection: TextDirection.rtl,
+                //   child:
+                //       isUserLoggedIn ? client_dashboard() : client_dashboard(),
+                // ),
+                // locale: Locale(),
+                debugShowCheckedModeBanner: false,
+                title: 'Flutter Demo',
+                theme: ThemeData(
+                  primaryColor: kMainColor,
+                  backgroundColor: Colors.white,
+                  brightness: Brightness.light,
+                ),
+                // home: Directionality(
+                //   textDirection: TextDirection.rtl,
+                //   child: isUserLoggedIn ? main_page() : main_page(),
+                // )
               ),
-              // locale: Locale(),
-              debugShowCheckedModeBanner: false,
-              title: 'Flutter Demo',
-              theme: ThemeData(
-                primaryColor: kMainColor,
-                backgroundColor: Colors.white,
-                brightness: Brightness.light,
-              ),
-              // home: Directionality(
-              //   textDirection: TextDirection.rtl,
-              //   child: isUserLoggedIn ? main_page() : main_page(),
-              // )
             );
           }
         });

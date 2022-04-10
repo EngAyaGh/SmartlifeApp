@@ -1,5 +1,7 @@
 import 'package:crm_smart/binding/binding.dart';
+import 'package:crm_smart/ui/screen/calendar/calendar.dart';
 import 'package:crm_smart/ui/screen/client/clients.dart';
+import 'package:crm_smart/ui/screen/home/home.dart';
 import 'package:crm_smart/ui/screen/login.dart';
 import 'package:crm_smart/ui/screen/mainpage.dart';
 import 'package:crm_smart/ui/screen/product/addproduct.dart';
@@ -11,7 +13,8 @@ import 'package:crm_smart/ui/screen/user/edituser.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
-  //static const mainpage = Routes.mainpage;
+  static const homePage = Routes.home;
+  //static const mainPage = Routes.calendar;
 
   static final routes = [
     GetPage(
@@ -26,6 +29,14 @@ class AppRoutes {
     GetPage(name: Routes.productview, page: () => ProductView()),
     GetPage(name: Routes.productadd, page: () => addProduct()),
     GetPage(name: Routes.select_country, page: () => select_country()),
+    GetPage(
+      name: Routes.home,
+      page: () => Home(),
+    ),
+    GetPage(
+      name: Routes.calendar,
+      page: () => Calendar(),
+    ),
     GetPage(
       name: Routes.allUserScreen,
       page: () => AllUserScreen(),
@@ -50,4 +61,6 @@ class Routes {
 
   static const login = '/login';
   static const select_country = '/select_country';
+  static const home = '/home';
+  static const calendar = '/calendar';
 }
