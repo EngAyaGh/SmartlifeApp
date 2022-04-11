@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
@@ -30,6 +29,7 @@ class _tabclientsState extends State<tabclients> {
    bool _isLoading=false;
    @override
    void initState()  {
+
      super.initState();
 
       // WidgetsBinding.instance?.addPostFrameCallback((_) {
@@ -146,29 +146,32 @@ class _tabclientsState extends State<tabclients> {
     //           .isLoadingViewClient,
     //     opacity: 0.01,
     // child:
-     child: Padding(
+     child: Directionality(
+       textDirection: TextDirection.rtl,
+       child: Padding(
     padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
     child: Center(
-          child:
+            child:
     Consumer<client_vm> (
     builder: (context,value,child) {
     return value.listClientbyCurrentUser.length==0?
     CircularProgressIndicator()
-        :ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: value.listClientbyCurrentUser.length,
-              itemBuilder: (context, index) {
-                return SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: cardClient(
-                          itemClient:
-                      value.listClientbyCurrentUser[index],
-                          iduser: iduser.toString()),
-                    ));
-              });
-       } ),
-    )  )
+          :ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: value.listClientbyCurrentUser.length,
+                itemBuilder: (context, index) {
+                  return SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: cardClient(
+                            itemClient:
+                        value.listClientbyCurrentUser[index],
+                            iduser: iduser.toString()),
+                      ));
+                });
+         } ),
+    )  ),
+     )
        ));
   }
 }

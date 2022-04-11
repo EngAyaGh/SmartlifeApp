@@ -1,5 +1,5 @@
-import 'dart:js';
 
+import 'package:crm_smart/api/fcm.dart';
 import 'package:crm_smart/provider/authprovider.dart';
 import 'package:crm_smart/provider/bottomNav.dart';
 import 'package:crm_smart/provider/config_vm.dart';
@@ -10,6 +10,7 @@ import 'package:crm_smart/provider/switch_provider.dart';
 import 'package:crm_smart/routes/routes.dart';
 import 'package:crm_smart/ui/screen/client/clients.dart';
 import 'package:crm_smart/ui/screen/client/tabclients.dart';
+import 'package:crm_smart/ui/screen/home/home.dart';
 import 'package:crm_smart/ui/screen/login.dart';
 import 'package:crm_smart/ui/screen/mainpage.dart';
 import 'package:crm_smart/ui/screen/product/addproduct.dart';
@@ -27,27 +28,47 @@ import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:crm_smart/api/firebase_option.dart';
 import 'binding/binding.dart';
 import 'constants.dart';
 import 'package:firebase_core/firebase_core.dart';
-void main() async {
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+
+  //DefaultFirebaseOptions .currentPlatform );
+
+  print("Handling a background message: ${message.messageId}");
+  print("Handling a background message: ${message.data['iduser']}");
+  print("Handling a background message: ${message.data['nameuser']}");
+}
+
+void main() async {
+  // <meta-data
+  // android:name="com.google.firebase.messaging.defult_notification_channel_id"
+  // android:value="high_importance_channel"
+  // />
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: FirebaseOptions(
-    apiKey: "AIzaSyDQVScJ2gMSCwAWh1zTnjtzOk2SGWSjStI",
-    authDomain: "crmapp-8f9de.firebaseapp.com",
-    projectId: "crmapp-8f9de",
-    storageBucket: "crmapp-8f9de.appspot.com",
-    messagingSenderId: "102540138446",
-    appId: "1:102540138446:web:e27c67c1e82e1711e5fd9f",
-    measurementId: "G-0J8633DETC"),
-  );
+  // await Firebase.initializeApp(
+  //   options:FirebaseOptions(
+  //   apiKey: 'AIzaSyDQVScJ2gMSCwAWh1zTnjtzOk2SGWSjStI',
+  //   appId: '1:102540138446:web:a8933eabd8a1d0cee5fd9f',
+  //   messagingSenderId: '102540138446',
+  //   projectId: 'crmapp-8f9de',
+  //   authDomain: 'crmapp-8f9de.firebaseapp.com',
+  //   //databaseURL: 'https://react-native-firebase-testing.firebaseio.com',
+  //   storageBucket: 'crmapp-8f9de.appspot.com',
+  //   measurementId: 'G-KJC7EKRNM6',
+  // ));
+  //FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+ // FCM().getmessge();
   //Provider.debugCheckInvalidValueType = null;
 
   // void main() async {
@@ -111,9 +132,9 @@ class MyApp extends StatelessWidget {
             return
               GetMaterialApp(
                 //initialBinding: UserBinding(),
-                initialRoute: Routes.client_dashboard,
+                initialRoute: Routes.Home,
                 getPages: AppRoutes.routes,
-                home:client_dashboard(),
+                home:Home(),
                 //main_page(),
 
                 // Directionality(

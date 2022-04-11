@@ -47,8 +47,16 @@ void initState() {
         tooltip: 'إضافة منتج',
         child: Icon(Icons.add),
       ),
-      appBar: AppBar(title: Text('المنتجات',style: TextStyle(color: kWhiteColor),textAlign: TextAlign.center,),),
-      body: _isLoading?
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        title: Text('المنتجات',style: TextStyle(color: kWhiteColor),textAlign: TextAlign.center,
+
+      ),),
+      body:Directionality(
+      textDirection:  TextDirection.rtl,
+      child:
+      _isLoading?
           Center(child: CircularProgressIndicator(),)
           :(_listProd.isEmpty
           ? Center(child: Text('لا يوجد منتجات',style: TextStyle(fontSize: 22,color: kWhiteColor),),)
@@ -73,7 +81,7 @@ void initState() {
           ),
         ),
       )
-      ),
+      ),),
     );
   }
 }

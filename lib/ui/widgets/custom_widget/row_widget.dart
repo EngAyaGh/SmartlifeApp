@@ -31,9 +31,12 @@ class RowWidget extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(
+          height: 10,
+        ),
         const Divider(
-          color: Colors.grey,
-          thickness: 2,
+          color: Colors.black38,
+          thickness: 1,
         ),
       ],
     );

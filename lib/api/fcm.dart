@@ -13,17 +13,19 @@ class FCM {
     "title":"FCM Message",
     "body":"This is an FCM notification message!",
     },
+    'priority':'high',
     "data": {
     'click_action':'FLUTTER_NOTIFICATION_CLICK',
     'id':'1',
-    'name':'aya'},
+    'name':'aya'
+    },
     'to': FirebaseMessaging.instance.getToken()
   };
   //BLHC6fhpHX_VBbufktusXDMRhLtLI764Ic_ZcCc9Lh2puYzPEvwOpvxDfBmHKtRQu38OU_hUoalT42PxzHc8JPg
   // String token = await messaging.getToken(
   // vapidKey: "BLHC6fhpHX_VBbufktusXDMRhLtLI764Ic_ZcCc9Lh2puYzPEvwOpvxDfBmHKtRQu38OU_hUoalT42PxzHc8JPg",
   // );
-  Future<void> sendnotification(Map<String,dynamic> body,Map<String,dynamic> data) async {
+  Future<void> sendnotification(Map<String,dynamic> body) async {
      FirebaseMessaging messaging = FirebaseMessaging.instance;
     try{
       String? token = await messaging.getToken(
@@ -56,9 +58,16 @@ class FCM {
             (message) {
              print( message.notification!.title);
             print( message.notification!.body);
-            print(  message.data['id']);
-            print(  message.data['name']);
+            print(  message.data['iduser']);
+            print(  message.data['nameuser']);
             });
+    FirebaseMessaging.onMessageOpenedApp.listen(
+            (message) {
+          print( message.notification!.title);
+          print( message.notification!.body);
+          print(  message.data['iduser']);
+          print(  message.data['nameuser']);
+        });
   }
 
 }

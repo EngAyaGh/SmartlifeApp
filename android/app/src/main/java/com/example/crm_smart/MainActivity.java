@@ -1,4 +1,4 @@
-package com.mpluse.crm_smart;
+package com.mpluse.crmsmart;
 
 import io.flutter.embedding.android.FlutterActivity;
 

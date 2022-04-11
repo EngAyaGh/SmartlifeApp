@@ -50,6 +50,7 @@ class Routes {
 
 
   static const allUserScreen = '/allUserScreen';
+  static const Home = '/home';
   static const client_dashboard = '/client_dashboard';
   static const tabclients = '/tabclients';
   static const userScreen = '/userScreen';

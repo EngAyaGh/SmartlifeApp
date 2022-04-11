@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:102540138446:android:9482bd474a9e9641e5fd9f",
+        "mobilesdk_app_id": "1:102540138446:android:bc175820eaf396efe5fd9f",
         "android_client_info": {
-          "package_name": "com.mpluse.crm_smart"
+          "package_name": "com.mpluse.crmsmart"
         }
       },
       "oauth_client": [

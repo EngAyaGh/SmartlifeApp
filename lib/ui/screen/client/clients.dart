@@ -64,7 +64,7 @@ class client_dashboard extends StatefulWidget {
 
     @override
     void initState()  {
-      FCM().getmessge();
+      //FCM().getmessge();
       print("init tabbar");
       super.initState();
   }
@@ -115,6 +115,7 @@ class client_dashboard extends StatefulWidget {
                         fontWeight: FontWeight.bold,
                         color: _tabBarIndex == 0 ?kMainColor : kUnActiveColor,
                         fontSize: _tabBarIndex == 0 ? 14 : null,
+                          decorationStyle: TextDecorationStyle.double
                       ),
                     ),
                   ],

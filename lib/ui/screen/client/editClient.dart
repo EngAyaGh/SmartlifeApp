@@ -62,21 +62,22 @@ class _editclientState extends State<editclient> {
     typeclient_provider.type_of_client
     =widget.itemClient.typeClient=="مشترك"?
     ['مستبعد','منسحب']
-    :widget.itemClient.typeClient=="منسحب"? ['مشترك'] :['تفاوض','عرض سعر','مستبعد','منسحب'];
+    :widget.itemClient.typeClient=="منسحب"? ['مشترك','منسحب'] :['تفاوض','عرض سعر','مستبعد','منسحب'];
 
     typeclient_provider.selectedValuemanag=widget.itemClient.typeClient.toString();
     typeclient_provider.getreasons();
+    ////////////////////////////////////////
     print( typeclient_provider.selectedValuemanag);
-    offerpriceController.text=widget.itemClient.offer_price==null
+    offerpriceController.text=widget.itemClient.offer_price==null||widget.itemClient.offer_price==""
         ?"":widget.itemClient.offer_price!;
     print(offerpriceController.text);
-    resaonController.text=widget.itemClient.reasonChange==null
+    resaonController.text=widget.itemClient.reasonChange==null||widget.itemClient.reasonChange==""
         ? "":widget.itemClient.reasonChange!.toString();//
 
-    valueBackController.text=widget.itemClient.value_back==null
+    valueBackController.text=widget.itemClient.value_back==null||widget.itemClient.value_back==""
         ?"":widget.itemClient.value_back!.toString();
 
-    descresaonController.text=widget.itemClient.desc_reason==null
+    descresaonController.text=widget.itemClient.desc_reason==null||widget.itemClient.desc_reason==""
         ?"":widget.itemClient.desc_reason!.toString();
 
     typeclient_provider.selectedValueOut=typeclient_provider.selectedValuemanag=="منسحب"?
@@ -98,7 +99,9 @@ class _editclientState extends State<editclient> {
       SimpleDialog(
         elevation: 5,
         //backgroundColor: Colors.yellowAccent,
-        shape: StadiumBorder(),
+        // shape: StadiumBorder(
+        //    side: BorderSide.none
+        // ),
         contentPadding: EdgeInsets.all(10),
         title: Text(''),
         children: [
@@ -197,9 +200,13 @@ class _editclientState extends State<editclient> {
         _globalKey.currentState!.save();
         Provider.of<LoadProvider>(context, listen: false)
             .changebooladdclient(true);
-
-        Provider.of<client_vm>(context, listen: false)
-            .updateclient_vm({
+        Map<String,dynamic> body={};
+        if(typeclient_provider.selectedValuemanag == "عرض سعر")
+      body={
+          "date_price":
+          formatter.format(DateTime.now()) ,
+        };
+        body.addAll({
           'name_client': nameclientController.text,
           'name_enterprise': nameEnterpriseController.text,
           'type_job': typejobController.text,
@@ -214,30 +221,32 @@ class _editclientState extends State<editclient> {
           // "date_transfer":,
           "mobile": mobileController.text,
           "date_changetype": //typeclient_provider.selectedValuemanag == "منسحب"?
-            formatter.format(_currentDate),//:"null",
+          formatter.format(_currentDate),//:"null",
 
           "offer_price": offerpriceController.text,
           "reason_change":
           typeclient_provider.selectedValuemanag == "منسحب"
               ? typeclient_provider.selectedValueOut
               : resaonController.text,
-          //"date_price":,
+
           "user_do": Provider
               .of<user_vm_provider>(context, listen: false)
               .currentUser!
               .idUser
               .toString(),
           "desc_reason":  typeclient_provider.selectedValuemanag == "منسحب"
-          ?descresaonController.text:"",
+              ?descresaonController.text:"",
 
           "value_back": typeclient_provider.selectedValuemanag == "منسحب"
-          ?valueBackController.text:"",
-        }, widget.itemClient.idClients,
-        ).then((value) =>
-        value != "false"
+              ?valueBackController.text:"",
+        });
+
+        Provider.of<client_vm>(context, listen: false)
+            .updateclient_vm(body, widget.itemClient.idClients)
+            .then((value) =>
+            value != "false"
             ? clear(context)
             : error(context)
-
         );
       }
       }, icon: Icon(Icons.check,color: kWhiteColor)),
