@@ -20,15 +20,17 @@ import 'package:crm_smart/ui/screen/support/support_add.dart';
 import 'package:crm_smart/ui/screen/user/alluser.dart';
 
 import 'package:crm_smart/ui/widgets/combox_widget/levelcombox.dart';
+import 'package:crm_smart/view_model/approve_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
+import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
@@ -38,16 +40,16 @@ import 'binding/binding.dart';
 import 'constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-
-  //DefaultFirebaseOptions .currentPlatform );
-
-  print("Handling a background message: ${message.messageId}");
-  print("Handling a background message: ${message.data['iduser']}");
-  print("Handling a background message: ${message.data['nameuser']}");
-}
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   // If you're going to use other Firebase services in the background, such as Firestore,
+//   // make sure you call `initializeApp` before using other Firebase services.
+//
+//   //DefaultFirebaseOptions .currentPlatform );
+//
+//   print("Handling a background message: ${message.messageId}");
+//   print("Handling a background message: ${message.data['iduser']}");
+//   print("Handling a background message: ${message.data['nameuser']}");
+// }
 
 void main() async {
   // <meta-data
@@ -100,6 +102,17 @@ void main() async {
             update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
               //  client_vm(value.currentUser)
         ),
+
+        ChangeNotifierProxyProvider<user_vm_provider,notifyvm>(
+          create: (_)=> notifyvm(),
+          update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
+        ),
+
+        ChangeNotifierProxyProvider<user_vm_provider,approve_vm>(
+          create: (_)=> approve_vm(),
+          update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
+
+        ),
         ChangeNotifierProvider<invoice_vm>(create: (_) => invoice_vm()),
         ChangeNotifierProvider<typeclient>(create: (_)=> typeclient()),
 
@@ -130,11 +143,11 @@ class MyApp extends StatelessWidget {
                 snapshot.data!.getBool(kKeepMeLoggedIn) ?? false;
 
             return
-              GetMaterialApp(
+              MaterialApp(
                 //initialBinding: UserBinding(),
-                initialRoute: Routes.Home,
-                getPages: AppRoutes.routes,
-                home:Home(),
+                // initialRoute: Routes.Home,
+                // getPages: AppRoutes.routes,
+                // home:Home(),
                 //main_page(),
 
                 // Directionality(
@@ -149,11 +162,11 @@ class MyApp extends StatelessWidget {
                     backgroundColor: Colors.white,
                     brightness: Brightness.light,
                   ),
-                  // home: Directionality(
-                  //   textDirection: TextDirection.rtl,
-                  //   child: isUserLoggedIn ? main_page() : main_page(),
-                  // )
-              );
+                  home: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: isUserLoggedIn ? Home() : Home(),
+                  ),
+             );
           }
         });
   }

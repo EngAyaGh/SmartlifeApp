@@ -2,7 +2,7 @@
 import 'package:crm_smart/api/fcm.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -88,24 +88,24 @@ class _transferClientState extends State<transferClient> {
                   backgroundColor: MaterialStateProperty.all(
                       kMainColor)),
               onPressed: () {
-                Map<String,dynamic> data={
-                  'click_action':'FLUTTER_NOTIFICATION_CLICK',
-                  'id':'1',
-                  'name':'aya'};
-
-                var body={
-                  //'token': "token",
-                  //"to":"",
-                  "direct_boot_ok" : true,
-                  "notification":{
-                    "title":"FCM Message",
-                    "body":"This is an FCM notification message!",
-                  },
-                  "data": data,
-                  'to': FirebaseMessaging.instance.getToken(),
-                };
-                //send notification
-                FCM().sendnotification(body);
+                // Map<String,dynamic> data={
+                //   'click_action':'FLUTTER_NOTIFICATION_CLICK',
+                //   'id':'1',
+                //   'name':'aya'};
+                //
+                // var body={
+                //   //'token': "token",
+                //   //"to":"",
+                //   "direct_boot_ok" : true,
+                //   "notification":{
+                //     "title":"FCM Message",
+                //     "body":"This is an FCM notification message!",
+                //   },
+                //   "data": data,
+                //   'to': FirebaseMessaging.instance.getToken(),
+                // };
+                // //send notification
+                // FCM().sendnotification(body);
                 //remove client from my client
 
                 //navigator to clients view page

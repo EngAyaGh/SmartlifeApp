@@ -191,33 +191,38 @@ void calculate(){
                       Row(
                         children: [
                           Flexible(
-                            child: CustomFormField(
+                            child: EditTextFormField(
 
-                                read: false,
+                                //read: false,
                                 onChanged: (val) {
                                   _taxuser_value=val;
                                   calculate();
                                 },
                                 inputType: TextInputType.number,
 
-                                con: _taxuser,
-                                label: 'نسبة الخصم المتاحة للموظف',
-                                radius: 10),
+                                controller: _taxuser,
+                               // label: 'نسبة الخصم المتاحة للموظف',
+                              hintText: 'نسبة الخصم المتاحة للموظف',
+                                //radius: 10
+                            ),
                           ),
                           SizedBox(width: 10,),
                           Text('%'),
                           SizedBox(width: 10,),
                           Flexible(
-                            child: CustomFormField(
+                            child: EditTextFormField(
                                 onChanged: (val) {
                                   _taxadmin_value=val;
                                   calculate();
                                 },
                                 inputType: TextInputType.number,
 
-                                read: false,con: _taxadmin,
-                                label: 'نسبة الخصم المتاحة للمشرف',
-                                radius: 10),
+                                //read: false,
+                                controller: _taxadmin,
+                               // label: 'نسبة الخصم المتاحة للمشرف',
+                              hintText: 'نسبة الخصم المتاحة للمشرف',
+                                //radius: 10
+                            ),
                           ),
 
                           SizedBox(width: 10,),

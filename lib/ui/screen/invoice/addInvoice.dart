@@ -141,7 +141,7 @@ if( Provider.of<invoice_vm>(context,listen: false)
                   .disposValue(widget.indexinvoice);
 
               widget.indexinvoice=
-              widget.indexinvoice-1<0?
+              widget.indexinvoice-1<=0?
               0:
               widget.indexinvoice-1;
 

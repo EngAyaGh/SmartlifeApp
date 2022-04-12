@@ -62,7 +62,8 @@ late final UserModel _user;
                 padding: EdgeInsets.only(
                     top: 10,
                     right: 20,
-                    left: 20,bottom: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+                    left: 20,
+                    bottom: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
                 child: ContainerShadows(
                   width: double.infinity,
                   //height: 400,

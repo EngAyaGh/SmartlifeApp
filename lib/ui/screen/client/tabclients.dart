@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../constants.dart';
+import 'addClient.dart';
 class tabclients extends StatefulWidget {
    tabclients({Key? key}) : super(key: key);
 
@@ -124,6 +125,15 @@ class _tabclientsState extends State<tabclients> {
 
     print('build tabview');
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: kMainColor,
+          onPressed: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context)=>addClient()));
+          },
+          tooltip: 'إضافة عميل',
+          child: Icon(Icons.add),
+        ),
       body:RefreshIndicator(
           onRefresh: ()async{
             // Provider.of<invoice_vm>(context, listen: false)

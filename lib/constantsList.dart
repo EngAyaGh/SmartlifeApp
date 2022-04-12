@@ -1,3 +1,11 @@
+import 'package:crm_smart/ui/screen/home/pageshome/Emarketing.dart';
+import 'package:crm_smart/ui/screen/home/pageshome/care.dart';
+import 'package:crm_smart/ui/screen/home/pageshome/finance.dart';
+import 'package:crm_smart/ui/screen/home/pageshome/managment.dart';
+import 'package:crm_smart/ui/screen/home/pageshome/sales.dart';
+import 'package:crm_smart/ui/screen/home/pageshome/support.dart';
+import 'package:flutter/cupertino.dart';
+
 List<String> listtext = [
   'مشرف مبيعات',
   'موظف مبيعات',
@@ -27,7 +35,15 @@ final List<String> listSelectCategory = [
   'تقرير مبيعات جميع الموظفين',
   'تقرير تارجت جميع الموظفين',
 ];
+final List<Widget> listwidget=[
+  sales(),
+  supportpage(),
+  carepage(),
+  marketingpage(),
+  managmentpage(),
+  financepage()
 
+];
 final List<dynamic> listHome = [
   [
     'كل العملاء',
@@ -74,10 +90,10 @@ final List<dynamic> listHome = [
 ];
 
 List<String> imageList = [
-  'assets/images/bill.png',
-  'assets/images/technical-support.png',
-  'assets/images/social-care.png',
-  'assets/images/digitalmarketing.png',
-  'assets/images/administrator.png',
-  'assets/images/administrator.png'
+  'assest/images/bill.png',
+  'assest/images/technical-support.png',
+  'assest/images/social-care.png',
+  'assest/images/digitalmarketing.png',
+  'assest/images/administrator.png',
+  'assest/images/administrator.png'
 ];

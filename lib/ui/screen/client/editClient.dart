@@ -2,6 +2,7 @@ import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/ui/screen/client/transfer_client.dart';
+import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
@@ -257,179 +258,184 @@ class _editclientState extends State<editclient> {
           child: SingleChildScrollView(
             child: Form(
               key: _globalKey,
-              child: Padding(
+              child:  Padding(
                 padding: EdgeInsets.only(
                     top: 10,
                     right: 20,
-                    left:
-                    20), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
-                child: Column(
-                  //textDirection: TextDirection.rtl,
+                    left: 20,
+                    bottom: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+                child: ContainerShadows(
+                  width: double.infinity,
+                  //height: 400,
+                  margin: EdgeInsets.only(),
+                  child: Column(
+                    //textDirection: TextDirection.rtl,
 
-                  //crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RowEdit(name: label_clientname, des: 'required'),
-                    EditTextFormField(
-                      vaild: (value) {
-                        if (value!.isEmpty) {
-                          return label_empty;
+                    //crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RowEdit(name: label_clientname, des: 'required'),
+                      EditTextFormField(
+                        vaild: (value) {
+                          if (value!.isEmpty) {
+                            return label_empty;
+                          }
+                        },
+                        hintText: label_clientname,
+                        obscureText: false,
+                        controller: nameclientController,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      RowEdit(name: label_cliententerprise, des: 'required'),
+                      EditTextFormField(
+                        obscureText: false,
+                        hintText: label_cliententerprise,
+                        vaild: (value) {
+                          if (value!.isEmpty) {
+                            return label_empty;
+                          }
+                        },
+                        controller: nameEnterpriseController, //اسم المؤسسة
+                        //label: label_client,
+                        onChanged: (val) {
+                          // nameprod = val;
+                        },
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      RowEdit(name: label_client_typejob, des: 'Required'),
+                      EditTextFormField(
+                        hintText: label_client_typejob,
+                        obscureText: false,
+                        vaild: (value) {
+                          if (value!.isEmpty) {
+                            return label_empty;
+                          }
+                        },
+                        controller: typejobController, //اسم المؤسسة
+                        label: label_client_typejob,
+                        onChanged: (val) {
+                          // nameprod = val;
+                        },
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+
+                      //admin
+                      RowEdit(name: label_clientcity, des: 'Required'),
+                      EditTextFormField(
+                        vaild: (value) {
+                          if (value!.isEmpty) {
+                            return label_empty;
+                          }
+                        },
+                        hintText: label_clientcity,
+                        obscureText: false,
+                        controller: cityController,
+                      ),
+                      //manage
+                      SizedBox(
+                        height: 5,
+                      ),
+                      RowEdit(name: label_clientmobile, des: 'Required'),
+                      EditTextFormField(
+                        vaild: (value) {
+                          if (value!.isEmpty) {
+                            return label_empty;
+                          }
+                        },
+                        hintText: '+966000000000',
+                        obscureText: false,
+                        controller: mobileController,
+                      ),
+                      //RowEdit(name: 'Image', des: ''),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      RowEdit(name: label_clientlocation, des: ''),
+                      EditTextFormField(
+                        hintText: 'location',
+                        obscureText: false,
+                        controller: locationController,
+                      ),
+                      ////////////////////////////////////////////////
+                      SizedBox(
+                        height: 15,
+                      ),
+
+                      SizedBox(
+                        height: 15,
+                      ),
+                      RowEdit(name: label_clienttype, des: ""),
+
+                      DropdownButton(
+                      isExpanded: true,
+                      //hint: Text("حدد حالة العميل"),
+                      items: typeclient_provider.type_of_client.map((level_one) {
+                            return DropdownMenuItem(
+
+                              child: Text(level_one), //label of item
+                              value: level_one, //value of item
+                            );
+                          }).toList(),
+                      value:typeclient_provider.selectedValuemanag,
+                      onChanged:(value) {
+                        //namemanage=value.toString();
+                        typeclient_provider.changevalue(value.toString());
+                        if(value=="منسحب") {
+                          showDialog<void>(
+                              context: context,
+                              builder: (context) => dialog);
                         }
-                      },
-                      hintText: label_clientname,
-                      obscureText: false,
-                      controller: nameclientController,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    RowEdit(name: label_cliententerprise, des: 'required'),
-                    EditTextFormField(
-                      obscureText: false,
-                      hintText: label_cliententerprise,
-                      vaild: (value) {
-                        if (value!.isEmpty) {
-                          return label_empty;
-                        }
-                      },
-                      controller: nameEnterpriseController, //اسم المؤسسة
-                      //label: label_client,
-                      onChanged: (val) {
-                        // nameprod = val;
-                      },
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    RowEdit(name: label_client_typejob, des: 'Required'),
-                    EditTextFormField(
-                      hintText: label_client_typejob,
-                      obscureText: false,
-                      vaild: (value) {
-                        if (value!.isEmpty) {
-                          return label_empty;
-                        }
-                      },
-                      controller: typejobController, //اسم المؤسسة
-                      label: label_client_typejob,
-                      onChanged: (val) {
-                        // nameprod = val;
-                      },
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
 
-                    //admin
-                    RowEdit(name: label_clientcity, des: 'Required'),
-                    EditTextFormField(
-                      vaild: (value) {
-                        if (value!.isEmpty) {
-                          return label_empty;
-                        }
                       },
-                      hintText: label_clientcity,
-                      obscureText: false,
-                      controller: cityController,
                     ),
-                    //manage
-                    SizedBox(
-                      height: 5,
-                    ),
-                    RowEdit(name: label_clientmobile, des: 'Required'),
-                    EditTextFormField(
-                      vaild: (value) {
-                        if (value!.isEmpty) {
-                          return label_empty;
-                        }
-                      },
-                      hintText: '+966000000000',
-                      obscureText: false,
-                      controller: mobileController,
-                    ),
-                    //RowEdit(name: 'Image', des: ''),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    RowEdit(name: label_clientlocation, des: ''),
-                    EditTextFormField(
-                      hintText: 'location',
-                      obscureText: false,
-                      controller: locationController,
-                    ),
-                    ////////////////////////////////////////////////
-                    SizedBox(
-                      height: 15,
-                    ),
-
-                    SizedBox(
-                      height: 15,
-                    ),
-                    RowEdit(name: label_clienttype, des: ""),
-
-                    DropdownButton(
-                    isExpanded: true,
-                    //hint: Text("حدد حالة العميل"),
-                    items: typeclient_provider.type_of_client.map((level_one) {
-                          return DropdownMenuItem(
-
-                            child: Text(level_one), //label of item
-                            value: level_one, //value of item
-                          );
-                        }).toList(),
-                    value:typeclient_provider.selectedValuemanag,
-                    onChanged:(value) {
-                      //namemanage=value.toString();
-                      typeclient_provider.changevalue(value.toString());
-                      if(value=="منسحب") {
-                        showDialog<void>(
-                            context: context,
-                            builder: (context) => dialog);
-                      }
-
-                    },
-                  ),
-                    typeclient_provider.selectedValuemanag=="منسحب"?
-                    ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              kMainColor)),
-                      onPressed: () {
-
-                        showDialog<void>(
-                            context: context,
-                            builder: (context) => dialog);
-                      },
-                      child: Text('خيارات الإنسحاب'),
-                    ):
-                    typeclient_provider.selectedValuemanag=="عرض سعر"?
-                    EditTextFormField(
-                      hintText: 'عرض سعر',
-                      obscureText: false,
-                      controller: offerpriceController,
-                    ):
-                    typeclient_provider.selectedValuemanag=="مستبعد"?
-                    EditTextFormField(
-                      hintText: 'سبب الاستبعاد',
-                      obscureText: false,
-                      controller: resaonController,
-                    ):Text(''),
-                    typeclient_provider.selectedValuemanag=="عرض سعر"
-                        || typeclient_provider.selectedValuemanag=="تفاوض"?
-                    Center(
-                      child:   ElevatedButton(
+                      typeclient_provider.selectedValuemanag=="منسحب"?
+                      ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                                 kMainColor)),
                         onPressed: () {
 
-                          Navigator.push(context,MaterialPageRoute(
-                              builder: (context)=>transferClient(),fullscreenDialog: true
-                          ));
+                          showDialog<void>(
+                              context: context,
+                              builder: (context) => dialog);
                         },
-                        child: Text('تحويل العميل'),
-                      ),
-                    ):Text(""),
-                  ],
+                        child: Text('خيارات الإنسحاب'),
+                      ):
+                      typeclient_provider.selectedValuemanag=="عرض سعر"?
+                      EditTextFormField(
+                        hintText: 'عرض سعر',
+                        obscureText: false,
+                        controller: offerpriceController,
+                      ):
+                      typeclient_provider.selectedValuemanag=="مستبعد"?
+                      EditTextFormField(
+                        hintText: 'سبب الاستبعاد',
+                        obscureText: false,
+                        controller: resaonController,
+                      ):Text(''),
+                      typeclient_provider.selectedValuemanag=="عرض سعر"
+                          || typeclient_provider.selectedValuemanag=="تفاوض"?
+                      Center(
+                        child:   ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  kMainColor)),
+                          onPressed: () {
+
+                            Navigator.push(context,MaterialPageRoute(
+                                builder: (context)=>transferClient(),fullscreenDialog: true
+                            ));
+                          },
+                          child: Text('تحويل العميل'),
+                        ),
+                      ):Text(""),
+                    ],
+                  ),
                 ),
               ),
             ),

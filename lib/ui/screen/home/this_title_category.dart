@@ -13,7 +13,9 @@ class ThisTitleCategory extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kMainColor,
-        title: Text(list[index]),
+        title: Text(list[index],  style: TextStyle(
+            fontFamily: kfontfamily2),
+        ),
         centerTitle: true,
         elevation: 0,
       ),

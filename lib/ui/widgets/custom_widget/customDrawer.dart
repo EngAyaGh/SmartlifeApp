@@ -1,62 +1,105 @@
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/routes/routes.dart';
 import 'package:crm_smart/ui/screen/product/productView.dart';
+import 'package:crm_smart/ui/screen/selectCountryScreen.dart';
 import 'package:crm_smart/ui/screen/user/alluser.dart';
 import 'package:crm_smart/ui/screen/user/userview.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
 class CustomDrawer extends StatelessWidget {
   CustomDrawer({Key? key}) : super(key: key);
-  final controllerUsers = Get.find<AllUserVMController>();
+  //final controllerUsers = Get.find<AllUserVMController>();
 
   @override
   Widget build(BuildContext context) {
-    controllerUsers.getcurrentUser();
+   var controllerUsers= Provider.of<user_vm_provider>(context,listen: true);
+   // controllerUsers.getcurrentUser();
 
-    return Obx(() {
      // print(controllerUsers.currentUser.value.nameUser.toString());
       return Drawer(
         elevation: 10,
         child: ListView(
           children: [
-            UserAccountsDrawerHeader(
-                accountName:
-                    Text(controllerUsers.currentUser.value.nameUser.toString()),
-                accountEmail:
-                    Text(controllerUsers.currentUser.value.email.toString())),
             Stack(
               alignment: Alignment.center,
               children: [
-                CircleAvatar(
+                Positioned(
+                  top: 10,
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundColor: Colors.white38,
                     //,
+                  ),
+                ),
+                UserAccountsDrawerHeader(
+                    accountName:
+                    Text(controllerUsers.currentUser!.nameUser.toString(),
+                      style: TextStyle(
+                          fontFamily: kfontfamily2),
                     ),
+
+                    accountEmail:
+                    Text(controllerUsers.currentUser!.email.toString(),
+                  style: TextStyle(
+                      fontFamily: kfontfamily2),
+                ),
+
+                ),
               ],
             ),
+
+
             ListTile(
-              title: Text(' الدولة'),
-              leading: Icon(Icons.add_box_outlined),
+              title: Text(' الدولة',  style: TextStyle(
+                  fontFamily: kfontfamily2),
             ),
+              leading: Icon(Icons.location_city_rounded),
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context)
+                    => select_country(),
+                    fullscreenDialog: true,
+                  ),
+                );
+              },
+            ),
+            // ListTile(
+            //   title: Text('إدارة المستخدمين'),
+            //   leading: Icon(Icons.add_box_outlined),
+            //   onTap: () {
+            //     Get.to(() => Routes.allUserScreen);
+            //   },
+            // ),
             ListTile(
-              title: Text('إدارة المستخدمين'),
-              leading: Icon(Icons.add_box_outlined),
+              title: Text('المنتجات',  style: TextStyle(
+                  fontFamily: kfontfamily2),
+              ),
+              leading: Icon(Icons.shop),
               onTap: () {
-                Get.to(() => Routes.allUserScreen);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context)
+                    => ProductView(),
+                    fullscreenDialog: true,
+                  ),
+                );
+                // ProductView();
               },
             ),
             ListTile(
-              title: Text('المنتجات'),
-              leading: Icon(Icons.add_box_outlined),
-              onTap: () {
-                ProductView();
-              },
-            ),
-            ListTile(
-              title: Text('تسجيل خروج'),
+              title: Text('تسجيل خروج',  style: TextStyle(
+                  fontFamily: kfontfamily2),
+              ),
               leading: Icon(Icons.exit_to_app),
               onTap: () async {
                 SharedPreferences preferences =
@@ -67,6 +110,6 @@ class CustomDrawer extends StatelessWidget {
           ],
         ),
       );
-    });
+
   }
 }

@@ -25,18 +25,18 @@ class BuildCard extends StatelessWidget {
               return buildCardCategory(
                   image: imageList[index],
                   item: itemCategory[index],
-                  ontap: () => Get.to(
-                        () {
-                          return SelectCategory(
-                            // userModel: controllerUsers.usersList[index],
-                            index: index,
-                            list: listHome[index],
-                          );
+                  ontap: () =>
+                     Navigator.push(context,
+                         MaterialPageRoute(
+                             builder: (context)=>
+                             listwidget[index]
+                     ))
+              );
                         },
-                      ));
-            }),
-      ),
-    );
+
+            ),
+
+    ));
   }
 
   Widget buildCardCategory({

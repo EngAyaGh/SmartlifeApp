@@ -31,7 +31,8 @@ class cardClient extends StatelessWidget {
     return Container(
 
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(bottomRight: Radius.circular(30)),
+          borderRadius:
+          BorderRadius.only(bottomRight: Radius.circular(30)),
           boxShadow: <BoxShadow>[
             BoxShadow(
               offset: Offset(1.0, 1.0),
@@ -68,7 +69,8 @@ class cardClient extends StatelessWidget {
                           children: [
                             Text(itemClient.nameEnterprise.toString(),
                               style: TextStyle(
-                                  fontFamily: kfontfamily2),),
+                                  fontFamily: kfontfamily2),
+                            ),
                             // Row(
                             //   children: [
                             //

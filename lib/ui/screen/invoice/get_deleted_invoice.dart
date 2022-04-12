@@ -17,7 +17,8 @@ class _deletedinvoiceState extends State<deletedinvoice> {
   @override
   Widget build(BuildContext context) {
     context.watch<invoice_vm>().get_invoice_deleted("1");
-    List<DeletedinvoiceModel> _listdeletedinvoice= context.watch<invoice_vm>().listdeletedinvoice;
+    List<DeletedinvoiceModel> _listdeletedinvoice
+    = context.watch<invoice_vm>().listdeletedinvoice;
     return
       Scaffold(
       body:Padding(

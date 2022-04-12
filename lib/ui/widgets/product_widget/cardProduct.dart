@@ -30,7 +30,7 @@ class CardProduct extends StatelessWidget {
     //   ),
     //   child:
       return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(2),
         child: Center(
           child: InkWell(
             //splashColor: Colors.blue.withAlpha(30),
@@ -83,7 +83,7 @@ class CardProduct extends StatelessWidget {
                                       children: [
                                         Text(' قيمة الضريبة',style:TextStyle(fontFamily: kfontfamily2),),
 
-                                        Text(itemProd.value_config==null||itemProd.value_config=="null"?'no taxrate':itemProd.value_config.toString(),
+                                        Text(itemProd.value_config==null||itemProd.value_config=="null"?'لا يوجد':itemProd.value_config.toString(),
                                           style:TextStyle(fontFamily: kfontfamily2),),
                                       ],
                                     ),

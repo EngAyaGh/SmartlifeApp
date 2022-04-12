@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 class UserVMController extends GetxController {
   var isProbicpicpathSet = false.obs;
@@ -26,7 +26,7 @@ class UserVMController extends GetxController {
       // }),
     );
 
-    launch(emailLaunchUri.toString());
+   // launch(emailLaunchUri.toString());
   }
 
   void setProfileImagePath(String path) {
