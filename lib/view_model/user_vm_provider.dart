@@ -19,7 +19,7 @@ class user_vm_provider extends ChangeNotifier{
 
   UserModel? currentUser=
    UserModel(
-       nameUser: "aya",fkCountry: "1",fkRegoin: "2",idUser: "1");
+       nameUser: "aya",fkCountry: "1",fkRegoin: "1",idUser: "1");
 
   Future<void> getclient_vm() async {
     userall = await  UserService().usersServices();

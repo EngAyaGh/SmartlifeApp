@@ -109,7 +109,20 @@ class client_vm extends ChangeNotifier {
     }
     return res;
   }
-
+  Future<bool> setApproveclient_vm(Map<String, dynamic?> body,String? id_client) async {
+    bool res = await ClientService().setApproveClient(body,id_client!);
+    if (res) {
+      int index=listClientbyCurrentUser.indexWhere((element) => element.idClients==id_client);
+      // body.addAll({
+      //   'isApprove':listClientbyCurrentUser[index].isApprove,
+      //   'iduser_approve':listClientbyCurrentUser[index].iduser_approve,
+      // });
+      listClientbyCurrentUser[index]=ClientModel.fromJson(body);
+      //listProduct.insert(0, ProductModel.fromJson(body));
+      notifyListeners();
+    }
+    return res;
+  }
 
 
 }

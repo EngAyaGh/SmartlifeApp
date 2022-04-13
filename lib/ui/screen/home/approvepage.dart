@@ -22,7 +22,8 @@ class _ApprovePageState extends State<ApprovePage> {
   void didChangeDependencies() {
 
     Future.delayed(Duration(milliseconds: 10)).then((_) async {
-      await    Provider.of<approve_vm>(context, listen: false).getApprovebyregoin();
+      await    Provider.of<approve_vm>(context, listen: false)
+          .getApprovebyregoin();
     }
     );
     super.didChangeDependencies();

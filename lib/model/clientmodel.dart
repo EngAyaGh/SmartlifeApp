@@ -26,7 +26,9 @@ class ClientModel extends CacheRepository{
     this.offer_price,
     this.desc_reason,
     this.user_do,
-    this.value_back
+    this.value_back,
+    this.iduser_approve,
+    this.	isApprove,
   });
   late final String? idClients;
   late final String? nameClient;
@@ -54,6 +56,8 @@ class ClientModel extends CacheRepository{
   late final String? user_do;
   late final String? desc_reason;//منسحب
   late final String? value_back;
+  late final String? iduser_approve;
+  late final String? 	isApprove;
 
   ClientModel.fromJson(Map<String, dynamic> json){
     idClients = json['id_clients'];
@@ -81,6 +85,8 @@ class ClientModel extends CacheRepository{
     user_do = json['user_do'];
     desc_reason=json['desc_reason'];
     value_back=json['value_back'];
+    iduser_approve=json['iduser_approve'];
+    isApprove=json['isApprove'];
   }
 
   Map<String, dynamic> toJson() {
@@ -110,6 +116,8 @@ class ClientModel extends CacheRepository{
      _data['user_do'] = user_do;
      _data['desc_reason'] = desc_reason;
      _data['value_back'] = value_back;
+     _data['iduser_approve'] = iduser_approve;
+     _data['isApprove'] = 	isApprove;
     return _data;
   }
 

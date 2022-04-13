@@ -28,7 +28,13 @@ class ClientService{
     );
     return result=="done"? true:false;
   }
-
+  Future<bool> setApproveClient( Map<String,dynamic> body,String idclient) async {
+    String result = await Api()
+        .post( url:url+"client/setApproveClient.php?id_clients=$idclient",body:
+    body
+    );
+    return result=="done"? true:false;
+  }
   Future<List<ClientModel>> getAllClient() async {
     List<dynamic> data =[];
     data=await Api()

@@ -1,6 +1,8 @@
 
 
+import 'package:crm_smart/model/approvemodel.dart';
 import 'package:crm_smart/ui/widgets/cardnotify.dart';
+import 'package:crm_smart/ui/widgets/client_widget/cardapprove1.dart';
 import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +52,17 @@ class _notify_pageviewState extends State<notify_pageview> {
                       return SingleChildScrollView(
                           child: Padding(
                             padding: const EdgeInsets.all(0.7),
-                            child: cardnotify(
+                            child:
+                            value.listnotify[index].typeNotify=="Approve"
+                            ?cardapprove1(
+                              itemapprove: ApproveModel(
+                                  nameUser: "aya",
+                                  idApproveClient: '1',
+                                  dateApprove: '19-2-2021',
+                                  name_enterprise: 'جمعية خيرية', fkUser: '2',
+                                  nameRegoin: 'مكة المكرمة', fkClient: '',
+                                  isApprove: '', nameCountry: ''),)
+                            :cardnotify(
                                 itemNotify:
                                 value.listnotify[index],
                                ),

@@ -3,6 +3,7 @@
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/notificationModel.dart';
 import 'package:crm_smart/ui/screen/client/detail_client.dart';
+import 'package:crm_smart/ui/screen/client/editClient.dart';
 import 'package:crm_smart/ui/screen/home/approvepage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class cardnotify extends StatelessWidget {
 late NotificationModel itemNotify;
   @override
   Widget build(BuildContext context) {
+
     return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -28,13 +30,18 @@ late NotificationModel itemNotify;
         ),
       child: Center(
         child: InkWell(
-          onTap: (){
+          onTap: () {
+            //Late,ApproveDone,ApproveRefuse
             itemNotify.typeNotify=="Approve"?
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ApprovePage()))
             :  itemNotify.typeNotify=="Transfer"?
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Detail_Client()))
+                MaterialPageRoute(
+                    builder: (context) => Detail_Client(
+                 // itemClient: null, fkclient: '', fkuser: '',
+                    )
+                ))
             :
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => Detail_Client()));
