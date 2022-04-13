@@ -1,5 +1,6 @@
 import 'package:crm_smart/constantsList.dart';
 import 'package:crm_smart/ui/widgets/cardapprove.dart';
+import 'package:crm_smart/ui/widgets/client_widget/cardapprove1.dart';
 import 'package:crm_smart/view_model/approve_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,31 +30,33 @@ class _ApprovePageState extends State<ApprovePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Padding(
-          padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
-          child: Center(
-            child:
-            Consumer<approve_vm> (
-                builder: (context,value,child) {
-                  return value.listapprove.length==0?
-                  CircularProgressIndicator()
-                      :ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: value.listapprove.length,
-                      itemBuilder: (context, index) {
-                        return SingleChildScrollView(
-                            child: Padding(
-                              padding: const EdgeInsets.all(2),
-                              child: cardapprove(
-                                itemapprove :
-                                value.listapprove[index],
-                              ),
-                            ));
-                      });
-                } ),
-          )  ),
+    return Scaffold(
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Padding(
+            padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
+            child: Center(
+              child:
+              Consumer<approve_vm> (
+                  builder: (context,value,child) {
+                    return value.listapprove.length==0?
+                    CircularProgressIndicator()
+                        :ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: value.listapprove.length,
+                        itemBuilder: (context, index) {
+                          return SingleChildScrollView(
+                              child: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: cardapprove1(
+                                  itemapprove :
+                                  value.listapprove[index],
+                                ),
+                              ));
+                        });
+                  } ),
+            )  ),
+      ),
     );
   }
 }

@@ -38,11 +38,13 @@ class sales extends StatelessWidget {
                 builder: (context)=>
                     tabclients()));
           }, title:  'العملاء المشتركين '),
+
           buildSelectCategory(onTap: () {
             Navigator.push(context, MaterialPageRoute(
                 builder: (context)=>
                     ApprovePage()));
           }, title:  'كل طلبات الموافقة '),
+
           buildSelectCategory(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(

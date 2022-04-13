@@ -18,10 +18,13 @@ class approve_vm extends ChangeNotifier {
     List<dynamic> data =[];
     data=await Api()
         .get(url:url+ 'client/approveClientGet.php?fk_regoin=${usercurrent!.fkRegoin}');
+    List<ApproveModel> list=[];
 
     for (int i = 0; i < data.length; i++) {
-      listapprove.add(ApproveModel.fromJson(data[i]));
+      list.add(ApproveModel.fromJson(data[i]));
     }
+
+    listapprove=list;
     print(listapprove);
     notifyListeners();
   }
@@ -30,10 +33,13 @@ class approve_vm extends ChangeNotifier {
     List<dynamic> data =[];
     data=await Api()
         .get(url:url+ 'client/approveClientGet.php?fk_country=${usercurrent!.fkCountry}');
+    List<ApproveModel> list=[];
 
     for (int i = 0; i < data.length; i++) {
-      listapprove.add(ApproveModel.fromJson(data[i]));
+      list.add(ApproveModel.fromJson(data[i]));
     }
+    listapprove=list;
+
     print(listapprove);
 notifyListeners();
   }

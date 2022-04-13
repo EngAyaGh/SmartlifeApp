@@ -34,31 +34,31 @@ class _notify_pageviewState extends State<notify_pageview> {
 
     @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Padding(
-          padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
-          child: Center(
-            child:
-            Consumer<notifyvm> (
-                builder: (context,value,child) {
-                  return value.listnotify.length==0?
-                  CircularProgressIndicator()
-                      :ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: value.listnotify.length,
-                      itemBuilder: (context, index) {
-                        return SingleChildScrollView(
-                            child: Padding(
-                              padding: const EdgeInsets.all(2),
-                              child: cardnotify(
-                                  itemNotify:
-                                  value.listnotify[index],
-                                 ),
-                            ));
-                      });
-                } ),
-          )  ),
+    return Scaffold(
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Center(
+          child:
+          Consumer<notifyvm> (
+              builder: (context,value,child) {
+                return value.listnotify.length==0?
+                CircularProgressIndicator()
+                    :ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: value.listnotify.length,
+                    itemBuilder: (context, index) {
+                      return SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.all(0.7),
+                            child: cardnotify(
+                                itemNotify:
+                                value.listnotify[index],
+                               ),
+                          ));
+                    });
+              } ),
+        ),
+      ),
     );
   }
 }

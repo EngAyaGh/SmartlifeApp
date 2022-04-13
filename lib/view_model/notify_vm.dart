@@ -16,10 +16,11 @@ class notifyvm extends ChangeNotifier {
     List<dynamic> data =[];
     data=await Api()
         .get(url:url+ 'notification/getnotifybyIdUser.php?to_user=${usercurrent!.idUser}');
-
+    List<NotificationModel> list=[];
     for (int i = 0; i < data.length; i++) {
-      listnotify.add(NotificationModel.fromJson(data[i]));
+      list.add(NotificationModel.fromJson(data[i]));
     }
+    listnotify=list;
     print(listnotify.length);
     notifyListeners();
 
