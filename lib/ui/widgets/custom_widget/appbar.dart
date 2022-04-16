@@ -1,4 +1,5 @@
 import 'package:crm_smart/ui/screen/notification/notifypage.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/customDrawer.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/customTextStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class customAppbar extends StatelessWidget implements PreferredSizeWidget{
   Widget build(BuildContext context) {
     print('build appbar');
     return  AppBar(
+
       //textTheme: TextTheme(),
       title: Text('Smart Life',style:
       TextStyle(color: Colors.white,fontSize: 16,fontFamily: kfontfamily),),

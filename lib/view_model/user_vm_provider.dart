@@ -19,7 +19,7 @@ class user_vm_provider extends ChangeNotifier{
 
   UserModel? currentUser=
    UserModel(
-       nameUser: "aya",fkCountry: "1",fkRegoin: "1",idUser: "1");
+       nameUser: "aya",fkCountry: "1",fkRegoin: "1",idUser: "1",email: "aya.ghoury@gmail.com");
 
   Future<void> getclient_vm() async {
     userall = await  UserService().usersServices();
@@ -38,7 +38,6 @@ class user_vm_provider extends ChangeNotifier{
     try {
       if(userall!.isEmpty)
       userall = await  UserService().usersServices();
-
       SharedPreferences preferences = await SharedPreferences.getInstance();
       String? id = preferences.getString('id_user');
       print("in get user" + userall![0].nameUser.toString());
@@ -46,6 +45,7 @@ class user_vm_provider extends ChangeNotifier{
       final index = userall!.indexWhere((element) => element.idUser == "1");
       if(index>=0){
       currentUser = userall![index];
+      notifyListeners();
       return true;
       }
     }

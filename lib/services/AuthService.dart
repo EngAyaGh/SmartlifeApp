@@ -27,7 +27,8 @@ class  AuthServices{
       result= await Api()
         .post( url:url+"Auth/check_otp.php",body: {
       'email':email,
-      'otp':otp
+      'otp':otp,
+       //'token':FirebaseMessaging.instance.getToken(),
     } );
     return result!="code is wrong"? result:"false";
 

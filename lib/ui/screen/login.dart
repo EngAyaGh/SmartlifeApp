@@ -13,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../constants.dart';
 import '../../labeltext.dart';
+import 'home/home.dart';
 import 'mainpage.dart';
 
 class login extends StatefulWidget {
@@ -106,14 +107,14 @@ class _loginState extends State<login> {
                       Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(true);
                       String? res=await AuthServices().verfiy_otp(valEmail,valueField!);
                       if (res!="false") {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => select_country()),
-                              (rouets)=>false);
                         SharedPreferences preferences  = await SharedPreferences.getInstance();
                         preferences.setBool(kKeepMeLoggedIn, true);
                         preferences.setString("id_user",res!);
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Home()),
+                               (rouets)=>false);
 
                       }
                       else{

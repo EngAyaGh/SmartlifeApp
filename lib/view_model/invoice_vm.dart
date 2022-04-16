@@ -29,7 +29,24 @@ class invoice_vm extends ChangeNotifier{
   List<ProductsInvoice> listproductinvoic=[];
   List<DeletedinvoiceModel> listdeleted=[];
   List<InvoiceModel> listinvoicebyregoin=[];
+  List<InvoiceModel> listinvoices=[];
+  List<InvoiceModel> listInvoicesAccept=[];
   //List<>
+  //List<>
+  Future<void> getinvoice_Local(String searchfilter
+      // , List<ClientModel> list
+      )
+  async {
+    // if(listClient.isEmpty)
+    // List<ClientModel> lists=[];
+    // listinvoices.forEach((element) {
+    //   if( element.type_client==searchfilter)
+    //     listInvoicesAccept.add(element);
+    // });
+    listInvoicesAccept=listinvoices;
+
+    notifyListeners();
+  }
   void addlistproductinvoic(value){
 
     listproductinvoic.add(value);
@@ -51,13 +68,14 @@ class invoice_vm extends ChangeNotifier{
     listdeleted.removeAt(index);
     notifyListeners();
   }
-
-  Future<void> get_invoiceclient(String? fk_client
-      ,List<InvoiceModel> list) async {
-
+  // fk_idUser
+  Future<void> get_invoiceclientlocal(String? fk_client
+     // ,List<InvoiceModel> list
+      ) async {
+    //seacrh for invoice in list
     int index=-1;
 
-    list.forEach((element) {
+    listinvoices.forEach((element) {
       if( element.fkIdClient==fk_client)
       listinvoiceClient.add(element);
     });
@@ -65,11 +83,44 @@ class invoice_vm extends ChangeNotifier{
     //   listinvoiceClient=[];
     notifyListeners();
   }
-  Future<void> get_invoicesbyRegoin() async {
+  Future<void> getinvoices() async {
+    // if(listClient.isEmpty)
+    //main list
+    listinvoices = await Invoice_Service().getinvoice(usercurrent!.fkCountry.toString());
+    notifyListeners();
+  }
+  Future<void> get_invoicesbyIduser(List<InvoiceModel> list) async {
     //listinvoicebyregoin=[];
     //cahe_data_source_invoice().clearCache();
-    listinvoicebyregoin = await Invoice_Service()
-        .getinvoicebyregoin(usercurrent!.fkRegoin!);
+    if(list.isNotEmpty){
+      list.forEach((element) {
+        if( element.fkIdUser==usercurrent!.idUser)
+          listinvoicebyregoin.add(element);
+      });
+    }
+    else{
+      listinvoices = await Invoice_Service()
+          .getinvoicebyiduser(usercurrent!.idUser!);
+      listinvoices=listinvoicebyregoin;
+    }
+
+    notifyListeners();
+  }
+  Future<void> get_invoicesbyRegoin(List<InvoiceModel> list) async {
+    //listinvoicebyregoin=[];
+    //cahe_data_source_invoice().clearCache();
+   if(list.isNotEmpty){
+     list.forEach((element) {
+       if( element.fk_regoin==usercurrent!.fkRegoin)
+         listinvoicebyregoin.add(element);
+     });
+   }
+   else{
+     listinvoicebyregoin = await Invoice_Service()
+         .getinvoicebyregoin(usercurrent!.fkRegoin!);
+     listinvoices=listinvoicebyregoin;
+   }
+
     // List<InvoiceModel>? val=await cahe_data_source_invoice()
     //     .getCache(CACHE_InvoiceClient_KEY, CACHE_InvoiceClient_INTERVAL)   ;
     // if(listinvoicebyregoin.isEmpty)

@@ -14,6 +14,7 @@ class Api {
       Uri.parse(url),
     );
     if (json.decode(response.body)["code"] == "200") {
+      print(jsonDecode(response.body)["message"]);
       return jsonDecode(response.body)["message"];
     } else {
       print("ex is ${json.decode(response.body)["code"] == "200"}");
@@ -89,19 +90,20 @@ class Api {
     result=result.substring(idx,length);
     print(result);
     print(json.decode(result)["code"]);
-    if (json.decode(result)["code"] == "200") {
+    //if (json.decode(result)["code"] == "200") {
       /*String data="";
       if(jsonDecode(result)["message"]=="done")
         data =jsonDecode(result)["message"] ;
       else
         Map<String, dynamic>  jsonDecode(result)["message"];*/
       //print("in json data is $data");
-      return jsonDecode(result)["message"];
-    } else {
-
-      throw Exception(
-          '${json.decode(result)["message"]}');
-    }
+    //   return jsonDecode(result)["message"];
+    // } else {
+    //
+    //   throw Exception(
+    //       '${json.decode(result)["message"]}');
+    // }
+    return jsonDecode(result)["message"];
 
   }
 }

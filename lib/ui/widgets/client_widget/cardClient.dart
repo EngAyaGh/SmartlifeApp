@@ -54,7 +54,7 @@ class cardClient extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all( Radius.circular(5)),),
-              height: 125,//MediaQuery.of(context).size.height*0.15,
+              //height: 125,//MediaQuery.of(context).size.height*0.15,
               child: Padding(
                 padding: EdgeInsets.all(8),
                 child: Flex(
@@ -69,6 +69,7 @@ class cardClient extends StatelessWidget {
                           children: [
                             Text(itemClient.nameEnterprise.toString(),
                               style: TextStyle(
+                                fontWeight: FontWeight.bold,
                                   fontFamily: kfontfamily2),
                             ),
                             // Row(
@@ -116,33 +117,33 @@ class cardClient extends StatelessWidget {
                             Text(itemClient.typeClient.toString(),
                               style: TextStyle(
                                   fontFamily: kfontfamily2),),
-                            ButtonBar(
-                              children: <Widget>[
-                                new IconButton(
-                                  icon: Icon(Icons.edit),
-                                  onPressed: () {
-
-                                    Navigator.push(context,
-                                        MaterialPageRoute(
-                                            builder: (context)=>
-                                                editclient(
-                                                  itemClient:itemClient,
-                                                  fkclient:  itemClient.idClients.toString(),
-                                                  fkuser:    itemClient.fkUser.toString(),
-                                                )
-
-                                        ));
-                                  },
-                                  //onPressed: REFRESH,
-                                ),
-
-                                // ElevatedButton(style: ButtonStyle(
-                                //     backgroundColor: MaterialStateProperty
-                                //         .all(kMainColor)),
-                                //     onPressed: () {},
-                                //     child: Text('Approve')),
-                              ],
-                            ),
+                            // ButtonBar(
+                            //   children: <Widget>[
+                            //     new IconButton(
+                            //       icon: Icon(Icons.edit),
+                            //       onPressed: () {
+                            //
+                            //         Navigator.push(context,
+                            //             MaterialPageRoute(
+                            //                 builder: (context)=>
+                            //                     editclient(
+                            //                       itemClient:itemClient,
+                            //                       fkclient:  itemClient.idClients.toString(),
+                            //                       fkuser:    itemClient.fkUser.toString(),
+                            //                     )
+                            //
+                            //             ));
+                            //       },
+                            //       //onPressed: REFRESH,
+                            //     ),
+                            //
+                            //     // ElevatedButton(style: ButtonStyle(
+                            //     //     backgroundColor: MaterialStateProperty
+                            //     //         .all(kMainColor)),
+                            //     //     onPressed: () {},
+                            //     //     child: Text('Approve')),
+                            //   ],
+                            // ),
 
                           ],)
 
@@ -177,6 +178,7 @@ class cardClient extends StatelessWidget {
                             Spacer(),
                             Text(itemClient.nameUser.toString(),
                               style: TextStyle(
+                                fontWeight: FontWeight.bold,
                                   fontFamily: kfontfamily3 ),),
 
                             // Row(

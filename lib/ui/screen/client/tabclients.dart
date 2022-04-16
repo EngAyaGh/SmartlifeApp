@@ -82,18 +82,18 @@ class _tabclientsState extends State<tabclients> {
    }
    @override
    void didChangeDependencies() {
-     // setState(() {
-     //  // isLoading = true;
-     // });
-     Future.delayed(Duration(milliseconds: 30)).then((_) async {
-       await    Provider.of<client_vm>(context, listen: false)
-           .getclientByIdUser_vm();
-       // user=context.read<user_vm_provider>().currentUser;
-       // await    Provider.of<client_vm>(context, listen: false)
-       //     .getclientByIdUser_vm(user!.idUser);
 
-      }
-     );
+     // List<ClientModel> list= Provider.of<client_vm>(context, listen: false)
+     // .listClientbyRegoin;
+     // Future.delayed(Duration(milliseconds: 3)).then((_) async {
+     //   await    Provider.of<client_vm>(context, listen: false)
+     //       .getclientByIdUser_vm(list);
+     //   // user=context.read<user_vm_provider>().currentUser;
+     //   // await    Provider.of<client_vm>(context, listen: false)
+     //   //     .getclientByIdUser_vm(user!.idUser);
+     //
+     //  }
+     // );
      super.didChangeDependencies();
    }
   @override
@@ -142,7 +142,7 @@ class _tabclientsState extends State<tabclients> {
             //     .get_invoicesbyRegoin();
 
             await Provider.of<client_vm>(context, listen: false)
-                .getclientByIdUser_vm();
+                .getclientByRegoin([]);
 
             // context.read<client_vm>()
           },
@@ -164,18 +164,18 @@ class _tabclientsState extends State<tabclients> {
             child:
     Consumer<client_vm> (
     builder: (context,value,child) {
-    return value.listClientbyCurrentUser.length==0?
+    return value.listClient.length==0?
     CircularProgressIndicator()
           :ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: value.listClientbyCurrentUser.length,
+                itemCount: value.listClient.length,
                 itemBuilder: (context, index) {
                   return SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.all(2),
                         child: cardClient(
                             itemClient:
-                        value.listClientbyCurrentUser[index],
+                        value.listClient[index],
                             iduser: iduser.toString()),
                       ));
                 });

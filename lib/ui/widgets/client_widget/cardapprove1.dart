@@ -1,7 +1,9 @@
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/approvemodel.dart';
 import 'package:crm_smart/model/notificationModel.dart';
+import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +12,10 @@ import 'package:provider/provider.dart';
 class cardapprove1 extends StatelessWidget {
   cardapprove1({Key? key, required this.itemapprove}) : super(key: key);
   late ApproveModel itemapprove;
-  String current = "";
+  late UserModel current ;
   @override
   Widget build(BuildContext context) {
-    current = Provider.of<user_vm_provider>(context).currentUser.idUser!;
+    current = Provider.of<user_vm_provider>(context).currentUser!;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(bottomRight: Radius.circular(30)),
@@ -67,12 +69,26 @@ class cardapprove1 extends StatelessWidget {
                                     MaterialStateProperty.all(kMainColor)),
                             onPressed: () {
                               // send notification
-                              // FCM().sendnotification({})
+                              // FCM().sendnotification({
+                              // })
+                             // String message='+تم قبول رفع العميل${itemapprove.name_enterprise}';
+                             //  Provider.of<notifyvm>(context,listen: false)
+                             //      .addNotification({
+                             //    'message':'',
+                             //    'from_user':current.nameUser,
+                             //    'to_user':'',//id user
+                             //    'type_notify':TypeNotify.Approve,
+                             //    'isread':'0',
+                             //    'data':itemapprove.fkClient,
+                             //  });
                               // update client to approved client
                               Provider.of<client_vm>(context, listen: false)
                                   .setApproveclient_vm({
-                                "isApprove": 1,
-                                "iduser_approve": current
+                                "fkuser":itemapprove.fkUser,
+                                "fk_regoin":itemapprove.fk_regoin,
+                                "isApprove": "1",
+                                //"message":"",//
+                                "iduser_approve": current.idUser//معتمد الاشتراك
                               }, itemapprove.fkClient);
                             },
                             child: Text('Approve')),
@@ -85,6 +101,7 @@ class cardapprove1 extends StatelessWidget {
                                     Colors.redAccent)),
                             onPressed: () {
                               //send notification
+
                             },
                             child: Text('Refuse')),
                       ],

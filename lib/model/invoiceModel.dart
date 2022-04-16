@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:crm_smart/Repository/cache_repo.dart';
+import 'package:crm_smart/view_model/notify_vm.dart';
 
 class InvoiceModel extends CacheRepository{
   InvoiceModel({
@@ -17,7 +18,10 @@ class InvoiceModel extends CacheRepository{
      this.nameUser,
      this.nameClient,
      required this.products,
-     this.total
+     this.total,
+    this.name_enterprise,
+    this.fk_regoin,
+    this.name_regoin,
   });
     String? idInvoice;
     String? dateCreate;
@@ -33,6 +37,9 @@ class InvoiceModel extends CacheRepository{
     String? nameClient;
     String? total;
     String? name_enterprise;
+    String? fk_regoin;
+    String? name_regoin;
+    String? type_client;
   //Map<String, dynamic> products;
    List<ProductsInvoice>? products;
   // var products;
@@ -52,6 +59,9 @@ class InvoiceModel extends CacheRepository{
     nameClient = jsondata['name_client'];
     total = jsondata['total'];
     name_enterprise=jsondata['name_enterprise'];
+    fk_regoin=jsondata['fk_regoin'];
+    name_regoin=jsondata['name_regoin'];
+    type_client=jsondata['type_client'];
     products=getproud(jsondata['products']);
       //  json.decode(
        // jsondata['products']
@@ -98,6 +108,9 @@ class InvoiceModel extends CacheRepository{
     _data['name_client'] = nameClient;
     _data['total'] = total;
     _data['name_enterprise'] = name_enterprise;
+    _data['fk_regoin'] = fk_regoin;
+    _data['name_regoin'] = name_regoin;
+    _data['type_client'] = type_client;
     _data['products'] =
         products!.map((e)=>e.toJson()).toList();
     return _data;

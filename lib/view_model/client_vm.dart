@@ -18,6 +18,7 @@ const CACHE_ClientByUser_INTERVAL = 60 * 1000; // 1 MINUTE IN MILLIS
 class client_vm extends ChangeNotifier {
   UserModel? usercurrent;
   List<ClientModel> listClient = [];
+  List<ClientModel> listClientAccept = [];
   List<ClientModel> listClientbyCurrentUser = [];
   List<ClientModel> listClientbyRegoin = [];
 
@@ -31,19 +32,41 @@ class client_vm extends ChangeNotifier {
     usercurrent=user;
     notifyListeners();
   }
-  Future<void> getclient_vm() async {
-   // if(listClient.isEmpty)
-    listClient = await ClientService().getAllClient();
+  Future<void> getclient_Local(String searchfilter
+     // , List<ClientModel> list
+      )
+  async {
+    // if(listClient.isEmpty)
+    // List<ClientModel> lists=[];
+    listClient.forEach((element) {
+      if( element.typeClient==searchfilter)
+        listClientAccept.add(element);
+    });
+
     notifyListeners();
   }
-  Future<void> getclientByIdUser_vm() async {
-    // cahe_data_source_client().clearCache();
-     listClientbyCurrentUser.clear();
+  Future<void> getclient_vm() async {
+   // if(listClient.isEmpty)
+    //main list
+    listClient = await ClientService().getAllClient(usercurrent!.fkCountry.toString());
+    notifyListeners();
+  }
+  Future<void> getclientByIdUser_vm(List<ClientModel> list) async {
+   //عملائي
+    if(list.isNotEmpty){
+    list.forEach((element) {
+      if( element.fkUser==usercurrent!.idUser)
+        listClientbyCurrentUser.add(element);
+    });
+    }
+else{
+      //عملائي
+      //in low level employee
+      listClientbyCurrentUser = await ClientService()
+          .getClientbyuser(usercurrent!.idUser.toString());
+      listClient=listClientbyCurrentUser;
 
-     notifyListeners();
-
-     listClientbyCurrentUser = await ClientService()
-        .getClientbyuser(usercurrent!.idUser.toString());
+    }
 
     // List<ClientModel>? list=await cahe_data_source_client()
     //     .getCache(CACHE_ClientByUser_KEY, CACHE_ClientByUser_INTERVAL);
@@ -69,9 +92,20 @@ class client_vm extends ChangeNotifier {
     // }
     notifyListeners();
   }
-  Future<void> getclientByRegoin(String fk_user) async {
+  Future<void> getclientByRegoin(List<ClientModel> list) async {
     //if(listClientbyRegoin.isEmpty)
-    listClientbyRegoin = await ClientService().getAllClientByRegoin(fk_user);
+    if(list.isNotEmpty){
+      list.forEach((element) {
+        if( element.fkUser==usercurrent!.idUser)
+          listClientbyRegoin.add(element);
+      });
+    }else {
+      //get data from db >>> this mean that main list in here initalise
+      listClientbyRegoin = await ClientService()
+          .getAllClientByRegoin(usercurrent!.fkRegoin.toString());
+       listClient=listClientbyRegoin;
+    }
+
     notifyListeners();
   }
 

@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 
 class ContainerShadows extends StatelessWidget {
-  double width;
+  double? width;
   double? height;
   Widget child;
   EdgeInsets margin;
-
+  EdgeInsetsGeometry? padding;
   ContainerShadows(
-      {required this.width,
+      { this.width,
          this.height,
         required this.child,
         required this.margin,
+        this.padding,
         Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 10,bottom: 10,left: 20,right: 20),
+      padding:padding==null?
+      EdgeInsets.only(top: 10,bottom: 10,left: 20,right: 20):padding,
       width: width,
       height: height,
       margin: margin,

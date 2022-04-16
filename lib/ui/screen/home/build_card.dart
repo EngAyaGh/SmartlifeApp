@@ -81,7 +81,7 @@ class BuildCard extends StatelessWidget {
                 ),
                 Text(
                   item,
-                  style: TextStyle(fontSize: 20,
+                  style: TextStyle(fontSize: 15,
                       fontFamily: kfontfamily3,
                       color: Colors.black),
                 ),

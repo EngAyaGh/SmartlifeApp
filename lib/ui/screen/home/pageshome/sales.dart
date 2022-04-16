@@ -1,3 +1,4 @@
+import 'package:crm_smart/ui/screen/client/Acceptpage.dart';
 import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/screen/home/approvepage.dart';
 import 'package:crm_smart/ui/screen/home/widgethomeitem.dart';
@@ -30,14 +31,17 @@ class sales extends StatelessWidget {
         Column(children: [
           buildSelectCategory(
               onTap: () {
-
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context)=>
+                        tabclients()));
           }, title: 'كل العملاء'),
           buildSelectCategory(
               onTap: () {
             Navigator.push(context, MaterialPageRoute(
                 builder: (context)=>
-                    tabclients()));
+                    AcceptPage()));
           }, title:  'العملاء المشتركين '),
+          //AcceptPage
 
           buildSelectCategory(onTap: () {
             Navigator.push(context, MaterialPageRoute(

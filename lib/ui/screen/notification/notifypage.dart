@@ -22,15 +22,17 @@ class _notify_pageviewState extends State<notify_pageview> {
   }
   @override
   void didChangeDependencies() {
-    Future.delayed(Duration(milliseconds: 30)).then((_) async {
-      await    Provider.of<notifyvm>(context, listen: false)
-          .getNotification();
-      // user=context.read<user_vm_provider>().currentUser;
-      // await    Provider.of<client_vm>(context, listen: false)
-      //     .getclientByIdUser_vm(user!.idUser);
-
-    }
-    );
+        Provider.of<notifyvm>(context, listen: false)
+         .getNotification();
+    // Future.delayed(Duration(milliseconds: 10)).then((_) async {
+    //   await    Provider.of<notifyvm>(context, listen: false)
+    //       .getNotification();
+    //   // user=context.read<user_vm_provider>().currentUser;
+    //   // await    Provider.of<client_vm>(context, listen: false)
+    //   //     .getclientByIdUser_vm(user!.idUser);
+    //
+    // }
+    // );
     super.didChangeDependencies();
   }
 
@@ -53,16 +55,17 @@ class _notify_pageviewState extends State<notify_pageview> {
                           child: Padding(
                             padding: const EdgeInsets.all(0.7),
                             child:
-                            value.listnotify[index].typeNotify=="Approve"
-                            ?cardapprove1(
-                              itemapprove: ApproveModel(
-                                  nameUser: "aya",
-                                  idApproveClient: '1',
-                                  dateApprove: '19-2-2021',
-                                  name_enterprise: 'جمعية خيرية', fkUser: '2',
-                                  nameRegoin: 'مكة المكرمة', fkClient: '',
-                                  isApprove: '', nameCountry: ''),)
-                            :cardnotify(
+                            // value.listnotify[index].typeNotify=="Approve"
+                            // ?cardapprove1(
+                            //   itemapprove: ApproveModel(
+                            //       nameUser: "aya",
+                            //       idApproveClient: '1',
+                            //       dateApprove: '19-2-2021',
+                            //       name_enterprise: 'جمعية خيرية', fkUser: '2',
+                            //       nameRegoin: 'مكة المكرمة', fkClient: '',
+                            //       isApprove: '', nameCountry: ''),)
+                            //:
+                            cardnotify(
                                 itemNotify:
                                 value.listnotify[index],
                                ),

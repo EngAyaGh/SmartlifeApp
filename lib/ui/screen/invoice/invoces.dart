@@ -25,11 +25,11 @@ class _invoicesState extends State<invoices> {
 
    @override
    void initState() {
-   List<InvoiceModel> list= Provider.of<invoice_vm>(context,listen: false)
-     .listinvoicebyregoin;
-     //get info from list client_invoice
+   // List<InvoiceModel> list= Provider.of<invoice_vm>(context,listen: false)
+   //   .listinvoicebyregoin;
+     //get info from list client_invoice فواتير العميل
      Provider.of<invoice_vm>(context,listen: false)
-         .get_invoiceclient(widget.fkclient,list);
+         .get_invoiceclientlocal(widget.fkclient);
 
      print('init invoice  '+widget.fkclient);
      //.then((value) => _isLoading=false);
@@ -45,7 +45,7 @@ class _invoicesState extends State<invoices> {
     setState(() {
       _isLoading =listinvoice.isEmpty?false:false;
     });
-     print(listinvoice);
+     print(listinvoice.length);
      return Scaffold(
        key: _scaffoldKey,
        floatingActionButton:FloatingActionButton(
@@ -55,7 +55,7 @@ class _invoicesState extends State<invoices> {
                context, MaterialPageRoute(
                builder: (context)=>
                addinvoice(
-                 //add new invoice
+                   //add new invoice
                    itemClient:widget.itemClient,
                    iduser: widget.fkuser,
                    idClient: widget.fkclient,

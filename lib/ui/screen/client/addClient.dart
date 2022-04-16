@@ -19,6 +19,8 @@ import 'package:get/get.dart';
 
 import '../../../constants.dart';
 import '../../../labeltext.dart';
+import 'dart:ui' as myui;
+import 'package:intl/intl.dart';
 
 class addClient extends StatelessWidget {
   addClient({Key? key}) : super(key: key);
@@ -57,10 +59,10 @@ late final UserModel _user;
           child: Form(
             key: _globalKey,
             child: Directionality(
-              textDirection: TextDirection.rtl,
+              textDirection: myui.TextDirection.rtl ,
               child: Padding(
                 padding: EdgeInsets.only(
-                    top: 10,
+                    top: 20,
                     right: 20,
                     left: 20,
                     bottom: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
@@ -213,7 +215,7 @@ late final UserModel _user;
                                   'city': cityController.text,
                                   'location':locationController.text==null?"null":locationController.text,
                                   "fk_regoin":_user.fkRegoin==null?"null":_user.fkRegoin,
-                                  //"date_create": ,
+                                  //"date_create":   formatter.format(_currentDate),
                                   "type_client":"تفاوض",
                                   "fk_user":_user.idUser,
                                   // "date_transfer":,
@@ -272,4 +274,6 @@ late final UserModel _user;
     );
     print("error");
   }
+  DateTime _currentDate = DateTime.now();
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
 }

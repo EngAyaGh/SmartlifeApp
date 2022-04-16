@@ -30,7 +30,8 @@ import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
-// import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +39,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:crm_smart/api/firebase_option.dart';
 import 'binding/binding.dart';
 import 'constants.dart';
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 //   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -59,16 +60,18 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp(
   //   options:FirebaseOptions(
-  //   apiKey: 'AIzaSyDQVScJ2gMSCwAWh1zTnjtzOk2SGWSjStI',
-  //   appId: '1:102540138446:web:a8933eabd8a1d0cee5fd9f',
-  //   messagingSenderId: '102540138446',
-  //   projectId: 'crmapp-8f9de',
-  //   authDomain: 'crmapp-8f9de.firebaseapp.com',
-  //   //databaseURL: 'https://react-native-firebase-testing.firebaseio.com',
-  //   storageBucket: 'crmapp-8f9de.appspot.com',
-  //   measurementId: 'G-KJC7EKRNM6',
+  //     apiKey: 'AIzaSyDPc1bZGUTKYilLcLMJbxd8I4RInrPo8AQ',
+  //     appId: '1:102540138446:android:bc175820eaf396efe5fd9f',
+  //     messagingSenderId: '102540138446',
+  //     projectId: 'crmapp-8f9de',
+  //     //databaseURL: 'https://react-native-firebase-testing.firebaseio.com',
+  //     storageBucket: 'crmapp-8f9de.appspot.com',
   // ));
-  //FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  print('in main ');
+ //   print(await FirebaseMessaging.instance.getToken(
+ //     //vapidKey: "BLHC6fhpHX_VBbufktusXDMRhLtLI764Ic_ZcCc9Lh2puYzPEvwOpvxDfBmHKtRQu38OU_hUoalT42PxzHc8JPg")
+ // ));
+ //FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
  // FCM().getmessge();
   //Provider.debugCheckInvalidValueType = null;
@@ -113,7 +116,12 @@ void main() async {
           update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
 
         ),
-        ChangeNotifierProvider<invoice_vm>(create: (_) => invoice_vm()),
+        ChangeNotifierProxyProvider<user_vm_provider,invoice_vm>(
+          create: (_)=> invoice_vm(),
+          update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
+
+        ),
+        //ChangeNotifierProvider<invoice_vm>(create: (_) => invoice_vm()),
         ChangeNotifierProvider<typeclient>(create: (_)=> typeclient()),
 
   ], child:MyApp()));
@@ -141,7 +149,7 @@ class MyApp extends StatelessWidget {
           else {
             isUserLoggedIn =
                 snapshot.data!.getBool(kKeepMeLoggedIn) ?? false;
-
+           String idcurrentuser= snapshot.data!.getString("id_user").toString();
             return
               MaterialApp(
                 //initialBinding: UserBinding(),
@@ -164,7 +172,8 @@ class MyApp extends StatelessWidget {
                   ),
                   home: Directionality(
                     textDirection: TextDirection.rtl,
-                    child: isUserLoggedIn ? Home() : Home(),
+                    child: isUserLoggedIn ? Home()
+                        : Home(),
                   ),
              );
           }

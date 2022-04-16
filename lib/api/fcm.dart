@@ -17,7 +17,8 @@
 //     "data": {
 //     'click_action':'FLUTTER_NOTIFICATION_CLICK',
 //     'id':'1',
-//     'name':'aya'
+//     'name':'aya',
+//     'Typenotify':
 //     },
 //     'to': FirebaseMessaging.instance.getToken()
 //   };

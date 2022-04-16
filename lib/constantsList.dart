@@ -95,5 +95,5 @@ List<String> imageList = [
   'assest/images/social-care.png',
   'assest/images/digitalmarketing.png',
   'assest/images/administrator.png',
-  'assest/images/administrator.png'
+  'assest/images/money.png'
 ];

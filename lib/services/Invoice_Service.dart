@@ -10,11 +10,43 @@ import '../constants.dart';
 
 class Invoice_Service {
 
+  Future<List<InvoiceModel>> getinvoice(String fk_country) async {
+    var
+    data=await Api()
+        .get(url:url+ 'client/invoice/getinvoice.php?fk_country=$fk_country');
+    print(data);
+    List<InvoiceModel> prodlist = [];
+    // final json = "[" + data[i] + "]";
+    for (int i = 0; i < data.length; i++) {
+      print(i);
 
+      //print("data "+ "[" + data[i] + "]");
+      prodlist.add(InvoiceModel.fromJson(data[i]));
+    }
+    print(prodlist);
+    return prodlist;
+  }
   Future<List<InvoiceModel>> getinvoicebyclient(String fk_idClient) async {
+    //not called because get local
     var
     data=await Api()
         .get(url:url+ 'client/invoice/get_invoice_ByIdClient.php?fk_idClient=$fk_idClient');
+    print(data);
+    List<InvoiceModel> prodlist = [];
+    // final json = "[" + data[i] + "]";
+    for (int i = 0; i < data.length; i++) {
+      print(i);
+
+      //print("data "+ "[" + data[i] + "]");
+      prodlist.add(InvoiceModel.fromJson(data[i]));
+    }
+    print(prodlist);
+    return prodlist;
+  }
+  Future<List<InvoiceModel>> getinvoicebyiduser(String fk_idUser) async {
+    var
+    data=await Api()
+        .get(url:url+ 'client/invoice/getinvoicebyiduser.php?fk_idUser=$fk_idUser');
     print(data);
     List<InvoiceModel> prodlist = [];
     // final json = "[" + data[i] + "]";

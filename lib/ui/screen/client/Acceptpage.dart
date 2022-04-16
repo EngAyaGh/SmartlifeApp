@@ -1,0 +1,70 @@
+import 'package:crm_smart/constantsList.dart';
+import 'package:crm_smart/model/clientmodel.dart';
+import 'package:crm_smart/ui/widgets/cardapprove.dart';
+import 'package:crm_smart/ui/widgets/client_widget/cardapprove1.dart';
+import 'package:crm_smart/ui/widgets/client_widget/cardclientAccept.dart';
+import 'package:crm_smart/view_model/approve_vm.dart';
+import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/invoice_vm.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+class AcceptPage extends StatefulWidget {
+  const AcceptPage({Key? key}) : super(key: key);
+
+  @override
+  _ApprovePageState createState() => _ApprovePageState();
+}
+
+class _ApprovePageState extends State<AcceptPage> {
+  @override
+  void initState() {
+    //Provider.of<notifyvm>(context,listen: false).getNotification();
+    super.initState();
+  }
+  @override
+  void didChangeDependencies() async{
+    //List<ClientModel> list= Provider.of<client_vm>(context).listClient;
+    await    Provider.of<invoice_vm>(context, listen: false)
+        .getinvoice_Local("مشترك");
+    // Future.delayed(Duration(milliseconds: 10)).then((_) async {
+    //   await    Provider.of<invoice_vm>(context, listen: false)
+    //       .getinvoice_Local("مشترك");
+    // }
+    // );
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Padding(
+            padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
+            child: Center(
+              child:
+              Consumer<invoice_vm> (
+                  builder: (context,value,child) {
+                    return value.listInvoicesAccept.length==0?
+                    CircularProgressIndicator()
+                        :ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: value.listInvoicesAccept.length,
+                        itemBuilder: (context, index) {
+
+                          return SingleChildScrollView(
+                              child: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: cardClientAccept(
+                                  iteminvoice :
+                                  value.listInvoicesAccept[index], iduser: '1',
+                                ),
+                              ));
+                        });
+                  } ),
+            )  ),
+      ),
+    );
+  }
+}

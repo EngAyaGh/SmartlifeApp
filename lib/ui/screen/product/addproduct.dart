@@ -122,15 +122,16 @@ class _addProductState extends State<addProduct> {
                     Consumer<selected_button_provider>(
                         builder: (context, selectedProvider, child) {
                       return ContainerShadows(
-                        width: double.infinity,
+                       // width: double.infinity,
                         height: 35,
                         margin: EdgeInsets.only(),
+                        padding: EdgeInsets.only(top: 2,bottom: 2,left: 2,right: 2),
                         child: Center(
                           child: GroupButton(
                             options: GroupButtonOptions(
                               borderRadius: BorderRadius.circular(20),
-                              buttonWidth: 200,
-                              elevation: 0,
+                              buttonWidth: MediaQuery.of(context).size.width*0.3,
+                              //elevation: 0,
                               selectedColor: kMainColor,
                             ),
                             controller: GroupButtonController(
@@ -152,7 +153,7 @@ class _addProductState extends State<addProduct> {
                         ),
                       );
                     }),
-
+                    SizedBox(height: 6,),
                     ContainerShadows(
                       width: double.infinity,
                       // height: 400,

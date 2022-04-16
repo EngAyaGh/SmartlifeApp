@@ -25,7 +25,21 @@ class notifyvm extends ChangeNotifier {
     notifyListeners();
 
   }
+  Future<String> addNotification( Map<String,dynamic?> body) async {
 
-
+      String result = await Api()
+          .post( url:url+"notification/insertNotification.php",
+          body: body);
+      print(result);
+      if (result!="error") {
+        body.addAll({
+          'id_notify': result,
+        });
+        //
+        // listnotify.insert(0, NotificationModel.fromJson(body));
+        // notifyListeners();
+      }
+        return result !="error"? result:"false";
+  }
 
 }

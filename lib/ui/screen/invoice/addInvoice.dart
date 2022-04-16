@@ -6,12 +6,14 @@ import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
+import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-
+import 'dart:ui' as myui;
 import '../../../constants.dart';
 import '../../../labeltext.dart';
 import 'add_invoice_product.dart';
@@ -50,6 +52,7 @@ class _addinvoiceState extends State<addinvoice> {
 
    final TextEditingController imageController = TextEditingController();
    InvoiceModel? _invoice;
+
    @override
    void initState()  {
      print('init in addinvoice screen main');
@@ -108,7 +111,9 @@ if( Provider.of<invoice_vm>(context,listen: false)
      super.initState();
 
    }
-     @override
+
+
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
@@ -136,9 +141,13 @@ if( Provider.of<invoice_vm>(context,listen: false)
                   .listproductinvoic=[];
               Provider.of<invoice_vm>(context,listen: false)
                   .listinvoiceClient[widget.indexinvoice].products=[];
-
+              if(widget.indexinvoice==0)
               Provider.of<invoice_vm>(context,listen: false)
-                  .disposValue(widget.indexinvoice);
+                  .disposValue(-1);
+              else{
+                Provider.of<invoice_vm>(context,listen: false)
+                    .disposValue(widget.indexinvoice);
+              }
 
               widget.indexinvoice=
               widget.indexinvoice-1<=0?
@@ -175,7 +184,7 @@ if( Provider.of<invoice_vm>(context,listen: false)
             //height: 400,
             margin: EdgeInsets.only(),
             child: Directionality(
-              textDirection: TextDirection.rtl,
+              textDirection: myui.TextDirection.rtl,
               child: SingleChildScrollView(
                 child: Form(
                   key: _globalKey,
@@ -321,7 +330,10 @@ if( Provider.of<invoice_vm>(context,listen: false)
                              buttons: ['نقدا','تحويل'],
                              onSelected: (index,isselected){
                              print(index);
-                             typepayController=index.toString();}
+                             setState(() {
+                               typepayController=index.toString();
+                             });
+                           }
                          ),
                        ),
                         //manage
@@ -340,8 +352,11 @@ if( Provider.of<invoice_vm>(context,listen: false)
 
                                 borderRadius: BorderRadius.circular(10)),
                             buttons: ['ميداني','اونلاين'],
-                            onSelected: (index,isselected)=>
-                            typeinstallController=index.toString()
+                            onSelected: (index,isselected) {
+                              setState(() {
+                                typeinstallController=index.toString();
+                              });
+                            }
                         ),
                         //RowEdit(name: 'Image', des: ''),
                         SizedBox(
@@ -483,7 +498,7 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                           "nameUser":widget.itemClient.nameUser,
                                           "renew_year": renewController.text,
                                           "type_pay": typepayController,
-                                          "date_create": DateTime.now().toString(),
+                                          //"date_create":  formatter.format(_currentDate),
                                           "type_installation": typeinstallController,
                                           "amount_paid": amount_paidController.text,
                                           "image_record":imageController.text,
@@ -491,7 +506,9 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                           "fk_idUser": widget.iduser,//the same user that create a client not current user
                                           "total": totalController,
                                           "notes": noteController.text,
+                                          'fk_regoin':widget.itemClient.fkRegoin,
                                           //"date_changetype":,
+                                          //'message':"",
                                         },
                                         ).then((value) =>
                                         value != "false"
@@ -526,6 +543,19 @@ if( Provider.of<invoice_vm>(context,listen: false)
   }
 
   clear(BuildContext context,String value,List<ProductsInvoice>? _products) async {
+     //send notification
+    //FCM.send
+    // String message=  'لديك طلب موافقة على العميل (${widget.itemClient.nameEnterprise}) + \n موظف المبيعات ${widget.itemClient.nameUser} ';
+    // //String message='+تم قبول رفع العميل${widget.itemClient.nameEnterprise}';موظف المبيعات محمد
+    // Provider.of<notifyvm>(context,listen: false)
+    //     .addNotification({
+    //   'message':message,
+    //   'from_user':widget.itemClient.nameUser,
+    //   'to_user':'',//id user
+    //   'type_notify':TypeNotify.Approve,
+    //   'isread':'0',
+    //   'data':widget.itemClient.idClients,
+    // });
      print('in clear');
      widget.indexinvoice = 0;
      _products=   Provider
@@ -586,4 +616,6 @@ if( Provider.of<invoice_vm>(context,listen: false)
         SnackBar(content: Text('هناك خطأ ما'))
     );
   }
+   DateTime _currentDate = DateTime.now();
+   final DateFormat formatter = DateFormat('yyyy-MM-dd');
 }
