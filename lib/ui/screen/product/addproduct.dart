@@ -128,7 +128,8 @@ class _addProductState extends State<addProduct> {
                         padding: EdgeInsets.only(top: 2,bottom: 2,left: 2,right: 2),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
+                            borderRadius: BorderRadius.all(
+                                 Radius.circular(12)),
                             boxShadow: <BoxShadow>[
                               BoxShadow(
                                 offset: Offset(1.0, 1.0),
@@ -154,7 +155,7 @@ class _addProductState extends State<addProduct> {
                               buttons: ['أجهزة', 'برامج'],
                               onSelected: (int index, bool isSelected) {
                                 valtype_product = index;
-                                valtype_product == 0 ? 1 : 0;
+                                // valtype_product == 0 ? 1 : 0;
                                 selectedProvider.selectValue(index);
                                 // setState(() {
                                 // selectButton = index;

@@ -74,7 +74,7 @@ class _EditProductState extends State<EditProduct> {
     _textprice.text=widget.productModel.priceProduct;
     price=double.parse(_textprice.text.toString());
     valtype_product=int.parse( widget.productModel.type);
-    valtype_product == 0 ? 1 : 0;
+    //valtype_product == 0 ? 1 : 0;
 
     super.initState();
 
@@ -133,7 +133,8 @@ class _EditProductState extends State<EditProduct> {
                           padding: EdgeInsets.only(top: 2,bottom: 2,left: 2,right: 2),
                           child: Container(
                         decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
+                        borderRadius: BorderRadius.all(
+                           Radius.circular(12)),
                         boxShadow: <BoxShadow>[
                         BoxShadow(
                         offset: Offset(1.0, 1.0),
@@ -160,7 +161,7 @@ class _EditProductState extends State<EditProduct> {
 
                                   onSelected: (selected,isselect) {
                                     valtype_product = selected;
-                                    valtype_product == 0 ? 1 : 0;
+                                    // valtype_product == 0 ? 1 : 0;
                                     selectedProvider.selectValue(selected);
                                   }),
                             ),

@@ -190,7 +190,7 @@ class _addUserState extends State<addUser> {
                         items: cart.listregoin.map((level_one) {
                           return DropdownMenuItem(
                             child: Text(level_one.name_regoin), //label of item
-                            value: level_one.id, //value of item
+                            value: level_one.id_regoin, //value of item
                           );
                         }).toList(),
                         value:cart.selectedValueLevel,

@@ -8,7 +8,7 @@ class DeletedinvoiceModel {
      this.nameClient,
      this.mobileclient,
      this.city,
-     this.nameUser,
+     this.nameUser,//user delete
      this.email,
      this.mobileuser,
   });

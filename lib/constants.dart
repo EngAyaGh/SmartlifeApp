@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 enum TypeNotify{
- Approve,Transfer,Late,ApproveDone,ApproveRefuse
+ ApproveRequest,Transfer,Late,ApproveDone,ApproveRefuse,InvoiceDeleted
 }
 const kMainColor = Colors.lightBlue;//Color(0xfff2c131);
 const kWhiteColor = Colors.white;

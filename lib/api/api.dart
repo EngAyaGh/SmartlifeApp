@@ -4,15 +4,23 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/retry.dart';
 
 class Api {
   // headers: {
   // "Accept": "application/json",
   // "Access-Control-Allow-Origin": "*"}
   Future<dynamic> get({required String url}) async {
-    http.Response response = await http.get(
-      Uri.parse(url),
-    );
+    // final client = RetryClient(http.Client());
+    // try {
+    //   print(await client.get(Uri.http('example.org', '')));
+    // } finally {
+    //   client.close();
+    // }
+    // http.Response response = await http.get(
+    //   Uri.parse(url),
+    // );
+    http.Response response = await RetryClient(http.Client()).get( Uri.parse(url));
     if (json.decode(response.body)["code"] == "200") {
       print(jsonDecode(response.body)["message"]);
       return jsonDecode(response.body)["message"];

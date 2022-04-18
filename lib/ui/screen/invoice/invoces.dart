@@ -51,17 +51,30 @@ class _invoicesState extends State<invoices> {
        floatingActionButton:FloatingActionButton(
          backgroundColor: kMainColor,
          onPressed: () {
-           Navigator.push(
-               context, MaterialPageRoute(
-               builder: (context)=>
-               addinvoice(
-                   //add new invoice
-                   itemClient:widget.itemClient,
-                   iduser: widget.fkuser,
-                   idClient: widget.fkclient,
-                   indexinvoice: listinvoice.length>0?
-                   listinvoice.length-1:0
-               )));
+           Navigator.of(context).pushAndRemoveUntil(
+               MaterialPageRoute(
+                   builder: (context) =>
+                     addinvoice(
+                         //add new invoice
+                         itemClient:widget.itemClient,
+                         iduser: widget.fkuser,
+                         idClient: widget.fkclient,
+                         indexinvoice: listinvoice.length>0?
+                         listinvoice.length-1:0
+                     )
+           ), (Route<dynamic> route) => true);
+           // Navigator.push(
+           //     context, MaterialPageRoute(
+           //     builder: (context)=>
+           //     addinvoice(
+           //         //add new invoice
+           //         itemClient:widget.itemClient,
+           //         iduser: widget.fkuser,
+           //         idClient: widget.fkclient,
+           //         indexinvoice: listinvoice.length>0?
+           //         listinvoice.length-1:0
+           //     )
+           //     ));
          },
          tooltip: 'إضافة فاتورة',
          child: Icon(Icons.add),
@@ -75,6 +88,7 @@ class _invoicesState extends State<invoices> {
              Navigator.of(context).pop();
              },
          ),
+        centerTitle: true,
          title: Text('فواتير العميل',style:
          TextStyle(color: kWhiteColor),
            textAlign: TextAlign.center,),

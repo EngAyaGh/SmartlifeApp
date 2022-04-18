@@ -23,7 +23,7 @@ class RegoinService{
         .get(url:url+ 'country/get_regoinByIdCountry.php?fk_country=$fk_country');
 
     for (int i = 0; i < data.length; i++) {
-      _Regoinlist.add(RegoinModel.fromJSON(data[i]));
+      _Regoinlist.add(RegoinModel.fromJson(data[i]));
     }}
     catch(e){
       return ErrorModel(message: e);

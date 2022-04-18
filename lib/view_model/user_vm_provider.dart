@@ -30,7 +30,7 @@ class user_vm_provider extends ChangeNotifier{
     isLoading=false;
     notifyListeners();
   }
-  Future<String> updateuser_vm(Map<String, dynamic?> body,String? iduser) async {
+  Future<String> updateuser_vm(Map<String, String?> body,String? iduser) async {
 
     String result=await UserService()
         .UpdateUser(body: body,idUser: iduser);
@@ -39,14 +39,15 @@ class user_vm_provider extends ChangeNotifier{
             (element) =>
     element.idUser ==iduser );
     body.addAll({
+
       'nameUser': userall![index].nameUser,
       'id_user': userall![index].idUser.toString(),
       'code_verfiy': userall![index].codeVerfiy.toString(),
       'fk_country': userall![index].fkCountry.toString(),
       //'code_verfiy': controllerUsers.usersList[index].codeVerfiy.toString(),
       'nameCountry':userall![index].nameCountry.toString(),
-      'name_regoin': userall![index].nameRegoin.toString(),
-      'name_level': userall![index].name_level.toString(),
+      // 'name_regoin': userall![index].nameRegoin.toString(),
+      // 'name_level': userall![index].name_level.toString(),
     });
     print(body);
     print('///////////');

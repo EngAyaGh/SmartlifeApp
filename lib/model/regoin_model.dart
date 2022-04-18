@@ -2,20 +2,22 @@
 
 
 class RegoinModel{
-  late String? id, fk_country,nameCountry,currency;
- late String name_regoin;
+  late final String? id_regoin;//, fk_country,nameCountry,currency;
+ late final String name_regoin;
   RegoinModel({
-    this.id, required this.name_regoin,
-    this.fk_country,
-    this.nameCountry,this.currency});
+    required this.id_regoin, required this.name_regoin,
+    // this.fk_country,
+    // this.nameCountry,this.currency
+  }
+      );
 
-  factory RegoinModel.fromJSON(Map<String, dynamic> json){
+  factory RegoinModel.fromJson(Map<String, dynamic> json){
     return RegoinModel(
-        id:json["id_regoin"],
+      id_regoin:json["id_regoin"],
         name_regoin: json["name_regoin"],
-        fk_country: json["fk_country"],
-        nameCountry:json["nameCountry"],
-        currency:json["currency"]
+        // fk_country: json["fk_country"],
+        // nameCountry:json["nameCountry"],
+        // currency:json["currency"]
 
     );
   }

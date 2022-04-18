@@ -1,5 +1,6 @@
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/productmodel.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/separatorLine.dart';
 import 'package:crm_smart/ui/widgets/invoice_widget/CardProduct_Invoice.dart';
 import 'package:crm_smart/ui/widgets/product_widget/cardProduct.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
@@ -191,112 +192,155 @@ void calculate(){
                       Row(
                         children: [
                           Flexible(
-                            child: EditTextFormField(
+                            child: Column(
+                              children: [
+                                RowEdit(name: 'نسبة الخصم المتاحة للموظف', des: 'اختياري'),
+                                EditTextFormField(
 
-                                //read: false,
-                                onChanged: (val) {
-                                  _taxuser_value=val;
-                                  calculate();
-                                },
-                                inputType: TextInputType.number,
+                                  //read: false,
+                                  onChanged: (val) {
+                                    _taxuser_value=val;
+                                    calculate();
+                                  },
+                                  inputType: TextInputType.number,
 
-                                controller: _taxuser,
-                               // label: 'نسبة الخصم المتاحة للموظف',
-                              hintText: 'نسبة الخصم المتاحة للموظف',
-                                //radius: 10
+                                  controller: _taxuser,
+                                  // label: 'نسبة الخصم المتاحة للموظف',
+                                  hintText: '%',
+                                  //radius: 10
+                                ),
+                                // Row(
+                                //   children: [
+                                //
+                                //     SizedBox(width: 10,),
+                                //     Text('%'),
+                                //   ],
+                                // ),
+
+                              ],
                             ),
                           ),
-                          SizedBox(width: 10,),
-                          Text('%'),
                           SizedBox(width: 10,),
                           Flexible(
-                            child: EditTextFormField(
-                                onChanged: (val) {
-                                  _taxadmin_value=val;
-                                  calculate();
-                                },
-                                inputType: TextInputType.number,
+                            child: Column(
+                              children: [
+                                RowEdit(name: 'نسبة الخصم المتاحة للمشرف', des: 'اختياري'),
+                                EditTextFormField(
+                                  onChanged: (val) {
+                                    _taxadmin_value=val;
+                                    calculate();
+                                  },
+                                  inputType: TextInputType.number,
 
-                                //read: false,
-                                controller: _taxadmin,
-                               // label: 'نسبة الخصم المتاحة للمشرف',
-                              hintText: 'نسبة الخصم المتاحة للمشرف',
-                                //radius: 10
+                                  //read: false,
+                                  controller: _taxadmin,
+                                  // label: 'نسبة الخصم المتاحة للمشرف',
+                                  hintText: '%',
+                                  //radius: 10
+                                ),
+                                // Row(
+                                //   children: [
+                                //
+                                //     SizedBox(width: 10,),
+                                //     Text('%'),
+                                //   ],
+                                // ),
+                              ],
                             ),
                           ),
-
-                          SizedBox(width: 10,),
-                          Text('%'),
                           //   //TextBox.fromLTRBD(20, 20, 20, 20,TextDirection.rtl),
                         ],
                       ),
 
                       SizedBox(height: 5,),
-
                       Row(
                         children: [
-                          Flexible(child: CustomFormField(
-                            read: false,
+                          Flexible(
+                              child: Column(
+                                children: [
+                                  RowEdit(name: 'الكمية', des: ''),
+                                  EditTextFormField(
+                            //read: false,
                             onChanged: (val) {
-                              print(val);
-                              if(val==null)_amount_value='1';
-                              _amount_value=val;
-                              calculate();
+                                  print(val);
+                                  if(val==null)_amount_value='1';
+                                  _amount_value=val;
+                                  calculate();
                             },
                             inputType: TextInputType.number,
-                            label: 'الكمية', radius: 10,con: _amount,)),
+                            label: 'الكمية',
+                                   // radius: 10,
+                                    controller:_amount, hintText: 'الكمية',),
+                                ],
+                              )),
                           SizedBox(width: 10,),
                           Flexible(
-                              child: CustomFormField(
-                                  ontap: calculate,
-                                  read: false,
-                                  con: _textprice,
-                                  label: 'السعر', radius: 10)),
-                          Text( Provider.of<country_vm>(context, listen: true)
-                              .currency),
-
+                              child: Column(
+                                children: [
+                                  RowEdit(name: 'السعر', des: ''),
+                                  EditTextFormField(
+                                      ontap: calculate,
+                                      //read: false,
+                                      controller: _textprice,
+                                      label: 'السعر',
+                                    hintText: Provider.of<country_vm>(context, listen: true)
+                                        .currency,
+                                      //radius: 10
+                                  ),
+                                ],
+                              )),
                         ],
                       ),
 
                       SizedBox(height: 5,),
+                      const MySeparator(color: Colors.grey),
+                      Padding(
+                        padding: const EdgeInsets.only(top:8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(Icons.add,color: kMainColor,),
+                           // Text(' إضافة منتج للفاتورة ' ,style: TextStyle(fontFamily: kfontfamily2),),
+                            ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        kMainColor)),
+                                onPressed: () {
+                                  //iduser
+                                  final index=listProduct.indexWhere(
+                                          (element) => element.idProduct==selectedvalue);
+                                  ProductModel pm=listProduct[index];
+                                  ProductsInvoice  pp=ProductsInvoice(
+                                    //idInvoiceProduct: null,
+                                      fkIdInvoice: widget.invoice!.idInvoice==null
+                                          ? '0' :  widget.invoice!.idInvoice.toString(),
+                                      fkclient:widget.invoice!.fkIdClient ,
+                                      fkuser: widget.invoice!.fkIdUser,
+                                      fkProduct:pm.idProduct,
+                                      fkConfig: pm.fkConfig==null?"null": pm.fkConfig,
+                                      fkCountry: pm.fkCountry,
+                                      price: _textprice.text,
+                                      amount: _amount.text.isEmpty?'1':_amount.text,
+                                      rateAdmin: _taxadmin.text,
+                                      rateUser: _taxuser.text,
+                                      nameProduct: pm.nameProduct,
+                                      type: listProduct[index].type,
+                                      idProduct: listProduct[index].idProduct,
+                                      idInvoiceProduct: "null",
+                                      priceProduct: listProduct[index].priceProduct,
+                                      taxtotal: listProduct[index].value_config==null?"null":listProduct[index].value_config
+                                  );
+                                  listAdded.add(pp);
+                                  print(pp.nameProduct);
+                                  Provider.of<invoice_vm>(context,listen: false)
+                                      .addlistproductinvoic(pp);
 
-                      ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  kMainColor)),
-                          onPressed: () {
-                            //iduser
-                            final index=listProduct.indexWhere(
-                                    (element) => element.idProduct==selectedvalue);
-                            ProductModel pm=listProduct[index];
-                            ProductsInvoice  pp=ProductsInvoice(
-                              //idInvoiceProduct: null,
-                                fkIdInvoice: widget.invoice!.idInvoice==null
-                                    ? '0' :  widget.invoice!.idInvoice.toString(),
-                                fkclient:widget.invoice!.fkIdClient ,
-                                fkuser: widget.invoice!.fkIdUser,
-                                fkProduct:pm.idProduct,
-                                fkConfig: pm.fkConfig==null?"null": pm.fkConfig,
-                                fkCountry: pm.fkCountry,
-                                price: _textprice.text,
-                                amount: _amount.text.isEmpty?'1':_amount.text,
-                                rateAdmin: _taxadmin.text,
-                                rateUser: _taxuser.text,
-                                nameProduct: pm.nameProduct,
-                                type: listProduct[index].type,
-                                idProduct: listProduct[index].idProduct,
-                                idInvoiceProduct: "null",
-                                priceProduct: listProduct[index].priceProduct,
-                                taxtotal: listProduct[index].value_config==null?"null":listProduct[index].value_config
-                            );
-                            listAdded.add(pp);
-                            print(pp.nameProduct);
-                            Provider.of<invoice_vm>(context,listen: false)
-                                .addlistproductinvoic(pp);
-
-                          },
-                          child: Text('إضافة')),
-                      SizedBox(height: 3,),
+                                },
+                                child: Text('إضافة منتج للفاتورة')),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 5,),
                       Container(
                         height: MediaQuery.of(context).size.height*0.75,
                         child: Consumer<invoice_vm>(

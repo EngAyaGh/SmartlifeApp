@@ -45,7 +45,7 @@ class _MyDropDown extends State<select_country>{
 
   @override
   void initState()  {
-    Countrylist=[];
+    //Countrylist=[];
     getCountryAll();
 
     super.initState();
@@ -92,11 +92,11 @@ class _MyDropDown extends State<select_country>{
                       value:_selected, //select_dataItem!.idCountry ,
                       onChanged: (value) {
                         _onSelectedState(value.toString());
-                        Provider.of<country_vm>(context,listen: false).setIDCountry(value.toString());
+                        Provider.of<country_vm>(context,listen: false)
+                            .setIDCountry(value.toString());
                         print("provider country selected change");
                         print(Provider.of<country_vm>(context,listen: false).id_country);
                        // FocusScope.of(context).requestFocus(new FocusNode());
-
                       },
                     ),
 
@@ -183,7 +183,7 @@ Widget buildCity(){
           items: citylist.map((cityOne){
             return DropdownMenuItem(
               child: Text(""+cityOne.name_regoin),
-              value: cityOne.id.toString(),
+              value: cityOne.id_regoin.toString(),
             );
           }).toList(),
           value: _selectedLGA,

@@ -6,6 +6,7 @@ import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/Invoice_Service.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 
 
@@ -74,7 +75,7 @@ class invoice_vm extends ChangeNotifier{
       ) async {
     //seacrh for invoice in list
     int index=-1;
-
+    listinvoiceClient=[];
     listinvoices.forEach((element) {
       if( element.fkIdClient==fk_client)
       listinvoiceClient.add(element);
@@ -146,14 +147,18 @@ class invoice_vm extends ChangeNotifier{
   }
   Future<String> add_invoiceclient_vm(Map<String, dynamic?> body) async {
     //print('$body');
+    DateTime _currentDate = DateTime.now();
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
     String res = await Invoice_Service().addInvoice(body);
     if (res!="false") {
       body.addAll({
         'id_invoice':res,
+        'date_create':formatter.format(_currentDate),
         "products":listproductinvoic.map((e)=>e.toJson()).toList()
       });
       print('in add invoice vm');
       print('$body');
+      listinvoices.add(InvoiceModel.fromJson(body));
       listinvoiceClient.insert(0, InvoiceModel.fromJson(body));
       listinvoicebyregoin.add(InvoiceModel.fromJson(body));
       print("////////////////////////////////////////////");
@@ -185,7 +190,11 @@ class invoice_vm extends ChangeNotifier{
         "id_invoice":idInvoice,
         "products":listproductinvoic.map((e)=>e.toJson()).toList()
       });
+
       listinvoiceClient[index]=InvoiceModel.fromJson(body);
+     final index1=listinvoices.indexWhere((element) => element.idInvoice==idInvoice);
+
+      listinvoices[index1]= InvoiceModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
     }
@@ -193,13 +202,13 @@ class invoice_vm extends ChangeNotifier{
     return res;
   }
 
-  Future<String> delete_invoice(String? id_invoice) async {
+  Future<String> delete_invoice(Map<String,String>body, String? id_invoice) async {
 
     int index=listinvoiceClient.indexWhere(
             (element) => element.idInvoice==id_invoice);
     listinvoiceClient.removeAt(index);
     String res = await Invoice_Service()
-    .deleteInvoiceById(id_invoice!);
+    .deleteInvoiceById(body);
     print("res in delete invoice "+res);
     //if(res=="done"){
     index=listinvoicebyregoin.indexWhere(

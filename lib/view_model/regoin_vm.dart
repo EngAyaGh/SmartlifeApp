@@ -8,7 +8,6 @@ import 'package:crm_smart/model/regoin_model.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/RegoinServices.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants.dart';
 
@@ -42,7 +41,7 @@ class regoin_vm extends ChangeNotifier{
       print(data);
       if (data != null) {
         for (int i = 0; i < data.length; i++) {
-          listregoin.add(RegoinModel.fromJSON(data[i]));
+          listregoin.add(RegoinModel.fromJson(data[i]));
         }
       }
     }

@@ -25,7 +25,8 @@ class addinvoice extends StatefulWidget {
      this.invoice,
      required this.iduser,
      required this.idClient,
-     required this.indexinvoice, Key? key}) : super(key: key);
+     required this.indexinvoice,
+     Key? key}) : super(key: key);
    ClientModel itemClient;
    String? idClient,iduser;
    InvoiceModel? invoice;
@@ -108,21 +109,27 @@ class _addinvoiceState extends State<addinvoice> {
 if(_invoice!=null){
   //in mode edit
   totalController=_invoice!.total.toString();
+
   amount_paidController.text=_invoice!.amountPaid.toString();
   renewController.text=_invoice!.renewYear.toString();
  // setState(() {
-    typepayController!=_invoice!.typePay.toString();
-    Provider.of<selected_button_provider>(context,listen: false)
-        .selectValuetypepay(typepayController);
-    typeinstallController!=_invoice!.typeInstallation.toString();
-  Provider.of<selected_button_provider>(context,listen: false)
-      .selectValuetypeinstall(typeinstallController);
- // });
+    typepayController!=_invoice!.typePay;
+  //   Provider.of<selected_button_provider>(context,listen: false)
+  //       .selectValuetypepay(int.parse(typepayController!));
+  // print(typepayController);
+
+    typeinstallController!=_invoice!.typeInstallation;
+  // Provider.of<selected_button_provider>(context,listen: false)
+  //     .selectValuetypeinstall(int.parse(typeinstallController.toString()));
+  // print(typeinstallController);
+
+  // });
 
   noteController.text=_invoice!.notes.toString();
   imageController.text=_invoice!.imageRecord.toString();
   Provider.of<invoice_vm>(context,listen: false)
-      .listinvoiceClient[widget.indexinvoice].products=_invoice!.products;
+      .listinvoiceClient[widget.indexinvoice].products
+      =_invoice!.products;
 
   Provider.of<invoice_vm>(context,listen: false)
       .listproductinvoic= _invoice!.products!;
@@ -159,6 +166,15 @@ if( Provider.of<invoice_vm>(context,listen: false)
   Provider.of<invoice_vm>(context,listen: false)
       .listproductinvoic= [];
 }
+
+
+     Provider.of<selected_button_provider>(context,listen: false)
+         .selectValuetypepay(int.parse(typepayController!));
+     print(typepayController);
+
+     Provider.of<selected_button_provider>(context,listen: false)
+         .selectValuetypeinstall(int.parse(typeinstallController.toString()));
+     print(typeinstallController);
      super.initState();
 
    }
@@ -173,54 +189,56 @@ if( Provider.of<invoice_vm>(context,listen: false)
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: kWhiteColor),
           onPressed: () {
-            print("length ${Provider.of<invoice_vm>(context,listen: false)
-                .listinvoiceClient.length}");
-            print("widget.indexinvoice  ${widget.indexinvoice}");
-
-            print("in on pop addinvoice screen "
-                +Provider.of<invoice_vm>(context,listen: false)
-                .listinvoiceClient[widget.indexinvoice].idInvoice.toString());
-
-            if(Provider.of<invoice_vm>(context,listen: false)
-                .listinvoiceClient[widget.indexinvoice].idInvoice == null
-                // ||
-                // int.tryParse(Provider.of<invoice_vm>(context,listen: false)
-                // .listinvoice[widget.indexinvoice].idInvoice.toString())!>0
-            ) {
-             //clear cach invoice with it's product's
-              Provider.of<invoice_vm>(context,listen: false)
-                  .listproductinvoic=[];
-              Provider.of<invoice_vm>(context,listen: false)
-                  .listinvoiceClient[widget.indexinvoice].products=[];
-              if(widget.indexinvoice==0)
-              Provider.of<invoice_vm>(context,listen: false)
-                  .disposValue(-1);
-              else{
-                Provider.of<invoice_vm>(context,listen: false)
-                    .disposValue(widget.indexinvoice);
-              }
-
-              widget.indexinvoice=
-              widget.indexinvoice-1<=0?
-              0:
-              widget.indexinvoice-1;
-
-            } else {
-              //
-              // Provider.of<invoice_vm>(context,listen: false)
-              //     .listproductinvoic=[];
-              //
-              // Provider.of<invoice_vm>(context,listen: false)
-              //     .listinvoiceClient[widget.indexinvoice]
-              //     .products=[];
-              // Provider.of<invoice_vm>(context,listen: false)
-              //     .listinvoiceClient.removeAt(widget.indexinvoice);
-              // widget.indexinvoice=0;
-            }
-            ////
-
-            Navigator.of(context).pop();
-            },
+            // print("length ${Provider.of<invoice_vm>(context,listen: false)
+            //     .listinvoiceClient.length}");
+            // print("widget.indexinvoice  ${widget.indexinvoice}");
+            //
+            // print("in on pop addinvoice screen "
+            //     +Provider.of<invoice_vm>(context,listen: false)
+            //     .listinvoiceClient[widget.indexinvoice].idInvoice.toString());
+            //
+            // if(Provider.of<invoice_vm>(context,listen: false)
+            //     .listinvoiceClient[widget.indexinvoice].idInvoice == null
+            //     // ||
+            //     // int.tryParse(Provider.of<invoice_vm>(context,listen: false)
+            //     // .listinvoice[widget.indexinvoice].idInvoice.toString())!>0
+            // ) {
+            //  //clear cach invoice with it's product's
+            //   Provider.of<invoice_vm>(context,listen: false)
+            //       .listproductinvoic=[];
+            //   Provider.of<invoice_vm>(context,listen: false)
+            //       .listinvoiceClient[widget.indexinvoice].products=[];
+            //   if(widget.indexinvoice==0)
+            //   Provider.of<invoice_vm>(context,listen: false)
+            //       .disposValue(-1);
+            //   else{
+            //     Provider.of<invoice_vm>(context,listen: false)
+            //         .disposValue(widget.indexinvoice);
+            //   }
+            //
+            //   widget.indexinvoice=
+            //   widget.indexinvoice-1<=0?
+            //   0:
+            //   widget.indexinvoice-1;
+            //   widget.indexinvoice
+            //
+            // } else {
+            //   //
+            //   // Provider.of<invoice_vm>(context,listen: false)
+            //   //     .listproductinvoic=[];
+            //   //
+            //   // Provider.of<invoice_vm>(context,listen: false)
+            //   //     .listinvoiceClient[widget.indexinvoice]
+            //   //     .products=[];
+            //   // Provider.of<invoice_vm>(context,listen: false)
+            //   //     .listinvoiceClient.removeAt(widget.indexinvoice);
+            //   // widget.indexinvoice=0;
+            // }
+            // ////
+            //
+            // Navigator.of(context).pop();
+            // },
+            Navigator.of(context).pop();},
         ),
       ),
       body: ModalProgressHUD(
@@ -294,15 +312,26 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                   //     fullscreenDialog: true,
                                   //   ),
                                   // );
-                                  Navigator.push(context, MaterialPageRoute(
-                                      builder: (context)=>
-                                          add_invoiceProduct(
-                                            invoice:
-                                            Provider.of<invoice_vm>(context,listen: false)
-                                                .listinvoiceClient[widget.indexinvoice],
-                                            indexinvoic:  widget.indexinvoice,
-                                          ), fullscreenDialog: true,
-                                  ));
+
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                  builder: (context) =>
+                                            add_invoiceProduct(
+                                              invoice:
+                                              Provider.of<invoice_vm>(context,listen: false)
+                                                  .listinvoiceClient[widget.indexinvoice],
+                                              indexinvoic:  widget.indexinvoice,
+                                            ),
+                                  ), (Route<dynamic> route) => true);
+                                  // Navigator.push(context, MaterialPageRoute(
+                                  //     builder: (context)=>
+                                  //         add_invoiceProduct(
+                                  //           invoice:
+                                  //           Provider.of<invoice_vm>(context,listen: false)
+                                  //               .listinvoiceClient[widget.indexinvoice],
+                                  //           indexinvoic:  widget.indexinvoice,
+                                  //         ), fullscreenDialog: true,
+                                  // ));
 
                                 },
                                 child: Text("منتجات الفاتورة")),
@@ -367,9 +396,7 @@ if( Provider.of<invoice_vm>(context,listen: false)
                          child: Consumer<selected_button_provider>(
                            builder: (context, selectedProvider, child){
                            return  GroupButton(
-
                                  controller: GroupButtonController(
-
                                      selectedIndex:selectedProvider.isSelectedtypepay,
                                    //
                                    // typepayController==null
@@ -383,10 +410,10 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                  buttons: ['نقدا','تحويل'],
                                  onSelected: (index,isselected){
                                    print(index);
-                                   setState(() {
+                                   //setState(() {
                                      typepayController=index.toString();
                                      selectedProvider.selectValuetypepay(index);
-                                   });
+                                   //});
                                  }
                              );
                            }
@@ -413,6 +440,7 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                     borderRadius: BorderRadius.circular(10)),
                                 buttons: ['ميداني','اونلاين'],
                                 onSelected: (index,isselected) {
+                                  print(index);
                                   //setState(() {
                                     typeinstallController=index.toString();
                                     selectedProvider.selectValuetypeinstall(index);
@@ -473,7 +501,13 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                 onPressed: () async {
 
                                   if (_globalKey.currentState!.validate()) {
+                                    typepayController=
+                                    Provider.of<selected_button_provider>(context,listen: false)
+                                        .isSelectedtypepay.toString();
 
+                                    typeinstallController=
+                                    Provider.of<selected_button_provider>(context,listen: false)
+                                        .isSelectedtypeinstall.toString();
                                     // if((_invoice!.products!=null&&_invoice!.products.isNotEmpty)
                                     //     ||(
                                     //print("widget.indexinvoice"+widget.indexinvoice.toString());
@@ -571,6 +605,7 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                           "total": totalController,
                                           "notes": noteController.text,
                                           'fk_regoin':widget.itemClient.fkRegoin,
+                                          'fkcountry':widget.itemClient.fkcountry,
                                           //"date_changetype":,
                                           //'message':"",
                                         },

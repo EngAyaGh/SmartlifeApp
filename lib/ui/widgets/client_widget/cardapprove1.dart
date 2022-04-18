@@ -86,6 +86,7 @@ class cardapprove1 extends StatelessWidget {
                                   .setApproveclient_vm({
                                 "fkuser":itemapprove.fkUser,
                                 "fk_regoin":itemapprove.fk_regoin,
+                                "fkcountry":itemapprove.fk_country,
                                 "isApprove": "1",
                                 "name_enterprise":itemapprove.name_enterprise,
                                 "fkusername":itemapprove.nameUser, //موظف المبيعات
@@ -104,7 +105,18 @@ class cardapprove1 extends StatelessWidget {
                                     Colors.redAccent)),
                             onPressed: () {
                               //send notification
-
+                              Provider.of<client_vm>(context, listen: false)
+                                  .setApproveclient_vm({
+                                "fkuser":itemapprove.fkUser,
+                                "fk_regoin":itemapprove.fk_regoin,
+                                "fkcountry":itemapprove.fk_country,
+                                "isApprove": "0",
+                                "name_enterprise":itemapprove.name_enterprise,
+                                "fkusername":itemapprove.nameUser, //موظف المبيعات
+                                //"message":"",//
+                                "nameuserApproved":current.nameUser,
+                                "iduser_approve": current.idUser//معتمد الاشتراك
+                              }, itemapprove.fkClient);
                             },
                             child: Text('Refuse')),
                       ],

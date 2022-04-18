@@ -106,14 +106,13 @@ class Invoice_Service {
     );
     return result=="done"? true:false;
   }
-  Future<String> deleteInvoiceById(String? id_invoice) async {
+  Future<String> deleteInvoiceById(Map<String,String> body) async {
     try{
-    print("id_invoice "+id_invoice!);
 
    String res= await Api()
         .post(url:url
        + 'client/invoice/deleteinvoice.php',
-       body: {"id_invoice":id_invoice});
+       body: body);
 
    print("delete in services "+res);
    return res;

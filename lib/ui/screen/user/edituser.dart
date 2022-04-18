@@ -47,7 +47,8 @@ class _EditUserState extends State<EditUser> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-   String? namemanage, level, regoin = "";
+   String? namemanage, fklevel, fkregoin = "";
+   String? regoinname,levelname;
  // late List<UserModel>   controllerUsers=[];
   @override void didChangeDependencies() {
     Future.delayed(Duration(milliseconds: 30)).then((_) async {
@@ -87,7 +88,8 @@ class _EditUserState extends State<EditUser> {
     mobileController.text =
     //controllerUsers[widget.index]
     widget.userModel.mobile.toString();
-
+    regoinname= widget.userModel.nameRegoin;
+    levelname=widget.userModel.name_level;
     Provider.of<level_vm>(context,listen: false).changeVal(
         widget.userModel.typeLevel.toString());
     print("level inside build main screen"+ widget.userModel.typeLevel.toString() );
@@ -123,18 +125,21 @@ class _EditUserState extends State<EditUser> {
         actions: [
           IconButton(
             onPressed: () {
-              regoin = Provider.of<regoin_vm>(context, listen: false)
+              fkregoin = Provider.of<regoin_vm>(context, listen: false)
                   .selectedValueLevel;
-              level = Provider.of<level_vm>(context, listen: false)
+              fklevel = Provider.of<level_vm>(context, listen: false)
                   .selectedValueLevel;
-
+              regoinname=Provider.of<regoin_vm>(context, listen: false)
+                  .listregoin.firstWhere((element) => element.id_regoin==fkregoin).name_regoin;
+              levelname=Provider.of<level_vm>(context, listen: false)
+              .listoflevel.firstWhere((element) => element.idLevel==fklevel).nameLevel;
               //String id_country=Provider.of<country_vm>(context,listen: false).id_country;
-              print("level in update button" + level.toString());
-              print("regoin in update button" + regoin.toString());
-              if (level != null) {
+              print("level in update button" + levelname.toString());
+              print("regoin in update button" + regoinname.toString());
+              if (levelname != null) {
                 Provider.of<LoadProvider>(context, listen: false)
                     .changeboolUpdateUser(true);
-                dynamic body = {
+                Map<String,String?> body = {
                   'email': emailController.text != null
                       ? emailController.text
                       : "",
@@ -144,8 +149,10 @@ class _EditUserState extends State<EditUser> {
                   //'fk_country': id_country,
                   'type_administration':
                   namemanage != null ? namemanage : "",
-                  'type_level': level,
-                  'fk_regoin': regoin != null ? regoin : "null",
+                  'type_level': fklevel,
+                  'fk_regoin': fkregoin != null ? fkregoin : "null",
+                  'name_regoin':regoinname,
+                  'name_level' :levelname,
                 };
               Provider.of<user_vm_provider>(context,listen: false)
                   .updateuser_vm(body,
@@ -229,6 +236,7 @@ class _EditUserState extends State<EditUser> {
                           }).toList(),
                           value:cart.selectedValueLevel,
                           onChanged:(value) {
+                           // name_level=
                             //  setState(() {
                             cart.changeVal(value.toString());
                             // });
@@ -252,7 +260,7 @@ class _EditUserState extends State<EditUser> {
                           items: cart.listregoin.map((level_one) {
                             return DropdownMenuItem(
                               child: Text(level_one.name_regoin), //label of item
-                              value: level_one.id, //value of item
+                              value: level_one.id_regoin, //value of item
                             );
                           }).toList(),
                           value:cart.selectedValueLevel,

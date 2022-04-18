@@ -63,9 +63,10 @@ class CardProduct extends StatelessWidget {
                             Column(
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  //crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text(' اسم المنتج',style:TextStyle(fontFamily: kfontfamily2),),
+                                    //Text(' اسم المنتج',style:TextStyle(fontFamily: kfontfamily2),),
                                     Text(itemProd.nameProduct,style:TextStyle(fontFamily: kfontfamily2),),
 
                                   ],
@@ -74,16 +75,18 @@ class CardProduct extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                                   children: [
-                                    Text(' السعر',style:TextStyle(fontFamily: kfontfamily2),),
+                                    Text(' السعر  ',style:TextStyle(fontWeight: FontWeight.bold, fontFamily: kfontfamily2),),
                                     Text(itemProd.priceProduct,style:TextStyle(fontFamily: kfontfamily2),),
                                  SizedBox(width: 5,),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                                       children: [
-                                        Text(' قيمة الضريبة',style:TextStyle(fontFamily: kfontfamily2),),
+                                        Text(' الضريبة  ',style:TextStyle(fontWeight: FontWeight.bold,fontFamily: kfontfamily2),),
 
-                                        Text(itemProd.value_config==null||itemProd.value_config=="null"?'لا يوجد':itemProd.value_config.toString(),
+                                        Text(itemProd.value_config==null||
+                                            itemProd.value_config=="null"?
+                                        ' لا يوجد':itemProd.value_config.toString(),
                                           style:TextStyle(fontFamily: kfontfamily2),),
                                       ],
                                     ),
@@ -98,13 +101,14 @@ class CardProduct extends StatelessWidget {
                                   icon: Icon(Icons.edit, color: kMainColor,),
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(
-                                        builder: (context)=>EditProduct(productModel: itemProd,)));
+                                        builder: (context)=>
+                                            EditProduct(
+                                              productModel: itemProd,)));
 
                                 },
                                   //onPressed: BOOKMARK,
                                 ),
                                 new IconButton(
-
                                   icon: Icon(Icons.delete), onPressed: () async {
                                   bool result = await showDialog(
                                     context: context,

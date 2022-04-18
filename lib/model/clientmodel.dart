@@ -9,6 +9,7 @@ class ClientModel extends CacheRepository{
      this.city,
      this.location,
      this.fkRegoin,
+     this.fkcountry,
      this.dateCreate,
      this.typeClient,
      this.fkUser,
@@ -30,7 +31,8 @@ class ClientModel extends CacheRepository{
     this.iduser_approve,
     this.	isApprove,
     this.nameuserApprove,
-    this.nameuserdoning
+    this.nameuserdoning,
+    this.date_approve,
   });
   late final String? idClients;
   late final String? nameClient;
@@ -39,6 +41,7 @@ class ClientModel extends CacheRepository{
   late final String? city;
   late final String? location;
   late final String? fkRegoin;
+  late final String? fkcountry;
   late final String? dateCreate;
   late final String? typeClient;
   late final String? fkUser;
@@ -62,6 +65,7 @@ class ClientModel extends CacheRepository{
   late final String? 	isApprove;
   late final String? 	nameuserdoning;
   late final String? 	nameuserApprove;
+  late final String? 	date_approve;
 
 
   ClientModel.fromJson(Map<String, dynamic> json){
@@ -72,6 +76,7 @@ class ClientModel extends CacheRepository{
     city = json['city'];
     location = json['location'];
     fkRegoin = json['fk_regoin'];
+    fkcountry = json['fk_country'];
     dateCreate = json['date_create'];
     typeClient = json['type_client'];
     fkUser = json['fk_user'];
@@ -94,6 +99,7 @@ class ClientModel extends CacheRepository{
     isApprove=json['isApprove'];
     nameuserdoning=json['nameuserdoning'];//الموظف الي حول العميل
     nameuserApprove=json['nameuserApprove'];//الموظف الي وافق على العميل معتمد الاشتراك
+    date_approve=json['date_approve'];//
   }
 
   Map<String, dynamic> toJson() {
@@ -105,6 +111,7 @@ class ClientModel extends CacheRepository{
     _data['city'] = city;
     _data['location'] = location;
     _data['fk_regoin'] = fkRegoin;
+    _data['fk_country'] = fkcountry;
     _data['date_create'] = dateCreate;
     _data['type_client'] = typeClient;
     _data['fk_user'] = fkUser;
@@ -125,6 +132,7 @@ class ClientModel extends CacheRepository{
      _data['isApprove'] = 	isApprove;
      _data['nameuserdoning'] = 	nameuserdoning;
      _data['nameuserApprove'] = 	nameuserApprove;
+     _data['date_approve'] = 	date_approve;
     return _data;
   }
 
