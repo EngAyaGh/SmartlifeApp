@@ -33,6 +33,7 @@ class ClientService{
         .post( url:url+"client/setApproveClient.php?id_clients=$idclient",body:
     body
     );
+    //client/setApproveClient.php
     return result=="done"? true:false;
   }
   Future<List<ClientModel>> getAllClient(String fkcountry) async {

@@ -6,6 +6,8 @@ import 'package:crm_smart/ui/widgets/invoice_widget/card_deleted.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../constants.dart';
 class deletedinvoice extends StatefulWidget {
   const deletedinvoice({Key? key}) : super(key: key);
 
@@ -21,6 +23,11 @@ class _deletedinvoiceState extends State<deletedinvoice> {
     = context.watch<invoice_vm>().listdeletedinvoice;
     return
       Scaffold(
+        appBar: AppBar(
+          centerTitle: true,title:Text( 'الفواتير المحذوفة ',
+          style:
+          TextStyle(color: kWhiteColor, fontFamily: kfontfamily2),),
+        ),
       body:Padding(
         padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
         child: Container(

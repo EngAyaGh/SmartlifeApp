@@ -126,29 +126,42 @@ class _addProductState extends State<addProduct> {
                         height: 35,
                         margin: EdgeInsets.only(),
                         padding: EdgeInsets.only(top: 2,bottom: 2,left: 2,right: 2),
-                        child: Center(
-                          child: GroupButton(
-                            options: GroupButtonOptions(
-                              borderRadius: BorderRadius.circular(20),
-                              buttonWidth: MediaQuery.of(context).size.width*0.3,
-                              //elevation: 0,
-                              selectedColor: kMainColor,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                offset: Offset(1.0, 1.0),
+                                blurRadius: 8.0,
+                                color: Colors.black87.withOpacity(0.2),
+                              ),
+                            ],
+                            color: Colors.white,
+                          ),
+                          child: Center(
+                            child: GroupButton(
+                              options: GroupButtonOptions(
+                                borderRadius: BorderRadius.circular(20),
+                                buttonWidth: MediaQuery.of(context).size.width*0.3,
+                                //elevation: 0,
+                                selectedColor: kMainColor,
+                              ),
+                              controller: GroupButtonController(
+                                selectedIndex: selectedProvider.isSelected,
+                                onDisablePressed: (i) =>
+                                    print('Button #$i is disabled'),
+                              ),
+                              buttons: ['أجهزة', 'برامج'],
+                              onSelected: (int index, bool isSelected) {
+                                valtype_product = index;
+                                valtype_product == 0 ? 1 : 0;
+                                selectedProvider.selectValue(index);
+                                // setState(() {
+                                // selectButton = index;
+                                // });
+                                debugPrint('Button #$index $isSelected');
+                              },
                             ),
-                            controller: GroupButtonController(
-                              selectedIndex: selectedProvider.isSelected,
-                              onDisablePressed: (i) =>
-                                  print('Button #$i is disabled'),
-                            ),
-                            buttons: ['أجهزة', 'برامج'],
-                            onSelected: (int index, bool isSelected) {
-                              valtype_product = index;
-                              valtype_product == 0 ? 1 : 0;
-                              selectedProvider.selectValue(index);
-                              // setState(() {
-                              // selectButton = index;
-                              // });
-                              debugPrint('Button #$index $isSelected');
-                            },
                           ),
                         ),
                       );

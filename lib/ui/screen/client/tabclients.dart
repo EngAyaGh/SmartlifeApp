@@ -125,6 +125,11 @@ class _tabclientsState extends State<tabclients> {
 
     print('build tabview');
     return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,title:Text( 'كل العملاء ',
+          style:
+          TextStyle(color: kWhiteColor, fontFamily: kfontfamily2),),
+        ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: kMainColor,
           onPressed: (){

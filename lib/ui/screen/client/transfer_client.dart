@@ -22,7 +22,7 @@ class _transferClientState extends State<transferClient> {
   @override
   Future<void> didChangeDependencies() async {
     Future.delayed(Duration(milliseconds: 30)).then((_) async {
-      await Provider.of<user_vm_provider>(context,listen: false).getclient_vm();
+      await Provider.of<user_vm_provider>(context,listen: false).getuser_vm();
       print(Provider.of<user_vm_provider>(context,listen: false).userall!.length);
     }
     );
@@ -107,7 +107,7 @@ class _transferClientState extends State<transferClient> {
                 // //send notification
                 // FCM().sendnotification(body);
                 //remove client from my client
-
+                //update fkuser to new user
                 //navigator to clients view page
 
                 Navigator.pushAndRemoveUntil(context,

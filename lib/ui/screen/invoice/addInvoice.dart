@@ -1,6 +1,7 @@
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
+import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
@@ -52,7 +53,53 @@ class _addinvoiceState extends State<addinvoice> {
 
    final TextEditingController imageController = TextEditingController();
    InvoiceModel? _invoice;
+@override void dispose() {
+  print("length ${Provider.of<invoice_vm>(context,listen: false)
+      .listinvoiceClient.length}");
+  print("widget.indexinvoice  ${widget.indexinvoice}");
 
+  print("in on pop addinvoice screen "
+      +Provider.of<invoice_vm>(context,listen: false)
+          .listinvoiceClient[widget.indexinvoice].idInvoice.toString());
+
+  if(Provider.of<invoice_vm>(context,listen: false)
+      .listinvoiceClient[widget.indexinvoice].idInvoice == null
+  // ||
+  // int.tryParse(Provider.of<invoice_vm>(context,listen: false)
+  // .listinvoice[widget.indexinvoice].idInvoice.toString())!>0
+  ) {
+    //clear cach invoice with it's product's
+    Provider.of<invoice_vm>(context,listen: false)
+        .listproductinvoic=[];
+    Provider.of<invoice_vm>(context,listen: false)
+        .listinvoiceClient[widget.indexinvoice].products=[];
+    if(widget.indexinvoice==0)
+      Provider.of<invoice_vm>(context,listen: false)
+          .disposValue(-1);
+    else{
+      Provider.of<invoice_vm>(context,listen: false)
+          .disposValue(widget.indexinvoice);
+    }
+
+    widget.indexinvoice=
+    widget.indexinvoice-1<=0?
+    0:
+    widget.indexinvoice-1;
+
+  } else {
+    //
+    // Provider.of<invoice_vm>(context,listen: false)
+    //     .listproductinvoic=[];
+    //
+    // Provider.of<invoice_vm>(context,listen: false)
+    //     .listinvoiceClient[widget.indexinvoice]
+    //     .products=[];
+    // Provider.of<invoice_vm>(context,listen: false)
+    //     .listinvoiceClient.removeAt(widget.indexinvoice);
+    // widget.indexinvoice=0;
+  }
+    super.dispose();
+  }
    @override
    void initState()  {
      print('init in addinvoice screen main');
@@ -65,7 +112,11 @@ if(_invoice!=null){
   renewController.text=_invoice!.renewYear.toString();
  // setState(() {
     typepayController!=_invoice!.typePay.toString();
+    Provider.of<selected_button_provider>(context,listen: false)
+        .selectValuetypepay(typepayController);
     typeinstallController!=_invoice!.typeInstallation.toString();
+  Provider.of<selected_button_provider>(context,listen: false)
+      .selectValuetypeinstall(typeinstallController);
  // });
 
   noteController.text=_invoice!.notes.toString();
@@ -313,27 +364,33 @@ if( Provider.of<invoice_vm>(context,listen: false)
                            ],
                            color: Colors.white,
                          ),
-                         child: GroupButton(
+                         child: Consumer<selected_button_provider>(
+                           builder: (context, selectedProvider, child){
+                           return  GroupButton(
 
-                           controller: GroupButtonController(
+                                 controller: GroupButtonController(
 
-                               selectedIndex:
-                                //
-                                // typepayController==null
-                                //    ? 0
-                                //    :
-                                int.tryParse( typepayController!)
-                           ),
-                             options: GroupButtonOptions(
-                                 buttonWidth: 100,
-                                 borderRadius: BorderRadius.circular(10)),
-                             buttons: ['نقدا','تحويل'],
-                             onSelected: (index,isselected){
-                             print(index);
-                             setState(() {
-                               typepayController=index.toString();
-                             });
+                                     selectedIndex:selectedProvider.isSelectedtypepay,
+                                   //
+                                   // typepayController==null
+                                   //    ? 0
+                                   //    :
+                                   //int.tryParse( typepayController!)
+                                 ),
+                                 options: GroupButtonOptions(
+                                     buttonWidth: 100,
+                                     borderRadius: BorderRadius.circular(10)),
+                                 buttons: ['نقدا','تحويل'],
+                                 onSelected: (index,isselected){
+                                   print(index);
+                                   setState(() {
+                                     typepayController=index.toString();
+                                     selectedProvider.selectValuetypepay(index);
+                                   });
+                                 }
+                             );
                            }
+
                          ),
                        ),
                         //manage
@@ -341,22 +398,29 @@ if( Provider.of<invoice_vm>(context,listen: false)
                           height: 5,
                         ),
                         RowEdit(name: label_typeinstall, des: 'Required'),
-                        GroupButton(
-                            controller: GroupButtonController(
-                                selectedIndex:
-                                // typeinstallController==null
-                                //     ? 0 :
-                                int.tryParse( typeinstallController!)),
-                            options: GroupButtonOptions(
-                                buttonWidth: 100,
+                        Consumer<selected_button_provider>(
+                          builder: (context, selectedProvider, child) {
+                            return  GroupButton(
+                                controller: GroupButtonController(
+                                    selectedIndex:selectedProvider.isSelectedtypeinstall,
+                                    // typeinstallController==null
+                                    //     ? 0 :
+                                    // int.tryParse( typeinstallController!)
+                                ),
+                                options: GroupButtonOptions(
+                                    buttonWidth: 100,
 
-                                borderRadius: BorderRadius.circular(10)),
-                            buttons: ['ميداني','اونلاين'],
-                            onSelected: (index,isselected) {
-                              setState(() {
-                                typeinstallController=index.toString();
-                              });
-                            }
+                                    borderRadius: BorderRadius.circular(10)),
+                                buttons: ['ميداني','اونلاين'],
+                                onSelected: (index,isselected) {
+                                  //setState(() {
+                                    typeinstallController=index.toString();
+                                    selectedProvider.selectValuetypeinstall(index);
+                                  //  });
+                                }
+                            );
+                          }
+
                         ),
                         //RowEdit(name: 'Image', des: ''),
                         SizedBox(

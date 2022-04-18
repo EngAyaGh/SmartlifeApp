@@ -11,5 +11,15 @@ class selected_button_provider extends ChangeNotifier{
     isSelected=val;
     notifyListeners();
   }
+  int isSelectedtypepay= 0;
+  void selectValuetypepay(val){
+    isSelectedtypepay=val;
+    notifyListeners();
+  }
+  int isSelectedtypeinstall= 0;
+  void selectValuetypeinstall(val){
+    isSelectedtypeinstall=val;
+    notifyListeners();
+  }
 
 }

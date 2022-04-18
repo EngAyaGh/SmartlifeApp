@@ -67,23 +67,6 @@ class cardClientAccept extends StatelessWidget {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(iteminvoice.name_enterprise.toString(),
-                            style: TextStyle(
-                                fontFamily: kfontfamily2),
-                          ),
-
-                          // Text(
-                          //   itemClient.name_regoin.toString(),
-                          //   style: TextStyle(
-                          //       fontFamily: kfontfamily2),),
-                          //
-
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        //crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -107,6 +90,25 @@ class cardClientAccept extends StatelessWidget {
                               ),
                             ),
                           ),
+                          // SizedBox(width: 3,),
+                          Text(iteminvoice.name_enterprise.toString(),
+                            style: TextStyle(
+                                fontFamily: kfontfamily2),
+                          ),
+
+                          // Text(
+                          //   itemClient.name_regoin.toString(),
+                          //   style: TextStyle(
+                          //       fontFamily: kfontfamily2),),
+                          //
+
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        //crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+
 
                           Text(iteminvoice.dateCreate.toString(),
                             style: TextStyle(

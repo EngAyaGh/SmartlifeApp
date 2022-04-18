@@ -62,8 +62,11 @@ class _EditProductState extends State<EditProduct> {
         Provider.of<config_vm>(context, listen: false).getAllConfig(idCountry!);
         print(Provider.of<config_vm>(context, listen: false).listofconfig);
         ////////////////////////////////
-        Provider.of<selected_button_provider>(context,listen: false).selectValue(valtype_product);
-        Provider.of<switch_provider>(context,listen: false).changeboolValue(valtaxrate);
+        Provider.of<selected_button_provider>(context,listen: false)
+            .selectValue(valtype_product);
+
+        Provider.of<switch_provider>(context,listen: false)
+            .changeboolValue(valtaxrate);
         print("valtaxrate");
 
       });
@@ -128,27 +131,39 @@ class _EditProductState extends State<EditProduct> {
                           height: 35,
                           margin: EdgeInsets.only(),
                           padding: EdgeInsets.only(top: 2,bottom: 2,left: 2,right: 2),
-                          child: Center(
-                            child: GroupButton(
-                                options: GroupButtonOptions(
-                                  borderRadius: BorderRadius.circular(20),
-                                  buttonWidth: MediaQuery.of(context).size.width*0.3,
-                                  //elevation: 0,
-                                  selectedColor: kMainColor,
-                                ),
-                                //secondaryColor: Colors.white,
-                                buttons:['أجهزة', 'برامج'], //[0,1]
-                                controller: GroupButtonController(
-                                  selectedIndex: selectedProvider.isSelected,
-                                  onDisablePressed: (i) =>
-                                      print('Button #$i is disabled'),
-                                ),
+                          child: Container(
+                        decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
+                        boxShadow: <BoxShadow>[
+                        BoxShadow(
+                        offset: Offset(1.0, 1.0),
+                        blurRadius: 8.0,
+                        color: Colors.black87.withOpacity(0.2),
+                        ),
+                        ],
+                        color: Colors.white,),
+                            child: Center(
+                              child: GroupButton(
+                                  options: GroupButtonOptions(
+                                    borderRadius: BorderRadius.circular(20),
+                                    buttonWidth: MediaQuery.of(context).size.width*0.3,
+                                    //elevation: 0,
+                                    selectedColor: kMainColor,
+                                  ),
+                                  //secondaryColor: Colors.white,
+                                  buttons:['أجهزة', 'برامج'], //[0,1]
+                                  controller: GroupButtonController(
+                                    selectedIndex: selectedProvider.isSelected,
+                                    onDisablePressed: (i) =>
+                                        print('Button #$i is disabled'),
+                                  ),
 
-                                onSelected: (selected,isselect) {
-                                  valtype_product = selected;
-                                  valtype_product == 0 ? 1 : 0;
-                                  selectedProvider.selectValue(selected);
-                                }),
+                                  onSelected: (selected,isselect) {
+                                    valtype_product = selected;
+                                    valtype_product == 0 ? 1 : 0;
+                                    selectedProvider.selectValue(selected);
+                                  }),
+                            ),
                           ),
                         );
                       }),

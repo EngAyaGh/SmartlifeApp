@@ -1,6 +1,7 @@
 import 'package:crm_smart/api/api.dart';
 import 'package:crm_smart/model/configmodel.dart';
 import 'package:crm_smart/model/levelmodel.dart';
+import 'package:crm_smart/model/usermodel.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../constants.dart';
@@ -20,12 +21,14 @@ class level_vm extends ChangeNotifier{
     notifyListeners();
 
   }
+
   Future<void> getlevel()async {
     //listoflevel=[];
     if(listoflevel.isEmpty){
     List<dynamic> data=[];
     data= await Api()
         .get(url:url+ 'config/getLevel.php');
+    print(data);
        if(data !=null) {
        for (int i = 0; i < data.length; i++) {
        listoflevel.add(LevelModel.fromJson(data[i]));

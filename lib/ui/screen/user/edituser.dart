@@ -5,12 +5,14 @@ import 'package:crm_smart/services/UserService.dart';
 import 'package:crm_smart/ui/widgets/combox_widget/levelcombox.dart';
 import 'package:crm_smart/ui/widgets/combox_widget/manage_widget.dart';
 import 'package:crm_smart/ui/widgets/combox_widget/regoincombox.dart';
+import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -21,11 +23,12 @@ import '../../../labeltext.dart';
 import 'package:get/get.dart';
 
 class EditUser extends StatefulWidget {
-  // UserModel userModel;
-  final int index;
+  UserModel userModel;
+  //final int index;
   EditUser(
-      {required this.index,
-      //required this.userModel,
+      {
+        //required this.index,
+      required this.userModel,
       Key? key})
       : super(key: key);
 
@@ -34,7 +37,7 @@ class EditUser extends StatefulWidget {
 }
 
 class _EditUserState extends State<EditUser> {
-  final controllerUsers = Get.find<AllUserVMController>();
+  //final controllerUsers = Get.find<AllUserVMController>();
 
   final TextEditingController descriptionController = TextEditingController();
 
@@ -44,55 +47,76 @@ class _EditUserState extends State<EditUser> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  String? namemanage, level, regoin = "";
+   String? namemanage, level, regoin = "";
+ // late List<UserModel>   controllerUsers=[];
+  @override void didChangeDependencies() {
+    Future.delayed(Duration(milliseconds: 30)).then((_) async {
+      // controllerUsers= Provider.of<user_vm_provider>
+      //   (context,listen: false).userall!;
+      // Provider.of<level_vm>(context,listen: false).getlevel();
+      // Provider.of<regoin_vm>(context,listen: false).getregoin();
+    }
+    );
+
+    super.didChangeDependencies();
+  }
   @override
   void initState() {
+
     // Provider.of<level_vm>(context,listen: false).getlevel();
     //
     // Provider.of<level_vm>(context,listen: false).listoflevel;
     // WidgetsBinding.instance?.addPostFrameCallback((_) {
     //
     // });
+    Provider.of<regoin_vm>(context,listen: false).getregoin();
+
+    Provider.of<level_vm>(context,listen: false).getlevel();
+    namemanage =
+    // controllerUsers[widget.index]
+    widget.userModel.typeAdministration.toString();
+    Provider.of<manage_provider>(context, listen: false)
+        .changevalue(namemanage!);
+    print("after manage provider in main");
+    //});
+
+    emailController.text =
+    //controllerUsers[widget.index]
+    widget.userModel.email.toString();
+
+    mobileController.text =
+    //controllerUsers[widget.index]
+    widget.userModel.mobile.toString();
+
+    Provider.of<level_vm>(context,listen: false).changeVal(
+        widget.userModel.typeLevel.toString());
+    print("level inside build main screen"+ widget.userModel.typeLevel.toString() );
+    // Provider.of<level_vm>(context,listen: false).selectedValueLevel =
+    // //controllerUsers[widget.index]
+    // widget.userModel.typeLevel.toString();
+
+    Provider.of<regoin_vm>(context,listen: false)
+        .changeVal( widget.userModel.fkRegoin.toString());
+    print( widget.userModel.fkRegoin.toString());
+    // Provider.of<regoin_vm>(context,listen: false).selectedValueLevel =
+    // //controllerUsers[widget.index]
+    // widget.userModel.fkRegoin.toString();
+
+    //print("level inside build main screen" + level!);
+    //print("regoin " + regoin!);
+    print('ddjksnsjncmdn');
+    //print(widget.index);
+
     print("init");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-    //Provider.of<level_vm>(context,listen: false).listoflevel;
-    namemanage =
-        controllerUsers.usersList[widget.index].typeAdministration.toString();
-    Provider.of<manage_provider>(context, listen: false)
-        .changevalue(namemanage!);
-    print("after manage provider in main");}
-    );
+      //   controllerUsers= Provider.of<user_vm_provider>
+      // (context,listen: true).userall;
+    //WidgetsBinding.instance?.addPostFrameCallback((_) {
 
-    emailController.text =
-        controllerUsers.usersList[widget.index].email.toString();
-
-    mobileController.text =
-        controllerUsers.usersList[widget.index].mobile.toString();
-
-    level = controllerUsers
-        .usersList[widget.index].typeLevel.toString();
-
-    regoin = controllerUsers
-        .usersList[widget.index].fkRegoin.toString();
-
-    print("level inside build main screen" + level!);
-    print("regoin " + regoin!);
-
-    // Provider.of<level_vm>(context,listen: false).changeVal(level);
-    // if(regoin!="null"||regoin!=null)
-    //   Provider.of<regoin_vm>(context,listen: false).changeVal(regoin);
-    // else
-    //   Provider.of<regoin_vm>(context,listen: false).changeVal(null);
-
-    //});
-    // Provider.of<level_vm>(context,listen: false).getlevel();
-
-    //  return Obx(() {
 
     return Scaffold(
       appBar: AppBar(
@@ -123,13 +147,11 @@ class _EditUserState extends State<EditUser> {
                   'type_level': level,
                   'fk_regoin': regoin != null ? regoin : "null",
                 };
-                UserService()
-                    .UpdateUser(
-                    body: body,
-                    idUser: controllerUsers
-                        .usersList[widget.index].idUser)
-                    .then((value) => value != "error" ||
-                    value != "email is not exist"
+              Provider.of<user_vm_provider>(context,listen: false)
+                  .updateuser_vm(body,
+                 // controllerUsers[widget.index]
+                  widget.userModel.idUser)
+                    .then((value) => value != "error"
                     ? clear(body)
                     : error());
               } else {
@@ -137,99 +159,145 @@ class _EditUserState extends State<EditUser> {
                     content: Text('حدد مستوى للصلاحية من فضلك')));
               }
             },
-            icon: const Icon(Icons.check),
+            icon: const Icon(Icons.check,color: kWhiteColor,),
           ),
         ],
-        title: const Text('Edit User'),
+        title: const Text('Edit User',style: TextStyle(color: kWhiteColor),),
+        centerTitle: true,
       ),
       body: ModalProgressHUD(
         inAsyncCall: Provider.of<LoadProvider>(context).isLoadingUpdateUser,
         child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(
-                top: 10,
-                right: 20,
-                left:
-                    20), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                RowEdit(name: 'Email', des: ''),
-                EditTextFormField(
-                  hintText: 'Email',
-                  obscureText: false,
-                  controller: emailController,
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                RowEdit(name: label_manage, des: ''),
-
-                Consumer<manage_provider>(builder: (context, mangelist, child) {
-                  return DropdownButton(
-                    isExpanded: true,
-                    hint: Text("حددالإدارة"),
-                    items: mangelist.listtext.map((level_one) {
-                      return DropdownMenuItem(
-                        child: Text(level_one), //label of item
-                        value: level_one, //value of item
-                      );
-                    }).toList(),
-                    value: mangelist.selectedValuemanag,
-                    onChanged: (value) {
-                      namemanage = value.toString();
-                      mangelist.changevalue(value.toString());
-                    },
-                  );
-                }),
-                SizedBox(
-                  height: 5,
-                ),
-                RowEdit(name: label_level, des: 'Required'),
-                //mangwidget(),
-
-                levelCombox(
-                  selected: level,
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-
-                //admin
-                RowEdit(name: label_regoin, des: 'Required'),
-                RegoinCombox(
-                  selected: regoin,
-                ),
-                //manage
-                SizedBox(
-                  height: 5,
-                ),
-                RowEdit(name: label_mobile, des: 'Required'),
-                EditTextFormField(
-                  hintText: '+966000000000',
-                  obscureText: false,
-                  controller: mobileController,
-                ),
-                //RowEdit(name: 'Image', des: ''),
-                SizedBox(
-                  height: 15,
-                ),
-
-                //show chose image
-
-                // Center(
-                //   child: TextButton(
-                //       // style: ButtonStyle(backgroundColor:Color(Colors.lightBlue)),
-                //       onPressed: () {
-                //
-                //       },
-                //       child: Text(
-                //         'تعديل ',
-                //         style: TextStyle(color: kMainColor),
-                //       )),
-                // )
-              ],
+          child: ContainerShadows(
+            width: double.infinity,
+            padding:
+            EdgeInsets.only(
+                top: 30,right: 20,left: 20), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+            margin: EdgeInsets.only(
+                left: 30,
+                right: 30,
+                top: 50,bottom: 10
             ),
+              child: Directionality(
+                textDirection: TextDirection.rtl,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    RowEdit(name: 'Email', des: ''),
+                    EditTextFormField(
+                      hintText: 'Email',
+                      obscureText: false,
+                      controller: emailController,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    RowEdit(name: label_manage, des: ''),
+
+                    Consumer<manage_provider>(builder: (context, mangelist, child) {
+                      return DropdownButton(
+                        isExpanded: true,
+                        hint: Text("حددالإدارة"),
+                        items: mangelist.listtext.map((level_one) {
+                          return DropdownMenuItem(
+                            child: Text(level_one), //label of item
+                            value: level_one, //value of item
+                          );
+                        }).toList(),
+                        value: mangelist.selectedValuemanag,
+                        onChanged: (value) {
+                          namemanage = value.toString();
+                          mangelist.changevalue(value.toString());
+                        },
+                      );
+                    }),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    RowEdit(name: label_level, des: 'Required'),
+                    //mangwidget(),
+                    Consumer<level_vm>(
+                      builder: (context, cart, child){
+                        return DropdownButton(
+                          isExpanded: true,
+                          //hint: Text("حدد حالة العميل"),
+                          items: cart.listoflevel.map((level_one) {
+                            return DropdownMenuItem(
+                              child: Text(level_one.nameLevel), //label of item
+                              value: level_one.idLevel, //value of item
+                            );
+                          }).toList(),
+                          value:cart.selectedValueLevel,
+                          onChanged:(value) {
+                            //  setState(() {
+                            cart.changeVal(value.toString());
+                            // });
+                          },
+                        );},
+                    ),
+                    // levelCombox(
+                    //   selected: level,
+                    // ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    //admin
+                    RowEdit(name: label_regoin, des: 'Required'),
+                    Consumer<regoin_vm>(
+                      builder: (context, cart, child){
+                        return DropdownButton(
+                          isExpanded: true,
+                          //hint: Text("حدد حالة العميل"),
+                          items: cart.listregoin.map((level_one) {
+                            return DropdownMenuItem(
+                              child: Text(level_one.name_regoin), //label of item
+                              value: level_one.id, //value of item
+                            );
+                          }).toList(),
+                          value:cart.selectedValueLevel,
+                          onChanged:(value) {
+                            //  setState(() {
+                            cart.changeVal(value.toString());
+                            // });
+                          },
+                        );},
+                    ),
+                    // RegoinCombox(
+                    //   selected: regoin,
+                    // ),
+                    //manage
+                    SizedBox(
+                      height: 20,
+                    ),
+                    RowEdit(name: label_mobile, des: 'Required'),
+                    EditTextFormField(
+                      hintText: '+966000000000',
+                      obscureText: false,
+                      controller: mobileController,
+                    ),
+                    //RowEdit(name: 'Image', des: ''),
+                    SizedBox(
+                      height:20,
+                    ),
+
+                    //show chose image
+
+                    // Center(
+                    //   child: TextButton(
+                    //       // style: ButtonStyle(backgroundColor:Color(Colors.lightBlue)),
+                    //       onPressed: () {
+                    //
+                    //       },
+                    //       child: Text(
+                    //         'تعديل ',
+                    //         style: TextStyle(color: kMainColor),
+                    //       )),
+                    // )
+                  ],
+                ),
+              ),
+
           ),
         ),
       ),
@@ -241,22 +309,7 @@ class _EditUserState extends State<EditUser> {
     //label_Edituser
     Provider.of<LoadProvider>(context, listen: false)
         .changeboolUpdateUser(false);
-    final index = controllerUsers.usersList.indexWhere((element) =>
-        element.idUser == controllerUsers.usersList[widget.index].idUser);
-    body.addAll({
-      'nameUser': controllerUsers.usersList[index].nameUser,
-      'id_user': controllerUsers.usersList[index].idUser.toString(),
-      'code_verfiy': controllerUsers.usersList[index].codeVerfiy.toString(),
-      'fk_country': controllerUsers.usersList[index].fkCountry.toString(),
-      //'code_verfiy': controllerUsers.usersList[index].codeVerfiy.toString(),
-      'nameCountry': controllerUsers.usersList[index].nameCountry.toString(),
-      'name_regoin': controllerUsers.usersList[index].nameRegoin.toString(),
-      'name_level': controllerUsers.usersList[index].name_level.toString(),
-    });
-    print(body);
-    print('///////////');
-    controllerUsers.usersList[index] = UserModel.fromJson(body);
-    print(controllerUsers.usersList[index].toJson());
+
     // descriptionController.text = "";
     // mobileController.text = "";
     // emailController.text = "";

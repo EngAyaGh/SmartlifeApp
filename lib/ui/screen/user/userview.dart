@@ -7,7 +7,9 @@ import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
 
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/user_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
@@ -15,41 +17,54 @@ import 'package:get/get.dart';
 import '../../../constants.dart';
 import 'edituser.dart';
 
-class UserScreen extends StatelessWidget {
-  //final UserModel userModel;
-  final int index;
+class UserScreen extends StatefulWidget {
+  final UserModel userModel;
+  //final int index;
   UserScreen({
-    //  required this.userModel,
-    required this.index,
+     required this.userModel,
+    //required this.index,
     Key? key,
   }) : super(key: key);
 
-  final scrollController = ScrollController(initialScrollOffset: 0);
-  final controllerUser = Get.find<UserVMController>();
-  final controllerUsers = Get.find<AllUserVMController>();
-  // final controller = Get.find<UserViewModel>();
+  @override
+  _UserScreenState createState() => _UserScreenState();
+}
 
+class _UserScreenState extends State<UserScreen> {
+  late var controllerUser;
+  @override void initState() {
+     //controllerUser =Provider.of<user_vm_provider>(context,listen: false);
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
+    //return Obx(() {
       return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           actions: [
             IconButton(
                 onPressed: () {
-                  Get.to(() => EditUser(
-                    index: index,
-                    //userModel: controllerUsers.usersList[index],
-                  ));
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context)=>
+                          EditUser(
+                              userModel:widget.userModel
+                            //index: widget.index,
+                          )));
+                  //
+                  // Get.to(() => EditUser(
+                  //   index: index,
+                  //   //userModel: controllerUsers.usersList[index],
+                  // ));
                 },
-                icon: const Icon(Icons.edit)),
+                icon: const Icon(Icons.edit,color: kWhiteColor,)),
           ],
           title: TextUtilis(
             color: Colors.white,
             fontSize: 35,
             fontWeight: FontWeight.bold,
-            textstring: controllerUsers.usersList[index].nameUser.toString(),
+            textstring: widget.userModel.nameUser.toString(),
             underline: TextDecoration.none,
           ),
           backgroundColor: kMainColor,
@@ -58,14 +73,21 @@ class UserScreen extends StatelessWidget {
         ),
         body: Center(
           child: ContainerShadows(
-            margin: EdgeInsets.only(left: 30, right: 30),
+            padding: EdgeInsets.only(
+                top: 35,right: 20,left: 20,bottom: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+
+            margin: EdgeInsets.only(
+                left: 30,
+                right: 30,
+                top: 30,bottom: 20
+            ),
             width: double.infinity,
-            height: 500,
+            //height: 500,
             child: Center(
               child: Directionality(
                 textDirection: TextDirection.rtl,
-                child: Obx(
-                      () => Column(
+                child:
+                          Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(
@@ -74,7 +96,7 @@ class UserScreen extends StatelessWidget {
                         child: ImageProfile(),
                       ),
                       Expanded(
-                        child: info(),
+                        child: info(context),
                         // child: ListView.separated(
                         //   controller: scrollController,
                         //   itemCount: 6,
@@ -92,90 +114,17 @@ class UserScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
+
               ),
             ),
           ),
         ),
       );
-    });
+   // });
   }
 
-  // Widget imageProfile(context) {
-  //   return Center(
-  //     child: Stack(
-  //       children: [
-  //         CircleAvatar(
-  //           radius: 80.0,
-  //           backgroundImage: //controllerUser.imagefile == null
-  //               controllerUser.imageFile == null
-  //                   ? AssetImage('assest/images/logo.png')
-  //                   : controllerUser.saveImage(),
-
-  //           //const AssetImage(kLogo)
-  //           //: const AssetImage(kLogo),
-  //         ),
-  //         Positioned(
-  //           bottom: 20.0,
-  //           right: 20.0,
-  //           child: InkWell(
-  //             onTap: () {
-  //               showModalBottomSheet(
-  //                 context: context,
-  //                 builder: ((builder) => bottomSheet()),
-  //               );
-  //             },
-  //             child: Icon(
-  //               Icons.camera,
-  //               color: kMainColor,
-  //               size: 25,
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // Widget infoUser() {
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       children: [
-  //         TextUtilis(
-  //           color: Colors.black,
-  //           fontSize: 35,
-  //           fontWeight: FontWeight.bold,
-  //           textstring: name,
-  //           underline: TextDecoration.none,
-  //         ),
-  //         isText
-  //             ? TextUtilis(
-  //                 color: Colors.black,
-  //                 fontSize: 100,
-  //                 fontWeight: FontWeight.normal,
-  //                 textstring: 'op manager',
-  //                 underline: TextDecoration.none,
-  //               )
-  //             : isIcons
-  //                 ? IconButton(onPressed: () {}, icon: const Icon(Icons.email))
-  //                 : TextButton(
-  //                     onPressed: () {},
-  //                     child: TextUtilis(
-  //                       color: Colors.black,
-  //                       fontSize: 100,
-  //                       fontWeight: FontWeight.normal,
-  //                       textstring: 'phone number',
-  //                       underline: TextDecoration.none,
-  //                     ),
-  //                   ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  Widget info() {
+  Widget info(context) {
+   // var controllerUser =Provider.of<user_vm_provider>(context,listen: false);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
       child: Column(
@@ -190,7 +139,9 @@ class UserScreen extends StatelessWidget {
                   right: 10,
                 ),
                 child: RowEdit(
-                  des: controllerUsers.usersList[index].typeAdministration
+                  des:
+                  //controllerUser.userall![widget.index]
+                    widget.userModel.typeAdministration
                       .toString(),
                   name: 'الإدارات',
                 ),
@@ -209,10 +160,14 @@ class UserScreen extends StatelessWidget {
                   right: 10,
                 ),
                 child: RowEdit(
-                  des: controllerUsers.usersList[index].nameRegoin.toString() ==
+                  des:
+                  //controllerUser.userall![widget.index]
+                    widget.userModel.nameRegoin.toString() ==
                       "null"
                       ? ""
-                      : controllerUsers.usersList[index].nameRegoin.toString(),
+                      :
+                    //controllerUser.userall![widget.index]
+                    widget.userModel.nameRegoin.toString(),
                   name: 'المنطقة',
                 ),
               )),
@@ -230,7 +185,9 @@ class UserScreen extends StatelessWidget {
                   right: 10,
                 ),
                 child: RowEdit(
-                  des: controllerUsers.usersList[index].name_level.toString(),
+                  des:
+                  //controllerUser.userall![widget.index]
+                    widget.userModel.name_level.toString(),
                   name: 'المستوى',
                 ),
               )),
@@ -260,13 +217,15 @@ class UserScreen extends StatelessWidget {
                       fontSize: 35,
                       fontWeight: FontWeight.bold,
                       textstring:
-                      controllerUsers.usersList[index].email.toString(),
+                      //controllerUser.userall![widget.index]
+                    widget.userModel.email.toString(),
                       underline: TextDecoration.none,
                     ),
                     IconButton(
                       onPressed: () {
-                        controllerUser.onPressEmail(
-                            controllerUsers.usersList[index].email.toString());
+                        // controllerUser.onPressEmail(
+                        //     controllerUser.userall!index].email.toString());
+                        //
                       },
                       icon: const Icon(
                         Icons.email,
@@ -301,16 +260,18 @@ class UserScreen extends StatelessWidget {
                       underline: TextDecoration.none,
                     ),
                     TextButton(
-                      onPressed: () async {
-                        controllerUser.onPressPhone(
-                            controllerUsers.usersList[index].mobile.toString());
-                      },
+                      onPressed: (){},
+                      // onPressed: () async {
+                      //   controllerUser.onPressPhone(
+                      //       controllerUser.userall![index].mobile.toString());
+                      // },
                       child: TextUtilis(
                         color: kMainColor,
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
                         textstring:
-                        controllerUsers.usersList[index].mobile.toString(),
+                        //controllerUser.userall![widget.index]
+                          widget.userModel.mobile.toString(),
                         underline: TextDecoration.none,
                       ),
                     ),

@@ -49,7 +49,7 @@ class CardProduct extends StatelessWidget {
                   ],
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
-              height:80,
+              //height:80,
               child: Padding(
                 padding: EdgeInsets.all(12.0),
                 child: Flex(

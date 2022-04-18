@@ -16,7 +16,6 @@ const CACHE_ClientByUser_KEY = "CACHE_Client_KEY";
 const CACHE_ClientByUser_INTERVAL = 60 * 1000; // 1 MINUTE IN MILLIS
 
 class client_vm extends ChangeNotifier {
-  UserModel? usercurrent;
   List<ClientModel> listClient = [];
   List<ClientModel> listClientAccept = [];
   List<ClientModel> listClientbyCurrentUser = [];
@@ -27,6 +26,7 @@ class client_vm extends ChangeNotifier {
   //   usercurrent=currentUser;
   //   notifyListeners();
   // }
+  UserModel? usercurrent;
 
   void setvalue(user){
     usercurrent=user;
@@ -127,7 +127,8 @@ else{
   Future<bool> updateclient_vm(Map<String, dynamic?> body,String? id_client) async {
     bool res = await ClientService().updateClient(body,id_client!);
     if (res) {
-      int index=listClientbyCurrentUser.indexWhere((element) => element.idClients==id_client);
+      int index=listClientbyCurrentUser.indexWhere((element)
+      => element.idClients==id_client);
       body.addAll({
         'id_clients':id_client,
         'nameUser':listClientbyCurrentUser[index].nameUser,

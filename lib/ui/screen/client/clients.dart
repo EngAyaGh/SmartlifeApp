@@ -161,7 +161,8 @@ class client_dashboard extends StatefulWidget {
           backgroundColor: kMainColor,
       onPressed: (){
 
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>addClient()));
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context)=>addClient()));
 
       },
       tooltip: 'إضافة عميل',

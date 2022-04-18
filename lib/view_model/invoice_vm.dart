@@ -37,12 +37,12 @@ class invoice_vm extends ChangeNotifier{
       // , List<ClientModel> list
       )
   async {
-    // if(listClient.isEmpty)
-    // List<ClientModel> lists=[];
+
     // listinvoices.forEach((element) {
     //   if( element.type_client==searchfilter)
     //     listInvoicesAccept.add(element);
     // });
+
     listInvoicesAccept=listinvoices;
 
     notifyListeners();

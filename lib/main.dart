@@ -94,11 +94,18 @@ void main() async {
         ChangeNotifierProvider<country_vm>(create: (_) => country_vm()),
         ChangeNotifierProvider<config_vm>(create: (_) => config_vm()),
          ChangeNotifierProvider<level_vm>(create: (_) => level_vm()),
-        ChangeNotifierProvider<regoin_vm>(create: (_) => regoin_vm()),
+        //ChangeNotifierProvider<regoin_vm>(create: (_) => regoin_vm()),
         ChangeNotifierProvider<LoadProvider>(create: (_) => LoadProvider()),
         ChangeNotifierProvider<product_vm>(create: (_) => product_vm()),
         ChangeNotifierProvider<manage_provider>(create: (_) => manage_provider()),
-        //ChangeNotifierProvider<client_vm>(create: (_) => client_vm()),
+
+        ChangeNotifierProxyProvider<user_vm_provider,regoin_vm>(
+          create: (_)=> regoin_vm(),
+          //   Provider.of<user_vm_provider>(_, listen: false).currentUser),
+          update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
+          //  client_vm(value.currentUser)
+        ),
+
         ChangeNotifierProxyProvider<user_vm_provider,client_vm>(
              create: (_)=> client_vm(),
               //   Provider.of<user_vm_provider>(_, listen: false).currentUser),

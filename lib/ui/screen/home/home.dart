@@ -7,6 +7,7 @@ import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 class Home extends StatefulWidget {
    Home({Key? key}) : super(key: key);
@@ -32,6 +33,9 @@ class _HomeState extends State<Home> {
   }
   @override
   Widget build(BuildContext context) {
+    var sizeh=MediaQuery.of(context).size.height;
+     var paddval=1.0;
+    paddval= sizeh/3;
     return Scaffold(
 
       //drawerScrimColor: Colors.white,
@@ -53,7 +57,10 @@ class _HomeState extends State<Home> {
       // ),
       body: Directionality(
         textDirection: TextDirection.rtl,
-        child: BuildCard(),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 25),
+          child: BuildCard(),
+        ),
       ),
     );
   }

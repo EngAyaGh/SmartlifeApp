@@ -5,6 +5,8 @@ import 'package:crm_smart/view_model/approve_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../constants.dart';
 class ApprovePage extends StatefulWidget {
   const ApprovePage({Key? key}) : super(key: key);
 
@@ -32,10 +34,15 @@ class _ApprovePageState extends State<ApprovePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,title:Text( 'طلبات الموافقة',
+        style:
+      TextStyle(color: kWhiteColor, fontFamily: kfontfamily2),),
+      ),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Padding(
-            padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
+            padding: const EdgeInsets.only(top: 10,bottom: 10),
             child: Center(
               child:
               Consumer<approve_vm> (

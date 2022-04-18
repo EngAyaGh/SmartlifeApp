@@ -1,5 +1,6 @@
 
 
+import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/approvemodel.dart';
 import 'package:crm_smart/ui/widgets/cardnotify.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardapprove1.dart';
@@ -39,39 +40,46 @@ class _notify_pageviewState extends State<notify_pageview> {
     @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,title:Text( 'الإشعارات',style:
+      TextStyle(color: kWhiteColor,fontFamily: kfontfamily2),),
+      ),
       body: Directionality(
         textDirection: TextDirection.rtl,
-        child: Center(
-          child:
-          Consumer<notifyvm> (
-              builder: (context,value,child) {
-                return value.listnotify.length==0?
-                CircularProgressIndicator()
-                    :ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: value.listnotify.length,
-                    itemBuilder: (context, index) {
-                      return SingleChildScrollView(
-                          child: Padding(
-                            padding: const EdgeInsets.all(0.7),
-                            child:
-                            // value.listnotify[index].typeNotify=="Approve"
-                            // ?cardapprove1(
-                            //   itemapprove: ApproveModel(
-                            //       nameUser: "aya",
-                            //       idApproveClient: '1',
-                            //       dateApprove: '19-2-2021',
-                            //       name_enterprise: 'جمعية خيرية', fkUser: '2',
-                            //       nameRegoin: 'مكة المكرمة', fkClient: '',
-                            //       isApprove: '', nameCountry: ''),)
-                            //:
-                            cardnotify(
-                                itemNotify:
-                                value.listnotify[index],
-                               ),
-                          ));
-                    });
-              } ),
+        child: Padding(
+          padding: const EdgeInsets.only(top:16.0),
+          child: Center(
+            child:
+            Consumer<notifyvm> (
+                builder: (context,value,child) {
+                  return value.listnotify.length==0?
+                  CircularProgressIndicator()
+                      :ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: value.listnotify.length,
+                      itemBuilder: (context, index) {
+                        return SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.all(0.7),
+                              child:
+                              // value.listnotify[index].typeNotify=="Approve"
+                              // ?cardapprove1(
+                              //   itemapprove: ApproveModel(
+                              //       nameUser: "aya",
+                              //       idApproveClient: '1',
+                              //       dateApprove: '19-2-2021',
+                              //       name_enterprise: 'جمعية خيرية', fkUser: '2',
+                              //       nameRegoin: 'مكة المكرمة', fkClient: '',
+                              //       isApprove: '', nameCountry: ''),)
+                              //:
+                              cardnotify(
+                                  itemNotify:
+                                  value.listnotify[index],
+                                 ),
+                            ));
+                      });
+                } ),
+          ),
         ),
       ),
     );

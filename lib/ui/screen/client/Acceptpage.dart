@@ -9,6 +9,8 @@ import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../constants.dart';
 class AcceptPage extends StatefulWidget {
   const AcceptPage({Key? key}) : super(key: key);
 
@@ -38,10 +40,15 @@ class _ApprovePageState extends State<AcceptPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,title:Text( 'العملاء المشتركين ',
+        style:
+        TextStyle(color: kWhiteColor, fontFamily: kfontfamily2),),
+      ),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Padding(
-            padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
+            padding: const EdgeInsets.only(top: 10,bottom: 10),
             child: Center(
               child:
               Consumer<invoice_vm> (

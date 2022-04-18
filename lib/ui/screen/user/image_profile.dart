@@ -1,9 +1,12 @@
 import 'dart:io';
 
+
 import 'package:crm_smart/constants.dart';
 
 import 'package:crm_smart/view_model/user_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -13,20 +16,23 @@ class ImageProfile extends StatelessWidget {
 
   ImageProfile({Key? key}) : super(key: key);
 
-  final controllerUser = Get.find<UserVMController>();
+  // final controllerUser = Get.find<UserVMController>();
+  //final controllerUser = Provider.of<user_vm_provider>(context,listen: false);
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Stack(
         children: [
-          Obx(
-                () => CircleAvatar(
+        //  Obx( () =>
+        CircleAvatar(
                 radius: 80.0,
-                backgroundImage: controllerUser.isProbicpicpathSet.value == true
-                    ? FileImage(File(controllerUser.profilepicpath.value))
-                as ImageProvider
-                    : AssetImage('assest/images/logo.png')),
-          ),
+                backgroundImage:
+                //controllerUser.isProbicpicpathSet.value == true
+                //     ? FileImage(File(controllerUser.profilepicpath.value))
+                // as ImageProvider
+                //     :
+                AssetImage('assest/images/logo.png')),
+          //),
           Positioned(
             bottom: 20.0,
             right: 20.0,
@@ -140,8 +146,8 @@ class ImageProfile extends StatelessWidget {
     final pickedImage =
     await imagePicker.pickImage(source: source, imageQuality: 100);
     pickedFile = File(pickedImage!.path);
-    controllerUser.setProfileImagePath(pickedFile!.path);
-    Get.back();
+    // controllerUser.setProfileImagePath(pickedFile!.path);
+    // Get.back();
     print(pickedFile);
   }
 }

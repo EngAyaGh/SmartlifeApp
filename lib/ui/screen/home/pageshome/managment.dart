@@ -1,3 +1,5 @@
+import 'package:crm_smart/ui/screen/user/alluser.dart';
+import 'package:crm_smart/ui/screen/user/userview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,9 +28,13 @@ class managmentpage extends StatelessWidget {
         child:
         Column(children: [
           buildSelectCategory(onTap: () {
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context)=>
+                    AllUserScreen()));
+          }, title: 'إدارة المستخدمين'),
+          buildSelectCategory(onTap: () {
 
           }, title: ''),
-          buildSelectCategory(onTap: () {  }, title: ''),
 
         ],),
 
