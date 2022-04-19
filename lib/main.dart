@@ -31,7 +31,7 @@ import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-//import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
@@ -41,16 +41,19 @@ import 'binding/binding.dart';
 import 'constants.dart';
 //import 'package:firebase_core/firebase_core.dart';
 
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   // If you're going to use other Firebase services in the background, such as Firestore,
-//   // make sure you call `initializeApp` before using other Firebase services.
-//
-//   //DefaultFirebaseOptions .currentPlatform );
-//
-//   print("Handling a background message: ${message.messageId}");
-//   print("Handling a background message: ${message.data['iduser']}");
-//   print("Handling a background message: ${message.data['nameuser']}");
-// }
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+
+  //DefaultFirebaseOptions .currentPlatform );
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform);
+  print("Handling a background message: ${message.messageId}");
+  print("Handling a background message: ${message.data['idclient']}");
+  print("Handling a background message: ${message.data['Typenotify']}");
+
+
+}
 
 void main() async {
   // <meta-data
@@ -58,20 +61,30 @@ void main() async {
   // android:value="high_importance_channel"
   // />
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // Set the background messaging handler early on, as a named top-level function
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   // await Firebase.initializeApp(
-  //   options:FirebaseOptions(
+  //   options: DefaultFirebaseOptions.currentPlatform
+  //   FirebaseOptions(
   //     apiKey: 'AIzaSyDPc1bZGUTKYilLcLMJbxd8I4RInrPo8AQ',
   //     appId: '1:102540138446:android:bc175820eaf396efe5fd9f',
   //     messagingSenderId: '102540138446',
   //     projectId: 'crmapp-8f9de',
   //     //databaseURL: 'https://react-native-firebase-testing.firebaseio.com',
   //     storageBucket: 'crmapp-8f9de.appspot.com',
-  // ));
+  // )
+  //);
   print('in main ');
  //   print(await FirebaseMessaging.instance.getToken(
  //     //vapidKey: "BLHC6fhpHX_VBbufktusXDMRhLtLI764Ic_ZcCc9Lh2puYzPEvwOpvxDfBmHKtRQu38OU_hUoalT42PxzHc8JPg")
  // ));
- //FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+ FirebaseMessaging.onBackgroundMessage(
+     _firebaseMessagingBackgroundHandler);
 
  // FCM().getmessge();
   //Provider.debugCheckInvalidValueType = null;
@@ -136,13 +149,12 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   bool isUserLoggedIn = false;
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<SharedPreferences>(
-        future: SharedPreferences.getInstance(),
-        builder: (context, snapshot) {
+@override
+Widget build(BuildContext context) {
+  return  FutureBuilder<SharedPreferences>(
+          future: Provider.of<user_vm_provider>(context,listen: false)
+              .getcurrentuser() ,
+          builder:(context, snapshot) {
           if (!snapshot.hasData) {
             //Center(child: CircularProgressIndicator(),)
             return MaterialApp(
@@ -156,19 +168,9 @@ class MyApp extends StatelessWidget {
           else {
             isUserLoggedIn =
                 snapshot.data!.getBool(kKeepMeLoggedIn) ?? false;
-           String idcurrentuser= snapshot.data!.getString("id_user").toString();
+           // String idcurrentuser= snapshot.data!.getString("id_user").toString();
             return
               MaterialApp(
-                //initialBinding: UserBinding(),
-                // initialRoute: Routes.Home,
-                // getPages: AppRoutes.routes,
-                // home:Home(),
-                //main_page(),
-
-                // Directionality(
-                //   textDirection: TextDirection.rtl,
-                //   child: isUserLoggedIn ? client_dashboard():client_dashboard(),
-                // ),
 
                   debugShowCheckedModeBanner: false,
                   title: 'Flutter Demo',
@@ -179,13 +181,14 @@ class MyApp extends StatelessWidget {
                   ),
                   home: Directionality(
                     textDirection: TextDirection.rtl,
-                    child: isUserLoggedIn ? login() : Home(),
+                    child: isUserLoggedIn ? Home() : login(),
                   ),
              );
           }
         });
   }
 }
+  // This widget is the root of your application.
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);

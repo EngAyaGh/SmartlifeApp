@@ -11,6 +11,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/group_button.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,7 @@ class _addProductState extends State<addProduct> {
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      idCountry = Provider.of<country_vm>(context, listen: false).id_country;
+      idCountry = Provider.of<user_vm_provider>(context, listen: false).currentUser!.fkCountry;
       print("build add prod");
       print(idCountry);
       Provider.of<config_vm>(context, listen: false).getAllConfig(idCountry!);

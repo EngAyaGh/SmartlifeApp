@@ -1,14 +1,22 @@
 
 import 'package:crm_smart/constants.dart';
+import 'package:crm_smart/ui/screen/client/detail_client.dart';
 import 'package:crm_smart/ui/screen/home/build_card.dart';
+import 'package:crm_smart/ui/screen/invoice/get_deleted_invoice.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/appbar.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/customDrawer.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
+import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:crm_smart/ui/screen/home/approvepage.dart';
+
+import '../../../function_global.dart';
+
 class Home extends StatefulWidget {
    Home({Key? key}) : super(key: key);
 
@@ -17,8 +25,40 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  @override void initState() {
+    super.initState();
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {
+      if (message != null) {
+        print("in init getInitialMessage");
+        Provider.of<notifyvm>(context,listen: false).addcounter();
+        String typeNotify= message.data['Typenotify'];
+        route_notifyto(typeNotify,context);
+      }
+    });
+    //FirebaseMessaging.onBackgroundMessage.call(message);
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+      Provider.of<notifyvm>(context,listen: false).addcounter();
+      //add notify to listnotify
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      print('onMessageOpenedApp');
+      Provider.of<notifyvm>(context,listen: false).addcounter();
+      String typeNotify= event.data['Typenotify'];
+      route_notifyto(typeNotify,context);
+    });
+  }
   @override
   void didChangeDependencies() {
+    Provider.of<notifyvm>(context, listen: false)
+        .getNotification();
     Provider.of<user_vm_provider>(context,listen: false)
         .getcurrentuser();
     //check level user
@@ -29,6 +69,7 @@ class _HomeState extends State<Home> {
     //     . getclient_vm();
     Provider.of<invoice_vm>(context, listen: false)
         .get_invoicesbyRegoin([]);
+
     super.didChangeDependencies();
   }
   @override
@@ -41,14 +82,15 @@ class _HomeState extends State<Home> {
       //drawerScrimColor: Colors.white,
       backgroundColor: Colors.grey[200],
       appBar:customAppbar(),
-      drawer: Theme(
-        data:  Theme.of(context).copyWith(
-          canvasColor: Colors.white, //This will change the drawer background to blue.
-          //other styles
-        ),
-        child:       CustomDrawer(),
-
-      ),
+      drawer: CustomDrawer(),
+      // drawer: Theme(
+      //   data:  Theme.of(context).copyWith(
+      //     canvasColor: Colors.white, //This will change the drawer background to blue.
+      //     //other styles
+      //   ),
+      //   child: CustomDrawer(),
+      //
+      // ),
       // AppBar(
       //   title: Text('الرئيسية',style: TextStyle(color: kWhiteColor),),
       //   centerTitle: true,

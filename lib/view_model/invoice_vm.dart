@@ -211,9 +211,9 @@ class invoice_vm extends ChangeNotifier{
     .deleteInvoiceById(body);
     print("res in delete invoice "+res);
     //if(res=="done"){
-    index=listinvoicebyregoin.indexWhere(
+    index=listinvoices.indexWhere(
             (element) => element.idInvoice==id_invoice);
-    listinvoicebyregoin.removeAt(index);
+    listinvoices.removeAt(index);
       notifyListeners();
     //}
     return res;

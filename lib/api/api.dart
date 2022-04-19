@@ -20,7 +20,11 @@ class Api {
     // http.Response response = await http.get(
     //   Uri.parse(url),
     // );
-    http.Response response = await RetryClient(http.Client()).get( Uri.parse(url));
+    //http.Response response = await RetryClient(http.Client()).get( Uri.parse(url));
+
+    http.Response response = await http.get(
+      Uri.parse(url),
+    );
     if (json.decode(response.body)["code"] == "200") {
       print(jsonDecode(response.body)["message"]);
       return jsonDecode(response.body)["message"];

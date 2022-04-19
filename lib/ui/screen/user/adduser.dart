@@ -80,11 +80,11 @@ class _addUserState extends State<addUser> {
             width: double.infinity,
             padding:
             EdgeInsets.only(
-                top: 35,right: 20,left: 20), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+                top: 35,right: 10,left: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
 
           margin: EdgeInsets.only(
-              left: 30,
-              right: 30,
+              left: 20,
+              right: 20,
               top: 30,bottom: 10
             ),
             child: Directionality(
@@ -222,9 +222,9 @@ class _addUserState extends State<addUser> {
                               .selectedValueLevel;
                           String? level= Provider.of<level_vm>(context,listen: false)
                               .selectedValueLevel;
-                          String id_country=
-                              Provider.of<country_vm>(context,listen: false)
-                                  .id_country;
+                          String? id_country=
+                              Provider.of<user_vm_provider>(context,listen: false)
+                                  .currentUser!.fkCountry;
                       if( level!=null && emailController.text.isNotEmpty) {
                         Provider.of<LoadProvider>(context, listen: false)
                             .changeboolValueUser(true);

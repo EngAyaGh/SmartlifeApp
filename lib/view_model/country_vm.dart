@@ -4,8 +4,8 @@
 import 'package:flutter/cupertino.dart';
 
 class country_vm extends ChangeNotifier{
-  late String id_country="1",id_regoin;
-  late String currency="ريال";
+  late String id_country,id_regoin;
+  late String currency;
   country_vm(){
 
   }

@@ -36,6 +36,15 @@ class ClientService{
     //client/setApproveClient.php
     return result=="done"? true:false;
   }
+  Future<bool> setfkuserClient( Map<String,dynamic> body,String idclient) async {
+    String result = await Api()
+        .post( url:url+"client/set_fkuser_transfer.php?id_clients=$idclient",body:
+    body
+    );
+    //client/setApproveClient.php
+    return result=="done"? true:false;
+  }
+  //
   Future<List<ClientModel>> getAllClient(String fkcountry) async {
     List<dynamic> data =[];
     data=await Api()

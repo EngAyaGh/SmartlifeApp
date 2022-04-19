@@ -8,6 +8,7 @@ import 'package:crm_smart/ui/screen/product/addproduct.dart';
 import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -95,7 +96,7 @@ class _MyDropDown extends State<select_country>{
                         Provider.of<country_vm>(context,listen: false)
                             .setIDCountry(value.toString());
                         print("provider country selected change");
-                        print(Provider.of<country_vm>(context,listen: false).id_country);
+                        //print(Provider.of<user_vm_provider>(context,listen: false).currentUser!.fkCountry);
                        // FocusScope.of(context).requestFocus(new FocusNode());
                       },
                     ),

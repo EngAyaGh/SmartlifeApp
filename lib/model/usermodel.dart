@@ -11,6 +11,7 @@ class UserModel {
   String? nameCountry;
   String? nameRegoin;
   String? name_level;
+  String? currency;
 
   UserModel({
      this.idUser,
@@ -24,7 +25,8 @@ class UserModel {
      this.fkRegoin,
      this.nameCountry,
      this.nameRegoin,
-    this.name_level
+    this.name_level,
+    this.currency,
   });
 
   factory UserModel.fromJson(jsonData) {
@@ -41,6 +43,7 @@ class UserModel {
       nameCountry: jsonData['nameCountry'],
       nameRegoin: jsonData['name_regoin'],
       name_level: jsonData['name_level'],
+      currency: jsonData['currency'],
     );
   }
 
@@ -58,6 +61,7 @@ class UserModel {
      _data['nameCountry']=nameCountry;
      _data['name_regoin']=nameRegoin;
      _data['name_level']=name_level;
+     _data['currency']=currency;
     return _data;
   }
   ///this method will prevent the override of toString

@@ -1,3 +1,4 @@
+import 'package:crm_smart/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +32,7 @@ Widget buildSelectCategory({
                 ),
                 Icon(
                   Icons.arrow_back_ios_new,
-                  color: Colors.black38,
+                  color: kMainColor,
                 ),
               ],
             ),

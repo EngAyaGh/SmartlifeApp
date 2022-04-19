@@ -84,7 +84,7 @@ class cardapprove1 extends StatelessWidget {
                               // update client to approved client
                               Provider.of<client_vm>(context, listen: false)
                                   .setApproveclient_vm({
-                                "fkuser":itemapprove.fkUser,
+                                "fkuser":itemapprove.fkUser,//صاحب العميل
                                 "fk_regoin":itemapprove.fk_regoin,
                                 "fkcountry":itemapprove.fk_country,
                                 "isApprove": "1",

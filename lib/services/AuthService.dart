@@ -2,7 +2,7 @@
 
 
 import 'package:crm_smart/api/api.dart';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import '../constants.dart';
 
 class  AuthServices{
@@ -28,7 +28,7 @@ class  AuthServices{
         .post( url:url+"Auth/check_otp.php",body: {
       'email':email,
       'otp':otp,
-       //'token':FirebaseMessaging.instance.getToken(),
+       'token':await FirebaseMessaging.instance.getToken(),
     } );
     return result!="code is wrong"? result:"false";
 

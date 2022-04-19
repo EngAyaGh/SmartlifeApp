@@ -5,12 +5,18 @@ import 'package:crm_smart/model/notificationModel.dart';
 import 'package:crm_smart/ui/screen/client/detail_client.dart';
 import 'package:crm_smart/ui/screen/client/editClient.dart';
 import 'package:crm_smart/ui/screen/home/approvepage.dart';
+import 'package:crm_smart/ui/screen/invoice/get_deleted_invoice.dart';
+import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../function_global.dart';
 
 class cardnotify extends StatelessWidget {
    cardnotify({Key? key, required this.itemNotify}) : super(key: key);
 late NotificationModel itemNotify;
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -31,21 +37,8 @@ late NotificationModel itemNotify;
       child: Center(
         child: InkWell(
           onTap: () {
-            //Late,ApproveDone,ApproveRefuse
-            itemNotify.typeNotify=="Approve"?
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ApprovePage()))
-            :  itemNotify.typeNotify=="Transfer"?
-            Navigator.push(context,
-                MaterialPageRoute(
-                    builder: (context) => Detail_Client(
-                 // itemClient: null, fkclient: '', fkuser: '',
-                    )
-                ))
-            :
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Detail_Client()));
-
+            // ApproveRequest,Transfer,Late,ApproveDone,ApproveRefuse,InvoiceDeleted
+            route_notifyto(itemNotify.typeNotify,context);
           },
           child: Container(
             decoration: BoxDecoration(
@@ -74,9 +67,7 @@ late NotificationModel itemNotify;
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(top: 3,bottom: 3, left:6,right: 6),
-                          child: Text(itemNotify.typeNotify=="Approve".toString()?"طلب موافقة"
-                          :itemNotify.typeNotify=="Transfer".toString()?"تحويل العميل"
-                              :" تأخر موعد",style:
+                          child: Text(showtext(itemNotify.typeNotify),style:
                           TextStyle(
                             color: kWhiteColor,
                               //fontWeight: FontWeight.bold,
@@ -92,8 +83,8 @@ late NotificationModel itemNotify;
                       children: [
                         Text(itemNotify.message,
                           style: TextStyle(fontFamily: kfontfamily3),),
-                        Text(itemNotify.fromNameuser!,
-                          style: TextStyle(fontFamily: kfontfamily3),),
+                        // Text(itemNotify.fromNameuser!,
+                        //   style: TextStyle(fontFamily: kfontfamily3),),
                       ]),
                   //Row(),
                 ],

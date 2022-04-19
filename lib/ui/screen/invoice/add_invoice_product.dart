@@ -10,6 +10,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,10 +49,10 @@ class _add_invoiceProductState extends State<add_invoiceProduct> {
     _taxadmin.text='';_taxadmin_value='';
     _textprice.text='0';
     _amount.text='1';_amount_value='1';
-    String id_country =
-        Provider.of<country_vm>(context, listen: false).id_country;
+    String? id_country =
+        Provider.of<user_vm_provider>(context, listen: false).currentUser!.fkCountry;
         Provider.of<product_vm>(context, listen: false)
-        .getproduct_vm(id_country);
+        .getproduct_vm(id_country!);
 
     //.then((value) => _isLoading=false);
     super.initState();
@@ -283,8 +284,8 @@ void calculate(){
                                       //read: false,
                                       controller: _textprice,
                                       label: 'السعر',
-                                    hintText: Provider.of<country_vm>(context, listen: true)
-                                        .currency,
+                                    hintText: Provider.of<user_vm_provider>(context, listen: true)
+                                        .currentUser!.currency.toString(),
                                       //radius: 10
                                   ),
                                 ],

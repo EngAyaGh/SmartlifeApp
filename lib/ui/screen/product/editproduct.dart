@@ -13,6 +13,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/group_button.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
@@ -56,7 +57,7 @@ class _EditProductState extends State<EditProduct> {
 
 
       WidgetsBinding.instance!.addPostFrameCallback((_) {
-        idCountry= Provider.of<country_vm>(context,listen: false).id_country;
+        idCountry= Provider.of<user_vm_provider>(context,listen: false).currentUser!.fkCountry;
         print("build edit prod");
         print(idCountry);
         Provider.of<config_vm>(context, listen: false).getAllConfig(idCountry!);

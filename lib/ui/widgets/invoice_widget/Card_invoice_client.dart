@@ -27,7 +27,6 @@ class CardInvoiceClient extends StatefulWidget {
   InvoiceModel itemProd;
   ClientModel itemClient;
   int indexinvoice;
-  late UserModel _currentUser;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -35,17 +34,23 @@ class CardInvoiceClient extends StatefulWidget {
 }
 
 class _CardInvoiceClientState extends State<CardInvoiceClient> {
+  late UserModel _currentUser;
+
+  @override void didChangeDependencies() {
+  _currentUser = Provider.of<user_vm_provider>(context, listen: false)
+        .currentUser!;
+    super.didChangeDependencies();
+  }
   @override
   void initState() {
-    widget._currentUser = Provider.of<user_vm_provider>(context, listen: false)
-        .currentUser!;
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     print(
-        'build card client invoice  ${widget.itemProd.idInvoice} +currentuser is  ${widget._currentUser}');
+        'build card client invoice  ${widget.itemProd.idInvoice} +currentuser is  ${_currentUser}');
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
@@ -72,7 +77,7 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
               child: Padding(
                 padding: EdgeInsets.all(5),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   //textDirection: TextDirection.rtl,
                   children: [
                     Column(
@@ -90,10 +95,10 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                           style: TextStyle(fontFamily: kfontfamily2),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                             // mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
                                   'المبلغ الإجمالي',
@@ -109,7 +114,7 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                               width: 4,
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            //  mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
                                   'المبلغ المتبقي',
@@ -127,7 +132,7 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                           ],
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
                               'التجديد السنوي',
@@ -197,8 +202,7 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                                                 DeletedinvoiceModel(
 
                                           fkClient: widget.itemProd.fkIdClient,
-                                          fkUser: widget
-                                              ._currentUser.idUser, //cuerrent user
+                                          fkUser: _currentUser.idUser, //cuerrent user
                                           dateDelete: formatter.format(_currentDate),
                                           //city:itemProd.
                                           nameClient:
@@ -210,16 +214,16 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                                           //mobileuser:widget.itemClient. ,
                                           // nameUser: widget.itemProd
                                           //     .nameUser, //موظف المبيعات
-                                                  nameUser:widget._currentUser.nameUser,//name user that doing delete
+                                                  nameUser:_currentUser.nameUser,//name user that doing delete
                                         ));
                                         Provider.of<invoice_vm>(context,
                                                 listen: false)
                                             .delete_invoice(
                                             {
                                               "id_invoice":widget.itemProd.idInvoice.toString(),
-                                              "fkUserdo": widget._currentUser.idUser.toString(),
+                                              "fkUserdo": _currentUser.idUser.toString(),
                                               "name_enterprise": widget.itemClient.nameEnterprise.toString(),
-                                              "nameUserdo":widget._currentUser.nameUser.toString(),
+                                              "nameUserdo":_currentUser.nameUser.toString(),
                                             },
                                                 widget.itemProd.idInvoice);
                                       },

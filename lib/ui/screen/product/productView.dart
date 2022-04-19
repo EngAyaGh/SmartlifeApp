@@ -3,6 +3,7 @@ import 'package:crm_smart/model/productmodel.dart';
 import 'package:crm_smart/ui/widgets/product_widget/cardProduct.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,11 +25,11 @@ class _ProductViewState extends State<ProductView> {
  List<ProductModel> _listProd=[];
 @override
 void initState() {
-   String id_country=Provider.of<country_vm>
-     (context,listen: false).id_country;
+   String? id_country=Provider.of<user_vm_provider>
+     (context,listen: false).currentUser!.fkCountry;
    //Provider.of<product_vm>(context,listen: false).listProduct=[];
    Provider.of<product_vm>(context,listen: false)
-       .getproduct_vm("1");//.then((value) => _isLoading=false);
+       .getproduct_vm(id_country!);//.then((value) => _isLoading=false);
   super.initState();
   }
 

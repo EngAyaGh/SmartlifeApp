@@ -147,18 +147,35 @@ else{
   Future<bool> setApproveclient_vm(Map<String, dynamic?> body,String? id_client) async {
     bool res = await ClientService().setApproveClient(body,id_client!);
     if (res) {
-      int index=listClientbyCurrentUser.indexWhere((element) => element.idClients==id_client);
-      // body.addAll({
-      //   'isApprove':listClientbyCurrentUser[index].isApprove,
+      int index=listClient.indexWhere((element) => element.idClients==id_client);
+       body.addAll({
+       'date_approve':DateTime.now(),
       //   'iduser_approve':listClientbyCurrentUser[index].iduser_approve,
-      // });
-      listClientbyCurrentUser[index]=ClientModel.fromJson(body);
+       });
+      listClient[index]=ClientModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
     }
     return res;
   }
+  Future<bool> setfkUserclient_vm(Map<String, dynamic?> body,String? id_client) async {
+    bool res = await ClientService().setfkuserClient(body,id_client!);
+    if (res) {
+      int index=listClient.indexWhere(
+              (element) => element.idClients==id_client);
 
+      listClient.removeAt(index);
+      notifyListeners();
+    }
+    return res;
+  }
+  void removeclient(idclient){
+    int index=listClient.indexWhere(
+            (element) => element.idClients==idclient);
+
+    listClient.removeAt(index);
+    notifyListeners();
+  }
 
 }
 

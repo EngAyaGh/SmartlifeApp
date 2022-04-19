@@ -19,10 +19,10 @@ class user_vm_provider extends ChangeNotifier{
     notifyListeners();
   }
 
-  UserModel? currentUser=
-   UserModel(
-       nameUser: "aya",fkCountry: "1",
-       fkRegoin: "1",idUser: "1",email: "aya.ghoury@gmail.com");
+  UserModel? currentUser;
+   // UserModel(
+   //     nameUser: "aya",fkCountry: "1",
+   //     fkRegoin: "1",idUser: "1",email: "aya.ghoury@gmail.com");
 
   Future<void> getuser_vm() async {
     isLoading=true;
@@ -46,6 +46,7 @@ class user_vm_provider extends ChangeNotifier{
       'fk_country': userall![index].fkCountry.toString(),
       //'code_verfiy': controllerUsers.usersList[index].codeVerfiy.toString(),
       'nameCountry':userall![index].nameCountry.toString(),
+      'currency':userall![index].currency,
       // 'name_regoin': userall![index].nameRegoin.toString(),
       // 'name_level': userall![index].name_level.toString(),
     });
@@ -77,27 +78,38 @@ class user_vm_provider extends ChangeNotifier{
     );
     return false;
   }
-  Future<bool> getcurrentuser() async {
+  Future<bool> tryAutoLogin()async{
+    final prefs=await SharedPreferences.getInstance();
+    if(!prefs.containsKey('id_user')){
+      return false;
+    }
+    final extractedUserData=prefs.getString('id_user');
+    notifyListeners();
+    return true;
+  }
+  Future<SharedPreferences> getcurrentuser() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     try {
       if(userall!.isEmpty)
       userall = await  UserService().usersServices();
-      SharedPreferences preferences = await SharedPreferences.getInstance();
       String? id = preferences.getString('id_user');
       print("in get user" + userall![0].nameUser.toString());
 
-      final index = userall!.indexWhere((element) => element.idUser == "1");
+      final index = userall!.indexWhere((element) => element.idUser == id);
       if(index>=0){
       currentUser = userall![index];
       notifyListeners();
-      return true;
+      print("preferences");
+      print(preferences.containsKey('id_user'));
+      return preferences;
       }
     }
     catch(e){
       print('exp error is '+e.toString());
-      return false;
+
     }
     notifyListeners();
-    return false;
+    return preferences;
   }
 
 }

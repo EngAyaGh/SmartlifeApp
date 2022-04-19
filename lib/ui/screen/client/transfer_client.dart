@@ -1,6 +1,7 @@
 
 import 'package:crm_smart/api/fcm.dart';
 import 'package:crm_smart/model/usermodel.dart';
+import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +12,8 @@ import '../../../constants.dart';
 import 'clients.dart';
 
 class transferClient extends StatefulWidget {
-   transferClient({Key? key}) : super(key: key);
+   transferClient({required this.name_enterprise, required this.idclient, Key? key}) : super(key: key);
+   String idclient,name_enterprise;
   @override
   _transferClientState createState() => _transferClientState();
 }
@@ -22,8 +24,10 @@ class _transferClientState extends State<transferClient> {
   @override
   Future<void> didChangeDependencies() async {
     Future.delayed(Duration(milliseconds: 30)).then((_) async {
-      await Provider.of<user_vm_provider>(context,listen: false).getuser_vm();
-      print(Provider.of<user_vm_provider>(context,listen: false).userall!.length);
+      await Provider.of<user_vm_provider>(context,listen: false)
+          .getuser_vm();
+      print(Provider.of<user_vm_provider>(context,listen: false)
+          .userall!.length);
     }
     );
 
@@ -106,8 +110,25 @@ class _transferClientState extends State<transferClient> {
                 // };
                 // //send notification
                 // FCM().sendnotification(body);
+
                 //remove client from my client
+                // idclient
+                // Provider.of<client_vm>(context,listen: false)
+                //     .removeclient(widget.idclient);
                 //update fkuser to new user
+               Provider.of<client_vm>(context,listen: false)
+                   .setfkUserclient_vm(
+                 {
+                   'fkuser':iduser,//user reciept
+                   'nameusertransfer':
+                   Provider.of<user_vm_provider>(context,listen: false)
+                   .currentUser!.nameUser.toString(),//الموظف الذي حول العميل
+                   'name_enterprise':widget.name_enterprise,
+                   'fkusertrasfer':    Provider.of<user_vm_provider>(context,listen: false)
+                   .currentUser!.idUser.toString(),
+                   //'idclient':
+                 },widget.idclient
+               );
                 //navigator to clients view page
 
                 Navigator.pushAndRemoveUntil(context,

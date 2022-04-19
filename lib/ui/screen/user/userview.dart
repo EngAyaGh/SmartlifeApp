@@ -73,13 +73,14 @@ class _UserScreenState extends State<UserScreen> {
         ),
         body: Center(
           child: ContainerShadows(
+
             padding: EdgeInsets.only(
-                top: 35,right: 20,left: 20,bottom: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+                top: 35,right: 0,left: 0,bottom: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
 
             margin: EdgeInsets.only(
-                left: 30,
-                right: 30,
-                top: 30,bottom: 20
+                left: 25,
+                right: 25,
+                top: 45,bottom: 45
             ),
             width: double.infinity,
             //height: 500,

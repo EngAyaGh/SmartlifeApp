@@ -434,7 +434,9 @@ class _editclientState extends State<editclient> {
                               onPressed: () {
 
                                 Navigator.push(context,MaterialPageRoute(
-                                    builder: (context)=>transferClient(),fullscreenDialog: true
+                                    builder: (context)=>transferClient(
+                                   name_enterprise:  widget.itemClient.nameEnterprise.toString(),
+                                     idclient:   widget.itemClient.idClients.toString()),fullscreenDialog: true
                                 ));
                               },
                               child: Text('تحويل العميل'),

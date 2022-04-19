@@ -191,7 +191,8 @@ return  Drawer(
                  onTap: () async {
                    SharedPreferences preferences =
                        await SharedPreferences.getInstance();
-                   preferences.setBool(kKeepMeLoggedIn, false);
+                   preferences.clear();
+                  // preferences.setBool(kKeepMeLoggedIn, false);
                  },
                )
       ],
