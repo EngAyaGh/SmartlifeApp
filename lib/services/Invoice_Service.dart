@@ -73,11 +73,13 @@ class Invoice_Service {
     return prodlist;
   }
   Future<String> addInvoice( Map<String,dynamic?> body) async {
-    print("$body");
+    print("add invoice in services");
+
     try{
       String result = await Api()
           .post( url:url+"client/invoice/addinvoice.php",
           body: body);
+      print("add invoice in services");
       print(result);
       return result !="error"? result:"false";
     }

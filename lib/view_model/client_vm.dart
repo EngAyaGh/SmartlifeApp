@@ -32,6 +32,21 @@ class client_vm extends ChangeNotifier {
     usercurrent=user;
     notifyListeners();
   }
+  Future<List<ClientModel>> searchProducts(
+      String productName
+  ,List<ClientModel> list) async {
+   List<ClientModel> clientlistsearch=[];
+    // code to convert the first character to uppercase
+    String searchKey = productName[0].toUpperCase() +
+        productName.substring(1);
+    print('search');
+    print(searchKey);
+    list.forEach((element) {
+      if(element.nameEnterprise!.contains(searchKey,0))
+      clientlistsearch.add(element);
+    });
+    return clientlistsearch;
+  }
   Future<void> getclient_Local(String searchfilter
      // , List<ClientModel> list
       )
@@ -118,7 +133,8 @@ else{
         'name_regoin':regoin
       });
 
-      listClientbyCurrentUser.insert(0, ClientModel.fromJson(body));
+      //listClientbyCurrentUser.insert(0, ClientModel.fromJson(body));
+      listClient.insert(0, ClientModel.fromJson(body));
       notifyListeners();
     }
     return res;
@@ -138,7 +154,7 @@ else{
         'nameCountry':listClientbyCurrentUser[index].nameCountry,
         'date_price':listClientbyCurrentUser[index].date_price,
       });
-      listClientbyCurrentUser[index]=ClientModel.fromJson(body);
+      listClient[index]=ClientModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
     }

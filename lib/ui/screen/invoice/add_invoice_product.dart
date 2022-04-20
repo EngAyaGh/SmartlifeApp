@@ -88,6 +88,7 @@ void calculate(){
         print( _textprice.text);
         double totalprice=double.parse(_textprice.text)
             *double.parse( _amount.text.isEmpty?'1':_amount.text);
+        //totalprice.floorToDouble();
         _textprice.text=totalprice.toString();
       }
 

@@ -179,11 +179,11 @@ class _EditUserState extends State<EditUser> {
             width: double.infinity,
             padding:
             EdgeInsets.only(
-                top: 30,right: 10,left: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+                top: 50,right: 20,left: 20,bottom: 50), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
             margin: EdgeInsets.only(
                 left: 20,
                 right: 20,
-                top: 50,bottom: 10
+                top: 70,bottom: 10
             ),
               child: Directionality(
                 textDirection: TextDirection.rtl,

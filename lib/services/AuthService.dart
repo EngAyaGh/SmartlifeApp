@@ -25,10 +25,11 @@ class  AuthServices{
     String? result;
     try{
       result= await Api()
-        .post( url:url+"Auth/check_otp.php",body: {
+        .post( url:url+"Auth/check_otp.php",
+          body: {
       'email':email,
       'otp':otp,
-       'token':await FirebaseMessaging.instance.getToken(),
+      'token':await FirebaseMessaging.instance.getToken(),
     } );
     return result!="code is wrong"? result:"false";
 

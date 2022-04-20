@@ -53,7 +53,7 @@ class _notify_pageviewState extends State<notify_pageview> {
             Consumer<notifyvm> (
                 builder: (context,value,child) {
                   return value.listnotify.length==0?
-                  CircularProgressIndicator()
+                       Text('')// CircularProgressIndicator()
                       :ListView.builder(
                       scrollDirection: Axis.vertical,
                       itemCount: value.listnotify.length,

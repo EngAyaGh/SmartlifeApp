@@ -2,6 +2,7 @@ import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/approvemodel.dart';
 import 'package:crm_smart/model/notificationModel.dart';
 import 'package:crm_smart/model/usermodel.dart';
+import 'package:crm_smart/view_model/approve_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -13,6 +14,8 @@ class cardapprove1 extends StatelessWidget {
   cardapprove1({Key? key, required this.itemapprove}) : super(key: key);
   late ApproveModel itemapprove;
   late UserModel current ;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     current = Provider.of<user_vm_provider>(context).currentUser!;
@@ -84,6 +87,7 @@ class cardapprove1 extends StatelessWidget {
                               // update client to approved client
                               Provider.of<client_vm>(context, listen: false)
                                   .setApproveclient_vm({
+                                'idApproveClient':itemapprove.idApproveClient,
                                 "fkuser":itemapprove.fkUser,//صاحب العميل
                                 "fk_regoin":itemapprove.fk_regoin,
                                 "fkcountry":itemapprove.fk_country,
@@ -104,9 +108,11 @@ class cardapprove1 extends StatelessWidget {
                                 backgroundColor: MaterialStateProperty.all(
                                     Colors.redAccent)),
                             onPressed: () {
+                              
                               //send notification
                               Provider.of<client_vm>(context, listen: false)
                                   .setApproveclient_vm({
+                                'idApproveClient':itemapprove.idApproveClient,
                                 "fkuser":itemapprove.fkUser,
                                 "fk_regoin":itemapprove.fk_regoin,
                                 "fkcountry":itemapprove.fk_country,
@@ -116,7 +122,15 @@ class cardapprove1 extends StatelessWidget {
                                 //"message":"",//
                                 "nameuserApproved":current.nameUser,
                                 "iduser_approve": current.idUser//معتمد الاشتراك
-                              }, itemapprove.fkClient);
+                              }, itemapprove.fkClient)
+                                  .then((value) =>
+                                    value!=false?
+                                  Provider.of<approve_vm>(context,listen: false)
+                                  .removeApproveClient(itemapprove.idApproveClient)
+                                        :   _scaffoldKey.currentState!.showSnackBar(
+                                        SnackBar(content: Text('هناك مشكلة ما'))
+                                    )
+                              );
                             },
                             child: Text('Refuse')),
                       ],

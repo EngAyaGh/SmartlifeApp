@@ -15,7 +15,7 @@ class NotificationModel {
   late final String fromUser;
   late final String toUser;
   late final String typeNotify;
-  late final String isread;
+  late  final String isread;
   late final String tonameuser;
   String? fromNameuser;
   late final String data;

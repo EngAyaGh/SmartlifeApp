@@ -1,5 +1,6 @@
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/routes/routes.dart';
+import 'package:crm_smart/ui/screen/login.dart';
 import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/screen/selectCountryScreen.dart';
 import 'package:crm_smart/ui/screen/user/alluser.dart';
@@ -192,7 +193,11 @@ return  Drawer(
                    SharedPreferences preferences =
                        await SharedPreferences.getInstance();
                    preferences.clear();
-                  // preferences.setBool(kKeepMeLoggedIn, false);
+                   Navigator.push(context,
+                       MaterialPageRoute(builder: (context) =>
+                           login()));
+
+                   // preferences.setBool(kKeepMeLoggedIn, false);
                  },
                )
       ],

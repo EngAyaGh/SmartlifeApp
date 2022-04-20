@@ -14,6 +14,14 @@ class approve_vm extends ChangeNotifier {
     usercurrent=user;
     notifyListeners();
   }
+  void removeApproveClient(String idApproveClient){
+    int index=listapprove.indexWhere(
+            (element) => element.idApproveClient==idApproveClient);
+
+    listapprove.removeAt(index);
+    notifyListeners();
+
+  }
   Future<void> getApprovebyregoin() async {
     List<dynamic> data =[];
     data=await Api()

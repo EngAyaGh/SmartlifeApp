@@ -38,11 +38,11 @@ class addClient extends StatelessWidget {
   final TextEditingController locationController = TextEditingController();
   final TextEditingController regoinController = TextEditingController();
   //final controllerUsers = Get.find<AllUserVMController>();
-late final UserModel _user;
+//late final UserModel _user;
   @override
   Widget build(BuildContext context) {
      //final controllerUsers = Get.find<AllUserVMController>();
-    _user=Provider.of<user_vm_provider>(context,listen: true).currentUser!;
+    //_user=Provider.of<user_vm_provider>(context,listen: true).currentUser!;
     // controllerUsers.getcurrentUser();
 
     return Scaffold(
@@ -205,8 +205,12 @@ late final UserModel _user;
 
                             if (_globalKey.currentState!.validate()) {
                               _globalKey.currentState!.save();
+
                               Provider.of<LoadProvider>(context, listen: false)
                                   .changebooladdclient(true);
+                              UserModel _user=
+                                  Provider.of<user_vm_provider>
+                                    (context,listen: false).currentUser!;
                               Provider.of<client_vm>(context,listen: false)
                                   .addclient_vm( {
                                   'name_client': nameclientController.text,

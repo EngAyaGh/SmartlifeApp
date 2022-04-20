@@ -52,29 +52,44 @@ class notifyvm extends ChangeNotifier {
   }
   Future<String> setRead_notify_vm() async {
     print('in setRead_notify_vm ');
+    String res="";
     bool b=false;
     listnotify.forEach((element) {
       if(element.isread=="0"){
         print("element foreach");
         print(element.isread);
+        //element.isread = "1";
         b=true;//set read
          }
     });
-    String res="";
     if(b){
       print('inside if setRead_notify_vm ');
-
       res = await Api().post(
         body: {
-
     },url: url+'notification/set_read_notify.php?to_user=${usercurrent!.idUser}');
     if (res=="done") {
-      listnotify.forEach((element) {
-        if (element.isread == "0")
-          element.isread = "1"; //set read
-      });
+      Map<String,dynamic> body={
+        '':''
+      };
+      for(int i=0; i<listnotify.length;i++){
+        if(listnotify[i].isread=="0"){
+        body= {
+          'id_notify': listnotify[i].idNotify.toString(),
+          'message' : listnotify[i].message,
+          'from_user':listnotify[i].fromUser,
+          'to_user' :listnotify[i].toUser,
+          'type_notify': listnotify[i].typeNotify,
+          'isread' : "1",
+          'tonameuser' : listnotify[i].tonameuser,
+          'fromNameuser' : listnotify[i].fromNameuser,
+          'data': listnotify[i].data,
+        };
+        listnotify[i]=NotificationModel.fromJson(body);
+      }
+      }
       clearcounter();
 
+    }
     }
       // body.addAll({
       //   'isApprove':listClientbyCurrentUser[index].isApprove,
@@ -83,8 +98,9 @@ class notifyvm extends ChangeNotifier {
      // listClientbyCurrentUser[index]=ClientModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
-    }
+
     return res;
+
   }
   Future<String> addNotification( Map<String,dynamic?> body) async {
 

@@ -11,6 +11,7 @@ import 'package:crm_smart/routes/routes.dart';
 import 'package:crm_smart/ui/screen/client/clients.dart';
 import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/screen/home/home.dart';
+import 'package:crm_smart/ui/screen/home/test_home.dart';
 import 'package:crm_smart/ui/screen/login.dart';
 import 'package:crm_smart/ui/screen/mainpage.dart';
 import 'package:crm_smart/ui/screen/product/addproduct.dart';
@@ -23,6 +24,7 @@ import 'package:crm_smart/ui/widgets/combox_widget/levelcombox.dart';
 import 'package:crm_smart/view_model/approve_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
+import 'package:crm_smart/view_model/event_provider.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
 import 'package:crm_smart/view_model/notify_vm.dart';
@@ -68,23 +70,11 @@ void main() async {
   // Set the background messaging handler early on, as a named top-level function
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform
-  //   FirebaseOptions(
-  //     apiKey: 'AIzaSyDPc1bZGUTKYilLcLMJbxd8I4RInrPo8AQ',
-  //     appId: '1:102540138446:android:bc175820eaf396efe5fd9f',
-  //     messagingSenderId: '102540138446',
-  //     projectId: 'crmapp-8f9de',
-  //     //databaseURL: 'https://react-native-firebase-testing.firebaseio.com',
-  //     storageBucket: 'crmapp-8f9de.appspot.com',
-  // )
-  //);
+
   print('in main ');
  //   print(await FirebaseMessaging.instance.getToken(
  //     //vapidKey: "BLHC6fhpHX_VBbufktusXDMRhLtLI764Ic_ZcCc9Lh2puYzPEvwOpvxDfBmHKtRQu38OU_hUoalT42PxzHc8JPg")
  // ));
- FirebaseMessaging.onBackgroundMessage(
-     _firebaseMessagingBackgroundHandler);
 
  // FCM().getmessge();
   //Provider.debugCheckInvalidValueType = null;
@@ -143,6 +133,8 @@ void main() async {
         ),
         //ChangeNotifierProvider<invoice_vm>(create: (_) => invoice_vm()),
         ChangeNotifierProvider<typeclient>(create: (_)=> typeclient()),
+        ChangeNotifierProvider<EventProvider>(
+            create: (_)=> EventProvider()),
 
   ], child:MyApp()));
 }

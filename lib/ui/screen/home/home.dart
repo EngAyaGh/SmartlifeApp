@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
         .getcurrentuser();
     //check level user
     Provider.of<client_vm>(context, listen: false)
-        .getclientByRegoin([]);
+        .getclientByRegoin([]);//list empty that mean
     //level user all client in country
     // Provider.of<client_vm>(context, listen: false)
     //     . getclient_vm();

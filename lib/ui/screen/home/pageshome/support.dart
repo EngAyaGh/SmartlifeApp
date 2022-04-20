@@ -1,3 +1,6 @@
+import 'package:crm_smart/ui/screen/calendar/calendar.dart';
+import 'package:crm_smart/ui/screen/calendar/event_view_page.dart';
+import 'package:crm_smart/ui/widgets/widget%20calendar/task_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,10 +29,23 @@ class supportpage extends StatelessWidget {
         child:
         Column(children: [
           buildSelectCategory(onTap: () {
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context)=>
+                    Calendar()));
+          }, title: 'جدول مواعيدي'),
+          // buildSelectCategory(onTap: () {
+          //   Navigator.push(context, MaterialPageRoute(
+          //       builder: (context)=>
+          //           TaskWidget()));
+          //
+          // }, title: 'Task'),
 
+          buildSelectCategory(onTap: () {
+            //
+            // Navigator.push(context, MaterialPageRoute(
+            //     builder: (context)=>
+            //         TaskWidget()));
           }, title: ''),
-          buildSelectCategory(onTap: () {  }, title: ''),
-
         ],),
 
       ),
