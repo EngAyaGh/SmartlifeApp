@@ -1,7 +1,10 @@
 
 import 'package:crm_smart/model/clientmodel.dart';
+import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/usermodel.dart';
+import 'package:crm_smart/ui/screen/user/userview.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardClient.dart';
+import 'package:crm_smart/ui/widgets/client_widget/cardclientAccept.dart';
 import 'package:crm_smart/ui/widgets/user_widget/carduserbuild.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,13 +31,13 @@ class productSearchView extends StatelessWidget {
   );
  if(val is UserModel)
    return buildCardUsers(
-     email: val.email.toString(),
-     image: '',
-     name: val.nameUser.toString(),
-     onTap: (){},
-     typeAdministration: val.typeAdministration.toString(),
+   usermodell: val,
    );
-
+ if(val is InvoiceModel)
+   return cardClientAccept(
+     iteminvoice: val,
+   );
+return Text('');
 
  }
   @override
@@ -53,9 +56,9 @@ class productSearchView extends StatelessWidget {
         FutureBuilder(
           //initialData: Provider.of<ProductProvider>(context).products,
           future: Provider.of<client_vm>(context)
-              .searchProducts(pattern,[]),
+              .searchProducts(pattern,list),
           builder: (BuildContext context,
-              AsyncSnapshot<List<ClientModel>> _listProductFilter)  {
+              AsyncSnapshot<List<dynamic>> _listProductFilter)  {
             if (_listProductFilter.hasData == true) {
               //print("${pattern}");
               return  Container(

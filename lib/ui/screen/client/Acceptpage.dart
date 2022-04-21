@@ -65,7 +65,7 @@ class _ApprovePageState extends State<AcceptPage> {
                                 padding: const EdgeInsets.all(2),
                                 child: cardClientAccept(
                                   iteminvoice :
-                                  value.listInvoicesAccept[index], iduser: '1',
+                                  value.listInvoicesAccept[index],
                                 ),
                               ));
                         });

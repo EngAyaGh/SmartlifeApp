@@ -32,10 +32,10 @@ class client_vm extends ChangeNotifier {
     usercurrent=user;
     notifyListeners();
   }
-  Future<List<ClientModel>> searchProducts(
+  Future<List<dynamic>> searchProducts(
       String productName
-  ,List<ClientModel> list) async {
-   List<ClientModel> clientlistsearch=[];
+  ,List<dynamic> list) async {
+   List<dynamic> clientlistsearch=[];
     // code to convert the first character to uppercase
     String searchKey = productName[0].toUpperCase() +
         productName.substring(1);

@@ -19,11 +19,11 @@ import 'package:get/get.dart';
 class cardClientAccept extends StatelessWidget {
   cardClientAccept(
       { Key? key,
-        required this.iduser,
+       // required this.iduser,
         required this.iteminvoice}) : super(key: key);
   //ClientModel itemClient;
   InvoiceModel iteminvoice;
-  String iduser;
+  //String iduser;
 
   @override
   Widget build(BuildContext context) {

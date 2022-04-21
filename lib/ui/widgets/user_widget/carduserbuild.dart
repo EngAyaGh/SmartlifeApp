@@ -1,18 +1,30 @@
+
+import 'package:crm_smart/model/usermodel.dart';
+import 'package:crm_smart/ui/screen/user/userview.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget buildCardUsers({
-  required String name,
-  required String email,
-  required String typeAdministration,
-  required String image,
-  required Function() onTap,
-}) {
+import '../../../constants.dart';
+class buildCardUsers extends StatelessWidget {
+   buildCardUsers ({required this.usermodell,Key? key}) : super(key: key);
+UserModel usermodell;
+  @override
+  Widget build(BuildContext context) {
+
   return Padding(
     padding: const EdgeInsets.all(20),
     child: InkWell(
-      onTap: onTap,
+      onTap:(){
+        Navigator.push(context,
+          MaterialPageRoute(
+              builder:
+                  (context)=>
+                  UserScreen(
+                      userModel: usermodell
+                    //index: index,
+                  )));
+      },
       child: Container(
 
         decoration: BoxDecoration(
@@ -84,7 +96,7 @@ Widget buildCardUsers({
                       color: Colors.white,
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
-                      textstring: typeAdministration,
+                      textstring: usermodell.typeAdministration.toString(),
                       underline: TextDecoration.none,
                     ),
                   ),
@@ -101,7 +113,7 @@ Widget buildCardUsers({
                     color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    textstring: name,
+                    textstring: usermodell.nameUser.toString(),
                     underline: TextDecoration.none,
                   ),
                 ),

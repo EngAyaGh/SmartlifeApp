@@ -62,25 +62,27 @@ class _CardUsersState extends State<CardUsers> {
                   return Consumer<user_vm_provider>(
                     builder: (context, cart, child) {
                       return buildCardUsers(
-                          email: controllerUsers.userall![index].email.toString(),
-                          name: controllerUsers.userall![index].nameUser.toString(),
-                          typeAdministration: controllerUsers
-                              .userall![index].typeAdministration
-                              .toString(),
-                          image:
-                          'image   ...controllerUsers.usersList[index].toString()',
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(
-                                    builder:
-                                        (context)=>
-                                        UserScreen(
-                                       userModel: controllerUsers
-                                                .userall![index]
-                                          //index: index,
-                                        )));
-
-                          });
+                          controllerUsers.userall![index],
+                          // email: controllerUsers.userall![index].email.toString(),
+                          // name: controllerUsers.userall![index].nameUser.toString(),
+                          // typeAdministration: controllerUsers
+                          //     .userall![index].typeAdministration
+                          //     .toString(),
+                          // image:
+                          // 'image   ...controllerUsers.usersList[index].toString()',
+                          // onTap: () {
+                          //   Navigator.push(context,
+                          //       MaterialPageRoute(
+                          //           builder:
+                          //               (context)=>
+                          //               UserScreen(
+                          //              userModel: controllerUsers
+                          //                       .userall![index]
+                          //                 //index: index,
+                          //               )));
+                          //
+                          // }
+                          );
                     }
 
                   );
