@@ -10,13 +10,39 @@ import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:crm_smart/function_global.dart';
 class productSearchView extends StatelessWidget {
 
   String pattern;
   List<dynamic> list;
   productSearchView(this.pattern,this.list, {Key? key}) : super(key: key);
+  Future<List<dynamic>> searchProducts(
+      String productName
+      ,List<dynamic> list) async {
+    List<dynamic> clientlistsearch=[];
+    // code to convert the first character to uppercase
+    String searchKey = productName[0].toUpperCase() +
+        productName.substring(1);
+    print('search');
+    print(searchKey);
+    if(list is List<ClientModel> )
+      list.forEach((element) {
+        if(element.nameEnterprise!.contains(searchKey,0))
+          clientlistsearch.add(element);
+      });
+    if(list is List<UserModel>)
+      list.forEach((element) {
+        if(element.nameUser!.contains(searchKey,0))
+          clientlistsearch.add(element);
+      });
+    if(list is List<InvoiceModel>)
+      list.forEach((element) {
+        if(element.name_enterprise!.contains(searchKey,0))
+          clientlistsearch.add(element);
+      });
 
+    return clientlistsearch;
+  }
   //String get pattern => null;
  Widget _widgetCard(dynamic val){
    //ClientModel
@@ -46,17 +72,12 @@ return Text('');
     return Scaffold(
 
         appBar: AppBar(
-          /*actions:<Widget> [
-          IconButton(
-              onPressed:()=> Navigator.of(context).pop(),
-              icon: Icon(Icons.arrow_back))
-        ],*/
+
         ),
         body:
         FutureBuilder(
           //initialData: Provider.of<ProductProvider>(context).products,
-          future: Provider.of<client_vm>(context)
-              .searchProducts(pattern,list),
+          future: searchProducts(pattern,list),
           builder: (BuildContext context,
               AsyncSnapshot<List<dynamic>> _listProductFilter)  {
             if (_listProductFilter.hasData == true) {

@@ -5,6 +5,10 @@ import 'package:crm_smart/ui/screen/home/approvepage.dart';
 import 'package:crm_smart/ui/screen/invoice/get_deleted_invoice.dart';
 import 'package:flutter/material.dart';
 
+import 'model/clientmodel.dart';
+import 'model/invoiceModel.dart';
+import 'model/usermodel.dart';
+
 String showtext(String typeNotify){
 
   switch (typeNotify){

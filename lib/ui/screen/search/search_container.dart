@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class search_widget extends StatelessWidget {
   search_widget(this.hint, this.list, {Key? key}) : super(key: key);
   String hint='';
-  List<dynamic> list;
+  List<dynamic>? list;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +31,7 @@ class search_widget extends StatelessWidget {
               onSubmitted: (pattern) async {
                 await Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => productSearchView(
-                        pattern, list))); //.search(productName: pattern);
+                        pattern, list!))); //.search(productName: pattern);
 //changeScreen(context, ProductSearchScreen());
               },
               decoration: InputDecoration(

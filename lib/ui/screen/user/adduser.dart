@@ -144,13 +144,7 @@ class _addUserState extends State<addUser> {
                   // ),
                   SizedBox(height: 15,),
                   RowEdit(name: label_level, des: 'Required'),
-                  //levelCombox(
-                  //   selected:  Provider.of<level_vm>(context,listen: false).selectedValueLevel,
-                  //   onChanged:  (value) {
-                  //     Provider.of<level_vm>(context,listen: false).changeVal(value.toString());
-                  //
-                  // },
-                  //),
+
                   Consumer<level_vm>(
                     builder: (context, cart, child){
                       return DropdownButton(

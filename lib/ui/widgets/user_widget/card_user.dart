@@ -62,7 +62,7 @@ class _CardUsersState extends State<CardUsers> {
                   return Consumer<user_vm_provider>(
                     builder: (context, cart, child) {
                       return buildCardUsers(
-                          controllerUsers.userall![index],
+                      usermodell:     controllerUsers.userall![index],
                           // email: controllerUsers.userall![index].email.toString(),
                           // name: controllerUsers.userall![index].nameUser.toString(),
                           // typeAdministration: controllerUsers

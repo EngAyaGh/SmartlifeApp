@@ -71,9 +71,9 @@ class _EditUserState extends State<EditUser> {
     // WidgetsBinding.instance?.addPostFrameCallback((_) {
     //
     // });
-    Provider.of<regoin_vm>(context,listen: false).getregoin();
-
-    Provider.of<level_vm>(context,listen: false).getlevel();
+    // Provider.of<regoin_vm>(context,listen: false).getregoin();
+    //
+    // Provider.of<level_vm>(context,listen: false).getlevel();
     namemanage =
     // controllerUsers[widget.index]
     widget.userModel.typeAdministration.toString();

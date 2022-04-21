@@ -132,7 +132,7 @@ class _tabclientsState extends State<tabclients> {
                 children: [
                   search_widget("المؤسسة....",
                       Provider.of<client_vm>(context, listen: true)
-                          .listClient,),
+                          .listClient!,),
                   SizedBox(
                     height: 5,
                   ),

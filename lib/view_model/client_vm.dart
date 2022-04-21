@@ -33,33 +33,7 @@ class client_vm extends ChangeNotifier {
     usercurrent=user;
     notifyListeners();
   }
-  Future<List<dynamic>> searchProducts(
-      String productName
-  ,List<dynamic> list) async {
-   List<dynamic> clientlistsearch=[];
-    // code to convert the first character to uppercase
-    String searchKey = productName[0].toUpperCase() +
-        productName.substring(1);
-    print('search');
-    print(searchKey);
-   if(list is List<ClientModel> )
-     list.forEach((element) {
-       if(element.nameEnterprise!.contains(searchKey,0))
-         clientlistsearch.add(element);
-     });
-   if(list is List<UserModel>)
-     list.forEach((element) {
-       if(element.nameUser!.contains(searchKey,0))
-         clientlistsearch.add(element);
-     });
-   if(list is List<InvoiceModel>)
-     list.forEach((element) {
-       if(element.name_enterprise!.contains(searchKey,0))
-         clientlistsearch.add(element);
-     });
 
-    return clientlistsearch;
-  }
   Future<void> getclient_Local(String searchfilter
      // , List<ClientModel> list
       )

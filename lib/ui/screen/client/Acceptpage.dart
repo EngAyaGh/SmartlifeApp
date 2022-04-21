@@ -1,5 +1,6 @@
 import 'package:crm_smart/constantsList.dart';
 import 'package:crm_smart/model/clientmodel.dart';
+import 'package:crm_smart/ui/screen/search/search_container.dart';
 import 'package:crm_smart/ui/widgets/cardapprove.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardapprove1.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardclientAccept.dart';
@@ -51,25 +52,35 @@ class _ApprovePageState extends State<AcceptPage> {
             padding: const EdgeInsets.only(top: 10,bottom: 10),
             child: Center(
               child:
-              Consumer<invoice_vm> (
-                  builder: (context,value,child) {
-                    return value.listInvoicesAccept.length==0?
-                    CircularProgressIndicator()
-                        :ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: value.listInvoicesAccept.length,
-                        itemBuilder: (context, index) {
+              ListView(
+                children: [
+                  search_widget("المؤسسة....",
+                    Provider.of<invoice_vm>(context, listen: true)
+                        .listInvoicesAccept!,),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Consumer<invoice_vm> (
+                      builder: (context,value,child) {
+                        return value.listInvoicesAccept.length==0?
+                        CircularProgressIndicator()
+                            :ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: value.listInvoicesAccept.length,
+                            itemBuilder: (context, index) {
 
-                          return SingleChildScrollView(
-                              child: Padding(
-                                padding: const EdgeInsets.all(2),
-                                child: cardClientAccept(
-                                  iteminvoice :
-                                  value.listInvoicesAccept[index],
-                                ),
-                              ));
-                        });
-                  } ),
+                              return SingleChildScrollView(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2),
+                                    child: cardClientAccept(
+                                      iteminvoice :
+                                      value.listInvoicesAccept[index],
+                                    ),
+                                  ));
+                            });
+                      } ),
+                ],
+              ),
             )  ),
       ),
     );
