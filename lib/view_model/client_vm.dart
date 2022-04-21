@@ -4,6 +4,7 @@
 
 import 'package:crm_smart/Repository/invoice_repo/cach_data_source.dart';
 import 'package:crm_smart/model/clientmodel.dart';
+import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/ProductService.dart';
 import 'package:crm_smart/services/clientService.dart';
@@ -41,10 +42,22 @@ class client_vm extends ChangeNotifier {
         productName.substring(1);
     print('search');
     print(searchKey);
-    list.forEach((element) {
-      if(element.nameEnterprise!.contains(searchKey,0))
-      clientlistsearch.add(element);
-    });
+   if(list is List<ClientModel> )
+     list.forEach((element) {
+       if(element.nameEnterprise!.contains(searchKey,0))
+         clientlistsearch.add(element);
+     });
+   if(list is List<UserModel>)
+     list.forEach((element) {
+       if(element.nameUser!.contains(searchKey,0))
+         clientlistsearch.add(element);
+     });
+   if(list is List<InvoiceModel>)
+     list.forEach((element) {
+       if(element.name_enterprise!.contains(searchKey,0))
+         clientlistsearch.add(element);
+     });
+
     return clientlistsearch;
   }
   Future<void> getclient_Local(String searchfilter
