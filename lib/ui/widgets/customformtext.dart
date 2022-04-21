@@ -5,27 +5,35 @@ import 'package:flutter/services.dart';
 import '../../constants.dart';
 
 class CustomFormField extends StatelessWidget {
-  CustomFormField({
-    this.onChanged,
-    this.hintText,
-    this.icon,
-    this.con,
-    this.vaild,
-    this.label,
-    this.inputType,
-    this.maxline,
-    required this.radius,
-  });
+  CustomFormField(
+      {this.onChanged,
+      this.hintText,
+      this.icon,
+      this.con,
+      this.vaild,
+      this.label,
+      this.inputType,
+      this.maxline,
+      required this.radius,
+      this.iconButton,
+      this.iconSuffix,
+      this.ontap,
+      this.readOnly});
 
   String? hintText;
   Function(String)? onChanged;
   String? Function(String?)? vaild;
   IconData? icon;
+
   TextEditingController? con;
   String? label;
   int? maxline;
   TextInputType? inputType;
   double radius;
+  IconButton? iconButton;
+  IconData? iconSuffix;
+  Function? ontap;
+  bool? readOnly;
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -41,15 +49,21 @@ class CustomFormField extends StatelessWidget {
         /*inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter.digitsOnly
         ],*/
-
+        readOnly: readOnly!,
         decoration: InputDecoration(
           hintTextDirection: TextDirection.rtl,
           alignLabelWithHint: true,
 
           labelText: label,
-          labelStyle: TextStyle(color: Colors.black38, fontSize: 20),
+          labelStyle: TextStyle(color: Colors.black, fontSize: 20),
           hintText: hintText,
-
+          suffixIcon: IconButton(
+            onPressed: () => ontap,
+            icon: Icon(
+              iconSuffix,
+              color: kMainColor,
+            ),
+          ),
           prefixIcon: Icon(
             icon,
             color: kMainColor,

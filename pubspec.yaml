@@ -40,6 +40,7 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.0
   flutter_riverpod: ^0.13.0
   group_button: ^4.8.0
+  focused_menu: ^1.0.5
   dependencies:
  
   
@@ -77,7 +78,8 @@ flutter:
     - assets/images/social-care.png
     - assets/images/digitalmarketing.png
     - assets/images/administrator.png
-    - assets/images/administrator.png
+    - assets/images/money.png
+    
 
     
  

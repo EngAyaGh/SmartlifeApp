@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ContainerShadows extends StatelessWidget {
-  double width;
-  double height;
+  double? width;
+  double? height;
   Widget child;
-  EdgeInsets margin;
+  EdgeInsets? margin;
 
   ContainerShadows(
-      {required this.width,
-      required this.height,
-      required this.child,
-      required this.margin,
-      Key? key})
+      {this.width, this.height, required this.child, this.margin, Key? key})
       : super(key: key);
 
   @override

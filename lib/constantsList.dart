@@ -79,5 +79,28 @@ List<String> imageList = [
   'assets/images/social-care.png',
   'assets/images/digitalmarketing.png',
   'assets/images/administrator.png',
-  'assets/images/administrator.png'
+  'assets/images/money.png'
+];
+
+List<dynamic> listSchedule = [
+  [
+    '09:00',
+    'بدور مجادمي',
+    'المدير',
+  ],
+  [
+    '10:00',
+    'أية غوري ',
+    'المدير',
+  ],
+  [
+    '11:00',
+    'نور مجادمي ',
+    'المدير ',
+  ],
+  [
+    '12:00',
+    'أيمن الخلف',
+    'المدير',
+  ],
 ];
