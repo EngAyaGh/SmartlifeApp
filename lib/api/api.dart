@@ -56,8 +56,9 @@ class Api {
 
     String result= response.body;
     int idx = result.indexOf("{");
+    int idxEnd = result.indexOf("}");
     int length=result.length;
-    result=result.substring(idx,length);
+    result=result.substring(idx,idxEnd+1);
     print(result);
     print(json.decode(result)["code"]);
     if (json.decode(result)["code"] == "200") {

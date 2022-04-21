@@ -21,12 +21,12 @@ class CardInvoiceClient extends StatefulWidget {
   CardInvoiceClient(
       {required this.itemClient,
       required this.itemProd,
-      required this.indexinvoice,
+      //required this.indexinvoice,
       Key? key})
       : super(key: key);
   InvoiceModel itemProd;
   ClientModel itemClient;
-  int indexinvoice;
+  // int indexinvoice;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -50,7 +50,7 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
   @override
   Widget build(BuildContext context) {
     print(
-        'build card client invoice  ${widget.itemProd.idInvoice} +currentuser is  ${_currentUser}');
+        'build card client invoice  ${widget.itemProd.idInvoice} +currentuser is  ${_currentUser.nameUser}');
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
@@ -160,10 +160,11 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                                     builder: (context) => addinvoice(
                                         //edit invoice
                                         itemClient: widget.itemClient,
-                                        iduser: widget.itemProd.fkIdUser,
-                                        idClient: widget.itemProd.fkIdClient,
+                                        // iduser: widget.itemProd.fkIdUser,
+                                        // idClient: widget.itemProd.fkIdClient,
                                         invoice: widget.itemProd,
-                                        indexinvoice: widget.indexinvoice)));
+                                        // indexinvoice: widget.indexinvoice)
+                                )));
                           },
                           //onPressed: BOOKMARK,
                         ),

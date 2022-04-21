@@ -108,6 +108,13 @@ class Invoice_Service {
     );
     return result=="done"? true:false;
   }
+  Future<bool> updateProductInvoice( Map<String,dynamic> body,String idInvoiceProduct) async {
+    String result = await Api()
+        .post( url:url+"client/invoice/updateinvoice_product.php",body:
+    body
+    );
+    return result=="done"? true:false;
+  }
   Future<String> deleteInvoiceById(Map<String,String> body) async {
     try{
 

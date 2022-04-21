@@ -54,8 +54,9 @@ class _EditUserState extends State<EditUser> {
     Future.delayed(Duration(milliseconds: 30)).then((_) async {
       // controllerUsers= Provider.of<user_vm_provider>
       //   (context,listen: false).userall!;
-      // Provider.of<level_vm>(context,listen: false).getlevel();
-      // Provider.of<regoin_vm>(context,listen: false).getregoin();
+       Provider.of<level_vm>(context,listen: false).getlevel();
+
+       Provider.of<regoin_vm>(context,listen: false).getregoin();
     }
     );
 

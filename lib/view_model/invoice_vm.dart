@@ -17,6 +17,11 @@ const CACHE_Invoice_Deleted_KEY = "CACHE_Invoice_Deleted_KEY";
 const CACHE_Invoice_Deleted_INTERVAL = 60 * 1000; // 30s in millis
 
 class invoice_vm extends ChangeNotifier{
+  String total='0';
+  void set_total(val){
+    total=val;
+    notifyListeners();
+  }
   UserModel? usercurrent;
   invoice_vm() {
     //get_invoicesbyRegoin("");
@@ -38,13 +43,13 @@ class invoice_vm extends ChangeNotifier{
       // , List<ClientModel> list
       )
   async {
+    listInvoicesAccept=[];
+    listinvoices.forEach((element) {
+      if( element.type_client==searchfilter)
+        listInvoicesAccept.add(element);
+    });
 
-    // listinvoices.forEach((element) {
-    //   if( element.type_client==searchfilter)
-    //     listInvoicesAccept.add(element);
-    // });
-
-    listInvoicesAccept=listinvoices;
+    //listInvoicesAccept=listinvoices;
 
     notifyListeners();
   }
@@ -62,11 +67,11 @@ class invoice_vm extends ChangeNotifier{
     notifyListeners();
   }
   void addlistinvoicedeleted(value){
-    listdeleted.add(value);
+    listdeletedinvoice.add(value);
     notifyListeners();
   }
   void removeinvoicedeleted(index){
-    listdeleted.removeAt(index);
+    listdeletedinvoice.removeAt(index);
     notifyListeners();
   }
   // fk_idUser
@@ -91,7 +96,7 @@ class invoice_vm extends ChangeNotifier{
     notifyListeners();
   }
   Future<void> get_invoicesbyIduser(List<InvoiceModel> list) async {
-    //listinvoicebyregoin=[];
+    listinvoicebyregoin=[];
     //cahe_data_source_invoice().clearCache();
     if(list.isNotEmpty){
       list.forEach((element) {
@@ -108,7 +113,7 @@ class invoice_vm extends ChangeNotifier{
     notifyListeners();
   }
   Future<void> get_invoicesbyRegoin(List<InvoiceModel> list) async {
-    //listinvoicebyregoin=[];
+    listinvoicebyregoin=[];
     //cahe_data_source_invoice().clearCache();
    if(list.isNotEmpty){
      list.forEach((element) {
@@ -181,6 +186,14 @@ class invoice_vm extends ChangeNotifier{
     }
     return res;
   }
+  Future<bool> update_invoiceProduct_vm(Map<String, dynamic?>? body,String idInvoiceProduct) async {
+    print('$body');
+    bool res = await Invoice_Service().updateProductInvoice(body!,idInvoiceProduct);
+      //listproductinvoic.insert(0, ProductsInvoice.fromJson(body));
+      notifyListeners();
+
+    return res;
+  }
 
   Future<bool> update_invoiceclient_vm(Map<String, dynamic?> body,String? idInvoice) async {
     bool res = await Invoice_Service().updateInvoice(body,idInvoice!);
@@ -188,6 +201,7 @@ class invoice_vm extends ChangeNotifier{
       final index=listinvoiceClient.indexWhere((element) => element.idInvoice==idInvoice);
       body.addAll({
         "id_invoice":idInvoice,
+        "date_create":listinvoiceClient[index].dateCreate,
         "products":listproductinvoic.map((e)=>e.toJson()).toList()
       });
 
@@ -231,9 +245,10 @@ class invoice_vm extends ChangeNotifier{
     }
     return res;
   }
-  Future<void> get_invoice_deleted(String? fk_regoin) async {
+  Future<void> get_invoice_deleted() async {
     if(listdeletedinvoice.isEmpty)
-    listdeletedinvoice = await Invoice_Service().getinvoice_deleted(fk_regoin!);
+    listdeletedinvoice = await Invoice_Service().getinvoice_deleted(
+        usercurrent!.fkRegoin.toString());
     notifyListeners();
   }
   void disposValue(index){

@@ -13,6 +13,8 @@ class selected_button_provider extends ChangeNotifier{
   }
   int isSelectedtypepay= 0;
   void selectValuetypepay(val){
+    print('in provider typepay');
+    print(int.parse('1'));
     isSelectedtypepay=val;
     notifyListeners();
   }

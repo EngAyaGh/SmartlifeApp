@@ -20,10 +20,11 @@ import '../../../constants.dart';
 class add_invoiceProduct extends StatefulWidget {
   add_invoiceProduct(
       {
-        required this.invoice,required this.indexinvoic,
+        required this.invoice,
+        // required this.indexinvoic,
     Key? key}) : super(key: key);
   InvoiceModel? invoice;
-  int indexinvoic;
+  // int indexinvoic;
   @override
   _add_invoiceProductState createState() => _add_invoiceProductState();
 }
@@ -42,6 +43,7 @@ class _add_invoiceProductState extends State<add_invoiceProduct> {
   TextEditingController _amount= TextEditingController();
   late String _amount_value;
   late int index=0;
+  String? taxCountry=null;
   @override
   void initState() {
 
@@ -53,7 +55,7 @@ class _add_invoiceProductState extends State<add_invoiceProduct> {
         Provider.of<user_vm_provider>(context, listen: false).currentUser!.fkCountry;
         Provider.of<product_vm>(context, listen: false)
         .getproduct_vm(id_country!);
-
+    // taxCountry=listProduct[index].value_config;
     //.then((value) => _isLoading=false);
     super.initState();
   }
@@ -104,16 +106,8 @@ void calculate(){
 
     return Scaffold(
       appBar: AppBar(
-        // leading: IconButton(
-        //   icon: Icon(Icons.arrow_back, color: kWhiteColor),
-        //   onPressed: () {
-        //                Navigator.of(context).pop();
-        //   },
-        // ),
+
          actions: [
-        //   IconButton(onPressed: (){
-        //     Navigator.pop(context);
-        //   }, icon:Icon( Icons.arrow_back,color: kWhiteColor)),
 
           IconButton(
               onPressed: (){
@@ -124,18 +118,17 @@ void calculate(){
             for(int i=0; i<pinv.length;i++){
               _total=_total+double.parse(pinv[i].price.toString());
             }
-            Provider.of<invoice_vm>(context,listen: false)
-                .listinvoiceClient[widget.indexinvoic].total=_total.toString();
+            widget.invoice!
+                .total=_total.toString();
+            print('_total.toString();');
             print(_total.toString());
-               print( Provider.of<invoice_vm>(context,listen: false)
-               .listinvoiceClient[widget.indexinvoic].total);
-
+            Provider.of<invoice_vm>(context,listen: false).set_total(_total.toString());
+            print(  widget.invoice!
+                .total);
             widget.invoice!.products=pinv;
-            Provider.of<invoice_vm>(context,listen: false)
-                .listinvoiceClient[widget.indexinvoic].products=pinv;
 
-            Provider.of<invoice_vm>(context,listen: false)
-                .updatelistproducetInvoice();//to refresh total in list invoice
+           // Provider.of<invoice_vm>(context,listen: false)
+             //   .updatelistproducetInvoice();//to refresh total in list invoice
 
             Navigator.pop(context);
 
@@ -281,7 +274,7 @@ void calculate(){
                                 children: [
                                   RowEdit(name: 'السعر', des: ''),
                                   EditTextFormField(
-                                      ontap: calculate,
+                                      //ontap: calculate,
                                       //read: false,
                                       controller: _textprice,
                                       label: 'السعر',
@@ -328,6 +321,7 @@ void calculate(){
                                       nameProduct: pm.nameProduct,
                                       type: listProduct[index].type,
                                       idProduct: listProduct[index].idProduct,
+                                      //value: listProduct[index].idProduct,
                                       idInvoiceProduct: "null",
                                       priceProduct: listProduct[index].priceProduct,
                                       taxtotal: listProduct[index].value_config==null?"null":listProduct[index].value_config
@@ -355,6 +349,7 @@ void calculate(){
                                     return CardProduct_invoice(
                                       itemProd: data.listproductinvoic[index],
                                       index: index,
+                                      //value_config:  listProduct[index].value_config,
                                       iduser: widget.invoice!.fkIdUser,
                                       idclient:widget.invoice!.fkIdClient ,
                                     );

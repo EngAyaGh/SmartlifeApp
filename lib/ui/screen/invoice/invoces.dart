@@ -57,10 +57,10 @@ class _invoicesState extends State<invoices> {
                      addinvoice(
                          //add new invoice
                          itemClient:widget.itemClient,
-                         iduser: widget.fkuser,
-                         idClient: widget.fkclient,
-                         indexinvoice: listinvoice.length>0?
-                         listinvoice.length-1:0
+                         // iduser: widget.fkuser,
+                         // idClient: widget.fkclient,
+                         // indexinvoice: listinvoice.length>0?
+                         // listinvoice.length-1:0
                      )
            ), (Route<dynamic> route) => true);
            // Navigator.push(
@@ -83,8 +83,8 @@ class _invoicesState extends State<invoices> {
          leading: IconButton(
            icon: Icon(Icons.arrow_back, color: kWhiteColor),
            onPressed: (){
-             Provider.of<invoice_vm>(context,listen: false)
-            .disposValue(-1);
+            //  Provider.of<invoice_vm>(context,listen: false)
+            // .disposValue(-1);
              Navigator.of(context).pop();
              },
          ),
@@ -115,7 +115,8 @@ class _invoicesState extends State<invoices> {
                          itemProd: listinvoice[index],
                            itemClient :  widget.itemClient,
                          //scaffoldKey: _scaffoldKey,
-                         indexinvoice: index,)) ,
+                         //indexinvoice: index,
+                         )) ,
              //     _listProd.map(
              //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
              // ).toList(),

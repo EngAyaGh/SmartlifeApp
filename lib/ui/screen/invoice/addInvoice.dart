@@ -23,14 +23,14 @@ class addinvoice extends StatefulWidget {
    addinvoice({
      required this.itemClient,
      this.invoice,
-     required this.iduser,
-     required this.idClient,
-     required this.indexinvoice,
+     // required this.iduser,
+     // required this.idClient,
+     // required this.indexinvoice,
      Key? key}) : super(key: key);
    ClientModel itemClient;
-   String? idClient,iduser;
+   // String? idClient,iduser;
    InvoiceModel? invoice;
-  late int indexinvoice;
+  // late int indexinvoice;
   @override
   _addinvoiceState createState() => _addinvoiceState();
 }
@@ -46,59 +46,16 @@ class _addinvoiceState extends State<addinvoice> {
 
    final TextEditingController renewController = TextEditingController();
 
-   late  String? typepayController='0' ;
+   late  String typepayController='0' ;
 
-   late String? typeinstallController='0';
+   late String typeinstallController='0';
 
    final TextEditingController noteController = TextEditingController();
 
    final TextEditingController imageController = TextEditingController();
    InvoiceModel? _invoice;
 @override void dispose() {
-  print("length ${Provider.of<invoice_vm>(context,listen: false)
-      .listinvoiceClient.length}");
-  print("widget.indexinvoice  ${widget.indexinvoice}");
-
-  print("in on pop addinvoice screen "
-      +Provider.of<invoice_vm>(context,listen: false)
-          .listinvoiceClient[widget.indexinvoice].idInvoice.toString());
-
-  if(Provider.of<invoice_vm>(context,listen: false)
-      .listinvoiceClient[widget.indexinvoice].idInvoice == null
-  // ||
-  // int.tryParse(Provider.of<invoice_vm>(context,listen: false)
-  // .listinvoice[widget.indexinvoice].idInvoice.toString())!>0
-  ) {
-    //clear cach invoice with it's product's
-    Provider.of<invoice_vm>(context,listen: false)
-        .listproductinvoic=[];
-    Provider.of<invoice_vm>(context,listen: false)
-        .listinvoiceClient[widget.indexinvoice].products=[];
-    if(widget.indexinvoice==0)
-      Provider.of<invoice_vm>(context,listen: false)
-          .disposValue(-1);
-    else{
-      Provider.of<invoice_vm>(context,listen: false)
-          .disposValue(widget.indexinvoice);
-    }
-
-    widget.indexinvoice=
-    widget.indexinvoice-1<=0?
-    0:
-    widget.indexinvoice-1;
-
-  } else {
-    //
-    // Provider.of<invoice_vm>(context,listen: false)
-    //     .listproductinvoic=[];
-    //
-    // Provider.of<invoice_vm>(context,listen: false)
-    //     .listinvoiceClient[widget.indexinvoice]
-    //     .products=[];
-    // Provider.of<invoice_vm>(context,listen: false)
-    //     .listinvoiceClient.removeAt(widget.indexinvoice);
-    // widget.indexinvoice=0;
-  }
+  print('in dispos add invoice *****************');
     super.dispose();
   }
    @override
@@ -109,36 +66,27 @@ class _addinvoiceState extends State<addinvoice> {
 if(_invoice!=null){
   //in mode edit
   totalController=_invoice!.total.toString();
+  // Provider.of<invoice_vm>(context,listen: false).set_total(totalController.toString());
 
   amount_paidController.text=_invoice!.amountPaid.toString();
   renewController.text=_invoice!.renewYear.toString();
- // setState(() {
-    typepayController!=_invoice!.typePay;
-  //   Provider.of<selected_button_provider>(context,listen: false)
-  //       .selectValuetypepay(int.parse(typepayController!));
-  // print(typepayController);
 
-    typeinstallController!=_invoice!.typeInstallation;
-  // Provider.of<selected_button_provider>(context,listen: false)
-  //     .selectValuetypeinstall(int.parse(typeinstallController.toString()));
-  // print(typeinstallController);
-
-  // });
+    typepayController=_invoice!.typePay.toString();
+    print(typepayController.toString());
+    typeinstallController=_invoice!.typeInstallation.toString();
+  print(typeinstallController);
 
   noteController.text=_invoice!.notes.toString();
   imageController.text=_invoice!.imageRecord.toString();
-  Provider.of<invoice_vm>(context,listen: false)
-      .listinvoiceClient[widget.indexinvoice].products
-      =_invoice!.products;
 
   Provider.of<invoice_vm>(context,listen: false)
       .listproductinvoic= _invoice!.products!;
 }
 else{
   /// add invoice
-  Provider.of<invoice_vm>(context,listen: false)
-      .listinvoiceClient.add(
-      InvoiceModel(
+  // Provider.of<invoice_vm>(context,listen: false)
+  //     .listinvoiceClient.add(
+    _invoice=  InvoiceModel(
         products: [],
         renewYear: renewController.text,
         typePay: typepayController,
@@ -146,30 +94,22 @@ else{
         typeInstallation:typeinstallController,
         amountPaid:amount_paidController.text,
 
-        fkIdClient:widget.idClient,
-        fkIdUser:widget.iduser,
+        fkIdClient:widget.itemClient.idClients,
+        fkIdUser:widget.itemClient.fkUser,//صاحب العميل
 
         total:totalController,
         notes:noteController.text,
-      ));
-  int index;
-if( Provider.of<invoice_vm>(context,listen: false)
-    .listinvoiceClient.length>0) {
- index = Provider
-      .of<invoice_vm>(context, listen: false)
-      .listinvoiceClient
-      .length-1 ;
-}else index=0;
-  widget.indexinvoice=index;//invoice is new
-  Provider.of<invoice_vm>(context,listen: false)
-      .listinvoiceClient[widget.indexinvoice].products=[];
+      );
+  //);
+
   Provider.of<invoice_vm>(context,listen: false)
       .listproductinvoic= [];
 }
 
+     Provider.of<invoice_vm>(context,listen: false).set_total(totalController.toString());
 
      Provider.of<selected_button_provider>(context,listen: false)
-         .selectValuetypepay(int.parse(typepayController!));
+         .selectValuetypepay(int.parse(typepayController));
      print(typepayController);
 
      Provider.of<selected_button_provider>(context,listen: false)
@@ -266,14 +206,7 @@ if( Provider.of<invoice_vm>(context,listen: false)
                     child: Column(
                       //textDirection: TextDirection.rtl,
 
-                      //crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // EditTextFormField(
-                        //
-                        //   hintText: label_total,
-                        //   obscureText: false,
-                        //   controller: totalController,
-                        // ),
 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -290,10 +223,11 @@ if( Provider.of<invoice_vm>(context,listen: false)
                               color: Colors.black,
                               fontSize: 35,
                               fontWeight: FontWeight.normal,
-                              textstring:widget.indexinvoice>=0?
-                              Provider.of<invoice_vm>(context,listen: true)
-                                  .listinvoiceClient[widget.indexinvoice]
-                                  .total.toString():"0",//totalController,
+                              textstring:
+                              // widget.indexinvoice>=0?
+                               Provider.of<invoice_vm>(context,listen: true).total,
+                              //     .listinvoiceClient[widget.indexinvoice]
+                               //_invoice!.total.toString(),//totalController,
                               underline: TextDecoration.none,
                             ),
                             SizedBox(width: 10,),
@@ -318,9 +252,10 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                   builder: (context) =>
                                             add_invoiceProduct(
                                               invoice:
-                                              Provider.of<invoice_vm>(context,listen: false)
-                                                  .listinvoiceClient[widget.indexinvoice],
-                                              indexinvoic:  widget.indexinvoice,
+                                                _invoice
+                                              // Provider.of<invoice_vm>(context,listen: false)
+                                              //     .listinvoiceClient[widget.indexinvoice],
+                                              // indexinvoic:  widget.indexinvoice,
                                             ),
                                   ), (Route<dynamic> route) => true);
                                   // Navigator.push(context, MaterialPageRoute(
@@ -508,50 +443,26 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                     typeinstallController=
                                     Provider.of<selected_button_provider>(context,listen: false)
                                         .isSelectedtypeinstall.toString();
-                                    // if((_invoice!.products!=null&&_invoice!.products.isNotEmpty)
-                                    //     ||(
-                                    //print("widget.indexinvoice"+widget.indexinvoice.toString());
-                                    if(  Provider.of<invoice_vm>(context,listen: false)
-                                        .listinvoiceClient[widget.indexinvoice]
-                                        .products!=null
-                                        &&
-                                        Provider.of<invoice_vm>(context,listen: false)
-                                            .listinvoiceClient[widget.indexinvoice]
-                                            .products!.isNotEmpty)
+                                     if((_invoice!.products!=null)&&(_invoice!.products!.isNotEmpty))
+
 
                                     {
                                       Provider.of<LoadProvider>(context, listen: false)
                                           .changebooladdinvoice(true);
 
-                                      totalController= Provider.of<invoice_vm>(context,listen: false)
-                                          .listinvoiceClient[widget.indexinvoice]
-                                          .total.toString();
+                                      totalController=
+
+                                     _invoice!.total.toString();
 
                                       _globalKey.currentState!.save();
                                       List<ProductsInvoice>? _products=[];
                                       // _invoice != null
                                       //     ? _invoice!.products
                                       //    :
-                                      _products=   Provider
-                                          .of<invoice_vm>(context, listen: false)
-                                          .listinvoiceClient[widget.indexinvoice]
-                                          .products;
-
-                                      if (
-                                      //_invoice!.idInvoice != null ||
-                                      Provider
-                                          .of<invoice_vm>(context, listen: false)
-                                          .listinvoiceClient[widget.indexinvoice]
-                                          .idInvoice != null) {
-
-                                        String? invoiceID=
-                                        // _invoice != null
-                                        //     ? _invoice!.idInvoice
-                                        //     :
-                                        Provider
-                                            .of<invoice_vm>(context, listen: false)
-                                            .listinvoiceClient[widget.indexinvoice]
-                                            .idInvoice;
+                                      _products= _invoice!.products;
+                                      if (_invoice!.idInvoice != null)
+                                      {
+                                        String? invoiceID=_invoice!.idInvoice;
 
                                         Provider.of<invoice_vm>(
                                             context, listen: false)
@@ -565,8 +476,8 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                           "type_installation": typeinstallController,
                                           "amount_paid": amount_paidController.text,
 
-                                          "fk_idClient": widget.idClient,
-                                          "fk_idUser": widget.iduser,
+                                          "fk_idClient": widget.itemClient.idClients,
+                                          "fk_idUser": widget.itemClient.fkUser,
                                           "image_record":imageController.text,
 
                                           "total": totalController,
@@ -582,11 +493,11 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                         );
                                       }
                                       else {
-                                        Provider
-                                            .of<invoice_vm>(context, listen: false)
-                                            .listinvoiceClient
-                                            .removeAt(widget.indexinvoice);
-                                        widget.indexinvoice=widget.indexinvoice-1;
+                                        // Provider
+                                        //     .of<invoice_vm>(context, listen: false)
+                                        //     .listinvoiceClient
+                                        //     .removeAt(widget.indexinvoice);
+                                        // widget.indexinvoice=widget.indexinvoice-1;
                                         print("******");
                                         Provider.of<invoice_vm>(
                                             context, listen: false)
@@ -600,8 +511,8 @@ if( Provider.of<invoice_vm>(context,listen: false)
                                           "type_installation": typeinstallController,
                                           "amount_paid": amount_paidController.text,
                                           "image_record":imageController.text,
-                                          "fk_idClient": widget.idClient,
-                                          "fk_idUser": widget.iduser,//the same user that create a client not current user
+                                          "fk_idClient": widget.itemClient.idClients,
+                                          "fk_idUser": widget.itemClient.fkUser,//the same user that create a client not current user
                                           "total": totalController,
                                           "notes": noteController.text,
                                           'fk_regoin':widget.itemClient.fkRegoin,
@@ -642,25 +553,14 @@ if( Provider.of<invoice_vm>(context,listen: false)
   }
 
   clear(BuildContext context,String value,List<ProductsInvoice>? _products) async {
-     //send notification
-    //FCM.send
-    // String message=  'لديك طلب موافقة على العميل (${widget.itemClient.nameEnterprise}) + \n موظف المبيعات ${widget.itemClient.nameUser} ';
-    // //String message='+تم قبول رفع العميل${widget.itemClient.nameEnterprise}';موظف المبيعات محمد
-    // Provider.of<notifyvm>(context,listen: false)
-    //     .addNotification({
-    //   'message':message,
-    //   'from_user':widget.itemClient.nameUser,
-    //   'to_user':'',//id user
-    //   'type_notify':TypeNotify.Approve,
-    //   'isread':'0',
-    //   'data':widget.itemClient.idClients,
-    // });
+
      print('in clear');
-     widget.indexinvoice = 0;
-     _products=   Provider
-         .of<invoice_vm>(context, listen: false)
-         .listinvoiceClient[widget.indexinvoice]
-         .products;
+     //widget.indexinvoice = 0;
+     _products=
+         // Provider
+         // .of<invoice_vm>(context, listen: false)
+         // .listinvoiceClient[widget.indexinvoice]
+        _invoice!.products;
      print('length '+_products!.length.toString());
     for(int i=0;i<_products.length;i++)
     {
@@ -668,17 +568,11 @@ if( Provider.of<invoice_vm>(context,listen: false)
       if(_products[i].idInvoiceProduct==null||_products[i].idInvoiceProduct=="null") {
         print('inside if');
         Map<String, dynamic?> body=_products[i].toJson();
-        if(value!="")//update
-        {
-
-        }
+        // if(value!="")//update
+        // {}
         body.addAll({
           'fk_id_invoice':value,
         });
-        // Provider
-        //     .of<invoice_vm>(context, listen: false)
-        //     .listproductinvoic.removeAt(i);
-
        String res=await Provider.of<invoice_vm>(context,listen: false)
             .add_invoiceProduct_vm(body);
 
@@ -691,10 +585,17 @@ if( Provider.of<invoice_vm>(context,listen: false)
               .listproductinvoic[i].idInvoiceProduct=res;
       }
     }//if
+      else{
+        //update product in invoice
+        print('before else');
+        Map<String, dynamic?> body=_products[i].toJson();
+        print('after else');
+        bool res=await Provider.of<invoice_vm>(context,listen: false)
+            .update_invoiceProduct_vm(body,_products[i].idInvoiceProduct.toString());
+      }
     }//for loop
-     Provider
-         .of<invoice_vm>(context, listen: false)
-         .listinvoiceClient[widget.indexinvoice].products= Provider
+   _invoice!.products
+     = Provider
          .of<invoice_vm>(context, listen: false)
          .listproductinvoic;
       Provider

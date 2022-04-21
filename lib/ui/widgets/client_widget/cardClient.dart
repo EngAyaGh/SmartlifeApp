@@ -48,7 +48,9 @@ class cardClient extends StatelessWidget {
             //splashColor: Colors.blue.withAlpha(30),
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Detail_Client()));
+                  MaterialPageRoute(builder: (context) => editclient(
+                    itemClient: itemClient, fkclient: itemClient.idClients.toString(),
+                  fkuser: itemClient.fkUser.toString(),)));
             },
             child: Container(
               decoration: BoxDecoration(

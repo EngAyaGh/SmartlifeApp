@@ -114,6 +114,7 @@ class _tabclientsState extends State<tabclients> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+
           backgroundColor: kMainColor,
           onPressed: () {
             Navigator.push(
@@ -135,9 +136,11 @@ class _tabclientsState extends State<tabclients> {
                     height: 5,
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height*0.75,
+                    height: MediaQuery.of(context).size.height*0.73,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(
+                          left: 8,right: 8,
+                          top:8.0,bottom: 20),
                       child:
                           Consumer<client_vm>(builder: (context, value, child) {
                         return Expanded(

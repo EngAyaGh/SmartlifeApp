@@ -53,6 +53,7 @@ class client_vm extends ChangeNotifier {
   async {
     // if(listClient.isEmpty)
     // List<ClientModel> lists=[];
+    listClientAccept=[];
     listClient.forEach((element) {
       if( element.typeClient==searchfilter)
         listClientAccept.add(element);
@@ -68,6 +69,7 @@ class client_vm extends ChangeNotifier {
   }
   Future<void> getclientByIdUser_vm(List<ClientModel> list) async {
    //عملائي
+    listClientbyCurrentUser=[];
     if(list.isNotEmpty){
     list.forEach((element) {
       if( element.fkUser==usercurrent!.idUser)
@@ -109,6 +111,7 @@ else{
   }
   Future<void> getclientByRegoin(List<ClientModel> list) async {
     //if(listClientbyRegoin.isEmpty)
+    listClientbyRegoin=[];
     if(list.isNotEmpty){
       list.forEach((element) {
         if( element.fkUser==usercurrent!.idUser)

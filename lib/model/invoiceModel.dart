@@ -117,11 +117,13 @@ class InvoiceModel extends CacheRepository{
   }
   List<ProductsInvoice> getproud(data){
     List<ProductsInvoice> prodlist = [];
+    if(data!=null){
     for (int i = 0; i < data.length; i++) {
       print(i);
 
       //print("data "+ "[" + data[i] + "]");
       prodlist.add(ProductsInvoice.fromJson(data[i]));
+    }
     }
     return prodlist;
 
@@ -150,13 +152,13 @@ class ProductsInvoice extends CacheRepository{
 
   });
   late  String? idInvoiceProduct;
-  late final String? fkIdInvoice;
-  late final String? fkProduct;
-  late final String? amount;
-  late final String? price;
-  late final String? taxtotal;
-  late final String? rateAdmin;
-  late final String? rateUser;
+  late  String? fkIdInvoice;
+  late  String? fkProduct;
+  late  String? amount;
+  late  String? price;
+  late  String? taxtotal;
+  late  String? rateAdmin;
+  late  String? rateUser;
   String? idProduct;
   String? nameProduct;
   late final String? priceProduct;
@@ -200,7 +202,7 @@ class ProductsInvoice extends CacheRepository{
     _data['priceProduct'] = priceProduct;
     _data['type'] = type;
     _data['fk_country'] = fkCountry;
-    _data['fk_config'] = fkConfig;
+    _data['fk_config'] = fkConfig==null?"null":fkConfig;
     return _data;
   }
 }

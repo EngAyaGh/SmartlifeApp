@@ -63,7 +63,7 @@ class _editclientState extends State<editclient> {
     typeclient_provider=Provider.of<typeclient>(context,listen: false);
     typeclient_provider.type_of_client
     =widget.itemClient.typeClient=="مشترك"?
-    ['مستبعد','منسحب']
+    ['مستبعد','منسحب','مشترك']
     :widget.itemClient.typeClient=="منسحب"? ['مشترك','منسحب'] :['تفاوض','عرض سعر','مستبعد','منسحب'];
 
     typeclient_provider.selectedValuemanag=widget.itemClient.typeClient.toString();
