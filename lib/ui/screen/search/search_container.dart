@@ -3,9 +3,9 @@ import 'package:crm_smart/ui/screen/search/search_mv.dart';
 import 'package:flutter/material.dart';
 
 class search_widget extends StatelessWidget {
-  search_widget( this.list, {Key? key}) : super(key: key);
-  // String pattern;
-  List<ClientModel> list;
+  search_widget(this.hint, this.list, {Key? key}) : super(key: key);
+  String hint='';
+  List<dynamic> list;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,7 +35,7 @@ class search_widget extends StatelessWidget {
 //changeScreen(context, ProductSearchScreen());
               },
               decoration: InputDecoration(
-                hintText: "المؤسسة....",
+                hintText: hint,
                 border: InputBorder.none,
               ),
             ),

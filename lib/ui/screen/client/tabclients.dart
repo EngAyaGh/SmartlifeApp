@@ -130,8 +130,9 @@ class _tabclientsState extends State<tabclients> {
               textDirection: TextDirection.rtl,
               child: ListView(
                 children: [
-                  search_widget(
-                      Provider.of<client_vm>(context, listen: true).listClient),
+                  search_widget("المؤسسة....",
+                      Provider.of<client_vm>(context, listen: true)
+                          .listClient,),
                   SizedBox(
                     height: 5,
                   ),
