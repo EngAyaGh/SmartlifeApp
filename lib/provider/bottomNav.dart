@@ -13,7 +13,7 @@ void setCurrentIndex(value){
   notifyListeners();
 }
 List<Widget> pages = <Widget>[
-  client_dashboard(),
+  //client_dashboard(),
   Icon(
     Icons.note,
     size: 150,

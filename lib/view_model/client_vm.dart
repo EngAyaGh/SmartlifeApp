@@ -55,6 +55,17 @@ class client_vm extends ChangeNotifier {
     listClient = await ClientService().getAllClient(usercurrent!.fkCountry.toString());
     notifyListeners();
   }
+  ClientModel? get_byIdClient(String idClient)  {
+
+    ClientModel? inv;
+    listClient.forEach((element) {
+        if( element.idClients==idClient)
+          inv= element;
+      });
+    if(inv==null) getclientByRegoin([]);
+
+    return inv;
+  }
   Future<void> getclientByIdUser_vm(List<ClientModel> list) async {
    //عملائي
     listClientbyCurrentUser=[];

@@ -219,7 +219,7 @@ class addClient extends StatelessWidget {
                                   'city': cityController.text,
                                   'location':locationController.text==null?"null":locationController.text,
                                   "fk_regoin":_user.fkRegoin==null?"null":_user.fkRegoin,
-                                  //"date_create":   formatter.format(_currentDate),
+                                  "date_create": DateTime.now().toString(),  //formatter.format(_currentDate),
                                   "type_client":"تفاوض",
                                   "fk_user":_user.idUser,
                                   // "date_transfer":,

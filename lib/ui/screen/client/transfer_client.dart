@@ -1,6 +1,8 @@
 
 import 'package:crm_smart/api/fcm.dart';
 import 'package:crm_smart/model/usermodel.dart';
+import 'package:crm_smart/ui/screen/client/tabclients.dart';
+import 'package:crm_smart/ui/screen/home/home.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
@@ -68,22 +70,7 @@ class _transferClientState extends State<transferClient> {
                   border: OutlineInputBorder(),
                 ),
                 );
-                // return DropdownButton(
-                //   isExpanded: true,
-                //   hint: Text("حدد موظف"),
-                //   items: cart.userall!.map((level_one) {
-                //     return DropdownMenuItem(
-                //       child: Text(level_one.nameUser.toString()), //label of item
-                //       value: level_one.idUser, //value of item
-                //     );
-                //   }).toList(),
-                //   value:cart.selecteduser,
-                //   onChanged:(value) {
-                //     //  setState(() {
-                //     cart.changevalueuser(value.toString());
-                //     // });
-                //   },
-                // );
+
               },
             ),
             SizedBox(height: 5,),
@@ -132,7 +119,8 @@ class _transferClientState extends State<transferClient> {
                 //navigator to clients view page
 
                 Navigator.pushAndRemoveUntil(context,
-                    MaterialPageRoute(builder: (context)=>client_dashboard()), (route) => false);
+                    MaterialPageRoute(builder: (context)=>Home()),
+                        (route) => false);
               },
               child: Text('تأكيد العملية'),
             ),

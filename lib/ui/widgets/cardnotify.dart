@@ -1,5 +1,7 @@
 
 
+import 'dart:convert';
+
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/notificationModel.dart';
 import 'package:crm_smart/ui/screen/client/detail_client.dart';
@@ -16,11 +18,12 @@ class cardnotify extends StatelessWidget {
    cardnotify({Key? key, required this.itemNotify}) : super(key: key);
 late NotificationModel itemNotify;
 
-
   @override
   Widget build(BuildContext context) {
 
     return Container(
+      //color: itemNotify.isread==0?Colors.black12: Colors.white30,
+
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(0)
@@ -32,17 +35,22 @@ late NotificationModel itemNotify;
               color: Colors.black87.withOpacity(0.2),
             ),
           ],
-          color: Colors.white30,
+          color:  Colors.white30,
         ),
       child: Center(
         child: InkWell(
           onTap: () {
             // ApproveRequest,Transfer,Late,ApproveDone,ApproveRefuse,InvoiceDeleted
-            route_notifyto(itemNotify.typeNotify,context);
+            route_notifyto(
+                itemNotify.typeNotify,context
+                //jsonDecode(itemNotify.data)
+            );
           },
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+
+              color: itemNotify.isread==0?Colors.black12: Colors.white,
+
               //borderRadius: BorderRadius.all( Radius.circular(5)),
     ),
 

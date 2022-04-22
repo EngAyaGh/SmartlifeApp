@@ -11,6 +11,7 @@ class ApproveModel {
     required this.name_enterprise,
     required this.fk_regoin,
     required this.fk_country,
+    required this.fk_invoice,
 
   });
   late final String idApproveClient;
@@ -24,6 +25,7 @@ class ApproveModel {
   late final String name_enterprise;
   late final String fk_regoin;
   late final String fk_country;
+  late final String? fk_invoice;
 
   ApproveModel.fromJson(Map<String, dynamic> json){
     idApproveClient = json['id_approveClient'];
@@ -37,6 +39,7 @@ class ApproveModel {
     name_enterprise = json['name_enterprise'];
     fk_regoin = json['fk_regoin'];
     fk_country = json['fk_country'];
+    fk_invoice = json['fk_invoice'];
   }
 
   Map<String, dynamic> toJson() {
@@ -52,6 +55,7 @@ class ApproveModel {
     _data['name_enterprise'] = name_enterprise;
     _data['fk_regoin'] = fk_regoin;
     _data['fk_country'] = fk_country;
+    _data['fk_invoice'] = fk_invoice;
     return _data;
   }
 }

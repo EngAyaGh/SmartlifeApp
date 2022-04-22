@@ -31,7 +31,8 @@ void route_notifyto(typeNotify,context){
   switch (typeNotify){
     case "ApproveRequest":
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => ApprovePage()));
+          MaterialPageRoute(
+              builder: (context) => ApprovePage()));
       break;
     case "Transfer" :
       Navigator.push(context,

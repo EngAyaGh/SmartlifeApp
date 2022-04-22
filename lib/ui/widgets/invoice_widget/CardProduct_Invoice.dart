@@ -212,116 +212,117 @@ class _CardProduct_invoiceState extends State<CardProduct_invoice> {
             ),
             //height: 70,
             child: Padding(
-              padding: EdgeInsets.all(2),
+              padding: EdgeInsets.all(4),
               child: Flex(
                 direction: Axis.vertical,
                 children: [
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    //crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           //this column --> information
-                          Container(
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                // mainAxisAlignment:
+                                //     MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  // Text(
+                                  //   ' اسم المنتج : ',
+                                  //   style:
+                                  //   TextStyle(fontFamily: kfontfamily2),
+                                  // ),
+                                  Text(
+                                    widget.itemProd.nameProduct.toString(),
+                                    maxLines: 4,
+                                    style:
+                                    TextStyle(fontFamily: kfontfamily2),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  // mainAxisAlignment:
-                                  //     MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    // Text(
-                                    //   ' اسم المنتج : ',
-                                    //   style:
-                                    //   TextStyle(fontFamily: kfontfamily2),
-                                    // ),
-                                    Text(
-                                      widget.itemProd.nameProduct.toString(),
-                                      style:
-                                      TextStyle(fontFamily: kfontfamily2),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                                  children: [
-                                 Row(
-                                   // mainAxisAlignment:
-                                   //     MainAxisAlignment.spaceEvenly,
-                                   children: [
-                                     Text(
-                                       ' السعر : ',
-                                       style:
-                                       TextStyle(fontFamily: kfontfamily2),
-                                     ),
-                                     Text(
-                                       widget.itemProd.price.toString(),
-                                       style:
-                                       TextStyle(fontFamily: kfontfamily2),
-                                     ),
-                                     SizedBox(width: 3,),
-                                     Text(
-                                       ' الكمية : ',
-                                       style:
-                                       TextStyle(fontFamily: kfontfamily2),
-                                     ),
-                                     Text(
-                                       widget.itemProd.amount.toString(),
-                                       style:
-                                       TextStyle(fontFamily: kfontfamily2),
-                                     ),
-                                     SizedBox(width: 3,),
-                                     Text(
-                                       ' قيمة الحسم : ',
-                                       style:
-                                       TextStyle(fontFamily: kfontfamily2),
-                                     ),
-                                     Text(
-                                       totaltax.toString(),
-                                       style:
-                                       TextStyle(fontFamily: kfontfamily2),
-                                     ),
-                                   ],
-                                 ),
-                                 // Row(
-                                 //   // mainAxisAlignment:
-                                 //   //     MainAxisAlignment.spaceEvenly,
-                                 //   children: [
-                                 //     Text(
-                                 //       ' الكمية : ',
-                                 //       style:
-                                 //       TextStyle(fontFamily: kfontfamily2),
-                                 //     ),
-                                 //     Text(
-                                 //       itemProd.amount.toString(),
-                                 //       style:
-                                 //       TextStyle(fontFamily: kfontfamily2),
-                                 //     ),
-                                 //   ],
-                                 // ),
-                               ],
-                             ),
-                                // Row(
-                                //   // mainAxisAlignment:
-                                //   //     MainAxisAlignment.spaceEvenly,
-                                //   children: [
-                                //     Text(
-                                //       ' قيمة الحسم : ',
-                                //       style:
-                                //       TextStyle(fontFamily: kfontfamily2),
-                                //     ),
-                                //     Text(
-                                //
-                                //           totaltax.toString(),
-                                //       style:
-                                //       TextStyle(fontFamily: kfontfamily2),
-                                //     ),
-                                //   ],
-                                // ),
-                              ],
-                            ),
+                                children: [
+                               Row(
+                                 // mainAxisAlignment:
+                                 //     MainAxisAlignment.spaceEvenly,
+                                 children: [
+                                   Text(
+                                     ' السعر : ',
+                                     style:
+                                     TextStyle(fontFamily: kfontfamily2),
+                                   ),
+                                   Text(
+                                     widget.itemProd.price.toString(),
+                                     style:
+                                     TextStyle(fontFamily: kfontfamily2),
+                                   ),
+                                   SizedBox(width: 3,),
+                                   Text(
+                                     ' الكمية : ',
+                                     style:
+                                     TextStyle(fontFamily: kfontfamily2),
+                                   ),
+                                   Text(
+                                     widget.itemProd.amount.toString(),
+                                     style:
+                                     TextStyle(fontFamily: kfontfamily2),
+                                   ),
+                                   // SizedBox(width: 3,),
+                                   // Text(
+                                   //   ' قيمة الحسم : ',
+                                   //   style:
+                                   //   TextStyle(fontFamily: kfontfamily2),
+                                   // ),
+                                   // Text(
+                                   //   totaltax.toString(),
+                                   //   style:
+                                   //   TextStyle(fontFamily: kfontfamily2),
+                                   // ),
+                                 ],
+                               ),
+                               // Row(
+                               //   // mainAxisAlignment:
+                               //   //     MainAxisAlignment.spaceEvenly,
+                               //   children: [
+                               //     Text(
+                               //       ' الكمية : ',
+                               //       style:
+                               //       TextStyle(fontFamily: kfontfamily2),
+                               //     ),
+                               //     Text(
+                               //       itemProd.amount.toString(),
+                               //       style:
+                               //       TextStyle(fontFamily: kfontfamily2),
+                               //     ),
+                               //   ],
+                               // ),
+                             ],
+                           ),
+                              // Row(
+                              //   // mainAxisAlignment:
+                              //   //     MainAxisAlignment.spaceEvenly,
+                              //   children: [
+                              //     Text(
+                              //       ' قيمة الحسم : ',
+                              //       style:
+                              //       TextStyle(fontFamily: kfontfamily2),
+                              //     ),
+                              //     Text(
+                              //
+                              //           totaltax.toString(),
+                              //       style:
+                              //       TextStyle(fontFamily: kfontfamily2),
+                              //     ),
+                              //   ],
+                              // ),
+                            ],
                           ),
                           //this Row --> for icon
                           Row(

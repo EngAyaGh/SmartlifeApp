@@ -18,7 +18,6 @@ class MyClientPage extends StatefulWidget {
   @override
   _MyClientPageState createState() => _MyClientPageState();
 }
-
 class _MyClientPageState extends State<MyClientPage> {
   @override
   void initState() {

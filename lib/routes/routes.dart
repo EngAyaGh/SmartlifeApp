@@ -24,11 +24,12 @@ class AppRoutes {
     ),
     GetPage(name:  Routes.login, page: () =>  login()),
 
-    GetPage(name:  Routes.client_dashboard, page: () =>  client_dashboard(),
-      bindings: [
-        UserBinding(),
-      ],
-    ),
+    // GetPage(name:  Routes.client_dashboard, page: () =>
+    //     client_dashboard(),
+    //   bindings: [
+    //     UserBinding(),
+    //   ],
+    // ),
     GetPage(name:  Routes.tabclients, page: () =>  tabclients(),
       bindings: [
         UserBinding(),

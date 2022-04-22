@@ -140,7 +140,7 @@ void calculate(){
         child: Container(
           color: Colors.white38,
           child: Padding(
-            padding: const EdgeInsets.all(30),
+            padding: const EdgeInsets.all(20),
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -154,7 +154,7 @@ void calculate(){
                   ],),
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.all(25),
+                  padding: const EdgeInsets.all(10),
                   child: Column(
                     textDirection: TextDirection.rtl,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -189,7 +189,7 @@ void calculate(){
                           Flexible(
                             child: Column(
                               children: [
-                                RowEdit(name: 'نسبة الخصم المتاحة للموظف', des: 'اختياري'),
+                                RowEdit(name: ' الخصم للموظف', des: 'اختياري'),
                                 EditTextFormField(
 
                                   //read: false,
@@ -219,7 +219,7 @@ void calculate(){
                           Flexible(
                             child: Column(
                               children: [
-                                RowEdit(name: 'نسبة الخصم المتاحة للمشرف', des: 'اختياري'),
+                                RowEdit(name: ' الخصم للمشرف', des: 'اختياري'),
                                 EditTextFormField(
                                   onChanged: (val) {
                                     _taxadmin_value=val;
@@ -333,6 +333,7 @@ void calculate(){
 
                                 },
                                 child: Text('إضافة منتج للفاتورة')),
+                            Text(''),
                           ],
                         ),
                       ),

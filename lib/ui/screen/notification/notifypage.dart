@@ -36,10 +36,15 @@ class _notify_pageviewState extends State<notify_pageview> {
     // );
     super.didChangeDependencies();
   }
-
+  var notify;
+@override void dispose() {
+  //notify.setRead_notify_vm();
+  super.dispose();
+  }
     @override
   Widget build(BuildContext context) {
-    return Scaffold(
+      //var notify=Provider.of<notifyvm>(context,listen: false);
+      return Scaffold(
       appBar: AppBar(
         centerTitle: true,title:Text( 'الإشعارات',style:
       TextStyle(color: kWhiteColor,fontFamily: kfontfamily2),),

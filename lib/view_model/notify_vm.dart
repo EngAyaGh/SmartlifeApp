@@ -19,6 +19,7 @@ class notifyvm extends ChangeNotifier {
   }
   void getcounter(){
     //
+    //getNotification();
     //countnotify=0;
     print('get counter');
     listnotify.forEach((element) {

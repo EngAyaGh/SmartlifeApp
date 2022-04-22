@@ -131,55 +131,7 @@ else{
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: kWhiteColor),
           onPressed: () {
-            // print("length ${Provider.of<invoice_vm>(context,listen: false)
-            //     .listinvoiceClient.length}");
-            // print("widget.indexinvoice  ${widget.indexinvoice}");
-            //
-            // print("in on pop addinvoice screen "
-            //     +Provider.of<invoice_vm>(context,listen: false)
-            //     .listinvoiceClient[widget.indexinvoice].idInvoice.toString());
-            //
-            // if(Provider.of<invoice_vm>(context,listen: false)
-            //     .listinvoiceClient[widget.indexinvoice].idInvoice == null
-            //     // ||
-            //     // int.tryParse(Provider.of<invoice_vm>(context,listen: false)
-            //     // .listinvoice[widget.indexinvoice].idInvoice.toString())!>0
-            // ) {
-            //  //clear cach invoice with it's product's
-            //   Provider.of<invoice_vm>(context,listen: false)
-            //       .listproductinvoic=[];
-            //   Provider.of<invoice_vm>(context,listen: false)
-            //       .listinvoiceClient[widget.indexinvoice].products=[];
-            //   if(widget.indexinvoice==0)
-            //   Provider.of<invoice_vm>(context,listen: false)
-            //       .disposValue(-1);
-            //   else{
-            //     Provider.of<invoice_vm>(context,listen: false)
-            //         .disposValue(widget.indexinvoice);
-            //   }
-            //
-            //   widget.indexinvoice=
-            //   widget.indexinvoice-1<=0?
-            //   0:
-            //   widget.indexinvoice-1;
-            //   widget.indexinvoice
-            //
-            // } else {
-            //   //
-            //   // Provider.of<invoice_vm>(context,listen: false)
-            //   //     .listproductinvoic=[];
-            //   //
-            //   // Provider.of<invoice_vm>(context,listen: false)
-            //   //     .listinvoiceClient[widget.indexinvoice]
-            //   //     .products=[];
-            //   // Provider.of<invoice_vm>(context,listen: false)
-            //   //     .listinvoiceClient.removeAt(widget.indexinvoice);
-            //   // widget.indexinvoice=0;
-            // }
-            // ////
-            //
-            // Navigator.of(context).pop();
-            // },
+
             Navigator.of(context).pop();},
         ),
       ),

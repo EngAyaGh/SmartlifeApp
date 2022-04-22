@@ -103,6 +103,7 @@ class invoice_vm extends ChangeNotifier{
         if( element.fkIdUser==usercurrent!.idUser)
           listinvoicebyregoin.add(element);
       });
+
     }
     else{
       listinvoices = await Invoice_Service()
@@ -111,6 +112,24 @@ class invoice_vm extends ChangeNotifier{
     }
 
     notifyListeners();
+  }
+  InvoiceModel? get_byIdInvoice(String id_invoice)  {
+
+    InvoiceModel? inv;
+listinvoices.forEach((element) {
+        if( element.idInvoice==id_invoice)
+          inv= element;
+      });
+    if(inv==null) get_invoicesbyRegoin([]);
+
+    return inv;//InvoiceModel(products: []);
+    // else{
+    //   listinvoices = await Invoice_Service()
+    //       .getinvoicebyiduser(usercurrent!.idUser!);
+    //   listinvoices=listinvoicebyregoin;
+    // }
+
+    //notifyListeners();
   }
   Future<void> get_invoicesbyRegoin(List<InvoiceModel> list) async {
     listinvoicebyregoin=[];

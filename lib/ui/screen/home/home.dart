@@ -32,7 +32,7 @@ class _HomeState extends State<Home> {
         .then((RemoteMessage? message) {
       if (message != null) {
         print("in init getInitialMessage");
-        Provider.of<notifyvm>(context,listen: false).addcounter();
+        //Provider.of<notifyvm>(context,listen: false).addcounter();
         String typeNotify= message.data['Typenotify'];
         route_notifyto(typeNotify,context);
       }
@@ -45,12 +45,14 @@ class _HomeState extends State<Home> {
       if (message.notification != null) {
         print('Message also contained a notification: ${message.notification}');
       }
+      //Provider.of<notifyvm>(context,listen: false).getcounter();
       Provider.of<notifyvm>(context,listen: false).addcounter();
       //add notify to listnotify
     });
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       print('onMessageOpenedApp');
       Provider.of<notifyvm>(context,listen: false).addcounter();
+      //Provider.of<notifyvm>(context,listen: false).getcounter();
       String typeNotify= event.data['Typenotify'];
       route_notifyto(typeNotify,context);
     });
@@ -78,7 +80,6 @@ class _HomeState extends State<Home> {
      var paddval=1.0;
     paddval= sizeh/3;
     return Scaffold(
-
       //drawerScrimColor: Colors.white,
       backgroundColor: Colors.grey[200],
       appBar:customAppbar(),

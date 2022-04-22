@@ -1,6 +1,9 @@
 
 import 'package:crm_smart/constants.dart';
-import 'package:crm_smart/ui/screen/support/secound.dart';
+import 'package:crm_smart/ui/screen/support/support_view.dart';
+import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/RowWidget.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,48 +29,124 @@ print('initt');
     print('builld');
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back))
-        ],
+
       ),
-      body: Column(
-        children: [
-          TextField(
-            controller: _textsupport,
-            decoration: InputDecoration(
-              hintTextDirection: TextDirection.rtl,
-              alignLabelWithHint: true,
+      body: SafeArea(
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ContainerShadows(
+              margin: EdgeInsets.all(12),
+              child: Column(
+                children: [
+                  RowEdit(name: 'موعد التركيب للعميل من ', des: ''),
+                  SizedBox(height: 10,),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.date_range,
+                              color: kMainColor,
+                            ),
+                            hintStyle: const TextStyle(
+                                color: Colors.black45,
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                            hintText:
+                            _currentDate==null
+                              ?''
+                              :_currentDate.toString(),
+                            filled: true,
+                            fillColor: Colors.grey.shade200,
+                          ),
+                          readOnly: true,
+                          onTap: (){
+                            _selectDate(context,DateTime.now());
+                          },
+                        ),
+                      ),
+                      IconButton(onPressed: (){
+                        _selectDate(context,_currentDate);
+                      }, icon: Icon(Icons.edit,color: kMainColor,)),
+                      IconButton(onPressed: (){},
+                          icon:Icon( Icons.check,color: kMainColor)),
+                    ],
+                  ),
+                  SizedBox(height: 6,),
+                 
+                  SizedBox(height: 20,),
 
-              labelText: 'label',
-              labelStyle: TextStyle(color: kMainColor,),
-              hintText: 'hintText',
+                  cardRow('اسم المؤسسة',''),
+                  cardRow('معتمد الاشتراك ','آية'),
+                  cardRow('اسم ',''),
+                  SizedBox(height: 16,),
 
-              filled: true,
-              fillColor: Colors.white,
-              // hintStyle: const TextStyle(
-              //     color: Colors.black45, fontSize: 16, fontWeight: FontWeight.w500),
-              //filled: false,
-              //fillColor: Colors.white,
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(color: Colors.black)),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(color: Colors.black)),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Colors.black)),
+    ElevatedButton(
+    style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(
+    kMainColor)),
+    onPressed: () async{
+                    bool result = await showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('التأكيد'),
+                          content: Text('هل تريد تأكيد عملية التركيب'),
+                          actions: <Widget>[
+                            new FlatButton(
+                              onPressed: () {
+                                Navigator.of(context,
+                                    rootNavigator: true)
+                                    .pop(
+                                    false); // dismisses only the dialog and returns false
+                              },
+                              child: Text('لا'),
+                            ),
+                            FlatButton(
+                              onPressed: () async {
+                                Navigator.of(context,
+                                    rootNavigator: true)
+                                    .pop(true);
+                              },
+                              child: Text('نعم'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                    //Navigator.push(context, MaterialPageRoute(builder: (context)=> second()));
+                  },
+                      child: Text('تم التركيب للعميل')),
+                ],
+              ),
             ),
           ),
-          TextButton(onPressed: (){
-
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> second()));
-          }, child: Text('move'))
-        ],
+        ),
       ),
 
     );
   }
+   late DateTime _currentDate = DateTime(1,1,1);
+  // final DateFormat formatter = DateFormat('yyyy-MM-dd');
+
+  Future<void> _selectDate(BuildContext context, DateTime currentDate) async {
+    //String output = formatter.format(currentDate);
+
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        currentDate: currentDate,
+        initialDate: currentDate,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2080));
+    if (pickedDate != null )//&& pickedDate != currentDate)
+      setState(() {
+        _currentDate = pickedDate;
+
+      });
+  }
+
 
 
 }

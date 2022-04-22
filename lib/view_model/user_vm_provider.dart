@@ -35,7 +35,7 @@ class user_vm_provider extends ChangeNotifier{
     String result=await UserService()
         .UpdateUser(body: body,idUser: iduser);
    if(result!="error"){
-    final index = userall!.indexWhere(
+    final index = userall.indexWhere(
             (element) =>
     element.idUser ==iduser );
     body.addAll({

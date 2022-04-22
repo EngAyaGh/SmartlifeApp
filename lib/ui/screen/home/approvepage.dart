@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 class ApprovePage extends StatefulWidget {
-  const ApprovePage({Key? key}) : super(key: key);
+   ApprovePage({ Key? key}) : super(key: key);
 
   @override
   _ApprovePageState createState() => _ApprovePageState();
@@ -33,6 +33,7 @@ class _ApprovePageState extends State<ApprovePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,title:Text( 'طلبات الموافقة',
@@ -48,7 +49,7 @@ class _ApprovePageState extends State<ApprovePage> {
               Consumer<approve_vm> (
                   builder: (context,value,child) {
                     return value.listapprove.length==0?
-                    CircularProgressIndicator()
+                    Text('')
                         :ListView.builder(
                         scrollDirection: Axis.vertical,
                         itemCount: value.listapprove.length,
@@ -59,6 +60,7 @@ class _ApprovePageState extends State<ApprovePage> {
                                 child: cardapprove1(
                                   itemapprove :
                                   value.listapprove[index],
+                                  //data: widget.data,
                                 ),
                               ));
                         });

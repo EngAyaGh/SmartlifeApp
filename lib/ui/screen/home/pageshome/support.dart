@@ -1,5 +1,7 @@
 import 'package:crm_smart/ui/screen/calendar/calendar.dart';
 import 'package:crm_smart/ui/screen/calendar/event_view_page.dart';
+import 'package:crm_smart/ui/screen/support/support_table.dart';
+import 'package:crm_smart/ui/screen/support/support_view.dart';
 import 'package:crm_smart/ui/widgets/widget%20calendar/task_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,11 +44,18 @@ class supportpage extends StatelessWidget {
 
           buildSelectCategory(onTap: () {
             //
-            // Navigator.push(context, MaterialPageRoute(
-            //     builder: (context)=>
-            //         TaskWidget()));
-          }, title: ''),
-        ],),
+             Navigator.push(context, MaterialPageRoute(
+                 builder: (context)=>
+                    support_view()));
+          }, title: 'العملاء المشتركين'),//تاريخ الفاتورة جنبو اسم المؤسسة
+          buildSelectCategory(onTap: () {
+            //
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context)=>
+                    support_table()));
+          }, title: 'جدول العملاء'),
+        ],
+        ),
 
       ),
     );

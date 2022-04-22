@@ -136,29 +136,35 @@ class _tabclientsState extends State<tabclients> {
                   SizedBox(
                     height: 5,
                   ),
-                  Container(
-                    height: MediaQuery.of(context).size.height*0.73,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 8,right: 8,
-                          top:8.0,bottom: 20),
-                      child:
-                          Consumer<client_vm>(builder: (context, value, child) {
-                        return Expanded(
-                          child: ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              itemCount: value.listClient.length,
-                              itemBuilder: (context, index) {
-                                return SingleChildScrollView(
-                                    child: Padding(
-                                  padding: const EdgeInsets.all(2),
-                                  child: cardClient(
-                                      itemClient: value.listClient[index],
-                                      iduser: iduser.toString()),
-                                ));
-                              }),
-                        );
-                      }),
+                  RefreshIndicator(
+                    onRefresh: ()async{
+                      await    Provider.of<client_vm>(context, listen: false)
+                          .getclientByRegoin([]);
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height*0.73,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 8,right: 8,
+                            top:8.0,bottom: 20),
+                        child:
+                            Consumer<client_vm>(builder: (context, value, child) {
+                          return Expanded(
+                            child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                itemCount: value.listClient.length,
+                                itemBuilder: (context, index) {
+                                  return SingleChildScrollView(
+                                      child: Padding(
+                                    padding: const EdgeInsets.all(2),
+                                    child: cardClient(
+                                        itemClient: value.listClient[index],
+                                        iduser: iduser.toString()),
+                                  ));
+                                }),
+                          );
+                        }),
+                      ),
                     ),
                   ),
                 ],

@@ -77,7 +77,8 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
               child: Padding(
                 padding: EdgeInsets.all(5),
                 child: Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                   //textDirection: TextDirection.rtl,
                   children: [
                     Column(
@@ -101,12 +102,13 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                              // mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
-                                  'المبلغ الإجمالي',
+                                  'الإجمالي',
                                   style: TextStyle(fontFamily: kfontfamily2),
                                 ),
                                 Text(
                                   widget.itemProd.total.toString(),
-                                  style: TextStyle(fontFamily: kfontfamily2),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold, fontFamily: kfontfamily2),
                                 ),
                               ],
                             ),
@@ -117,7 +119,7 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                             //  mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
-                                  'المبلغ المتبقي',
+                                  'المتبقي',
                                   style: TextStyle(fontFamily: kfontfamily2),
                                 ),
                                 Text("" +
@@ -126,7 +128,7 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                                             double.parse(widget
                                                 .itemProd.amountPaid
                                                 .toString()))
-                                        .toString())
+                                        .toString(),style: TextStyle(fontFamily: kfontfamily2,fontWeight: FontWeight.bold),)
                               ],
                             ),
                           ],
