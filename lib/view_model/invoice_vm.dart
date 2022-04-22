@@ -165,9 +165,9 @@ class invoice_vm extends ChangeNotifier{
       print('$body');
       listinvoices.add(InvoiceModel.fromJson(body));
       listinvoiceClient.insert(0, InvoiceModel.fromJson(body));
-      listinvoicebyregoin.add(InvoiceModel.fromJson(body));
+      //listinvoicebyregoin.add(InvoiceModel.fromJson(body));
       print("////////////////////////////////////////////");
-      print('${listinvoiceClient[0].idInvoice}');
+      //print('${listinvoiceClient[0].idInvoice}');
       //listinvoice[0].products=listproductinvoic;
       notifyListeners();
     }

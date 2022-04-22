@@ -97,7 +97,12 @@ class cardapprove1 extends StatelessWidget {
                                 //"message":"",//
                                 "nameuserApproved":current.nameUser,
                                 "iduser_approve": current.idUser//معتمد الاشتراك
-                              }, itemapprove.fkClient);
+                              }, itemapprove.fkClient).then((value) => value!=false?
+                              Provider.of<approve_vm>(context,listen: false)
+                                  .removeApproveClient(itemapprove.idApproveClient)
+                                  :  _scaffoldKey.currentState!.showSnackBar(
+                                  SnackBar(content: Text('هناك مشكلة ما')))
+                              );
                             },
                             child: Text('Approve')),
                         SizedBox(

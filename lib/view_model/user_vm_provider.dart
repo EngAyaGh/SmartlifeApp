@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class user_vm_provider extends ChangeNotifier{
 
-  List<UserModel>? userall=[];
+  List<UserModel> userall=[];
   var isLoading = true;
   late String? selecteduser=null;
 
@@ -40,19 +40,19 @@ class user_vm_provider extends ChangeNotifier{
     element.idUser ==iduser );
     body.addAll({
 
-      'nameUser': userall![index].nameUser,
-      'id_user': userall![index].idUser.toString(),
-      'code_verfiy': userall![index].codeVerfiy.toString(),
-      'fk_country': userall![index].fkCountry.toString(),
+      'nameUser': userall[index].nameUser,
+      'id_user': userall[index].idUser.toString(),
+      'code_verfiy': userall[index].codeVerfiy.toString(),
+      'fk_country': userall[index].fkCountry.toString(),
       //'code_verfiy': controllerUsers.usersList[index].codeVerfiy.toString(),
-      'nameCountry':userall![index].nameCountry.toString(),
-      'currency':userall![index].currency,
+      'nameCountry':userall[index].nameCountry.toString(),
+      'currency':userall[index].currency,
       // 'name_regoin': userall![index].nameRegoin.toString(),
       // 'name_level': userall![index].name_level.toString(),
     });
     print(body);
     print('///////////');
-    userall![index] = UserModel.fromJson(body);
+    userall[index] = UserModel.fromJson(body);
    }
     notifyListeners();
     return result;
@@ -64,14 +64,14 @@ class user_vm_provider extends ChangeNotifier{
         '	id_user':res,
       });
 
-      userall!.insert(0, UserModel.fromJson(body));
+      userall.insert(0, UserModel.fromJson(body));
       notifyListeners();
     }
     return res;
   }
   bool getfilteruser(String filter){
     UserModel? user;
-    userall!.map(
+    userall.map(
             (e) {
               e.nameUser!.contains(filter);return true;
             }
@@ -90,14 +90,14 @@ class user_vm_provider extends ChangeNotifier{
   Future<SharedPreferences> getcurrentuser() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     try {
-      if(userall!.isEmpty)
+      if(userall.isEmpty)
       userall = await  UserService().usersServices();
       String? id = preferences.getString('id_user');
-      print("in get user" + userall![0].nameUser.toString());
+      print("in get user" + userall[0].nameUser.toString());
 
-      final index = userall!.indexWhere((element) => element.idUser == id);
+      final index = userall.indexWhere((element) => element.idUser == id);
       if(index>=0){
-      currentUser = userall![index];
+      currentUser = userall[index];
       notifyListeners();
       print("preferences");
       print(preferences.containsKey('id_user'));

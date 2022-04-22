@@ -46,42 +46,48 @@ class _ApprovePageState extends State<AcceptPage> {
         style:
         TextStyle(color: kWhiteColor, fontFamily: kfontfamily2),),
       ),
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Padding(
-            padding: const EdgeInsets.only(top: 10,bottom: 10),
-            child: Center(
-              child:
-              ListView(
+      body: SafeArea(
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Padding(
+              padding: const EdgeInsets.only(top: 10,bottom: 10),
+              child: ListView(
                 children: [
-                  search_widget("المؤسسة....",
-                    Provider.of<invoice_vm>(context, listen: true)
-                        .listInvoicesAccept!,),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Consumer<invoice_vm> (
-                      builder: (context,value,child) {
-                        return value.listInvoicesAccept.length==0?
-                        CircularProgressIndicator()
-                            :ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: value.listInvoicesAccept.length,
-                            itemBuilder: (context, index) {
+                   search_widget("المؤسسة....",
+                     Provider.of<invoice_vm>(context, listen: true)
+                         .listInvoicesAccept,),
+                 SizedBox(height: 5,),
+                  Container(
+                    height: MediaQuery.of(context).size.height*0.73,
 
-                              return SingleChildScrollView(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(2),
-                                    child: cardClientAccept(
-                                      iteminvoice :
-                                      value.listInvoicesAccept[index],
-                                    ),
-                                  ));
-                            });
-                      } ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Consumer<invoice_vm> (
+                          builder: (context,value,child) {
+                            return value.listInvoicesAccept.length==0?
+                            CircularProgressIndicator()
+                                :Expanded(
+                                  child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: value.listInvoicesAccept.length,
+                                  itemBuilder: (context, index) {
+
+                                    return SingleChildScrollView(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2),
+                                          child: cardClientAccept(
+                                            iteminvoice :
+                                            value.listInvoicesAccept[index],
+                                          ),
+                                        ));
+                                  }),
+                                );
+                          } ),
+                    ),
+                  ),
                 ],
-              ),
-            )  ),
+              )  ),
+        ),
       ),
     );
   }

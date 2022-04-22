@@ -60,6 +60,8 @@ class _addinvoiceState extends State<addinvoice> {
   }
    @override
    void initState()  {
+     Provider.of<LoadProvider>(context, listen: false)
+         .changebooladdinvoice(false);
      print('init in addinvoice screen main');
      totalController='0';
      _invoice=widget.invoice;

@@ -36,7 +36,8 @@ class AllUserScreen extends StatelessWidget {
 
         children: [
           search_widget("اسم الموظف....",
-            Provider.of<user_vm_provider>(context, listen: true).userall,),
+            Provider.of<user_vm_provider>(context, listen: true)
+                .userall,),
           const SizedBox(
             height: 5,
           ),

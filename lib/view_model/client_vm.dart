@@ -8,6 +8,7 @@ import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/ProductService.dart';
 import 'package:crm_smart/services/clientService.dart';
+import 'package:crm_smart/ui/widgets/widget%20calendar/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -155,7 +156,7 @@ else{
     if (res) {
       int index=listClient.indexWhere((element) => element.idClients==id_client);
        body.addAll({
-       'date_approve':DateTime.now(),
+       'date_approve':Utils.toDate(DateTime.now()),
       //   'iduser_approve':listClientbyCurrentUser[index].iduser_approve,
        });
       listClient[index]=ClientModel.fromJson(body);
