@@ -22,6 +22,7 @@ class client_vm extends ChangeNotifier {
   List<ClientModel> listClientAccept = [];
   List<ClientModel> listClientbyCurrentUser = [];
   List<ClientModel> listClientbyRegoin = [];
+  List<ClientModel> listClientfilter = [];
 
   // client_vm(UserModel? currentUser){
   //
@@ -46,6 +47,33 @@ class client_vm extends ChangeNotifier {
       if( element.typeClient==searchfilter)
         listClientAccept.add(element);
     });
+
+    notifyListeners();
+  }
+  Future<void> getclientfilter_Local(
+      String searchfilter,String type
+      // , List<ClientModel> list
+      )
+  async {
+    // if(listClient.isEmpty)
+    // List<ClientModel> lists=[];
+    listClientfilter=[];
+    if(type=="user"){
+    listClient.forEach((element) {
+      if( element.fkUser==searchfilter)
+        listClientfilter.add(element);
+    });
+    }
+    else {
+      if(type=="regoin"){
+        listClient.forEach((element) {
+          if( element.fkUser==searchfilter)
+            listClientfilter.add(element);
+        });
+
+
+      }
+    }
 
     notifyListeners();
   }
@@ -122,7 +150,7 @@ else{
           .getAllClientByRegoin(usercurrent!.fkRegoin.toString());
        listClient=listClientbyRegoin;
     }
-
+    listClientfilter= listClient;
     notifyListeners();
   }
 

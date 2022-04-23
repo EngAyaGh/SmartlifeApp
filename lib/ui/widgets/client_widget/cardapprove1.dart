@@ -80,27 +80,61 @@ class cardapprove1 extends StatelessWidget {
                               style: ButtonStyle(
                                   backgroundColor:
                                       MaterialStateProperty.all(kMainColor)),
-                              onPressed: () {
-
-                                // update client to approved client
-                                Provider.of<client_vm>(context, listen: false)
-                                    .setApproveclient_vm({
-                                  'idApproveClient':itemapprove.idApproveClient,
-                                  "fkuser":itemapprove.fkUser,//صاحب العميل
-                                  "fk_regoin":itemapprove.fk_regoin,
-                                  "fkcountry":itemapprove.fk_country,
-                                  "isApprove": "1",
-                                  "name_enterprise":itemapprove.name_enterprise,
-                                  "fkusername":itemapprove.nameUser, //موظف المبيعات
-                                  //"message":"",//
-                                  "nameuserApproved":current.nameUser,
-                                  "iduser_approve": current.idUser//معتمد الاشتراك
-                                }, itemapprove.fkClient).then((value) => value!=false?
-                                Provider.of<approve_vm>(context,listen: false)
-                                    .removeApproveClient(itemapprove.idApproveClient)
-                                    :  _scaffoldKey.currentState!.showSnackBar(
-                                    SnackBar(content: Text('هناك مشكلة ما')))
+                              onPressed: () async{
+                                bool result = await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text(''),
+                                      content: Text('تأكيد العملية'),
+                                      actions: <Widget>[
+                                        new ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(
+                                                  kMainColor)),
+                                          onPressed: () {
+                                            Navigator.of(context,
+                                                rootNavigator: true)
+                                                .pop(
+                                                false); // dismisses only the dialog and returns false
+                                          },
+                                          child: Text('لا'),
+                                        ),
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(
+                                                  kMainColor)),
+                                          onPressed: () async {
+                                            Provider.of<client_vm>(context, listen: false)
+                                                .setApproveclient_vm({
+                                              'idApproveClient':itemapprove.idApproveClient,
+                                              "fkuser":itemapprove.fkUser,//صاحب العميل
+                                              "fk_regoin":itemapprove.fk_regoin,
+                                              "fkcountry":itemapprove.fk_country,
+                                              "isApprove": "1",
+                                              "name_enterprise":itemapprove.name_enterprise,
+                                              "fkusername":itemapprove.nameUser, //موظف المبيعات
+                                              //"message":"",//
+                                              "nameuserApproved":current.nameUser,
+                                              "iduser_approve": current.idUser//معتمد الاشتراك
+                                            }, itemapprove.fkClient).then((value) => value!=false?
+                                            Provider.of<approve_vm>(context,listen: false)
+                                                .removeApproveClient(itemapprove.idApproveClient)
+                                                :  _scaffoldKey.currentState!.showSnackBar(
+                                                SnackBar(content: Text('هناك مشكلة ما')))
+                                            );
+                                            Navigator.of(context,
+                                                rootNavigator: true)
+                                                .pop(true);
+                                          },
+                                          child: Text('نعم'),
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 );
+                                // update client to approved client
+
                               },
                               child: Text('Approve')),
                           SizedBox(
@@ -110,30 +144,64 @@ class cardapprove1 extends StatelessWidget {
                               style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
                                       Colors.redAccent)),
-                              onPressed: () {
-
-                                //send notification
-                                Provider.of<client_vm>(context, listen: false)
-                                    .setApproveclient_vm({
-                                  'idApproveClient':itemapprove.idApproveClient,
-                                  "fkuser":itemapprove.fkUser,
-                                  "fk_regoin":itemapprove.fk_regoin,
-                                  "fkcountry":itemapprove.fk_country,
-                                  "isApprove": "0",
-                                  "name_enterprise":itemapprove.name_enterprise,
-                                  "fkusername":itemapprove.nameUser, //موظف المبيعات
-                                  //"message":"",//
-                                  "nameuserApproved":current.nameUser,
-                                  "iduser_approve": current.idUser//معتمد الاشتراك
-                                }, itemapprove.fkClient)
-                                    .then((value) =>
-                                      value!=false?
-                                    Provider.of<approve_vm>(context,listen: false)
-                                    .removeApproveClient(itemapprove.idApproveClient)
-                                          :   _scaffoldKey.currentState!.showSnackBar(
-                                          SnackBar(content: Text('هناك مشكلة ما'))
-                                      )
+                              onPressed: () async{
+                                bool result = await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text(''),
+                                      content: Text('تأكيد العملية'),
+                                      actions: <Widget>[
+                                        new ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(
+                                                  kMainColor)),
+                                          onPressed: () {
+                                            Navigator.of(context,
+                                                rootNavigator: true)
+                                                .pop(
+                                                false); // dismisses only the dialog and returns false
+                                          },
+                                          child: Text('لا'),
+                                        ),
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(
+                                                  kMainColor)),
+                                          onPressed: () async {
+                                            Provider.of<client_vm>(context, listen: false)
+                                                .setApproveclient_vm({
+                                              'idApproveClient':itemapprove.idApproveClient,
+                                              "fkuser":itemapprove.fkUser,
+                                              "fk_regoin":itemapprove.fk_regoin,
+                                              "fkcountry":itemapprove.fk_country,
+                                              "isApprove": "0",
+                                              "name_enterprise":itemapprove.name_enterprise,
+                                              "fkusername":itemapprove.nameUser, //موظف المبيعات
+                                              //"message":"",//
+                                              "nameuserApproved":current.nameUser,
+                                              "iduser_approve": current.idUser//معتمد الاشتراك
+                                            }, itemapprove.fkClient)
+                                                .then((value) =>
+                                            value!=false?
+                                            Provider.of<approve_vm>(context,listen: false)
+                                                .removeApproveClient(itemapprove.idApproveClient)
+                                                :   _scaffoldKey.currentState!.showSnackBar(
+                                                SnackBar(content: Text('هناك مشكلة ما'))
+                                            )
+                                            );
+                                            Navigator.of(context,
+                                                rootNavigator: true)
+                                                .pop(true);
+                                          },
+                                          child: Text('نعم'),
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 );
+                                //send notification
+
                               },
                               child: Text('Refuse')),
                         ],

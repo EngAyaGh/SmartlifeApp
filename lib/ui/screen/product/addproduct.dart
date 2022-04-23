@@ -126,20 +126,22 @@ class _addProductState extends State<addProduct> {
                        // width: double.infinity,
                         height: 35,
                         margin: EdgeInsets.only(),
-                        padding: EdgeInsets.only(top: 2,bottom: 2,left: 2,right: 2),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                                 Radius.circular(12)),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                offset: Offset(1.0, 1.0),
-                                blurRadius: 8.0,
-                                color: Colors.black87.withOpacity(0.2),
-                              ),
-                            ],
-                            color: Colors.white,
-                          ),
+                        padding: EdgeInsets.only(
+                            top: 2,bottom: 2,left: 2,right: 2),
+                        // child:
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.all(
+                        //          Radius.circular(12)),
+                        //     boxShadow: <BoxShadow>[
+                        //       BoxShadow(
+                        //         offset: Offset(1.0, 1.0),
+                        //         blurRadius: 8.0,
+                        //         color: Colors.black87.withOpacity(0.2),
+                        //       ),
+                        //     ],
+                        //     color: Colors.white,
+                        //   ),
                           child: Center(
                             child: GroupButton(
                               options: GroupButtonOptions(
@@ -165,7 +167,7 @@ class _addProductState extends State<addProduct> {
                               },
                             ),
                           ),
-                        ),
+                        //),
                       );
                     }),
                     SizedBox(height: 6,),

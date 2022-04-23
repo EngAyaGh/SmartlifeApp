@@ -66,10 +66,9 @@ class _editclientState extends State<editclient> {
     ['مستبعد','منسحب','مشترك']
     :widget.itemClient.typeClient=="منسحب"? ['مشترك','منسحب'] :['تفاوض','عرض سعر','مستبعد','منسحب'];
 
-    typeclient_provider.selectedValuemanag=widget.itemClient.typeClient.toString();
-    typeclient_provider.getreasons();
+
     ////////////////////////////////////////
-    print( typeclient_provider.selectedValuemanag);
+    //print( typeclient_provider.selectedValuemanag);
     offerpriceController.text=widget.itemClient.offer_price==null||widget.itemClient.offer_price==""
         ?"":widget.itemClient.offer_price!;
     print(offerpriceController.text);
@@ -82,17 +81,31 @@ class _editclientState extends State<editclient> {
     descresaonController.text=widget.itemClient.desc_reason==null||widget.itemClient.desc_reason==""
         ?"":widget.itemClient.desc_reason!.toString();
 
+    typeclient_provider.selectedValuemanag=widget.itemClient.typeClient.toString();
+    typeclient_provider.getreasons();
     typeclient_provider.selectedValueOut=typeclient_provider.selectedValuemanag=="منسحب"?
     resaonController.text:null;
 
     String val=typeclient_provider.selectedValuemanag=="منسحب"
         ?widget.itemClient.dateChangetype.toString()
         :formatter.format(DateTime.now());
-    // String output = ;
+
     _currentDate=DateTime.parse(val);
     super.initState();
   }
+@override
+void didChangeDependencies() {
 
+  typeclient_provider.selectedValuemanag=widget.itemClient.typeClient.toString();
+  typeclient_provider.getreasons();
+  typeclient_provider.selectedValueOut=typeclient_provider.selectedValuemanag=="منسحب"?
+  resaonController.text:null;
+
+  String val=typeclient_provider.selectedValuemanag=="منسحب"
+      ?widget.itemClient.dateChangetype.toString()
+      :formatter.format(DateTime.now());
+    super.didChangeDependencies();
+  }
     @override
   Widget build(BuildContext context) {
       typeclient_provider=Provider.of<typeclient>(context,listen: true);

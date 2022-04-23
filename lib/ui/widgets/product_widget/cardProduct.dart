@@ -64,7 +64,7 @@ class CardProduct extends StatelessWidget {
                               children: [
                                 Row(
                                   //crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     //Text(' اسم المنتج',style:TextStyle(fontFamily: kfontfamily2),),
                                     Text(itemProd.nameProduct,style:TextStyle(fontFamily: kfontfamily2),),

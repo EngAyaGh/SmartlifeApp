@@ -51,13 +51,17 @@ class _add_invoiceProductState extends State<add_invoiceProduct> {
     _taxadmin.text='';_taxadmin_value='';
     _textprice.text='0';
     _amount.text='1';_amount_value='1';
-    String? id_country =
-        Provider.of<user_vm_provider>(context, listen: false).currentUser!.fkCountry;
-        Provider.of<product_vm>(context, listen: false)
-        .getproduct_vm(id_country!);
+
     // taxCountry=listProduct[index].value_config;
     //.then((value) => _isLoading=false);
     super.initState();
+  }
+  @override void didChangeDependencies() {
+    String? id_country =
+        Provider.of<user_vm_provider>(context, listen: false).currentUser!.fkCountry;
+    Provider.of<product_vm>(context, listen: false)
+        .getproduct_vm(id_country!);
+    super.didChangeDependencies();
   }
 void calculate(){
     setState(() {
@@ -187,6 +191,45 @@ void calculate(){
                       Row(
                         children: [
                           Flexible(
+                              child: Column(
+                                children: [
+                                  RowEdit(name: 'الكمية', des: ''),
+                                  EditTextFormField(
+                                    //read: false,
+                                    onChanged: (val) {
+                                      print(val);
+                                      if(val==null)_amount_value='1';
+                                      _amount_value=val;
+                                      calculate();
+                                    },
+                                    inputType: TextInputType.number,
+                                    label: 'الكمية',
+                                    // radius: 10,
+                                    controller:_amount, hintText: 'الكمية',),
+                                ],
+                              )),
+                          SizedBox(width: 10,),
+                          Flexible(
+                              child: Column(
+                                children: [
+                                  RowEdit(name: 'السعر', des: ''),
+                                  EditTextFormField(
+                                    //ontap: calculate,
+                                    //read: false,
+                                    controller: _textprice,
+                                    label: 'السعر',
+                                    hintText: Provider.of<user_vm_provider>(context, listen: true)
+                                        .currentUser!.currency.toString(),
+                                    //radius: 10
+                                  ),
+                                ],
+                              )),
+                        ],
+                      ),
+                      SizedBox(height: 5,),
+                      Row(
+                        children: [
+                          Flexible(
                             child: Column(
                               children: [
                                 RowEdit(name: ' الخصم للموظف', des: 'اختياري'),
@@ -247,45 +290,7 @@ void calculate(){
                         ],
                       ),
 
-                      SizedBox(height: 5,),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: Column(
-                                children: [
-                                  RowEdit(name: 'الكمية', des: ''),
-                                  EditTextFormField(
-                            //read: false,
-                            onChanged: (val) {
-                                  print(val);
-                                  if(val==null)_amount_value='1';
-                                  _amount_value=val;
-                                  calculate();
-                            },
-                            inputType: TextInputType.number,
-                            label: 'الكمية',
-                                   // radius: 10,
-                                    controller:_amount, hintText: 'الكمية',),
-                                ],
-                              )),
-                          SizedBox(width: 10,),
-                          Flexible(
-                              child: Column(
-                                children: [
-                                  RowEdit(name: 'السعر', des: ''),
-                                  EditTextFormField(
-                                      //ontap: calculate,
-                                      //read: false,
-                                      controller: _textprice,
-                                      label: 'السعر',
-                                    hintText: Provider.of<user_vm_provider>(context, listen: true)
-                                        .currentUser!.currency.toString(),
-                                      //radius: 10
-                                  ),
-                                ],
-                              )),
-                        ],
-                      ),
+
 
                       SizedBox(height: 5,),
                       const MySeparator(color: Colors.grey),

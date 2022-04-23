@@ -81,12 +81,6 @@ class _support_tableState extends State<support_table> {
       appBar: AppBar(
         title: Text(' جدول العملاء ',style: TextStyle(color: kWhiteColor),),
         centerTitle: true,
-        // actions: [
-        //   IconButton(onPressed: (){
-        //     Navigator.pop(context);
-        //   }, icon: Icon(Icons.arrow_back))
-        // ],
-
       ),
       body: SafeArea(
         child: Directionality(

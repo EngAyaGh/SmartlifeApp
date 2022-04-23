@@ -212,7 +212,7 @@ class addClient extends StatelessWidget {
                                   Provider.of<user_vm_provider>
                                     (context,listen: false).currentUser!;
                               Provider.of<client_vm>(context,listen: false)
-                                  .addclient_vm( {
+                                  .addclient_vm({
                                   'name_client': nameclientController.text,
                                   'name_enterprise': nameEnterpriseController.text,
                                   'type_job':typejobController.text,

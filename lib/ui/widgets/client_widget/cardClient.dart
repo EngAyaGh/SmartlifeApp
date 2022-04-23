@@ -119,6 +119,11 @@ class cardClient extends StatelessWidget {
                             Text(itemClient.typeClient.toString(),
                               style: TextStyle(
                                   fontFamily: kfontfamily2),),
+                            itemClient.dateCreate==null?
+                              Text(''):
+                              Text(itemClient.dateCreate.toString(),
+                              style: TextStyle(
+                                  fontFamily: kfontfamily2),),
                             // ButtonBar(
                             //   children: <Widget>[
                             //     new IconButton(

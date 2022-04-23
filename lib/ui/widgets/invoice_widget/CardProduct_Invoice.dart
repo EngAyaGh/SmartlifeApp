@@ -221,7 +221,7 @@ class _CardProduct_invoiceState extends State<CardProduct_invoice> {
                     //crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           //this column --> information
                           Column(
@@ -349,7 +349,7 @@ class _CardProduct_invoiceState extends State<CardProduct_invoice> {
                               new IconButton(
                                   icon: Icon(
                                     Icons.delete,
-                                    color: kMainColor,
+                                    color: Colors.red,
                                   ),
                                   onPressed: () => {
 

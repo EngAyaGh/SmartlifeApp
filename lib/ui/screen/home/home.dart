@@ -46,7 +46,8 @@ class _HomeState extends State<Home> {
         print('Message also contained a notification: ${message.notification}');
       }
       //Provider.of<notifyvm>(context,listen: false).getcounter();
-      Provider.of<notifyvm>(context,listen: false).addcounter();
+      if(message.data['data'])
+        Provider.of<notifyvm>(context,listen: false).addcounter();
       //add notify to listnotify
     });
     FirebaseMessaging.onMessageOpenedApp.listen((event) {

@@ -14,7 +14,7 @@ class customAppbar extends StatelessWidget implements PreferredSizeWidget{
   @override
   Widget build(BuildContext context) {
     var notify=Provider.of<notifyvm>(context,listen: true);
-    notify.getcounter();
+    //notify.getcounter();
 
     print('build appbar');
     return  AppBar(

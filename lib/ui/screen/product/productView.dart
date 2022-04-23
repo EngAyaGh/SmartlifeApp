@@ -72,9 +72,10 @@ void initState() {
     child: ListView.builder(
     itemCount: _listProd.length,
     itemBuilder: (BuildContext context, int index) =>
-    Builder(builder:
-    (context)=>CardProduct( itemProd:
-    _listProd[index],scaffoldKey: _scaffoldKey)) ,
+    Builder(
+        builder: (context)=>CardProduct(
+            itemProd:
+            _listProd[index],scaffoldKey: _scaffoldKey)) ,
     //     _listProd.map(
     //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
     // ).toList(),

@@ -65,7 +65,7 @@ class _ApprovePageState extends State<AcceptPage> {
                       child: Consumer<invoice_vm> (
                           builder: (context,value,child) {
                             return value.listInvoicesAccept.length==0?
-                            CircularProgressIndicator()
+                            Text('')
                                 :Expanded(
                                   child: ListView.builder(
                                   scrollDirection: Axis.vertical,
