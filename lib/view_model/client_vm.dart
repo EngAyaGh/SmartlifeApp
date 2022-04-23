@@ -168,7 +168,22 @@ else{
       int index=listClient.indexWhere((element) => element.idClients==id_client);
        body.addAll({
        'date_approve':Utils.toDate(DateTime.now()),
-      //   'iduser_approve':listClientbyCurrentUser[index].iduser_approve,
+         "type_client": listClient[index].typeClient,
+       'name_client': listClient[index].nameClient,
+       //'name_enterprise':
+       'type_job': listClient[index].typeJob,
+       'location': listClient[index].location,
+       'city': listClient[index].city,
+       "mobile": listClient[index].mobile,
+       "date_changetype": listClient[index].dateChangetype,
+       "offer_price": listClient[index].offer_price,
+       "reason_change": listClient[index].reasonChange,
+       "user_do": listClient[index].user_do,
+       "desc_reason": listClient[index].desc_reason,
+       "value_back": listClient[index].value_back,
+       'name_regoin': listClient[index].name_regoin,
+         "nameUser":listClient[index].nameUser,
+       //   'iduser_approve':listClientbyCurrentUser[index].iduser_approve,
        });
       listClient[index]=ClientModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));

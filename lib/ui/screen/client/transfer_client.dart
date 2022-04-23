@@ -120,7 +120,8 @@ class _transferClientState extends State<transferClient> {
 
                 Navigator.pushAndRemoveUntil(context,
                     MaterialPageRoute(builder: (context)=>Home()),
-                        (route) => false);
+                        (route) => false
+                      );
               },
               child: Text('تأكيد العملية'),
             ),

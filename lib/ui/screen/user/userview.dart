@@ -71,51 +71,54 @@ class _UserScreenState extends State<UserScreen> {
           centerTitle: true,
           elevation: 0,
         ),
-        body: Center(
-          child: ContainerShadows(
+        body: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Center(
+            child: ContainerShadows(
 
-            padding: EdgeInsets.only(
-                top: 35,right: 0,left: 0,bottom: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+              padding: EdgeInsets.only(
+                  top: 35,right: 1,left: 1,bottom: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
 
-            margin: EdgeInsets.only(
-                left: 25,
-                right: 25,
-                top: 45,bottom: 45
-            ),
-            width: double.infinity,
-            //height: 500,
-            child: Center(
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child:
-                          Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 10,
+              margin: EdgeInsets.only(
+                  left: 1,
+                  right: 1,
+                  top: 45,bottom: 45
+              ),
+              width: double.infinity,
+              //height: 500,
+              child: Center(
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child:
+                            Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 10,
+                          ),
+                          child: ImageProfile(),
                         ),
-                        child: ImageProfile(),
-                      ),
-                      Expanded(
-                        child: info(context),
-                        // child: ListView.separated(
-                        //   controller: scrollController,
-                        //   itemCount: 6,
-                        //   separatorBuilder: (context, index) => const Padding(
-                        //     padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                        //     child: Divider(
-                        //       color: Colors.grey,
-                        //       thickness: 1,
-                        //     ),
-                        //   ),
-                        //   itemBuilder: (context, index) {
-                        //      return infoUser(name: userModel.nameUser.toString());
-                        //   },
-                        // ),
-                      ),
-                    ],
-                  ),
+                        Expanded(
+                          child: info(context),
+                          // child: ListView.separated(
+                          //   controller: scrollController,
+                          //   itemCount: 6,
+                          //   separatorBuilder: (context, index) => const Padding(
+                          //     padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                          //     child: Divider(
+                          //       color: Colors.grey,
+                          //       thickness: 1,
+                          //     ),
+                          //   ),
+                          //   itemBuilder: (context, index) {
+                          //      return infoUser(name: userModel.nameUser.toString());
+                          //   },
+                          // ),
+                        ),
+                      ],
+                    ),
 
+                ),
               ),
             ),
           ),

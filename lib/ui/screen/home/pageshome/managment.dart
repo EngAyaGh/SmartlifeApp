@@ -27,14 +27,15 @@ class managmentpage extends StatelessWidget {
         padding: EdgeInsets.only(top: 50),
         child:
         Column(children: [
-          buildSelectCategory(onTap: () {
+          buildSelectCategory(
+              onTap: () {
             Navigator.push(context, MaterialPageRoute(
                 builder: (context)=>
                     AllUserScreen()));
           }, title: 'إدارة المستخدمين'),
           buildSelectCategory(onTap: () {
 
-          }, title: ''),
+          }, title: 'ادارة الصلاحيات'),
 
         ],),
 

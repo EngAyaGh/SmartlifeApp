@@ -67,9 +67,9 @@ print('initt');
                           },
                         ),
                       ),
-                      IconButton(onPressed: (){
-                        _selectDate(context,_currentDate);
-                      }, icon: Icon(Icons.edit,color: kMainColor,)),
+                      // IconButton(onPressed: (){
+                      //   //_selectDate(context,_currentDate);
+                      // }, icon: Icon(Icons.edit,color: kMainColor,)),
                       IconButton(onPressed: (){},
                           icon:Icon( Icons.check,color: kMainColor)),
                     ],
@@ -80,7 +80,8 @@ print('initt');
 
                   cardRow('اسم المؤسسة',''),
                   cardRow('معتمد الاشتراك ','آية'),
-                  cardRow('اسم ',''),
+                  cardRow('هل تم التركيب ','بالانتظار'),
+                  cardRow('طريقة التركيب ','ميداني'),
                   SizedBox(height: 16,),
 
     ElevatedButton(
@@ -95,7 +96,10 @@ print('initt');
                           title: Text('التأكيد'),
                           content: Text('هل تريد تأكيد عملية التركيب'),
                           actions: <Widget>[
-                            new FlatButton(
+                            new ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      kMainColor)),
                               onPressed: () {
                                 Navigator.of(context,
                                     rootNavigator: true)
@@ -104,7 +108,10 @@ print('initt');
                               },
                               child: Text('لا'),
                             ),
-                            FlatButton(
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      kMainColor)),
                               onPressed: () async {
                                 Navigator.of(context,
                                     rootNavigator: true)

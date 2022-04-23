@@ -43,18 +43,22 @@ class _addUserState extends State<addUser> {
   String? namemanage='موظف مبيعات';
   //var _list=_maptext.to;
   @override void didChangeDependencies() {
-    // Future.delayed(Duration(milliseconds: 30)).then((_) async {
-    //   Provider.of<regoin_vm>(context,listen: false).getregoin();
-    // }
-    // );
+    Future.delayed(Duration(milliseconds: 30)).then((_) async {
+      // controllerUsers= Provider.of<user_vm_provider>
+      //   (context,listen: false).userall!;
+      Provider.of<level_vm>(context,listen: false).getlevel();
+
+      Provider.of<regoin_vm>(context,listen: false).getregoin();
+    }
+    );
 
     super.didChangeDependencies();
   }
   @override void initState() {
 
-    Provider.of<regoin_vm>(context,listen: false).getregoin();
-    Provider.of<level_vm>(context,listen: false).getlevel();
-
+    // Provider.of<regoin_vm>(context,listen: false).getregoin();
+    // Provider.of<level_vm>(context,listen: false).getlevel();
+    //
 
     super.initState();
   }
@@ -75,7 +79,7 @@ class _addUserState extends State<addUser> {
       body:ModalProgressHUD(
         inAsyncCall: Provider.of<LoadProvider>(context).isLoadingAddUser,
         child: Padding(
-          padding:EdgeInsets.only(top: 15,right: 20,left: 20,bottom: 15), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+          padding:EdgeInsets.only(top: 15,right: 5,left: 5,bottom: 15), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
           child: ContainerShadows(
             width: double.infinity,
             padding:

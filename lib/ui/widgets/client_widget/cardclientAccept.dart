@@ -48,7 +48,8 @@ class cardClientAccept extends StatelessWidget {
           //splashColor: Colors.blue.withAlpha(30),
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Detail_Client()));
+                MaterialPageRoute(builder: (context) =>
+                    Detail_Client()));
           },
           child: Container(
             decoration: BoxDecoration(

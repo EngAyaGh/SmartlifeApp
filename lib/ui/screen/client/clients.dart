@@ -197,7 +197,6 @@ ApproveModel itemapprove;
                           backgroundColor:
                           MaterialStateProperty.all(kMainColor)),
                       onPressed: () {
-
                         // update client to approved client
                         Provider.of<client_vm>(context, listen: false)
                             .setApproveclient_vm({

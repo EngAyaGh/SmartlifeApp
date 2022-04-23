@@ -79,30 +79,33 @@ class _HomeState extends State<Home> {
     var sizeh=MediaQuery.of(context).size.height;
      var paddval=1.0;
     paddval= sizeh/3;
-    return Scaffold(
-      //drawerScrimColor: Colors.white,
-      backgroundColor: Colors.grey[200],
-      appBar:customAppbar(),
-      drawer: CustomDrawer(),
-      // drawer: Theme(
-      //   data:  Theme.of(context).copyWith(
-      //     canvasColor: Colors.white, //This will change the drawer background to blue.
-      //     //other styles
-      //   ),
-      //   child: CustomDrawer(),
-      //
-      // ),
-      // AppBar(
-      //   title: Text('الرئيسية',style: TextStyle(color: kWhiteColor),),
-      //   centerTitle: true,
-      //   elevation: 0,
-      //   backgroundColor: kMainColor,
-      // ),
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 25),
-          child: BuildCard(),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        //drawerScrimColor: Colors.white,
+        backgroundColor: Colors.grey[200],
+        appBar:customAppbar(),
+        drawer: CustomDrawer(),
+        // drawer: Theme(
+        //   data:  Theme.of(context).copyWith(
+        //     canvasColor: Colors.white, //This will change the drawer background to blue.
+        //     //other styles
+        //   ),
+        //   child: CustomDrawer(),
+        //
+        // ),
+        // AppBar(
+        //   title: Text('الرئيسية',style: TextStyle(color: kWhiteColor),),
+        //   centerTitle: true,
+        //   elevation: 0,
+        //   backgroundColor: kMainColor,
+        // ),
+        body: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 25),
+            child: BuildCard(),
+          ),
         ),
       ),
     );

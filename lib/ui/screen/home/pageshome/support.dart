@@ -33,8 +33,8 @@ class supportpage extends StatelessWidget {
           buildSelectCategory(onTap: () {
             Navigator.push(context, MaterialPageRoute(
                 builder: (context)=>
-                    Calendar()));
-          }, title: 'جدول مواعيدي'),
+                    support_table()));
+          }, title: 'جدول العملاء'),
           // buildSelectCategory(onTap: () {
           //   Navigator.push(context, MaterialPageRoute(
           //       builder: (context)=>
@@ -48,12 +48,12 @@ class supportpage extends StatelessWidget {
                  builder: (context)=>
                     support_view()));
           }, title: 'العملاء المشتركين'),//تاريخ الفاتورة جنبو اسم المؤسسة
-          buildSelectCategory(onTap: () {
-            //
-            Navigator.push(context, MaterialPageRoute(
-                builder: (context)=>
-                    support_table()));
-          }, title: 'جدول العملاء'),
+          // buildSelectCategory(onTap: () {
+          //   //
+          //   Navigator.push(context, MaterialPageRoute(
+          //       builder: (context)=>
+          //           support_table()));
+          // }, title: 'جدول العملاء'),
         ],
         ),
 

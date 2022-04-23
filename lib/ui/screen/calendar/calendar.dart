@@ -15,7 +15,17 @@ class Calendar extends StatelessWidget {
         centerTitle: true,
         backgroundColor: kMainColor,
       ),
-      body: CalendarWidget(),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+            children: [
+
+            CalendarWidget(),
+          ],
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: kMainColor,
         onPressed: () {
