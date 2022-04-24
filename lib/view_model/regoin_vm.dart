@@ -32,12 +32,12 @@ class regoin_vm extends ChangeNotifier{
     notifyListeners();
   }
   Future<void> getregoin()async {
-
-    //if(listregoin.isEmpty) {
+    if (listregoin.isEmpty) {
       List<dynamic> data = [];
       data = await Api()
           .get(url: url +
-          'country/get_regoinByIdCountry.php?fk_country=1');
+          'country/get_regoinByIdCountry.php?fk_country=${usercurrent!
+              .fkCountry}');
       print(data);
       if (data != null) {
         for (int i = 0; i < data.length; i++) {
@@ -46,9 +46,9 @@ class regoin_vm extends ChangeNotifier{
       }
     }
     notifyListeners();
-   //var  data=await RegoinService().getRegoinByCountry("1");
-   //listregoin= data as  List<RegoinModel>;
-
+    //var  data=await RegoinService().getRegoinByCountry("1");
+    //listregoin= data as  List<RegoinModel>;
+  }
 
 
   //}

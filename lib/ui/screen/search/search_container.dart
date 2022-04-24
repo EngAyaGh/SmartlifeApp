@@ -12,11 +12,13 @@ class search_widget extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(
-               Radius.circular(10),
+               Radius.circular(5),
           )),
+      height: 50,
       child: Padding(
-        padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 10),
+        padding: const EdgeInsets.only(top: 2, left: 8, right: 8, bottom: 2),
         child: Container(
+
           decoration: BoxDecoration(
             color: Colors.grey.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10),

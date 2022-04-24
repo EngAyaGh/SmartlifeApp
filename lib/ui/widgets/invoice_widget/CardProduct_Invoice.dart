@@ -28,6 +28,8 @@ class CardProduct_invoice extends StatefulWidget {
 }
 
 class _CardProduct_invoiceState extends State<CardProduct_invoice> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+bool isepmty=false;
   int index=0;
   TextEditingController _taxuser = TextEditingController();
   late String _taxuser_value;
@@ -47,6 +49,7 @@ class _CardProduct_invoiceState extends State<CardProduct_invoice> {
   }
   void calculate(){
     setState(() {
+      //isepmty=false;
       double totaltax=0;
       //if(listProduct.isNotEmpty){
         _textprice.text=widget.itemProd.priceProduct!;
@@ -111,6 +114,33 @@ class _CardProduct_invoiceState extends State<CardProduct_invoice> {
       contentPadding: EdgeInsets.all(10),
       title: Text(''),
       children: [
+
+        RowEdit(name: 'الكمية', des: ''),
+        EditTextFormField(
+          //read: false,
+          onChanged: (val) {
+            print(val);
+            if(val==null)_amount_value='1';
+            _amount_value=val;
+            calculate();
+          },
+          inputType: TextInputType.number,
+          label: 'الكمية',
+          // radius: 10,
+          controller:_amount, hintText: 'الكمية',),
+        SizedBox(width: 10,),
+
+        RowEdit(name: 'السعر', des: ''),
+        EditTextFormField(
+          ontap:(){}, ///calculate,
+          //read: false,
+          controller: _textprice,
+          label: 'السعر',
+          hintText: Provider.of<user_vm_provider>(context, listen: true)
+              .currentUser!.currency.toString(),
+          //radius: 10
+        ),
+        SizedBox(height: 5,),
         RowEdit(name: 'نسبة الخصم المتاحة للموظف', des: 'اختياري'),
         EditTextFormField(
 
@@ -143,50 +173,35 @@ class _CardProduct_invoiceState extends State<CardProduct_invoice> {
           //radius: 10
         ),
 
-        SizedBox(height: 6,),
-        RowEdit(name: 'الكمية', des: ''),
-        EditTextFormField(
-          //read: false,
-          onChanged: (val) {
-            print(val);
-            if(val==null)_amount_value='1';
-            _amount_value=val;
-            calculate();
-          },
-          inputType: TextInputType.number,
-          label: 'الكمية',
-          // radius: 10,
-          controller:_amount, hintText: 'الكمية',),
 
-
-    SizedBox(width: 10,),
-
-    RowEdit(name: 'السعر', des: ''),
-    EditTextFormField(
-    //ontap: calculate,
-    //read: false,
-    controller: _textprice,
-    label: 'السعر',
-    hintText: Provider.of<user_vm_provider>(context, listen: true)
-        .currentUser!.currency.toString(),
-    //radius: 10
-    ),
         ElevatedButton(
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
                   kMainColor)),
           onPressed: () {
             setState(() {
+              if(_textprice.text.isNotEmpty){
+                isepmty=false;
               widget.itemProd.rateUser= _taxuser.text;
               widget.itemProd.price=_textprice.text;
               widget.itemProd.rateAdmin=_taxadmin.text;
               widget.itemProd.amount=_amount.text;
+                Navigator.of(context, rootNavigator: true)
+                    .pop(false);
+              }
+              else{
+             setState(() {
+               isepmty=true;
+             });
+                // _scaffoldKey.currentState!.showSnackBar(
+                //     SnackBar(content: Text('من فضلك ادخل السعر')));
+              }
             });
-            Navigator.of(context, rootNavigator: true)
-                .pop(false); // dismisses only the dialog and returns false
+       // dismisses only the dialog and returns false
           },
           child: Text('تم'),
         ),
+        isepmty==true?Text('لا يمكن أن يكون السعر فارغ'):Text(''),
             ],
     );
 

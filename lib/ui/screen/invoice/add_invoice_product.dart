@@ -30,6 +30,7 @@ class add_invoiceProduct extends StatefulWidget {
 }
 
 class _add_invoiceProductState extends State<add_invoiceProduct> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   List<ProductModel> listProduct = [];
   List<ProductsInvoice> listAdded = [];
   String? selectedvalue = null;
@@ -51,17 +52,27 @@ class _add_invoiceProductState extends State<add_invoiceProduct> {
     _taxadmin.text='';_taxadmin_value='';
     _textprice.text='0';
     _amount.text='1';_amount_value='1';
-
+    // String? id_country =
+    //     Provider.of<user_vm_provider>(context, listen: false).currentUser!.fkCountry;
+    // Provider.of<product_vm>(context, listen: false)
+    //     .getproduct_vm(id_country!);
     // taxCountry=listProduct[index].value_config;
     //.then((value) => _isLoading=false);
+    String? id_country =
+        Provider
+            .of<user_vm_provider>(context, listen: false)
+            .currentUser!
+            .fkCountry;
+    Provider.of<product_vm>(context, listen: false)
+        .getproduct_vm(id_country!);
     super.initState();
   }
   @override void didChangeDependencies() {
-    String? id_country =
-        Provider.of<user_vm_provider>(context, listen: false).currentUser!.fkCountry;
-    Provider.of<product_vm>(context, listen: false)
-        .getproduct_vm(id_country!);
+    // Future.delayed(Duration(milliseconds: 30)).then((_) async {
+    //
+    // });
     super.didChangeDependencies();
+
   }
 void calculate(){
     setState(() {
@@ -109,6 +120,7 @@ void calculate(){
     listProduct = Provider.of<product_vm>(context, listen: true).listProduct;
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
 
          actions: [
@@ -214,6 +226,7 @@ void calculate(){
                                 children: [
                                   RowEdit(name: 'السعر', des: ''),
                                   EditTextFormField(
+                                    inputType: TextInputType.number,
                                     //ontap: calculate,
                                     //read: false,
                                     controller: _textprice,
@@ -307,35 +320,40 @@ void calculate(){
                                         kMainColor)),
                                 onPressed: () {
                                   //iduser
-                                  final index=listProduct.indexWhere(
-                                          (element) => element.idProduct==selectedvalue);
-                                  ProductModel pm=listProduct[index];
-                                  ProductsInvoice  pp=ProductsInvoice(
-                                    //idInvoiceProduct: null,
-                                      fkIdInvoice: widget.invoice!.idInvoice==null
-                                          ? '0' :  widget.invoice!.idInvoice.toString(),
-                                      fkclient:widget.invoice!.fkIdClient ,
-                                      fkuser: widget.invoice!.fkIdUser,
-                                      fkProduct:pm.idProduct,
-                                      fkConfig: pm.fkConfig==null?"null": pm.fkConfig,
-                                      fkCountry: pm.fkCountry,
-                                      price: _textprice.text,
-                                      amount: _amount.text.isEmpty?'1':_amount.text,
-                                      rateAdmin: _taxadmin.text,
-                                      rateUser: _taxuser.text,
-                                      nameProduct: pm.nameProduct,
-                                      type: listProduct[index].type,
-                                      idProduct: listProduct[index].idProduct,
-                                      //value: listProduct[index].idProduct,
-                                      idInvoiceProduct: "null",
-                                      priceProduct: listProduct[index].priceProduct,
-                                      taxtotal: listProduct[index].value_config==null?"null":listProduct[index].value_config
-                                  );
-                                  listAdded.add(pp);
-                                  print(pp.nameProduct);
-                                  Provider.of<invoice_vm>(context,listen: false)
-                                      .addlistproductinvoic(pp);
-
+                                  if(_textprice.text.isNotEmpty &&selectedvalue!=null){
+                                    final index=listProduct.indexWhere(
+                                            (element) => element.idProduct==selectedvalue);
+                                    ProductModel pm=listProduct[index];
+                                    ProductsInvoice  pp=ProductsInvoice(
+                                      //idInvoiceProduct: null,
+                                        fkIdInvoice: widget.invoice!.idInvoice==null
+                                            ? '0' :  widget.invoice!.idInvoice.toString(),
+                                        fkclient:widget.invoice!.fkIdClient ,
+                                        fkuser: widget.invoice!.fkIdUser,
+                                        fkProduct:pm.idProduct,
+                                        fkConfig: pm.fkConfig==null?"null": pm.fkConfig,
+                                        fkCountry: pm.fkCountry,
+                                        price: _textprice.text,
+                                        amount: _amount.text.isEmpty?'1':_amount.text,
+                                        rateAdmin: _taxadmin.text,
+                                        rateUser: _taxuser.text,
+                                        nameProduct: pm.nameProduct,
+                                        type: listProduct[index].type,
+                                        idProduct: listProduct[index].idProduct,
+                                        //value: listProduct[index].idProduct,
+                                        idInvoiceProduct: "null",
+                                        priceProduct: listProduct[index].priceProduct,
+                                        taxtotal: listProduct[index].value_config==null?"null":listProduct[index].value_config
+                                    );
+                                    listAdded.add(pp);
+                                    print(pp.nameProduct);
+                                    Provider.of<invoice_vm>(context,listen: false)
+                                        .addlistproductinvoic(pp);
+                                  }
+                                  else{
+                                    _scaffoldKey.currentState!.showSnackBar(
+                                        SnackBar(content: Text('من فضلك ادخل السعر')));
+                                  }
                                 },
                                 child: Text('إضافة منتج للفاتورة')),
                             Text(''),

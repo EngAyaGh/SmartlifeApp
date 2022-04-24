@@ -51,7 +51,7 @@ class client_vm extends ChangeNotifier {
     notifyListeners();
   }
   Future<void> getclientfilter_Local(
-      String searchfilter,String type
+      String? searchfilter,String type
       // , List<ClientModel> list
       )
   async {
@@ -59,6 +59,8 @@ class client_vm extends ChangeNotifier {
     // List<ClientModel> lists=[];
     listClientfilter=[];
     if(type=="user"){
+      print(searchfilter);
+      print('in user search');
     listClient.forEach((element) {
       if( element.fkUser==searchfilter)
         listClientfilter.add(element);
@@ -66,6 +68,8 @@ class client_vm extends ChangeNotifier {
     }
     else {
       if(type=="regoin"){
+        print('regoin');
+        print(searchfilter);
         listClient.forEach((element) {
           if( element.fkUser==searchfilter)
             listClientfilter.add(element);
@@ -190,13 +194,18 @@ else{
     }
     return res;
   }
+  void getudate(){
+    listClientfilter=listClient;
+    notifyListeners();
+  }
   Future<bool> setApproveclient_vm(Map<String, dynamic?> body,String? id_client) async {
     bool res = await ClientService().setApproveClient(body,id_client!);
     if (res) {
       int index=listClient.indexWhere((element) => element.idClients==id_client);
        body.addAll({
+       'id_clients':listClient[index].idClients,
        'date_approve':Utils.toDate(DateTime.now()),
-         "type_client": listClient[index].typeClient,
+       "type_client": listClient[index].typeClient,
        'name_client': listClient[index].nameClient,
        //'name_enterprise':
        'type_job': listClient[index].typeJob,
@@ -210,7 +219,7 @@ else{
        "desc_reason": listClient[index].desc_reason,
        "value_back": listClient[index].value_back,
        'name_regoin': listClient[index].name_regoin,
-         "nameUser":listClient[index].nameUser,
+       "nameUser":listClient[index].nameUser,
        //   'iduser_approve':listClientbyCurrentUser[index].iduser_approve,
        });
       listClient[index]=ClientModel.fromJson(body);

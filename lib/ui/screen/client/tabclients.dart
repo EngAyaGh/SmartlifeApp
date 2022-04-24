@@ -37,7 +37,13 @@ class _tabclientsState extends State<tabclients> {
   @override
   void initState() {
     super.initState();
-
+    Provider.of<user_vm_provider>(context,listen: false)
+        .getuser_vm();
+    print(Provider.of<user_vm_provider>(context,listen: false)
+        .userall.length);
+    Provider.of<regoin_vm>(context,listen: false).getregoin();
+    Provider.of<client_vm>(context, listen: false)
+        .getclientByRegoin([]);
     // WidgetsBinding.instance?.addPostFrameCallback((_) {
 
   }
@@ -55,37 +61,33 @@ class _tabclientsState extends State<tabclients> {
     //
     //  }
     // );
-    Future.delayed(Duration(milliseconds: 30)).then((_) async {
-      await Provider.of<user_vm_provider>(context,listen: false)
-          .getuser_vm();
-      print(Provider.of<user_vm_provider>(context,listen: false)
-          .userall.length);
-      Provider.of<regoin_vm>(context,listen: false).getregoin();
-      Provider.of<client_vm>(context, listen: false)
-          .getclientByRegoin([]);
-    }
-    );
+    // Future.delayed(Duration(milliseconds: 30)).then((_) async {
+    //   await Provider.of<user_vm_provider>(context,listen: false)
+    //       .getuser_vm();
+    //   print(Provider.of<user_vm_provider>(context,listen: false)
+    //       .userall.length);
+    //   Provider.of<regoin_vm>(context,listen: false).getregoin();
+    //   Provider.of<client_vm>(context, listen: false)
+    //       .getclientByRegoin([]);
+    // }
+    // );
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-
-    // var  value=Provider.of<client_vm>(context,listen: true);
-    //     .listClientbyCurrentUser;
-
-    //});
-//
+  //  Provider.of<client_vm>(context, listen: false).getudate();
 
     print('build tabview');
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            'كل العملاء ',
-            style: TextStyle(color: kWhiteColor, fontFamily: kfontfamily2),
-          ),
-        ),
+        // appBar: AppBar(
+        //   elevation: 0,
+        //   centerTitle: true,
+        //   title: Text(
+        //     'كل العملاء ',
+        //     style: TextStyle(color: kWhiteColor, fontFamily: kfontfamily2),
+        //   ),
+        // ),
         floatingActionButton: FloatingActionButton(
 
           backgroundColor: kMainColor,
@@ -101,123 +103,153 @@ class _tabclientsState extends State<tabclients> {
             padding: EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
             child: Directionality(
               textDirection: TextDirection.rtl,
-              child: ListView(
-                children: [
-                  Center(
-                    child:
-                    GroupButton(
-                        controller: GroupButtonController(
-                          selectedIndex:isSelectedtypeinstall,
+              child: Expanded(
+                 flex: 1,
+                child: ListView(
+                  children: [
+                    Center(
+                      child:
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                       Row(
 
-                        ),
-                        options: GroupButtonOptions(
-                            buttonWidth: 100,
+                         children: [   Text('فلترة'),
+                           Icon(Icons.filter_alt_sharp),],
+                       ),
+                          GroupButton(
+                              controller: GroupButtonController(
+                                selectedIndex:isSelectedtypeinstall,
 
-                            borderRadius: BorderRadius.circular(10)),
-                        buttons: ['الموظف','المناطق'],
-                        onSelected: (index,isselected) {
-                          print(index);
-                          setState(() {
-                            isSelectedtypeinstall=index;
+                              ),
+                              options: GroupButtonOptions(
+                                  buttonWidth: 100,
 
-                          });
-                        }
-                    ),
-                  ),
-                  SizedBox(height: 5,),
-                  isSelectedtypeinstall==1?
-                  Consumer<regoin_vm>(
-                    builder: (context, cart, child){
-                      return DropdownButton(
-                        isExpanded: true,
-                        //hint: Text("حدد حالة العميل"),
-                        items: cart.listregoin.map((level_one) {
-                          return DropdownMenuItem(
-                            child: Text(level_one.name_regoin), //label of item
-                            value: level_one.id_regoin, //value of item
-                          );
-                        }).toList(),
-                        value:cart.selectedValueLevel,
-                        onChanged:(value) {
-                          //  setState(() {
-                          cart.changeVal(value.toString());
-                          Provider.of<client_vm>(context, listen: false)
-                              .getclientfilter_Local(iduser!,"regoin");
-                          // });
-                        },
-                      );},
-                  )
-                      :
-                  Consumer<user_vm_provider>(
-                    builder: (context, cart, child){
-                      return  DropdownSearch<UserModel>(
-                        mode: Mode.DIALOG,
-                        label: " Name ",
+                                  borderRadius: BorderRadius.circular(10)),
+                              buttons: ['الموظف','المناطق'],
+                              onSelected: (index,isselected) {
+                                print(index);
+                                setState(() {
+                                  isSelectedtypeinstall=index;
 
-                        //onFind: (String filter) => cart.getfilteruser(filter),
-                        filterFn: (user, filter) => user!.getfilteruser(filter!),
-                        //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
-                        // itemAsString: (UserModel u) => u.userAsStringByName(),
-                        items: cart.userall,
-                        itemAsString:
-                            ( u) => u!.userAsString(),
-
-                        // selectedItem: cart.currentUser,
-                        onChanged: (data) {
-                          iduser=data!.idUser;
-                          Provider.of<client_vm>(context, listen: false)
-                              .getclientfilter_Local(iduser!,"user");
-                        } ,//print(data!.nameUser),
-                        showSearchBox: true,
-                        dropdownSearchDecoration: InputDecoration(
-                          labelText: "choose a user",
-                          contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
-                          border: OutlineInputBorder(),
-                        ),
-                      );
-
-                    },
-                  ),
-
-                  SizedBox(height: 25,),
-                  search_widget("المؤسسة....",
-                      Provider.of<client_vm>(context, listen: true)
-                          .listClient,),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  RefreshIndicator(
-                    onRefresh: ()async{
-                      await    Provider.of<client_vm>(context, listen: false)
-                          .getclientByRegoin([]);
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.height*0.73,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 8,right: 8,
-                            top:8.0,bottom: 20),
-                        child:
-                            Consumer<client_vm>(builder: (context, value, child) {
-                          return Expanded(
-                            child: ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                itemCount: value.listClientfilter.length,
-                                itemBuilder: (context, index) {
-                                  return SingleChildScrollView(
-                                      child: Padding(
-                                    padding: const EdgeInsets.all(2),
-                                    child: cardClient(
-                                        itemClient: value.listClientfilter[index],
-                                        iduser: iduser.toString()),
-                                  ));
-                                }),
-                          );
-                        }),
+                                });
+                              }
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 5,),
+                    isSelectedtypeinstall==1?
+                    Consumer<regoin_vm>(
+                      builder: (context, cart, child){
+                        return Expanded(
+                          //flex: 1,
+                          child: DropdownButton(
+                            isExpanded: true,
+                            //hint: Text("حدد حالة العميل"),
+                            items: cart.listregoin.map((level_one) {
+                              return DropdownMenuItem(
+                                child: Text(level_one.name_regoin), //label of item
+                                value: level_one.id_regoin, //value of item
+                              );
+                            }).toList(),
+                            value:cart.selectedValueLevel,
+                            onChanged:(value) {
+                              //  setState(() {
+                              cart.changeVal(value.toString());
+                              Provider.of<client_vm>(context, listen: false)
+                                  .getclientfilter_Local(value.toString(),"regoin");
+                              // });
+                            },
+                          ),
+                        );},
+                    )
+                        :
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0,right: 8),
+                      child: Consumer<user_vm_provider>(
+                        builder: (context, cart, child){
+                          return  Expanded(
+                            // flex: 1,
+                            child: DropdownSearch<UserModel>(
+                              mode: Mode.DIALOG,
+                              label: " الموظف ",
+
+                              //onFind: (String filter) => cart.getfilteruser(filter),
+                              filterFn: (user, filter) => user!.getfilteruser(filter!),
+                              //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
+                              // itemAsString: (UserModel u) => u.userAsStringByName(),
+                              items: cart.userall,
+                              itemAsString:
+                                  ( u) => u!.userAsString(),
+
+                              // selectedItem: cart.currentUser,
+                              onChanged: (data) {
+                                iduser=data!.idUser;
+                                Provider.of<client_vm>(context, listen: false)
+                                    .getclientfilter_Local(iduser!,"user");
+                              } ,//print(data!.nameUser),
+                              showSearchBox: true,
+
+                              dropdownSearchDecoration: InputDecoration(
+                                fillColor:  Colors.grey.withOpacity(0.2),
+                                labelText: "choose a user",
+                                contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(color: Colors.white)),
+                                border:OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(color: Colors.white)),
+                              ),
+                            ),
+                          );
+
+                        },
+                      ),
+                    ),
+
+                    SizedBox(height: 2,),
+                    search_widget("المؤسسة....",
+                        Provider.of<client_vm>(context, listen: true)
+                            .listClient,),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    RefreshIndicator(
+                      onRefresh: ()async{
+                        await    Provider.of<client_vm>(context, listen: false)
+                            .getclientByRegoin([]);
+                      },
+                      child: Container(
+                        height: MediaQuery.of(context).size.height*0.7,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8,right: 8,
+                              top:8.0,bottom: 20),
+                          child:
+                              Consumer<client_vm>(builder: (context, value, child) {
+                            return value.listClientfilter.length==0?
+                            Text(''):Expanded(
+                              child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: value.listClientfilter.length,
+                                  itemBuilder: (context, index) {
+                                    return SingleChildScrollView(
+                                        child: Padding(
+                                      padding: const EdgeInsets.all(2),
+                                      child: cardClient(
+                                          itemClient: value.listClientfilter[index],
+                                          iduser: iduser.toString()),
+                                    ));
+                                  }),
+                            );
+                          }),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/screen/user/alluser.dart';
 import 'package:crm_smart/ui/screen/user/userview.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,7 +37,16 @@ class managmentpage extends StatelessWidget {
           buildSelectCategory(onTap: () {
 
           }, title: 'ادارة الصلاحيات'),
-
+          buildSelectCategory(onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (BuildContext context)
+                => ProductView(),
+                fullscreenDialog: true,
+              ),
+            );
+          }, title: 'المنتجات '),
         ],),
 
       ),

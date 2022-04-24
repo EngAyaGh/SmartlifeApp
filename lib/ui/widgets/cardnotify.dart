@@ -58,34 +58,34 @@ late NotificationModel itemNotify;
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Container(
-
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          boxShadow: <BoxShadow>[
-                            BoxShadow(
-                              offset: Offset(1.0, 1.0),
-                              blurRadius: 8.0,
-                              color: Colors.black87.withOpacity(0.2),
-                            ),
-                          ],
-                          color: kMainColor,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 3,bottom: 3, left:6,right: 6),
-                          child: Text(showtext(itemNotify.typeNotify),style:
-                          TextStyle(
-                            color: kWhiteColor,
-                              //fontWeight: FontWeight.bold,
-                              fontFamily: kfontfamily3),
-
-                      ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Container(
+                  //
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.all(Radius.circular(15)),
+                  //         boxShadow: <BoxShadow>[
+                  //           BoxShadow(
+                  //             offset: Offset(1.0, 1.0),
+                  //             blurRadius: 8.0,
+                  //             color: Colors.black87.withOpacity(0.2),
+                  //           ),
+                  //         ],
+                  //         color: kMainColor,
+                  //       ),
+                  //       child: Padding(
+                  //         padding: const EdgeInsets.only(top: 3,bottom: 3, left:6,right: 6),
+                  //         child: Text(showtext(itemNotify.typeNotify),style:
+                  //         TextStyle(
+                  //           color: kWhiteColor,
+                  //             //fontWeight: FontWeight.bold,
+                  //             fontFamily: kfontfamily3),
+                  //
+                  //     ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

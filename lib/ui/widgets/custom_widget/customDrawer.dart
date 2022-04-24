@@ -21,97 +21,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    var controllerUsers= Provider.of<user_vm_provider>(context,listen: true);
-   // controllerUsers.getcurrentUser();
 
-     // print(controllerUsers.currentUser.value.nameUser.toString());
-     //  return Drawer(
-     //
-     //    elevation: 10,
-     //    child: ListView(
-     //      children: [
-     //        Stack(
-     //          alignment: Alignment.center,
-     //          children: [
-     //            Positioned(
-     //              top: 10,
-     //              child: CircleAvatar(
-     //                radius: 50,
-     //                backgroundColor: Colors.white38,
-     //                //,
-     //              ),
-     //            ),
-     //            UserAccountsDrawerHeader(
-     //                accountName:
-     //                Text(controllerUsers.currentUser!.nameUser.toString(),
-     //                  style: TextStyle(
-     //                      fontFamily: kfontfamily2),
-     //                ),
-     //
-     //                accountEmail:
-     //                Text(controllerUsers.currentUser!.email.toString(),
-     //              style: TextStyle(
-     //                  fontFamily: kfontfamily2),
-     //            ),
-     //
-     //            ),
-     //          ],
-     //        ),
-     //
-     //
-     //        ListTile(
-     //          title: Text(' الدولة',  style: TextStyle(
-     //              fontFamily: kfontfamily2),
-     //        ),
-     //          leading: Icon(Icons.location_city_rounded),
-     //          onTap: (){
-     //            Navigator.push(
-     //              context,
-     //              MaterialPageRoute<void>(
-     //                builder: (BuildContext context)
-     //                => select_country(),
-     //                fullscreenDialog: true,
-     //              ),
-     //            );
-     //          },
-     //        ),
-     //        // ListTile(
-     //        //   title: Text('إدارة المستخدمين'),
-     //        //   leading: Icon(Icons.add_box_outlined),
-     //        //   onTap: () {
-     //        //     Get.to(() => Routes.allUserScreen);
-     //        //   },
-     //        // ),
-     //        ListTile(
-     //          title: Text('المنتجات',  style: TextStyle(
-     //              fontFamily: kfontfamily2),
-     //          ),
-     //          leading: Icon(Icons.shop),
-     //          onTap: () {
-     //            Navigator.push(
-     //              context,
-     //              MaterialPageRoute<void>(
-     //                builder: (BuildContext context)
-     //                => ProductView(),
-     //                fullscreenDialog: true,
-     //              ),
-     //            );
-     //            // ProductView();
-     //          },
-     //        ),
-     //        ListTile(
-     //          title: Text('تسجيل خروج',  style: TextStyle(
-     //              fontFamily: kfontfamily2),
-     //          ),
-     //          leading: Icon(Icons.exit_to_app),
-     //          onTap: () async {
-     //            SharedPreferences preferences =
-     //                await SharedPreferences.getInstance();
-     //            preferences.setBool(kKeepMeLoggedIn, false);
-     //          },
-     //        )
-     //      ],
-     //    ),
-     //  );
 return  Drawer(
   child: Container(
     color: Colors.white,
@@ -144,46 +54,40 @@ return  Drawer(
                 color: Colors.amber,),),
           ),
         ),
-               ListTile(
-                 title: Text(' الدولة',  style: TextStyle(
-                     fontFamily: kfontfamily2),
-               ),
-                 leading: Icon(Icons.location_city_rounded,color: kMainColor,),
-                 onTap: (){
-                   Navigator.push(
-                     context,
-                     MaterialPageRoute<void>(
-                       builder: (BuildContext context)
-                       => select_country(),
-                       fullscreenDialog: true,
-                     ),
-                   );
-                 },
-               ),
                // ListTile(
-               //   title: Text('إدارة المستخدمين'),
-               //   leading: Icon(Icons.add_box_outlined),
-               //   onTap: () {
-               //     Get.to(() => Routes.allUserScreen);
+               //   title: Text(' الدولة',  style: TextStyle(
+               //       fontFamily: kfontfamily2),
+               // ),
+               //   leading: Icon(Icons.location_city_rounded,color: kMainColor,),
+               //   onTap: (){
+               //     Navigator.push(
+               //       context,
+               //       MaterialPageRoute<void>(
+               //         builder: (BuildContext context)
+               //         => select_country(),
+               //         fullscreenDialog: true,
+               //       ),
+               //     );
                //   },
                // ),
-               ListTile(
-                 title: Text('المنتجات',  style: TextStyle(
-                     fontFamily: kfontfamily2),
-                 ),
-                 leading: Icon(Icons.shop,color: kMainColor,),
-                 onTap: () {
-                   Navigator.push(
-                     context,
-                     MaterialPageRoute<void>(
-                       builder: (BuildContext context)
-                       => ProductView(),
-                       fullscreenDialog: true,
-                     ),
-                   );
-                   // ProductView();
-                 },
-               ),
+
+               // ListTile(
+               //   title: Text('المنتجات',  style: TextStyle(
+               //       fontFamily: kfontfamily2),
+               //   ),
+               //   leading: Icon(Icons.shop,color: kMainColor,),
+               //   onTap: () {
+               //     Navigator.push(
+               //       context,
+               //       MaterialPageRoute<void>(
+               //         builder: (BuildContext context)
+               //         => ProductView(),
+               //         fullscreenDialog: true,
+               //       ),
+               //     );
+               //     // ProductView();
+               //   },
+               // ),
                ListTile(
                  title: Text('تسجيل خروج',  style: TextStyle(
                      fontFamily: kfontfamily2),
@@ -193,9 +97,12 @@ return  Drawer(
                    SharedPreferences preferences =
                        await SharedPreferences.getInstance();
                    preferences.clear();
-                   Navigator.push(context,
+                   Navigator.pushAndRemoveUntil(context,
                        MaterialPageRoute(builder: (context) =>
-                           login()));
+                           login()),
+                         (route) => false
+
+                   );
 
                    // preferences.setBool(kKeepMeLoggedIn, false);
                  },

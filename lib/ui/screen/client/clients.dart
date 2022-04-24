@@ -228,9 +228,9 @@ ApproveModel itemapprove;
                                     Provider.of<client_vm>(context, listen: false)
                                         .setApproveclient_vm({
                                       'idApproveClient':widget.itemapprove.idApproveClient,
-                                      "fkuser":widget.itemapprove.fkUser,//صاحب العميل
+                                      "fk_user":widget.itemapprove.fkUser,//صاحب العميل
                                       "fk_regoin":widget.itemapprove.fk_regoin,
-                                      "fkcountry":widget.itemapprove.fk_country,
+                                      "fk_country":widget.itemapprove.fk_country,
                                       "isApprove": "1",
                                       "name_enterprise":widget.itemapprove.name_enterprise,
                                       "fkusername":widget.itemapprove.nameUser, //موظف المبيعات
@@ -292,9 +292,9 @@ ApproveModel itemapprove;
                                     Provider.of<client_vm>(context, listen: false)
                                         .setApproveclient_vm({
                                       'idApproveClient':widget.itemapprove.idApproveClient,
-                                      "fkuser":widget.itemapprove.fkUser,
+                                      "fk_user":widget.itemapprove.fkUser,
                                       "fk_regoin":widget.itemapprove.fk_regoin,
-                                      "fkcountry":widget.itemapprove.fk_country,
+                                      "fk_country":widget.itemapprove.fk_country,
                                       "isApprove": "0",
                                       "name_enterprise":widget.itemapprove.name_enterprise,
                                       "fkusername":widget.itemapprove.nameUser, //موظف المبيعات

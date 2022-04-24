@@ -126,7 +126,8 @@ class _MyDropDown extends State<select_country>{
                     //     context,
                     //     MaterialPageRoute(builder: (context) => addProduct()), (route) => false );
                     if(_selected!=null)
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductView()));
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context)=>ProductView()));
                     else {
                       _scaffoldKey.currentState!.showSnackBar(new SnackBar(
                           content: new Text("من فضلك اختر البلد")

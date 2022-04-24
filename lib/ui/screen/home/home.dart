@@ -57,23 +57,26 @@ class _HomeState extends State<Home> {
       String typeNotify= event.data['Typenotify'];
       route_notifyto(typeNotify,context);
     });
-  }
-  @override
-  void didChangeDependencies() {
     Provider.of<notifyvm>(context, listen: false)
         .getNotification();
-    Provider.of<user_vm_provider>(context,listen: false)
+    Provider.of<user_vm_provider>(context, listen: false)
         .getcurrentuser();
+    print('in home...didchange');
     //check level user
     Provider.of<client_vm>(context, listen: false)
-        .getclientByRegoin([]);//list empty that mean
+        .getclientByRegoin([]); //list empty that mean
     //level user all client in country
     // Provider.of<client_vm>(context, listen: false)
     //     . getclient_vm();
     Provider.of<invoice_vm>(context, listen: false)
         .get_invoicesbyRegoin([]);
-
-    super.didChangeDependencies();
+  }
+  @override
+  void didChangeDependencies() {
+    // Future.delayed(Duration(milliseconds: 30)).then((_) async {
+    //
+    // });
+    // super.didChangeDependencies();
   }
   @override
   Widget build(BuildContext context) {
@@ -85,7 +88,7 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         //drawerScrimColor: Colors.white,
         backgroundColor: Colors.grey[200],
-        appBar:customAppbar(),
+        appBar: customAppbar(),
         drawer: CustomDrawer(),
         // drawer: Theme(
         //   data:  Theme.of(context).copyWith(

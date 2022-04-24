@@ -147,6 +147,7 @@ Widget build(BuildContext context) {
           future: Provider.of<user_vm_provider>(context,listen: false)
               .getcurrentuser() ,
           builder:(context, snapshot) {
+            print('in main builder');
           if (!snapshot.hasData) {
             //Center(child: CircularProgressIndicator(),)
             return MaterialApp(

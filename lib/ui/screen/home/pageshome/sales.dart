@@ -43,12 +43,12 @@ class sales extends StatelessWidget {
                     AcceptPage()));
           }, title:  'العملاء المشتركين '),
           //AcceptPage
-          buildSelectCategory(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context)=>
-                        MyClientPage()));
-              }, title:  'عملائي'),
+          // buildSelectCategory(
+          //     onTap: () {
+          //       Navigator.push(context, MaterialPageRoute(
+          //           builder: (context)=>
+          //               MyClientPage()));
+          //     }, title:  'عملائي'),
           buildSelectCategory(onTap: () {
             Navigator.push(context, MaterialPageRoute(
                 builder: (context)=>

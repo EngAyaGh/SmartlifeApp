@@ -22,7 +22,7 @@ class customAppbar extends StatelessWidget implements PreferredSizeWidget{
       title: Text('Smart Life',style:
       TextStyle(color: Colors.white,fontSize: 16,fontFamily: kfontfamily),),
       centerTitle: true,
-      elevation: 1,
+      elevation: 0,
       actions: [
         Padding(
           padding: const EdgeInsets.all(8.0),
