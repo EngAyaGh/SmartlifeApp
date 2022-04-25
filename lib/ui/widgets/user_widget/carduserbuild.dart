@@ -1,8 +1,10 @@
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/ui/screen/user/userview.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
+import 'package:crm_smart/ui/widgets/user_widget/target.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../constants.dart';
 
@@ -47,12 +49,33 @@ class buildCardUsers extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextUtilis(
-                      color: Colors.black87,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      textstring: usermodell.nameUser.toString(),
-                      underline: TextDecoration.none,
+                    Row(
+                      children: [
+                        TextUtilis(
+                          color: Colors.black87,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          textstring: usermodell.nameUser.toString(),
+                          underline: TextDecoration.none,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          TargetPage(userModel: usermodell
+                                              //index: index,
+                                              )));
+                            },
+                            child: Text(
+                              '(Target)',
+                              style: TextStyle(color: Colors.amber),
+                            ))
+                      ],
                     ),
                     TextUtilis(
                       color: Colors.black87,
@@ -63,6 +86,7 @@ class buildCardUsers extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(width: 15),
               ],
             ),
             Icon(

@@ -168,7 +168,7 @@ class _addProductState extends State<addProduct> {
                       );
                     }),
                     SizedBox(
-                      height: 6,
+                      height: 10,
                     ),
                     ContainerShadows(
                       width: double.infinity,

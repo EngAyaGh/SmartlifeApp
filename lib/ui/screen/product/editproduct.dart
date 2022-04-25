@@ -116,201 +116,205 @@ class _EditProductState extends State<EditProduct> {
             padding: const EdgeInsets.all(45),
             child: Form(
               key: _globalKey,
-              child: Column(
+              child: Directionality(
                 textDirection: TextDirection.rtl,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: sizeMedia * 0.10,
-                  ),
-                  Consumer<selected_button_provider>(
-                      builder: (context, selectedProvider, child) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                            offset: Offset(1.0, 1.0),
-                            blurRadius: 8.0,
-                            color: Colors.black87.withOpacity(0.2),
-                          ),
-                        ],
-                        color: Colors.white,
-                      ),
-                      child: Center(
-                        child: GroupButton(
-                            options: GroupButtonOptions(
-                              borderRadius: BorderRadius.circular(20),
-                              buttonWidth:
-                                  MediaQuery.of(context).size.width * 0.3,
-                              //elevation: 0,
-                              selectedColor: kMainColor,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: sizeMedia * 0.10,
+                    ),
+                    Consumer<selected_button_provider>(
+                        builder: (context, selectedProvider, child) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                              offset: Offset(1.0, 1.0),
+                              blurRadius: 8.0,
+                              color: Colors.black87.withOpacity(0.2),
                             ),
-                            //secondaryColor: Colors.white,
-                            buttons: ['أجهزة', 'برامج'], //[0,1]
-                            controller: GroupButtonController(
-                              selectedIndex: selectedProvider.isSelected,
-                              onDisablePressed: (i) =>
-                                  print('Button #$i is disabled'),
+                          ],
+                          color: Colors.white,
+                        ),
+                        child: Center(
+                          child: GroupButton(
+                              options: GroupButtonOptions(
+                                borderRadius: BorderRadius.circular(20),
+                                buttonWidth:
+                                    MediaQuery.of(context).size.width * 0.3,
+                                //elevation: 0,
+                                selectedColor: kMainColor,
+                              ),
+                              //secondaryColor: Colors.white,
+                              buttons: ['أجهزة', 'برامج'], //[0,1]
+                              controller: GroupButtonController(
+                                selectedIndex: selectedProvider.isSelected,
+                                onDisablePressed: (i) =>
+                                    print('Button #$i is disabled'),
+                              ),
+                              onSelected: (selected, isselect) {
+                                valtype_product = selected;
+                                // valtype_product == 0 ? 1 : 0;
+                                selectedProvider.selectValue(selected);
+                              }),
+                        ),
+                      );
+                    }),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ContainerShadows(
+                      width: double.infinity,
+                      // height: 400,
+                      margin: EdgeInsets.only(),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            //horizontal: 10, vertical: 20
+                            horizontal: sizeMedia * .05,
+                            vertical: sizeMedia * .05),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 20,
                             ),
-                            onSelected: (selected, isselect) {
-                              valtype_product = selected;
-                              // valtype_product == 0 ? 1 : 0;
-                              selectedProvider.selectValue(selected);
-                            }),
-                      ),
-                    );
-                  }),
-                  SizedBox(
-                    height: 6,
-                  ),
-                  ContainerShadows(
-                    width: double.infinity,
-                    // height: 400,
-                    margin: EdgeInsets.only(),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          //horizontal: 10, vertical: 20
-                          horizontal: sizeMedia * .05,
-                          vertical: sizeMedia * .05),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          CustomFormField(
-                            read: false,
-                            radius: 15,
-                            maxline: 3,
-                            vaild: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a  name of product ';
-                              }
-                            },
-                            con: _textName,
-                            label: label_name_product,
-                            onChanged: (val) {
-                              nameprod = val;
-                            },
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          CustomFormField(
-                            read: false,
-                            radius: 15,
-                            vaild: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a  price ';
-                              }
-                              if (double.tryParse(value) == null) {
-                                return 'Please Enter a Valid Number';
-                              }
-                              if (double.parse(value) <= 0) {
-                                return 'Please Enter the number greather no than zero';
-                              }
-                            },
-                            con: _textprice,
-                            inputType: TextInputType.number,
-                            label: label_name_price,
-                            onChanged: (val) {
-                              price = double.parse(val.toString());
-                            },
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Center(
-                            child: Consumer<switch_provider>(
-                              //on off tax
-                              builder: (context, isSwitched, child) {
-                                return Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(label_turnVat),
-                                    Switch(
-                                        activeTrackColor:
-                                            kMainColor.withAlpha(90),
-                                        activeColor: kMainColor,
-                                        value: isSwitched.isSwitched,
-                                        onChanged: (value) {
-                                          valtaxrate = value;
-                                          isSwitched.changeboolValue(value);
-                                        }),
-                                  ],
-                                );
+                            CustomFormField(
+                              read: false,
+                              radius: 15,
+                              maxline: 3,
+                              vaild: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter a  name of product ';
+                                }
+                              },
+                              con: _textName,
+                              label: label_name_product,
+                              onChanged: (val) {
+                                nameprod = val;
                               },
                             ),
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                          ),
-                          _isLoading
-                              ? CircularProgressIndicator()
-                              : CustomButton(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.2,
-                                  text: "تعديل",
-                                  onTap: () async {
-                                    if (_globalKey.currentState!.validate()) {
-                                      _globalKey.currentState!.save();
-                                      Provider.of<LoadProvider>(context,
-                                              listen: false)
-                                          .changeLoadingupdateprod(true);
+                            SizedBox(
+                              height: 20,
+                            ),
+                            CustomFormField(
+                              read: false,
+                              radius: 15,
+                              vaild: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter a  price ';
+                                }
+                                if (double.tryParse(value) == null) {
+                                  return 'Please Enter a Valid Number';
+                                }
+                                if (double.parse(value) <= 0) {
+                                  return 'Please Enter the number greather no than zero';
+                                }
+                              },
+                              con: _textprice,
+                              inputType: TextInputType.number,
+                              label: label_name_price,
+                              onChanged: (val) {
+                                price = double.parse(val.toString());
+                              },
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Center(
+                              child: Consumer<switch_provider>(
+                                //on off tax
+                                builder: (context, isSwitched, child) {
+                                  return Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(label_turnVat),
+                                      Switch(
+                                          activeTrackColor:
+                                              kMainColor.withAlpha(90),
+                                          activeColor: kMainColor,
+                                          value: isSwitched.isSwitched,
+                                          onChanged: (value) {
+                                            valtaxrate = value;
+                                            isSwitched.changeboolValue(value);
+                                          }),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.05,
+                            ),
+                            _isLoading
+                                ? CircularProgressIndicator()
+                                : CustomButton(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.2,
+                                    text: "تعديل",
+                                    onTap: () async {
+                                      if (_globalKey.currentState!.validate()) {
+                                        _globalKey.currentState!.save();
+                                        Provider.of<LoadProvider>(context,
+                                                listen: false)
+                                            .changeLoadingupdateprod(true);
 
-                                      settaxrate(context);
-                                      print("update");
-                                      print(valtype_product);
-                                      print(valtaxrate);
-                                      print(taxrate.id_config);
-                                      valtype_product =
-                                          Provider.of<selected_button_provider>(
-                                                  context,
-                                                  listen: false)
-                                              .isSelected;
-                                      valtaxrate = Provider.of<switch_provider>(
-                                              context,
-                                              listen: false)
-                                          .isSwitched;
-                                      Provider.of<product_vm>(context,
-                                              listen: false)
-                                          .updateproduct_vm(
-                                              {
-                                            'nameProduct': nameprod,
-                                            'priceProduct': price.toString(),
-                                            'type': valtype_product.toString(),
-                                            'fk_country': idCountry,
-                                            'fk_config': valtaxrate
-                                                ? taxrate.id_config
-                                                : "null",
-                                            "value_config": valtaxrate
-                                                ? taxrate.value_config
-                                                : "null",
-                                            "id_product": widget
-                                                .productModel.idProduct
-                                                .toString()
-                                          },
-                                              widget.productModel.idProduct
-                                                  .toString()).then(
-                                              (value) => value
-                                                  ? clear(context)
-                                                  : error()
-                                              // Fluttertoast.showToast(
-                                              //  backgroundColor:
-                                              //      Colors.lightBlueAccent,
-                                              //  msg: label_errorAddProd, // message
-                                              //  toastLength:
-                                              //      Toast.LENGTH_SHORT, // length
-                                              //  gravity: ToastGravity.CENTER, //
-                                              );
-                                    }
-                                  },
-                                )
-                        ],
+                                        settaxrate(context);
+                                        print("update");
+                                        print(valtype_product);
+                                        print(valtaxrate);
+                                        print(taxrate.id_config);
+                                        valtype_product = Provider.of<
+                                                    selected_button_provider>(
+                                                context,
+                                                listen: false)
+                                            .isSelected;
+                                        valtaxrate =
+                                            Provider.of<switch_provider>(
+                                                    context,
+                                                    listen: false)
+                                                .isSwitched;
+                                        Provider.of<product_vm>(context,
+                                                listen: false)
+                                            .updateproduct_vm(
+                                                {
+                                              'nameProduct': nameprod,
+                                              'priceProduct': price.toString(),
+                                              'type':
+                                                  valtype_product.toString(),
+                                              'fk_country': idCountry,
+                                              'fk_config': valtaxrate
+                                                  ? taxrate.id_config
+                                                  : "null",
+                                              "value_config": valtaxrate
+                                                  ? taxrate.value_config
+                                                  : "null",
+                                              "id_product": widget
+                                                  .productModel.idProduct
+                                                  .toString()
+                                            },
+                                                widget.productModel.idProduct
+                                                    .toString()).then(
+                                                (value) => value
+                                                    ? clear(context)
+                                                    : error()
+                                                // Fluttertoast.showToast(
+                                                //  backgroundColor:
+                                                //      Colors.lightBlueAccent,
+                                                //  msg: label_errorAddProd, // message
+                                                //  toastLength:
+                                                //      Toast.LENGTH_SHORT, // length
+                                                //  gravity: ToastGravity.CENTER, //
+                                                );
+                                      }
+                                    },
+                                  )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
