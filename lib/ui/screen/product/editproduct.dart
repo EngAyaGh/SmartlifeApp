@@ -1,6 +1,3 @@
-
-
-
 import 'package:crm_smart/model/configmodel.dart';
 import 'package:crm_smart/model/productmodel.dart';
 import 'package:crm_smart/provider/config_vm.dart';
@@ -24,11 +21,11 @@ import '../../../constants.dart';
 import '../../../labeltext.dart';
 
 class EditProduct extends StatefulWidget {
-   EditProduct({Key? key,required this.productModel}) : super(key: key);
+  EditProduct({Key? key, required this.productModel}) : super(key: key);
 
   ProductModel productModel;
 
-   @override
+  @override
   _EditProductState createState() => _EditProductState();
 }
 
@@ -47,41 +44,41 @@ class _EditProductState extends State<EditProduct> {
   double price = 0;
   String? idCountry;
   @override
-  void initState()  {
-
-
+  void initState() {
     print(widget.productModel.fkConfig);
-    valtaxrate=widget.productModel.fkConfig==null||widget.productModel.fkConfig=="null"?false:true;
+    valtaxrate = widget.productModel.fkConfig == null ||
+            widget.productModel.fkConfig == "null"
+        ? false
+        : true;
     print(valtaxrate);
     print(valtaxrate);
 
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      idCountry = Provider.of<user_vm_provider>(context, listen: false)
+          .currentUser!
+          .fkCountry;
+      print("build edit prod");
+      print(idCountry);
+      Provider.of<config_vm>(context, listen: false).getAllConfig(idCountry!);
+      print(Provider.of<config_vm>(context, listen: false).listofconfig);
+      ////////////////////////////////
+      Provider.of<selected_button_provider>(context, listen: false)
+          .selectValue(valtype_product);
 
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
-        idCountry= Provider.of<user_vm_provider>(context,listen: false).currentUser!.fkCountry;
-        print("build edit prod");
-        print(idCountry);
-        Provider.of<config_vm>(context, listen: false).getAllConfig(idCountry!);
-        print(Provider.of<config_vm>(context, listen: false).listofconfig);
-        ////////////////////////////////
-        Provider.of<selected_button_provider>(context,listen: false)
-            .selectValue(valtype_product);
-
-        Provider.of<switch_provider>(context,listen: false)
-            .changeboolValue(valtaxrate);
-        print("valtaxrate");
-
-      });
-    nameprod= _textName.text=widget.productModel.nameProduct;
-    _textprice.text=widget.productModel.priceProduct;
-    price=double.parse(_textprice.text.toString());
-    valtype_product=int.parse( widget.productModel.type);
+      Provider.of<switch_provider>(context, listen: false)
+          .changeboolValue(valtaxrate);
+      print("valtaxrate");
+    });
+    nameprod = _textName.text = widget.productModel.nameProduct;
+    _textprice.text = widget.productModel.priceProduct;
+    price = double.parse(_textprice.text.toString());
+    valtype_product = int.parse(widget.productModel.type);
     //valtype_product == 0 ? 1 : 0;
 
     super.initState();
-
   }
-   void settaxrate(context) {
 
+  void settaxrate(context) {
     List<ConfigModel> _listconfg =
         Provider.of<config_vm>(context, listen: false).listofconfig;
     print("build 3");
@@ -92,6 +89,7 @@ class _EditProductState extends State<EditProduct> {
 
   @override
   Widget build(BuildContext context) {
+    var sizeMedia = MediaQuery.of(context).size.width;
     //
     // idCountry= Provider.of<country_vm>(context,listen: false).id_country;
     // print("build edit prod");
@@ -101,10 +99,10 @@ class _EditProductState extends State<EditProduct> {
     // Provider.of<LoadProvider>(context, listen: false)
     //     .changeLoadingupdateprod(false);
 
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: kWhiteColor),
           onPressed: () => Navigator.of(context).pop(),
@@ -117,58 +115,52 @@ class _EditProductState extends State<EditProduct> {
           child: Padding(
             padding: const EdgeInsets.all(45),
             child: Form(
-
               key: _globalKey,
               child: Column(
                 textDirection: TextDirection.rtl,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 20,
+                    height: sizeMedia * 0.10,
                   ),
                   Consumer<selected_button_provider>(
                       builder: (context, selectedProvider, child) {
-                        return ContainerShadows(
-                          height: 35,
-                          margin: EdgeInsets.only(),
-                          padding: EdgeInsets.only(top: 2,bottom: 2,left: 2,right: 2),
-                          child: Container(
-                        decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                           Radius.circular(12)),
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
                         boxShadow: <BoxShadow>[
-                        BoxShadow(
-                        offset: Offset(1.0, 1.0),
-                        blurRadius: 8.0,
-                        color: Colors.black87.withOpacity(0.2),
-                        ),
-                        ],
-                        color: Colors.white,),
-                            child: Center(
-                              child: GroupButton(
-                                  options: GroupButtonOptions(
-                                    borderRadius: BorderRadius.circular(20),
-                                    buttonWidth: MediaQuery.of(context).size.width*0.3,
-                                    //elevation: 0,
-                                    selectedColor: kMainColor,
-                                  ),
-                                  //secondaryColor: Colors.white,
-                                  buttons:['أجهزة', 'برامج'], //[0,1]
-                                  controller: GroupButtonController(
-                                    selectedIndex: selectedProvider.isSelected,
-                                    onDisablePressed: (i) =>
-                                        print('Button #$i is disabled'),
-                                  ),
-
-                                  onSelected: (selected,isselect) {
-                                    valtype_product = selected;
-                                    // valtype_product == 0 ? 1 : 0;
-                                    selectedProvider.selectValue(selected);
-                                  }),
-                            ),
+                          BoxShadow(
+                            offset: Offset(1.0, 1.0),
+                            blurRadius: 8.0,
+                            color: Colors.black87.withOpacity(0.2),
                           ),
-                        );
-                      }),
+                        ],
+                        color: Colors.white,
+                      ),
+                      child: Center(
+                        child: GroupButton(
+                            options: GroupButtonOptions(
+                              borderRadius: BorderRadius.circular(20),
+                              buttonWidth:
+                                  MediaQuery.of(context).size.width * 0.3,
+                              //elevation: 0,
+                              selectedColor: kMainColor,
+                            ),
+                            //secondaryColor: Colors.white,
+                            buttons: ['أجهزة', 'برامج'], //[0,1]
+                            controller: GroupButtonController(
+                              selectedIndex: selectedProvider.isSelected,
+                              onDisablePressed: (i) =>
+                                  print('Button #$i is disabled'),
+                            ),
+                            onSelected: (selected, isselect) {
+                              valtype_product = selected;
+                              // valtype_product == 0 ? 1 : 0;
+                              selectedProvider.selectValue(selected);
+                            }),
+                      ),
+                    );
+                  }),
                   SizedBox(
                     height: 6,
                   ),
@@ -176,130 +168,148 @@ class _EditProductState extends State<EditProduct> {
                     width: double.infinity,
                     // height: 400,
                     margin: EdgeInsets.only(),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          //horizontal: 10, vertical: 20
+                          horizontal: sizeMedia * .05,
+                          vertical: sizeMedia * .05),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          CustomFormField(
+                            read: false,
+                            radius: 15,
+                            maxline: 3,
+                            vaild: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a  name of product ';
+                              }
+                            },
+                            con: _textName,
+                            label: label_name_product,
+                            onChanged: (val) {
+                              nameprod = val;
+                            },
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          CustomFormField(
+                            read: false,
+                            radius: 15,
+                            vaild: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a  price ';
+                              }
+                              if (double.tryParse(value) == null) {
+                                return 'Please Enter a Valid Number';
+                              }
+                              if (double.parse(value) <= 0) {
+                                return 'Please Enter the number greather no than zero';
+                              }
+                            },
+                            con: _textprice,
+                            inputType: TextInputType.number,
+                            label: label_name_price,
+                            onChanged: (val) {
+                              price = double.parse(val.toString());
+                            },
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Center(
+                            child: Consumer<switch_provider>(
+                              //on off tax
+                              builder: (context, isSwitched, child) {
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(label_turnVat),
+                                    Switch(
+                                        activeTrackColor:
+                                            kMainColor.withAlpha(90),
+                                        activeColor: kMainColor,
+                                        value: isSwitched.isSwitched,
+                                        onChanged: (value) {
+                                          valtaxrate = value;
+                                          isSwitched.changeboolValue(value);
+                                        }),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.05,
+                          ),
+                          _isLoading
+                              ? CircularProgressIndicator()
+                              : CustomButton(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.2,
+                                  text: "تعديل",
+                                  onTap: () async {
+                                    if (_globalKey.currentState!.validate()) {
+                                      _globalKey.currentState!.save();
+                                      Provider.of<LoadProvider>(context,
+                                              listen: false)
+                                          .changeLoadingupdateprod(true);
 
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    CustomFormField(
-                      read: false,
-                      radius: 15,
-                      maxline: 3,
-                      vaild: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter a  name of product ';
-                        }
-                      },
-                      con: _textName,
-                      label: label_name_product,
-                      onChanged: (val) {
-                        nameprod = val;
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    CustomFormField(
-                      read: false,
-                      radius: 15,
-                      vaild: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter a  price ';
-                        }
-                        if (double.tryParse(value) == null) {
-                          return 'Please Enter a Valid Number';
-                        }
-                        if (double.parse(value) <= 0) {
-                          return 'Please Enter the number greather no than zero';
-                        }
-                      },
-                      con: _textprice,
-                      inputType: TextInputType.number,
-                      label: label_name_price,
-                      onChanged: (val) {
-                        price = double.parse(val.toString());
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: Consumer<switch_provider>(
-                        //on off tax
-                        builder: (context, isSwitched, child) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(label_turnVat),
-                              Switch(
-                                  activeTrackColor: kMainColor.withAlpha(90),
-                                  activeColor: kMainColor,
-                                  value: isSwitched.isSwitched,
-                                  onChanged: (value) {
-                                    valtaxrate = value;
-                                    isSwitched.changeboolValue(value);
-
-                                  }),
-                            ],
-                          );
-                        },
+                                      settaxrate(context);
+                                      print("update");
+                                      print(valtype_product);
+                                      print(valtaxrate);
+                                      print(taxrate.id_config);
+                                      valtype_product =
+                                          Provider.of<selected_button_provider>(
+                                                  context,
+                                                  listen: false)
+                                              .isSelected;
+                                      valtaxrate = Provider.of<switch_provider>(
+                                              context,
+                                              listen: false)
+                                          .isSwitched;
+                                      Provider.of<product_vm>(context,
+                                              listen: false)
+                                          .updateproduct_vm(
+                                              {
+                                            'nameProduct': nameprod,
+                                            'priceProduct': price.toString(),
+                                            'type': valtype_product.toString(),
+                                            'fk_country': idCountry,
+                                            'fk_config': valtaxrate
+                                                ? taxrate.id_config
+                                                : "null",
+                                            "value_config": valtaxrate
+                                                ? taxrate.value_config
+                                                : "null",
+                                            "id_product": widget
+                                                .productModel.idProduct
+                                                .toString()
+                                          },
+                                              widget.productModel.idProduct
+                                                  .toString()).then(
+                                              (value) => value
+                                                  ? clear(context)
+                                                  : error()
+                                              // Fluttertoast.showToast(
+                                              //  backgroundColor:
+                                              //      Colors.lightBlueAccent,
+                                              //  msg: label_errorAddProd, // message
+                                              //  toastLength:
+                                              //      Toast.LENGTH_SHORT, // length
+                                              //  gravity: ToastGravity.CENTER, //
+                                              );
+                                    }
+                                  },
+                                )
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                    ),
-                    _isLoading
-                        ? CircularProgressIndicator()
-                        : CustomButton(
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      text: "تعديل",
-                      onTap: () async {
-                        if (_globalKey.currentState!.validate()) {
-                          _globalKey.currentState!.save();
-                          Provider.of<LoadProvider>(context, listen: false)
-                              .changeLoadingupdateprod(true);
-
-                          settaxrate(context);
-                          print("update");
-                          print(valtype_product);
-                          print(valtaxrate);
-                          print(taxrate.id_config);
-                          valtype_product=   Provider.of<selected_button_provider>(context,listen: false)
-                              .isSelected;
-                          valtaxrate=  Provider.of<switch_provider>(context,listen: false).isSwitched;
-                          Provider.of<product_vm>(context, listen: false)
-                              .updateproduct_vm(
-                              {
-                                'nameProduct': nameprod,
-                                'priceProduct': price.toString(),
-                                'type': valtype_product.toString(),
-                                'fk_country':idCountry,
-                                'fk_config': valtaxrate ? taxrate.id_config : "null",
-                                "value_config":valtaxrate ?taxrate.value_config:"null",
-                                "id_product": widget.productModel.idProduct.toString()
-                              },
-                              widget.productModel.idProduct.toString())
-                              .then((value) => value
-                              ? clear(context)
-                              : error()
-                            // Fluttertoast.showToast(
-                            //  backgroundColor:
-                            //      Colors.lightBlueAccent,
-                            //  msg: label_errorAddProd, // message
-                            //  toastLength:
-                            //      Toast.LENGTH_SHORT, // length
-                            //  gravity: ToastGravity.CENTER, //
-                          );
-                        }
-                      },
-                    )
-                  ],
-                ),
-              ),
-            )
+                  )
                 ],
               ),
             ),
@@ -308,12 +318,13 @@ class _EditProductState extends State<EditProduct> {
       ),
     );
   }
+
   clear(body) {
     //label_Edituser
     Provider.of<LoadProvider>(context, listen: false)
         .changeLoadingupdateprod(false);
     // final index=
-     //Provider.of<switch_provider>(context, listen: false).changeboolValue(false);
+    //Provider.of<switch_provider>(context, listen: false).changeboolValue(false);
 
     // controllerUsers.usersList.indexWhere((element) =>
     // element.idUser==widget.userModel.idUser);
@@ -322,15 +333,14 @@ class _EditProductState extends State<EditProduct> {
     // _textName.text = "";
     // _textprice.text = "";
 
-    _scaffoldKey.currentState!.showSnackBar(
-        SnackBar(content: Text(label_Edituser))
-    );
+    _scaffoldKey.currentState!
+        .showSnackBar(SnackBar(content: Text(label_Edituser)));
   }
 
   error() {
     Provider.of<LoadProvider>(context, listen: false)
         .changeLoadingupdateprod(false);
-    _scaffoldKey.currentState!.showSnackBar(
-        SnackBar(content: Text(label_errorAddProd)));
+    _scaffoldKey.currentState!
+        .showSnackBar(SnackBar(content: Text(label_errorAddProd)));
   }
 }

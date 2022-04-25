@@ -37,7 +37,7 @@ class buildCardUsers extends StatelessWidget {
                               color: Colors.lightBlueAccent,
                             )
                           : usermodell.nameUser.toString().isEmpty
-                              ? Text('null')
+                              ? Text('0')
                               : Text(usermodell.nameUser
                                   .toString()
                                   .substring(0, 1)),
