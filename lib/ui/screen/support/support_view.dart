@@ -17,8 +17,14 @@ class support_view extends StatefulWidget {
 
 class _support_viewState extends State<support_view> {
   @override void didChangeDependencies() async {
-    await    Provider.of<invoice_vm>(context, listen: false)
-        .getinvoice_Local("مشترك");
+
+
+    WidgetsBinding.instance!.addPostFrameCallback((_)async{
+
+      // Add Your Code here.
+      await    Provider.of<invoice_vm>(context, listen: false)
+          .getinvoice_Local("مشترك");
+    });
     super.didChangeDependencies();
   }
   @override
@@ -48,40 +54,44 @@ class _support_viewState extends State<support_view> {
                           builder: (context,value,child) {
                             return value.listInvoicesAccept.length==0?
                             CircularProgressIndicator()
-                                :Expanded(
+                                :Column(
+                                  children: [
+                                    Expanded(
                               child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: value.listInvoicesAccept.length,
-                                  itemBuilder: (context, index) {
-                                    return SingleChildScrollView(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(2),
-                                          child: Column(
-                                            children: [
-                                              ListTile(
-                                                onTap: (){
-                                                  Navigator.push(context,
-                                                      MaterialPageRoute(builder:
-                                                          (context) => support_add()));
-                                                },
-                                                title:Text(value.listInvoicesAccept[index]
-                                        .name_enterprise.toString(),
-                                                  style: TextStyle(
-                                                  fontFamily: kfontfamily2
-                                                ),) ,
-                                               // leading:
-                                                trailing:Text( value.listInvoicesAccept[index]
-                                            .dateCreate.toString() ,style: TextStyle(
-                                                    fontFamily: kfontfamily2
-                                                ),) ,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: value.listInvoicesAccept.length,
+                                      itemBuilder: (context, index) {
+                                        return SingleChildScrollView(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(2),
+                                              child: Column(
+                                                children: [
+                                                  ListTile(
+                                                    onTap: (){
+                                                      Navigator.push(context,
+                                                          MaterialPageRoute(builder:
+                                                              (context) => support_add()));
+                                                    },
+                                                    title:Text(value.listInvoicesAccept[index]
+                                            .name_enterprise.toString(),
+                                                      style: TextStyle(
+                                                      fontFamily: kfontfamily2
+                                                    ),) ,
+                                                   // leading:
+                                                    trailing:Text( value.listInvoicesAccept[index]
+                                                .dateCreate.toString() ,style: TextStyle(
+                                                        fontFamily: kfontfamily2
+                                                    ),) ,
+                                                  ),
+                                                  // const MySeparator(color: Colors.grey),
+                                                  Divider(thickness: 2,),
+                                                ],
                                               ),
-                                              // const MySeparator(color: Colors.grey),
-                                              Divider(thickness: 2,),
-                                            ],
-                                          ),
-                                        ));
-                                  }),
-                            );
+                                            ));
+                                      }),
+                            ),
+                                  ],
+                                );
                           } ),
                     ),
                   ),

@@ -27,9 +27,14 @@ class _ApprovePageState extends State<AcceptPage> {
   }
   @override
   void didChangeDependencies() async{
+    WidgetsBinding.instance!.addPostFrameCallback((_)async{
+      await    Provider.of<invoice_vm>(context, listen: false)
+          .getinvoice_Local("مشترك");
+      // Add Your Code here.
+
+    });
     //List<ClientModel> list= Provider.of<client_vm>(context).listClient;
-    await    Provider.of<invoice_vm>(context, listen: false)
-        .getinvoice_Local("مشترك");
+
     // Future.delayed(Duration(milliseconds: 10)).then((_) async {
     //   await    Provider.of<invoice_vm>(context, listen: false)
     //       .getinvoice_Local("مشترك");
@@ -58,7 +63,7 @@ class _ApprovePageState extends State<AcceptPage> {
                          .listInvoicesAccept,),
                  SizedBox(height: 5,),
                   Container(
-                    height: MediaQuery.of(context).size.height*0.73,
+                    height: MediaQuery.of(context).size.height*0.8,
 
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -66,21 +71,25 @@ class _ApprovePageState extends State<AcceptPage> {
                           builder: (context,value,child) {
                             return value.listInvoicesAccept.length==0?
                             Text('')
-                                :Expanded(
-                                  child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: value.listInvoicesAccept.length,
-                                  itemBuilder: (context, index) {
+                                :Column(
+                                  children: [
+                                    Expanded(
+                                      child: ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: value.listInvoicesAccept.length,
+                                      itemBuilder: (context, index) {
 
-                                    return SingleChildScrollView(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(2),
-                                          child: cardClientAccept(
-                                            iteminvoice :
-                                            value.listInvoicesAccept[index],
-                                          ),
-                                        ));
-                                  }),
+                                        return SingleChildScrollView(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(2),
+                                              child: cardClientAccept(
+                                                iteminvoice :
+                                                value.listInvoicesAccept[index],
+                                              ),
+                                            ));
+                                      }),
+                                    ),
+                                  ],
                                 );
                           } ),
                     ),

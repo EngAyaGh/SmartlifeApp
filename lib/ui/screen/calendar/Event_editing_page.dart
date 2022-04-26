@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:crm_smart/model/calendar/event.dart';
 
-import 'package:crm_smart/ui/widgets/widget%20calendar/utils.dart';
+import 'package:crm_smart/ui/widgets/widgetcalendar/utils.dart';
 import 'package:crm_smart/view_model/event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -21,8 +21,9 @@ class productSearchView extends StatelessWidget {
       ,List<dynamic> list) async {
     List<dynamic> clientlistsearch=[];
     // code to convert the first character to uppercase
-    String searchKey = productName[0].toUpperCase() +
-        productName.substring(1);
+    String searchKey =productName;//
+    // productName[0].toUpperCase() +
+     //   productName.substring(1);
     print('search');
     print(searchKey);
     if(list is List<ClientModel> )
@@ -32,6 +33,9 @@ class productSearchView extends StatelessWidget {
       });
     if(list is List<UserModel>)
       list.forEach((element) {
+        print(element.nameUser);
+        print(searchKey);
+        print('iside search');
         if(element.nameUser!.contains(searchKey,0))
           clientlistsearch.add(element);
       });

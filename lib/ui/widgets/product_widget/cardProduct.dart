@@ -56,11 +56,15 @@ class CardProduct extends StatelessWidget {
                   direction: Axis.vertical,
                   children: [
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Row(
                                   //crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +101,7 @@ class CardProduct extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                new IconButton(
+                                 IconButton(
                                   icon: Icon(Icons.edit, color: kMainColor,),
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(
@@ -108,7 +112,7 @@ class CardProduct extends StatelessWidget {
                                 },
                                   //onPressed: BOOKMARK,
                                 ),
-                                new IconButton(
+                                 IconButton(
                                   icon: Icon(Icons.delete), onPressed: () async {
                                   bool result = await showDialog(
                                     context: context,

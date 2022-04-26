@@ -352,7 +352,7 @@ void calculate(){
                                   }
                                   else{
                                     _scaffoldKey.currentState!.showSnackBar(
-                                        SnackBar(content: Text('من فضلك ادخل السعر')));
+                                        SnackBar(content: Text('من فضلك تأكد من عملية الإدخال')));
                                   }
                                 },
                                 child: Text('إضافة منتج للفاتورة')),
@@ -365,19 +365,23 @@ void calculate(){
                         height: MediaQuery.of(context).size.height*0.75,
                         child: Consumer<invoice_vm>(
                           builder: (_, data, __) =>
-                              Expanded(
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: data.listproductinvoic.length,
-                                  itemBuilder: (context, index) {
-                                    return CardProduct_invoice(
-                                      itemProd: data.listproductinvoic[index],
-                                      index: index,
-                                      //value_config:  listProduct[index].value_config,
-                                      iduser: widget.invoice!.fkIdUser,
-                                      idclient:widget.invoice!.fkIdClient ,
-                                    );
-                                  },),
+                              Column(
+                                children: [
+                                  Expanded(
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: data.listproductinvoic.length,
+                                      itemBuilder: (context, index) {
+                                        return CardProduct_invoice(
+                                          itemProd: data.listproductinvoic[index],
+                                          index: index,
+                                          //value_config:  listProduct[index].value_config,
+                                          iduser: widget.invoice!.fkIdUser,
+                                          idclient:widget.invoice!.fkIdClient ,
+                                        );
+                                      },),
+                                  ),
+                                ],
                               ),
                         ),
                       ),

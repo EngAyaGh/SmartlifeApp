@@ -39,6 +39,9 @@ class _UserScreenState extends State<UserScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    // bool isupdate=
+
+     Provider.of<user_vm_provider>(context,listen: true).userall;
     //return Obx(() {
       return Scaffold(
         backgroundColor: Colors.white,
@@ -94,7 +97,7 @@ class _UserScreenState extends State<UserScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: 10,
+                            top: 10,bottom: 10
                           ),
                           child: ImageProfile(),
                         ),
@@ -130,7 +133,7 @@ class _UserScreenState extends State<UserScreen> {
   Widget info(context) {
    // var controllerUser =Provider.of<user_vm_provider>(context,listen: false);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       child: Column(
         children: [
           ContainerShadows(
@@ -269,15 +272,21 @@ class _UserScreenState extends State<UserScreen> {
                       //   controllerUser.onPressPhone(
                       //       controllerUser.userall![index].mobile.toString());
                       // },
-                      child: TextUtilis(
-                        color: kMainColor,
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                        textstring:
-                        //controllerUser.userall![widget.index]
-                          widget.userModel.mobile.toString(),
-                        underline: TextDecoration.none,
-                      ),
+                      child:
+                        Text( widget.userModel.mobile.toString(),
+                          style: TextStyle(
+
+                          ),
+                        ),
+                      // TextUtilis(
+                      //   color: kMainColor,
+                      //   fontSize: 35,
+                      //   fontWeight: FontWeight.bold,
+                      //   textstring:
+                      //   //controllerUser.userall![widget.index]
+                      //     widget.userModel.mobile.toString(),
+                      //   underline: TextDecoration.none,
+                      // ),
                     ),
                   ],
                 ),

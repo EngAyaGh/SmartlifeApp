@@ -30,8 +30,9 @@ class product_vm extends ChangeNotifier {
     if (res!="false") {
       body.addAll({'id_product':res});
       listProduct.insert(0, ProductModel.fromJson(body));
-      notifyListeners();
+      //notifyListeners();
     }
+    notifyListeners();
     return res;
   }
   Future<bool> updateproduct_vm(Map<String, dynamic?> body,String id_product) async {

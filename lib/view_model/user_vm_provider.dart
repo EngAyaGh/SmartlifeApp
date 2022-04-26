@@ -47,7 +47,7 @@ class user_vm_provider extends ChangeNotifier{
       //'code_verfiy': controllerUsers.usersList[index].codeVerfiy.toString(),
       'nameCountry':userall[index].nameCountry.toString(),
       'currency':userall[index].currency,
-      // 'name_regoin': userall![index].nameRegoin.toString(),
+       //'name_regoin': userall![index].nameRegoin.toString(),
       // 'name_level': userall![index].name_level.toString(),
     });
     print(body);
@@ -57,7 +57,7 @@ class user_vm_provider extends ChangeNotifier{
     notifyListeners();
     return result;
   }
-    Future<String> adduser_vm(Map<String, dynamic?> body) async {
+    Future<String> adduser_vm(Map<String, String?> body) async {
     String res = await UserService().addUser(body);
     if (res!="false") {
       body.addAll({
@@ -93,7 +93,7 @@ class user_vm_provider extends ChangeNotifier{
       if(userall.isEmpty)
       userall = await  UserService().usersServices();
       String? id = preferences.getString('id_user');
-      print("in get user" + userall[0].nameUser.toString());
+      //print("in get user" + userall[0].nameUser.toString());
 
       final index = userall.indexWhere((element) => element.idUser == id);
       if(index>=0){

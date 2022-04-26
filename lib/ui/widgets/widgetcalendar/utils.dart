@@ -11,7 +11,12 @@ class Utils {
     final date = DateFormat.yMMMEd().format(dateTime);
     return '$date';
   }
+  static String toDate22(DateTime dateTime) {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
 
+    final date = formatter.format(dateTime);
+    return '$date';
+  }
   static String toTime(DateTime dateTime) {
     final time = DateFormat.Hm().format(dateTime);
     return '$time';

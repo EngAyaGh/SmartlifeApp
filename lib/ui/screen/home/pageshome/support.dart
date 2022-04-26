@@ -2,7 +2,7 @@ import 'package:crm_smart/ui/screen/calendar/calendar.dart';
 import 'package:crm_smart/ui/screen/calendar/event_view_page.dart';
 import 'package:crm_smart/ui/screen/support/support_table.dart';
 import 'package:crm_smart/ui/screen/support/support_view.dart';
-import 'package:crm_smart/ui/widgets/widget%20calendar/task_widget.dart';
+import 'package:crm_smart/ui/widgets/widgetcalendar/task_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

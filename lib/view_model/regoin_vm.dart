@@ -17,7 +17,15 @@ class regoin_vm extends ChangeNotifier{
   late String? selectedValueLevel=null;
 
   void changeVal(String?  val){
-    selectedValueLevel=val;
+    print('inside regoin vm');
+    print(val);
+    if(val==null||val=="null")
+   {
+     selectedValueLevel=null;
+   print('nnnn');
+   }
+    else
+      {selectedValueLevel=val;print('22222');}
     notifyListeners();
   }
   void clearvalues() {

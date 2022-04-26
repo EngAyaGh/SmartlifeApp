@@ -120,7 +120,7 @@ class invoice_vm extends ChangeNotifier{
         if( element.idInvoice==id_invoice)
           inv= element;
       });
-    if(inv==null) get_invoicesbyRegoin([]);
+    if(inv==null) getinvoices();
 
     return inv;//InvoiceModel(products: []);
     // else{

@@ -4,6 +4,7 @@
 
 import 'package:crm_smart/ui/screen/search/search_container.dart';
 import 'package:crm_smart/ui/widgets/user_widget/card_user.dart';
+import 'package:crm_smart/ui/widgets/user_widget/carduserbuild.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +12,23 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import 'adduser.dart';
 
-class AllUserScreen extends StatelessWidget {
+class AllUserScreen extends StatefulWidget {
   const AllUserScreen({Key? key}) : super(key: key);
 
   @override
+  _AllUserScreenState createState() => _AllUserScreenState();
+}
+
+class _AllUserScreenState extends State<AllUserScreen> {
+  @override
+  void initState() {
+    Provider.of<user_vm_provider>(context, listen: false).getuser_vm();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
+    final controllerUsers =
+    Provider.of<user_vm_provider>(context, listen: true);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
       backgroundColor: kMainColor,
@@ -35,13 +48,50 @@ class AllUserScreen extends StatelessWidget {
       body: Column(
 
         children: [
-          search_widget("اسم الموظف....",
-            Provider.of<user_vm_provider>(context, listen: true)
-                .userall,),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: search_widget("اسم الموظف....",
+              Provider.of<user_vm_provider>(context, listen: true)
+                  .userall,),
+          ),
           const SizedBox(
             height: 5,
           ),
-          CardUsers(),
+
+          controllerUsers.userall.length == 0?
+    Center(
+    child: Text('لا يوجد مستخدمين')):
+          Directionality(
+            textDirection: TextDirection.rtl,
+            child: Expanded(
+              child: ListView.separated(
+                itemCount: controllerUsers.userall.length,
+                itemBuilder: (context, index) {
+                  return Consumer<user_vm_provider>(
+                      builder: (context, cart, child) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: buildCardUsers(
+                            usermodell: controllerUsers.userall[index],
+                          ),
+                        );
+                      });
+                },
+                separatorBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(right: 30, left: 20, bottom: 5),
+                    child: Divider(
+                      color: Colors.black12,
+                      thickness: 1,
+                    ),
+                  );
+                },
+              ),
+
+            ),
+          )
+
+         //CardUsers(),
         ],
       ),
     );

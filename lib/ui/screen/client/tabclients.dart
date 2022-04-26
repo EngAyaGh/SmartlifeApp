@@ -41,9 +41,14 @@ class _tabclientsState extends State<tabclients> {
         .getuser_vm();
     print(Provider.of<user_vm_provider>(context,listen: false)
         .userall.length);
-    Provider.of<regoin_vm>(context,listen: false).getregoin();
+    WidgetsBinding.instance!.addPostFrameCallback((_){
+
+      // Add Your Code here.
+      Provider.of<regoin_vm>(context,listen: false).getregoin();
+
+    });
     Provider.of<client_vm>(context, listen: false)
-        .getclientByRegoin([]);
+        .getclient_vm();
     // WidgetsBinding.instance?.addPostFrameCallback((_) {
 
   }
@@ -103,153 +108,150 @@ class _tabclientsState extends State<tabclients> {
             padding: EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
             child: Directionality(
               textDirection: TextDirection.rtl,
-              child: Expanded(
-                 flex: 1,
-                child: ListView(
-                  children: [
-                    Center(
-                      child:
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                       Row(
+              child: ListView(
+                children: [
+                  Center(
+                    child:
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                     Row(
 
-                         children: [   Text('فلترة'),
-                           Icon(Icons.filter_alt_sharp),],
-                       ),
-                          GroupButton(
-                              controller: GroupButtonController(
-                                selectedIndex:isSelectedtypeinstall,
+                       children: [   Text('فلترة'),
+                         Icon(Icons.filter_alt_sharp),],
+                     ),
+                        GroupButton(
+                            controller: GroupButtonController(
+                              selectedIndex:isSelectedtypeinstall,
 
-                              ),
-                              options: GroupButtonOptions(
-                                  buttonWidth: 100,
-
-                                  borderRadius: BorderRadius.circular(10)),
-                              buttons: ['الموظف','المناطق'],
-                              onSelected: (index,isselected) {
-                                print(index);
-                                setState(() {
-                                  isSelectedtypeinstall=index;
-
-                                });
-                              }
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 5,),
-                    isSelectedtypeinstall==1?
-                    Consumer<regoin_vm>(
-                      builder: (context, cart, child){
-                        return Expanded(
-                          //flex: 1,
-                          child: DropdownButton(
-                            isExpanded: true,
-                            //hint: Text("حدد حالة العميل"),
-                            items: cart.listregoin.map((level_one) {
-                              return DropdownMenuItem(
-                                child: Text(level_one.name_regoin), //label of item
-                                value: level_one.id_regoin, //value of item
-                              );
-                            }).toList(),
-                            value:cart.selectedValueLevel,
-                            onChanged:(value) {
-                              //  setState(() {
-                              cart.changeVal(value.toString());
-                              Provider.of<client_vm>(context, listen: false)
-                                  .getclientfilter_Local(value.toString(),"regoin");
-                              // });
-                            },
-                          ),
-                        );},
-                    )
-                        :
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0,right: 8),
-                      child: Consumer<user_vm_provider>(
-                        builder: (context, cart, child){
-                          return  Expanded(
-                            // flex: 1,
-                            child: DropdownSearch<UserModel>(
-                              mode: Mode.DIALOG,
-                              label: " الموظف ",
-
-                              //onFind: (String filter) => cart.getfilteruser(filter),
-                              filterFn: (user, filter) => user!.getfilteruser(filter!),
-                              //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
-                              // itemAsString: (UserModel u) => u.userAsStringByName(),
-                              items: cart.userall,
-                              itemAsString:
-                                  ( u) => u!.userAsString(),
-
-                              // selectedItem: cart.currentUser,
-                              onChanged: (data) {
-                                iduser=data!.idUser;
-                                Provider.of<client_vm>(context, listen: false)
-                                    .getclientfilter_Local(iduser!,"user");
-                              } ,//print(data!.nameUser),
-                              showSearchBox: true,
-
-                              dropdownSearchDecoration: InputDecoration(
-                                fillColor:  Colors.grey.withOpacity(0.2),
-                                labelText: "choose a user",
-                                contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(color: Colors.white)),
-                                border:OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(color: Colors.white)),
-                              ),
                             ),
-                          );
+                            options: GroupButtonOptions(
+                                buttonWidth: 100,
 
-                        },
-                      ),
-                    ),
+                                borderRadius: BorderRadius.circular(10)),
+                            buttons: ['الموظف','المناطق'],
+                            onSelected: (index,isselected) {
+                              print(index);
+                              setState(() {
+                                isSelectedtypeinstall=index;
 
-                    SizedBox(height: 2,),
-                    search_widget("المؤسسة....",
-                        Provider.of<client_vm>(context, listen: true)
-                            .listClient,),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    RefreshIndicator(
-                      onRefresh: ()async{
-                        await    Provider.of<client_vm>(context, listen: false)
-                            .getclientByRegoin([]);
-                      },
-                      child: Container(
-                        height: MediaQuery.of(context).size.height*0.7,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8,right: 8,
-                              top:8.0,bottom: 20),
-                          child:
-                              Consumer<client_vm>(builder: (context, value, child) {
-                            return value.listClientfilter.length==0?
-                            Text(''):Expanded(
-                              child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: value.listClientfilter.length,
-                                  itemBuilder: (context, index) {
-                                    return SingleChildScrollView(
-                                        child: Padding(
-                                      padding: const EdgeInsets.all(2),
-                                      child: cardClient(
-                                          itemClient: value.listClientfilter[index],
-                                          iduser: iduser.toString()),
-                                    ));
-                                  }),
-                            );
-                          }),
+                              });
+                            }
                         ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 5,),
+                  isSelectedtypeinstall==1?
+                  Consumer<regoin_vm>(
+                    builder: (context, cart, child){
+                      return DropdownButton(
+                        isExpanded: true,
+                        //hint: Text("حدد حالة العميل"),
+                        items: cart.listregoin.map((level_one) {
+                          return DropdownMenuItem(
+                            child: Text(level_one.name_regoin), //label of item
+                            value: level_one.id_regoin, //value of item
+                          );
+                        }).toList(),
+                        value:cart.selectedValueLevel,
+                        onChanged:(value) {
+                          //  setState(() {
+                          cart.changeVal(value.toString());
+                          Provider.of<client_vm>(context, listen: false)
+                              .getclientfilter_Local(value.toString(),"regoin");
+                          // });
+                        },
+                      );},
+                  )
+                      :
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0,right: 8),
+                    child: Consumer<user_vm_provider>(
+                      builder: (context, cart, child){
+                        return  DropdownSearch<UserModel>(
+                          mode: Mode.DIALOG,
+                          label: " الموظف ",
+
+                          //onFind: (String filter) => cart.getfilteruser(filter),
+                          filterFn: (user, filter) => user!.getfilteruser(filter!),
+                          //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
+                          // itemAsString: (UserModel u) => u.userAsStringByName(),
+                          items: cart.userall,
+                          itemAsString:
+                              ( u) => u!.userAsString(),
+
+                          // selectedItem: cart.currentUser,
+                          onChanged: (data) {
+                            iduser=data!.idUser;
+                            Provider.of<client_vm>(context, listen: false)
+                                .getclientfilter_Local(iduser!,"user");
+                          } ,//print(data!.nameUser),
+                          showSearchBox: true,
+
+                          dropdownSearchDecoration: InputDecoration(
+                            fillColor:  Colors.grey.withOpacity(0.2),
+                            labelText: "choose a user",
+                            contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(color: Colors.white)),
+                            border:OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(color: Colors.white)),
+                          ),
+                        );
+
+                      },
+                    ),
+                  ),
+
+                  SizedBox(height: 2,),
+                  search_widget("المؤسسة....",
+                      Provider.of<client_vm>(context, listen: true)
+                          .listClientfilter,),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  RefreshIndicator(
+                    onRefresh: ()async{
+                      await    Provider.of<client_vm>(context, listen: false)
+                          .getclient_vm();
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height*0.7,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 8,right: 8,
+                            top:8.0,bottom: 20),
+                        child:
+                            Consumer<client_vm>(builder: (context, value, child) {
+                               return value.listClientfilter.length==0?
+                               Text(''):Column(
+                                 children: [
+                                   Expanded(
+
+                            child: ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: value.listClientfilter.length,
+                                    itemBuilder: (context, index) {
+
+                                      return SingleChildScrollView(
+                                          child: Padding(
+                                        padding: const EdgeInsets.all(2),
+                                        child: cardClient(
+                                            itemClient: value.listClientfilter[index],
+                                            iduser: iduser.toString()),
+                                      ));
+                                    }),
+                          ),
+                                 ],
+                               );
+                        }),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

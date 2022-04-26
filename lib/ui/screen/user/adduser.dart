@@ -37,6 +37,7 @@ class _addUserState extends State<addUser> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   late final  controllerUsers;
 
@@ -49,10 +50,18 @@ class _addUserState extends State<addUser> {
       Provider.of<level_vm>(context,listen: false).getlevel();
 
       Provider.of<regoin_vm>(context,listen: false).getregoin();
+      Provider.of<regoin_vm>(context,listen: false).changeVal(null);
     }
     );
 
     super.didChangeDependencies();
+  }
+  @override void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    descriptionController.dispose();
+    mobileController.dispose();
+    super.dispose();
   }
   @override void initState() {
 
@@ -78,18 +87,17 @@ class _addUserState extends State<addUser> {
       ),
       body:ModalProgressHUD(
         inAsyncCall: Provider.of<LoadProvider>(context).isLoadingAddUser,
-        child: Padding(
-          padding:EdgeInsets.only(top: 15,right: 5,left: 5,bottom: 15), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+        child: SingleChildScrollView(
           child: ContainerShadows(
             width: double.infinity,
             padding:
             EdgeInsets.only(
-                top: 35,right: 10,left: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+                top: 25,right: 10,left: 10,bottom: 35), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
 
           margin: EdgeInsets.only(
               left: 20,
               right: 20,
-              top: 30,bottom: 10
+              top: 25,bottom: 10
             ),
             child: Directionality(
               textDirection: TextDirection.rtl,
@@ -98,14 +106,24 @@ class _addUserState extends State<addUser> {
 
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RowEdit(name:'Email', des: ''),
+                  RowEdit(name:'Name', des: 'Required'),
+                  SizedBox(height: 2,),
+                  EditTextFormField(
+                    hintText: 'Name',
+                    obscureText: false,
+                    controller: nameController,
+                  ),
+                  SizedBox(height: 2,),
+
+                  RowEdit(name:'Email', des: 'Required'),
+                  SizedBox(height: 2,),
                   EditTextFormField(
                     hintText: 'Email',
                     obscureText: false,
                     controller: emailController,
                   ),
                   SizedBox(height: 15,),
-                  RowEdit(name: label_manage, des: ''),
+                  RowEdit(name: label_manage, des: 'Required'),
                   Consumer<manage_provider>(builder: (context, mangelist, child) {
                     return DropdownButton(
                       isExpanded: true,
@@ -218,15 +236,25 @@ class _addUserState extends State<addUser> {
                         onpress: () {
                           String? regoin= Provider.of<regoin_vm>(context,listen: false)
                               .selectedValueLevel;
+                        String?  regoinname=
+                        regoin==null?"":
+                          Provider.of<regoin_vm>(context, listen: false)
+                              .listregoin.firstWhere((element) => element.id_regoin==regoin).name_regoin;
+
                           String? level= Provider.of<level_vm>(context,listen: false)
                               .selectedValueLevel;
+                        String  levelname=Provider.of<level_vm>(context, listen: false)
+                              .listoflevel.firstWhere((element) => element.idLevel==level).nameLevel;
+
                           String? id_country=
                               Provider.of<user_vm_provider>(context,listen: false)
                                   .currentUser!.fkCountry;
-                      if( level!=null && emailController.text.isNotEmpty) {
+                      if( level!=null && emailController.text.isNotEmpty&&nameController.text.isNotEmpty) {
                         Provider.of<LoadProvider>(context, listen: false)
                             .changeboolValueUser(true);
-                        dynamic body={  'email': emailController.text != null
+                       Map<String,String?> body={
+                         "nameUser":nameController.text,
+                          'email': emailController.text != null
                             ? emailController.text
                             : "",
                           'mobile': mobileController.text != null ? mobileController
@@ -236,6 +264,8 @@ class _addUserState extends State<addUser> {
                               ? namemanage
                               : "",
                           'type_level': level,
+                         'name_level' :levelname,
+                          'name_regoin':regoinname,
                           'fk_regoin': regoin != null ? regoin : "null",
                         };
                        Provider.of<user_vm_provider>(context,listen: false)
@@ -248,7 +278,7 @@ class _addUserState extends State<addUser> {
                       }else
                         {
                           _scaffoldKey.currentState!.showSnackBar(
-                              SnackBar(content: Text('حدد كافة الخيارات من فضلك'))
+                              SnackBar(content: Text('تأكد من الخيارات من فضلك'))
                           );
                         }
                         },
@@ -273,6 +303,7 @@ void error(){
   _scaffoldKey.currentState!.showSnackBar(
       SnackBar(content: Text(label_errorAddProd)));
 }
+
   void clear(body){
 
     Provider.of<LoadProvider>(context, listen: false)
@@ -281,6 +312,7 @@ void error(){
     //     UserModel.fromJson( body)
     // );
     descriptionController.text = "";
+    nameController.text="";
     mobileController.text = "";
     emailController.text = "";
     _scaffoldKey.currentState!.showSnackBar(

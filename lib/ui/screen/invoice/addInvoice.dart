@@ -60,6 +60,11 @@ class _addinvoiceState extends State<addinvoice> {
   }
    @override
    void initState()  {
+     WidgetsBinding.instance!.addPostFrameCallback((_){
+
+       // Add Your Code here.
+
+
      Provider.of<LoadProvider>(context, listen: false)
          .changebooladdinvoice(false);
      print('init in addinvoice screen main');
@@ -117,6 +122,7 @@ else{
      Provider.of<selected_button_provider>(context,listen: false)
          .selectValuetypeinstall(int.parse(typeinstallController.toString()));
      print(typeinstallController);
+     });
      super.initState();
 
    }

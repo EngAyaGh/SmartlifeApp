@@ -108,9 +108,9 @@ class cardapprove1 extends StatelessWidget {
                                             Provider.of<client_vm>(context, listen: false)
                                                 .setApproveclient_vm({
                                               'idApproveClient':itemapprove.idApproveClient,
-                                              "fkuser":itemapprove.fkUser,//صاحب العميل
+                                              "fk_user":itemapprove.fkUser,//صاحب العميل
                                               "fk_regoin":itemapprove.fk_regoin,
-                                              "fkcountry":itemapprove.fk_country,
+                                              "fk_country":itemapprove.fk_country,
                                               "isApprove": "1",
                                               "name_enterprise":itemapprove.name_enterprise,
                                               "fkusername":itemapprove.nameUser, //موظف المبيعات
@@ -172,9 +172,9 @@ class cardapprove1 extends StatelessWidget {
                                             Provider.of<client_vm>(context, listen: false)
                                                 .setApproveclient_vm({
                                               'idApproveClient':itemapprove.idApproveClient,
-                                              "fkuser":itemapprove.fkUser,
+                                              "fk_user":itemapprove.fkUser,
                                               "fk_regoin":itemapprove.fk_regoin,
-                                              "fkcountry":itemapprove.fk_country,
+                                              "fk_country":itemapprove.fk_country,
                                               "isApprove": "0",
                                               "name_enterprise":itemapprove.name_enterprise,
                                               "fkusername":itemapprove.nameUser, //موظف المبيعات

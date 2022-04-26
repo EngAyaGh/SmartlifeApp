@@ -8,7 +8,7 @@ import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/ProductService.dart';
 import 'package:crm_smart/services/clientService.dart';
-import 'package:crm_smart/ui/widgets/widget%20calendar/utils.dart';
+import 'package:crm_smart/ui/widgets/widgetcalendar/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -71,10 +71,9 @@ class client_vm extends ChangeNotifier {
         print('regoin');
         print(searchfilter);
         listClient.forEach((element) {
-          if( element.fkUser==searchfilter)
+          if( element.fkRegoin==searchfilter)
             listClientfilter.add(element);
         });
-
 
       }
     }
@@ -85,6 +84,7 @@ class client_vm extends ChangeNotifier {
    // if(listClient.isEmpty)
     //main list
     listClient = await ClientService().getAllClient(usercurrent!.fkCountry.toString());
+    listClientfilter= listClient;
     notifyListeners();
   }
   ClientModel? get_byIdClient(String idClient)  {
@@ -94,7 +94,7 @@ class client_vm extends ChangeNotifier {
         if( element.idClients==idClient)
           inv= element;
       });
-    if(inv==null) getclientByRegoin([]);
+    if(inv==null) getclient_vm();
 
     return inv;
   }
@@ -181,6 +181,7 @@ else{
       => element.idClients==id_client);
       body.addAll({
         'id_clients':id_client,
+        'date_create':listClientbyCurrentUser[index].dateCreate,
         'nameUser':listClientbyCurrentUser[index].nameUser,
         'name_regoin':listClientbyCurrentUser[index].name_regoin.toString(),
         'fk_regoin':listClientbyCurrentUser[index].fkRegoin,

@@ -79,9 +79,11 @@ class _addProductState extends State<addProduct> {
 
   @override
   Widget build(BuildContext context) {
+    var sizeMedia = MediaQuery.of(context).size.width;
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: kWhiteColor),
           onPressed: () => Navigator.of(context).pop(),
@@ -102,7 +104,7 @@ class _addProductState extends State<addProduct> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 20,
+                      height: sizeMedia * 0.10,
                     ),
                     // Consumer<selected_button_provider>(
                     //     builder: (context, selectedProvider, child) {
@@ -122,62 +124,57 @@ class _addProductState extends State<addProduct> {
                     // }),
                     Consumer<selected_button_provider>(
                         builder: (context, selectedProvider, child) {
-                      return ContainerShadows(
-                       // width: double.infinity,
-                        height: 35,
-                        margin: EdgeInsets.only(),
-                        padding: EdgeInsets.only(
-                            top: 2,bottom: 2,left: 2,right: 2),
-                        // child:
-                        // Container(
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.all(
-                        //          Radius.circular(12)),
-                        //     boxShadow: <BoxShadow>[
-                        //       BoxShadow(
-                        //         offset: Offset(1.0, 1.0),
-                        //         blurRadius: 8.0,
-                        //         color: Colors.black87.withOpacity(0.2),
-                        //       ),
-                        //     ],
-                        //     color: Colors.white,
-                        //   ),
-                          child: Center(
-                            child: GroupButton(
-                              options: GroupButtonOptions(
-                                borderRadius: BorderRadius.circular(20),
-                                buttonWidth: MediaQuery.of(context).size.width*0.3,
-                                //elevation: 0,
-                                selectedColor: kMainColor,
-                              ),
-                              controller: GroupButtonController(
-                                selectedIndex: selectedProvider.isSelected,
-                                onDisablePressed: (i) =>
-                                    print('Button #$i is disabled'),
-                              ),
-                              buttons: ['أجهزة', 'برامج'],
-                              onSelected: (int index, bool isSelected) {
-                                valtype_product = index;
-                                // valtype_product == 0 ? 1 : 0;
-                                selectedProvider.selectValue(index);
-                                // setState(() {
-                                // selectButton = index;
-                                // });
-                                debugPrint('Button #$index $isSelected');
-                              },
+                          return Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                offset: Offset(1.0, 1.0),
+                                blurRadius: 8.0,
+                                    color: Colors.grey.withOpacity(0.2)),
+                              ],
+                              color: Colors.white,
                             ),
-                          ),
-                        //),
-                      );
-                    }),
-                    SizedBox(height: 6,),
+                            child: Center(
+                              child: GroupButton(
+                                options: GroupButtonOptions(
+                                  borderRadius: BorderRadius.circular(20),
+                                  buttonWidth:
+                                  MediaQuery.of(context).size.width * 0.3,
+                                  //elevation: 0,
+                                  selectedColor: kMainColor,
+                                ),
+                                controller: GroupButtonController(
+                                  selectedIndex: selectedProvider.isSelected,
+                                  onDisablePressed: (i) =>
+                                      print('Button #$i is disabled'),
+                                ),
+                                buttons: ['أجهزة', 'برامج'],
+                                onSelected: (int index, bool isSelected) {
+                                  valtype_product = index;
+                                  // valtype_product == 0 ? 1 : 0;
+                                  selectedProvider.selectValue(index);
+                                  // setState(() {
+                                  // selectButton = index;
+                                  // });
+                                  debugPrint('Button #$index $isSelected');
+                                },
+                              ),
+                            ),
+                          );
+                        }),
+                    SizedBox(
+                      height: 6,
+                    ),
                     ContainerShadows(
                       width: double.infinity,
                       // height: 400,
                       margin: EdgeInsets.only(),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 70),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: sizeMedia * .05,
+                            vertical: sizeMedia * .05),
                         child: Column(
                           children: [
                             SizedBox(

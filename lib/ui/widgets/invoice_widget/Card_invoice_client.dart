@@ -81,72 +81,77 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
 
                   //textDirection: TextDirection.rtl,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.itemProd.name_enterprise.toString(),
-                          style: TextStyle(fontFamily: kfontfamily2),
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          widget.itemProd.dateCreate.toString(),
-                          style: TextStyle(fontFamily: kfontfamily2),
-                        ),
-                        Row(
-                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                             // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  'الإجمالي',
-                                  style: TextStyle(fontFamily: kfontfamily2),
-                                ),
-                                Text(
-                                  widget.itemProd.total.toString(),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontFamily: kfontfamily2),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            Row(
-                            //  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  'المتبقي',
-                                  style: TextStyle(fontFamily: kfontfamily2),
-                                ),
-                                Text("" +
-                                    (double.parse(widget.itemProd.total
-                                                .toString()) -
-                                            double.parse(widget
-                                                .itemProd.amountPaid
-                                                .toString()))
-                                        .toString(),style: TextStyle(fontFamily: kfontfamily2,fontWeight: FontWeight.bold),)
-                              ],
-                            ),
-                          ],
-                        ),
-                        Row(
-                         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'التجديد السنوي',
-                              style: TextStyle(fontFamily: kfontfamily2),
-                            ),
-                            Text(
-                              widget.itemProd.renewYear.toString(),
-                              style: TextStyle(fontFamily: kfontfamily2),
-                            ),
-                          ],
-                        ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.itemProd.name_enterprise.toString(),
+                            style: TextStyle(fontFamily: kfontfamily2),
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            widget.itemProd.dateCreate.toString(),
+                            style: TextStyle(fontFamily: kfontfamily2),
+                          ),
+                          Row(
+                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                               // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    'الإجمالي',
+                                    style: TextStyle(fontFamily: kfontfamily2),
+                                  ),
+                                  Text(
+                                    widget.itemProd.total.toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold, fontFamily: kfontfamily2),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Row(
+                              //  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    'المتبقي',
+                                    style: TextStyle(fontFamily: kfontfamily2),
+                                  ),
+                                  Text("" +
+                                      (double.parse(widget.itemProd.total
+                                                  .toString()) -
+                                              double.parse(widget
+                                                  .itemProd.amountPaid
+                                                  .toString()))
+                                          .toString(),style: TextStyle(fontFamily: kfontfamily2,fontWeight: FontWeight.bold),)
+                                ],
+                              ),
+                            ],
+                          ),
+                          Row(
+                            // mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'التجديد السنوي',
+                                style: TextStyle(fontFamily: kfontfamily2),
+                              ),
+                              Text(
+                                widget.itemProd.renewYear.toString(),
+                                style: TextStyle(fontFamily: kfontfamily2),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     Row(
                       children: [

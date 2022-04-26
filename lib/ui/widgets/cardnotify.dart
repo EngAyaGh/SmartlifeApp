@@ -91,8 +91,9 @@ late NotificationModel itemNotify;
                       children: [
                         Text(itemNotify.message,
                           style: TextStyle(fontFamily: kfontfamily3),),
-                        // Text(itemNotify.fromNameuser!,
-                        //   style: TextStyle(fontFamily: kfontfamily3),),
+                        Text(itemNotify.dateNotify,
+                          style: TextStyle(
+                              fontFamily: kfontfamily3,color: kMainColor),),
                       ]),
                   //Row(),
                 ],

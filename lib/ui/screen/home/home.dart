@@ -39,6 +39,7 @@ class _HomeState extends State<Home> {
     });
     //FirebaseMessaging.onBackgroundMessage.call(message);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+     // try{
       print('Got a message whilst in the foreground!');
       print('Message data: ${message.data}');
 
@@ -46,8 +47,9 @@ class _HomeState extends State<Home> {
         print('Message also contained a notification: ${message.notification}');
       }
       //Provider.of<notifyvm>(context,listen: false).getcounter();
-      if(message.data['data'])
+      //if(message.data['data'])
         Provider.of<notifyvm>(context,listen: false).addcounter();
+     // } catch(e){}
       //add notify to listnotify
     });
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
@@ -64,12 +66,12 @@ class _HomeState extends State<Home> {
     print('in home...didchange');
     //check level user
     Provider.of<client_vm>(context, listen: false)
-        .getclientByRegoin([]); //list empty that mean
+        .getclient_vm(); //list empty that mean
     //level user all client in country
     // Provider.of<client_vm>(context, listen: false)
     //     . getclient_vm();
     Provider.of<invoice_vm>(context, listen: false)
-        .get_invoicesbyRegoin([]);
+        .getinvoices();
   }
   @override
   void didChangeDependencies() {

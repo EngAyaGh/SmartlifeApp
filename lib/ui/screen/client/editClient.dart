@@ -45,7 +45,7 @@ class _editclientState extends State<editclient> {
   final TextEditingController resaonController = TextEditingController();
   final TextEditingController valueBackController = TextEditingController();
   final TextEditingController descresaonController = TextEditingController();
- late typeclient typeclient_provider;
+  late typeclient typeclient_provider;
   late final UserModel currentUser;
   @override
   void initState()  {
@@ -60,11 +60,28 @@ class _editclientState extends State<editclient> {
     locationController.text=widget.itemClient.location!.toString();
     regoinController.text=widget.itemClient.name_regoin!.toString();
     //////////////////////////////////////////////////////////
-    typeclient_provider=Provider.of<typeclient>(context,listen: false);
-    typeclient_provider.type_of_client
-    =widget.itemClient.typeClient=="مشترك"?
-    ['مستبعد','منسحب','مشترك']
-    :widget.itemClient.typeClient=="منسحب"? ['مشترك','منسحب'] :['تفاوض','عرض سعر','مستبعد','منسحب'];
+    WidgetsBinding.instance!.addPostFrameCallback((_){
+
+      // Add Your Code here.
+      typeclient_provider=Provider.of<typeclient>(context,listen: false);
+      typeclient_provider.type_of_client
+      =widget.itemClient.typeClient=="مشترك"?
+      ['مستبعد','منسحب','مشترك']
+          :widget.itemClient.typeClient=="منسحب"? ['مشترك','منسحب'] :['تفاوض','عرض سعر','مستبعد','منسحب'];
+
+
+      typeclient_provider.selectedValuemanag=widget.itemClient.typeClient.toString();
+      typeclient_provider.getreasons();
+      typeclient_provider.selectedValueOut=typeclient_provider.selectedValuemanag=="منسحب"?
+      resaonController.text:null;
+
+      String val=typeclient_provider.selectedValuemanag=="منسحب"
+          ?widget.itemClient.dateChangetype.toString()
+          :formatter.format(DateTime.now());
+
+      _currentDate=DateTime.parse(val);
+
+    });
 
 
     ////////////////////////////////////////
@@ -81,29 +98,21 @@ class _editclientState extends State<editclient> {
     descresaonController.text=widget.itemClient.desc_reason==null||widget.itemClient.desc_reason==""
         ?"":widget.itemClient.desc_reason!.toString();
 
-    typeclient_provider.selectedValuemanag=widget.itemClient.typeClient.toString();
-    typeclient_provider.getreasons();
-    typeclient_provider.selectedValueOut=typeclient_provider.selectedValuemanag=="منسحب"?
-    resaonController.text:null;
 
-    String val=typeclient_provider.selectedValuemanag=="منسحب"
-        ?widget.itemClient.dateChangetype.toString()
-        :formatter.format(DateTime.now());
 
-    _currentDate=DateTime.parse(val);
     super.initState();
   }
 @override
 void didChangeDependencies() {
 
-  typeclient_provider.selectedValuemanag=widget.itemClient.typeClient.toString();
-  typeclient_provider.getreasons();
-  typeclient_provider.selectedValueOut=typeclient_provider.selectedValuemanag=="منسحب"?
-  resaonController.text:null;
-
-  String val=typeclient_provider.selectedValuemanag=="منسحب"
-      ?widget.itemClient.dateChangetype.toString()
-      :formatter.format(DateTime.now());
+  // typeclient_provider.selectedValuemanag=widget.itemClient.typeClient.toString();
+  // typeclient_provider.getreasons();
+  // typeclient_provider.selectedValueOut=typeclient_provider.selectedValuemanag=="منسحب"?
+  // resaonController.text:null;
+  //
+  // String val=typeclient_provider.selectedValuemanag=="منسحب"
+  //     ?widget.itemClient.dateChangetype.toString()
+  //     :formatter.format(DateTime.now());
     super.didChangeDependencies();
   }
     @override

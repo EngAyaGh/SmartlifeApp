@@ -16,10 +16,18 @@ class deletedinvoice extends StatefulWidget {
 }
 
 class _deletedinvoiceState extends State<deletedinvoice> {
+  @override void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_){
+
+      // Add Your Code here.
+     Provider.of<invoice_vm>(context,listen: false).get_invoice_deleted();
+
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
 
-    context.watch<invoice_vm>().get_invoice_deleted();
     List<DeletedinvoiceModel> _listdeletedinvoice
     = context.watch<invoice_vm>().listdeletedinvoice;
     return

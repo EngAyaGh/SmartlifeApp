@@ -7,6 +7,7 @@ import 'package:crm_smart/ui/screen/selectCountryScreen.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/customlogo.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -111,6 +112,8 @@ class _loginState extends State<login> {
                         SharedPreferences preferences  = await SharedPreferences.getInstance();
                         preferences.setBool(kKeepMeLoggedIn, true);
                         preferences.setString("id_user",res!);
+                        Provider.of<user_vm_provider>(context, listen: false)
+                            .getcurrentuser();
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(

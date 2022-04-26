@@ -5,6 +5,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../constants.dart';
+
 class TextUtilis extends StatelessWidget {
   Color color;
   double fontSize;
@@ -27,12 +29,15 @@ class TextUtilis extends StatelessWidget {
     return Text(
 
       textstring,
-      style: GoogleFonts.lato(
-          textStyle: TextStyle(
+      style:
+      //GoogleFonts.lato(
+           TextStyle(
             color: color,
             fontWeight: fontWeight,
             decoration: underline,
-          )),
+        fontFamily: kfontfamily2
+      //    )
+      ),
     );
   }
 }

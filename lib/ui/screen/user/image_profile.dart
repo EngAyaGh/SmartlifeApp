@@ -31,7 +31,7 @@ class ImageProfile extends StatelessWidget {
                 //     ? FileImage(File(controllerUser.profilepicpath.value))
                 // as ImageProvider
                 //     :
-                AssetImage('assest/images/logo.png')),
+                AssetImage('assest/images/image3.png')),
           //),
           Positioned(
             bottom: 20.0,

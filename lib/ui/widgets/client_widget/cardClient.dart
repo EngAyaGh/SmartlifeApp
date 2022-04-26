@@ -121,7 +121,7 @@ class cardClient extends StatelessWidget {
                                   fontFamily: kfontfamily2),),
                             itemClient.dateCreate==null?
                               Text(''):
-                              Text(itemClient.dateCreate.toString(),
+                              Text(   itemClient.dateCreate.toString(),
                               style: TextStyle(
                                   fontFamily: kfontfamily2),),
                             // ButtonBar(

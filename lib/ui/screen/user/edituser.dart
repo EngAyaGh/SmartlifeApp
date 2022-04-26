@@ -74,43 +74,44 @@ class _EditUserState extends State<EditUser> {
     // Provider.of<regoin_vm>(context,listen: false).getregoin();
     //
     // Provider.of<level_vm>(context,listen: false).getlevel();
-    namemanage =
-    // controllerUsers[widget.index]
-    widget.userModel.typeAdministration.toString();
-    Provider.of<manage_provider>(context, listen: false)
-        .changevalue(namemanage!);
-    print("after manage provider in main");
-    //});
+    WidgetsBinding.instance!.addPostFrameCallback((_){
 
-    emailController.text =
-    //controllerUsers[widget.index]
-    widget.userModel.email.toString();
+      // Add Your Code here.
+      namemanage =
+      // controllerUsers[widget.index]
+      widget.userModel.typeAdministration.toString();
+      Provider.of<manage_provider>(context, listen: false)
+          .changevalue(namemanage!);
+      print("after manage provider in main");
+      emailController.text =
+      //controllerUsers[widget.index]
+      widget.userModel.email.toString();
 
-    mobileController.text =
-    //controllerUsers[widget.index]
-    widget.userModel.mobile.toString();
-    regoinname= widget.userModel.nameRegoin;
-    levelname=widget.userModel.name_level;
-    Provider.of<level_vm>(context,listen: false).changeVal(
-        widget.userModel.typeLevel.toString());
-    print("level inside build main screen"+ widget.userModel.typeLevel.toString() );
-    // Provider.of<level_vm>(context,listen: false).selectedValueLevel =
-    // //controllerUsers[widget.index]
-    // widget.userModel.typeLevel.toString();
+      mobileController.text =
+      //controllerUsers[widget.index]
+      widget.userModel.mobile.toString();
+      regoinname= widget.userModel.nameRegoin;
+      levelname=widget.userModel.name_level;
+      Provider.of<level_vm>(context,listen: false).changeVal(
+          widget.userModel.typeLevel.toString());
+      print("level inside build main screen"+ widget.userModel.typeLevel.toString() );
+      // Provider.of<level_vm>(context,listen: false).selectedValueLevel =
+      // //controllerUsers[widget.index]
+      // widget.userModel.typeLevel.toString();
 
-    Provider.of<regoin_vm>(context,listen: false)
-        .changeVal( widget.userModel.fkRegoin.toString());
-    print( widget.userModel.fkRegoin.toString());
-    // Provider.of<regoin_vm>(context,listen: false).selectedValueLevel =
-    // //controllerUsers[widget.index]
-    // widget.userModel.fkRegoin.toString();
+      Provider.of<regoin_vm>(context,listen: false)
+          .changeVal( widget.userModel.fkRegoin);
 
-    //print("level inside build main screen" + level!);
-    //print("regoin " + regoin!);
-    print('ddjksnsjncmdn');
-    //print(widget.index);
+      print( widget.userModel.fkRegoin.toString());
 
-    print("init");
+      print('ddjksnsjncmdn');
+      //print(widget.index);
+
+      print("init");
+    });
+
+
+
     super.initState();
   }
 
@@ -122,6 +123,7 @@ class _EditUserState extends State<EditUser> {
 
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         actions: [
           IconButton(
@@ -130,10 +132,14 @@ class _EditUserState extends State<EditUser> {
                   .selectedValueLevel;
               fklevel = Provider.of<level_vm>(context, listen: false)
                   .selectedValueLevel;
-              regoinname=Provider.of<regoin_vm>(context, listen: false)
+              regoinname=
+                  fkregoin==null?"":
+                  Provider.of<regoin_vm>(context, listen: false)
                   .listregoin.firstWhere((element) => element.id_regoin==fkregoin).name_regoin;
+
               levelname=Provider.of<level_vm>(context, listen: false)
               .listoflevel.firstWhere((element) => element.idLevel==fklevel).nameLevel;
+
               //String id_country=Provider.of<country_vm>(context,listen: false).id_country;
               print("level in update button" + levelname.toString());
               print("regoin in update button" + regoinname.toString());
@@ -170,7 +176,7 @@ class _EditUserState extends State<EditUser> {
             icon: const Icon(Icons.check,color: kWhiteColor,),
           ),
         ],
-        title: const Text('Edit User',style: TextStyle(color: kWhiteColor),),
+        title: const Text(' ',style: TextStyle(color: kWhiteColor),),
         centerTitle: true,
       ),
       body: ModalProgressHUD(
@@ -184,7 +190,7 @@ class _EditUserState extends State<EditUser> {
             margin: EdgeInsets.only(
                 left: 20,
                 right: 20,
-                top: 70,bottom: 10
+                top: 50,bottom: 10
             ),
               child: Directionality(
                 textDirection: TextDirection.rtl,
@@ -192,6 +198,8 @@ class _EditUserState extends State<EditUser> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     RowEdit(name: 'Email', des: ''),
+                    SizedBox(height: 2,),
+
                     EditTextFormField(
                       hintText: 'Email',
                       obscureText: false,
@@ -318,7 +326,12 @@ class _EditUserState extends State<EditUser> {
     //label_Edituser
     Provider.of<LoadProvider>(context, listen: false)
         .changeboolUpdateUser(false);
-
+//     final index = Provider.of<user_vm_provider>(context, listen: false)
+//         .userall.indexWhere(
+//             (element) =>
+//         element.idUser ==widget.userModel.idUser );
+// widget.userModel=Provider.of<user_vm_provider>(context, listen: false)
+//     .userall[index];
     // descriptionController.text = "";
     // mobileController.text = "";
     // emailController.text = "";

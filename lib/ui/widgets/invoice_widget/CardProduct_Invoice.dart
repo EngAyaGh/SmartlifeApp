@@ -106,12 +106,12 @@ bool isepmty=false;
 
     Widget dialog =
     SimpleDialog(
-      elevation: 5,
+      //elevation: 1,
       //backgroundColor: Colors.yellowAccent,
       // shape: StadiumBorder(
       //    side: BorderSide.none
       // ),
-      contentPadding: EdgeInsets.all(10),
+      contentPadding: EdgeInsets.only(left: 10,right: 10,top:2),
       title: Text(''),
       children: [
 

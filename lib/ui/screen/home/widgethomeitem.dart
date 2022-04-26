@@ -28,7 +28,8 @@ Widget buildSelectCategory({
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  child: Text(title),
+                  child: Text(title,
+                    style: TextStyle(fontFamily: kfontfamily3),),
                 ),
                 Icon(
                   Icons.arrow_back_ios_new,

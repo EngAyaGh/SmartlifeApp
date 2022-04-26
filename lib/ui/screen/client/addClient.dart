@@ -7,6 +7,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/custom_button_new.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
+import 'package:crm_smart/ui/widgets/widgetcalendar/utils.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -219,7 +220,8 @@ class addClient extends StatelessWidget {
                                   'city': cityController.text,
                                   'location':locationController.text==null?"null":locationController.text,
                                   "fk_regoin":_user.fkRegoin==null?"null":_user.fkRegoin,
-                                  "date_create": DateTime.now().toString(),  //formatter.format(_currentDate),
+                                  "date_create":Utils.toDate22(DateTime.now()),
+                                //DateTime.now().toString(),  //formatter.format(_currentDate),
                                   "type_client":"تفاوض",
                                   "fk_user":_user.idUser,
                                   // "date_transfer":,
