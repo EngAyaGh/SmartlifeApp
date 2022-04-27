@@ -1,3 +1,4 @@
+import 'package:crm_smart/ui/screen/privilges/checklevel.dart';
 import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/screen/user/alluser.dart';
 import 'package:crm_smart/ui/screen/user/userview.dart';
@@ -35,7 +36,9 @@ class managmentpage extends StatelessWidget {
                     AllUserScreen()));
           }, title: 'إدارة المستخدمين'),
           buildSelectCategory(onTap: () {
-
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context)=>
+                    check_level()));
           }, title: 'ادارة الصلاحيات'),
           buildSelectCategory(onTap: () {
             Navigator.push(

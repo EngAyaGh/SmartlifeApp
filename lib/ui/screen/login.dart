@@ -51,91 +51,94 @@ class _loginState extends State<login> {
       backgroundColor: Colors.white,
       body: ModalProgressHUD(
         inAsyncCall: Provider.of<AuthProvider>(context).isLoading,
-       child:  Padding(
-          padding: const EdgeInsets.only(bottom :20, right: 30,left: 30),
-          //SingleChild
-          child: Form(
-            key: _globalKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomLogo(),
-                SizedBox(height: 20,),
-                CustomFormField(
-                  read: false,
-                  radius: 10,
-                  con: _textcontroller,
-                  vaild: (data) {
-                    if (data!.isEmpty) {
-                      return message_empty;
-                    }
-                   if( val.sendcode )return validateEmail(data);
-                  },
-                  hintText:val.sendcode ? hintEmailText:hintCodeText,
-                  onChanged: (data) {
-                    valueField = data;
-                    valEmail=val.sendcode?data:valEmail ;
-                  },
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                CustomButton(
-                  text: val.sendcode? textbutton_code : textbutton_code2,
-                  onTap: () async {
-                  if(_globalKey.currentState!.validate()){
-                    //print('before ${_textcontroller!.text}');
-                    _globalKey.currentState!.save();
-                    // print('after ${_textcontroller!.text}');
-                    if (val.sendcode) {
-                      Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(true);
-
-                      if (await AuthServices().send_otp(valEmail)) {
-                        _textcontroller!.text="";
-                        val.changeboolValue();
-                        Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(false);
-
+       child:  Directionality(
+         textDirection: TextDirection.ltr,
+         child: Padding(
+            padding: const EdgeInsets.only(bottom :20, right: 30,left: 30),
+            //SingleChild
+            child: Form(
+              key: _globalKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomLogo(),
+                  SizedBox(height: 20,),
+                  CustomFormField(
+                    read: false,
+                    radius: 10,
+                    con: _textcontroller,
+                    vaild: (data) {
+                      if (data!.isEmpty) {
+                        return message_empty;
                       }
-                      else{
-                        Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(false);
+                     if( val.sendcode )return validateEmail(data);
+                    },
+                    hintText:val.sendcode ? hintEmailText:hintCodeText,
+                    onChanged: (data) {
+                      valueField = data;
+                      valEmail=val.sendcode?data:valEmail ;
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  CustomButton(
+                    text: val.sendcode? textbutton_code : textbutton_code2,
+                    onTap: () async {
+                    if(_globalKey.currentState!.validate()){
+                      //print('before ${_textcontroller!.text}');
+                      _globalKey.currentState!.save();
+                      // print('after ${_textcontroller!.text}');
+                      if (val.sendcode) {
+                        Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(true);
 
-                        _scaffoldKey.currentState!.showSnackBar(new SnackBar(
-                            content: new Text(emailError)
-                        ));
+                        if (await AuthServices().send_otp(valEmail)) {
+                          _textcontroller!.text="";
+                          val.changeboolValue();
+                          Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(false);
+
+                        }
+                        else{
+                          Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(false);
+
+                          _scaffoldKey.currentState!.showSnackBar(new SnackBar(
+                              content: new Text(emailError)
+                          ));
+                        }
                       }
-                    }
-                    else {
-                      print(valEmail);
-                      Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(true);
-                      String? res=await AuthServices().verfiy_otp(valEmail,valueField!);
-                      if (res!="false") {
-                        SharedPreferences preferences  = await SharedPreferences.getInstance();
-                        preferences.setBool(kKeepMeLoggedIn, true);
-                        preferences.setString("id_user",res!);
-                        Provider.of<user_vm_provider>(context, listen: false)
-                            .getcurrentuser();
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Home()),
-                               (rouets)=>false);
+                      else {
+                        print(valEmail);
+                        Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(true);
+                        String? res=await AuthServices().verfiy_otp(valEmail,valueField!);
+                        if (res!="false") {
+                          SharedPreferences preferences  = await SharedPreferences.getInstance();
+                          preferences.setBool(kKeepMeLoggedIn, true);
+                          preferences.setString("id_user",res!);
+                          Provider.of<user_vm_provider>(context, listen: false)
+                              .getcurrentuser();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Home()),
+                                 (rouets)=>false);
 
 
+                        }
+                        else{
+                          Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(false);
+
+                          _scaffoldKey.currentState!.showSnackBar(new SnackBar(
+                              content: new Text(codeverifyError)
+                          ));
+                        }
                       }
-                      else{
-                        Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(false);
-
-                        _scaffoldKey.currentState!.showSnackBar(new SnackBar(
-                            content: new Text(codeverifyError)
-                        ));
-                      }
-                    }
-                  }},
-                )
-              ],
+                    }},
+                  )
+                ],
+              ),
             ),
           ),
-        ),
+       ),
       ),
     );
   }

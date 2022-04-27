@@ -25,6 +25,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override void initState() {
     super.initState();
     FirebaseMessaging.instance
@@ -88,9 +89,18 @@ class _HomeState extends State<Home> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        key: _scaffoldKey,
         //drawerScrimColor: Colors.white,
         backgroundColor: Colors.grey[200],
-        appBar: customAppbar(),
+        appBar: customAppbar(
+          leading:    IconButton(
+            icon: Icon(Icons.menu,color: kWhiteColor,),
+            tooltip: 'Menu',
+            onPressed: () {
+              _scaffoldKey.currentState!.openDrawer();
+            },
+          ),
+        ),
         drawer: CustomDrawer(),
         // drawer: Theme(
         //   data:  Theme.of(context).copyWith(

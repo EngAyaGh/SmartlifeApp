@@ -4,6 +4,7 @@ import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/ui/screen/search/search_container.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardClient.dart';
+import 'package:crm_smart/ui/widgets/client_widget/clientCardNew.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
@@ -110,101 +111,109 @@ class _tabclientsState extends State<tabclients> {
               textDirection: TextDirection.rtl,
               child: ListView(
                 children: [
-                  Center(
-                    child:
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                     Row(
-
-                       children: [   Text('فلترة'),
-                         Icon(Icons.filter_alt_sharp),],
-                     ),
-                        GroupButton(
-                            controller: GroupButtonController(
-                              selectedIndex:isSelectedtypeinstall,
-
-                            ),
-                            options: GroupButtonOptions(
-                                buttonWidth: 100,
-
-                                borderRadius: BorderRadius.circular(10)),
-                            buttons: ['الموظف','المناطق'],
-                            onSelected: (index,isselected) {
-                              print(index);
-                              setState(() {
-                                isSelectedtypeinstall=index;
-
-                              });
-                            }
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Center(
+                  //   child:
+                  //   Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //     children: [
+                  //    // Row(
+                  //    //
+                  //    //   children: [   Text('فلترة'),
+                  //    //     Icon(Icons.filter_alt_sharp),],
+                  //    // ),
+                  //       GroupButton(
+                  //           controller: GroupButtonController(
+                  //             selectedIndex:isSelectedtypeinstall,
+                  //
+                  //           ),
+                  //           options: GroupButtonOptions(
+                  //               buttonWidth: 100,
+                  //
+                  //               borderRadius: BorderRadius.circular(10)),
+                  //           buttons: ['الموظف','المناطق'],
+                  //           onSelected: (index,isselected) {
+                  //             print(index);
+                  //             setState(() {
+                  //               isSelectedtypeinstall=index;
+                  //
+                  //             });
+                  //           }
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   SizedBox(height: 5,),
-                  isSelectedtypeinstall==1?
-                  Consumer<regoin_vm>(
-                    builder: (context, cart, child){
-                      return DropdownButton(
-                        isExpanded: true,
-                        //hint: Text("حدد حالة العميل"),
-                        items: cart.listregoin.map((level_one) {
-                          return DropdownMenuItem(
-                            child: Text(level_one.name_regoin), //label of item
-                            value: level_one.id_regoin, //value of item
-                          );
-                        }).toList(),
-                        value:cart.selectedValueLevel,
-                        onChanged:(value) {
-                          //  setState(() {
-                          cart.changeVal(value.toString());
-                          Provider.of<client_vm>(context, listen: false)
-                              .getclientfilter_Local(value.toString(),"regoin");
-                          // });
-                        },
-                      );},
-                  )
-                      :
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0,right: 8),
-                    child: Consumer<user_vm_provider>(
-                      builder: (context, cart, child){
-                        return  DropdownSearch<UserModel>(
-                          mode: Mode.DIALOG,
-                          label: " الموظف ",
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                   children: [
+                     Consumer<regoin_vm>(
+                       builder: (context, cart, child){
+                         return DropdownButton(
 
-                          //onFind: (String filter) => cart.getfilteruser(filter),
-                          filterFn: (user, filter) => user!.getfilteruser(filter!),
-                          //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
-                          // itemAsString: (UserModel u) => u.userAsStringByName(),
-                          items: cart.userall,
-                          itemAsString:
-                              ( u) => u!.userAsString(),
+                           isExpanded: true,
+                           //hint: Text("حدد حالة العميل"),
+                           items: cart.listregoin.map((level_one) {
+                             return DropdownMenuItem(
+                               child: Text(level_one.name_regoin), //label of item
+                               value: level_one.id_regoin, //value of item
+                             );
+                           }).toList(),
+                           value:cart.selectedValueLevel,
+                           onChanged:(value) {
+                             //  setState(() {
+                             cart.changeVal(value.toString());
+                             Provider.of<client_vm>(context, listen: false)
+                                 .getclientfilter_Local(value.toString(),"regoin");
+                             // });
+                           },
+                         );
+                         },
+                     ),
+                     // :
+                     Padding(
+                       padding: const EdgeInsets.only(left: 8.0,right: 8),
+                       child: Consumer<user_vm_provider>(
+                         builder: (context, cart, child){
+                           return  DropdownSearch<UserModel>(
+                             mode: Mode.DIALOG,
+                             label: " الموظف ",
 
-                          // selectedItem: cart.currentUser,
-                          onChanged: (data) {
-                            iduser=data!.idUser;
-                            Provider.of<client_vm>(context, listen: false)
-                                .getclientfilter_Local(iduser!,"user");
-                          } ,//print(data!.nameUser),
-                          showSearchBox: true,
+                             //onFind: (String filter) => cart.getfilteruser(filter),
+                             filterFn: (user, filter) => user!.getfilteruser(filter!),
+                             //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
+                             // itemAsString: (UserModel u) => u.userAsStringByName(),
+                             items: cart.userall,
+                             itemAsString:
+                                 ( u) => u!.userAsString(),
 
-                          dropdownSearchDecoration: InputDecoration(
-                            fillColor:  Colors.grey.withOpacity(0.2),
-                            labelText: "choose a user",
-                            contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: Colors.white)),
-                            border:OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: Colors.white)),
-                          ),
-                        );
+                             // selectedItem: cart.currentUser,
+                             onChanged: (data) {
+                               iduser=data!.idUser;
+                               Provider.of<client_vm>(context, listen: false)
+                                   .getclientfilter_Local(iduser!,"user");
+                             } ,//print(data!.nameUser),
+                             showSearchBox: true,
 
-                      },
-                    ),
-                  ),
+                             dropdownSearchDecoration: InputDecoration(
+                               fillColor:  Colors.grey.withOpacity(0.2),
+                               labelText: "choose a user",
+                               contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                               focusedBorder: OutlineInputBorder(
+                                   borderRadius: BorderRadius.circular(10),
+                                   borderSide: const BorderSide(color: Colors.white)),
+                               border:OutlineInputBorder(
+                                   borderRadius: BorderRadius.circular(10),
+                                   borderSide: const BorderSide(color: Colors.white)),
+                             ),
+                           );
+
+                         },
+                       ),
+                     ),
+                   ],
+                 ),
+                  //isSelectedtypeinstall==1?
+
 
                   SizedBox(height: 2,),
                   search_widget("المؤسسة....",
@@ -239,7 +248,7 @@ class _tabclientsState extends State<tabclients> {
                                       return SingleChildScrollView(
                                           child: Padding(
                                         padding: const EdgeInsets.all(2),
-                                        child: cardClient(
+                                        child: cardClientnew(
                                             itemClient: value.listClientfilter[index],
                                             iduser: iduser.toString()),
                                       ));

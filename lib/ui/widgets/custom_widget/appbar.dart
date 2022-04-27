@@ -9,8 +9,8 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 class customAppbar extends StatelessWidget implements PreferredSizeWidget{
-  const customAppbar({Key? key}) : super(key: key);
-
+   customAppbar({this.leading, Key? key}) : super(key: key);
+   Widget? leading;
   @override
   Widget build(BuildContext context) {
     var notify=Provider.of<notifyvm>(context,listen: true);
@@ -18,9 +18,17 @@ class customAppbar extends StatelessWidget implements PreferredSizeWidget{
 
     print('build appbar');
     return  AppBar(
+      key: key,
+      leading:leading,
+
       //textTheme: TextTheme(),
-      title: Text('Smart Life',style:
-      TextStyle(color: Colors.white,fontSize: 16,fontFamily: kfontfamily),),
+      title: Padding(
+        padding: EdgeInsets.all(50),
+          //height: toolbarHeight,
+          child: Image.asset(kLogo),
+    ),
+      //Text('Smart Life',style:
+     // TextStyle(color: Colors.white,fontSize: 16,fontFamily: kfontfamily),),
       centerTitle: true,
       elevation: 0,
       actions: [

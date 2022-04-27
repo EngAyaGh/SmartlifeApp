@@ -45,10 +45,11 @@ class BuildCard extends StatelessWidget {
     required Function() ontap,
   }) {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(8),
       child: InkWell(
         onTap: ontap,
         child: Container(
+          //width: 150,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Colors.white,

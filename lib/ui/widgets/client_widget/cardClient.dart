@@ -69,39 +69,16 @@ class cardClient extends StatelessWidget {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text(itemClient.nameEnterprise.toString(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                  fontFamily: kfontfamily2),
-                            ),
-                            // Row(
-                            //   children: [
-                            //
-                            //
-                            //     // Text('   اسم المؤسسة', style: TextStyle(
-                            //     //     fontFamily: kfontfamily2),),
-                            //   ],
-                            // ),
+                            itemClient.nameEnterprise.toString().length > 45 ? Text('''
+${itemClient.nameEnterprise.toString().substring(0, 45)}
+${itemClient.nameEnterprise.toString().substring(45,itemClient.nameEnterprise.toString().length)}
+                          '''):Text(itemClient.nameEnterprise.toString()),
+
+
                             Text(
                               itemClient.name_regoin.toString(),
                               style: TextStyle(
                                   fontFamily: kfontfamily2),),
-                            // Positioned(
-                            //     top: 100,
-                            //     left: 0
-                            //     , right: 0,
-                            //     child:
-                            //     Row(
-                            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //       children: [
-                            //
-                            //
-                            //         // Text('  المنطقة', style: TextStyle(
-                            //         //     fontFamily: kfontfamily2),),
-                            //         //SizedBox(width: 3,),
-                            //
-                            //       ],
-                            //     )),
 
                           ],
                         ),
@@ -109,13 +86,7 @@ class cardClient extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           //crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            // Row(
-                            //   children: [
-                            //
-                            //     // Text('   حالة العميل', style: TextStyle(
-                            //     //     fontFamily: kfontfamily2),),
-                            //   ],
-                            // ),
+                         
                             Text(itemClient.typeClient.toString(),
                               style: TextStyle(
                                   fontFamily: kfontfamily2),),
