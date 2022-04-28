@@ -22,12 +22,8 @@ class cardClientnew extends StatelessWidget {
         required this.itemClient}) : super(key: key);
   ClientModel itemClient;
   String iduser;
-  //final controllerUsers = Get.find<AllUserVMController>();
-
   @override
   Widget build(BuildContext context) {
-    // controllerUsers.getcurrentUser();
-    //return Obx( () {
     return Container(
 
       decoration: BoxDecoration(
@@ -49,7 +45,8 @@ class cardClientnew extends StatelessWidget {
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => editclient(
-                  itemClient: itemClient, fkclient: itemClient.idClients.toString(),
+                  itemClient: itemClient,
+                  fkclient: itemClient.idClients.toString(),
                   fkuser: itemClient.fkUser.toString(),)));
           },
           child: Container(
@@ -68,25 +65,29 @@ class cardClientnew extends StatelessWidget {
 
                       Text(itemClient.typeClient.toString(),
                         style: TextStyle(
-                            fontFamily: kfontfamily2),),
+                            fontFamily: kfontfamily2,color: kMainColor),),
                       itemClient.dateCreate==null?
                       Text(''):
                       Text(   itemClient.dateCreate.toString(),
                         style: TextStyle(
-                            fontFamily: kfontfamily2),),
+                            fontFamily: kfontfamily2,color: kMainColor),),
 
                     ],
                   ),
                   //SizedBox(height:2,),
-                 Row(
+                  Row(
                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                    children: [
-                   itemClient.nameEnterprise.toString().length > 45 ? Text('''
+                   itemClient.nameEnterprise.toString().length > 45 ?
+                   Text('''
 ${itemClient.nameEnterprise.toString().substring(0, 45)}
 ${itemClient.nameEnterprise.toString().substring(45,itemClient.nameEnterprise.toString().length)}
-                          '''):Text(itemClient.nameEnterprise.toString()),
-
+                          ''',  style: TextStyle(
+                       fontFamily: kfontfamily2,
+                   fontWeight: FontWeight.bold))
+                       :Text(itemClient.nameEnterprise.toString(),  style: TextStyle(
+                       fontFamily: kfontfamily2,fontWeight: FontWeight.bold)),
 
                  ],),
                   Row(
@@ -112,6 +113,7 @@ ${itemClient.nameEnterprise.toString().substring(45,itemClient.nameEnterprise.to
 
                     ],
                   ),
+
                 ],),
             ),
           ),

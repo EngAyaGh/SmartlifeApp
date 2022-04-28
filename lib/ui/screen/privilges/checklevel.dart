@@ -1,5 +1,6 @@
 
 
+import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/levelmodel.dart';
 import 'package:crm_smart/model/privilgemodel.dart';
 import 'package:crm_smart/ui/screen/privilges/privilge.dart';
@@ -8,6 +9,8 @@ import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'addLevel.dart';
 class check_level extends StatefulWidget {
   const check_level({Key? key}) : super(key: key);
 
@@ -26,11 +29,24 @@ class _check_levelState extends State<check_level> {
    List<LevelModel> _listlevel= Provider.of<level_vm>
      (context,listen: true).listoflevel;
     return Scaffold(
-      body: SingleChildScrollView(
+       floatingActionButton:FloatingActionButton(
+         child:Icon(Icons.add),
+         onPressed: (){
+           Navigator.push(
+             context,
+             MaterialPageRoute<void>(
+               builder: (BuildContext context)
+               => addLevel(),
+               fullscreenDialog: true,
+             ),
+           );
+         },
+       backgroundColor: kMainColor,),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
 
-        child:Padding(
-          padding: EdgeInsets.all(15),
-          child: ListView.builder(
+          child:ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemCount: _listlevel.length,
@@ -39,7 +55,7 @@ class _check_levelState extends State<check_level> {
                     builder: (context) =>
 
                           Padding(
-                            padding: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(20.0),
                             child: Container(
                                decoration: BoxDecoration(
                                  color: Colors.white,
@@ -64,6 +80,7 @@ class _check_levelState extends State<check_level> {
                                              )));
                                    },
                             child:  Container(
+                              //color: kMainColor,
                               child: Padding(
                                    padding: EdgeInsets.all(15),
                                    child: Text(_listlevel[index].nameLevel),
@@ -77,8 +94,8 @@ class _check_levelState extends State<check_level> {
             //     _listProd.map(
             //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
             // ).toList(),
-          ),
-        )
+          )
+        ),
       ),
     );
   }

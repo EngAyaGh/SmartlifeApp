@@ -10,7 +10,7 @@ class PrivilgeModel {
   late final String idPrivgUser;
   late final String fkLevel;
   late final String fkPrivileg;
-  late final String isCheck;
+  late  String isCheck;
   late final String name_privilege;
   late final String type_prv;
 

@@ -28,5 +28,22 @@ Future<void> getPrivilge(String level) async {
 }
 
 
+Future<bool> updatepriv_vm(
+    String? fk_privileg,String is_check) async {
+  bool res = await Api( ).post(
+      url: url+'privilge/privUpdate.php?fk_privileg=$fk_privileg',
+      body: {'is_check':is_check});
+  if (res) {
+    int index=privilgelist.indexWhere((element)
+    => element.isCheck==is_check);
+    // body.addAll({
+    //
+    // });
+    //privilgelist[index]=PrivilgeModel.fromJson(body);
+    //listProduct.insert(0, ProductModel.fromJson(body));
+    notifyListeners();
+  }
+  return res;
+}
 
 }

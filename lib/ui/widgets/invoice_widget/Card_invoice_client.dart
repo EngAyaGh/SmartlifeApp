@@ -88,16 +88,21 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
 
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            widget.itemProd.name_enterprise.toString(),
-                            style: TextStyle(fontFamily: kfontfamily2),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              widget.itemProd.dateCreate.toString(),
+                              style: TextStyle(fontFamily: kfontfamily2,
+                              color: kMainColor),
+                            ),
                           ),
                           SizedBox(
                             height: 4,
                           ),
                           Text(
-                            widget.itemProd.dateCreate.toString(),
-                            style: TextStyle(fontFamily: kfontfamily2),
+                            widget.itemProd.name_enterprise.toString(),
+                            style: TextStyle(fontFamily: kfontfamily2
+                            ,fontWeight: FontWeight.bold),
                           ),
                           Row(
                             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,7 +117,11 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                                   Text(
                                     widget.itemProd.total.toString(),
                                     style: TextStyle(
-                                        fontWeight: FontWeight.bold, fontFamily: kfontfamily2),
+                                         fontFamily: kfontfamily2,color: kMainColor),
+                                  ),
+                                  Text(_currentUser.currency.toString(),
+                                    style: TextStyle(fontFamily: kfontfamily2,
+                                        color: kMainColor),
                                   ),
                                 ],
                               ),
@@ -124,7 +133,9 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                                 children: [
                                   Text(
                                     'المتبقي',
-                                    style: TextStyle(fontFamily: kfontfamily2),
+                                    style: TextStyle(fontFamily: kfontfamily2
+                                    ,color: kMainColor
+                                    ),
                                   ),
                                   Text("" +
                                       (double.parse(widget.itemProd.total
@@ -132,22 +143,56 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                                               double.parse(widget
                                                   .itemProd.amountPaid
                                                   .toString()))
-                                          .toString(),style: TextStyle(fontFamily: kfontfamily2,fontWeight: FontWeight.bold),)
+                                          .toString(),style: TextStyle(
+                                      fontFamily: kfontfamily2,color: kMainColor),)
+                                 , Text(_currentUser.currency.toString(),
+                                    style: TextStyle(fontFamily: kfontfamily2,
+                                        color: kMainColor),
+                                  ),
                                 ],
                               ),
                             ],
                           ),
                           Row(
-                            // mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
-                                'التجديد السنوي',
-                                style: TextStyle(fontFamily: kfontfamily2),
+                              Row(
+                                // mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'التجديد السنوي',
+                                    style: TextStyle(fontFamily: kfontfamily2),
+                                  ),
+                                  Text(
+                                    widget.itemProd.renewYear.toString(),
+                                    style: TextStyle(fontFamily: kfontfamily2),
+                                  ),
+                                  Text(_currentUser.currency.toString(),
+                                    style: TextStyle(fontFamily: kfontfamily2,
+                                        color: kMainColor),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                widget.itemProd.renewYear.toString(),
-                                style: TextStyle(fontFamily: kfontfamily2),
-                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'المتبقي',
+                                    style: TextStyle(fontFamily: kfontfamily2,
+                                    color: kMainColor),
+                                  ),
+                                  Text("" +
+                                      (double.parse(widget.itemProd.total
+                                          .toString()) -
+                                          double.parse(widget
+                                              .itemProd.amountPaid
+                                              .toString()))
+                                          .toString(),style: TextStyle(
+                                      fontFamily: kfontfamily2,color: kMainColor),),
+                                  Text(_currentUser.currency.toString(),
+                                    style: TextStyle(fontFamily: kfontfamily2,
+                                        color: kMainColor),
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ],

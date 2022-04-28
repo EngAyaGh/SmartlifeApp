@@ -37,6 +37,20 @@ class level_vm extends ChangeNotifier{
        //return data;
   }
   }
+  Future<String> addLevel_vm(Map<String, dynamic?> body) async {
+    String res = await Api().post(
+        url: url+'privilge/privAdd.php',
+        body: body);
+    if (res!="error") {
+      body.addAll({
+        'id_level':res,
+      });
+      listoflevel=[];
+      listoflevel.add(LevelModel.fromJson(body));
+      notifyListeners();
+    }
+    return res;
+  }
 
 
 }

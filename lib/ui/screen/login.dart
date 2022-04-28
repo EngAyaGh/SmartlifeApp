@@ -64,6 +64,7 @@ class _loginState extends State<login> {
                   CustomLogo(),
                   SizedBox(height: 20,),
                   CustomFormField(
+                   textdirehint: TextDirection.ltr,
                     read: false,
                     radius: 10,
                     con: _textcontroller,

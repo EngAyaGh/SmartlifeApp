@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+//import 'package:intl/intl.dart';
 
 import '../../../constants.dart';
 
@@ -18,9 +19,12 @@ class CustomFormField extends StatelessWidget {
      this.onsave,
     this.ontap,
       required this.read,
-      required this.radius,});
+      required this.radius,
+    this.textdirehint,
+  });
 
   String? hintText;
+  TextDirection? textdirehint;
   Function()? ontap;
   Function(String)? onChanged;
   Function(String?)? onsave;
@@ -48,7 +52,7 @@ onSaved: onsave,
       ],*/
       readOnly: read,
       decoration: InputDecoration(
-        hintTextDirection: TextDirection.rtl,
+        hintTextDirection: textdirehint,
         alignLabelWithHint: true,
 
         labelText: label,

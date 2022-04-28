@@ -106,22 +106,7 @@ class _addProductState extends State<addProduct> {
                     SizedBox(
                       height: sizeMedia * 0.10,
                     ),
-                    // Consumer<selected_button_provider>(
-                    //     builder: (context, selectedProvider, child) {
-                    //   return Center(
-                    //     child: ButtonGroup(
-                    //         color: kMainColor,
-                    //         //secondaryColor: Colors.white,
-                    //         titles: ["برامج", "أجهزة"], //[0,1]
-                    //         current: selectedProvider.isSelected,
-                    //         onTab: (selected) {
-                    //           valtype_product = selected;
-                    //           valtype_product == 0 ? 1 : 0;
-                    //           selectedProvider.selectValue(selected);
-                    //           print(selected);
-                    //         }),
-                    //   );
-                    // }),
+
                     Consumer<selected_button_provider>(
                         builder: (context, selectedProvider, child) {
                           return Container(
@@ -155,9 +140,7 @@ class _addProductState extends State<addProduct> {
                                   valtype_product = index;
                                   // valtype_product == 0 ? 1 : 0;
                                   selectedProvider.selectValue(index);
-                                  // setState(() {
-                                  // selectButton = index;
-                                  // });
+
                                   debugPrint('Button #$index $isSelected');
                                 },
                               ),
