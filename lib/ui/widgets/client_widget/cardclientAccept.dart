@@ -3,6 +3,7 @@ import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/ui/screen/client/detail_client.dart';
 import 'package:crm_smart/ui/screen/client/editClient.dart';
+import 'package:crm_smart/ui/screen/client/profileclient.dart';
 import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
 import 'package:crm_smart/ui/screen/invoice/invoces.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/custom_button_new.dart';
@@ -49,7 +50,9 @@ class cardClientAccept extends StatelessWidget {
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) =>
-                    Detail_Client()));
+                    ProfileClient(
+                        idclient:
+                        iteminvoice.fkIdClient.toString())));
           },
           child: Container(
             decoration: BoxDecoration(

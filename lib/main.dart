@@ -102,8 +102,13 @@ void main() async {
         ChangeNotifierProvider<LoadProvider>(create: (_) => LoadProvider()),
         ChangeNotifierProvider<product_vm>(create: (_) => product_vm()),
         ChangeNotifierProvider<manage_provider>(create: (_) => manage_provider()),
-        ChangeNotifierProvider<privilge_vm>(create: (_) => privilge_vm()),
-
+       // ChangeNotifierProvider<privilge_vm>(create: (_) => privilge_vm()),
+        ChangeNotifierProxyProvider<user_vm_provider,privilge_vm>(
+          create: (_)=> privilge_vm(),
+          //   Provider.of<user_vm_provider>(_, listen: false).currentUser),
+          update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
+          //  client_vm(value.currentUser)
+        ),
         ChangeNotifierProxyProvider<user_vm_provider,regoin_vm>(
           create: (_)=> regoin_vm(),
           //   Provider.of<user_vm_provider>(_, listen: false).currentUser),

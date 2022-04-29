@@ -66,7 +66,7 @@ class _check_levelState extends State<check_level> {
                                      color: Colors.black87.withOpacity(0.2),
                                    ),
                                  ],
-                                 borderRadius: BorderRadius.all(Radius.circular(10)),
+                                 borderRadius: BorderRadius.all(Radius.circular(4)),
                                ),
                                child:
                                Center(

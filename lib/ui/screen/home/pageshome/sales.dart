@@ -4,16 +4,39 @@ import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/screen/home/approvepage.dart';
 import 'package:crm_smart/ui/screen/home/widgethomeitem.dart';
 import 'package:crm_smart/ui/screen/invoice/get_deleted_invoice.dart';
+import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constants.dart';
 
-class sales extends StatelessWidget {
+class sales extends StatefulWidget {
   const sales({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  _salesState createState() => _salesState();
+}
+
+class _salesState extends State<sales> {
+  bool checkvalue=false;
+
+  @override void didChangeDependencies() async{
+
+    Future.delayed(Duration(milliseconds: 3)).then((_) async {
+      //checkvalue = await privilge.checkprivlge('8');
+      print(checkvalue);
+    });
+    super.didChangeDependencies();
+  }
+  @override void initState() {
+
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context)  {
+    var privilge= Provider.of<privilge_vm>(context,listen: false);
+
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -29,13 +52,16 @@ class sales extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.only(top: 50),
         child:
-        Column(children: [
+        Column(
+          children: [
+            privilge.checkprivlge('8')==true?
           buildSelectCategory(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                     builder: (context)=>
                         tabclients()));
-          }, title: 'كل العملاء'),
+          }, title: 'كل العملاء'):Container(),
+
           buildSelectCategory(
               onTap: () {
             Navigator.push(context, MaterialPageRoute(

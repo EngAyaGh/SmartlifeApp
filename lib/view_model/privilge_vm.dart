@@ -3,6 +3,7 @@
 
 import 'package:crm_smart/api/api.dart';
 import 'package:crm_smart/model/privilgemodel.dart';
+import 'package:crm_smart/model/usermodel.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../constants.dart';
@@ -10,8 +11,14 @@ import '../constants.dart';
 class privilge_vm extends ChangeNotifier{
 
 List<PrivilgeModel> privilgelist=[];
+UserModel? usercurrent;
+ 
+void setvalue(user){
+  usercurrent=user;
+  notifyListeners();
+}
 
-Future<void> getPrivilge(String level) async {
+Future< List<PrivilgeModel> > getPrivilge(String level) async {
   List<dynamic> data =[];
   data=await Api()
       .get(url:url+
@@ -24,7 +31,7 @@ Future<void> getPrivilge(String level) async {
   privilgelist=list;
 
   notifyListeners();
-
+return list;
 }
 
 
@@ -46,4 +53,14 @@ Future<bool> updatepriv_vm(
   return res;
 }
 
+
+ Future<bool> checkprivlge(String id_privilge) async {
+
+  List<PrivilgeModel>  _list=await  getPrivilge(usercurrent!.typeLevel.toString());
+
+   bool res= _list.firstWhere((element) => element.fkPrivileg==id_privilge).isCheck=='1'?true:false;
+   print(res);
+   notifyListeners();
+   return res;
+}
 }
