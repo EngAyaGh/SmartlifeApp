@@ -24,6 +24,7 @@ class _salesState extends State<sales> {
   @override void didChangeDependencies() async{
 
     Future.delayed(Duration(milliseconds: 3)).then((_) async {
+      //Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
       //checkvalue = await privilge.checkprivlge('8');
       print(checkvalue);
     });
@@ -31,11 +32,14 @@ class _salesState extends State<sales> {
   }
   @override void initState() {
 
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
+    });
     super.initState();
   }
   @override
   Widget build(BuildContext context)  {
-    var privilge= Provider.of<privilge_vm>(context,listen: false);
+    //var privilge= Provider.of<privilge_vm>(context,listen: false);
 
     return Scaffold(
       backgroundColor: Colors.grey[200],
@@ -49,48 +53,59 @@ class _salesState extends State<sales> {
         backgroundColor: kMainColor,
         elevation: 0,
       ),
-      body: Padding(
-        padding: EdgeInsets.only(top: 50),
-        child:
-        Column(
-          children: [
-            privilge.checkprivlge('8')==true?
-          buildSelectCategory(
-              onTap: () {
+      body: 
+      Consumer<privilge_vm>(
+      builder: (context, privilge, child){
+      return Padding(
+      padding: EdgeInsets.only(top: 50),
+      child: Column(
+            children: [
+              privilge.checkprivlge('8')==true?
+            buildSelectCategory(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context)=>
+                          tabclients()));
+            }, title: ' العملاء'):Container(),
+
+    privilge.checkprivlge('1')==true?
+    buildSelectCategory(
+                onTap: () {
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context)=>
+                      AcceptPage()));
+            }, title:  'العملاء المشتركين '):Container(),
+            //AcceptPage
+            // buildSelectCategory(
+            //     onTap: () {
+            //       Navigator.push(context, MaterialPageRoute(
+            //           builder: (context)=>
+            //               MyClientPage()));
+            //     }, title:  'عملائي'),
+    privilge.checkprivlge('2')==true?
+    buildSelectCategory(onTap: () {
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context)=>
+                      ApprovePage()));
+            }, title:  'كل طلبات الموافقة '):Container(),
+              privilge.checkprivlge('5')==true?
+              buildSelectCategory(onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                     builder: (context)=>
-                        tabclients()));
-          }, title: 'كل العملاء'):Container(),
+                        ApprovePage()));
+              }, title:  'تاركيت الموظف '):Container(),
 
-          buildSelectCategory(
-              onTap: () {
-            Navigator.push(context, MaterialPageRoute(
-                builder: (context)=>
-                    AcceptPage()));
-          }, title:  'العملاء المشتركين '),
-          //AcceptPage
-          // buildSelectCategory(
-          //     onTap: () {
-          //       Navigator.push(context, MaterialPageRoute(
-          //           builder: (context)=>
-          //               MyClientPage()));
-          //     }, title:  'عملائي'),
-          buildSelectCategory(onTap: () {
-            Navigator.push(context, MaterialPageRoute(
-                builder: (context)=>
-                    ApprovePage()));
-          }, title:  'كل طلبات الموافقة '),
+    privilge.checkprivlge('14')==true?
+    buildSelectCategory(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context)=>
+                     deletedinvoice()));
+                     },
+                      title:  'الفواتير المحذوفة'):Container(),
 
-          buildSelectCategory(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context)=>
-                   deletedinvoice()));
-                   },
-                    title:  'الفواتير المحذوفة'),
-
-        ],),
-
+          ],),
+      );},
       ),
     );
   }

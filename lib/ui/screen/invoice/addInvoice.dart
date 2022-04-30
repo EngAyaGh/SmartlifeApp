@@ -8,6 +8,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/notify_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
@@ -439,7 +440,8 @@ else{
                                           "fk_idClient": widget.itemClient.idClients,
                                           "fk_idUser": widget.itemClient.fkUser,
                                           "image_record":imageController.text,
-
+                                          "lastuserupdate":Provider.of<user_vm_provider>(
+                                              context,listen: false).currentUser!.idUser.toString(),
                                           "total": totalController,
                                           "notes": noteController.text,
                                           "id_invoice":invoiceID

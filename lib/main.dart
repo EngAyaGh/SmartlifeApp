@@ -118,9 +118,13 @@ void main() async {
 
         ChangeNotifierProxyProvider<user_vm_provider,client_vm>(
              create: (_)=> client_vm(),
-              //   Provider.of<user_vm_provider>(_, listen: false).currentUser),
             update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
-              //  client_vm(value.currentUser)
+        ),
+
+        ChangeNotifierProxyProvider<privilge_vm,client_vm>(
+          create: (_)=> client_vm(),
+          update: (ctx,value,prev)=>prev!..setvaluepriv( value.privilgelist),
+
         ),
 
         ChangeNotifierProxyProvider<user_vm_provider,notifyvm>(

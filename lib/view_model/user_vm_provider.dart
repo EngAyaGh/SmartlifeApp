@@ -1,6 +1,7 @@
 
 
 
+import 'package:crm_smart/model/privilgemodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/UserService.dart';
 import 'package:dartz/dartz.dart';
@@ -20,7 +21,9 @@ class user_vm_provider extends ChangeNotifier{
   }
 
   UserModel? currentUser;
-   // UserModel(
+  //List<PrivilgeModel> privilgelist=[];
+
+  // UserModel(
    //     nameUser: "aya",fkCountry: "1",
    //     fkRegoin: "1",idUser: "1",email: "aya.ghoury@gmail.com");
 

@@ -53,13 +53,16 @@ Future<bool> updatepriv_vm(
   return res;
 }
 
+   Future<void> getprivlg_usercurrent() async{
+   privilgelist=await  getPrivilge(usercurrent!.typeLevel.toString());
+   notifyListeners();
+}
 
  Future<bool> checkprivlge(String id_privilge) async {
 
-  List<PrivilgeModel>  _list=await  getPrivilge(usercurrent!.typeLevel.toString());
-
-   bool res= _list.firstWhere((element) => element.fkPrivileg==id_privilge).isCheck=='1'?true:false;
-   print(res);
+   bool res= privilgelist.firstWhere(
+           (element) => element.fkPrivileg==id_privilge).isCheck=='1'?true:false;
+   // print(res);
    notifyListeners();
    return res;
 }

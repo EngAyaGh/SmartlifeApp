@@ -5,6 +5,7 @@
 import 'package:crm_smart/Repository/invoice_repo/cach_data_source.dart';
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
+import 'package:crm_smart/model/privilgemodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/ProductService.dart';
 import 'package:crm_smart/services/clientService.dart';
@@ -35,6 +36,13 @@ class client_vm extends ChangeNotifier {
     usercurrent=user;
     notifyListeners();
   }
+  void setvaluepriv(privilgelistparam){
+
+    privilgelist=privilgelistparam;
+    notifyListeners();
+  }
+
+  List<PrivilgeModel> privilgelist=[];
 
   Future<void> getclient_Local(String searchfilter
      // , List<ClientModel> list
@@ -74,20 +82,44 @@ class client_vm extends ChangeNotifier {
           if( element.fkRegoin==searchfilter)
             listClientfilter.add(element);
         });
-
       }
     }
 
     notifyListeners();
   }
-  Future<void> getclient_vm() async {
+  Future<void> getclient_vm(
+     // List<PrivilgeModel> privilgelist
+      ) async {
+
    // if(listClient.isEmpty)
     //main list
-    listClient = await ClientService().getAllClient(usercurrent!.fkCountry.toString());
-    listClientfilter= listClient;
+    bool res= privilgelist.firstWhere(
+            (element) => element.fkPrivileg=='8').isCheck=='1'?true:false;
+    if(res) {
+      listClient =
+      await ClientService().getAllClient(usercurrent!.fkCountry.toString());
+      listClientfilter = listClient;
+    }
+    else {
+    res= privilgelist.firstWhere(
+            (element) => element.fkPrivileg=='15').isCheck=='1'?true:false;
+    if(res) {
+      listClient =
+      await ClientService().getAllClientByRegoin(usercurrent!.fkRegoin.toString());
+      listClientfilter = listClient;
+    } else{
+
+      res= privilgelist.firstWhere(
+              (element) => element.fkPrivileg=='16').isCheck=='1'?true:false;
+      if(res) {
+        listClient =
+        await ClientService().getClientbyuser(usercurrent!.idUser.toString());
+        listClientfilter = listClient;
+      }
+    } }
     notifyListeners();
   }
-  ClientModel? get_byIdClient(String idClient)  {
+  ClientModel? get_byIdClient(String idClient,)  {
 
     ClientModel? inv;
     listClient.forEach((element) {

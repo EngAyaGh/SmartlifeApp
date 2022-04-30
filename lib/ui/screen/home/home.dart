@@ -1,5 +1,6 @@
 
 import 'package:crm_smart/constants.dart';
+import 'package:crm_smart/model/privilgemodel.dart';
 import 'package:crm_smart/ui/screen/client/detail_client.dart';
 import 'package:crm_smart/ui/screen/home/build_card.dart';
 import 'package:crm_smart/ui/screen/invoice/get_deleted_invoice.dart';
@@ -8,6 +9,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/customDrawer.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/notify_vm.dart';
+import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -65,21 +67,29 @@ class _HomeState extends State<Home> {
     Provider.of<user_vm_provider>(context, listen: false)
         .getcurrentuser();
     print('in home...didchange');
+    // WidgetsBinding.instance!.addPostFrameCallback((_){
+    //
+    //   // Add Your Code here.
+    //    Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
+    //
+    // });
+   // List<PrivilgeModel> list= Provider.of<privilge_vm>(context,listen: false).privilgelist;
     //check level user
-    Provider.of<client_vm>(context, listen: false)
-        .getclient_vm(); //list empty that mean
-    //level user all client in country
-    // Provider.of<client_vm>(context, listen: false)
-    //     . getclient_vm();
-    Provider.of<invoice_vm>(context, listen: false)
-        .getinvoices();
+
   }
   @override
   void didChangeDependencies() {
-    // Future.delayed(Duration(milliseconds: 30)).then((_) async {
-    //
-    // });
-    // super.didChangeDependencies();
+    Future.delayed(Duration(milliseconds: 30)).then((_) async {
+      Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
+      // Provider.of<client_vm>(context, listen: false)
+      //     .getclient_vm(); //list empty that mean
+      //level user all client in country
+      // Provider.of<client_vm>(context, listen: false)
+      //     . getclient_vm();
+      // Provider.of<invoice_vm>(context, listen: false)
+      //     .getinvoices();
+    });
+    super.didChangeDependencies();
   }
   @override
   Widget build(BuildContext context) {
