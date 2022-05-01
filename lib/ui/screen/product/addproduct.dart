@@ -5,6 +5,7 @@ import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/provider/switch_provider.dart';
 import 'package:crm_smart/services/ProductService.dart';
+import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
@@ -63,14 +64,14 @@ class _addProductState extends State<addProduct> {
     print(taxrate);
   }
 
-  String? idCountry;
+  // String? idCountry;
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      idCountry = Provider.of<user_vm_provider>(context, listen: false).currentUser!.fkCountry;
+      // idCountry = Provider.of<user_vm_provider>(context, listen: false).currentUser!.fkCountry;
       print("build add prod");
-      print(idCountry);
-      Provider.of<config_vm>(context, listen: false).getAllConfig(idCountry!);
+
+      Provider.of<config_vm>(context, listen: false).getAllConfig();
       print("build 2");
       //print(Provider.of<config_vm>(context, listen: false).listofconfig[0]);
     });
@@ -259,7 +260,8 @@ class _addProductState extends State<addProduct> {
                                           'nameProduct': nameprod,
                                           'priceProduct': price.toString(),
                                           'type': valtype_product.toString(),
-                                          'fk_country': idCountry,
+                                          'fk_country': Provider.of<user_vm_provider>(context,listen: false)
+                                          .currentUser!.fkCountry.toString(),
                                           'fk_config': valtaxrate
                                               ? taxrate.id_config
                                               : "null",

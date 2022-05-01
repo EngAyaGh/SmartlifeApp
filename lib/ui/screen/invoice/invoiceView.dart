@@ -5,40 +5,36 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class InvoiceView extends StatelessWidget {
-   InvoiceView({required this.invoice, Key? key}) : super(key: key);
-InvoiceModel invoice;
+   InvoiceView({ this.invoice, Key? key}) : super(key: key);
+InvoiceModel? invoice;
 
 Widget _product(  List<ProductsInvoice>? products){
 
  return Expanded(
-    child: ListView.builder(
-      itemCount: products!.length,
-      itemBuilder: (context, index) {
-        return
-          // Consumer<user_vm_provider>(
-          //   builder: (context, cart, child) {
-          //     return
-                Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: cardRow(
-                  products[index].nameProduct.toString(),
-                  products[index].price.toString()
-                ),
-              );
-            //});
-      },
-      // separatorBuilder: (context, index) {
-      //   return Padding(
-      //     padding: EdgeInsets.only(right: 30, left: 20, bottom: 5),
-      //     child: Divider(
-      //       color: Colors.black12,
-      //       thickness: 1,
-      //     ),
-      //   );
-      // },
-    ),
-
-  );
+   child: ListView.builder(
+     itemCount: products!.length,
+     itemBuilder: (context, index) {
+       return
+         // Consumer<user_vm_provider>(
+         //   builder: (context, cart, child) {
+         //     return
+               cardRow(
+                   title:   products[index].nameProduct.toString(),
+               value:  products[index].price.toString()
+               );
+           //});
+     },
+     // separatorBuilder: (context, index) {
+     //   return Padding(
+     //     padding: EdgeInsets.only(right: 30, left: 20, bottom: 5),
+     //     child: Divider(
+     //       color: Colors.black12,
+     //       thickness: 1,
+     //     ),
+     //   );
+     // },
+   ),
+ );
 }
   @override
   Widget build(BuildContext context) {
@@ -49,22 +45,35 @@ Widget _product(  List<ProductsInvoice>? products){
             padding: const EdgeInsets.only(
                 left: 8,right: 8,
                 top:2,bottom: 2),
-            child:Column(
+            child:
+            Column(
               children: [
-                _product(invoice.products),
-                cardRow('تاريخ عقد الإشتراك',invoice.dateCreate.toString()),
-                cardRow('اسم المؤسسة',invoice.name_enterprise.toString()),
-                cardRow(' المبلغ الإجمالي',invoice.total.toString()),
-                cardRow('موظف المبيعات',invoice.nameUser.toString()),
-                cardRow(' المبلغ المتبقي', (double.parse(invoice.total.toString())- double.parse(invoice.amountPaid.toString())).toString()),
-                cardRow(' المنطقة',invoice.name_regoin.toString()),
-                cardRow(' طريقة الدفع',invoice.typePay.toString()),
-                cardRow(' طريقة التركيب',invoice.typeInstallation.toString()),
-                cardRow(' التجديد السنوي',invoice.renewYear.toString()),
-                //cardRow('  المنتجات',invoice.products.toString()),
-                cardRow('آخر تعديل من قبل',invoice.lastuserupdateName.toString()),
+                _product(invoice!.products),
+                Column(
+                  children: [
+                    Container(
+                        color: Colors.amberAccent,
+                        child:
+                        cardRow( title:' المبلغ الإجمالي',value:invoice!.total.toString(),
+
+                        alignment: MainAxisAlignment.center,)),
+
+                    cardRow( title: 'تاريخ عقد الإشتراك',value:invoice!.dateCreate.toString()),
+                    cardRow( title:'اسم المؤسسة',value:invoice!.name_enterprise.toString()),
+                    cardRow( title:'موظف المبيعات',value:invoice!.nameUser.toString()),
+                    cardRow( title:' المبلغ المتبقي',value: (double.parse(invoice!.total.toString())- double.parse(invoice!.amountPaid.toString())).toString()),
+                    cardRow( title:' المنطقة',value:invoice!.name_regoin.toString()),
+                    cardRow( title:' طريقة الدفع',value:invoice!.typePay.toString()),
+                    cardRow( title:' طريقة التركيب',value:invoice!.typeInstallation.toString()),
+                    cardRow( title:' التجديد السنوي',value:invoice!.renewYear.toString()),
+                    //cardRow('  المنتجات',invoice.products.toString()),
+                    cardRow( title:'آخر تعديل من قبل',value:invoice!.lastuserupdateName.toString())
+
+                  ],
+                )
               ],
-            )
+            ),
+
         ),
       ),
     );

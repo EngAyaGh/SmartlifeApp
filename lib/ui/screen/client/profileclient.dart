@@ -3,7 +3,9 @@
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/usermodel.dart';
+import 'package:crm_smart/ui/screen/invoice/invoiceView.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
   late UserModel current ;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   late ClientModel _clientModel;
-  late InvoiceModel _invoiceModel;
+  late InvoiceModel? _invoiceModel;
   late TabController _tabcontroller;
 
 @override void initState() {
@@ -30,6 +32,9 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
     super.initState();
     _clientModel=Provider.of<client_vm>(context,listen: false).listClient
     .firstWhere((element) => element.idClients==widget.idclient);
+
+    _invoiceModel=Provider.of<invoice_vm>(context,listen: false).listinvoices
+        .firstWhere((element) => element.fkIdClient==widget.idclient);
     _tabcontroller= TabController(length: 4, vsync: this,initialIndex: 0);
 
 }
@@ -112,7 +117,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
               controller: _tabcontroller,
               children: <Widget>[
                 ClientView(clientModel: _clientModel),
-                ClientView(clientModel: _clientModel),
+                InvoiceView(invoice: _invoiceModel),
                 ClientView(clientModel: _clientModel),
                 ClientView(clientModel: _clientModel),
                 //InvoiceView(invoice: _invoiceModel,),

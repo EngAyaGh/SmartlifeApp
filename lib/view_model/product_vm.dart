@@ -1,6 +1,7 @@
 
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/productmodel.dart';
+import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/ProductService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -10,17 +11,22 @@ import 'country_vm.dart';
 class product_vm extends ChangeNotifier {
   List<ProductModel> listProduct = [];
 
+  UserModel? usercurrent;
 
+  void setvalue(user){
+    print('in set usercurrent in product vm');
+    usercurrent=user;
+    notifyListeners();
+  }
 
-
-  Future<void> getproduct_vm(String fk) async {
+  Future<void> getproduct_vm() async {
     //if(listProduct.isEmpty)
     //listProduct=[];
     listProduct.clear();
     print('after clear');
     print(listProduct.length);
     // notifyListeners();
-    listProduct = await ProductService().getAllProduct(fk);
+    listProduct = await ProductService().getAllProduct(usercurrent!.fkCountry.toString());
 
     notifyListeners();
   }

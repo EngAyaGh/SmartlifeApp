@@ -45,7 +45,7 @@ class ClientService{
     return result=="done"? true:false;
   }
   //
-  Future<List<ClientModel>> getAllClient(String fkcountry) async {
+  Future<List<ClientModel>> getAllClient(String? fkcountry) async {
     List<dynamic> data =[];
     data=await Api()
         .get(url:url+ 'client/getClientAll.php?fk_country=$fkcountry');
@@ -58,7 +58,7 @@ class ClientService{
     print(prodlist);
     return prodlist;
   }
-  Future<List<ClientModel>> getClientbyuser(String fk_user) async {
+  Future<List<ClientModel>> getClientbyuser(String? fk_user) async {
     List<dynamic> data =[];
     data=await Api()
         .get(url:url+ 'client/getclientbyuser.php?fk_user=$fk_user');
@@ -74,7 +74,7 @@ class ClientService{
     return prodlist;
   }
   //
-  Future<List<ClientModel>> getAllClientByRegoin(String regoin) async {
+  Future<List<ClientModel>> getAllClientByRegoin(String? regoin) async {
     List<dynamic> data = await Api()
         .get(url:url+ 'client/getclientByRegoin.php?fk_regoin=$regoin');
 

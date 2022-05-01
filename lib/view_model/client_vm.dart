@@ -33,11 +33,13 @@ class client_vm extends ChangeNotifier {
   UserModel? usercurrent;
 
   void setvalue(user){
+    print('in set usercurrent client vm');
+
     usercurrent=user;
     notifyListeners();
   }
   void setvaluepriv(privilgelistparam){
-
+    print('in set privilge client vm');
     privilgelist=privilgelistparam;
     notifyListeners();
   }

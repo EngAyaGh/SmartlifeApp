@@ -57,10 +57,8 @@ class _EditProductState extends State<EditProduct> {
 
 
       WidgetsBinding.instance!.addPostFrameCallback((_) {
-        idCountry= Provider.of<user_vm_provider>(context,listen: false).currentUser!.fkCountry;
-        print("build edit prod");
-        print(idCountry);
-        Provider.of<config_vm>(context, listen: false).getAllConfig(idCountry!);
+
+        Provider.of<config_vm>(context, listen: false).getAllConfig();
         print(Provider.of<config_vm>(context, listen: false).listofconfig);
         ////////////////////////////////
         Provider.of<selected_button_provider>(context,listen: false)

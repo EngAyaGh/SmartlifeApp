@@ -62,10 +62,9 @@ class _HomeState extends State<Home> {
       String typeNotify= event.data['Typenotify'];
       route_notifyto(typeNotify,context);
     });
-    Provider.of<notifyvm>(context, listen: false)
-        .getNotification();
-    Provider.of<user_vm_provider>(context, listen: false)
-        .getcurrentuser();
+
+    // Provider.of<user_vm_provider>(context, listen: false)
+    //     .getcurrentuser();
     print('in home...didchange');
     // WidgetsBinding.instance!.addPostFrameCallback((_){
     //
@@ -75,19 +74,34 @@ class _HomeState extends State<Home> {
     // });
    // List<PrivilgeModel> list= Provider.of<privilge_vm>(context,listen: false).privilgelist;
     //check level user
-
+    //Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
+    // Provider.of<client_vm>(context, listen: false)
+    //     . getclient_vm();
+    // WidgetsBinding.instance!.addPostFrameCallback((_) {
+    //   Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
+    //   Provider.of<client_vm>(context, listen: false)
+    //       . getclient_vm();
+    // });
+    Provider.of<invoice_vm>(context, listen: false)
+        .getinvoices();
   }
   @override
   void didChangeDependencies() {
-    Future.delayed(Duration(milliseconds: 30)).then((_) async {
-      Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
-      // Provider.of<client_vm>(context, listen: false)
-      //     .getclient_vm(); //list empty that mean
+     Future.delayed(Duration(milliseconds: 60)).then((_) async {
+      await Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
+
+      await Provider.of<notifyvm>(context, listen: false)
+          .getNotification();
+
+      List<PrivilgeModel> list=
+      await   Provider.of<privilge_vm>(context,listen: false).privilgelist;
+      Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
+      await Provider.of<client_vm>(context, listen: false)
+          .getclient_vm();
+      Provider.of<client_vm>(context, listen: false)
+          .getclient_vm(); //list empty that mean
       //level user all client in country
-      // Provider.of<client_vm>(context, listen: false)
-      //     . getclient_vm();
-      // Provider.of<invoice_vm>(context, listen: false)
-      //     .getinvoices();
+
     });
     super.didChangeDependencies();
   }

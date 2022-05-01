@@ -58,13 +58,13 @@ class _add_invoiceProductState extends State<add_invoiceProduct> {
     //     .getproduct_vm(id_country!);
     // taxCountry=listProduct[index].value_config;
     //.then((value) => _isLoading=false);
-    String? id_country =
-        Provider
-            .of<user_vm_provider>(context, listen: false)
-            .currentUser!
-            .fkCountry;
+    // String? id_country =
+    //     Provider
+    //         .of<user_vm_provider>(context, listen: false)
+    //         .currentUser!
+    //         .fkCountry;
     Provider.of<product_vm>(context, listen: false)
-        .getproduct_vm(id_country!);
+        .getproduct_vm();
     super.initState();
   }
   @override void didChangeDependencies() {

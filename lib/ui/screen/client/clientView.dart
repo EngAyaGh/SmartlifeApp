@@ -27,13 +27,13 @@ class _ClientViewState extends State<ClientView> {
               top:2,bottom: 2),
           child:Column(
             children: [
-              cardRow('اسم المؤسسة',widget.clientModel.nameEnterprise.toString()),
-              cardRow('موظف المبيعات',widget.clientModel.nameUser.toString()),
-              cardRow('التاريخ',widget.clientModel.dateCreate.toString()),
-              cardRow('اسم العميل',widget.clientModel.nameClient.toString()),
-              cardRow(' المنطقة',widget.clientModel.name_regoin.toString()),
-              cardRow(' المدينة',widget.clientModel.city.toString()),
-              cardRow(' حالة العميل',widget.clientModel.typeClient.toString()),
+              cardRow(  title: 'اسم المؤسسة',value:widget.clientModel.nameEnterprise.toString()),
+              cardRow( title:'موظف المبيعات',value:widget.clientModel.nameUser.toString()),
+              cardRow( title:'التاريخ',value:widget.clientModel.dateCreate.toString()),
+              cardRow( title:'اسم العميل',value:widget.clientModel.nameClient.toString()),
+              cardRow( title:' المنطقة',value:widget.clientModel.name_regoin.toString()),
+              cardRow( title:' المدينة',value:widget.clientModel.city.toString()),
+              cardRow( title:' حالة العميل',value:widget.clientModel.typeClient.toString()),
             ],
           )
         ),

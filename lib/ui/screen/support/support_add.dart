@@ -78,10 +78,10 @@ print('initt');
                  
                   SizedBox(height: 20,),
 
-                  cardRow('اسم المؤسسة',''),
-                  cardRow('معتمد الاشتراك ','آية'),
-                  cardRow('هل تم التركيب ','بالانتظار'),
-                  cardRow('طريقة التركيب ','ميداني'),
+                  cardRow(title: 'اسم المؤسسة',value: ''),
+                  cardRow(title: 'معتمد الاشتراك ',value: 'آية'),
+                  cardRow(title: 'هل تم التركيب ',value: 'بالانتظار'),
+                  cardRow(title: 'طريقة التركيب ',value: 'ميداني'),
                   SizedBox(height: 16,),
 
     ElevatedButton(

@@ -1,5 +1,6 @@
 import 'package:crm_smart/constantsList.dart';
 import 'package:crm_smart/model/clientmodel.dart';
+import 'package:crm_smart/model/privilgemodel.dart';
 import 'package:crm_smart/ui/screen/search/search_container.dart';
 import 'package:crm_smart/ui/widgets/cardapprove.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardapprove1.dart';
@@ -7,6 +8,7 @@ import 'package:crm_smart/ui/widgets/client_widget/cardclientAccept.dart';
 import 'package:crm_smart/view_model/approve_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
+import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,10 +30,16 @@ class _ApprovePageState extends State<AcceptPage> {
   @override
   void didChangeDependencies() async{
     WidgetsBinding.instance!.addPostFrameCallback((_)async{
+
+      // Add Your Code here.
+      // List<PrivilgeModel> list=
+      // await   Provider.of<privilge_vm>(context,listen: false).privilgelist;
+      // Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
+      // await Provider.of<client_vm>(context, listen: false)
+      //     .getclient_vm();
+
       await    Provider.of<invoice_vm>(context, listen: false)
           .getinvoice_Local("مشترك");
-      // Add Your Code here.
-
     });
     //List<ClientModel> list= Provider.of<client_vm>(context).listClient;
 

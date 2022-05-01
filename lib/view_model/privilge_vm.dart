@@ -14,6 +14,7 @@ List<PrivilgeModel> privilgelist=[];
 UserModel? usercurrent;
  
 void setvalue(user){
+  print('in set usercurrent in privilge vm');
   usercurrent=user;
   notifyListeners();
 }
@@ -58,12 +59,16 @@ Future<bool> updatepriv_vm(
    notifyListeners();
 }
 
- Future<bool> checkprivlge(String id_privilge) async {
+ bool checkprivlge(String id_privilge)  {
 
    bool res= privilgelist.firstWhere(
-           (element) => element.fkPrivileg==id_privilge).isCheck=='1'?true:false;
-   // print(res);
-   notifyListeners();
+           (element) => element.fkPrivileg==id_privilge)
+           .isCheck=='1'?true:false;
+
+    print("in check "+res.toString());
+   //notifyListeners();
    return res;
 }
+
+
 }

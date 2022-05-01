@@ -96,11 +96,19 @@ void main() async {
         ChangeNotifierProvider<switch_provider>(create: (_) => switch_provider()),
         ChangeNotifierProvider<selected_button_provider>(create: (_) => selected_button_provider()),
         ChangeNotifierProvider<country_vm>(create: (_) => country_vm()),
-        ChangeNotifierProvider<config_vm>(create: (_) => config_vm()),
+        // ChangeNotifierProvider<config_vm>(create: (_) => config_vm()),
+        ChangeNotifierProxyProvider<user_vm_provider,config_vm>(
+          create: (_)=> config_vm(),
+          update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
+        ),
          ChangeNotifierProvider<level_vm>(create: (_) => level_vm()),
         //ChangeNotifierProvider<regoin_vm>(create: (_) => regoin_vm()),
         ChangeNotifierProvider<LoadProvider>(create: (_) => LoadProvider()),
-        ChangeNotifierProvider<product_vm>(create: (_) => product_vm()),
+        //ChangeNotifierProvider<product_vm>(create: (_) => product_vm()),
+        ChangeNotifierProxyProvider<user_vm_provider,product_vm>(
+          create: (_)=> product_vm(),
+          update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
+        ),
         ChangeNotifierProvider<manage_provider>(create: (_) => manage_provider()),
        // ChangeNotifierProvider<privilge_vm>(create: (_) => privilge_vm()),
         ChangeNotifierProxyProvider<user_vm_provider,privilge_vm>(
@@ -121,11 +129,11 @@ void main() async {
             update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
         ),
 
-        ChangeNotifierProxyProvider<privilge_vm,client_vm>(
-          create: (_)=> client_vm(),
-          update: (ctx,value,prev)=>prev!..setvaluepriv( value.privilgelist),
-
-        ),
+        // ChangeNotifierProxyProvider<privilge_vm,client_vm>(
+        //   create: (_)=> client_vm(),
+        //   update: (ctx,value,prev)=>prev!..setvaluepriv( value.privilgelist),
+        //
+        // ),
 
         ChangeNotifierProxyProvider<user_vm_provider,notifyvm>(
           create: (_)=> notifyvm(),
