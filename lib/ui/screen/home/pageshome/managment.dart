@@ -1,3 +1,4 @@
+import 'package:crm_smart/ui/screen/config/config_view.dart';
 import 'package:crm_smart/ui/screen/privilges/checklevel.dart';
 import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/screen/user/alluser.dart';
@@ -65,6 +66,18 @@ class _managmentpageState extends State<managmentpage> {
                 ),
               );
             }, title: 'المنتجات '):Container(),
+            privilge.checkprivlge('20')==true?  buildSelectCategory(onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context)
+                  => config_view(),
+
+                ),
+              );
+            }, title: 'ملف الإعدادات '):Container(),
+
+            //config_view
           ],);}
         ),
 

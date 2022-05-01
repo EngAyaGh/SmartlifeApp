@@ -39,6 +39,7 @@ class CustomFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+
       maxLines: maxline,
 onTap: ontap,
       //textDirection: TextDirection.rtl,

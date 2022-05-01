@@ -29,16 +29,12 @@ class config_vm extends ChangeNotifier{
     notifyListeners();
 
   }
-  Future<bool> updateConfig_vm(Map<String, dynamic?> body,String fk_country) async {
+  Future<bool> updateConfig_vm(Map<String, dynamic?> body,String idconfig) async {
     bool res = await Api().post(
-        url:url+ 'config/getconfigbycountry.php?fk_country=$fk_country',
+        url:url+ 'config/updateConfig.php?id_config=$idconfig',
         body:  body);
     if (res) {
-      getAllConfig();
-      // final index=listofconfig.indexWhere((element) => element.==id_product);
-      // listProduct[index]=ProductModel.fromJson(body);
-      //listProduct.insert(0, ProductModel.fromJson(body));
-      notifyListeners();
+
     }
     return res;
   }

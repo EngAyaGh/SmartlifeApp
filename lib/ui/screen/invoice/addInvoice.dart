@@ -321,30 +321,44 @@ else{
                           height: 5,
                         ),
                         RowEdit(name: label_typeinstall, des: 'Required'),
-                        Consumer<selected_button_provider>(
-                          builder: (context, selectedProvider, child) {
-                            return  GroupButton(
-                                controller: GroupButtonController(
-                                    selectedIndex:selectedProvider.isSelectedtypeinstall,
-                                    // typeinstallController==null
-                                    //     ? 0 :
-                                    // int.tryParse( typeinstallController!)
-                                ),
-                                options: GroupButtonOptions(
-                                    buttonWidth: 100,
+                      Container(
+                        //padding: EdgeInsets.only(left: 1,right: 1),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                offset: Offset(1.0, 1.0),
+                                blurRadius: 8.0,
+                                color: Colors.black87.withOpacity(0.2),
+                              ),
+                            ],
+                            color: Colors.white,
+                          ),
+                        child: Consumer<selected_button_provider>(
+                            builder: (context, selectedProvider, child) {
+                              return  GroupButton(
+                                  controller: GroupButtonController(
+                                      selectedIndex:selectedProvider.isSelectedtypeinstall,
+                                      // typeinstallController==null
+                                      //     ? 0 :
+                                      // int.tryParse( typeinstallController!)
+                                  ),
+                                  options: GroupButtonOptions(
+                                    //  buttonWidth: 100,
 
-                                    borderRadius: BorderRadius.circular(10)),
-                                buttons: ['ميداني','اونلاين'],
-                                onSelected: (index,isselected) {
-                                  print(index);
-                                  //setState(() {
-                                    typeinstallController=index.toString();
-                                    selectedProvider.selectValuetypeinstall(index);
-                                  //  });
-                                }
-                            );
-                          }
+                                      borderRadius: BorderRadius.circular(10)),
+                                  buttons: ['ميداني','اونلاين'],
+                                  onSelected: (index,isselected) {
+                                    print(index);
+                                    //setState(() {
+                                      typeinstallController=index.toString();
+                                      selectedProvider.selectValuetypeinstall(index);
+                                    //  });
+                                  }
+                              );
+                            }
 
+                          ),
                         ),
                         //RowEdit(name: 'Image', des: ''),
                         SizedBox(

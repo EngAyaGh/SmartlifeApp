@@ -51,34 +51,33 @@ class _privilge_pageState extends State<privilge_page> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            ContainerShadows(
+        padding: const EdgeInsets.all(16.0),
+        child: ContainerShadows(
           margin: EdgeInsets.only(),
-          child: Consumer<privilge_vm>(
-              builder: (context, cart, child){
-               return Expanded(
-                 child: ListView(
-                    children: cart.privilgelist.map(( key) {
-                      return new CheckboxListTile(
-                        title: new Text(key.name_privilege),
-                        value:   key.isCheck=='1'?true:false,// as bool,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            print(value);
-                            value ==true? key.isCheck="1": key.isCheck="0";
-
-                            //values[key] = value;
-                          });
-                         },
-                      );
-                    }).toList(),
-                  ),
-               );
-              }),
-            ),
-          ],
+          child: Column(
+            children: [
+              Consumer<privilge_vm>(
+                  builder: (context, cart, child){
+                   return Expanded(
+                     child: ListView(
+                        children: cart.privilgelist.map(( key) {
+                          return new CheckboxListTile(
+                            title: new Text(key.name_privilege),
+                            value:   key.isCheck=='1'?true:false,// as bool,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                print(value);
+                                value ==true? key.isCheck="1": key.isCheck="0";
+                                //values[key] = value;
+                              });
+                             },
+                          );
+                        }).toList(),
+                      ),
+                   );
+                  }),
+            ],
+          ),
         ),
       ),
     );

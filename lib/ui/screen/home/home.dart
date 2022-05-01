@@ -98,9 +98,6 @@ class _HomeState extends State<Home> {
       Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
       await Provider.of<client_vm>(context, listen: false)
           .getclient_vm();
-      Provider.of<client_vm>(context, listen: false)
-          .getclient_vm(); //list empty that mean
-      //level user all client in country
 
     });
     super.didChangeDependencies();
