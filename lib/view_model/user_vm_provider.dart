@@ -8,11 +8,12 @@ import 'package:dartz/dartz.dart';
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'dart:io';
 class user_vm_provider extends ChangeNotifier{
 
   List<UserModel> userall=[];
   var isLoading = true;
+  bool isupdate=false;
   late String? selecteduser=null;
 
   void changevalueuser(String s){
@@ -33,32 +34,36 @@ class user_vm_provider extends ChangeNotifier{
     isLoading=false;
     notifyListeners();
   }
-  Future<String> updateuser_vm(Map<String, String?> body,String? iduser) async {
+  Future<void> updateuser_vm(Map<String, String?> body,String? iduser,File file) async {
+    isupdate=true;
 
-    String result=await UserService()
-        .UpdateUser(body: body,idUser: iduser);
-   if(result!="error"){
     final index = userall.indexWhere(
             (element) =>
-    element.idUser ==iduser );
-    body.addAll({
+        element.idUser ==iduser );
+    userall[index] =await UserService()
+        .UpdateUser(body: body,idUser: iduser,file: file);
+    //if(result!="error"){
 
-      'nameUser': userall[index].nameUser,
-      'id_user': userall[index].idUser.toString(),
-      'code_verfiy': userall[index].codeVerfiy.toString(),
-      'fk_country': userall[index].fkCountry.toString(),
-      //'code_verfiy': controllerUsers.usersList[index].codeVerfiy.toString(),
-      'nameCountry':userall[index].nameCountry.toString(),
-      'currency':userall[index].currency,
-       //'name_regoin': userall![index].nameRegoin.toString(),
-      // 'name_level': userall![index].name_level.toString(),
-    });
-    print(body);
+    // body.addAll({
+    //
+    //   'nameUser': userall[index].nameUser,
+    //   'id_user': userall[index].idUser.toString(),
+    //   'code_verfiy': userall[index].codeVerfiy.toString(),
+    //   'fk_country': userall[index].fkCountry.toString(),
+    //   //'code_verfiy': controllerUsers.usersList[index].codeVerfiy.toString(),
+    //   'nameCountry':userall[index].nameCountry.toString(),
+    //   'currency':userall[index].currency,
+    //    //'name_regoin': userall![index].nameRegoin.toString(),
+    //   // 'name_level': userall![index].name_level.toString(),
+    // });
+    // print(body);
     print('///////////');
-    userall[index] = UserModel.fromJson(body);
-   }
+    //userall[index] = UserModel.fromJson(body);
+    // }
+    userall[index].path="";
+    isupdate=false;
     notifyListeners();
-    return result;
+   // return result;
   }
     Future<String> adduser_vm(Map<String, String?> body) async {
     String res = await UserService().addUser(body);

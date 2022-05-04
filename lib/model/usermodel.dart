@@ -12,7 +12,10 @@ class UserModel {
   String? nameRegoin;
   String? name_level;
   String? currency;
-  String? image = '';
+  String? img_image = '';
+  String? img_thumbnail = '';
+  String? path = '';
+
   UserModel({
      this.idUser,
      this.nameUser,
@@ -27,7 +30,9 @@ class UserModel {
      this.nameRegoin,
     this.name_level,
     this.currency,
-    this.image,
+    this.img_image,
+    this.img_thumbnail,
+    this.path,
   });
 
   factory UserModel.fromJson(jsonData) {
@@ -45,7 +50,9 @@ class UserModel {
       nameRegoin: jsonData['name_regoin'],
       name_level: jsonData['name_level'],
       currency: jsonData['currency'],
-      image: jsonData['image'],
+      img_image: jsonData['img_image'],
+      img_thumbnail: jsonData['img_thumbnail'],
+      path: jsonData['path'],
     );
   }
 
@@ -64,7 +71,9 @@ class UserModel {
      _data['name_regoin']=nameRegoin;
      _data['name_level']=name_level;
      _data['currency']=currency;
-     _data['image']=image;
+     _data['img_image']=img_image;
+     _data['img_thumbnail']=img_thumbnail;
+     _data['path']=path;
     return _data;
   }
   ///this method will prevent the override of toString

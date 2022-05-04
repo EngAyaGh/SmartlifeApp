@@ -5,6 +5,7 @@ import 'package:crm_smart/constants.dart';
 
 import 'package:crm_smart/view_model/user_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
@@ -25,19 +26,35 @@ class ImageProfile extends StatelessWidget {
         children: [
         //  Obx( () =>
         CircleAvatar(
-                radius: 80.0,
-                backgroundImage:
-                //controllerUser.isProbicpicpathSet.value == true
-                //     ? FileImage(File(controllerUser.profilepicpath.value))
-                // as ImageProvider
-                //     :
-                AssetImage('assest/images/image3.png')),
-          //),
-          Positioned(
+            radius: 80.0,
+            child:
+            Provider.of<user_vm_provider>(context,listen: true)
+                .currentUser!.path!.isNotEmpty?
+                Image.file(
+                    File(Provider.of<user_vm_provider>(context,listen: true)
+                    .currentUser!.img_image!
+                ))
+
+           : Provider.of<user_vm_provider>(context,listen: true)
+                .currentUser!.img_image!.isNotEmpty
+               ?
+               Image.network( Provider.of<user_vm_provider>(context,listen: true)
+                .currentUser!.img_image! ,
+            //width: 200,height: 200,fit: BoxFit.fill,
+            )
+            // FileImage(
+            //     File(Provider.of<user_vm_provider>(context,listen: true).currentUser!.img_image!))
+            //     as ImageProvider
+                    :Text(Provider.of<user_vm_provider>(context,listen: true)
+                .currentUser!.nameUser
+                .toString()
+                .substring(0, 1))),
+               // AssetImage('assest/images/image3.png')),
+        Positioned(
             bottom: 20.0,
             right: 20.0,
             child: InkWell(
-              onTap: () {
+              onTap: ()  {
                 showModalBottomSheet(
                   backgroundColor: Colors.blue,
                   elevation: 0,
@@ -86,7 +103,7 @@ class ImageProfile extends StatelessWidget {
               top: 10,
             ),
             child: Text(
-              'Chose Profile Photo',
+              'Choose Profile Photo',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 25,
@@ -105,7 +122,7 @@ class ImageProfile extends StatelessWidget {
                   //controllerUser.takedPhoto(ImageSource.camera);
                   // controllerUser.openCamera();
                   // print('camera');
-                  takePhoto(ImageSource.camera);
+                  takePhoto(ImageSource.camera,context);
                 },
                 icon: Icon(
                   Icons.camera,
@@ -123,7 +140,7 @@ class ImageProfile extends StatelessWidget {
                 onPressed: () {
                   //controllerUser.openGallery();
                   // print('Gallery');
-                  takePhoto(ImageSource.gallery);
+                  takePhoto(ImageSource.gallery,context);
                 },
                 icon: Icon(
                   Icons.open_in_browser,
@@ -142,12 +159,16 @@ class ImageProfile extends StatelessWidget {
     );
   }
 
-  void takePhoto(ImageSource source) async {
+  void takePhoto(ImageSource source,context) async {
     final pickedImage =
     await imagePicker.pickImage(source: source, imageQuality: 100);
     pickedFile = File(pickedImage!.path);
+    Provider.of<user_vm_provider>(context,listen: false).currentUser!.path=pickedFile!.path;
     // controllerUser.setProfileImagePath(pickedFile!.path);
     // Get.back();
-    print(pickedFile);
+    // print(pickedFile);
+     Navigator.of(context).pop();
   }
 }
+
+

@@ -2,7 +2,7 @@
 
 import 'package:crm_smart/api/api.dart';
 import 'package:crm_smart/model/usermodel.dart';
-
+import 'dart:io';
 import '../constants.dart';
 
 class UserService{
@@ -15,16 +15,24 @@ Future<String> addUser(body) async {
   );
   return data;//UserModel.fromJson(data);
 }
-Future<String> UpdateUser({
+Future<UserModel> UpdateUser({
   required String? idUser,
-  Map<String, dynamic>? body,
+  required Map<String, dynamic> body,
+  File? file
 }) async {
- String result = await Api().post(
-    url: url+'users/updateuser_patch.php?id_user=$idUser',
-    body: body,
-    //token: '',
+
+var data = await Api().postRequestWithFile(
+   url+'users/updateuser_patch.php?id_user=$idUser',
+   body,
+   file!,
   );
- return result;
+  List<UserModel> usersList = [];
+
+  for (int i = 0; i < data.length; i++) {
+  usersList.add(UserModel.fromJson(data[i]));
+  }
+  return usersList[0];
+
 }
 
 

@@ -4,6 +4,7 @@ import 'package:crm_smart/ui/screen/login.dart';
 import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/screen/selectCountryScreen.dart';
 import 'package:crm_smart/ui/screen/user/alluser.dart';
+import 'package:crm_smart/ui/screen/user/editprofile.dart';
 import 'package:crm_smart/ui/screen/user/userview.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -13,7 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
-
+import 'dart:io';
 class CustomDrawer extends StatelessWidget {
   CustomDrawer({Key? key}) : super(key: key);
   //final controllerUsers = Get.find<AllUserVMController>();
@@ -49,10 +50,32 @@ return  Drawer(
             Theme.of(context).platform == TargetPlatform.iOS
                 ? Color(0xFF56ccf2)
                 : Colors.grey,
-            child: Text("AG",
-              style: TextStyle(fontSize: 50,
-                color: Colors.amber,),),
-          ),
+            child:  Provider.of<user_vm_provider>(context,listen: true)
+                .currentUser!.img_image!.isNotEmpty
+                ?
+            Image.network(Provider.of<user_vm_provider>(context,listen: true)
+                .currentUser!.img_image! ,
+              //width: 200,height: 200,fit: BoxFit.fill,
+            )
+            // FileImage(
+            //     File(Provider.of<user_vm_provider>(context,listen: true).currentUser!.img_image!))
+            //     as ImageProvider
+                :Text(Provider.of<user_vm_provider>(context,listen: true)
+                .currentUser!.nameUser
+                .toString()
+                .substring(0, 1))),
+            // Provider.of<user_vm_provider>(context,listen: false).currentUser!.img_image!.isNotEmpty
+            //     ?
+            //FileImage(
+               // File(Provider.of<user_vm_provider>(context,listen: false).currentUser!.img_image!)
+            //)
+            //as ImageProvider
+            //     :
+            // Text("AG",
+            //   style: TextStyle(
+            //     fontSize: 50,
+            //     color: Colors.amber,),),
+        //  ),
         ),
                // ListTile(
                //   title: Text(' الدولة',  style: TextStyle(
@@ -71,23 +94,23 @@ return  Drawer(
                //   },
                // ),
 
-               // ListTile(
-               //   title: Text('المنتجات',  style: TextStyle(
-               //       fontFamily: kfontfamily2),
-               //   ),
-               //   leading: Icon(Icons.shop,color: kMainColor,),
-               //   onTap: () {
-               //     Navigator.push(
-               //       context,
-               //       MaterialPageRoute<void>(
-               //         builder: (BuildContext context)
-               //         => ProductView(),
-               //         fullscreenDialog: true,
-               //       ),
-               //     );
-               //     // ProductView();
-               //   },
-               // ),
+               ListTile(
+                 title: Text('الملف الشخصي',  style: TextStyle(
+                     fontFamily: kfontfamily2),
+                 ),
+                 leading: Icon(Icons.shop,color: kMainColor,),
+                 onTap: () {
+                   Navigator.push(
+                     context,
+                     MaterialPageRoute<void>(
+                       builder: (BuildContext context)
+                       => edit_profile(),
+                       fullscreenDialog: true,
+                     ),
+                   );
+                   // ProductView();
+                 },
+               ),
                ListTile(
                  title: Text('تسجيل خروج',  style: TextStyle(
                      fontFamily: kfontfamily2),

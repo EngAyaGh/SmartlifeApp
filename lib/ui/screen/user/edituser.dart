@@ -21,7 +21,7 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../../../labeltext.dart';
 import 'package:get/get.dart';
-
+import 'dart:io';
 class EditUser extends StatefulWidget {
   UserModel userModel;
   //final int index;
@@ -50,6 +50,13 @@ class _EditUserState extends State<EditUser> {
    String? namemanage, fklevel, fkregoin = "";
    String? regoinname,levelname;
  // late List<UserModel>   controllerUsers=[];
+  @override void dispose() {
+    super.dispose();
+    descriptionController.dispose();
+    mobileController.dispose();
+    emailController.dispose();
+
+  }
   @override void didChangeDependencies() {
     Future.delayed(Duration(milliseconds: 30)).then((_) async {
       // controllerUsers= Provider.of<user_vm_provider>
@@ -144,8 +151,8 @@ class _EditUserState extends State<EditUser> {
               print("level in update button" + levelname.toString());
               print("regoin in update button" + regoinname.toString());
               if (levelname != null) {
-                Provider.of<LoadProvider>(context, listen: false)
-                    .changeboolUpdateUser(true);
+                // Provider.of<LoadProvider>(context, listen: false)
+                //     .changeboolUpdateUser(true);
                 Map<String,String?> body = {
                   'email': emailController.text != null
                       ? emailController.text
@@ -164,10 +171,12 @@ class _EditUserState extends State<EditUser> {
               Provider.of<user_vm_provider>(context,listen: false)
                   .updateuser_vm(body,
                  // controllerUsers[widget.index]
-                  widget.userModel.idUser)
-                    .then((value) => value != "error"
-                    ? clear(body)
-                    : error());
+                  widget.userModel.idUser,
+                  File(Provider.of<user_vm_provider>(context,listen: false)
+                      .currentUser!.path!));
+                    //.then((value) => value != "error" //   ?
+                  clear(body);
+                   // : error());
               } else {
                 _scaffoldKey.currentState!.showSnackBar(SnackBar(
                     content: Text('حدد مستوى للصلاحية من فضلك')));
@@ -180,7 +189,7 @@ class _EditUserState extends State<EditUser> {
         centerTitle: true,
       ),
       body: ModalProgressHUD(
-        inAsyncCall: Provider.of<LoadProvider>(context).isLoadingUpdateUser,
+        inAsyncCall: Provider.of<user_vm_provider>(context,listen: true).isupdate,//Provider.of<LoadProvider>(context).isLoadingUpdateUser,
         child: SingleChildScrollView(
           child: ContainerShadows(
             width: double.infinity,
@@ -324,8 +333,8 @@ class _EditUserState extends State<EditUser> {
 
   clear(body) {
     //label_Edituser
-    Provider.of<LoadProvider>(context, listen: false)
-        .changeboolUpdateUser(false);
+    // Provider.of<LoadProvider>(context, listen: false)
+    //     .changeboolUpdateUser(false);
 //     final index = Provider.of<user_vm_provider>(context, listen: false)
 //         .userall.indexWhere(
 //             (element) =>
@@ -340,8 +349,8 @@ class _EditUserState extends State<EditUser> {
   }
 
   error() {
-    Provider.of<LoadProvider>(context, listen: false)
-        .changeboolUpdateUser(false);
+    // Provider.of<LoadProvider>(context, listen: false)
+    //     .changeboolUpdateUser(false);
     _scaffoldKey.currentState!
         .showSnackBar(SnackBar(content: Text(label_errorAddProd)));
   }

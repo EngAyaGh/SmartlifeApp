@@ -2,9 +2,11 @@
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/ui/screen/user/userview.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import 'dart:io';
 import '../../../constants.dart';
 
 class buildCardUsers extends StatelessWidget {
@@ -30,24 +32,23 @@ class buildCardUsers extends StatelessWidget {
               children: [
                 CircleAvatar(
                   maxRadius: 30,
-                  child:
-                  // Text(usermodell.nameUser.toString().substring(0, 1)),
-                  usermodell.image.toString()=="" ?
-                  usermodell.nameUser.toString().isEmpty||usermodell.nameUser==null
-                      ? Icon(
+                 child:
+                  usermodell.img_thumbnail.toString().isEmpty ?
+                  usermodell.nameUser.toString().isEmpty||usermodell.nameUser==null ?
+                  Icon(
                     Icons.person,
                     size: 50,
                     color: Colors.lightBlueAccent,
-                  )
-                      : Text(usermodell.nameUser
+                  ) : Text(usermodell.nameUser
                       .toString()
                       .substring(0, 1))
-                  :Icon(//here image user
-                    Icons.person,
-                    size: 50,
-                    color: Colors.lightBlueAccent,
-                  ),
-                  backgroundColor: Colors.grey.withOpacity(0.1),
+                      :    Image.network( Provider.of<user_vm_provider>(context,listen: true)
+                      .currentUser!.img_image!) ,
+                    // :  FileImage(
+                    //   File(
+                    //   //Provider.of<user_vm_provider>(context,listen: false)
+                    //   usermodell.img_thumbnail!)) as Widget ,//as ImageProvider,
+                 // backgroundColor: Colors.grey.withOpacity(0.1),
                 ),
                 SizedBox(width: 15),
                 Column(
