@@ -27,6 +27,15 @@ class _edit_profileState extends State<edit_profile> {
    final _globalKey=GlobalKey<FormState>();
    final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+   @override void initState() {
+     nameuserController.text= Provider.of<user_vm_provider>(context,listen: false)
+         .currentUser!.nameUser.toString();
+     mobileController.text= Provider.of<user_vm_provider>(context,listen: false)
+         .currentUser!.mobile.toString();
+     emailController.text= Provider.of<user_vm_provider>(context,listen: false)
+         .currentUser!.email.toString();
+    super.initState();
+  }
    @override void dispose() {
      super.dispose();
      nameuserController.dispose();
@@ -36,6 +45,7 @@ class _edit_profileState extends State<edit_profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       key: _scaffoldKey,
 appBar: AppBar(
   actions: [
@@ -67,8 +77,13 @@ appBar: AppBar(
               // controllerUsers[widget.index]
               Provider.of<user_vm_provider>(context,listen: false)
                   .currentUser!.idUser,
-              File(Provider.of<user_vm_provider>(context,listen: false)
-                  .currentUser!.path!));
+              Provider.of<user_vm_provider>(context,listen: false)
+                  .currentUser!.path!.isNotEmpty?
+              File(
+                  Provider.of<user_vm_provider>(context,listen: false)
+                      .currentUser!.path!):null
+
+          );
           //.then((value) => value != "error" //   ?
         _scaffoldKey.currentState!
             .showSnackBar(SnackBar(content: Text(label_Edituser)));
@@ -108,61 +123,60 @@ appBar: AppBar(
                     child:
                     ImageProfile(),
                   ),
-            Expanded(
-                child: Form(
-                  key:_globalKey ,
-                  child: Column(
+            Form(
+              key:_globalKey ,
+              child: Column(
               children: [
-                  SizedBox(height: 5,),
-                  RowEdit(name: 'Name', des: ''),
-                  SizedBox(height: 2,),
+              SizedBox(height: 5,),
+              RowEdit(name: 'Name', des: ''),
+              SizedBox(height: 2,),
 
-                  EditTextFormField(
-                    hintText: 'Name',
-                    obscureText: false,
-                    controller: nameuserController,
-                       vaild: (value) {
-                if (value!.isEmpty) {
-                return 'الحقل فارغ';
-                }
+              EditTextFormField(
+                hintText: 'Name',
+                obscureText: false,
+                controller: nameuserController,
+                   vaild: (value) {
+            if (value!.isEmpty) {
+            return 'الحقل فارغ';
+            }
+            },
+              ),
+
+              RowEdit(name: 'Email', des: ''),
+              SizedBox(height: 2,),
+
+              EditTextFormField(
+                hintText: 'Email',
+                obscureText: false,
+                controller: emailController,
+                vaild: (value) {
+                  if (value!.isEmpty) {
+                    return 'الحقل فارغ';
+                  }
                 },
-                  ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
 
-                  RowEdit(name: 'Email', des: ''),
-                  SizedBox(height: 2,),
+              SizedBox(
+                height: 20,
+              ),
 
-                  EditTextFormField(
-                    hintText: 'Email',
-                    obscureText: false,
-                    controller: emailController,
-                    vaild: (value) {
-                      if (value!.isEmpty) {
-                        return 'الحقل فارغ';
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-
-                  SizedBox(
-                    height: 20,
-                  ),
-
-                  RowEdit(name: label_mobile, des: 'Required'),
-                  EditTextFormField(
-                    hintText: '+966000000000',
-                    obscureText: false,
-                    controller: mobileController,
-                  ),
-                  //RowEdit(name: 'Image', des: ''),
-                  SizedBox(
-                    height:20,
-                  ),
+              RowEdit(name: label_mobile, des: ''),
+              EditTextFormField(
+                hintText: '+966',
+                obscureText: false,
+                controller: mobileController,
+              ),
+              //RowEdit(name: 'Image', des: ''),
+              SizedBox(
+                height:20,
+              ),
 
               ],
             ),
-                ))
+            )
                   //show chose image
 
                   // Center(

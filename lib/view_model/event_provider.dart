@@ -16,6 +16,10 @@ class EventProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> getevents()async{
+
+
+  }
   void deleteEvent(Event event) {
     _events.remove(event);
     notifyListeners();

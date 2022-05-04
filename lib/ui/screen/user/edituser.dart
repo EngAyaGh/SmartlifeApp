@@ -171,9 +171,13 @@ class _EditUserState extends State<EditUser> {
               Provider.of<user_vm_provider>(context,listen: false)
                   .updateuser_vm(body,
                  // controllerUsers[widget.index]
-                  widget.userModel.idUser,
-                  File(Provider.of<user_vm_provider>(context,listen: false)
-                      .currentUser!.path!));
+                  widget.userModel.idUser,null
+                  // Provider.of<user_vm_provider>(context,listen: false)
+                  //     .currentUser!.path!.isNotEmpty?
+                  // File(
+                  //     Provider.of<user_vm_provider>(context,listen: false)
+                  //     .currentUser!.path!):null
+              );
                     //.then((value) => value != "error" //   ?
                   clear(body);
                    // : error());

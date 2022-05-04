@@ -76,27 +76,34 @@ class Api {
 
 
   Future<dynamic> postRequestWithFile(
-      String url ,Map<String,dynamic> data,File file) async{
+      String url ,Map<String,dynamic> data,File? file) async{
     var reguest=http.MultipartRequest("POST",  Uri.parse(url));
-    var length=await file.length();
-    var stream=http.ByteStream(file.openRead());
-    // var stream=http.ByteStream(DelegatingStream.typed( file.openRead()));
-    var multipartFile=http.MultipartFile(
-      "file",stream,length,
-        filename:basename(file.path)
-    );
-    reguest.files.add(multipartFile);
+    if(file !=null){
+      var length=await file.length();
+      var stream=http.ByteStream(file.openRead());
+      // var stream=http.ByteStream(DelegatingStream.typed( file.openRead()));
+      var multipartFile=http.MultipartFile(
+          "file",stream,length,
+          filename:basename(file.path)
+      );
+      reguest.files.add(multipartFile);
+    }
+
     data.forEach((key, value) {
       reguest.fields[key]=value;
     });
     var myrequest=await reguest.send();
     var response=await http.Response.fromStream(myrequest);
 
+    // String result= response.body;
+    // int idx = result.indexOf("{");
+    // int idxEnd = result.indexOf("}");
+    // result=result.substring(idx,idxEnd+1);
+
     String result= response.body;
     int idx = result.indexOf("{");
-    int idxEnd = result.indexOf("}");
-
-    result=result.substring(idx,idxEnd+1);
+    int length=result.length;
+    result=result.substring(idx,length);
     if (json.decode(result)["code"] == "200") {
 
       return jsonDecode(result)["message"];

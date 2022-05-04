@@ -34,9 +34,9 @@ class user_vm_provider extends ChangeNotifier{
     isLoading=false;
     notifyListeners();
   }
-  Future<void> updateuser_vm(Map<String, String?> body,String? iduser,File file) async {
+  Future<void> updateuser_vm(Map<String, String?> body,String? iduser,File? file) async {
     isupdate=true;
-
+    notifyListeners();
     final index = userall.indexWhere(
             (element) =>
         element.idUser ==iduser );
@@ -59,7 +59,7 @@ class user_vm_provider extends ChangeNotifier{
     // print(body);
     print('///////////');
     //userall[index] = UserModel.fromJson(body);
-    // }
+
     userall[index].path="";
     isupdate=false;
     notifyListeners();
@@ -106,6 +106,7 @@ class user_vm_provider extends ChangeNotifier{
       final index = userall.indexWhere((element) => element.idUser == id);
       if(index>=0){
       currentUser = userall[index];
+      currentUser!.path="";
       notifyListeners();
       print("preferences");
       print(preferences.containsKey('id_user'));

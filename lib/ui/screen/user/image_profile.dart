@@ -1,6 +1,7 @@
 import 'dart:io';
 
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crm_smart/constants.dart';
 
 import 'package:crm_smart/view_model/user_vm.dart';
@@ -38,10 +39,19 @@ class ImageProfile extends StatelessWidget {
            : Provider.of<user_vm_provider>(context,listen: true)
                 .currentUser!.img_image!.isNotEmpty
                ?
-               Image.network( Provider.of<user_vm_provider>(context,listen: true)
-                .currentUser!.img_image! ,
+            CachedNetworkImage(
+              progressIndicatorBuilder: (context, url, progress) => Center(
+                child: CircularProgressIndicator(
+                  value: progress.progress,
+                ),
+              ),
+              imageUrl:
+              Provider.of<user_vm_provider>(context,listen: true)
+                .currentUser!.img_image!       )
+               // Image.network( Provider.of<user_vm_provider>(context,listen: true)
+               //  .currentUser!.img_image! ,
             //width: 200,height: 200,fit: BoxFit.fill,
-            )
+           // )
             // FileImage(
             //     File(Provider.of<user_vm_provider>(context,listen: true).currentUser!.img_image!))
             //     as ImageProvider

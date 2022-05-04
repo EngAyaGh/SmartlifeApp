@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/ui/screen/user/userview.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
@@ -33,7 +34,8 @@ class buildCardUsers extends StatelessWidget {
                 CircleAvatar(
                   maxRadius: 30,
                  child:
-                  usermodell.img_thumbnail.toString().isEmpty ?
+                  usermodell.img_thumbnail.toString().isEmpty ||
+                      usermodell.img_thumbnail=='' ?
                   usermodell.nameUser.toString().isEmpty||usermodell.nameUser==null ?
                   Icon(
                     Icons.person,
@@ -42,8 +44,21 @@ class buildCardUsers extends StatelessWidget {
                   ) : Text(usermodell.nameUser
                       .toString()
                       .substring(0, 1))
-                      :    Image.network( Provider.of<user_vm_provider>(context,listen: true)
-                      .currentUser!.img_image!) ,
+                      :
+                  CachedNetworkImage(
+                    placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                    imageUrl: usermodell.img_image!,
+                  ),
+                  // CachedNetworkImage(
+                  //   progressIndicatorBuilder: (context, url, progress) => Center(
+                  //     child: CircularProgressIndicator(
+                  //       value: progress.progress,
+                  //     ),
+                  //   ),
+                  //   imageUrl:usermodell.img_image!
+                  //    ),
+                  //Image.network(usermodell.img_image!, height: 150, width: 150, fit: BoxFit.cover,) ,
                     // :  FileImage(
                     //   File(
                     //   //Provider.of<user_vm_provider>(context,listen: false)

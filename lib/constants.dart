@@ -12,6 +12,7 @@ const kfontfamily='Pacifico';
 const kfontfamily2='Cairo';
 const kfontfamily3='Amiri';
 const url='https://aya.epaysadaka.com/api/';
+const urlimage='https://aya.epaysadaka.com/api/imagesApp/profile/';
 const kKeepMeLoggedIn="loginstate";
 const Ktoast=Color(0xfff2c131);
 List<String> listtext=[

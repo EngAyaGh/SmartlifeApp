@@ -34,8 +34,9 @@ class _config_viewState extends State<config_view> {
   final _globalKey = GlobalKey<FormState>();
  double h=0,w=0;
   @override void initState() {
-    // WidgetsBinding.instance!.addPostFrameCallback((_){});
-    Provider.of<config_vm>(context, listen: false).getAllConfig();
+     WidgetsBinding.instance!.addPostFrameCallback((_){
+       Provider.of<config_vm>(context, listen: false).getAllConfig();
+     });
 
     print("build 3 add");
     // taxrate =
@@ -43,32 +44,54 @@ class _config_viewState extends State<config_view> {
     super.initState();
   }
   @override void didChangeDependencies() {
+
     List<ConfigModel> _listconfg =
         Provider.of<config_vm>(context, listen: false).listofconfig;
-    taxrate =
-        _listconfg.firstWhere((element) => element.name_config == 'taxrate');
-    _controllertax.text=taxrate.value_config.toString();
+    Future.delayed(Duration(milliseconds: 30)).then((_) async {
+      taxrate =
+          _listconfg.firstWhere((element) => element.name_config == 'taxrate');
+      _controllertax.text = taxrate.value_config.toString();
 
-    _controllertarget.text =
-        _listconfg.firstWhere((element) => element.name_config == 'target').value_config;
+      _controllertarget.text =
+          _listconfg
+              .firstWhere((element) => element.name_config == 'target')
+              .value_config;
 
-    _controllerdateinstall.text =
-        _listconfg.firstWhere((element) => element.name_config == 'dateinstall').value_config;
-     _controllerinstall.text =
-        _listconfg.firstWhere((element) => element.name_config == 'period_install').value_config;
-     _controllercomplete_install.text =
-        _listconfg.firstWhere((element) => element.name_config == 'period_complete_install').value_config;
-    //////////////////////////////////////////////////////////////////////////////////////
-     _controllerperiod_commincation1.text =
-        _listconfg.firstWhere((element) => element.name_config == 'period_commincation1').value_config;
+      _controllerdateinstall.text =
+          _listconfg
+              .firstWhere((element) => element.name_config == 'dateinstall')
+              .value_config;
+      _controllerinstall.text =
+          _listconfg
+              .firstWhere((element) => element.name_config == 'period_install')
+              .value_config;
+      _controllercomplete_install.text =
+          _listconfg
+              .firstWhere((element) =>
+          element.name_config == 'period_complete_install')
+              .value_config;
+      //////////////////////////////////////////////////////////////////////////////////////
+      _controllerperiod_commincation1.text =
+          _listconfg
+              .firstWhere((element) =>
+          element.name_config == 'period_commincation1')
+              .value_config;
 
-    _controllerperiod_commincation2.text =
-        _listconfg.firstWhere((element) => element.name_config == 'period_commincation2').value_config;
-    _controllerperiod_commincation3.text =
-        _listconfg.firstWhere((element) => element.name_config == 'period_commincation3').value_config;
-    _controller_counter.text =
-        _listconfg.firstWhere((element) => element.name_config == 'counter').value_config;
-
+      _controllerperiod_commincation2.text =
+          _listconfg
+              .firstWhere((element) =>
+          element.name_config == 'period_commincation2')
+              .value_config;
+      _controllerperiod_commincation3.text =
+          _listconfg
+              .firstWhere((element) =>
+          element.name_config == 'period_commincation3')
+              .value_config;
+      _controller_counter.text =
+          _listconfg
+              .firstWhere((element) => element.name_config == 'counter')
+              .value_config;
+    });
     super.didChangeDependencies();
   }
   @override
