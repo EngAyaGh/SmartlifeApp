@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ClientView extends StatefulWidget {
-   ClientView( {required this.clientModel, Key? key}) : super(key: key);
+  ClientView( {required this.clientModel, Key? key}) : super(key: key);
   ClientModel clientModel;
   @override
   _ClientViewState createState() => _ClientViewState();

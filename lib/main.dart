@@ -152,8 +152,13 @@ void main() async {
         ),
         //ChangeNotifierProvider<invoice_vm>(create: (_) => invoice_vm()),
         ChangeNotifierProvider<typeclient>(create: (_)=> typeclient()),
-        ChangeNotifierProvider<EventProvider>(
-            create: (_)=> EventProvider()),
+        ChangeNotifierProxyProvider<invoice_vm,EventProvider>(
+          create: (_)=> EventProvider(),
+          update: (ctx,value,prev)=>prev!..setvalue(value.listinvoices),
+
+        ),
+        // ChangeNotifierProvider<EventProvider>(
+        //     create: (_)=> EventProvider()),
 
   ], child:MyApp()));
 }

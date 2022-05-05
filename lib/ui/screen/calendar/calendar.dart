@@ -26,17 +26,17 @@ class Calendar extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: kMainColor,
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(
-              builder: (context)=>
-                  EventEditingPage()));
-          //Get.to(EventEditingPage());
-        },
-        tooltip: 'إضافة تقويم',
-        child: Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: kMainColor,
+      //   onPressed: () {
+      //     Navigator.push(context, MaterialPageRoute(
+      //         builder: (context)=>
+      //             EventEditingPage()));
+      //     //Get.to(EventEditingPage());
+      //   },
+      //   tooltip: 'إضافة تقويم',
+      //   child: Icon(Icons.add),
+      // ),
     );
   }
 }

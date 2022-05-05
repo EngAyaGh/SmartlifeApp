@@ -43,6 +43,25 @@ class Invoice_Service {
     print(prodlist);
     return prodlist;
   }
+  Future<bool> setdate(
+      Map<String,dynamic> body,String id_invoice) async {
+    String result = await Api()
+        .post( url:url+"client/invoice/setdate.php?id_invoice=$id_invoice",body:
+    body
+    );
+    //client/setApproveClient.php
+    return result=="done"? true:false;
+  }
+  Future<bool> setdatedone(
+      Map<String,dynamic> body,String id_invoice) async {
+    String result = await Api()
+        .post( url:url+
+        "client/invoice/setdateinstall.php?$id_invoice",body:
+    body
+    );
+    //client/setApproveClient.php
+    return result=="done"? true:false;
+  }
   Future<List<InvoiceModel>> getinvoicebyiduser(String fk_idUser) async {
     var
     data=await Api()

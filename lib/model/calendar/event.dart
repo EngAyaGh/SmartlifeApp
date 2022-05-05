@@ -8,8 +8,13 @@ class Event {
   final DateTime to;
   final Color backgroundColor;
   final bool isAllDay;
+  final String? fkIdClient;
+  final String? idinvoice;
   const Event(
-      {required this.title,
+      {
+      required this.fkIdClient,
+      required this.idinvoice,
+      required this.title,
       required this.description,
       required this.from,
       required this.to,

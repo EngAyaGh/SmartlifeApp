@@ -20,13 +20,14 @@ class _support_viewState extends State<support_view> {
 
 
     WidgetsBinding.instance!.addPostFrameCallback((_)async{
-
+     await   Provider.of<invoice_vm>(context, listen: false).getinvoices();
       // Add Your Code here.
       await    Provider.of<invoice_vm>(context, listen: false)
           .getinvoice_Local("مشترك");
     });
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +71,10 @@ class _support_viewState extends State<support_view> {
                                                     onTap: (){
                                                       Navigator.push(context,
                                                           MaterialPageRoute(builder:
-                                                              (context) => support_add()));
+                                                              (context) => support_add(
+                                                           idinvoice: value.listInvoicesAccept[index]
+                                                                      .idInvoice.toString()
+                                                              )));
                                                     },
                                                     title:Text(value.listInvoicesAccept[index]
                                             .name_enterprise.toString(),

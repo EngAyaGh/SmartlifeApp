@@ -1,6 +1,7 @@
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/calendar/event_data_source.dart';
 import 'package:crm_smart/ui/screen/calendar/event_view_page.dart';
+import 'package:crm_smart/ui/screen/support/support_add.dart';
 import 'package:crm_smart/view_model/event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -55,9 +56,10 @@ class _TaskWidgetState extends State<TaskWidget> {
           final event = details.appointments!.first;
           Navigator.push(context, MaterialPageRoute(
               builder: (context)=>
-                  EventViewingPage(
-                    event: event,
-                  )));
+              support_add( idinvoice: event.idinvoice,)
+                  // EventViewingPage(
+                  //   event: event,)
+          ));
 
         },
       ),
@@ -66,6 +68,8 @@ class _TaskWidgetState extends State<TaskWidget> {
 
   Widget appointmentBuilder(
       BuildContext context, CalendarAppointmentDetails details) {
+    print('fdfdsf');
+    print( details.bounds.width);
     final event = details.appointments.first;
     return Container(
         width: details.bounds.width,

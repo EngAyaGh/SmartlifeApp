@@ -42,8 +42,9 @@ late NotificationModel itemNotify;
           onTap: () {
             // ApproveRequest,Transfer,Late,ApproveDone,ApproveRefuse,InvoiceDeleted
             route_notifyto(
-                itemNotify.typeNotify,context
-                //jsonDecode(itemNotify.data)
+                itemNotify.typeNotify,context,
+                null,
+                itemNotify.data
             );
           },
           child: Container(

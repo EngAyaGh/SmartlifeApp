@@ -25,6 +25,15 @@ class InvoiceModel extends CacheRepository{
     this.type_client,
     this.lastuserupdate,
     this.lastuserupdateName,
+
+    this.nameuserinstall,
+    this.dateinstall_done,
+    this.isdoneinstall,
+    this.userinstall,
+    this.dateinstall_task,
+    this.nameuserApprove,
+
+
   });
     String? idInvoice;
     String? dateCreate;
@@ -45,6 +54,13 @@ class InvoiceModel extends CacheRepository{
     String? type_client;
     String? lastuserupdate;
     String? lastuserupdateName;
+
+    String? nameuserinstall;
+    String? dateinstall_done;
+    String? isdoneinstall;
+    String? userinstall;
+    String? dateinstall_task;
+    String? nameuserApprove;
   //Map<String, dynamic> products;
    List<ProductsInvoice>? products;
   // var products;
@@ -69,6 +85,14 @@ class InvoiceModel extends CacheRepository{
     type_client=jsondata['type_client'];
     lastuserupdate=jsondata['lastuserupdate'];
     lastuserupdateName=jsondata['lastuserupdateName'];
+
+    nameuserinstall=jsondata['nameuserinstall'];
+    dateinstall_done=jsondata['dateinstall_done'];
+    isdoneinstall=jsondata['isdoneinstall'];
+    userinstall=jsondata['userinstall'];
+    dateinstall_task=jsondata['dateinstall_task'];
+    nameuserApprove=jsondata['nameuserApprove'];
+
     products=getproud(jsondata['products']);
       //  json.decode(
        // jsondata['products']
@@ -120,6 +144,14 @@ class InvoiceModel extends CacheRepository{
     _data['type_client'] = type_client;
     _data['lastuserupdate'] = lastuserupdate;
     _data['lastuserupdateName'] = lastuserupdateName;
+
+    _data['nameuserinstall'] = nameuserinstall;
+    _data['dateinstall_done'] = dateinstall_done;
+    _data['isdoneinstall'] = isdoneinstall;
+    _data['userinstall'] = userinstall;//id user
+    _data['dateinstall_task'] = dateinstall_task;
+    _data['nameuserApprove'] = nameuserApprove;
+
     _data['products'] =
         products!.map((e)=>e.toJson()).toList();
     return _data;

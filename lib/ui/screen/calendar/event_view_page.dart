@@ -78,7 +78,7 @@ class EventViewingPage extends StatelessWidget {
     );
   }
 
-  Widget buildDate(String title, DateTime date) {
+  Widget buildDate(String title, DateTime? date) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

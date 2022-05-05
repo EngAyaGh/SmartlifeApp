@@ -26,7 +26,7 @@ class cardRow extends StatelessWidget {
           ],
         ),
         //Spacer(),
-        Divider(thickness: 2,color: Colors.amberAccent,),
+        Divider(thickness: 2,color: Colors.black54,),
         //const MySeparator(color: Colors.grey),
         SizedBox(height: 10,),
 

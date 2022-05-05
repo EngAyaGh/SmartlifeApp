@@ -5,12 +5,30 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
-class CalendarWidget extends StatelessWidget {
+class CalendarWidget extends StatefulWidget {
   const CalendarWidget({Key? key}) : super(key: key);
 
   @override
+  _CalendarWidgetState createState() => _CalendarWidgetState();
+}
+
+class _CalendarWidgetState extends State<CalendarWidget> {
+  @override void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Provider.of<EventProvider>(context, listen: false).getevents();
+
+    });
+    }
+  @override void didChangeDependencies() {
+    // Future.delayed(Duration(milliseconds: 30)).then((_) async {
+    // });
+    super.didChangeDependencies();
+  }
+  @override
   Widget build(BuildContext context) {
-    final events = Provider.of<EventProvider>(context).events;
+    final events = Provider.of<EventProvider>(context,listen: true).events;
+
     return SfCalendar(
       view: CalendarView.month,
       dataSource: EventDataSource(events),
@@ -18,7 +36,9 @@ class CalendarWidget extends StatelessWidget {
       cellBorderColor: Colors.transparent,
       onTap: (details) {
         final provider = Provider.of<EventProvider>(context, listen: false);
+        print(details.date!);
         provider.setDate(details.date!);
+        print(details.date!);
         showModalBottomSheet(
             context: context, builder: (context) => TaskWidget());
       },

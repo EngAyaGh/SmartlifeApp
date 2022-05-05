@@ -160,6 +160,8 @@ class _EventEditingPAgeState extends State<EventEditingPage> {
     }
     setState(() {
       fromDate = date;
+      print('nnnnn');
+      print(fromDate);
     });
   }
 
@@ -198,6 +200,7 @@ class _EventEditingPAgeState extends State<EventEditingPage> {
         hours: initialDate.hour,
         minutes: initialDate.minute,
       );
+
       return date.add(time);
     } else {
       final timeOfDay = await showTimePicker(
@@ -248,7 +251,7 @@ class _EventEditingPAgeState extends State<EventEditingPage> {
           from: fromDate,
           to: toDate,
           description: 'description',
-          isAllDay: false);
+          isAllDay: false, fkIdClient: '', idinvoice: '');
       //for edit
       final isEditing = widget.event != null;
 

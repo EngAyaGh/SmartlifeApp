@@ -15,7 +15,7 @@ import '../../../constants.dart';
 import 'clientView.dart';
 class ProfileClient extends StatefulWidget {
   ProfileClient({required this.idclient, Key? key}) : super(key: key);
-String idclient;
+String? idclient;
   @override
   _ProfileClientState createState() => _ProfileClientState();
 }

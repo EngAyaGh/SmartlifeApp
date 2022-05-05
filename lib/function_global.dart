@@ -1,8 +1,11 @@
 
 
+import 'package:crm_smart/ui/screen/client/clientView.dart';
 import 'package:crm_smart/ui/screen/client/detail_client.dart';
+import 'package:crm_smart/ui/screen/client/profileclient.dart';
 import 'package:crm_smart/ui/screen/home/approvepage.dart';
 import 'package:crm_smart/ui/screen/invoice/get_deleted_invoice.dart';
+import 'package:crm_smart/ui/screen/support/support_add.dart';
 import 'package:flutter/material.dart';
 
 import 'model/clientmodel.dart';
@@ -22,12 +25,16 @@ String showtext(String typeNotify){
       return "رفض العميل";
     case "InvoiceDeleted":
       return "حذف فاتورة";
+    case "Install":
+      return "تم التركيب للعميل";
 
   }
   return "";
 }
 
-void route_notifyto(typeNotify,context){
+void route_notifyto(typeNotify,context,
+    Map<String,dynamic>? data,String? datanotify
+    ) {
   switch (typeNotify){
     case "ApproveRequest":
       Navigator.push(context,
@@ -37,22 +44,24 @@ void route_notifyto(typeNotify,context){
     case "Transfer" :
       Navigator.push(context,
           MaterialPageRoute(
-              builder: (context) => Detail_Client(
-
+              builder: (context) => ProfileClient(
+                idclient:data==null?datanotify: data['idclient'],
               )
           ));
       break;
     case "ApproveDone":
       Navigator.push(context,
           MaterialPageRoute(
-              builder: (context) => Detail_Client(
+              builder: (context) => ProfileClient(
+                idclient: data==null?datanotify:data['idclient'],
               )
           ));
       break;
     case "ApproveRefuse":
       Navigator.push(context,
           MaterialPageRoute(
-              builder: (context) => Detail_Client(
+              builder: (context) => ProfileClient(
+                idclient: data==null?datanotify: data['idclient'],
               )
           ));
       break;
@@ -60,6 +69,14 @@ void route_notifyto(typeNotify,context){
       Navigator.push(context,
           MaterialPageRoute(
               builder: (context) => deletedinvoice(
+              )
+          ));
+      break;
+      case "Install":
+      Navigator.push(context,
+          MaterialPageRoute(
+              builder: (context) => support_add(
+               idinvoice: data==null?datanotify:  data['id_invoice']
               )
           ));
       break;

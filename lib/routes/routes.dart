@@ -36,7 +36,7 @@ class AppRoutes {
       ],),
     GetPage(name:  Routes.productview, page: () =>  ProductView()),
     GetPage(name:  Routes.select_country, page: () =>  select_country()),
-    GetPage(name:  Routes.support_add, page: () =>  support_add()),
+    //GetPage(name:  Routes.support_add, page: () =>  support_add()),
     GetPage(
       name: Routes.allUserScreen,
       page: () => AllUserScreen(),

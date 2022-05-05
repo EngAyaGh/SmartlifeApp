@@ -37,7 +37,8 @@ class _HomeState extends State<Home> {
         print("in init getInitialMessage");
         //Provider.of<notifyvm>(context,listen: false).addcounter();
         String typeNotify= message.data['Typenotify'];
-        route_notifyto(typeNotify,context);
+        String data_notify= message.data['Typenotify'];
+        route_notifyto(typeNotify,context,message.data,null);
       }
     });
     //FirebaseMessaging.onBackgroundMessage.call(message);
@@ -60,7 +61,7 @@ class _HomeState extends State<Home> {
       Provider.of<notifyvm>(context,listen: false).addcounter();
       //Provider.of<notifyvm>(context,listen: false).getcounter();
       String typeNotify= event.data['Typenotify'];
-      route_notifyto(typeNotify,context);
+      route_notifyto(typeNotify,context,event.data,null);
     });
 
     // Provider.of<user_vm_provider>(context, listen: false)
