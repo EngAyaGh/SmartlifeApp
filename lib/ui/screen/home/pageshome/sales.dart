@@ -23,14 +23,14 @@ class _salesState extends State<sales> {
 
   @override void didChangeDependencies() async{
 
-    Future.delayed(Duration(milliseconds: 3)).then((_) async {
-      Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
-      //checkvalue = await privilge.checkprivlge('8');
-     // print(checkvalue);
-    });
+    // Future.delayed(Duration(milliseconds: 3)).then((_) async {
+    //   //checkvalue = await privilge.checkprivlge('8');
+    //  // print(checkvalue);
+    // });
     super.didChangeDependencies();
   }
   @override void initState() {
+    Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
 
        //Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
     // WidgetsBinding.instance!.addPostFrameCallback((_) {

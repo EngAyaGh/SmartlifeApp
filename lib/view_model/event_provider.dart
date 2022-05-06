@@ -23,29 +23,108 @@ class EventProvider extends ChangeNotifier {
     _events.add(event);
     notifyListeners();
   }
-
-  Future<void> getevents()async{
-     late Event event;//
-     _events.clear();
-     // =Event(fkIdClient: fkIdClient, title: title, description: description, from: from, to: to);
-     listinvoices.forEach((element) {
-        if(element.dateinstall_task!=null &&
-            (
-            element.isdoneinstall!=null ||
-            element.isdoneinstall!='0')){
-           print(element.dateinstall_task);
-            event=Event(
+  Future<void> getevent_vm(
+      // List<PrivilgeModel> privilgelist
+      ) async {
+    late Event event;//
+    _events.clear();
+    listinvoices.forEach((element) {
+      if(element.dateinstall_task!=null && (element.isdoneinstall!=null ||
+          element.isdoneinstall!='0')){
+          DateTime temp= DateTime.parse(element.dateinstall_task.toString()).hour>=21
+              ? DateTime.parse(element.dateinstall_task.toString())
+              .subtract(Duration(hours: 3)): DateTime.parse(element.dateinstall_task.toString());
+          print(element.dateinstall_task);
+          event=Event(
               fkIdClient: element.fkIdClient,
               title: element.name_enterprise.toString(),
               description: 'description',
-              from:   DateTime.parse(element.dateinstall_task.toString()),
-              to:  DateTime.parse(element.dateinstall_task.toString()),
+              from:  temp,
+              to:    temp.add(Duration(hours: 2)),
               idinvoice: element.idInvoice);
-              addEvents(event);
-        }
-     });
+          addEvents(event);
+
+      }
+    });
+    // if(listClient.isEmpty)
+    //main list
+    // bool res= privilgelist.firstWhere(
+    //         (element) => element.fkPrivileg=='8').isCheck=='1'?true:false;
+    // if(res) {
+    //   listClient =
+    //   await ClientService().getAllClient(usercurrent!.fkCountry.toString());
+    //   listClientfilter = listClient;
+    // }
+    // else {
+    //   res= privilgelist.firstWhere(
+    //           (element) => element.fkPrivileg=='15').isCheck=='1'?true:false;
+    //   if(res) {
+    //     listClient =
+    //     await ClientService().getAllClientByRegoin(usercurrent!.fkRegoin.toString());
+    //     listClientfilter = listClient;
+    //   } else{
+    //
+    //     res= privilgelist.firstWhere(
+    //             (element) => element.fkPrivileg=='16').isCheck=='1'?true:false;
+    //     if(res) {
+    //       listClient =
+    //       await ClientService().getClientbyuser(usercurrent!.idUser.toString());
+    //       listClientfilter = listClient;
+    //     }
+    //   }
+    // }
+    notifyListeners();
+  }
+  Future<void> getevents( String searchfilter,String type)async{
+     late Event event;//
+     _events.clear();
+      if(type=='regoin'){
+         listinvoices.forEach((element) {
+           if(element.dateinstall_task!=null && (element.isdoneinstall!=null ||
+                       element.isdoneinstall!='0')){
+             if(element.fk_regoin==searchfilter){
+             DateTime temp= DateTime.parse(element.dateinstall_task.toString()).hour>=21
+                 ? DateTime.parse(element.dateinstall_task.toString())
+                 .subtract(Duration(hours: 3)): DateTime.parse(element.dateinstall_task.toString());
+             print(element.dateinstall_task);
+             event=Event(
+                 fkIdClient: element.fkIdClient,
+                 title: element.name_enterprise.toString(),
+                 description: 'description',
+                 from:  temp,
+                 to:    temp.add(Duration(hours: 2)),
+                 idinvoice: element.idInvoice);
+             addEvents(event);
+           }
+         }
+       });
+      }
 
 
+
+     if(type=='user'){
+       listinvoices.forEach((element) {
+         if(element.dateinstall_task!=null && (element.isdoneinstall!=null ||
+             element.isdoneinstall!='0')){
+           if(element.fkIdUser==searchfilter){
+             DateTime temp= DateTime.parse(element.dateinstall_task.toString()).hour>=21
+                 ? DateTime.parse(element.dateinstall_task.toString())
+                 .subtract(Duration(hours: 3)): DateTime.parse(element.dateinstall_task.toString());
+             print(element.dateinstall_task);
+             event=Event(
+                 fkIdClient: element.fkIdClient,
+                 title: element.name_enterprise.toString(),
+                 description: 'description',
+                 from:  temp,
+                 to:    temp.add(Duration(hours: 2)),
+                 idinvoice: element.idInvoice);
+             addEvents(event);
+           }
+         }
+       });
+     }
+
+notifyListeners();
   }
   void deleteEvent(Event event) {
     _events.remove(event);

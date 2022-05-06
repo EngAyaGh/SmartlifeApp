@@ -67,7 +67,8 @@ Widget _product(  List<ProductsInvoice>? products){
                     cardRow( title:' طريقة التركيب',value:invoice!.typeInstallation.toString()),
                     cardRow( title:' التجديد السنوي',value:invoice!.renewYear.toString()),
                     //cardRow('  المنتجات',invoice.products.toString()),
-                    cardRow( title:'آخر تعديل من قبل',value:invoice!.lastuserupdateName.toString())
+                    cardRow( title:'آخر تعديل من قبل',value:invoice!.lastuserupdateName.toString()),
+                    cardRow( title:'تاريخ آخر تعديل',value:invoice!.date_lastuserupdate.toString())
 
                   ],
                 )

@@ -53,6 +53,7 @@ class _ApprovePageState extends State<AcceptPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,title:Text( 'العملاء المشتركين ',

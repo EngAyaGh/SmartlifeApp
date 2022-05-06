@@ -15,6 +15,8 @@ class buildCardUsers extends StatelessWidget {
   UserModel usermodell;
   @override
   Widget build(BuildContext context) {
+    print('dd');
+    print( usermodell.img_thumbnail.toString().trim().length);
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 10, top: 10),
       child: InkWell(
@@ -22,7 +24,8 @@ class buildCardUsers extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => UserScreen(userModel: usermodell
+                  builder: (context) => UserScreen(
+                      userModel: usermodell
                     //index: index,
                   )));
         },
@@ -34,18 +37,15 @@ class buildCardUsers extends StatelessWidget {
                 CircleAvatar(
                   maxRadius: 30,
                  child:
-                  usermodell.img_thumbnail.toString().isEmpty ||
-                      usermodell.img_thumbnail=='' ?
-                  usermodell.nameUser.toString().isEmpty||usermodell.nameUser==null ?
-                  Icon(
+                 usermodell.img_image.toString().trim().length==0
+                     // ||usermodell.img_thumbnail.toString().trim().isEmpty
+                      ? usermodell.nameUser.toString().isEmpty||usermodell.nameUser==null
+                      ? Icon(
                     Icons.person,
                     size: 50,
                     color: Colors.lightBlueAccent,
-                  ) : Text(usermodell.nameUser
-                      .toString()
-                      .substring(0, 1))
-                      :
-                  CachedNetworkImage(
+                  ) : Text(usermodell.nameUser.toString().substring(0, 1))
+                      : CachedNetworkImage(
                     placeholder: (context, url) =>
                     const CircularProgressIndicator(),
                     imageUrl: usermodell.img_image!,

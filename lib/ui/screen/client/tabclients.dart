@@ -44,11 +44,17 @@ class _tabclientsState extends State<tabclients> {
         .getuser_vm();
     print(Provider.of<user_vm_provider>(context,listen: false)
         .userall.length);
-    WidgetsBinding.instance!.addPostFrameCallback((_){
+    Provider.of<regoin_vm>(context,listen: false).getregoin();
+
+    WidgetsBinding.instance!.addPostFrameCallback((_)async{
 
       // Add Your Code here.
-      Provider.of<regoin_vm>(context,listen: false).getregoin();
 
+      List<PrivilgeModel> list=
+          await   Provider.of<privilge_vm>(context,listen: false).privilgelist;
+      Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
+      await Provider.of<client_vm>(context, listen: false)
+          .getclient_vm();
     });
 
     // WidgetsBinding.instance?.addPostFrameCallback((_) {
@@ -60,11 +66,7 @@ class _tabclientsState extends State<tabclients> {
     // List<ClientModel> list= Provider.of<client_vm>(context, listen: false)
     // .listClientbyRegoin;
     Future.delayed(Duration(milliseconds: 30)).then((_) async {
-      List<PrivilgeModel> list=
-       await   Provider.of<privilge_vm>(context,listen: false).privilgelist;
-      Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
-     await Provider.of<client_vm>(context, listen: false)
-          .getclient_vm();
+
      }
     );
     // Future.delayed(Duration(milliseconds: 30)).then((_) async {

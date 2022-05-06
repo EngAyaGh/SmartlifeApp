@@ -1,13 +1,10 @@
 
-
-import 'dart:convert';
-
 import 'package:crm_smart/api/api.dart';
 import 'package:crm_smart/model/deleteinvoicemodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 
 import '../constants.dart';
-
+import 'dart:io';
 class Invoice_Service {
 
   Future<List<InvoiceModel>> getinvoice(String fk_country) async {
@@ -91,13 +88,15 @@ class Invoice_Service {
     print(prodlist);
     return prodlist;
   }
-  Future<String> addInvoice( Map<String,dynamic?> body) async {
+  Future<String> addInvoice( Map<String,dynamic?> body,File? file) async {
     print("add invoice in services");
 
     try{
       String result = await Api()
-          .post( url:url+"client/invoice/addinvoice.php",
-          body: body);
+          .postRequestWithFile( url+"client/invoice/addinvoice.php",
+           body,
+      file
+      );
       print("add invoice in services");
       print(result);
       return result !="error"? result:"false";
@@ -120,10 +119,12 @@ class Invoice_Service {
       return "false";
     }
   }
-  Future<bool> updateInvoice( Map<String,dynamic> body,String idInvoice) async {
+  Future<bool> updateInvoice( Map<String,dynamic> body,
+      String idInvoice,File? file) async {
     String result = await Api()
-        .post( url:url+"client/invoice/updateinvoice.php",body:
-    body
+        .postRequestWithFile(
+        url+"client/invoice/updateinvoice.php",
+         body,file
     );
     return result=="done"? true:false;
   }

@@ -23,21 +23,26 @@ class _support_addState extends State<support_add> {
   late InvoiceModel _invoice;
   @override
   void initState()  {
-
-
-
-    print('init support');
-    super.initState();
-  }
-@override void didChangeDependencies() {
-  Future.delayed(Duration(milliseconds: 30)).then((_) async {
     _invoice = Provider
         .of<invoice_vm>(context, listen: false)
         .listinvoices
         .firstWhere(
             (element) =>
         element.idInvoice == widget.idinvoice);
-  });
+
+
+    print('init support');
+    super.initState();
+  }
+@override void didChangeDependencies() {
+  // Future.delayed(Duration(milliseconds: 30)).then((_) async {
+  //   _invoice = Provider
+  //       .of<invoice_vm>(context, listen: false)
+  //       .listinvoices
+  //       .firstWhere(
+  //           (element) =>
+  //       element.idInvoice == widget.idinvoice);
+  // });
   super.didChangeDependencies();
   }
   @override
@@ -121,7 +126,9 @@ class _support_addState extends State<support_add> {
                   SizedBox(height: 20,),
 
                   cardRow(title: 'اسم المؤسسة',value: _invoice.name_enterprise.toString()),
-                  cardRow(title: 'معتمد الاشتراك ',value: _invoice.nameuserApprove.toString()),
+                  cardRow(title: 'معتمد الاشتراك ',value:_invoice.nameuserApprove==null?'':
+                  _invoice.nameuserApprove.toString()),
+
                   _invoice.dateinstall_done==null? Container()
                   :cardRow(title: ' تم التركيب من قبل ',value: _invoice.nameuserinstall.toString()),
                   _invoice.dateinstall_done==null? Container():
@@ -129,7 +136,8 @@ class _support_addState extends State<support_add> {
 
                   cardRow(title: 'هل تم التركيب ',
                       value: _invoice.dateinstall_done==null? 'بالانتظار' : 'تم التركيب'),
-                  cardRow(title: 'طريقة التركيب ',value: _invoice.typeInstallation.toString()),
+                  cardRow(title: 'طريقة التركيب ',
+                      value: _invoice.typeInstallation.toString()=='0'?'ميداني':'اونلاين'),
                   SizedBox(height: 16,),
 
     ElevatedButton(

@@ -32,6 +32,7 @@ class InvoiceModel extends CacheRepository{
     this.userinstall,
     this.dateinstall_task,
     this.nameuserApprove,
+    this.date_lastuserupdate,
 
 
   });
@@ -61,6 +62,7 @@ class InvoiceModel extends CacheRepository{
     String? userinstall;
     String? dateinstall_task;
     String? nameuserApprove;
+    String? date_lastuserupdate;
   //Map<String, dynamic> products;
    List<ProductsInvoice>? products;
   // var products;
@@ -92,6 +94,7 @@ class InvoiceModel extends CacheRepository{
     userinstall=jsondata['userinstall'];
     dateinstall_task=jsondata['dateinstall_task'];
     nameuserApprove=jsondata['nameuserApprove'];
+    date_lastuserupdate=jsondata['date_lastuserupdate'];
 
     products=getproud(jsondata['products']);
       //  json.decode(
@@ -151,6 +154,7 @@ class InvoiceModel extends CacheRepository{
     _data['userinstall'] = userinstall;//id user
     _data['dateinstall_task'] = dateinstall_task;
     _data['nameuserApprove'] = nameuserApprove;
+    _data['date_lastuserupdate'] = date_lastuserupdate;
 
     _data['products'] =
         products!.map((e)=>e.toJson()).toList();

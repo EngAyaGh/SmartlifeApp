@@ -10,7 +10,8 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
 class invoices extends StatefulWidget {
-   invoices({required this.itemClient, required this.fkclient,required this.fkuser, Key? key}) : super(key: key);
+   invoices({required this.itemClient, required this.fkclient,
+     required this.fkuser, Key? key}) : super(key: key);
    String fkclient,fkuser;
    ClientModel itemClient;
   @override
@@ -83,26 +84,26 @@ class _invoicesState extends State<invoices> {
          tooltip: 'إضافة فاتورة',
          child: Icon(Icons.add),
        ),
-       appBar: AppBar(
-         leading: IconButton(
-           icon: Icon(Icons.arrow_back, color: kWhiteColor),
-           onPressed: (){
-            //  Provider.of<invoice_vm>(context,listen: false)
-            // .disposValue(-1);
-             Navigator.of(context).pop();
-             },
-         ),
-        centerTitle: true,
-         title: Text('فواتير العميل',style:
-         TextStyle(color: kWhiteColor),
-           textAlign: TextAlign.center,),
-       ),
+       // appBar: AppBar(
+       //   leading: IconButton(
+       //     icon: Icon(Icons.arrow_back, color: kWhiteColor),
+       //     onPressed: (){
+       //      //  Provider.of<invoice_vm>(context,listen: false)
+       //      // .disposValue(-1);
+       //       Navigator.of(context).pop();
+       //       },
+       //   ),
+        //centerTitle: true,
+       //   title: Text('فواتير العميل',style:
+       //   TextStyle(color: kWhiteColor),
+       //     textAlign: TextAlign.center,),
+       // ),
        body: _isLoading?
        Center(child: CircularProgressIndicator(),)
            :(listinvoice.isEmpty
            ? Center(child: Text('لا يوجد فواتير لهذا العميل',style: TextStyle(fontSize: 22,color: kWhiteColor),),)
            :Padding(
-         padding: const EdgeInsets.only(left:20,right: 20,top: 10,bottom: 10),
+         padding: const EdgeInsets.only(left:2,right: 2,top: 10,bottom: 10),
          child: Container(
            height: MediaQuery
                .of(context)

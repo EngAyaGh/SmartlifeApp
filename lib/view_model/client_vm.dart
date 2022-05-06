@@ -121,6 +121,7 @@ class client_vm extends ChangeNotifier {
     } }
     notifyListeners();
   }
+
   ClientModel? get_byIdClient(String idClient,)  {
 
     ClientModel? inv;

@@ -7,7 +7,7 @@ import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/Invoice_Service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-
+import 'dart:io';
 
 
 const CACHE_InvoiceClient_KEY = "CACHE_InvoiceClient_KEY";
@@ -169,11 +169,12 @@ class invoice_vm extends ChangeNotifier{
     // }
     notifyListeners();
   }
-  Future<String> add_invoiceclient_vm(Map<String, dynamic?> body) async {
+  Future<String> add_invoiceclient_vm(
+      Map<String, dynamic?> body,File? file) async {
     //print('$body');
     DateTime _currentDate = DateTime.now();
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    String res = await Invoice_Service().addInvoice(body);
+    String res = await Invoice_Service().addInvoice(body,file);
     if (res!="false") {
       body.addAll({
         'id_invoice':res,
@@ -214,8 +215,9 @@ class invoice_vm extends ChangeNotifier{
     return res;
   }
 
-  Future<bool> update_invoiceclient_vm(Map<String, dynamic?> body,String? idInvoice) async {
-    bool res = await Invoice_Service().updateInvoice(body,idInvoice!);
+  Future<bool> update_invoiceclient_vm(
+      Map<String, dynamic?> body,String? idInvoice,File? file) async {
+    bool res = await Invoice_Service().updateInvoice(body,idInvoice!,file);
     if (res) {
       final index=listinvoiceClient.indexWhere((element) => element.idInvoice==idInvoice);
       body.addAll({

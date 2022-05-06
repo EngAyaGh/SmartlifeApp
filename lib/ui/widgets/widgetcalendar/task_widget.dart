@@ -54,6 +54,7 @@ class _TaskWidgetState extends State<TaskWidget> {
         onTap: (details) {
           if (details.appointments == null) return;
           final event = details.appointments!.first;
+          print(event.idinvoice);
           Navigator.push(context, MaterialPageRoute(
               builder: (context)=>
               support_add( idinvoice: event.idinvoice,)

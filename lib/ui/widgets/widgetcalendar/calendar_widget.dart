@@ -16,7 +16,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   @override void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      Provider.of<EventProvider>(context, listen: false).getevents();
 
     });
     }

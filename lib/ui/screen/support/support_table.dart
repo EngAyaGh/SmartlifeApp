@@ -5,6 +5,7 @@ import 'package:crm_smart/ui/screen/calendar/Event_editing_page.dart';
 import 'package:crm_smart/ui/screen/support/support_add.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/separatorLine.dart';
 import 'package:crm_smart/ui/widgets/widgetcalendar/calendar_widget.dart';
+import 'package:crm_smart/view_model/event_provider.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -32,6 +33,7 @@ class _support_tableState extends State<support_table> {
       print(Provider.of<user_vm_provider>(context,listen: false)
           .userall.length);
       Provider.of<regoin_vm>(context,listen: false).getregoin();
+      Provider.of<EventProvider>(context,listen: false). getevent_vm();
     }
     );
 
@@ -67,17 +69,17 @@ class _support_tableState extends State<support_table> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: kMainColor,
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(
-              builder: (context)=>
-                  EventEditingPage()));
-          //Get.to(EventEditingPage());
-        },
-        tooltip: 'إضافة تقويم',
-        child: Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: kMainColor,
+      //   onPressed: () {
+      //     Navigator.push(context, MaterialPageRoute(
+      //         builder: (context)=>
+      //             EventEditingPage()));
+      //     //Get.to(EventEditingPage());
+      //   },
+      //   tooltip: 'إضافة تقويم',
+      //   child: Icon(Icons.add),
+      // ),
       appBar: AppBar(
         title: Text(' جدول العملاء ',style: TextStyle(color: kWhiteColor),),
         centerTitle: true,
@@ -91,75 +93,106 @@ class _support_tableState extends State<support_table> {
               child: ListView(
 
                   children: [
-                    Center(
-                      child:
-                      GroupButton(
-                controller: GroupButtonController(
-                selectedIndex:isSelectedtypeinstall,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
 
-    ),
-    options: GroupButtonOptions(
-    buttonWidth: 100,
+                        //privilge.checkprivlge('8')==true? //regoin
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0,right: 8),
+                            child: Consumer<regoin_vm>(
+                              builder: (context, cart, child){
+                                return Container(
+                                  height: 57,
+                                  decoration: BoxDecoration(
 
-    borderRadius: BorderRadius.circular(10)),
-    buttons: ['الموظف','المناطق'],
-    onSelected: (index,isselected) {
-    print(index);
-    setState(() {
-              isSelectedtypeinstall=index;
+                                    border:Border.all(
+                                        color: Colors.grey.withOpacity(0.9)
+                                      //width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(6.0) //                 <--- border radius here
+                                    ),
+                                  ),
+                                  child: DropdownButton(
 
-    });
-                }
-    ),
-                    ),
-                    SizedBox(height: 5,),
-                    isSelectedtypeinstall==1?
-                    Consumer<regoin_vm>(
-                    builder: (context, cart, child){
-    return DropdownButton(
-    isExpanded: true,
-    //hint: Text("حدد حالة العميل"),
-    items: cart.listregoin.map((level_one) {
-    return DropdownMenuItem(
-    child: Text(level_one.name_regoin), //label of item
-    value: level_one.id_regoin, //value of item
-    );
-    }).toList(),
-    value:cart.selectedValueLevel,
-    onChanged:(value) {
-    //  setState(() {
-    cart.changeVal(value.toString());
-    // });
-    },
-    );},
-    )
-                        :
-                    Consumer<user_vm_provider>(
-                      builder: (context, cart, child){
-                        return  DropdownSearch<UserModel>(
-                          mode: Mode.DIALOG,
-                          label: "Name",
+                                    isExpanded: true,
+                                    hint: Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: Text("المنطقة"),
+                                    ),
+                                    items: cart.listregoin.map((level_one) {
+                                      return DropdownMenuItem(
 
-                          //onFind: (String filter) => cart.getfilteruser(filter),
-                          filterFn: (user, filter) => user!.getfilteruser(filter!),
-                          //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
-                          // itemAsString: (UserModel u) => u.userAsStringByName(),
-                          items: cart.userall,
-                          itemAsString:
-                              ( u) => u!.userAsString(),
-                          // selectedItem: cart.currentUser,
-                          onChanged: (data) => iduser=data!.idUser!,//print(data!.nameUser),
-                          showSearchBox: true,
-                          dropdownSearchDecoration: InputDecoration(
-                            labelText: "choose a user",
-                            contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
-                            border: OutlineInputBorder(),
+                                        child: Text(level_one.name_regoin), //label of item
+                                        value: level_one.id_regoin, //value of item
+                                      );
+                                    }).toList(),
+                                    value:cart.selectedValueLevel,
+                                    onChanged:(value) {
+                                      //  setState(() {
+                                      cart.changeVal(value.toString());
+                                      // Provider.of<client_vm>(context, listen: false)
+                                      //     .getclientfilter_Local(value.toString(),"regoin");
+                                      Provider.of<EventProvider>(context, listen: false)
+                                          .getevents(value.toString(),"regoin");
+
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
                           ),
-                        );
+                        ),//:Container(),
+                        //
+                        //privilge.checkprivlge('15')==true|| privilge.checkprivlge('8')==true? //user
+                        Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0,right: 8),
+                              child: Consumer<user_vm_provider>(
+                                builder: (context, cart, child){
+                                  return  DropdownSearch<UserModel>(
+                                    mode: Mode.DIALOG,
+                                    label: " الموظف ",
 
-                      },
+                                    //onFind: (String filter) => cart.getfilteruser(filter),
+                                    filterFn: (user, filter) => user!.getfilteruser(filter!),
+                                    //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
+                                    // itemAsString: (UserModel u) => u.userAsStringByName(),
+                                    items: cart.userall,
+                                    itemAsString:
+                                        ( u) => u!.userAsString(),
+
+                                    // selectedItem: cart.currentUser,
+                                    onChanged: (data) {
+                                      iduser=data!.idUser!;
+                                      Provider.of<EventProvider>(context, listen: false)
+                                          .getevents(iduser,"user");
+                                      // Provider.of<client_vm>(context, listen: false)
+                                      //     .getclientfilter_Local(iduser!,"user");
+                                    } ,//print(data!.nameUser),
+                                    showSearchBox: true,
+                                    dropdownSearchDecoration:
+                                    InputDecoration(
+                                      fillColor:  Colors.grey.withOpacity(0.2),
+                                      labelText: "choose a user",
+                                      contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                          borderSide: const BorderSide(color: Colors.white)),
+                                      border:OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                          borderSide: const BorderSide(color: Colors.white)),
+                                    ),
+                                  );
+
+                                },
+                              ),
+                            )
+                        ),//:Container(),
+                      ],
                     ),
-
                     SizedBox(height: 25,),
                     CalendarWidget(),
                     // Row(

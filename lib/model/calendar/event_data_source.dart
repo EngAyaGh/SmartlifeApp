@@ -10,6 +10,7 @@ class EventDataSource extends CalendarDataSource {
     // 2022-05-06 02:24:00.000
     //2022-05-13 23:44:00.000
     print(appointments[0].from);
+    print(appointments[0].to);
     this.appointments = appointments;
   }
   //التخزين بداخلها دياناميك لذلك حولناها الى ايفينت

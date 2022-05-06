@@ -1,6 +1,7 @@
 
 
 
+import 'package:crm_smart/model/privilgemodel.dart';
 import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
@@ -29,16 +30,19 @@ class _privilge_pageState extends State<privilge_page> {
     {'name': 'Danny', 'group': 'Team C'},
   ];
   @override void initState() {
+    Provider.of<privilge_vm>(context,listen: false)
+        .getPrivilge(widget.fk_level);
     super.initState();
   }
   @override void didChangeDependencies() {
-    Provider.of<privilge_vm>(context,listen: false)
-        .getPrivilge(widget.fk_level);
+
 
     super.didChangeDependencies();
   }
   @override
   Widget build(BuildContext context) {
+    List<PrivilgeModel> _privilgelist =Provider.of<privilge_vm>(context,listen: true)
+        .privilgelist;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -75,12 +79,29 @@ class _privilge_pageState extends State<privilge_page> {
         //   },
         // ),
         padding: const EdgeInsets.all(16.0),
-        child:GroupedListView<dynamic, String>(
-          elements: _elements,
-          groupBy: (element) => element['group'],
+        child:GroupedListView<PrivilgeModel, String>(
+          elements:  _privilgelist,
+          groupBy: (element) {
+            switch(element.type_prv)
+            {
+              case 'sales':
+                return 'المبيعات';
+
+              case 'manage':
+                return 'الإدارة';
+
+              case 'care':
+                return 'العناية بالعملاء';
+
+              case 'support':
+                return 'الدعم الفني';
+
+
+            }
+            return '';
+            },
           groupComparator: (value1, value2) => value2.compareTo(value1),
-          itemComparator: (item1, item2) =>
-              item1['name'].compareTo(item2['name']),
+          itemComparator: (item1, item2) => item1.name_privilege.compareTo(item2.name_privilege),
           order: GroupedListOrder.DESC,
           useStickyGroupSeparators: true,
           groupSeparatorBuilder: (String value) => Padding(
@@ -92,19 +113,32 @@ class _privilge_pageState extends State<privilge_page> {
             ),
           ),
           itemBuilder: (c, element) {
-            return Card(
-              elevation: 8.0,
-              margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-              child: Container(
-                child: ListTile(
-                  contentPadding:
-                  EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                  leading: Icon(Icons.account_circle),
-                  title: Text(element['name']),
-                  trailing: Icon(Icons.arrow_forward),
-                ),
-              ),
-            );
+            return Container(
+               //children: _privilgelist.map(( key) {
+                 child: CheckboxListTile(
+                   title: new Text(element.name_privilege),
+                   value:   element.isCheck=='1'?true:false,// as bool,
+                   onChanged: (bool? value) {
+                     setState(() {
+                       print(value);
+                       value ==true? element.isCheck="1": element.isCheck="0";
+                       //values[key] = value;
+                     });
+                    },
+                 ));
+            //   Card(
+            //   elevation: 8.0,
+            //   margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+            //   child: Container(
+            //     child: ListTile(
+            //       contentPadding:
+            //       EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            //       leading: Icon(Icons.account_circle),
+            //       title: Text(element['name']),
+            //       trailing: Icon(Icons.arrow_forward),
+            //     ),
+            //   ),
+            // );
           },
         ),
       // ),
@@ -134,49 +168,7 @@ class _privilge_pageState extends State<privilge_page> {
         //               ),
         //            );
         //           }),
-        //       RowEdit(name: 'الدعم الفني', des: ''),
-        //       Consumer<privilge_vm>(
-        //           builder: (context, cart, child){
-        //             return Expanded(
-        //               child: ListView(
-        //                 children: cart.privilgelist.map(( key) {
-        //                   return new CheckboxListTile(
-        //                     title: new Text(key.name_privilege),
-        //                     value:   key.isCheck=='1'?true:false,// as bool,
-        //                     onChanged: (bool? value) {
-        //                       setState(() {
-        //                         print(value);
-        //                         value ==true? key.isCheck="1": key.isCheck="0";
-        //                         //values[key] = value;
-        //                       });
-        //                     },
-        //                   );
-        //                 }).toList(),
-        //               ),
-        //             );
-        //           }),
-        //       RowEdit(name: 'العناية بالعملاء', des: ''),
-        //       Consumer<privilge_vm>(
-        //           builder: (context, cart, child){
-        //             return Expanded(
-        //               child: ListView(
-        //                 children: cart.privilgelist.map(( key) {
-        //                   return new CheckboxListTile(
-        //                     title: new Text(key.name_privilege),
-        //                     value:   key.isCheck=='1'?true:false,// as bool,
-        //                     onChanged: (bool? value) {
-        //                       setState(() {
-        //                         print(value);
-        //                         value ==true? key.isCheck="1": key.isCheck="0";
-        //                         //values[key] = value;
-        //                       });
-        //                     },
-        //                   );
-        //                 }).toList(),
-        //               ),
-        //             );
-        //           }),
-        //       RowEdit(name: 'الإدارة', des: ''),
+       //       RowEdit(name: 'الإدارة', des: ''),
         //
         //       RowEdit(name: 'التحصيل', des: ''),
         //

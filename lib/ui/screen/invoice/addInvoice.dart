@@ -9,8 +9,10 @@ import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -19,6 +21,8 @@ import 'dart:ui' as myui;
 import '../../../constants.dart';
 import '../../../labeltext.dart';
 import 'add_invoice_product.dart';
+import 'dart:io';
+import 'package:flutter/widgets.dart';
 
 class addinvoice extends StatefulWidget {
    addinvoice({
@@ -29,9 +33,9 @@ class addinvoice extends StatefulWidget {
      // required this.indexinvoice,
      Key? key}) : super(key: key);
    ClientModel itemClient;
-   // String? idClient,iduser;
+    // String? idClient,iduser;
    InvoiceModel? invoice;
-  // late int indexinvoice;
+   // late int indexinvoice;
   @override
   _addinvoiceState createState() => _addinvoiceState();
 }
@@ -54,8 +58,21 @@ class _addinvoiceState extends State<addinvoice> {
    final TextEditingController noteController = TextEditingController();
 
    final TextEditingController imageController = TextEditingController();
+   final _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+   String? _fileName;
+   String? _saveAsFileName;
+   List<PlatformFile>? _paths;
+   String? _directoryPath;
+   String? _extension;
+   bool _isLoading = false;
+   bool _userAborted = false;
+   bool _multiPick = false;
+   FileType _pickingType = FileType.any;
+  late File? _myfile;
    InvoiceModel? _invoice;
-@override void dispose() {
+@override void dispose() async{
+  _resetState();
+  await FilePicker.platform.clearTemporaryFiles();
   print('in dispos add invoice *****************');
     super.dispose();
   }
@@ -276,53 +293,53 @@ else{
 
                         //admin
                         RowEdit(name: label_typepay, des: 'Required'),
-                       Container(
-                         //padding: EdgeInsets.only(left: 1,right: 1),
-                         decoration: BoxDecoration(
-                           borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
-                           boxShadow: <BoxShadow>[
-                             BoxShadow(
-                               offset: Offset(1.0, 1.0),
-                               blurRadius: 8.0,
-                               color: Colors.black87.withOpacity(0.2),
-                             ),
-                           ],
-                           color: Colors.white,
-                         ),
-                         child: Consumer<selected_button_provider>(
-                           builder: (context, selectedProvider, child){
-                           return  GroupButton(
-                                 controller: GroupButtonController(
-                                     selectedIndex:selectedProvider.isSelectedtypepay,
-                                   //
-                                   // typepayController==null
-                                   //    ? 0
-                                   //    :
-                                   //int.tryParse( typepayController!)
-                                 ),
-                                 options: GroupButtonOptions(
-                                     buttonWidth: 100,
-                                     borderRadius: BorderRadius.circular(10)),
-                                 buttons: ['نقدا','تحويل'],
-                                 onSelected: (index,isselected){
-                                   print(index);
-                                   //setState(() {
-                                     typepayController=index.toString();
-                                     selectedProvider.selectValuetypepay(index);
-                                   //});
-                                 }
-                             );
-                           }
+                        Container(
+                          padding: EdgeInsets.only(left: 2,right: 2),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                offset: Offset(1.0, 1.0),
+                                blurRadius: 8.0,
+                                color: Colors.black87.withOpacity(0.2),
+                              ),
+                            ],
+                            color: Colors.white,
+                          ),
+                          child: Consumer<selected_button_provider>(
+                              builder: (context, selectedProvider, child){
+                                return  GroupButton(
+                                    controller: GroupButtonController(
+                                      selectedIndex:selectedProvider.isSelectedtypepay,
+                                      //
+                                      // typepayController==null
+                                      //    ? 0
+                                      //    :
+                                      //int.tryParse( typepayController!)
+                                    ),
+                                    options: GroupButtonOptions(
+                                      buttonWidth: 110,
+                                        borderRadius: BorderRadius.circular(10)),
+                                    buttons: ['نقدا','تحويل'],
+                                    onSelected: (index,isselected){
+                                      print(index);
+                                      //setState(() {
+                                      typepayController=index.toString();
+                                      selectedProvider.selectValuetypepay(index);
+                                      //});
+                                    }
+                                );
+                              }
 
-                         ),
-                       ),
+                          ),
+                        ),
                         //manage
                         SizedBox(
                           height: 5,
                         ),
                         RowEdit(name: label_typeinstall, des: 'Required'),
-                      Container(
-                        //padding: EdgeInsets.only(left: 1,right: 1),
+                        Container(
+                          padding: EdgeInsets.only(left: 2,right: 2),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
                             boxShadow: <BoxShadow>[
@@ -344,7 +361,7 @@ else{
                                       // int.tryParse( typeinstallController!)
                                   ),
                                   options: GroupButtonOptions(
-                                    //  buttonWidth: 100,
+                                      buttonWidth: 110,
 
                                       borderRadius: BorderRadius.circular(10)),
                                   buttons: ['ميداني','اونلاين'],
@@ -380,6 +397,18 @@ else{
                         EditTextFormField(
                           icon: Icons.camera,
                           hintText: label_image,
+                          ontap: ()async{
+                             FilePickerResult? result = await FilePicker.platform.pickFiles();
+                            //
+                             if (result != null) {
+                              File? file = File(result.files.single.path.toString());
+                            _myfile=file;
+                              //   _pickFiles();
+                            //   _saveFile();
+                            } else {
+                              // User canceled the picker
+                            }
+                          },
                           obscureText: false,
                           controller:imageController,
                         ),
@@ -458,10 +487,11 @@ else{
                                               context,listen: false).currentUser!.idUser.toString(),
                                           "total": totalController,
                                           "notes": noteController.text,
-                                          "id_invoice":invoiceID
+                                          "id_invoice":invoiceID,
+                                          'date_lastuserupdate':DateTime.now().toString(),
 
                                           //"date_changetype":,
-                                        },invoiceID
+                                        },invoiceID,_myfile
                                         ).then((value) =>
                                         value != false
                                             ? clear(context,invoiceID.toString(),_products)
@@ -493,9 +523,10 @@ else{
                                           "notes": noteController.text,
                                           'fk_regoin':widget.itemClient.fkRegoin,
                                           'fkcountry':widget.itemClient.fkcountry,
+                                          'date_lastuserupdate':DateTime.now().toString(),
                                           //"date_changetype":,
                                           //'message':"",
-                                        },
+                                        },_myfile
                                         ).then((value) =>
                                         value != "false"
                                             ?clear(context,value,_products)
@@ -594,4 +625,77 @@ else{
   }
    DateTime _currentDate = DateTime.now();
    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+   void _pickFiles() async {
+     _resetState();
+     try {
+       _directoryPath = null;
+       _paths = (await FilePicker.platform.pickFiles(
+         type: _pickingType,
+         allowMultiple: _multiPick,
+         onFileLoading: (FilePickerStatus status) => print(status),
+         allowedExtensions: (_extension?.isNotEmpty ?? false)
+             ? _extension?.replaceAll(' ', '').split(',')
+             : null,
+       ))
+           ?.files;
+     } on PlatformException catch (e) {
+       _logException('Unsupported operation' + e.toString());
+     } catch (e) {
+       _logException(e.toString());
+     }
+     if (!mounted) return;
+     setState(() {
+       _isLoading = false;
+       _fileName =
+       _paths != null ? _paths!.map((e) => e.name).toString() : '...';
+       _userAborted = _paths == null;
+     });
+   }
+   Future<void> _saveFile() async {
+     _resetState();
+     try {
+       String? fileName = await FilePicker.platform.saveFile(
+         allowedExtensions: (_extension?.isNotEmpty ?? false)
+             ? _extension?.replaceAll(' ', '').split(',')
+             : null,
+         type: _pickingType,
+       );
+       setState(() {
+         _saveAsFileName = fileName;
+         _userAborted = fileName == null;
+       });
+     } on PlatformException catch (e) {
+       _logException('Unsupported operation' + e.toString());
+     } catch (e) {
+       _logException(e.toString());
+     } finally {
+       setState(() => _isLoading = false);
+     }
+   }
+
+   void _logException(String message) {
+     print(message);
+     // _scaffoldMessengerKey.currentState?.hideCurrentSnackBar();
+     // _scaffoldMessengerKey.currentState?.showSnackBar(
+     //   SnackBar(
+     //     content: Text(message),
+     //   ),
+     // );
+   }
+
+   void _resetState() {
+     if (!mounted) {
+       return;
+     }
+     setState(() {
+       _isLoading = true;
+       _directoryPath = null;
+       _fileName = null;
+       _paths = null;
+       _saveAsFileName = null;
+       _userAborted = false;
+     });
+   }
+
+
 }

@@ -37,8 +37,10 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
   late UserModel _currentUser;
 
   @override void didChangeDependencies() {
-  _currentUser = Provider.of<user_vm_provider>(context, listen: false)
-        .currentUser!;
+    WidgetsBinding.instance!.addPostFrameCallback((_){
+
+      _currentUser = Provider.of<user_vm_provider>(context, listen: false)
+        .currentUser!;});
     super.didChangeDependencies();
   }
   @override
@@ -49,14 +51,13 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        'build card client invoice  ${widget.itemProd.idInvoice} +currentuser is  ${_currentUser.nameUser}');
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
         child: InkWell(
           //splashColor: Colors.blue.withAlpha(30),
           onTap: () {
+
             //Navigator.push(context, MaterialPageRoute(builder: (context)=>Detail_Client()));
           },
           child: Directionality(
@@ -83,18 +84,24 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Flex(
+                        direction: Axis.vertical,
 
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+
+                        // mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              widget.itemProd.dateCreate.toString(),
-                              style: TextStyle(fontFamily: kfontfamily2,
-                              color: kMainColor),
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            // alignment: Alignment.topRight,
+                            children: [
+                              Text(''),
+                              Text(
+                                widget.itemProd.dateCreate.toString(),
+                                style: TextStyle(fontFamily: kfontfamily2,
+                                    color: kMainColor),
+                              ),
+                          ],
                           ),
                           SizedBox(
                             height: 4,
@@ -105,7 +112,7 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                             ,fontWeight: FontWeight.bold),
                           ),
                           Row(
-                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
                                // mainAxisAlignment: MainAxisAlignment.spaceAround,
