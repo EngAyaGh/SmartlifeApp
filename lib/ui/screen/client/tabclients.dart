@@ -106,7 +106,8 @@ class _tabclientsState extends State<tabclients> {
           tooltip: 'إضافة عميل',
           child: Icon(Icons.add),
         ),
-        body: Consumer<privilge_vm>(
+        body:
+        Consumer<privilge_vm>(
             builder: (context, privilge, child){
           return SafeArea(
             child: Padding(

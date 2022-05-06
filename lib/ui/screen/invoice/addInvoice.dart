@@ -651,27 +651,27 @@ else{
        _userAborted = _paths == null;
      });
    }
-   Future<void> _saveFile() async {
-     _resetState();
-     try {
-       String? fileName = await FilePicker.platform.saveFile(
-         allowedExtensions: (_extension?.isNotEmpty ?? false)
-             ? _extension?.replaceAll(' ', '').split(',')
-             : null,
-         type: _pickingType,
-       );
-       setState(() {
-         _saveAsFileName = fileName;
-         _userAborted = fileName == null;
-       });
-     } on PlatformException catch (e) {
-       _logException('Unsupported operation' + e.toString());
-     } catch (e) {
-       _logException(e.toString());
-     } finally {
-       setState(() => _isLoading = false);
-     }
-   }
+   // Future<void> _saveFile() async {
+   //   _resetState();
+   //   try {
+   //     // String? fileName = await FilePicker.platform.toString(
+   //     //   allowedExtensions: (_extension?.isNotEmpty ?? false)
+   //     //       ? _extension?.replaceAll(' ', '').split(',')
+   //     //       : null,
+   //     //   type: _pickingType,
+   //     );
+   //     setState(() {
+   //       _saveAsFileName = fileName;
+   //       _userAborted = fileName == null;
+   //     });
+   //   } on PlatformException catch (e) {
+   //     _logException('Unsupported operation' + e.toString());
+   //   } catch (e) {
+   //     _logException(e.toString());
+   //   } finally {
+   //     setState(() => _isLoading = false);
+   //   }
+   // }
 
    void _logException(String message) {
      print(message);

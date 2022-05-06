@@ -3,6 +3,7 @@
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/usermodel.dart';
+import 'package:crm_smart/ui/screen/care/comment_view.dart';
 import 'package:crm_smart/ui/screen/invoice/invoces.dart';
 import 'package:crm_smart/ui/screen/invoice/invoiceView.dart';
 import 'package:crm_smart/ui/screen/support/support_add.dart';
@@ -124,7 +125,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
                 //   fkclient: _clientModel.idClients.toString(),
                 //   fkuser: '',),
                 InvoiceView(invoice: _invoiceModel),
-                ClientView(clientModel: _clientModel),
+                commentView( fk_client:_clientModel.idClients.toString()),
                 support_add( idinvoice: _invoiceModel!.idInvoice,),
                 //InvoiceView(invoice: _invoiceModel,),
                 //Icon(Icons.add),

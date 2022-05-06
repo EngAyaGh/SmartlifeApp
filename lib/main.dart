@@ -23,6 +23,7 @@ import 'package:crm_smart/ui/screen/user/alluser.dart';
 import 'package:crm_smart/ui/widgets/combox_widget/levelcombox.dart';
 import 'package:crm_smart/view_model/approve_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/comment.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/event_provider.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
@@ -157,8 +158,7 @@ void main() async {
           update: (ctx,value,prev)=>prev!..setvalue(value.listinvoices),
 
         ),
-        // ChangeNotifierProvider<EventProvider>(
-        //     create: (_)=> EventProvider()),
+         ChangeNotifierProvider<comment_vm>(create: (_)=> comment_vm()),
 
   ], child:MyApp()));
 }

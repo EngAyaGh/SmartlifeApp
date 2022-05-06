@@ -1,6 +1,7 @@
 
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/RowWidget.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -68,8 +69,23 @@ Widget _product(  List<ProductsInvoice>? products){
                     cardRow( title:' التجديد السنوي',value:invoice!.renewYear.toString()),
                     //cardRow('  المنتجات',invoice.products.toString()),
                     cardRow( title:'آخر تعديل من قبل',value:invoice!.lastuserupdateName.toString()),
-                    cardRow( title:'تاريخ آخر تعديل',value:invoice!.date_lastuserupdate.toString())
-
+                    cardRow( title:'تاريخ آخر تعديل',value:invoice!.date_lastuserupdate.toString()),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    CustomButton(
+       text: 'تعديل الفاتورة',
+      onTap: () async {
+          },
+    ),
+    CustomButton(
+      //width: MediaQuery.of(context).size.width * 0.2,
+      text: 'حذف الفاتورة',
+      onTap: () async {
+      },
+    ),
+  ],
+),
                   ],
                 )
               ],

@@ -1,13 +1,15 @@
 
 
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:crm_smart/model/commentmodel.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class cardcomment extends StatelessWidget {
-  const cardcomment({Key? key}) : super(key: key);
-
+   cardcomment({ required this.commentmodel, Key? key}) : super(key: key);
+   CommentModel commentmodel;
   @override
   Widget build(BuildContext context) {
     return   Padding(
@@ -18,18 +20,18 @@ class cardcomment extends StatelessWidget {
             CircleAvatar(
               maxRadius: 30,
               child:
-              usermodell.img_image.toString().trim().length==0
+              commentmodel.imgImage.toString().trim().length==0
               // ||usermodell.img_thumbnail.toString().trim().isEmpty
-                  ? usermodell.nameUser.toString().isEmpty||usermodell.nameUser==null
+                  ? commentmodel.nameUser.toString().isEmpty||commentmodel.nameUser==null
                   ? Icon(
                 Icons.person,
                 size: 50,
                 color: Colors.lightBlueAccent,
-              ) : Text(usermodell.nameUser.toString().substring(0, 1))
+              ) : Text(commentmodel.nameUser.toString().substring(0, 1))
                   : CachedNetworkImage(
                 placeholder: (context, url) =>
                 const CircularProgressIndicator(),
-                imageUrl: usermodell.img_image!,
+                imageUrl: commentmodel.imgImage,
               ),
               // CachedNetworkImage(
               //   progressIndicatorBuilder: (context, url, progress) => Center(
@@ -57,7 +59,7 @@ class cardcomment extends StatelessWidget {
                     color: Colors.black87.withOpacity(0.2),
                   ),
                 ],
-                color: Colors.white30,
+                color: Colors.black12,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,14 +70,14 @@ class cardcomment extends StatelessWidget {
                         color: Colors.black87,
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        textstring: date.toString(),
+                        textstring: commentmodel.date_comment.toString(),
                         underline: TextDecoration.none,
                       ),
                       TextUtilis(
                         color: Colors.black87,
                         fontSize: 25,
                         fontWeight: FontWeight.normal,
-                        textstring: name.typeAdministration.toString(),
+                        textstring: commentmodel.nameUser.toString(),
                         underline: TextDecoration.none,
                       ),
                     ],
@@ -84,7 +86,7 @@ class cardcomment extends StatelessWidget {
                     color: Colors.black87,
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    textstring: content,
+                    textstring: commentmodel.content,
                     underline: TextDecoration.none,
                   ),
 
