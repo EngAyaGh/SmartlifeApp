@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:crm_smart/Repository/cache_repo.dart';
 import 'package:crm_smart/view_model/notify_vm.dart';
 
+import '../constants.dart';
+
 class InvoiceModel extends CacheRepository{
   InvoiceModel({
      this.idInvoice,
@@ -33,6 +35,7 @@ class InvoiceModel extends CacheRepository{
     this.dateinstall_task,
     this.nameuserApprove,
     this.date_lastuserupdate,
+    this.path,
 
 
   });
@@ -41,7 +44,7 @@ class InvoiceModel extends CacheRepository{
     String? typePay;
     String? renewYear;
     String? typeInstallation;
-    String? imageRecord;
+    String? imageRecord='';
     String? fkIdClient;
     String? fkIdUser;
     String? amountPaid;
@@ -63,6 +66,8 @@ class InvoiceModel extends CacheRepository{
     String? dateinstall_task;
     String? nameuserApprove;
     String? date_lastuserupdate;
+    String? path = '';
+
   //Map<String, dynamic> products;
    List<ProductsInvoice>? products;
   // var products;
@@ -73,7 +78,11 @@ class InvoiceModel extends CacheRepository{
     typePay = jsondata['type_pay'];
     renewYear = jsondata['renew_year'];
     typeInstallation = jsondata['type_installation'];
-    imageRecord = jsondata['image_record'];
+    //json['img_image'].toString().trim().isEmpty?json['img_image']: urlimage+ json['img_image'];
+
+    imageRecord = jsondata['image_record'].toString().trim().isEmpty
+    ? jsondata['image_record']
+    : urlfile+ jsondata['image_record'];
     fkIdClient = jsondata['fk_idClient'];
     fkIdUser = jsondata['fk_idUser'];
     amountPaid = jsondata['amount_paid'];
@@ -95,6 +104,7 @@ class InvoiceModel extends CacheRepository{
     dateinstall_task=jsondata['dateinstall_task'];
     nameuserApprove=jsondata['nameuserApprove'];
     date_lastuserupdate=jsondata['date_lastuserupdate'];
+    path=jsondata['path'];
 
     products=getproud(jsondata['products']);
       //  json.decode(
@@ -155,6 +165,7 @@ class InvoiceModel extends CacheRepository{
     _data['dateinstall_task'] = dateinstall_task;
     _data['nameuserApprove'] = nameuserApprove;
     _data['date_lastuserupdate'] = date_lastuserupdate;
+    _data['path'] = path;
 
     _data['products'] =
         products!.map((e)=>e.toJson()).toList();

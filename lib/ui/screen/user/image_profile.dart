@@ -30,23 +30,16 @@ class ImageProfile extends StatelessWidget {
             radius: 80.0,
             child:
             Provider.of<user_vm_provider>(context,listen: true)
-                .currentUser!.path!.isNotEmpty?
-                Image.file(
-                    File(Provider.of<user_vm_provider>(context,listen: true)
-                    .currentUser!.img_image!
-                ))
-
+                .currentUser!.path!.isNotEmpty
+           ? Image.file(File(Provider.of<user_vm_provider>(context,listen: true)
+                    .currentUser!.img_image!))
            : Provider.of<user_vm_provider>(context,listen: true)
                 .currentUser!.img_image!.isNotEmpty
-               ?
-            CachedNetworkImage(
+           ? CachedNetworkImage(
               progressIndicatorBuilder: (context, url, progress) => Center(
                 child: CircularProgressIndicator(
-                  value: progress.progress,
-                ),
-              ),
-              imageUrl:
-              Provider.of<user_vm_provider>(context,listen: true)
+                  value: progress.progress,),),
+              imageUrl: Provider.of<user_vm_provider>(context,listen: true)
                 .currentUser!.img_image!       )
                // Image.network( Provider.of<user_vm_provider>(context,listen: true)
                //  .currentUser!.img_image! ,

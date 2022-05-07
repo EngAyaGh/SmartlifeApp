@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
@@ -11,6 +14,7 @@ import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
@@ -20,10 +24,12 @@ import 'package:provider/provider.dart';
 import 'dart:ui' as myui;
 import '../../../constants.dart';
 import '../../../labeltext.dart';
+import '../showpdf.dart';
 import 'add_invoice_product.dart';
 import 'dart:io';
 import 'package:flutter/widgets.dart';
-
+import 'package:path_provider/path_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 class addinvoice extends StatefulWidget {
    addinvoice({
      required this.itemClient,
@@ -68,12 +74,14 @@ class _addinvoiceState extends State<addinvoice> {
    bool _userAborted = false;
    bool _multiPick = false;
    FileType _pickingType = FileType.any;
-  late File? _myfile;
+  late File? _myfile=null;
    InvoiceModel? _invoice;
-@override void dispose() async{
+
+@override
+void dispose() async{
+  print('in dispos add invoice *****************');
   _resetState();
   await FilePicker.platform.clearTemporaryFiles();
-  print('in dispos add invoice *****************');
     super.dispose();
   }
    @override
@@ -118,7 +126,7 @@ else{
         //"date_create": ,
         typeInstallation:typeinstallController,
         amountPaid:amount_paidController.text,
-
+        imageRecord: "",
         fkIdClient:widget.itemClient.idClients,
         fkIdUser:widget.itemClient.fkUser,//صاحب العميل
 
@@ -130,7 +138,6 @@ else{
   Provider.of<invoice_vm>(context,listen: false)
       .listproductinvoic= [];
 }
-
      Provider.of<invoice_vm>(context,listen: false).set_total(totalController.toString());
 
      Provider.of<selected_button_provider>(context,listen: false)
@@ -395,19 +402,29 @@ else{
                         RowEdit(name: label_image, des: ''),
                         //show chose image
                         EditTextFormField(
+                          read: true,
                           icon: Icons.camera,
                           hintText: label_image,
                           ontap: ()async{
-                             FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+                             FilePickerResult? result
+                             = await FilePicker.platform.pickFiles(
+                              // allowedExtensions: ['pdf'],
+                             );
                             //
                              if (result != null) {
                               File? file = File(result.files.single.path.toString());
-                            _myfile=file;
+                             _myfile=file;
+                              imageController.text=file.path;
+                              _invoice!.path=file.path;
                               //   _pickFiles();
                             //   _saveFile();
                             } else {
                               // User canceled the picker
                             }
+                             setState(() {
+
+                             });
                           },
                           obscureText: false,
                           controller:imageController,
@@ -415,7 +432,30 @@ else{
                         SizedBox(
                           height: 15,
                         ),
+                        IconButton(
+                             onPressed: ()async {
+                          //await FilePicker.platform.
+                          if( _invoice!.imageRecord.toString().isNotEmpty){
+                            Provider.of<LoadProvider>(context, listen: false)
+                                .changebooladdinvoice(true);
+                          File? filee=await  createFileOfPdfUrl(_invoice!.imageRecord.toString());
+                            Provider.of<LoadProvider>(context, listen: false)
+                                .changebooladdinvoice(false);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PDFScreen(
+                                      path: filee.path),
+                                ),
+                              );
+                            //   String url =_invoice!.imageRecord.toString();
+                            //   if (await canLaunch(url)) {
+                            //     await launch(url);
+                            //   } else {
+                            //     throw 'Could not launch $url';
+                               }
 
+                        }, icon:Icon( Icons.image)),
                         SizedBox(
                           height: 15,
                         ),
@@ -447,27 +487,16 @@ else{
                                     typeinstallController=
                                     Provider.of<selected_button_provider>(context,listen: false)
                                         .isSelectedtypeinstall.toString();
-                                     if((_invoice!.products!=null)&&(_invoice!.products!.isNotEmpty))
-
-
-                                    {
+                                     if((_invoice!.products!=null)&&(_invoice!.products!.isNotEmpty)) {
                                       Provider.of<LoadProvider>(context, listen: false)
                                           .changebooladdinvoice(true);
-
-                                      totalController=
-
-                                     _invoice!.total.toString();
-
+                                      totalController= _invoice!.total.toString();
                                       _globalKey.currentState!.save();
                                       List<ProductsInvoice>? _products=[];
-                                      // _invoice != null
-                                      //     ? _invoice!.products
-                                      //    :
                                       _products= _invoice!.products;
                                       if (_invoice!.idInvoice != null)
                                       {
                                         String? invoiceID=_invoice!.idInvoice;
-
                                         Provider.of<invoice_vm>(
                                             context, listen: false)
                                             .update_invoiceclient_vm({
@@ -491,7 +520,7 @@ else{
                                           'date_lastuserupdate':DateTime.now().toString(),
 
                                           //"date_changetype":,
-                                        },invoiceID,_myfile
+                                        },invoiceID,_invoice!.path.toString().isNotEmpty?_myfile:null
                                         ).then((value) =>
                                         value != false
                                             ? clear(context,invoiceID.toString(),_products)
@@ -523,10 +552,10 @@ else{
                                           "notes": noteController.text,
                                           'fk_regoin':widget.itemClient.fkRegoin,
                                           'fkcountry':widget.itemClient.fkcountry,
-                                          'date_lastuserupdate':DateTime.now().toString(),
+                                          //'date_lastuserupdate':DateTime.now().toString(),
                                           //"date_changetype":,
                                           //'message':"",
-                                        },_myfile
+                                        },_invoice!.path!.isNotEmpty?_myfile:null
                                         ).then((value) =>
                                         value != "false"
                                             ?clear(context,value,_products)
@@ -697,5 +726,50 @@ else{
      });
    }
 
+Widget fileshow_widget(){
+     // String type='';
+     // type=  _invoice!.imageRecord.toString()
+     //     .substring(_invoice!.imageRecord.toString().length-4,
+     //     _invoice!.imageRecord.toString().length);
+     // return
+     //     _invoice!.path.toString().isNotEmpty
+     //     ?type=='.jpg'
+     //     ?Image.file(File(_invoice!.path.toString()))
+     //     CircleAvatar(radius: 80.0,
+     //     child: _invoice!.path.toString()!.isNotEmpty
+     //         ? CachedNetworkImage(progressIndicatorBuilder: (context, url, progress) => Center(
+     //           child: CircularProgressIndicator(value: progress.progress,),),
+     //         imageUrl: _invoice!.imageRecord.toString()!  )
+     // ): File(_invoice!.imageRecord.toString())
+     //  : File(_invoice!.imageRecord.toString())
+     //  :Container(),
 
+
+     return Container();
+
+}
+   Future<File> createFileOfPdfUrl(String urlparam) async {
+     Completer<File> completer = Completer();
+     print("Start download file from internet!");
+     try {
+       // "https://berlin2017.droidcon.cod.newthinking.net/sites/global.droidcon.cod.newthinking.net/files/media/documents/Flutter%20-%2060FPS%20UI%20of%20the%20future%20%20-%20DroidconDE%2017.pdf";
+       // final url = "https://pdfkit.org/docs/guide.pdf";
+       final url = urlparam;
+       final filename = url.substring(url.lastIndexOf("/") + 1);
+       var request = await HttpClient().getUrl(Uri.parse(url));
+       var response = await request.close();
+       var bytes = await consolidateHttpClientResponseBytes(response);
+       var dir = await getApplicationDocumentsDirectory();
+       print("Download files");
+       print("${dir.path}/$filename");
+       File file = File("${dir.path}/$filename");
+
+       await file.writeAsBytes(bytes, flush: true);
+       completer.complete(file);
+     } catch (e) {
+       throw Exception('Error parsing asset file!');
+     }
+
+     return completer.future;
+   }
 }

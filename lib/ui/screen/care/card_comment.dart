@@ -13,12 +13,12 @@ class cardcomment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   Padding(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(2),
         child:  Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CircleAvatar(
-              maxRadius: 30,
+              maxRadius: 32,
               child:
               commentmodel.imgImage.toString().trim().length==0
               // ||usermodell.img_thumbnail.toString().trim().isEmpty
@@ -48,49 +48,72 @@ class cardcomment extends StatelessWidget {
               //   usermodell.img_thumbnail!)) as Widget ,//as ImageProvider,
               // backgroundColor: Colors.grey.withOpacity(0.1),
             ),
+            SizedBox(width: 2,),
             Container(
               decoration: BoxDecoration(
                 borderRadius:
-                BorderRadius.only(bottomRight: Radius.circular(30)),
+                BorderRadius.only(bottomLeft: Radius.circular(15)),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                     offset: Offset(1.0, 1.0),
-                    blurRadius: 8.0,
-                    color: Colors.black87.withOpacity(0.2),
+                    blurRadius: 2.0,
+                    color: Colors.white24//.withOpacity(0.2),
                   ),
                 ],
                 color: Colors.black12,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      TextUtilis(
-                        color: Colors.black87,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        textstring: commentmodel.date_comment.toString(),
-                        underline: TextDecoration.none,
-                      ),
-                      TextUtilis(
-                        color: Colors.black87,
-                        fontSize: 25,
-                        fontWeight: FontWeight.normal,
-                        textstring: commentmodel.nameUser.toString(),
-                        underline: TextDecoration.none,
-                      ),
-                    ],
-                  ),
-                  TextUtilis(
-                    color: Colors.black87,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    textstring: commentmodel.content,
-                    underline: TextDecoration.none,
-                  ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextUtilis(
+                          color: Colors.black87,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          textstring: commentmodel.date_comment.toString(),
+                          underline: TextDecoration.none,
+                        ),
+                        TextUtilis(
+                          color: Colors.black87,
+                          fontSize: 25,
+                          fontWeight: FontWeight.normal,
+                          textstring: commentmodel.nameUser.toString(),
+                          underline: TextDecoration.none,
+                        ),
+                      ],
+                    ),
+                    // TextUtilis(
+                    //   color: Colors.black87,
+                    //   fontSize: 30,
+                    //   fontWeight: FontWeight.bold,
+                    //   textstring: commentmodel.content,
+                    //   underline: TextDecoration.none,
+                    // ),
+                     Row(
+                       children: [
+                         Text(
+                              commentmodel.content,
+                             maxLines: 4,
+                            overflow: TextOverflow.ellipsis,
 
-                ],
+                          ),
+                       ],
+                     ),
+
+                    // RichText(
+                    //   maxLines: 10,
+                    //   text: TextSpan(
+                    //     text: commentmodel.content,
+                    //     style: DefaultTextStyle.of(context).style,
+                    //   ),
+                    // )
+                  ],
+                ),
               ),
             ),
 

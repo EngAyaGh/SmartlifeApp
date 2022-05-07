@@ -73,14 +73,13 @@ appBar: AppBar(
             // 'name_level' :levelname,
           };
           Provider.of<user_vm_provider>(context,listen: false)
-              .updateuser_vm(body,
-              // controllerUsers[widget.index]
+              .updateuser_vm(
+              body,
               Provider.of<user_vm_provider>(context,listen: false)
                   .currentUser!.idUser,
               Provider.of<user_vm_provider>(context,listen: false)
                   .currentUser!.path!.isNotEmpty?
-              File(
-                  Provider.of<user_vm_provider>(context,listen: false)
+              File(Provider.of<user_vm_provider>(context,listen: false)
                       .currentUser!.path!):null
 
           );

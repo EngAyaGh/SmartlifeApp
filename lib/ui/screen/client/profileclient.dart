@@ -33,6 +33,9 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
 @override void initState() {
 
     super.initState();
+    Provider.of<invoice_vm>(context,listen: false)
+        .get_invoiceclientlocal(widget.idclient);
+
     _clientModel=Provider.of<client_vm>(context,listen: false).listClient
     .firstWhere((element) => element.idClients==widget.idclient);
 
@@ -88,7 +91,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
               ),
             ),
             Text(
-              'الدعم الفني ',
+              'التعليقات ',
               style: TextStyle(
                 fontFamily: kfontfamily2,
                 //fontWeight: FontWeight.bold,
@@ -98,7 +101,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
               ),
             ),
             Text(
-              'العناية بالعملاء ',
+              ' الدعم الفني ',
               style: TextStyle(
                 fontFamily: kfontfamily2,
                 //fontWeight: FontWeight.bold,
@@ -114,8 +117,8 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
 
           Container(
             margin: EdgeInsets.only(bottom: 1),
-            padding: const EdgeInsets.only(top:25,left: 15,right: 15),
-            height: MediaQuery.of(context).size.height*0.75,
+            padding: const EdgeInsets.only(top:25,left: 5,right: 5),
+            height: MediaQuery.of(context).size.height*0.85,
             child: TabBarView(
               controller: _tabcontroller,
               children: <Widget>[
@@ -124,7 +127,10 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
                 //   itemClient: _clientModel,
                 //   fkclient: _clientModel.idClients.toString(),
                 //   fkuser: '',),
-                InvoiceView(invoice: _invoiceModel),
+                InvoiceView(
+                    invoice: _invoiceModel,
+                clientmodel: _clientModel,
+                ),
                 commentView( fk_client:_clientModel.idClients.toString()),
                 support_add( idinvoice: _invoiceModel!.idInvoice,),
                 //InvoiceView(invoice: _invoiceModel,),

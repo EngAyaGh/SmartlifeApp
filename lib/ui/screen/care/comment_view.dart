@@ -29,16 +29,19 @@ class _commentViewState extends State<commentView> {
     return Scaffold(
         body: SafeArea(
       child: Padding(
-        padding: EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
+        padding: EdgeInsets.only(left:10, right: 10, top: 10, bottom: 10),
         child: Directionality(
           textDirection: TextDirection.rtl,
-          child: ListView(children: [
+          child: ListView(
+              children: [
             Row(
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Flexible(
                   child: TextField(
-                    minLines: 10,
+                   // maxLines: 3,
                     controller: _comment,
+                    keyboardType: TextInputType.multiline,
                   ),
                 ),
                 IconButton(

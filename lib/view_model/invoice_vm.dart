@@ -219,10 +219,11 @@ class invoice_vm extends ChangeNotifier{
       Map<String, dynamic?> body,String? idInvoice,File? file) async {
     bool res = await Invoice_Service().updateInvoice(body,idInvoice!,file);
     if (res) {
-      final index=listinvoiceClient.indexWhere((element) => element.idInvoice==idInvoice);
+      final index=listinvoiceClient.indexWhere(
+              (element) => element.idInvoice==idInvoice);
       body.addAll({
         "id_invoice":idInvoice,
-        "date_create":listinvoiceClient[index].dateCreate,
+        "date_create":listinvoiceClient[index].dateCreate.toString(),
         "products":listproductinvoic.map((e)=>e.toJson()).toList()
       });
 

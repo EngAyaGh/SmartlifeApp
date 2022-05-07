@@ -11,7 +11,7 @@ class comment_vm extends ChangeNotifier{
 List<CommentModel> listComments=[];
 
   Future<void> getComment(String fk_client)async {
-    //listoflevel=[];
+    listComments=[];
    // if(listComments.isEmpty){
       List<dynamic> data=[];
       data= await Api()

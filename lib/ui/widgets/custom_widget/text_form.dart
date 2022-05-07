@@ -15,6 +15,7 @@ class EditTextFormField extends StatelessWidget {
   String? label;
   IconData? icon;
   TextInputType? inputType;
+   bool? read=null;
 
   EditTextFormField(
        {
@@ -26,8 +27,9 @@ class EditTextFormField extends StatelessWidget {
         this.vaild,
          this.label,
          this.icon,
-this.maxline,
+         this.maxline,
          this.inputType,
+         this.read,
         Key? key
        })
       : super(key: key);
@@ -44,6 +46,7 @@ this.maxline,
       cursorColor: Colors.black,
       onTap: ontap,
       keyboardType: inputType,
+      readOnly: read==null?false:true,
       decoration: InputDecoration(
         prefixIcon: Icon(
           icon,

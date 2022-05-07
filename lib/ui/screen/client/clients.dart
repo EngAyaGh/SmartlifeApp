@@ -187,7 +187,7 @@ ApproveModel itemapprove;
                 controller: _tabcontroller,
                 children: <Widget>[
                   ClientView(clientModel: _clientModel),
-                  InvoiceView(invoice: _invoiceModel,),
+                  InvoiceView(invoice: _invoiceModel, clientmodel: _clientModel,),
                   //Icon(Icons.add),
                 ],
               ),
