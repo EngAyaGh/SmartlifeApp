@@ -5,6 +5,7 @@ import 'package:crm_smart/ui/screen/support/support_view.dart';
 import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/RowWidget.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/ui/widgets/widgetcalendar/utils.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -61,7 +62,7 @@ class _support_addState extends State<support_add> {
                   children: [
                     RowEdit(name: 'موعد التركيب للعميل من ', des: ''),
                     SizedBox(height: 10,),
-                    _invoice.dateinstall_done!=null?
+                    _invoice.dateinstall_done!=null?//تم التركيب
                     TextField(
                       decoration: InputDecoration(
                         prefixIcon: Icon(
@@ -94,7 +95,7 @@ class _support_addState extends State<support_add> {
                                   color: Colors.black45,
                                   fontSize: 16, fontWeight: FontWeight.w500),
                               hintText:
-                              _invoice.dateinstall_task==null
+                              _invoice.dateinstall_task==null || _currentDate!=DateTime(1,1,1)
                                 ?_currentDate.toString()
                                 :_invoice.dateinstall_task.toString(),
                               filled: true,
@@ -109,18 +110,44 @@ class _support_addState extends State<support_add> {
                         // IconButton(onPressed: (){
                         //   //_selectDate(context,_currentDate);
                         // }, icon: Icon(Icons.edit,color: kMainColor,)),
-                        IconButton(onPressed: (){
+                        _invoice.dateinstall_task==null?
+                        IconButton(onPressed: () {
                           Provider.of<invoice_vm>(context,listen: false)
                               .setdate_vm({
-                            'dateinstall_task':_invoice.dateinstall_task.toString()
+                            'dateinstall_task':_currentDate.toString(),//_invoice.dateinstall_task.toString()
                           }, _invoice.idInvoice);
+                          _invoice.dateinstall_task=_currentDate.toString();
+                        }, icon:Icon( Icons.check,color: kMainColor))
+                        :Container(),
+                        SizedBox(height: 6,),
+                        _invoice.dateinstall_task!=null?
+                        Row(
+                          children: [
+                            Text('إعادة الجدولة'),
+                            IconButton(onPressed: (){
+                              Provider.of<invoice_vm>(context,listen: false)
+                                  .setdate_vm({
+                                'dateinstall_task':_invoice.dateinstall_task.toString(),
+                                'reason_date':_textsupport.text.toString()
+                              }, _invoice.idInvoice);
 
-                        },
-                            icon:Icon( Icons.check,color: kMainColor)),
+                            },
+                                icon:Icon( Icons.check,color: kMainColor)),
+
+                          ],
+                        ):Container(),
                       ],
                     ),
-                    SizedBox(height: 6,),
-                   
+                    _invoice.dateinstall_task!=null?   EditTextFormField(
+                      hintText: 'أسباب إعادة الجدولة',
+                      obscureText: false,
+                      controller: _textsupport,
+                      vaild: (value) {
+                        if (value!.isEmpty) {
+                          return 'الحقل فارغ';
+                        }
+                      },
+                    ):Container(),
                     SizedBox(height: 20,),
 
                     cardRow(title: 'اسم المؤسسة',value: _invoice.name_enterprise.toString()),
@@ -219,7 +246,7 @@ class _support_addState extends State<support_add> {
         _currentDate = pickedDate;
         final time = Duration(hours: DateTime.now().hour, minutes: DateTime.now().minute);
         _currentDate.add(time);
-        _invoice.dateinstall_task=_currentDate.toString();
+        //_invoice.dateinstall_task=_currentDate.toString();
         //_currentDate.hour=DateTime.now().hour;
       });
   }

@@ -94,15 +94,14 @@ class cardcomment extends StatelessWidget {
                     //   textstring: commentmodel.content,
                     //   underline: TextDecoration.none,
                     // ),
-                     Row(
-                       children: [
+                     ListView(
+                       children:[
                          Text(
                               commentmodel.content,
-                             maxLines: 4,
+                            // maxLines: 4,
                             overflow: TextOverflow.ellipsis,
 
-                          ),
-                       ],
+                          ),],
                      ),
 
                     // RichText(
