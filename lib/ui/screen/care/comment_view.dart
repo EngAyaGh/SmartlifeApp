@@ -8,8 +8,9 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
 class commentView extends StatefulWidget {
-  commentView({required this.fk_client, Key? key}) : super(key: key);
+  commentView({required this.fk_client,required this.nameEnterprise, Key? key}) : super(key: key);
   String fk_client;
+  String? nameEnterprise;
   @override
   _commentViewState createState() => _commentViewState();
 }
@@ -21,6 +22,7 @@ class _commentViewState extends State<commentView> {
   void initState() {
     Provider.of<comment_vm>(context, listen: false)
         .getComment(widget.fk_client);
+
     super.initState();
   }
 
@@ -56,6 +58,13 @@ class _commentViewState extends State<commentView> {
                             .toString(),
                         'fk_client': widget.fk_client,
                         'date_comment': DateTime.now().toString(),
+                        'nameUser': Provider.of<user_vm_provider>(context,
+                            listen: false)
+                            .currentUser!.nameUser,
+                        'img_image':Provider.of<user_vm_provider>(context,
+                            listen: false)
+                            .currentUser!,
+                        'name_enterprise':widget.nameEnterprise
                       });
                     },
                     icon: Icon(Icons.check, color: kMainColor)),

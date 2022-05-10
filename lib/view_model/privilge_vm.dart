@@ -36,12 +36,12 @@ return list;
 }
 
 
-Future<bool> updatepriv_vm(
+Future<String> updatepriv_vm(
     String? fk_privileg,String is_check) async {
-  bool res = await Api( ).post(
+  String res = await Api( ).post(
       url: url+'privilge/privUpdate.php?fk_privileg=$fk_privileg',
       body: {'is_check':is_check});
-  if (res) {
+  //if (res) {
     int index=privilgelist.indexWhere((element)
     => element.isCheck==is_check);
     // body.addAll({
@@ -50,7 +50,7 @@ Future<bool> updatepriv_vm(
     //privilgelist[index]=PrivilgeModel.fromJson(body);
     //listProduct.insert(0, ProductModel.fromJson(body));
     notifyListeners();
-  }
+  //}
   return res;
 }
 

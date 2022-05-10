@@ -42,6 +42,7 @@ class user_vm_provider extends ChangeNotifier{
         element.idUser ==iduser );
     userall[index] =await UserService()
         .UpdateUser(body: body,idUser: iduser,file: file);
+    getcurrentuser();
     //if(result!="error"){
 
     // body.addAll({

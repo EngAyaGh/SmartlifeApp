@@ -432,30 +432,42 @@ else{
                         SizedBox(
                           height: 15,
                         ),
-                        IconButton(
-                             onPressed: ()async {
-                          //await FilePicker.platform.
-                          if( _invoice!.imageRecord.toString().isNotEmpty){
-                            Provider.of<LoadProvider>(context, listen: false)
-                                .changebooladdinvoice(true);
-                          File? filee=await  createFileOfPdfUrl(_invoice!.imageRecord.toString());
-                            Provider.of<LoadProvider>(context, listen: false)
-                                .changebooladdinvoice(false);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => PDFScreen(
-                                      path: filee.path),
-                                ),
-                              );
-                            //   String url =_invoice!.imageRecord.toString();
-                            //   if (await canLaunch(url)) {
-                            //     await launch(url);
-                            //   } else {
-                            //     throw 'Could not launch $url';
-                               }
 
-                        }, icon:Icon( Icons.image)),
+
+                        _invoice!.imageRecord.toString().isNotEmpty?
+                        Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('فتح الملف'),
+                              IconButton(
+                                iconSize: 50,
+                                   onPressed: ()async {
+                                //await FilePicker.platform.
+                                if( _invoice!.imageRecord.toString().isNotEmpty){
+                                  Provider.of<LoadProvider>(context, listen: false)
+                                      .changebooladdinvoice(true);
+                                File? filee=await  createFileOfPdfUrl(_invoice!.imageRecord.toString());
+                                  Provider.of<LoadProvider>(context, listen: false)
+                                      .changebooladdinvoice(false);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => PDFScreen(
+                                            path: filee.path),
+                                      ),
+                                    );
+                                  //   String url =_invoice!.imageRecord.toString();
+                                  //   if (await canLaunch(url)) {
+                                  //     await launch(url);
+                                  //   } else {
+                                  //     throw 'Could not launch $url';
+                                     }
+
+                              }, icon:Icon( Icons.image)),
+                            ],
+                          ),
+                        ):Container(),
                         SizedBox(
                           height: 15,
                         ),

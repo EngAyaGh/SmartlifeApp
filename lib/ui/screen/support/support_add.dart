@@ -21,6 +21,9 @@ class support_add extends StatefulWidget {
 
 class _support_addState extends State<support_add> {
   TextEditingController _textsupport=TextEditingController();
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   late InvoiceModel _invoice;
   @override
   void initState()  {
@@ -50,6 +53,8 @@ class _support_addState extends State<support_add> {
   Widget build(BuildContext context) {
     print('builld');
     return Scaffold(
+      key: _scaffoldKey,
+
       body: SafeArea(
         child: Directionality(
           textDirection: TextDirection.rtl,
@@ -78,11 +83,11 @@ class _support_addState extends State<support_add> {
                         fillColor: Colors.grey.shade200,
                       ),
                       readOnly: true,
-                      onTap: (){
-                      },
+                      onTap: (){},
                     ):
                     Row(
                       children: [
+                      //  SizedBox(width: 3,),
                         Flexible(
                           child:
                           TextField(
@@ -115,7 +120,7 @@ class _support_addState extends State<support_add> {
                           Provider.of<invoice_vm>(context,listen: false)
                               .setdate_vm({
                             'dateinstall_task':_currentDate.toString(),//_invoice.dateinstall_task.toString()
-                          }, _invoice.idInvoice);
+                          }, _invoice.idInvoice).then((value) => value==true? clear():error());
                           _invoice.dateinstall_task=_currentDate.toString();
                         }, icon:Icon( Icons.check,color: kMainColor))
                         :Container(),
@@ -123,6 +128,7 @@ class _support_addState extends State<support_add> {
                         _invoice.dateinstall_task!=null?
                         Row(
                           children: [
+                            SizedBox(width: 6,),
                             Text('إعادة الجدولة'),
                             IconButton(onPressed: (){
                               Provider.of<invoice_vm>(context,listen: false)
@@ -138,15 +144,20 @@ class _support_addState extends State<support_add> {
                         ):Container(),
                       ],
                     ),
-                    _invoice.dateinstall_task!=null?   EditTextFormField(
-                      hintText: 'أسباب إعادة الجدولة',
-                      obscureText: false,
-                      controller: _textsupport,
-                      vaild: (value) {
-                        if (value!.isEmpty) {
-                          return 'الحقل فارغ';
-                        }
-                      },
+                    _invoice.dateinstall_task!=null?
+                    Padding(
+                      padding: const EdgeInsets.only(top:8.0),
+                      child: EditTextFormField(
+                        maxline: 4,
+                        hintText: 'أسباب إعادة الجدولة',
+                        obscureText: false,
+                        controller: _textsupport,
+                        vaild: (value) {
+                          if (value!.isEmpty) {
+                            return 'الحقل فارغ';
+                          }
+                        },
+                      ),
                     ):Container(),
                     SizedBox(height: 20,),
 
@@ -200,12 +211,14 @@ class _support_addState extends State<support_add> {
                                   Provider.of<invoice_vm>(context,listen: false)
                                       .setdatedone_vm({
                                     'dateinstall_done':DateTime.now().toString(),
-                                    'userinstall':Provider.of<user_vm_provider>
+                                    'userinstall': Provider.of<user_vm_provider>
                                       (context,listen: false).currentUser!.idUser.toString(),
                                     'isdoneinstall':'1',
                                     'nameuserinstall':Provider.of<user_vm_provider>
                                       (context,listen: false).currentUser!.nameUser.toString(),
-                                     'name_enterprise':_invoice.name_enterprise
+                                     'name_enterprise':_invoice.name_enterprise,
+                                    'fkcountry':'1',
+                                        'fk_regoin':_invoice.fk_regoin
                                   }, _invoice.idInvoice);
 
                                 },
@@ -251,6 +264,13 @@ class _support_addState extends State<support_add> {
       });
   }
 
+clear(){
 
-
+  _scaffoldKey.currentState!.showSnackBar(
+      SnackBar(content: Text('تم التثبيت بنجاح')));
+}
+error(){
+  _scaffoldKey.currentState!.showSnackBar(
+      SnackBar(content: Text('يوجد مشكلة ما  ')));
+}
 }

@@ -53,7 +53,7 @@ class Invoice_Service {
       Map<String,dynamic> body,String id_invoice) async {
     String result = await Api()
         .post( url:url+
-        "client/invoice/setdateinstall.php?$id_invoice",body:
+        "client/invoice/setdateinstall.php?id_invoice=$id_invoice",body:
     body
     );
     //client/setApproveClient.php

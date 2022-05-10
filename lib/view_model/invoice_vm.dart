@@ -272,8 +272,10 @@ class invoice_vm extends ChangeNotifier{
     if (res) {
       int index=listinvoices.indexWhere(
               (element) => element.idInvoice==id_invoice);
-
-      //listClient.removeAt(index);
+      // body.addAll(
+      //     InvoiceModel.fromJson(listinvoices[index]));
+      // listinvoices[index]= InvoiceModel.fromJson(body);
+      // //listClient.removeAt(index);
       notifyListeners();
     }
     return res;

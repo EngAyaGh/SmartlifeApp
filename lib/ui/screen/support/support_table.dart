@@ -22,7 +22,7 @@ class support_table extends StatefulWidget {
   _support_tableState createState() => _support_tableState();
 }
 int isSelectedtypeinstall=0;
-late final String iduser;
+late  String iduser;
 List<InvoiceModel> listfilter=[];
 class _support_tableState extends State<support_table> {
   @override

@@ -43,7 +43,7 @@ class _check_levelState extends State<check_level> {
          },
        backgroundColor: kMainColor,),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(18.0),
         child: SingleChildScrollView(
 
           child:ListView.builder(
@@ -77,16 +77,19 @@ class _check_levelState extends State<check_level> {
                                              fk_level: _listlevel[index].idLevel,
                                            )));
                                  },
-                          child:  Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all( Radius.circular(5)),),
+                          child:  Padding(
+                            padding: const EdgeInsets.all(14.0),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all( Radius.circular(5)),),
 
-                            //color: kMainColor,
-                            child: Padding(
-                                 padding: EdgeInsets.all(15),
-                                 child: Text(_listlevel[index].nameLevel),
-                               ),
+                              //color: kMainColor,
+                              child: Padding(
+                                   padding: EdgeInsets.all(4),
+                                   child: Text(_listlevel[index].nameLevel),
+                                 ),
+                            ),
                           ),
                            ),
                          ),
