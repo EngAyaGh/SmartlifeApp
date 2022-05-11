@@ -119,14 +119,15 @@ class Invoice_Service {
       return "false";
     }
   }
-  Future<bool> updateInvoice( Map<String,dynamic> body,
+
+  Future<InvoiceModel> updateInvoice( Map<String,dynamic> body,
       String idInvoice,File? file) async {
-    String result = await Api()
+    var result = await Api()
         .postRequestWithFile(
         url+"client/invoice/updateinvoice.php",
         body,file
     );
-    return result=="done"? true:false;
+    return result[0];//=="done"? true:false;
   }
   Future<bool> updateProductInvoice( Map<String,dynamic> body,String idInvoiceProduct) async {
     String result = await Api()

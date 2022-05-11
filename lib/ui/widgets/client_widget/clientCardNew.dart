@@ -99,10 +99,18 @@ ${itemClient.nameEnterprise.toString().substring(45,itemClient.nameEnterprise.to
                           color: kMainColor,
                             fontFamily: kfontfamily2),),
 
-                      Text(
-                        'المتبقي'.toString(),
+                      itemClient.amount_paid!=null?
+                      Text('المتبقي' +
+                        itemClient.amount_paid.toString(),
                         style: TextStyle(
                           color: kMainColor,
+                            fontSize: 10,
+                            fontFamily: kfontfamily2),)
+                          : Text(
+                        'المتبقي' ,
+                        style: TextStyle(
+                            color: kMainColor,
+                            fontSize: 10,
                             fontFamily: kfontfamily2),),
 
                       Text(itemClient.nameUser.toString(),

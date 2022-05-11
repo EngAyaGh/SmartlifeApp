@@ -139,8 +139,7 @@ class _tabclientsState extends State<tabclients> {
                                       Radius.circular(6.0) //                 <--- border radius here
                                 ),
                                   ),
-                                  child: DropdownButton(
-
+                                  child: DropdownButtonFormField(
                                     isExpanded: true,
                                     hint: Padding(
                                       padding: const EdgeInsets.only(right: 10),

@@ -4,6 +4,7 @@ import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/screen/home/home.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,8 +15,10 @@ import '../../../constants.dart';
 import 'clients.dart';
 
 class transferClient extends StatefulWidget {
-   transferClient({required this.name_enterprise, required this.idclient, Key? key}) : super(key: key);
+   transferClient({ this.idticket,required this.type, required this.name_enterprise, required this.idclient, Key? key}) : super(key: key);
    String idclient,name_enterprise;
+   String type;
+   String? idticket;
   @override
   _transferClientState createState() => _transferClientState();
 }
@@ -32,7 +35,6 @@ class _transferClientState extends State<transferClient> {
           .userall.length);
     }
     );
-
     super.didChangeDependencies();
   }
   @override
@@ -79,43 +81,41 @@ class _transferClientState extends State<transferClient> {
                   backgroundColor: MaterialStateProperty.all(
                       kMainColor)),
               onPressed: () {
-                // Map<String,dynamic> data={
-                //   'click_action':'FLUTTER_NOTIFICATION_CLICK',
-                //   'id':'1',
-                //   'name':'aya'};
-                //
-                // var body={
-                //   //'token': "token",
-                //   //"to":"",
-                //   "direct_boot_ok" : true,
-                //   "notification":{
-                //     "title":"FCM Message",
-                //     "body":"This is an FCM notification message!",
-                //   },
-                //   "data": data,
-                //   'to': FirebaseMessaging.instance.getToken(),
-                // };
-                // //send notification
-                // FCM().sendnotification(body);
+                if(widget.type=="ticket"){
+                  //update fkuser to new user
+                  Provider.of<ticket_vm>(context,listen: false)
+                      .setfTicketclient_vm(
+                      {
+                        'fk_user_recive':iduser,
+                        'fkuser':iduser,//user reciept
+                       'fk_client':widget.idclient,
+                        'nameusertransfer':
+                        Provider.of<user_vm_provider>(context,listen: false)
+                            .currentUser!.nameUser.toString(),//الموظف الذي حول العميل
+                        'name_enterprise':widget.name_enterprise,
+                        'fkusertrasfer':    Provider.of<user_vm_provider>(context,listen: false)
+                            .currentUser!.idUser.toString(),
+                        //'idclient':
+                      },widget.idticket
+                  );
+                }
+                else{
+                  //update fkuser to new user
+                  Provider.of<client_vm>(context,listen: false)
+                      .setfkUserclient_vm(
+                      {
+                        'fkuser':iduser,//user reciept
+                        'nameusertransfer':
+                        Provider.of<user_vm_provider>(context,listen: false)
+                            .currentUser!.nameUser.toString(),//الموظف الذي حول العميل
+                        'name_enterprise':widget.name_enterprise,
+                        'fkusertrasfer':    Provider.of<user_vm_provider>(context,listen: false)
+                            .currentUser!.idUser.toString(),
+                        //'idclient':
+                      },widget.idclient
+                  );
+                }
 
-                //remove client from my client
-                // idclient
-                // Provider.of<client_vm>(context,listen: false)
-                //     .removeclient(widget.idclient);
-                //update fkuser to new user
-               Provider.of<client_vm>(context,listen: false)
-                   .setfkUserclient_vm(
-                 {
-                   'fkuser':iduser,//user reciept
-                   'nameusertransfer':
-                   Provider.of<user_vm_provider>(context,listen: false)
-                   .currentUser!.nameUser.toString(),//الموظف الذي حول العميل
-                   'name_enterprise':widget.name_enterprise,
-                   'fkusertrasfer':    Provider.of<user_vm_provider>(context,listen: false)
-                   .currentUser!.idUser.toString(),
-                   //'idclient':
-                 },widget.idclient
-               );
                 //navigator to clients view page
 
                 Navigator.pushAndRemoveUntil(context,

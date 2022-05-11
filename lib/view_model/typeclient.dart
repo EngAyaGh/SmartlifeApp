@@ -24,10 +24,11 @@ class typeclient extends ChangeNotifier{
 
   //
 
-Future<void> getreasons()async{
-
+Future<void> getreasons(String type)async{
+  selectedValuemanag=null;
+  notifyListeners();
   if(type_of_out.isEmpty)
-    type_of_out = await config_service().getreason();
+    type_of_out = await config_service().getreason(type);
   notifyListeners();
 }
 

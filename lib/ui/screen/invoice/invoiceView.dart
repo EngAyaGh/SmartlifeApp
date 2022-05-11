@@ -7,7 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class InvoiceView extends StatelessWidget {
-  InvoiceView({this.invoice,required this.clientmodel, Key? key}) : super(key: key);
+  InvoiceView({this.invoice, required this.clientmodel, Key? key})
+      : super(key: key);
   InvoiceModel? invoice;
   ClientModel clientmodel;
   Widget _product(List<ProductsInvoice>? products) {
@@ -16,107 +17,111 @@ class InvoiceView extends StatelessWidget {
         itemCount: products!.length,
         itemBuilder: (context, index) {
           return
-              // Consumer<user_vm_provider>(
-              //   builder: (context, cart, child) {
-              //     return
-              cardRow(
-                  title: products[index].nameProduct.toString(),
-                  value: products[index].price.toString());
+            // Consumer<user_vm_provider>(
+            //   builder: (context, cart, child) {
+            //     return
+            cardRow(
+                title: products[index].nameProduct.toString(),
+                value: products[index].price.toString());
           //});
         },
-        // separatorBuilder: (context, index) {
-        //   return Padding(
-        //     padding: EdgeInsets.only(right: 30, left: 20, bottom: 5),
-        //     child: Divider(
-        //       color: Colors.black12,
-        //       thickness: 1,
-        //     ),
-        //   );
-        // },
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Container(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 10),
-          child: Column(
-            children: [
-              _product(invoice!.products),
-              Column(
-                children: [
-                  Container(
-                      color: Colors.amberAccent,
-                      child: cardRow(
-                        title: ' المبلغ الإجمالي',
-                        value: invoice!.total.toString(),
-                        alignment: MainAxisAlignment.center,
-                      )),
-
-                  cardRow(
-                      title: 'تاريخ عقد الإشتراك',
-                      value: invoice!.dateCreate.toString()),
-                  cardRow(
-                      title: 'اسم المؤسسة',
-                      value: invoice!.name_enterprise.toString()),
-                  cardRow(
-                      title: 'موظف المبيعات',
-                      value: invoice!.nameUser.toString()),
-                  cardRow(
-                      title: ' المبلغ المتبقي',
-                      value: (double.parse(invoice!.total.toString()) -
-                              double.parse(invoice!.amountPaid.toString()))
-                          .toString()),
-                  cardRow(
-                      title: ' المنطقة',
-                      value: invoice!.name_regoin.toString()),
-                  cardRow(
-                      title: ' طريقة الدفع',
-                      value: invoice!.typePay.toString()),
-                  cardRow(
-                      title: ' طريقة التركيب',
-                      value: invoice!.typeInstallation.toString()),
-                  cardRow(
-                      title: ' التجديد السنوي',
-                      value: invoice!.renewYear.toString()),
-                  //cardRow('  المنتجات',invoice.products.toString()),
-                  cardRow(
-                      title: 'آخر تعديل من قبل',
-                      value: invoice!.lastuserupdateName.toString()),
-                  cardRow(
-                      title: 'تاريخ آخر تعديل',
-                      value:
-                      invoice!.date_lastuserupdate!=null?
-                      invoice!.date_lastuserupdate.toString():''),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                   //crossAxisAlignment: CrossAxisAlignment.center,
+    return SingleChildScrollView(
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Column(
+          children: [
+            Container(
+                height: MediaQuery.of(context).size.height * 0.25,
+                child: _product(invoice!.products)),
+            Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.75,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    border: Border.all(color: Colors.amber),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomButton(
-                        text: 'تعديل الفاتورة',
-                        onTap: () async {
-                              Navigator.push(context, MaterialPageRoute(
-                                  builder: (context)=>
-                                      addinvoice(
-                                        invoice: invoice,
-                                          itemClient: clientmodel)));
-                        },
-                      ),
-                      CustomButton(
-                        //width: MediaQuery.of(context).size.width * 0.2,
-                        text: 'حذف الفاتورة',
-                        onTap: () async {},
-                      ),
+                      Text('المبلغ الإجمالي '),
+                      Text(invoice!.total.toString()),
                     ],
                   ),
-                ],
-              )
-            ],
-          ),
+                  //  cardRow(
+                  //   title: ' المبلغ الإجمالي',
+                  //   value: invoice!.total.toString(),
+                  //   alignment: MainAxisAlignment.center,
+                  // ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+
+                cardRow(
+                    title: 'تاريخ عقد الإشتراك',
+                    value: invoice!.dateCreate.toString()),
+                cardRow(
+                    title: 'اسم المؤسسة',
+                    value: invoice!.name_enterprise.toString()),
+                cardRow(
+                    title: 'موظف المبيعات',
+                    value: invoice!.nameUser.toString()),
+                cardRow(
+                    title: ' المبلغ المتبقي',
+                    value: (double.parse(invoice!.total.toString()) -
+                        double.parse(invoice!.amountPaid.toString()))
+                        .toString()),
+                cardRow(
+                    title: ' المنطقة', value: invoice!.name_regoin.toString()),
+                cardRow(
+                    title: ' طريقة الدفع', value: invoice!.typePay.toString()),
+                cardRow(
+                    title: ' طريقة التركيب',
+                    value: invoice!.typeInstallation.toString()),
+                cardRow(
+                    title: ' التجديد السنوي',
+                    value: invoice!.renewYear.toString()),
+                //cardRow('  المنتجات',invoice.products.toString()),
+                cardRow(
+                    title: 'آخر تعديل من قبل',
+                    value: invoice!.lastuserupdateName.toString()),
+                cardRow(
+                    title: 'تاريخ آخر تعديل',
+                    value: invoice!.date_lastuserupdate != null
+                        ? invoice!.date_lastuserupdate.toString()
+                        : ''),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CustomButton(
+                      text: 'تعديل الفاتورة',
+                      onTap: () async {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => addinvoice(
+                                    invoice: invoice,
+                                    itemClient: clientmodel)));
+                      },
+                    ),
+                    CustomButton(
+                      //width: MediaQuery.of(context).size.width * 0.2,
+                      text: 'حذف الفاتورة',
+                      onTap: () async {},
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );

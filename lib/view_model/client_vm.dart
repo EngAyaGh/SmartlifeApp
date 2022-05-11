@@ -210,66 +210,70 @@ else{
   }
 
   Future<bool> updateclient_vm(Map<String, dynamic?> body,String? id_client) async {
-    bool res = await ClientService().updateClient(body,id_client!);
-    if (res) {
+    ClientModel data = await ClientService().updateClient(body,id_client!);
+
       int index=listClientbyCurrentUser.indexWhere((element)
       => element.idClients==id_client);
-      body.addAll({
-        'id_clients':id_client,
-        'date_create':listClientbyCurrentUser[index].dateCreate,
-        'nameUser':listClientbyCurrentUser[index].nameUser,
-        'name_regoin':listClientbyCurrentUser[index].name_regoin.toString(),
-        'fk_regoin':listClientbyCurrentUser[index].fkRegoin,
-        'fk_user':listClientbyCurrentUser[index].fkUser,
-        'nameCountry':listClientbyCurrentUser[index].nameCountry,
-        'date_price':listClientbyCurrentUser[index].date_price,
-      });
-      listClient[index]=ClientModel.fromJson(body);
+      // body.addAll({
+      //   'id_clients':id_client,
+      //   'date_create':listClientbyCurrentUser[index].dateCreate,
+      //   'nameUser':listClientbyCurrentUser[index].nameUser,
+      //   'name_regoin':listClientbyCurrentUser[index].name_regoin.toString(),
+      //   'fk_regoin':listClientbyCurrentUser[index].fkRegoin,
+      //   'fk_user':listClientbyCurrentUser[index].fkUser,
+      //   'nameCountry':listClientbyCurrentUser[index].nameCountry,
+      //   'date_price':listClientbyCurrentUser[index].date_price,
+      //   "amount_paid":listClientbyCurrentUser[index].amount_paid,
+      //   "total":listClientbyCurrentUser[index].total,
+      //
+      // });
+      listClient[index]=data;//ClientModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
-    }
-    return res;
+
+    return true;
   }
   void getudate(){
     listClientfilter=listClient;
     notifyListeners();
   }
   Future<bool> setApproveclient_vm(Map<String, dynamic?> body,String? id_client) async {
-    bool res = await ClientService().setApproveClient(body,id_client!);
-    if (res) {
+    ClientModel data = await ClientService().setApproveClient(body,id_client!);
+
       int index=listClient.indexWhere((element) => element.idClients==id_client);
-       body.addAll({
-       'id_clients':listClient[index].idClients,
-       'date_approve':Utils.toDate(DateTime.now()),
-       "type_client": listClient[index].typeClient,
-       'name_client': listClient[index].nameClient,
-       //'name_enterprise':
-       'type_job': listClient[index].typeJob,
-       'location': listClient[index].location,
-       'city': listClient[index].city,
-       "mobile": listClient[index].mobile,
-       "date_changetype": listClient[index].dateChangetype,
-       "offer_price": listClient[index].offer_price,
-       "reason_change": listClient[index].reasonChange,
-       "user_do": listClient[index].user_do,
-       "desc_reason": listClient[index].desc_reason,
-       "value_back": listClient[index].value_back,
-       'name_regoin': listClient[index].name_regoin,
-       "nameUser":listClient[index].nameUser,
-       //   'iduser_approve':listClientbyCurrentUser[index].iduser_approve,
-       });
-      listClient[index]=ClientModel.fromJson(body);
+       // body.addAll({
+       // 'id_clients':listClient[index].idClients,
+       // 'date_approve':Utils.toDate(DateTime.now()),
+       // "type_client": listClient[index].typeClient,
+       // 'name_client': listClient[index].nameClient,
+       // //'name_enterprise':
+       // 'type_job': listClient[index].typeJob,
+       // 'location': listClient[index].location,
+       // 'city': listClient[index].city,
+       // "mobile": listClient[index].mobile,
+       // "date_changetype": listClient[index].dateChangetype,
+       // "offer_price": listClient[index].offer_price,
+       // "reason_change": listClient[index].reasonChange,
+       // "user_do": listClient[index].user_do,
+       // "desc_reason": listClient[index].desc_reason,
+       // "value_back": listClient[index].value_back,
+       // 'name_regoin': listClient[index].name_regoin,
+       // "nameUser":listClient[index].nameUser,
+       // "amount_paid":listClient[index].amount_paid,
+       // "total":listClient[index].total
+       // //   'iduser_approve':listClientbyCurrentUser[index].iduser_approve,
+       // });
+      listClient[index]=data;//ClientModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
-    }
-    return res;
+
+    return true;
   }
   Future<bool> setfkUserclient_vm(Map<String, dynamic?> body,String? id_client) async {
     bool res = await ClientService().setfkuserClient(body,id_client!);
     if (res) {
       int index=listClient.indexWhere(
               (element) => element.idClients==id_client);
-
       listClient.removeAt(index);
       notifyListeners();
     }

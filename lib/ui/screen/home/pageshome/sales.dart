@@ -80,13 +80,14 @@ class _salesState extends State<sales> {
     // Consumer<privilge_vm>(
     // builder: (context, privilge, child){
     // return     privilge.checkprivlge('1')==true?
-    buildSelectCategory(
-                  onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context)=>
-                        AcceptPage()));
-              }, title:  'العملاء المشتركين '
-    ),//:Container()
+    // buildSelectCategory(
+    //               onTap: () {
+    //             Navigator.push(context, MaterialPageRoute(
+    //                 builder: (context)=>
+    //                     AcceptPage()));
+    //           }, title:  'العملاء المشتركين '
+    // ),
+              //:Container()
               // ;}),
             //AcceptPage
             // buildSelectCategory(
@@ -95,12 +96,15 @@ class _salesState extends State<sales> {
             //           builder: (context)=>
             //               MyClientPage()));
             //     }, title:  'عملائي'),
-    // privilge.checkprivlge('2')==true?
-    // buildSelectCategory(onTap: () {
-    //           Navigator.push(context, MaterialPageRoute(
-    //               builder: (context)=>
-    //                   ApprovePage()));
-    //         }, title:  'كل طلبات الموافقة '):Container(),
+              Provider.of<privilge_vm>(context,listen: true)
+                  .checkprivlge('2')==true || Provider.of<privilge_vm>(context,listen: true)
+                  .checkprivlge('7')==true?
+    buildSelectCategory(onTap: () {
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context)=>
+                      ApprovePage()));
+            }, title:  ' طلبات الموافقة '):Container(),
+
     //           privilge.checkprivlge('5')==true?
     //           buildSelectCategory(onTap: () {
     //             Navigator.push(context, MaterialPageRoute(
@@ -108,14 +112,15 @@ class _salesState extends State<sales> {
     //                     ApprovePage()));
     //           }, title:  'تاركيت الموظف '):Container(),
     //
-    // privilge.checkprivlge('14')==true?
-    // buildSelectCategory(
-    //             onTap: () {
-    //               Navigator.push(context, MaterialPageRoute(
-    //                   builder: (context)=>
-    //                  deletedinvoice()));
-    //                  },
-    //                   title:  'الفواتير المحذوفة'):Container(),
+              Provider.of<privilge_vm>(context,listen: true)
+                .checkprivlge('14')==true?
+    buildSelectCategory(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context)=>
+                     deletedinvoice()));
+                     },
+                      title:  'الفواتير المحذوفة'):Container(),
 
           ],),
       ),

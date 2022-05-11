@@ -5,6 +5,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/ticket_vm.dart';
+import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class _ticketAddState extends State<ticketAdd> {
   final TextEditingController problem_desc = TextEditingController();
   final TextEditingController notes = TextEditingController();
   @override void initState() {
-
+    Provider.of<typeclient>(context,listen: false).getreasons('ticket');
     super.initState();
   }
   @override
@@ -31,7 +32,7 @@ class _ticketAddState extends State<ticketAdd> {
     return Scaffold(
         key:_scaffoldKey,
         body:ModalProgressHUD(
-          inAsyncCall: Provider.of<LoadProvider>(context).isLoadingAddclient,
+          inAsyncCall:  Provider.of<ticket_vm>(context,listen: true).addvalue,
           child : Form(
             //key: _globalKey,
             child: Padding(
@@ -46,11 +47,42 @@ class _ticketAddState extends State<ticketAdd> {
                 padding:EdgeInsets.only(top: 50,left: 20,right: 20) ,
                 child: Column(
                   children: [
+                    SizedBox(height: 15,),
                     RowEdit(name: 'نوع المشكلة', des: 'REQUIRED'),
 
+                    Consumer<typeclient>(
+                      builder: (context, cart, child){
+                        return SizedBox(
+                          width: 240,
+                          child: DropdownButtonFormField(
+                            decoration:InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(width: 3,color: Colors.black)
+                              )
+                            ) ,
+
+                            isExpanded: true,
+                            //hint: Text("حدد حالة العميل"),
+                            items: cart.type_of_out.map((level_one) {
+                              return DropdownMenuItem(
+                                child: Text(level_one.nameReason), //label of item
+                                value: level_one.nameReason, //value of item
+                              );
+                            }).toList(),
+                            value:cart.selectedValueOut,
+                            onChanged:(value) {
+                              //  setState(() {
+                              cart.changevalueOut(value.toString());
+                              // });
+                            },
+                          ),
+                        );},
+                    ),
                     SizedBox(height: 15,),
-                    RowEdit(name: 'وصف المشكلة', des: ''),
-                    SizedBox(height: 15,),
+                    RowEdit(name: 'ملاحظات ', des: ''),
+
+
 
                     EditTextFormField(
                       vaild: (value) {
@@ -62,9 +94,7 @@ class _ticketAddState extends State<ticketAdd> {
                       controller: notes,
                     ),
                     SizedBox(height: 15,),
-                    RowEdit(name: 'ملاحظات ', des: ''),
-
-
+                    RowEdit(name: 'وصف المشكلة', des: ''),
                     EditTextFormField(
                       vaild: (value) {
                         if (value!.isEmpty) {
@@ -82,11 +112,10 @@ class _ticketAddState extends State<ticketAdd> {
                       onTap: () async {
                         // if (_globalKey.currentState!.validate()) {
                         //   _globalKey.currentState!.save();
-                          Provider.of<LoadProvider>(context, listen: false)
-                              .changebooladdclient(true);
+
                           Provider.of<ticket_vm>(context,listen: false).addticket({
                             'fk_client':widget.fk_client,
-                            'type_problem':,
+                            'type_problem':  Provider.of<typeclient>(context,listen: false).selectedValuemanag,
                             'details_problem':problem_desc.text,
                             'notes_ticket':notes.text,
                             'type_ticket':'جديدة',
@@ -95,9 +124,10 @@ class _ticketAddState extends State<ticketAdd> {
                             'date_open':DateTime.now().toString(),
                             'client_type':'0'
                           }).then(
-                                  (value) =>  value!="error"
-                                  ? clear(context)
-                                  : error(context)
+                                  (value) =>
+                                  //value!="error"
+                                   clear(context)
+                                 // : error(context)
                           );
                         // }else {
                         //   _scaffoldKey.currentState!.showSnackBar(
@@ -117,9 +147,6 @@ class _ticketAddState extends State<ticketAdd> {
   }
   clear(BuildContext context) {
 
-    Provider.of<LoadProvider>(context, listen: false)
-        .changebooladdclient(false);
-    namelevel.text="";
     _scaffoldKey.currentState!.showSnackBar(
         SnackBar(content: Text('تم إنشاء مستوى جديد'))
     );
@@ -127,8 +154,7 @@ class _ticketAddState extends State<ticketAdd> {
   }
 
   error(context) {
-    Provider.of<LoadProvider>(context, listen: false)
-        .changebooladdclient(false);
+
     _scaffoldKey.currentState!.showSnackBar(
         SnackBar(content: Text('هناك خطأ ما'))
     );

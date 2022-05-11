@@ -217,25 +217,24 @@ class invoice_vm extends ChangeNotifier{
 
   Future<bool> update_invoiceclient_vm(
       Map<String, dynamic?> body,String? idInvoice,File? file) async {
-    bool res = await Invoice_Service().updateInvoice(body,idInvoice!,file);
-    if (res) {
+    InvoiceModel data=  await Invoice_Service().updateInvoice(body,idInvoice!,file);
       final index=listinvoiceClient.indexWhere(
               (element) => element.idInvoice==idInvoice);
-      body.addAll({
-        "id_invoice":idInvoice,
-        "date_create":listinvoiceClient[index].dateCreate.toString(),
-        "products":listproductinvoic.map((e)=>e.toJson()).toList()
-      });
+      // body.addAll({
+      //   "id_invoice":idInvoice,
+      //   "date_create":listinvoiceClient[index].dateCreate.toString(),
+      //
+      //   "products":listproductinvoic.map((e)=>e.toJson()).toList()
+      // });
 
-      listinvoiceClient[index]=InvoiceModel.fromJson(body);
-     final index1=listinvoices.indexWhere((element) => element.idInvoice==idInvoice);
+      listinvoiceClient[index]=data;//InvoiceModel.fromJson(body);
+      final index1=listinvoices.indexWhere((element) => element.idInvoice==idInvoice);
 
-      listinvoices[index1]= InvoiceModel.fromJson(body);
+      listinvoices[index1]= data;//InvoiceModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
-    }
-    //print(res.toString());
-    return res;
+
+    return true;
   }
 
   Future<String> delete_invoice(Map<String,String>body, String? id_invoice) async {

@@ -32,6 +32,7 @@ import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
+import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -159,7 +160,7 @@ void main() async {
 
         ),
          ChangeNotifierProvider<comment_vm>(create: (_)=> comment_vm()),
-        ChangeNotifierProvider<comment_vm>(create: (_)=> ticketvm()),
+        ChangeNotifierProvider<ticket_vm>(create: (_)=> ticket_vm()),
 
   ], child:MyApp()));
 }

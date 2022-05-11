@@ -1,7 +1,9 @@
 
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
+import 'package:crm_smart/model/ticketmodel.dart';
 import 'package:crm_smart/ui/screen/home/ticket/ticketadd.dart';
+import 'package:crm_smart/ui/screen/home/ticket/ticketview.dart';
 import 'package:crm_smart/ui/screen/support/support_view.dart';
 import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/RowWidget.dart';
@@ -9,6 +11,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/ui/widgets/widgetcalendar/utils.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
+import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +29,7 @@ class _support_addState extends State<support_add> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   late InvoiceModel _invoice;
+
   @override
   void initState()  {
     _invoice = Provider
@@ -34,6 +38,11 @@ class _support_addState extends State<support_add> {
         .firstWhere(
             (element) =>
         element.idInvoice == widget.idinvoice);
+
+    Provider.of<ticket_vm>(context,listen: false)
+        .getticket();
+
+    //_ticketModel=_list.firstWhere((element) => element.fkClient)
 
 
     print('init support');
@@ -48,10 +57,13 @@ class _support_addState extends State<support_add> {
   //           (element) =>
   //       element.idInvoice == widget.idinvoice);
   // });
+  Provider.of<ticket_vm>(context,listen: false)
+      .getclient_ticket(_invoice.fkIdClient.toString());
   super.didChangeDependencies();
   }
   @override
   Widget build(BuildContext context) {
+
     print('builld');
     return Scaffold(
       key: _scaffoldKey,
@@ -176,6 +188,8 @@ class _support_addState extends State<support_add> {
                     cardRow(title: 'طريقة التركيب ',
                         value: _invoice.typeInstallation.toString()=='0'?'ميداني':'اونلاين'),
                     SizedBox(height: 16,),
+                    Provider.of<ticket_vm>(context,listen: true)
+                        .listticket_client.isEmpty?
                     ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
@@ -185,7 +199,20 @@ class _support_addState extends State<support_add> {
                               MaterialPageRoute(builder: (context)=>
                                   ticketAdd(fk_client: _invoice.fkIdClient.toString(),)));
                         },
-                        child: Text(' فتح تذكرة دعم ')),
+                        child: Text(' فتح تذكرة دعم '))
+                        : ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                kMainColor)),
+                        onPressed: () async{
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context)=>
+                                  TicketView(
+                                   ticketModel: Provider.of<ticket_vm>(context,listen: true)
+                                       .listticket_client[0]
+                                  )));
+                        },
+                        child: Text('تذاكر العميل')) ,
                     SizedBox(height: 15,),
                     ElevatedButton(
     style: ButtonStyle(

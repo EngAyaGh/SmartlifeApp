@@ -21,20 +21,20 @@ class ClientService{
     }
   }
   //id_product
-  Future<bool> updateClient( Map<String,dynamic> body,String idclient) async {
-    String result = await Api()
+  Future<ClientModel> updateClient( Map<String,dynamic> body,String idclient) async {
+    var result = await Api()
         .post( url:url+"client/clientUpdate.php?id_clients=$idclient",body:
     body
     );
-    return result=="done"? true:false;
+    return result[0];//=="done"? true:false;
   }
-  Future<bool> setApproveClient( Map<String,dynamic> body,String idclient) async {
-    String result = await Api()
+  Future<ClientModel> setApproveClient( Map<String,dynamic> body,String idclient) async {
+    var result = await Api()
         .post( url:url+"client/setApproveClient.php?id_clients=$idclient",body:
     body
     );
     //client/setApproveClient.php
-    return result=="done"? true:false;
+    return result[0];//=="done"? true:false;
   }
   Future<bool> setfkuserClient( Map<String,dynamic> body,String idclient) async {
     String result = await Api()

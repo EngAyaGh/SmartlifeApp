@@ -84,7 +84,6 @@ class Api {
     if(file !=null){
       var length=await file.length();
       var stream=http.ByteStream(file.openRead());
-      // var stream=http.ByteStream(DelegatingStream.typed( file.openRead()));
       var multipartFile=http.MultipartFile(
           "file",stream,length,
           filename:basename(file.path)

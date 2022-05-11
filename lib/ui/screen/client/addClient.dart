@@ -23,10 +23,16 @@ import '../../../labeltext.dart';
 import 'dart:ui' as myui;
 import 'package:intl/intl.dart';
 
-class addClient extends StatelessWidget {
+class addClient extends StatefulWidget {
   addClient({Key? key}) : super(key: key);
 
+  @override
+  _addClientState createState() => _addClientState();
+}
+
+class _addClientState extends State<addClient> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   final _globalKey = GlobalKey<FormState>();
 
   final TextEditingController nameclientController = TextEditingController();
@@ -34,12 +40,27 @@ class addClient extends StatelessWidget {
   final TextEditingController nameEnterpriseController = TextEditingController();
 
   final TextEditingController mobileController = TextEditingController();
+
   final TextEditingController typejobController = TextEditingController();
+
   final TextEditingController cityController = TextEditingController();
+
   final TextEditingController locationController = TextEditingController();
+
   final TextEditingController regoinController = TextEditingController();
-  //final controllerUsers = Get.find<AllUserVMController>();
-//late final UserModel _user;
+
+  @override void dispose() {
+    nameclientController.dispose();
+    nameEnterpriseController.dispose();
+    mobileController.dispose();
+    typejobController.dispose();
+    cityController.dispose();
+    locationController.dispose();
+    regoinController.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
      //final controllerUsers = Get.find<AllUserVMController>();
@@ -280,6 +301,8 @@ class addClient extends StatelessWidget {
     );
     print("error");
   }
+
   DateTime _currentDate = DateTime.now();
+
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
 }

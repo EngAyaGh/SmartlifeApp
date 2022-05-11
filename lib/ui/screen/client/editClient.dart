@@ -7,6 +7,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,6 +47,20 @@ class _editclientState extends State<editclient> {
   final TextEditingController descresaonController = TextEditingController();
   late typeclient typeclient_provider;
   late final UserModel currentUser;
+  @override void dispose() {
+    nameclientController.dispose();
+    nameEnterpriseController.dispose();
+    mobileController.dispose();
+    typejobController.dispose();
+    cityController.dispose();
+    locationController.dispose();
+    regoinController.dispose();
+    offerpriceController.dispose();
+    resaonController.dispose();
+    valueBackController.dispose();
+    descresaonController.dispose();
+    super.dispose();
+  }
   @override
   void initState()  {
 
@@ -70,7 +85,7 @@ class _editclientState extends State<editclient> {
 
 
       typeclient_provider.selectedValuemanag=widget.itemClient.typeClient.toString();
-      typeclient_provider.getreasons();
+      typeclient_provider.getreasons('client');
       typeclient_provider.selectedValueOut=typeclient_provider.selectedValuemanag=="منسحب"?
       resaonController.text:null;
 
@@ -311,7 +326,9 @@ void didChangeDependencies() {
                         SizedBox(
                           height: 5,
                         ),
+
                         RowEdit(name: label_cliententerprise, des: 'required'),
+
                         EditTextFormField(
                           obscureText: false,
                           hintText: label_cliententerprise,
@@ -329,7 +346,13 @@ void didChangeDependencies() {
                         SizedBox(
                           height: 5,
                         ),
-                        RowEdit(name: label_client_typejob, des: 'Required'),
+                        Provider.of<privilge_vm>(context,listen: true)
+                            .checkprivlge('27')==true||  Provider.of<privilge_vm>(context,listen: true)
+                            .checkprivlge('28')==true ?
+                        RowEdit(name: label_client_typejob, des: 'Required'):Container(),
+                        Provider.of<privilge_vm>(context,listen: true)
+                            .checkprivlge('27')==true||  Provider.of<privilge_vm>(context,listen: true)
+                            .checkprivlge('28')==true ?
                         EditTextFormField(
                           hintText: label_client_typejob,
                           obscureText: false,
@@ -343,7 +366,7 @@ void didChangeDependencies() {
                           onChanged: (val) {
                             // nameprod = val;
                           },
-                        ),
+                        ):Container(),
                         SizedBox(
                           height: 5,
                         ),
@@ -395,6 +418,9 @@ void didChangeDependencies() {
                         ),
                         RowEdit(name: label_clienttype, des: ""),
 
+                        Provider.of<privilge_vm>(context,listen: true)
+                            .checkprivlge('27')==true||  Provider.of<privilge_vm>(context,listen: true)
+                            .checkprivlge('28')==true ?
                         DropdownButton(
                         isExpanded: true,
                         //hint: Text("حدد حالة العميل"),
@@ -416,8 +442,11 @@ void didChangeDependencies() {
                           }
 
                         },
-                      ),
+                      ):Container(),
                         SizedBox(height: 2,),
+                        Provider.of<privilge_vm>(context,listen: true)
+                            .checkprivlge('27')==true||  Provider.of<privilge_vm>(context,listen: true)
+                            .checkprivlge('28')==true ?
                         typeclient_provider.selectedValuemanag=="منسحب"?
                         ElevatedButton(
                           style: ButtonStyle(
@@ -442,7 +471,10 @@ void didChangeDependencies() {
                           hintText: 'سبب الاستبعاد',
                           obscureText: false,
                           controller: resaonController,
-                        ):Text(''),
+                        ):Text(''):Container(),
+                        Provider.of<privilge_vm>(context,listen: true)
+                            .checkprivlge('27')==true||  Provider.of<privilge_vm>(context,listen: true)
+                            .checkprivlge('28')==true ?
                         typeclient_provider.selectedValuemanag=="عرض سعر"
                             || typeclient_provider.selectedValuemanag=="تفاوض"?
                         Padding(
@@ -457,13 +489,15 @@ void didChangeDependencies() {
                                 Navigator.push(context,MaterialPageRoute(
                                     builder: (context)=>transferClient(
                                    name_enterprise:  widget.itemClient.nameEnterprise.toString(),
-                                     idclient:   widget.itemClient.idClients.toString()),fullscreenDialog: true
+                                     idclient:   widget.itemClient.idClients.toString(),
+                                    type: "client",),fullscreenDialog: true
+
                                 ));
                               },
                               child: Text('تحويل العميل'),
                             ),
                           ),
-                        ):Text(""),
+                        ):Text(""):Container(),
                       ],
                     ),
                   ),

@@ -22,7 +22,8 @@ class ClientModel extends CacheRepository{
 
      this.nameUser,
     this.name_regoin,
-
+    this.total,
+    this.amount_paid,
     this.date_price,
     this.offer_price,
     this.desc_reason,
@@ -54,6 +55,8 @@ class ClientModel extends CacheRepository{
 
   late final String? nameUser;
   late final String? name_regoin;
+  late  String? total;
+  late  String? amount_paid;
 
   late final String? offer_price;
   late final String? date_price;
@@ -88,6 +91,8 @@ class ClientModel extends CacheRepository{
     nameCountry = json['nameCountry'];
     nameUser = json['nameUser'];
     name_regoin = json['name_regoin'];
+    total = json['total'];
+    amount_paid = json['amount_paid'];
     /////////////////////////////
     offer_price=json['offer_price'];
     date_price=json['date_price'];
@@ -122,6 +127,8 @@ class ClientModel extends CacheRepository{
     _data['reason_transfer'] = reasonTransfer;
     _data['nameCountry'] = nameCountry;
     _data['name_regoin'] = name_regoin;
+    _data['total'] = total;
+    _data['amount_paid'] = amount_paid;
     _data['nameUser'] = nameUser;
      _data['offer_price'] = offer_price;
      _data['date_price'] = date_price;

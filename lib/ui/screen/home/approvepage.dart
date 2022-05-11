@@ -2,6 +2,7 @@ import 'package:crm_smart/constantsList.dart';
 import 'package:crm_smart/ui/widgets/cardapprove.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardapprove1.dart';
 import 'package:crm_smart/view_model/approve_vm.dart';
+import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,8 +25,14 @@ class _ApprovePageState extends State<ApprovePage> {
   void didChangeDependencies() {
 
     Future.delayed(Duration(milliseconds: 10)).then((_) async {
+     if( Provider.of<privilge_vm>(context,listen: true)
+          .checkprivlge('7'))
       await    Provider.of<approve_vm>(context, listen: false)
-          .getApprovebyregoin();
+          .getApprovebyregoin();//getApprovebycountry
+     if( Provider.of<privilge_vm>(context,listen: true)
+          .checkprivlge('2'))
+      await    Provider.of<approve_vm>(context, listen: false)
+          .getApprovebycountry();
     }
     );
     super.didChangeDependencies();

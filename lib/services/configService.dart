@@ -6,10 +6,10 @@ import 'package:crm_smart/model/reasonmodel.dart';
 import '../constants.dart';
 
 class config_service{
-Future<List<ReasonModel>> getreason() async {
+Future<List<ReasonModel>> getreason(String type) async {
   var
   data=await Api()
-      .get(url:url+ 'client/getreason.php');
+      .get(url:url+ 'client/getreason.php?type=$type');
   print(data);
   List<ReasonModel> prodlist = [];
   for (int i = 0; i < data.length; i++) {

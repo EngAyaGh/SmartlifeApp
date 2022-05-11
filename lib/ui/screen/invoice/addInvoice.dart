@@ -9,6 +9,7 @@ import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
+import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -599,9 +600,14 @@ else{
       ),
     );
   }
-
   clear(BuildContext context,String value,List<ProductsInvoice>? _products) async {
 
+  int index=  Provider.of<client_vm>(context,listen: false).listClient.indexWhere(
+            (element) => element.idClients==value);
+  Provider.of<client_vm>(context,listen: false).listClient[index]
+      .amount_paid=amount_paidController.text;
+  Provider.of<client_vm>(context,listen: false).listClient[index]
+      .total=totalController;
      print('in clear');
      //widget.indexinvoice = 0;
      _products=
