@@ -124,20 +124,20 @@ class _ProfileClientState extends State<ProfileClient>
       body: Container(
         margin: EdgeInsets.only(bottom: 1),
         padding: const EdgeInsets.only(top: 25, left: 5, right: 5),
-        height: MediaQuery.of(context).size.height * 0.85,
+        height: MediaQuery.of(context).size.height,
         child: TabBarView(
           controller: _tabcontroller,
           children: <Widget>[
             ClientView(clientModel: _clientModel),
-            invoices(
-              itemClient: _clientModel,
-              fkclient: _clientModel.idClients.toString(),
-              fkuser: '',
-            ),
-            // InvoiceView(
-            //     invoice: _invoiceModel,
-            // clientmodel: _clientModel,
+            // invoices(
+            //   itemClient: _clientModel,
+            //   fkclient: _clientModel.idClients.toString(),
+            //   fkuser: '',
             // ),
+            InvoiceView(
+              invoice: _invoiceModel,
+              clientmodel: _clientModel,
+            ),
             commentView(fk_client: _clientModel.idClients.toString()),
             support_add(
               idinvoice: _invoiceModel!.idInvoice,

@@ -1,13 +1,10 @@
-
-
-
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/separatorLine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class cardRow extends StatelessWidget {
-  cardRow({this.alignment,required this.value,required this.title,Key? key})
+  cardRow({this.alignment, required this.value, required this.title, Key? key})
       : super(key: key);
   var alignment;
   String title;
@@ -15,23 +12,60 @@ class cardRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-
-      children: [
-        Row(
-          mainAxisAlignment: alignment==null? MainAxisAlignment.end:alignment,
-          children: [
-            Text(title,style: TextStyle(fontFamily: kfontfamily3),),
-            Spacer(),
-            Text(value,style: TextStyle(fontFamily: kfontfamily2),),
-          ],
-        ),
-        //Spacer(),
-        Divider(thickness: 2,color: Colors.black54,),
-        //const MySeparator(color: Colors.grey),
-        SizedBox(height: 10,),
-
-      ],
-    );
+        // padding: EdgeInsets.only(left: 10, right: 10),
+        children: [
+          Row(
+            mainAxisAlignment:
+                alignment == null ? MainAxisAlignment.end : alignment,
+            children: [
+              Text(
+                title,
+                style: TextStyle(fontFamily: kfontfamily3),
+              ),
+              Spacer(),
+              Text(
+                value,
+                style: TextStyle(fontFamily: kfontfamily2),
+              ),
+            ],
+          ),
+          Divider(
+            thickness: 1,
+            color: Colors.black54,
+          ),
+          //const MySeparator(color: Colors.grey),
+          SizedBox(
+            height: 5,
+          ),
+        ]);
+    // return Column(
+    //   children: [
+    //     Row(
+    //       mainAxisAlignment:
+    //           alignment == null ? MainAxisAlignment.end : alignment,
+    //       children: [
+    //         Text(
+    //           title,
+    //           style: TextStyle(fontFamily: kfontfamily3),
+    //         ),
+    //         Spacer(),
+    //         Text(
+    //           value,
+    //           style: TextStyle(fontFamily: kfontfamily2),
+    //         ),
+    //       ],
+    //     ),
+    //     //Spacer(),
+    //     Divider(
+    //       thickness: 2,
+    //       color: Colors.black54,
+    //     ),
+    //     //const MySeparator(color: Colors.grey),
+    //     SizedBox(
+    //       height: 10,
+    //     ),
+    //   ],
+    // );
   }
 }
 
