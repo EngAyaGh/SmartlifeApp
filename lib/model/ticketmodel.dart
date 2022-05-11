@@ -20,6 +20,7 @@ class TicketModel {
     required this.nameuseropen,
     required this.nameuserrecive,
     required this.nameuserclose,
+    required this.fk_country,
   });
   late final String idTicket;
   late final String fkClient;
@@ -41,6 +42,7 @@ class TicketModel {
   late final String nameuseropen;
   late final String nameuserrecive;
   late final String nameuserclose;
+  late final String fk_country;
 
   TicketModel.fromJson(Map<String, dynamic> json){
     idTicket = json['id_ticket'];
@@ -63,6 +65,7 @@ class TicketModel {
     nameuseropen = json['nameuseropen'];
     nameuserrecive = json['nameuserrecive'];
     nameuserclose = json['nameuserclose'];
+    fk_country = json['fk_country'];
   }
 
   Map<String, dynamic> toJson() {
@@ -87,6 +90,7 @@ class TicketModel {
     _data['nameuseropen'] = nameuseropen;
     _data['nameuserrecive'] = nameuserrecive;
     _data['nameuserclose'] = nameuserclose;
+    _data['fk_country'] = fk_country;
     return _data;
   }
 }

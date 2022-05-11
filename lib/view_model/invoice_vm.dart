@@ -267,30 +267,32 @@ class invoice_vm extends ChangeNotifier{
     }
     return res;
   }
-  Future<bool> setdate_vm(Map<String, dynamic?> body,String? id_invoice) async {
-    bool res = await Invoice_Service().setdate(body,id_invoice!);
-    if (res) {
+  Future<void> setdate_vm(Map<String, dynamic?> body,String? id_invoice) async {
+
       int index=listinvoices.indexWhere(
               (element) => element.idInvoice==id_invoice);
+      listinvoices[index]=
+      await Invoice_Service().setdate(body,id_invoice!);
+
       // body.addAll(
       //     InvoiceModel.fromJson(listinvoices[index]));
       // listinvoices[index]= InvoiceModel.fromJson(body);
       // //listClient.removeAt(index);
       notifyListeners();
-    }
-    return res;
+
   }
 
-  Future<bool> setdatedone_vm(Map<String, dynamic?> body,String? id_invoice) async {
-    bool res = await Invoice_Service().setdatedone(body,id_invoice!);
-    if (res) {
-      int index=listinvoices.indexWhere(
-              (element) => element.idInvoice==id_invoice);
+  Future<void> setdatedone_vm(Map<String, dynamic?> body,String? id_invoice) async {
+
+    int index=listinvoices.indexWhere(
+            (element) => element.idInvoice==id_invoice);
+
+    listinvoices[index]= await Invoice_Service().setdatedone(body,id_invoice!);
 
       // listClient.removeAt(index);
       notifyListeners();
-    }
-    return res;
+
+
   }
 
   Future<void> get_invoice_deleted() async {

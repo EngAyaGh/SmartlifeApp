@@ -167,7 +167,9 @@ class _tabclientsState extends State<tabclients> {
                             ),
                           ),
                         ):Container(),
-                        //
+                        // (   privilge.checkprivlge('16')==true
+                        //     && privilge.checkprivlge('8')!=true
+                        //     && privilge.checkprivlge('15')!=true )?
                         privilge.checkprivlge('15')==true|| privilge.checkprivlge('8')==true? //user
                         Expanded(
                           child: Padding(

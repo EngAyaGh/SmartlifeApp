@@ -159,6 +159,7 @@ void main() async {
 
         ),
          ChangeNotifierProvider<comment_vm>(create: (_)=> comment_vm()),
+        ChangeNotifierProvider<comment_vm>(create: (_)=> ticketvm()),
 
   ], child:MyApp()));
 }

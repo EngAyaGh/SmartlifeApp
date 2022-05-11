@@ -1,6 +1,7 @@
 
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
+import 'package:crm_smart/ui/screen/home/ticket/ticketadd.dart';
 import 'package:crm_smart/ui/screen/support/support_view.dart';
 import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/RowWidget.dart';
@@ -120,7 +121,7 @@ class _support_addState extends State<support_add> {
                           Provider.of<invoice_vm>(context,listen: false)
                               .setdate_vm({
                             'dateinstall_task':_currentDate.toString(),//_invoice.dateinstall_task.toString()
-                          }, _invoice.idInvoice).then((value) => value==true? clear():error());
+                          }, _invoice.idInvoice).then(clear());
                           _invoice.dateinstall_task=_currentDate.toString();
                         }, icon:Icon( Icons.check,color: kMainColor))
                         :Container(),
@@ -135,7 +136,7 @@ class _support_addState extends State<support_add> {
                                   .setdate_vm({
                                 'dateinstall_task':_invoice.dateinstall_task.toString(),
                                 'reason_date':_textsupport.text.toString()
-                              }, _invoice.idInvoice);
+                              }, _invoice.idInvoice).then(clear());
 
                             },
                                 icon:Icon( Icons.check,color: kMainColor)),
@@ -175,8 +176,18 @@ class _support_addState extends State<support_add> {
                     cardRow(title: 'طريقة التركيب ',
                         value: _invoice.typeInstallation.toString()=='0'?'ميداني':'اونلاين'),
                     SizedBox(height: 16,),
-
-    ElevatedButton(
+                    ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                kMainColor)),
+                        onPressed: () async{
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context)=>
+                                  ticketAdd(fk_client: _invoice.fkIdClient.toString(),)));
+                        },
+                        child: Text(' فتح تذكرة دعم ')),
+                    SizedBox(height: 15,),
+                    ElevatedButton(
     style: ButtonStyle(
     backgroundColor: MaterialStateProperty.all(
     kMainColor)),
@@ -217,9 +228,9 @@ class _support_addState extends State<support_add> {
                                     'nameuserinstall':Provider.of<user_vm_provider>
                                       (context,listen: false).currentUser!.nameUser.toString(),
                                      'name_enterprise':_invoice.name_enterprise,
-                                    'fkcountry':'1',
-                                        'fk_regoin':_invoice.fk_regoin
-                                  }, _invoice.idInvoice);
+                                    'fkcountry':_invoice.fk_country,
+                                    'fk_regoin':_invoice.fk_regoin
+                                  }, _invoice.idInvoice).then(clear());;
 
                                 },
                                 child: Text('نعم'),
