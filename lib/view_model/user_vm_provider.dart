@@ -70,7 +70,9 @@ class user_vm_provider extends ChangeNotifier{
     String res = await UserService().addUser(body);
     if (res!="false") {
       body.addAll({
-        '	id_user':res,
+        'id_user':res,
+        'img_image':'',
+        'img_thumbnail':''
       });
 
       userall.insert(0, UserModel.fromJson(body));

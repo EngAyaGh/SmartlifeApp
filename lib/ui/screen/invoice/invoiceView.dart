@@ -3,46 +3,51 @@ import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/RowWidget.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
+import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'invoces.dart';
 class InvoiceView extends StatelessWidget {
-  InvoiceView({this.invoice, required this.clientmodel, Key? key})
+  InvoiceView({required this.idinvoice, required this.clientmodel, Key? key})
       : super(key: key);
-  InvoiceModel? invoice;
+  String idinvoice;
   ClientModel clientmodel;
+  InvoiceModel? invoice;
+
   Widget _product(List<ProductsInvoice>? products) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: products!.length,
-        itemBuilder: (context, index) {
-          return
-            // Consumer<user_vm_provider>(
-            //   builder: (context, cart, child) {
-            //     return
-            cardRow(
-                title: products[index].nameProduct.toString(),
-                value: products[index].price.toString());
-          //});
-        },
-      ),
+    return ListView.builder(
+      itemCount: products!.length,
+      itemBuilder: (context, index) {
+        return
+          // Consumer<user_vm_provider>(
+          //   builder: (context, cart, child) {
+          //     return
+          cardRow(
+              title: products[index].nameProduct.toString(),
+              value: products[index].price.toString());
+        //});
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    invoice=Provider.of<invoice_vm>(context,listen: true).listinvoices
+        .firstWhere((element) => element.idInvoice==idinvoice);
     return SingleChildScrollView(
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Column(
           children: [
             Container(
-                height: MediaQuery.of(context).size.height * 0.25,
+                height: MediaQuery.of(context).size.height * 0.1,
                 child: _product(invoice!.products)),
             Column(
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.75,
+                  width: MediaQuery.of(context).size.width * 0.9,
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     border: Border.all(color: Colors.amber),
@@ -97,27 +102,49 @@ class InvoiceView extends StatelessWidget {
                     value: invoice!.date_lastuserupdate != null
                         ? invoice!.date_lastuserupdate.toString()
                         : ''),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CustomButton(
-                      text: 'تعديل الفاتورة',
-                      onTap: () async {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => addinvoice(
-                                    invoice: invoice,
-                                    itemClient: clientmodel)));
-                      },
-                    ),
-                    CustomButton(
-                      //width: MediaQuery.of(context).size.width * 0.2,
-                      text: 'حذف الفاتورة',
-                      onTap: () async {},
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomButton(
+                        text: 'تعديل الفاتورة',
+                        onTap: () async {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => addinvoice(
+                                      invoice: invoice,
+                                      itemClient: clientmodel)));
+                        },
+                      ),
+                      CustomButton(
+                        //width: MediaQuery.of(context).size.width * 0.2,
+                        text: 'فواتير العميل ',
+                        onTap: () async {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                              invoices(
+                             itemClient: clientmodel,
+                             fkclient: clientmodel.idClients.toString(),
+                             fkuser: '',)));
+
+                          // invoices(
+                          //   itemClient: _clientModel,
+                          //   fkclient: _clientModel.idClients.toString(),
+                          //   fkuser: '',),
+                        },
+                      ),
+                      // CustomButton(
+                      //   //width: MediaQuery.of(context).size.width * 0.2,
+                      //   text: 'حذف الفاتورة',
+                      //   onTap: () async {},
+                      // ),
+                    ],
+                  ),
                 ),
               ],
             )

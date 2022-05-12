@@ -34,8 +34,10 @@ class _config_viewState extends State<config_view> {
   final _globalKey = GlobalKey<FormState>();
  double h=0,w=0;
   @override void initState() {
+
+
      WidgetsBinding.instance!.addPostFrameCallback((_){
-       Provider.of<config_vm>(context, listen: false).getAllConfig();
+
      });
 
     print("build 3 add");
@@ -45,9 +47,10 @@ class _config_viewState extends State<config_view> {
   }
   @override void didChangeDependencies() {
 
-    List<ConfigModel> _listconfg =
-        Provider.of<config_vm>(context, listen: false).listofconfig;
     Future.delayed(Duration(milliseconds: 30)).then((_) async {
+      List<ConfigModel> _listconfg =
+          Provider.of<config_vm>(context, listen: false).listofconfig;
+
       taxrate =
           _listconfg.firstWhere((element) => element.name_config == 'taxrate');
       _controllertax.text = taxrate.value_config.toString();
@@ -239,6 +242,7 @@ class _config_viewState extends State<config_view> {
                               hintText: '',
                             ),
                           ),
+                          Text(' * 6 '),
                         ],
                       ),
                       SizedBox(height: 15,),

@@ -2,8 +2,6 @@
 
 
 
-import 'dart:html';
-
 import 'package:crm_smart/api/api.dart';
 import 'package:crm_smart/model/ticketmodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
@@ -60,12 +58,13 @@ class ticket_vm extends ChangeNotifier{
 
   }
 Future<void> getclient_ticket(String fkIdClient)async{
-  listticket_client=[];
+    listticket_client=[];
+   if(listticket.isNotEmpty){
     listticket.forEach((element) {
     if( element.fkClient==fkIdClient);
     listticket_client.add(element);
   });
-    notifyListeners();
+    notifyListeners();}
 }
 Future<void> getticket() async {
   var

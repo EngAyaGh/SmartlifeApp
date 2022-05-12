@@ -46,7 +46,8 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     // bool isupdate=
-    UserModel useredit=  Provider.of<user_vm_provider>(context,listen: true).userall[index];
+    UserModel useredit=  Provider.of<user_vm_provider>(context,listen: true)
+        .userall[index];
     //return Obx(() {
       return Scaffold(
         backgroundColor: Colors.white,

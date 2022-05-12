@@ -1,3 +1,4 @@
+import 'package:crm_smart/provider/config_vm.dart';
 import 'package:crm_smart/ui/screen/config/config_view.dart';
 import 'package:crm_smart/ui/screen/privilges/checklevel.dart';
 import 'package:crm_smart/ui/screen/product/productView.dart';
@@ -20,6 +21,7 @@ class managmentpage extends StatefulWidget {
 class _managmentpageState extends State<managmentpage> {
   @override void didChangeDependencies() {
     Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
+    Provider.of<config_vm>(context, listen: false).getAllConfig();
 
     super.didChangeDependencies();
   }

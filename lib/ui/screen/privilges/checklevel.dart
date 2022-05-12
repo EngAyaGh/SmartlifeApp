@@ -54,46 +54,51 @@ class _check_levelState extends State<check_level> {
                 Builder(
                     builder: (context) =>
 
-                          Container(
-                             decoration: BoxDecoration(
-                               color: Colors.white,
-                               boxShadow: <BoxShadow>[
-                                 BoxShadow(
-                                   offset: Offset(1.0, 1.0),
-                                   blurRadius: 8.0,
-                                   color: Colors.black87.withOpacity(0.2),
-                                 ),
-                               ],
-                               borderRadius: BorderRadius.all(Radius.circular(4)),
-                             ),
-                             child:
-                             Center(
-                               child: InkWell(
-                                 onTap: (){
-                                   Navigator.push(context,
-                                       MaterialPageRoute(
-                                           builder: (context)=>privilge_page(
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: InkWell(
+                                onTap: (){
+                                  Navigator.push(context,
+                                      MaterialPageRoute(
+                                          builder: (context)=>privilge_page(
 
-                                             fk_level: _listlevel[index].idLevel,
-                                           )));
-                                 },
-                          child:  Padding(
-                            padding: const EdgeInsets.all(14.0),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.all( Radius.circular(5)),),
+                                            fk_level: _listlevel[index].idLevel,
+                                          )));
+                                },
+                                child: Container(
+                                  width: double.infinity,
 
-                              //color: kMainColor,
-                              child: Padding(
-                                   padding: EdgeInsets.all(4),
-                                   child: Text(_listlevel[index].nameLevel),
-                                 ),
+                                  decoration: BoxDecoration(
+                                     color: Colors.white,
+                                     boxShadow: <BoxShadow>[
+                                       BoxShadow(
+                                         offset: Offset(1.0, 1.0),
+                                         blurRadius: 8.0,
+                                         color: Colors.black87.withOpacity(0.2),
+                                       ),
+                                     ],
+                                     borderRadius: BorderRadius.all(Radius.circular(4)),
+                                   ),
+                                   child:
+                                   Padding(
+                                     padding: const EdgeInsets.all(14.0),
+                                     child: Container(
+                                         decoration: BoxDecoration(
+                                           color: Colors.white,
+                                           borderRadius: BorderRadius.all( Radius.circular(5)),),
+
+                                       //color: kMainColor,
+                                       child: Padding(
+                                            padding: EdgeInsets.all(4),
+                                            child: Center(child: Text(_listlevel[index].nameLevel)),
+                                          ),
+                                     ),
+                                   ),
+                       ),
+                              ),
                             ),
-                          ),
-                           ),
-                         ),
-                       )
+                          )
                 ),
             //     _listProd.map(
             //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,

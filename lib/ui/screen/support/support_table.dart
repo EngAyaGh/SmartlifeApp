@@ -105,18 +105,16 @@ class _support_tableState extends State<support_table> {
                               builder: (context, cart, child){
                                 return Container(
                                   height: 57,
-                                  decoration: BoxDecoration(
 
-                                    border:Border.all(
-                                        color: Colors.grey.withOpacity(0.9)
-                                      //width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(6.0) //                 <--- border radius here
-                                    ),
-                                  ),
-                                  child: DropdownButton(
-
+                                  child: DropdownButtonFormField(
+                                    decoration:InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                            borderSide: BorderSide(
+                                                width: 1,
+                                                color: Colors.grey)
+                                        )
+                                    ) ,
                                     isExpanded: true,
                                     hint: Padding(
                                       padding: const EdgeInsets.only(right: 10),

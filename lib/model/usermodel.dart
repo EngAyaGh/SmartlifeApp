@@ -52,7 +52,8 @@ class UserModel {
       nameRegoin: jsonData['name_regoin'],
       name_level: jsonData['name_level'],
       currency: jsonData['currency'],
-      img_image:jsonData['img_image'].toString().trim().isEmpty?jsonData['img_image']: urlimage+ jsonData['img_image'],
+      img_image:jsonData['img_image'].toString().trim().isEmpty?
+      jsonData['img_image']: urlimage+ jsonData['img_image'],
       img_thumbnail:urlimage+ jsonData['img_thumbnail'],
       path: jsonData['path'],
     );

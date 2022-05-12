@@ -43,7 +43,8 @@ class _support_addState extends State<support_add> {
         .getticket();
 
     //_ticketModel=_list.firstWhere((element) => element.fkClient)
-
+    Provider.of<ticket_vm>(context,listen: false)
+        .getclient_ticket(_invoice.fkIdClient.toString());
 
     print('init support');
     super.initState();
@@ -57,8 +58,7 @@ class _support_addState extends State<support_add> {
   //           (element) =>
   //       element.idInvoice == widget.idinvoice);
   // });
-  Provider.of<ticket_vm>(context,listen: false)
-      .getclient_ticket(_invoice.fkIdClient.toString());
+
   super.didChangeDependencies();
   }
   @override
@@ -78,7 +78,9 @@ class _support_addState extends State<support_add> {
                 margin: EdgeInsets.all(12),
                 child: Column(
                   children: [
-                    RowEdit(name: 'موعد التركيب للعميل من ', des: ''),
+                    _invoice.dateinstall_done!=null?
+                    RowEdit(name: 'تم التركيب ', des: '')
+                    :RowEdit(name: 'موعد التركيب للعميل من ', des: ''),
                     SizedBox(height: 10,),
                     _invoice.dateinstall_done!=null?//تم التركيب
                     TextField(
@@ -91,7 +93,7 @@ class _support_addState extends State<support_add> {
                             color: Colors.black45,
                             fontSize: 16, fontWeight: FontWeight.w500),
                         hintText:
-                        _invoice.dateinstall_task.toString(),
+                        _invoice.dateinstall_done.toString(),
                         filled: true,
                         fillColor: Colors.grey.shade200,
                       ),
@@ -208,12 +210,14 @@ class _support_addState extends State<support_add> {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context)=>
                                   TicketView(
-                                   ticketModel: Provider.of<ticket_vm>(context,listen: true)
+                                   ticketModel:
+                                   Provider.of<ticket_vm>(context,listen: true)
                                        .listticket_client[0]
                                   )));
                         },
                         child: Text('تذاكر العميل')) ,
                     SizedBox(height: 15,),
+                    _invoice.dateinstall_done==null?
                     ElevatedButton(
     style: ButtonStyle(
     backgroundColor: MaterialStateProperty.all(
@@ -268,7 +272,7 @@ class _support_addState extends State<support_add> {
                       );
                       //Navigator.push(context, MaterialPageRoute(builder: (context)=> second()));
                     },
-                        child: Text('تم التركيب للعميل')),
+                        child: Text('تم التركيب للعميل')):Container(),
                   ],
                 ),
               ),

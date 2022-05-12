@@ -49,7 +49,9 @@ class cardcomment extends StatelessWidget {
               // backgroundColor: Colors.grey.withOpacity(0.1),
             ),
             SizedBox(width: 2,),
-            Container(
+            Expanded(
+              flex: 1,
+              child: Container(
               decoration: BoxDecoration(
                 borderRadius:
                 BorderRadius.only(bottomLeft: Radius.circular(15)),
@@ -65,7 +67,6 @@ class cardcomment extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       //mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,33 +88,15 @@ class cardcomment extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // TextUtilis(
-                    //   color: Colors.black87,
-                    //   fontSize: 30,
-                    //   fontWeight: FontWeight.bold,
-                    //   textstring: commentmodel.content,
-                    //   underline: TextDecoration.none,
-                    // ),
-                     ListView(
-                       children:[
-                         Text(
-                              commentmodel.content,
-                            // maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
+                    Text(
+                          commentmodel.content,
+                        // maxLines: 4,
+                        //overflow: TextOverflow.ellipsis,
 
-                          ),],
-                     ),
-
-                    // RichText(
-                    //   maxLines: 10,
-                    //   text: TextSpan(
-                    //     text: commentmodel.content,
-                    //     style: DefaultTextStyle.of(context).style,
-                    //   ),
-                    // )
-                  ],
+                      ),],
                 ),
               ),
+                ),
             ),
 
             // Icon(

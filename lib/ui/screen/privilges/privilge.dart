@@ -126,55 +126,10 @@ class _privilge_pageState extends State<privilge_page> {
                      });
                     },
                  ));
-            //   Card(
-            //   elevation: 8.0,
-            //   margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-            //   child: Container(
-            //     child: ListTile(
-            //       contentPadding:
-            //       EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-            //       leading: Icon(Icons.account_circle),
-            //       title: Text(element['name']),
-            //       trailing: Icon(Icons.arrow_forward),
-            //     ),
-            //   ),
-            // );
+
           },
         ),
-      // ),
-        // ContainerShadows(
-        //   margin: EdgeInsets.only(),
-        //   child: Column(
-        //     children: [
-        //       RowEdit(name: 'المبيعات', des: ''),
-        //       Consumer<privilge_vm>(
-        //           builder: (context, cart, child){
-        //            return Expanded(
-        //              child: ListView(
-        //                 children: cart.privilgelist.map(( key) {
-        //
-        //                   return new CheckboxListTile(
-        //                     title: new Text(key.name_privilege),
-        //                     value:   key.isCheck=='1'?true:false,// as bool,
-        //                     onChanged: (bool? value) {
-        //                       setState(() {
-        //                         print(value);
-        //                         value ==true? key.isCheck="1": key.isCheck="0";
-        //                         //values[key] = value;
-        //                       });
-        //                      },
-        //                   );
-        //                 }).toList(),
-        //               ),
-        //            );
-        //           }),
-       //       RowEdit(name: 'الإدارة', des: ''),
-        //
-        //       RowEdit(name: 'التحصيل', des: ''),
-        //
-        //     ],
-        //   ),
-        // ),
+
       ),
     );
   }

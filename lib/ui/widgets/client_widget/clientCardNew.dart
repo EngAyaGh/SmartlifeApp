@@ -2,6 +2,7 @@ import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/ui/screen/client/detail_client.dart';
 import 'package:crm_smart/ui/screen/client/editClient.dart';
+import 'package:crm_smart/ui/screen/client/profileclient.dart';
 import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
 import 'package:crm_smart/ui/screen/invoice/invoces.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/custom_button_new.dart';
@@ -44,10 +45,15 @@ class cardClientnew extends StatelessWidget {
           //splashColor: Colors.blue.withAlpha(30),
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => editclient(
-                  itemClient: itemClient,
-                  fkclient: itemClient.idClients.toString(),
-                  fkuser: itemClient.fkUser.toString(),)));
+                MaterialPageRoute(builder: (context) =>
+                    ProfileClient(
+                        idclient:
+                        itemClient.idClients.toString())
+                  //   editclient(
+                  // itemClient: itemClient,
+                  // fkclient: itemClient.idClients.toString(),
+                  // fkuser: itemClient.fkUser.toString(),)
+                ));
           },
           child: Container(
             decoration: BoxDecoration(
@@ -100,14 +106,14 @@ ${itemClient.nameEnterprise.toString().substring(45,itemClient.nameEnterprise.to
                             fontFamily: kfontfamily2),),
 
                       itemClient.amount_paid!=null?
-                      Text('المتبقي' +
+                      Text(' المتبقي ' +
                         itemClient.amount_paid.toString(),
                         style: TextStyle(
                           color: kMainColor,
                             fontSize: 10,
                             fontFamily: kfontfamily2),)
                           : Text(
-                        'المتبقي' ,
+                        '' ,
                         style: TextStyle(
                             color: kMainColor,
                             fontSize: 10,

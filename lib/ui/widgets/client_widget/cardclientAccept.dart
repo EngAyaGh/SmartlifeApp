@@ -52,7 +52,8 @@ class cardClientAccept extends StatelessWidget {
                 MaterialPageRoute(builder: (context) =>
                     ProfileClient(
                         idclient:
-                        iteminvoice.fkIdClient.toString())));
+                        iteminvoice.fkIdClient.toString())
+                ));
           },
           child: Container(
             decoration: BoxDecoration(

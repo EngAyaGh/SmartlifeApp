@@ -20,7 +20,7 @@ class CommunicationModel {
   late final String dateCommunication;
   late final String? result;
   late final String? notes;
-  late final String rate;
+  late final String? rate;
   late final String? typeCommuncation;
   late final String? numberWrong;
   late final String? clientRepeat;

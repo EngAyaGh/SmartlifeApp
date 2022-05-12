@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crm_smart/model/clientmodel.dart';
+import 'package:crm_smart/model/deleteinvoicemodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/provider/selected_button_provider.dart';
@@ -23,6 +24,7 @@ import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'dart:ui' as myui;
+import 'package:intl/intl.dart' as rt;
 import '../../../constants.dart';
 import '../../../labeltext.dart';
 import '../showpdf.dart';
@@ -80,18 +82,19 @@ class _addinvoiceState extends State<addinvoice> {
 
 @override
 void dispose() async{
+  renewController.dispose();
+  noteController.dispose();
+  imageController.dispose();
+  amount_paidController.dispose();
   print('in dispos add invoice *****************');
-  _resetState();
+  //_resetState();
   await FilePicker.platform.clearTemporaryFiles();
     super.dispose();
   }
    @override
    void initState()  {
      WidgetsBinding.instance!.addPostFrameCallback((_){
-
-       // Add Your Code here.
-
-
+    // Add Your Code here.
      Provider.of<LoadProvider>(context, listen: false)
          .changebooladdinvoice(false);
      print('init in addinvoice screen main');
@@ -159,7 +162,86 @@ else{
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        actions: [
+          new IconButton(
+          icon: Icon(Icons.delete),
+          onPressed: () async {
+            bool result = await showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text('التأكيد'),
+                  content: Text('هل تريد حذف الفاتورة'),
+                  actions: <Widget>[
+                    new FlatButton(
+                      onPressed: () {
+                        Navigator.of(context,
+                            rootNavigator: true)
+                            .pop(
+                            false); // dismisses only the dialog and returns false
+                      },
+                      child: Text('لا'),
+                    ),
+                    FlatButton(
+                      onPressed: () async {
+                        Navigator.of(context,
+                            rootNavigator: true)
+                            .pop(true);
+                        // dismisses only the dialog and returns true
+                        // if(itemProd.idInvoice!=null)
+                        DateTime _currentDate = DateTime.now();
+                        final rt.DateFormat formatter =
+                        rt.DateFormat('yyyy-MM-dd');
 
+                        Provider.of<invoice_vm>(context,
+                            listen: false)
+                            .addlistinvoicedeleted(
+                            DeletedinvoiceModel(
+                              fkClient: widget.invoice!.fkIdClient.toString(),
+                              fkUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
+                                  .idUser, //cuerrent user
+                              dateDelete:
+                              formatter.format(_currentDate),
+                              //city:itemProd.
+                              nameClient:
+                              widget.invoice!.nameClient.toString(),
+                              nameEnterprise:
+                              widget.itemClient.nameEnterprise,
+                              mobileclient:
+                              widget.itemClient.mobile,
+                              //mobileuser:widget.itemClient. ,
+                              // nameUser: widget.itemProd
+                              //     .nameUser, //موظف المبيعات
+                              nameUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
+                                  .nameUser, //name user that doing delete
+                            ));
+                        Provider.of<invoice_vm>(context,
+                            listen: false)
+                            .delete_invoice({
+                          "id_invoice": widget
+                              .invoice!.idInvoice
+                              .toString(),
+                          "fkUserdo":
+                          Provider.of<user_vm_provider>(context, listen: false).currentUser!
+                              .idUser.toString(),
+                          "name_enterprise": widget
+                              .itemClient.nameEnterprise
+                              .toString(),
+                          "nameUserdo":
+                          Provider.of<user_vm_provider>(context, listen: false).currentUser!
+                              .nameUser.toString(),
+                        }, widget.invoice!.idInvoice);
+                      },
+                      child: Text('نعم'),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          //onPressed: COPY,
+        ),
+        ],
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: kWhiteColor),
           onPressed: () {

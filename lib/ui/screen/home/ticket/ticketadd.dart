@@ -24,123 +24,140 @@ class _ticketAddState extends State<ticketAdd> {
   final TextEditingController problem_desc = TextEditingController();
   final TextEditingController notes = TextEditingController();
   @override void initState() {
-    Provider.of<typeclient>(context,listen: false).getreasons('ticket');
     super.initState();
+  }
+  @override void didChangeDependencies() {
+    Future.delayed(Duration(milliseconds: 30)).then((_) async {
+      Provider.of<typeclient>(context,listen: false).getreasons('ticket');
+
+    }
+    );
+
+    super.didChangeDependencies();
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         key:_scaffoldKey,
-        body:ModalProgressHUD(
-          inAsyncCall:  Provider.of<ticket_vm>(context,listen: true).addvalue,
-          child : Form(
-            //key: _globalKey,
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: 150,
-                  right: 20,
-                  left: 20,bottom: 150),
-              child: ContainerShadows(
-                width: double.infinity,
-                //height: 400,
-                margin: EdgeInsets.only(),
-                padding:EdgeInsets.only(top: 50,left: 20,right: 20) ,
-                child: Column(
-                  children: [
-                    SizedBox(height: 15,),
-                    RowEdit(name: 'نوع المشكلة', des: 'REQUIRED'),
+        body:SingleChildScrollView(
+          child: ModalProgressHUD(
+            inAsyncCall:  Provider.of<ticket_vm>(context,listen: true).addvalue,
+            child : Directionality(
+              textDirection: TextDirection.rtl,
+              child: Form(
+                //key: _globalKey,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: 150,
+                      right: 20,
+                      left: 20,bottom: 150),
+                  child: ContainerShadows(
+                    width: double.infinity,
+                    //height: 400,
+                    margin: EdgeInsets.only(),
+                    padding:EdgeInsets.only(top: 50,left: 20,right: 20,bottom: 20) ,
+                    child: Column(
+                      children: [
+                        SizedBox(height: 15,),
+                        RowEdit(name: 'نوع المشكلة', des: 'REQUIRED'),
 
-                    Consumer<typeclient>(
-                      builder: (context, cart, child){
-                        return SizedBox(
-                          width: 240,
-                          child: DropdownButtonFormField(
-                            decoration:InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(width: 3,color: Colors.black)
-                              )
-                            ) ,
+                        Consumer<typeclient>(
+                          builder: (context, cart, child){
+                            return SizedBox(
+                              //width: 240,
+                              child: DropdownButtonFormField(
+                                decoration:InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                        width: 2,
+                                        color: Colors.grey)
+                                  )
+                                ) ,
 
-                            isExpanded: true,
-                            //hint: Text("حدد حالة العميل"),
-                            items: cart.type_of_out.map((level_one) {
-                              return DropdownMenuItem(
-                                child: Text(level_one.nameReason), //label of item
-                                value: level_one.nameReason, //value of item
+                                isExpanded: true,
+                                //hint: Text("حدد حالة العميل"),
+                                items: cart.type_of_out.map((level_one) {
+                                  return DropdownMenuItem(
+                                    child: Text(level_one.nameReason), //label of item
+                                    value: level_one.nameReason, //value of item
+                                  );
+                                }).toList(),
+                                value:cart.selectedValueOut,
+                                onChanged:(value) {
+                                  //  setState(() {
+                                  cart.changevalueOut(value.toString());
+                                  // });
+                                },
+                              ),
+                            );},
+                        ),
+                        SizedBox(height: 15,),
+                        RowEdit(name: 'ملاحظات ', des: ''),
+
+
+
+                        EditTextFormField(
+                          vaild: (value) {
+                            if (value!.isEmpty) {
+                              return 'الحقل فارغ';
+                            }
+                          },
+                          hintText: '',
+                          controller: notes,
+                          maxline: 3,
+                        ),
+                        SizedBox(height: 15,),
+                        RowEdit(name: 'وصف المشكلة', des: ''),
+                        EditTextFormField(
+                          vaild: (value) {
+                            if (value!.isEmpty) {
+                              return 'الحقل فارغ';
+                            }
+                          },
+                          hintText: '',
+                          controller: problem_desc,
+                          maxline: 4,
+                        ),
+                        SizedBox(height: 15,),
+                        CustomButton(
+                          width:double.infinity,
+                          //MediaQuery.of(context).size.width * 0.2,
+                          text: 'حفظ',
+                          onTap: () async {
+                            // if (_globalKey.currentState!.validate()) {
+                            //   _globalKey.currentState!.save();
+
+                              Provider.of<ticket_vm>(context,listen: false).addticket({
+                                'fk_client':widget.fk_client,
+                                'type_problem':  Provider.of<typeclient>(context,listen: false).selectedValuemanag,
+                                'details_problem':problem_desc.text,
+                                'notes_ticket':notes.text,
+                                'type_ticket':'جديدة',
+                                'fk_user_open':Provider.of<user_vm_provider>(context,listen: false)
+                                .currentUser!.idUser.toString(),
+                                'date_open':DateTime.now().toString(),
+                                'client_type':'0'
+                              }).then(
+                                      (value) =>
+                                      //value!="error"
+                                       clear(context)
+                                     // : error(context)
                               );
-                            }).toList(),
-                            value:cart.selectedValueOut,
-                            onChanged:(value) {
-                              //  setState(() {
-                              cart.changevalueOut(value.toString());
-                              // });
-                            },
-                          ),
-                        );},
+                            // }else {
+                            //   _scaffoldKey.currentState!.showSnackBar(
+                            //       SnackBar(content: Text('الحقل فارغ  '))
+                            //   );
+                            // }
+                          },
+                          //child: Text(" حفظ"),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 15,),
-                    RowEdit(name: 'ملاحظات ', des: ''),
+                  ),
 
-
-
-                    EditTextFormField(
-                      vaild: (value) {
-                        if (value!.isEmpty) {
-                          return 'الحقل فارغ';
-                        }
-                      },
-                      hintText: '',
-                      controller: notes,
-                    ),
-                    SizedBox(height: 15,),
-                    RowEdit(name: 'وصف المشكلة', des: ''),
-                    EditTextFormField(
-                      vaild: (value) {
-                        if (value!.isEmpty) {
-                          return 'الحقل فارغ';
-                        }
-                      },
-                      hintText: '',
-                      controller: problem_desc,
-                    ),
-                    SizedBox(height: 15,),
-                    CustomButton(
-                      width:double.infinity,
-                      //MediaQuery.of(context).size.width * 0.2,
-                      text: 'حفظ',
-                      onTap: () async {
-                        // if (_globalKey.currentState!.validate()) {
-                        //   _globalKey.currentState!.save();
-
-                          Provider.of<ticket_vm>(context,listen: false).addticket({
-                            'fk_client':widget.fk_client,
-                            'type_problem':  Provider.of<typeclient>(context,listen: false).selectedValuemanag,
-                            'details_problem':problem_desc.text,
-                            'notes_ticket':notes.text,
-                            'type_ticket':'جديدة',
-                            'fk_user_open':Provider.of<user_vm_provider>(context,listen: false)
-                            .currentUser!.idUser.toString(),
-                            'date_open':DateTime.now().toString(),
-                            'client_type':'0'
-                          }).then(
-                                  (value) =>
-                                  //value!="error"
-                                   clear(context)
-                                 // : error(context)
-                          );
-                        // }else {
-                        //   _scaffoldKey.currentState!.showSnackBar(
-                        //       SnackBar(content: Text('الحقل فارغ  '))
-                        //   );
-                        // }
-                      },
-                      //child: Text(" حفظ"),
-                    ),
-                  ],
                 ),
               ),
-
             ),
           ),
         ));

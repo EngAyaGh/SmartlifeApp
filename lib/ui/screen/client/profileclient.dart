@@ -1,8 +1,10 @@
 
 
 import 'package:crm_smart/model/clientmodel.dart';
+import 'package:crm_smart/model/communication_modle.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/usermodel.dart';
+import 'package:crm_smart/ui/screen/care/careView.dart';
 import 'package:crm_smart/ui/screen/care/comment_view.dart';
 import 'package:crm_smart/ui/screen/invoice/invoces.dart';
 import 'package:crm_smart/ui/screen/invoice/invoiceView.dart';
@@ -28,24 +30,28 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   late ClientModel _clientModel;
   late InvoiceModel? _invoiceModel;
+  late CommunicationModel? _CommunicationModel;
   late TabController _tabcontroller;
 
 @override void initState() {
+  WidgetsBinding.instance!.addPostFrameCallback((_)async{
 
-    super.initState();
     Provider.of<invoice_vm>(context,listen: false)
-        .get_invoiceclientlocal(widget.idclient);
+        .get_invoiceclientlocal(widget.idclient);});
+    super.initState();
 
-    _clientModel=Provider.of<client_vm>(context,listen: false).listClient
-    .firstWhere((element) => element.idClients==widget.idclient);
 
-    _invoiceModel=Provider.of<invoice_vm>(context,listen: false).listinvoices
-        .firstWhere((element) => element.fkIdClient==widget.idclient);
-    _tabcontroller= TabController(length: 4, vsync: this,initialIndex: 0);
+    _tabcontroller= TabController(length: 5, vsync: this,initialIndex: 0);
 
 }
   @override
   Widget build(BuildContext context) {
+    _clientModel=Provider.of<client_vm>(context,listen: true).listClient
+        .firstWhere((element) => element.idClients==widget.idclient);
+
+    _invoiceModel=Provider.of<invoice_vm>(context,listen: true).listinvoices
+        .firstWhere((element) => element.fkIdClient==widget.idclient);
+
     current = Provider.of<user_vm_provider>(context).currentUser!;
     int _tabBarIndex = 0;
     return Scaffold(
@@ -101,7 +107,17 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
               ),
             ),
             Text(
-              ' الدعم الفني ',
+              ' الدعم ',
+              style: TextStyle(
+                fontFamily: kfontfamily2,
+                //fontWeight: FontWeight.bold,
+                //color: _tabBarIndex == 1?kMainColor : kUnActiveColor,
+                //fontSize: _tabBarIndex == 3 ? 20 : null,
+                //decorationStyle: TextDecorationStyle.double
+              ),
+            ),
+            Text(
+              'العناية ',
               style: TextStyle(
                 fontFamily: kfontfamily2,
                 //fontWeight: FontWeight.bold,
@@ -122,17 +138,20 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
             child: TabBarView(
               controller: _tabcontroller,
               children: <Widget>[
-                ClientView(clientModel: _clientModel),
+                ClientView(idclient: _clientModel.idClients.toString()),
                 // invoices(
                 //   itemClient: _clientModel,
                 //   fkclient: _clientModel.idClients.toString(),
                 //   fkuser: '',),
                 InvoiceView(
-                    invoice: _invoiceModel,
+                idinvoice: _invoiceModel!.idInvoice.toString(),
                 clientmodel: _clientModel,
                 ),
-                commentView( fk_client:_clientModel.idClients.toString(),nameEnterprise: _clientModel.nameEnterprise),
+                commentView(
+                    fk_client:_clientModel.idClients.toString(),
+                 nameEnterprise: _clientModel.nameEnterprise),
                 support_add( idinvoice: _invoiceModel!.idInvoice,),
+                careView(   fk_client:_clientModel.idClients.toString(),),
                 //InvoiceView(invoice: _invoiceModel,),
                 //Icon(Icons.add),
               ],
