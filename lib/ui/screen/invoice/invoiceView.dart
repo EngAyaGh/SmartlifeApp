@@ -34,12 +34,15 @@ class InvoiceView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(invoice!=null||idinvoice!='')
     invoice=Provider.of<invoice_vm>(context,listen: true).listinvoices
         .firstWhere((element) => element.idInvoice==idinvoice);
     return SingleChildScrollView(
       child: Directionality(
         textDirection: TextDirection.rtl,
-        child: Column(
+        child:
+        invoice!=null?
+        Column(
           children: [
             Container(
                 height: MediaQuery.of(context).size.height * 0.1,
@@ -149,6 +152,17 @@ class InvoiceView extends StatelessWidget {
               ],
             )
           ],
+        )
+            :    CustomButton(
+          text: ' إنشاء فاتورة جديدة',
+          onTap: () async {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => addinvoice(
+                       // invoice: invoice,
+                        itemClient: clientmodel)));
+          },
         ),
       ),
     );

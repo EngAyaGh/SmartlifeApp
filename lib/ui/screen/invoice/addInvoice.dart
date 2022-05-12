@@ -43,7 +43,7 @@ class addinvoice extends StatefulWidget {
      Key? key}) : super(key: key);
    ClientModel itemClient;
     // String? idClient,iduser;
-   InvoiceModel? invoice;
+   InvoiceModel? invoice=null;
    // late int indexinvoice;
   @override
   _addinvoiceState createState() => _addinvoiceState();
@@ -78,7 +78,7 @@ class _addinvoiceState extends State<addinvoice> {
    bool _multiPick = false;
    FileType _pickingType = FileType.any;
   late File? _myfile=null;
-   InvoiceModel? _invoice;
+   late InvoiceModel? _invoice;
 
 @override
 void dispose() async{
@@ -133,7 +133,7 @@ else{
         imageRecord: "",
         fkIdClient:widget.itemClient.idClients,
         fkIdUser:widget.itemClient.fkUser,//صاحب العميل
-
+         path: '',
         total:totalController,
         notes:noteController.text,
       );
@@ -163,7 +163,7 @@ else{
       key: _scaffoldKey,
       appBar: AppBar(
         actions: [
-          new IconButton(
+           new IconButton(
           icon: Icon(Icons.delete),
           onPressed: () async {
             bool result = await showDialog(
@@ -613,7 +613,6 @@ else{
                                           "notes": noteController.text,
                                           "id_invoice":invoiceID,
                                           'date_lastuserupdate':DateTime.now().toString(),
-
                                           //"date_changetype":,
                                         },invoiceID,_invoice!.path.toString().isNotEmpty?_myfile:null
                                         ).then((value) =>

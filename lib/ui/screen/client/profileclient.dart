@@ -29,7 +29,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
   late UserModel current ;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   late ClientModel _clientModel;
-  late InvoiceModel? _invoiceModel;
+  late InvoiceModel? _invoiceModel=null;
   late CommunicationModel? _CommunicationModel;
   late TabController _tabcontroller;
 
@@ -49,7 +49,11 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
     _clientModel=Provider.of<client_vm>(context,listen: true).listClient
         .firstWhere((element) => element.idClients==widget.idclient);
 
-    _invoiceModel=Provider.of<invoice_vm>(context,listen: true).listinvoices
+    final index=Provider.of<invoice_vm>(context,listen: true).listinvoices.indexWhere(
+            (element) => element.fkIdClient==widget.idclient);
+
+   if(index !=-1)
+     _invoiceModel=Provider.of<invoice_vm>(context,listen: true).listinvoices
         .firstWhere((element) => element.fkIdClient==widget.idclient);
 
     current = Provider.of<user_vm_provider>(context).currentUser!;
@@ -144,13 +148,15 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
                 //   fkclient: _clientModel.idClients.toString(),
                 //   fkuser: '',),
                 InvoiceView(
-                idinvoice: _invoiceModel!.idInvoice.toString(),
+                idinvoice:
+                _invoiceModel==null?'':
+                _invoiceModel!.idInvoice.toString(),
                 clientmodel: _clientModel,
                 ),
                 commentView(
                     fk_client:_clientModel.idClients.toString(),
                  nameEnterprise: _clientModel.nameEnterprise),
-                support_add( idinvoice: _invoiceModel!.idInvoice,),
+                support_add( idinvoice:_invoiceModel==null?'': _invoiceModel!.idInvoice,),
                 careView(   fk_client:_clientModel.idClients.toString(),),
                 //InvoiceView(invoice: _invoiceModel,),
                 //Icon(Icons.add),

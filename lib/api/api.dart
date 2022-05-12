@@ -102,10 +102,10 @@ class Api {
     // int idxEnd = result.indexOf("}");
     // result=result.substring(idx,idxEnd+1);
 
-    String result= response.body;
-    int idx = result.indexOf("{");
-    int length=result.length;
-    result=result.substring(idx,length);
+     String result= response.body;
+    // int idx = result.indexOf("{");
+    // int length=result.length;
+    // result=result.substring(idx,length);
     if (json.decode(result)["code"] == "200") {
 
       return jsonDecode(result)["message"];

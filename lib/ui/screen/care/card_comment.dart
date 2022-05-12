@@ -31,7 +31,7 @@ class cardcomment extends StatelessWidget {
                   : CachedNetworkImage(
                 placeholder: (context, url) =>
                 const CircularProgressIndicator(),
-                imageUrl: commentmodel.imgImage,
+                imageUrl: commentmodel.imgImage.toString(),
               ),
               // CachedNetworkImage(
               //   progressIndicatorBuilder: (context, url, progress) => Center(
@@ -69,7 +69,7 @@ class cardcomment extends StatelessWidget {
                 child: Column(
                   children: [
                     Row(
-                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       //crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextUtilis(

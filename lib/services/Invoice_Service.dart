@@ -89,7 +89,6 @@ class Invoice_Service {
     return prodlist;
   }
   Future<String> addInvoice( Map<String,dynamic?> body,File? file) async {
-    print("add invoice in services");
 
     try{
       String result = await Api()

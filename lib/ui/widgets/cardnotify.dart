@@ -58,10 +58,17 @@ late NotificationModel itemNotify;
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
+                //crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(itemNotify.dateNotify,
-                    style: TextStyle(
-                        fontFamily: kfontfamily3,color: kMainColor),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        itemNotify.dateNotify,
+                        style: TextStyle(
+                            fontFamily: kfontfamily3,color: kMainColor),),
+                    ],
+                  ),
 
                   // Row(
                   //   children: [

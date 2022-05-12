@@ -112,6 +112,7 @@ class cardapprove1 extends StatelessWidget {
                                               "fk_regoin":itemapprove.fk_regoin,
                                               "fk_country":itemapprove.fk_country,
                                               "isApprove": "1",
+                                              'fk_invoice':itemapprove.fk_invoice,
                                               "name_enterprise":itemapprove.name_enterprise,
                                               "fkusername":itemapprove.nameUser, //موظف المبيعات
                                               //"message":"",//

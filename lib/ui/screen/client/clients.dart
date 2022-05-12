@@ -251,13 +251,13 @@ ApproveModel itemapprove;
                                     );
                                     Navigator.of(context,rootNavigator: true).pop();
                                    // Navigator.pop(context);
-                                   // Navigator.pushAndRemoveUntil(context,
-                                   // MaterialPageRoute(builder: (context)=>ApprovePage()),
-                                   // (route) => false
-                                   // );
-                                    Navigator.pushReplacement(context,
-                                        MaterialPageRoute(builder:
-                                            (context)=>ApprovePage()));
+                                   Navigator.pushAndRemoveUntil(context,
+                                   MaterialPageRoute(builder: (context)=>Home()),
+                                   (route) => true
+                                   );
+                                   //  Navigator.pushReplacement(context,
+                                   //      MaterialPageRoute(builder:
+                                   //          (context)=>ApprovePage()));
                                   },
                                   child: Text('نعم'),
                                 ),

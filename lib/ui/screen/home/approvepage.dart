@@ -25,7 +25,7 @@ class _ApprovePageState extends State<ApprovePage> {
   void didChangeDependencies() {
 
     Future.delayed(Duration(milliseconds: 10)).then((_) async {
-     if( Provider.of<privilge_vm>(context,listen: true)
+     if( Provider.of<privilge_vm>(context,listen: false)
           .checkprivlge('7'))
       await    Provider.of<approve_vm>(context, listen: false)
           .getApprovebyregoin();//getApprovebycountry

@@ -28,23 +28,29 @@ class _support_addState extends State<support_add> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  late InvoiceModel _invoice;
-
+  late InvoiceModel? _invoice=null;
+  @override void dispose() {
+    _textsupport.dispose();
+    super.dispose();
+  }
   @override
   void initState()  {
-    _invoice = Provider
-        .of<invoice_vm>(context, listen: false)
-        .listinvoices
-        .firstWhere(
-            (element) =>
-        element.idInvoice == widget.idinvoice);
+    if(widget.idinvoice!=''){
+      _invoice = Provider
+          .of<invoice_vm>(context, listen: false)
+          .listinvoices
+          .firstWhere(
+              (element) =>
+          element.idInvoice == widget.idinvoice);
 
-    Provider.of<ticket_vm>(context,listen: false)
-        .getticket();
+      Provider.of<ticket_vm>(context,listen: false)
+          .getticket();
 
-    //_ticketModel=_list.firstWhere((element) => element.fkClient)
-    Provider.of<ticket_vm>(context,listen: false)
-        .getclient_ticket(_invoice.fkIdClient.toString());
+      //_ticketModel=_list.firstWhere((element) => element.fkClient)
+      Provider.of<ticket_vm>(context,listen: false)
+          .getclient_ticket(_invoice!.fkIdClient.toString());
+    }
+
 
     print('init support');
     super.initState();
@@ -67,7 +73,6 @@ class _support_addState extends State<support_add> {
     print('builld');
     return Scaffold(
       key: _scaffoldKey,
-
       body: SafeArea(
         child: Directionality(
           textDirection: TextDirection.rtl,
@@ -76,13 +81,15 @@ class _support_addState extends State<support_add> {
               padding: const EdgeInsets.all(8.0),
               child: ContainerShadows(
                 margin: EdgeInsets.all(12),
-                child: Column(
+                child:
+                _invoice!=null?
+                Column(
                   children: [
-                    _invoice.dateinstall_done!=null?
+                    _invoice!.dateinstall_done!=null?
                     RowEdit(name: 'تم التركيب ', des: '')
                     :RowEdit(name: 'موعد التركيب للعميل من ', des: ''),
                     SizedBox(height: 10,),
-                    _invoice.dateinstall_done!=null?//تم التركيب
+                    _invoice!.dateinstall_done!=null?//تم التركيب
                     TextField(
                       decoration: InputDecoration(
                         prefixIcon: Icon(
@@ -93,7 +100,7 @@ class _support_addState extends State<support_add> {
                             color: Colors.black45,
                             fontSize: 16, fontWeight: FontWeight.w500),
                         hintText:
-                        _invoice.dateinstall_done.toString(),
+                        _invoice!.dateinstall_done.toString(),
                         filled: true,
                         fillColor: Colors.grey.shade200,
                       ),
@@ -115,9 +122,9 @@ class _support_addState extends State<support_add> {
                                   color: Colors.black45,
                                   fontSize: 16, fontWeight: FontWeight.w500),
                               hintText:
-                              _invoice.dateinstall_task==null || _currentDate!=DateTime(1,1,1)
+                              _invoice!.dateinstall_task==null || _currentDate!=DateTime(1,1,1)
                                 ?_currentDate.toString()
-                                :_invoice.dateinstall_task.toString(),
+                                :_invoice!.dateinstall_task.toString(),
                               filled: true,
                               fillColor: Colors.grey.shade200,
                             ),
@@ -130,17 +137,17 @@ class _support_addState extends State<support_add> {
                         // IconButton(onPressed: (){
                         //   //_selectDate(context,_currentDate);
                         // }, icon: Icon(Icons.edit,color: kMainColor,)),
-                        _invoice.dateinstall_task==null?
+                        _invoice!.dateinstall_task==null?
                         IconButton(onPressed: () {
                           Provider.of<invoice_vm>(context,listen: false)
                               .setdate_vm({
                             'dateinstall_task':_currentDate.toString(),//_invoice.dateinstall_task.toString()
-                          }, _invoice.idInvoice).then(clear());
-                          _invoice.dateinstall_task=_currentDate.toString();
+                          }, _invoice!.idInvoice).then(clear());
+                          _invoice!.dateinstall_task=_currentDate.toString();
                         }, icon:Icon( Icons.check,color: kMainColor))
                         :Container(),
                         SizedBox(height: 6,),
-                        _invoice.dateinstall_task!=null?
+                        _invoice!.dateinstall_task!=null?
                         Row(
                           children: [
                             SizedBox(width: 6,),
@@ -148,9 +155,9 @@ class _support_addState extends State<support_add> {
                             IconButton(onPressed: (){
                               Provider.of<invoice_vm>(context,listen: false)
                                   .setdate_vm({
-                                'dateinstall_task':_invoice.dateinstall_task.toString(),
+                                'dateinstall_task':_invoice!.dateinstall_task.toString(),
                                 'reason_date':_textsupport.text.toString()
-                              }, _invoice.idInvoice).then(clear());
+                              }, _invoice!.idInvoice).then(clear());
 
                             },
                                 icon:Icon( Icons.check,color: kMainColor)),
@@ -159,7 +166,7 @@ class _support_addState extends State<support_add> {
                         ):Container(),
                       ],
                     ),
-                    _invoice.dateinstall_task!=null?
+                    _invoice!.dateinstall_task!=null?
                     Padding(
                       padding: const EdgeInsets.only(top:8.0),
                       child: EditTextFormField(
@@ -176,19 +183,19 @@ class _support_addState extends State<support_add> {
                     ):Container(),
                     SizedBox(height: 20,),
 
-                    cardRow(title: 'اسم المؤسسة',value: _invoice.name_enterprise.toString()),
-                    cardRow(title: 'معتمد الاشتراك ',value:_invoice.nameuserApprove==null?'':
-                    _invoice.nameuserApprove.toString()),
+                    cardRow(title: 'اسم المؤسسة',value: _invoice!.name_enterprise.toString()),
+                    cardRow(title: 'معتمد الاشتراك ',value:_invoice!.nameuserApprove==null?'':
+                    _invoice!.nameuserApprove.toString()),
 
-                    _invoice.dateinstall_done==null? Container()
-                    :cardRow(title: ' تم التركيب من قبل ',value: _invoice.nameuserinstall.toString()),
-                    _invoice.dateinstall_done==null? Container():
-                    cardRow(title: ' تاريخ التركيب ',value: _invoice.dateinstall_done.toString()),
+                    _invoice!.dateinstall_done==null? Container()
+                    :cardRow(title: ' تم التركيب من قبل ',value: _invoice!.nameuserinstall.toString()),
+                    _invoice!.dateinstall_done==null? Container():
+                    cardRow(title: ' تاريخ التركيب ',value: _invoice!.dateinstall_done.toString()),
 
                     cardRow(title: 'هل تم التركيب ',
-                        value: _invoice.dateinstall_done==null? 'بالانتظار' : 'تم التركيب'),
+                        value: _invoice!.dateinstall_done==null? 'بالانتظار' : 'تم التركيب'),
                     cardRow(title: 'طريقة التركيب ',
-                        value: _invoice.typeInstallation.toString()=='0'?'ميداني':'اونلاين'),
+                        value: _invoice!.typeInstallation.toString()=='0'?'ميداني':'اونلاين'),
                     SizedBox(height: 16,),
                     Provider.of<ticket_vm>(context,listen: true)
                         .listticket_client.isEmpty?
@@ -199,7 +206,7 @@ class _support_addState extends State<support_add> {
                         onPressed: () async{
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context)=>
-                                  ticketAdd(fk_client: _invoice.fkIdClient.toString(),)));
+                                  ticketAdd(fk_client: _invoice!.fkIdClient.toString(),)));
                         },
                         child: Text(' فتح تذكرة دعم '))
                         : ElevatedButton(
@@ -217,7 +224,7 @@ class _support_addState extends State<support_add> {
                         },
                         child: Text('تذاكر العميل')) ,
                     SizedBox(height: 15,),
-                    _invoice.dateinstall_done==null?
+                    _invoice!.dateinstall_done==null?
                     ElevatedButton(
     style: ButtonStyle(
     backgroundColor: MaterialStateProperty.all(
@@ -256,12 +263,13 @@ class _support_addState extends State<support_add> {
                                     'userinstall': Provider.of<user_vm_provider>
                                       (context,listen: false).currentUser!.idUser.toString(),
                                     'isdoneinstall':'1',
+                                    'fkIdClient':_invoice!.fkIdClient,
                                     'nameuserinstall':Provider.of<user_vm_provider>
                                       (context,listen: false).currentUser!.nameUser.toString(),
-                                     'name_enterprise':_invoice.name_enterprise,
-                                    'fkcountry':_invoice.fk_country,
-                                    'fk_regoin':_invoice.fk_regoin
-                                  }, _invoice.idInvoice).then(clear());;
+                                     'name_enterprise':_invoice!.name_enterprise,
+                                    'fkcountry':_invoice!.fk_country,
+                                    'fk_regoin':_invoice!.fk_regoin
+                                  }, _invoice!.idInvoice).then(clear());;
 
                                 },
                                 child: Text('نعم'),
@@ -274,6 +282,11 @@ class _support_addState extends State<support_add> {
                     },
                         child: Text('تم التركيب للعميل')):Container(),
                   ],
+                )
+                :Center(
+                  child: Container(
+                    child: Text('العميل ليس مشترك'),
+                  ),
                 ),
               ),
             ),

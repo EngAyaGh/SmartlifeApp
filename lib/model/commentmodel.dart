@@ -15,7 +15,7 @@ class CommentModel {
   late final String fkClient;
   late final String content;
   late final String nameUser;
-  late final String imgImage;
+  late  String? imgImage='';
   late final String nameEnterprise;
   late final String date_comment;
 
@@ -25,7 +25,8 @@ class CommentModel {
     fkClient = json['fk_client'];
     content = json['content'];
     nameUser = json['nameUser'];
-    imgImage =json['img_image'].toString().trim().isEmpty?json['img_image']: urlimage+ json['img_image'];
+    imgImage =json['img_image'].toString().trim().isEmpty?
+    json['img_image']: urlimage+ json['img_image'];
     nameEnterprise = json['name_enterprise'];
     date_comment = json['date_comment'];
   }

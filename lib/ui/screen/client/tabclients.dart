@@ -44,11 +44,11 @@ class _tabclientsState extends State<tabclients> {
         .getuser_vm();
     print(Provider.of<user_vm_provider>(context,listen: false)
         .userall.length);
-    Provider.of<regoin_vm>(context,listen: false).getregoin();
 
     WidgetsBinding.instance!.addPostFrameCallback((_)async{
 
       // Add Your Code here.
+      Provider.of<regoin_vm>(context,listen: false).getregoin();
 
       List<PrivilgeModel> list=
           await   Provider.of<privilge_vm>(context,listen: false).privilgelist;

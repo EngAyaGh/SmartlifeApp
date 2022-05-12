@@ -45,7 +45,7 @@ class level_vm extends ChangeNotifier{
       body.addAll({
         'id_level':res,
       });
-      listoflevel=[];
+      //listoflevel=[];
       listoflevel.add(LevelModel.fromJson(body));
       notifyListeners();
     }

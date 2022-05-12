@@ -60,14 +60,15 @@ Future<String> updatepriv_vm(
 }
 
  bool checkprivlge(String id_privilge)  {
-
-   bool res= privilgelist.firstWhere(
-           (element) => element.fkPrivileg==id_privilge)
-           .isCheck=='1'?true:false;
-
-    print("in check "+res.toString());
+   if(privilgelist.isNotEmpty) {
+     bool res = privilgelist
+         .firstWhere(
+             (element) => element.fkPrivileg == id_privilge)
+         .isCheck == '1' ? true : false;
+     return res;
+   }
    //notifyListeners();
-   return res;
+   return false;
 }
 
 

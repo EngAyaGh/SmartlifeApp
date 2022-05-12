@@ -63,8 +63,10 @@ class _add_invoiceProductState extends State<add_invoiceProduct> {
     //         .of<user_vm_provider>(context, listen: false)
     //         .currentUser!
     //         .fkCountry;
+
+    WidgetsBinding.instance!.addPostFrameCallback((_){
     Provider.of<product_vm>(context, listen: false)
-        .getproduct_vm();
+        .getproduct_vm();});
     super.initState();
   }
   @override void didChangeDependencies() {
