@@ -82,15 +82,15 @@ void calculate(){
       if(listProduct.isNotEmpty){
         _textprice.text=listProduct[index].priceProduct;
         String? taxCountry=listProduct[index].value_config;
-        print(taxCountry);
+       print('tax'); print(taxCountry);
+       print('price'); print(_textprice.text);
         if(taxCountry!=null)
         {
           double pricewithtax=double.parse(_textprice.text)* double.parse(taxCountry)/100;
           print(pricewithtax);
           _textprice.text =(double.parse(_textprice.text) +pricewithtax).toString();
         }
-        if(_taxadmin.text!=''&&_taxuser.text!='')
-        {
+        if(_taxadmin.text!=''&&_taxuser.text!='') {
           totaltax = double.parse(_taxadmin.text)+double.parse( _taxuser.text);
           //_textprice.text=totaltax.toString();
         }
@@ -102,9 +102,9 @@ void calculate(){
           if(_taxuser.text!='')
             totaltax=double.parse( _taxuser.text);
         }
-        double pricewithouttax=double.parse(_textprice.text)* totaltax/100;
+        double pricewithouttax=double.parse(_textprice.text)* totaltax/100; //حسم
         _textprice.text =(double.parse(_textprice.text)-pricewithouttax).toString();
-        print( _textprice.text);
+        print(_textprice.text);
         double totalprice=double.parse(_textprice.text)
             *double.parse( _amount.text.isEmpty?'1':_amount.text);
         //totalprice.floorToDouble();
@@ -119,7 +119,8 @@ void calculate(){
 }
   @override
   Widget build(BuildContext context) {
-    listProduct = Provider.of<product_vm>(context, listen: true).listProduct;
+    listProduct = Provider.of<product_vm>(context, listen: true)
+        .listProduct;
 
     return Scaffold(
       key: _scaffoldKey,

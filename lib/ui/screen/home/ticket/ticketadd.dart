@@ -23,29 +23,28 @@ class _ticketAddState extends State<ticketAdd> {
 
   final TextEditingController problem_desc = TextEditingController();
   final TextEditingController notes = TextEditingController();
+  final _globalKey=GlobalKey<FormState>();
+
   @override void initState() {
     super.initState();
   }
   @override void didChangeDependencies() {
-    Future.delayed(Duration(milliseconds: 30)).then((_) async {
-      Provider.of<typeclient>(context,listen: false).getreasons('ticket');
-
-    }
-    );
-
+    // Future.delayed(Duration(milliseconds: 30)).then((_) async {
+    //   Provider.of<typeclient>(context,listen: false).getreasons('ticket');
+    //});
     super.didChangeDependencies();
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         key:_scaffoldKey,
-        body:SingleChildScrollView(
-          child: ModalProgressHUD(
-            inAsyncCall:  Provider.of<ticket_vm>(context,listen: true).addvalue,
-            child : Directionality(
+        body:ModalProgressHUD(
+          inAsyncCall:  Provider.of<ticket_vm>(context,listen: true).addvalue,
+          child : SingleChildScrollView(
+            child: Directionality(
               textDirection: TextDirection.rtl,
               child: Form(
-                //key: _globalKey,
+                key: _globalKey,
                 child: Padding(
                   padding: EdgeInsets.only(
                       top: 150,
@@ -95,8 +94,6 @@ class _ticketAddState extends State<ticketAdd> {
                         SizedBox(height: 15,),
                         RowEdit(name: 'ملاحظات ', des: ''),
 
-
-
                         EditTextFormField(
                           vaild: (value) {
                             if (value!.isEmpty) {
@@ -125,31 +122,39 @@ class _ticketAddState extends State<ticketAdd> {
                           //MediaQuery.of(context).size.width * 0.2,
                           text: 'حفظ',
                           onTap: () async {
-                            // if (_globalKey.currentState!.validate()) {
-                            //   _globalKey.currentState!.save();
+                            if (_globalKey.currentState!.validate()) {
+                              _globalKey.currentState!.save();
 
-                              Provider.of<ticket_vm>(context,listen: false).addticket({
-                                'fk_client':widget.fk_client,
-                                'type_problem':  Provider.of<typeclient>(context,listen: false).selectedValuemanag,
-                                'details_problem':problem_desc.text,
-                                'notes_ticket':notes.text,
-                                'type_ticket':'جديدة',
-                                'fk_user_open':Provider.of<user_vm_provider>(context,listen: false)
-                                .currentUser!.idUser.toString(),
-                                'date_open':DateTime.now().toString(),
-                                'client_type':'0'
-                              }).then(
+                              Provider.of<ticket_vm>(context, listen: false)
+                                  .addticket({
+                                'fk_client': widget.fk_client.toString(),
+                                'type_problem': Provider
+                                    .of<typeclient>(context, listen: false)
+                                    .selectedValuemanag.toString(),
+                                'details_problem': problem_desc.text,
+                                'notes_ticket': notes.text,
+                                'type_ticket': 'جديدة',
+                                'fk_user_open': Provider
+                                    .of<user_vm_provider>(
+                                    context, listen: false)
+                                    .currentUser!
+                                    .idUser
+                                    .toString(),
+                                'date_open': DateTime.now().toString(),
+                                'client_type': '0'
+                              })
+                                  .then(
                                       (value) =>
-                                      //value!="error"
-                                       clear(context)
-                                     // : error(context)
+                                  //value!="error"
+                                  clear(context)
+                                // : error(context)
                               );
-                            // }else {
-                            //   _scaffoldKey.currentState!.showSnackBar(
-                            //       SnackBar(content: Text('الحقل فارغ  '))
-                            //   );
-                            // }
-                          },
+                              // }else {
+                              //   _scaffoldKey.currentState!.showSnackBar(
+                              //       SnackBar(content: Text('الحقل فارغ  '))
+                              //   );
+                              // }
+                            } },
                           //child: Text(" حفظ"),
                         ),
                       ],

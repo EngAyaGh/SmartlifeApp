@@ -56,15 +56,16 @@ class Api {
     );
 
     String result= response.body;
-    int idx = result.indexOf("{");
-    int length=result.length;
-    result=result.substring(idx,length);
-    // String result= response.body;
+    // int idx = result.indexOf("{");
+    // int length=result.length;
+    // result=result.substring(idx,length);//run for login and update client
+    // // String result= response.body;
     // int idx = result.indexOf("{");
     // int idxEnd = result.indexOf("}");
     // int length=result.length;
     // result=result.substring(idx,idxEnd+1);
     print(result);
+    print("resultttt");
     print(json.decode(result)["code"]);
     if (json.decode(result)["code"] == "200") {
 
@@ -79,6 +80,7 @@ class Api {
 
 
   Future<dynamic> postRequestWithFile(
+      String type,
       String url ,Map<String,dynamic> data,File? file) async{
     var reguest=http.MultipartRequest("POST",  Uri.parse(url));
     if(file !=null){
@@ -96,16 +98,25 @@ class Api {
     });
     var myrequest=await reguest.send();
     var response=await http.Response.fromStream(myrequest);
+    String result='';
+    if(type=='array'){
+      result= response.body;
+       print('result');
+       print(result);
+      int idx = result.indexOf("{");
+      int length=result.length;
+      result=result.substring(idx,length);
+    }
+    else {
+      result = response.body;
+      print(result);
+      int idx = result.indexOf("{");
+      int idxEnd = result.indexOf("}");
+      result = result.substring(
+          idx, idxEnd + 1); //user update not run but run invoice
+    } //
 
-    // String result= response.body;
-    // int idx = result.indexOf("{");
-    // int idxEnd = result.indexOf("}");
-    // result=result.substring(idx,idxEnd+1);
-
-     String result= response.body;
-    // int idx = result.indexOf("{");
-    // int length=result.length;
-    // result=result.substring(idx,length);
+    print(result);
     if (json.decode(result)["code"] == "200") {
 
       return jsonDecode(result)["message"];

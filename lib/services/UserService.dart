@@ -21,7 +21,7 @@ Future<UserModel> UpdateUser({
   File? file
 }) async {
 
-var data = await Api().postRequestWithFile(
+var data = await Api().postRequestWithFile('array',
    url+'users/updateuser_patch.php?id_user=$idUser',
    body,
    file,

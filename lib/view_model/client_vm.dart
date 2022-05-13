@@ -210,10 +210,26 @@ else{
   }
 
   Future<bool> updateclient_vm(Map<String, dynamic?> body,String? id_client) async {
-    ClientModel data = await ClientService().updateClient(body,id_client!);
+     List<ClientModel> data = await ClientService().updateClient(body,id_client!);
 
-      int index=listClientbyCurrentUser.indexWhere((element)
-      => element.idClients==id_client);
+     // int index=listClientbyCurrentUser.indexWhere((element)
+     // => element.idClients==id_client);
+     // listClient.forEach((elementclient) {
+        data.forEach((elementdata) {
+         int index= listClient.indexWhere((element) => element.id_invoice==elementdata.id_invoice);
+          if(index!=-1){
+            listClient[index]=elementdata;
+            print(listClient[index]);
+          }
+          });
+
+          // if(elementclient.id_invoice== element.id_invoice)
+          //      elementclient=element;
+        //});
+      //});
+      // data.forEach((element) {
+      //       element.id_invoice
+      // });
       // body.addAll({
       //   'id_clients':id_client,
       //   'date_create':listClientbyCurrentUser[index].dateCreate,
@@ -227,7 +243,7 @@ else{
       //   "total":listClientbyCurrentUser[index].total,
       //
       // });
-      listClient[index]=data;//ClientModel.fromJson(body);
+     // listClient[index]=data;//ClientModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
 
@@ -238,10 +254,16 @@ else{
     notifyListeners();
   }
   Future<bool> setApproveclient_vm(Map<String, dynamic?> body,String? id_client) async {
-    ClientModel data = await ClientService().setApproveClient(body,id_client!);
+    List<ClientModel> data = await ClientService().setApproveClient(body,id_client!);
 
-      int index=listClient.indexWhere((element) => element.idClients==id_client);
-       // body.addAll({
+      //int index=listClient.indexWhere((element) => element.idClients==id_client);
+    listClient.forEach((elementclient) {
+      data.forEach((element) {
+        if(elementclient.id_invoice== element.id_invoice)
+          elementclient=element;
+      });
+    });
+    // body.addAll({
        // 'id_clients':listClient[index].idClients,
        // 'date_approve':Utils.toDate(DateTime.now()),
        // "type_client": listClient[index].typeClient,
@@ -263,7 +285,7 @@ else{
        // "total":listClient[index].total
        // //   'iduser_approve':listClientbyCurrentUser[index].iduser_approve,
        // });
-      listClient[index]=data;//ClientModel.fromJson(body);
+      //listClient[index]=data;//ClientModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
 

@@ -78,7 +78,7 @@ class _addinvoiceState extends State<addinvoice> {
    bool _multiPick = false;
    FileType _pickingType = FileType.any;
   late File? _myfile=null;
-   late InvoiceModel? _invoice;
+  InvoiceModel? _invoice=null;
 
 @override
 void dispose() async{
@@ -88,12 +88,14 @@ void dispose() async{
   amount_paidController.dispose();
   print('in dispos add invoice *****************');
   //_resetState();
-  await FilePicker.platform.clearTemporaryFiles();
+  //await FilePicker.platform.clearTemporaryFiles();
     super.dispose();
   }
    @override
    void initState()  {
-     WidgetsBinding.instance!.addPostFrameCallback((_){
+    if(_invoice==null)
+     _invoice=  InvoiceModel(products: []);
+    WidgetsBinding.instance!.addPostFrameCallback((_){
     // Add Your Code here.
      Provider.of<LoadProvider>(context, listen: false)
          .changebooladdinvoice(false);
@@ -163,7 +165,7 @@ else{
       key: _scaffoldKey,
       appBar: AppBar(
         actions: [
-           new IconButton(
+          _invoice!.idInvoice!=null? new IconButton(
           icon: Icon(Icons.delete),
           onPressed: () async {
             bool result = await showDialog(
@@ -240,7 +242,7 @@ else{
             );
           },
           //onPressed: COPY,
-        ),
+        ):Container(),
         ],
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: kWhiteColor),
@@ -683,12 +685,18 @@ else{
   }
   clear(BuildContext context,String value,List<ProductsInvoice>? _products) async {
 
-  int index=  Provider.of<client_vm>(context,listen: false).listClient.indexWhere(
-            (element) => element.idClients==value);
-  Provider.of<client_vm>(context,listen: false).listClient[index]
-      .amount_paid=amount_paidController.text;
-  Provider.of<client_vm>(context,listen: false).listClient[index]
-      .total=totalController;
+  int index=  Provider.of<client_vm>(context,listen: false)
+      .listClient.indexWhere(
+            (element) => element.id_invoice==value);
+   //
+
+  if(index!=-1) {
+    Provider.of<client_vm>(context,listen: false).listClient[index]
+        .amount_paid=amount_paidController.text;
+
+    Provider.of<client_vm>(context,listen: false).listClient[index]
+        .total=totalController;
+  }
      print('in clear');
      //widget.indexinvoice = 0;
      _products=
@@ -719,7 +727,8 @@ else{
               .of<invoice_vm>(context, listen: false)
               .listproductinvoic[i].idInvoiceProduct=res;
       }
-    }//if
+
+      }//if
       else{
         //update product in invoice
         print('before else');
@@ -728,11 +737,21 @@ else{
         bool res=await Provider.of<invoice_vm>(context,listen: false)
             .update_invoiceProduct_vm(body,_products[i].idInvoiceProduct.toString());
       }
-    }//for loop
+    }
+    //for loop
+  int index1=  Provider.of<invoice_vm>(context,listen: false)
+      .listinvoices.indexWhere(
+          (element) => element.idInvoice==value);
+  _invoice==Provider.of<invoice_vm>(context,listen: false)
+      .listinvoices[index1];
+  _invoice!.idInvoice=value;
    _invoice!.products
      = Provider
          .of<invoice_vm>(context, listen: false)
          .listproductinvoic;
+
+  Provider.of<invoice_vm>(context,listen: false)
+      .listinvoices[index1].products=_invoice!.products;
       Provider
           .of<invoice_vm>(context, listen: false).updatelistproducetInvoice();
 
@@ -741,6 +760,8 @@ else{
      _scaffoldKey.currentState!.showSnackBar(
          SnackBar(content: Text('تم الحفظ بنجاح'))
      );
+     setState(() {
+     });
   }
 
   error(context) {

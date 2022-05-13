@@ -23,8 +23,8 @@ class _commentViewState extends State<commentView> {
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_)async {
-      Provider.of<comment_vm>(context, listen: false)
-          .getComment(widget.fk_client);
+      // Provider.of<comment_vm>(context, listen: false)
+      //     .getComment(widget.fk_client);
     });
 print('init in comment');
     super.initState();
@@ -37,7 +37,8 @@ print('init in comment');
   Widget build(BuildContext context) {
     return Scaffold(
         body: ModalProgressHUD(
-          inAsyncCall:  Provider.of<comment_vm>(context, listen: false).isloadadd,
+          inAsyncCall:  Provider.of<comment_vm>
+            (context, listen: false).isloadadd,
           child: SafeArea(
       child: Padding(
           padding: EdgeInsets.only(left:10, right: 10, top: 10, bottom: 10),

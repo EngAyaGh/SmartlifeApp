@@ -39,8 +39,7 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
   @override
   void didChangeDependencies() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      _currentUser =
-      Provider.of<user_vm_provider>(context, listen: false).currentUser!;
+
     });
     super.didChangeDependencies();
   }
@@ -52,6 +51,8 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
 
   @override
   Widget build(BuildContext context) {
+    _currentUser =
+    Provider.of<user_vm_provider>(context, listen: true).currentUser!;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(

@@ -21,20 +21,31 @@ class ClientService{
     }
   }
   //id_product
-  Future<ClientModel> updateClient( Map<String,dynamic> body,String idclient) async {
-    var result = await Api()
-        .post( url:url+"client/clientUpdate.php?id_clients=$idclient",body:
-    body
-    );
-    return result[0];//=="done"? true:false;
+  Future<List<ClientModel>> updateClient( Map<String,dynamic> body,String idclient) async {
+    var data = await Api()
+        .post( url:url+"client/clientUpdate.php?id_clients=$idclient",
+        body: body );
+    List<ClientModel> prodlist = [];
+
+    for (int i = 0; i < data.length; i++) {
+      prodlist.add(ClientModel.fromJson(data[i]));
+    }
+    print(prodlist);
+    return prodlist;  // );//=="done"? true:false;
   }
-  Future<ClientModel> setApproveClient( Map<String,dynamic> body,String idclient) async {
-    var result = await Api()
+  Future<List<ClientModel>> setApproveClient( Map<String,dynamic> body,String idclient) async {
+    var data = await Api()
         .post( url:url+"client/setApproveClient.php?id_clients=$idclient",body:
     body
     );
+    List<ClientModel> prodlist = [];
+    for (int i = 0; i < data.length; i++) {
+      prodlist.add(ClientModel.fromJson(data[i]));
+    }
+    print(prodlist);
+    return prodlist;
     //client/setApproveClient.php
-    return result[0];//=="done"? true:false;
+  // return result[0];//=="done"? true:false;
   }
   Future<bool> setfkuserClient( Map<String,dynamic> body,String idclient) async {
     String result = await Api()

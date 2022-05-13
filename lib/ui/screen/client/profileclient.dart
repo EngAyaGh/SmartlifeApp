@@ -10,7 +10,10 @@ import 'package:crm_smart/ui/screen/invoice/invoces.dart';
 import 'package:crm_smart/ui/screen/invoice/invoiceView.dart';
 import 'package:crm_smart/ui/screen/support/support_add.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/comment.dart';
+import 'package:crm_smart/view_model/communication_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
+import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,11 +37,26 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
   late TabController _tabcontroller;
 
 @override void initState() {
-  WidgetsBinding.instance!.addPostFrameCallback((_)async{
+  WidgetsBinding.instance!.addPostFrameCallback((_)async {
+    Provider.of<invoice_vm>(context, listen: false)
+        .get_invoiceclientlocal(widget.idclient);
 
-    Provider.of<invoice_vm>(context,listen: false)
-        .get_invoiceclientlocal(widget.idclient);});
-    super.initState();
+
+    Provider.of<communication_vm>(context, listen: false)
+        .getCommunication(widget.idclient.toString());
+
+    Provider.of<comment_vm>(context, listen: false)
+        .getComment(widget.idclient.toString());
+
+    Provider.of<ticket_vm>(context, listen: false)
+        .getticket();
+    Provider.of<ticket_vm>(context, listen: false)
+        .getclient_ticket(widget.idclient.toString());
+        //.getclient_ticket(_invoice!.fkIdClient.toString());
+  });
+
+
+  super.initState();
 
 
     _tabcontroller= TabController(length: 5, vsync: this,initialIndex: 0);

@@ -99,7 +99,8 @@ class InvoiceView extends StatelessWidget {
                 //cardRow('  المنتجات',invoice.products.toString()),
                 cardRow(
                     title: 'آخر تعديل من قبل',
-                    value: invoice!.lastuserupdateName.toString()),
+                    value: invoice!.date_lastuserupdate != null?
+                    invoice!.lastuserupdateName.toString():''),
                 cardRow(
                     title: 'تاريخ آخر تعديل',
                     value: invoice!.date_lastuserupdate != null

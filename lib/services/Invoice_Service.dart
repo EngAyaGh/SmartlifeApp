@@ -47,7 +47,7 @@ class Invoice_Service {
     body
     );
     //client/setApproveClient.php
-    return result[0];//=="done"? true:false;
+    return InvoiceModel.fromJson(result[0]);//=="done"? true:false;
   }
   Future<InvoiceModel> setdatedone(
       Map<String,dynamic> body,String id_invoice) async {
@@ -92,7 +92,7 @@ class Invoice_Service {
 
     try{
       String result = await Api()
-          .postRequestWithFile( url+"client/invoice/addinvoice.php",
+          .postRequestWithFile('',  url+"client/invoice/addinvoice.php",
            body,
       file
       );
@@ -122,11 +122,11 @@ class Invoice_Service {
   Future<InvoiceModel> updateInvoice( Map<String,dynamic> body,
       String idInvoice,File? file) async {
     var result = await Api()
-        .postRequestWithFile(
+        .postRequestWithFile('array',
         url+"client/invoice/updateinvoice.php",
         body,file
     );
-    return result[0];//=="done"? true:false;
+    return InvoiceModel.fromJson(result[0]) ;//=="done"? true:false;
   }
   Future<bool> updateProductInvoice( Map<String,dynamic> body,String idInvoiceProduct) async {
     String result = await Api()

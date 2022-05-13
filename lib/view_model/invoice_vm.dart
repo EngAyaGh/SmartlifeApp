@@ -175,6 +175,7 @@ class invoice_vm extends ChangeNotifier{
     DateTime _currentDate = DateTime.now();
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     String res = await Invoice_Service().addInvoice(body,file);
+
     if (res!="false") {
       body.addAll({
         'id_invoice':res,

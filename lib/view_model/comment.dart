@@ -12,7 +12,7 @@ List<CommentModel> listComments=[];
 bool isloadadd=false;
   Future<void> getComment(String fk_client)async {
     listComments=[];
-    isloadadd=true;
+    //isloadadd=true;
     notifyListeners();
    // if(listComments.isEmpty){
       List<dynamic> data=[];
@@ -23,11 +23,9 @@ bool isloadadd=false;
         for (int i = 0; i < data.length; i++) {
           listComments.add(CommentModel.fromJson(data[i]));
         }
-      //}
 
-      //return data;
     }
-    isloadadd=false;
+    //isloadadd=false;
     notifyListeners();
   }
   Future<String> addComment_vm(Map<String, dynamic?> body,String? imageurl) async {

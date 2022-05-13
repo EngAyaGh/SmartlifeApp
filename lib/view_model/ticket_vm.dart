@@ -23,7 +23,8 @@ class ticket_vm extends ChangeNotifier{
   Future<void> addticket(Map<String, dynamic?> body)async {
     addvalue=true;
     notifyListeners();
-    listticket.add( await Api()
+    listticket.add(
+        await Api()
         .post( url:url+"ticket/add_ticket.php",body:
     body
     ));
@@ -63,14 +64,14 @@ Future<void> getclient_ticket(String fkIdClient)async{
     listticket.forEach((element) {
     if( element.fkClient==fkIdClient);
     listticket_client.add(element);
-  });
-    notifyListeners();}
+  });}
+   notifyListeners();
 }
 Future<void> getticket() async {
   var
   data=await Api()
       .get(url:url+ 'ticket/view_ticket.php?fk_country=${usercurrent!.fkCountry}');
-  print(data);
+   print('tickets print'); print(data);
   List<TicketModel> prodlist = [];
   for (int i = 0; i < data.length; i++) {
 

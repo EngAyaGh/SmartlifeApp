@@ -12,6 +12,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/ui/widgets/widgetcalendar/utils.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/ticket_vm.dart';
+import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _support_addState extends State<support_add> {
   TextEditingController _textsupport=TextEditingController();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  final _globalKey=GlobalKey<FormState>();
   late InvoiceModel? _invoice=null;
   @override void dispose() {
     _textsupport.dispose();
@@ -35,27 +36,27 @@ class _support_addState extends State<support_add> {
   }
   @override
   void initState()  {
-    if(widget.idinvoice!=''){
-      _invoice = Provider
-          .of<invoice_vm>(context, listen: false)
-          .listinvoices
-          .firstWhere(
-              (element) =>
-          element.idInvoice == widget.idinvoice);
+      if (widget.idinvoice != '') {
+        _invoice = Provider
+            .of<invoice_vm>(context, listen: false)
+            .listinvoices
+            .firstWhere(
+                (element) =>
+            element.idInvoice == widget.idinvoice);
+        _textsupport.text = _invoice!.reason_date.toString();
+        WidgetsBinding.instance!.addPostFrameCallback((_)async {
 
-      Provider.of<ticket_vm>(context,listen: false)
-          .getticket();
+        //_ticketModel=_list.firstWhere((element) => element.fkClient)
 
-      //_ticketModel=_list.firstWhere((element) => element.fkClient)
-      Provider.of<ticket_vm>(context,listen: false)
-          .getclient_ticket(_invoice!.fkIdClient.toString());
-    }
+          Provider.of<typeclient>(context,listen: false).getreasons('ticket');
+        });
 
-
+      }
     print('init support');
     super.initState();
   }
 @override void didChangeDependencies() {
+
   // Future.delayed(Duration(milliseconds: 30)).then((_) async {
   //   _invoice = Provider
   //       .of<invoice_vm>(context, listen: false)
@@ -142,7 +143,7 @@ class _support_addState extends State<support_add> {
                           Provider.of<invoice_vm>(context,listen: false)
                               .setdate_vm({
                             'dateinstall_task':_currentDate.toString(),//_invoice.dateinstall_task.toString()
-                          }, _invoice!.idInvoice).then(clear());
+                          }, _invoice!.idInvoice).then((value) => clear());
                           _invoice!.dateinstall_task=_currentDate.toString();
                         }, icon:Icon( Icons.check,color: kMainColor))
                         :Container(),
@@ -153,13 +154,15 @@ class _support_addState extends State<support_add> {
                             SizedBox(width: 6,),
                             Text('إعادة الجدولة'),
                             IconButton(onPressed: (){
-                              Provider.of<invoice_vm>(context,listen: false)
-                                  .setdate_vm({
-                                'dateinstall_task':_invoice!.dateinstall_task.toString(),
-                                'reason_date':_textsupport.text.toString()
-                              }, _invoice!.idInvoice).then(clear());
-
-                            },
+                              if(_globalKey.currentState!.validate()) {
+                                _globalKey.currentState!.save();
+                                Provider.of<invoice_vm>(context, listen: false)
+                                    .setdate_vm({
+                                  'dateinstall_task': _currentDate.toString(),
+                                  'reason_date': _textsupport.text.toString()
+                                }, _invoice!.idInvoice).then((value) =>
+                                    clear());
+                              }},
                                 icon:Icon( Icons.check,color: kMainColor)),
 
                           ],
@@ -169,16 +172,19 @@ class _support_addState extends State<support_add> {
                     _invoice!.dateinstall_task!=null?
                     Padding(
                       padding: const EdgeInsets.only(top:8.0),
-                      child: EditTextFormField(
-                        maxline: 4,
-                        hintText: 'أسباب إعادة الجدولة',
-                        obscureText: false,
-                        controller: _textsupport,
-                        vaild: (value) {
-                          if (value!.isEmpty) {
-                            return 'الحقل فارغ';
-                          }
-                        },
+                      child:Form(
+                        key:_globalKey ,
+                        child: EditTextFormField(
+                          maxline: 4,
+                          hintText: 'أسباب إعادة الجدولة',
+                          obscureText: false,
+                          controller: _textsupport,
+                          vaild: (value) {
+                            if (value!.isEmpty) {
+                              return 'الحقل فارغ';
+                            }
+                          },
+                        ),
                       ),
                     ):Container(),
                     SizedBox(height: 20,),

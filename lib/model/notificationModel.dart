@@ -20,7 +20,7 @@ class NotificationModel {
   late final String tonameuser;
   String? fromNameuser;
   late final String data;
-  late final String dateNotify;
+  late  String dateNotify;
 
   NotificationModel.fromJson(Map<String, dynamic> json){
     idNotify = json['id_notify'];

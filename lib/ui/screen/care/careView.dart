@@ -19,8 +19,8 @@ class careView extends StatefulWidget {
 class _careViewState extends State<careView> {
   List<CommunicationModel> listCommunication=[];
   @override void initState() {
-    Provider.of<communication_vm>(context, listen: false)
-        .getCommunication(widget.fk_client);
+    // Provider.of<communication_vm>(context, listen: false)
+    //     .getCommunication(widget.fk_client);
 
     super.initState();
   }

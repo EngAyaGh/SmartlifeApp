@@ -85,6 +85,7 @@ class notifyvm extends ChangeNotifier {
           'tonameuser' : listnotify[i].tonameuser,
           'fromNameuser' : listnotify[i].fromNameuser,
           'data': listnotify[i].data,
+          "dateNotify":listnotify[i].dateNotify
         };
         listnotify[i]=NotificationModel.fromJson(body);
       }
