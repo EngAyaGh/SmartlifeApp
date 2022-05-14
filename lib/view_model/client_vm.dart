@@ -194,19 +194,19 @@ else{
   }
 
   Future<String> addclient_vm(Map<String, dynamic?> body,String username,String regoin) async {
-    String res = await ClientService().addClient(body);
-    if (res!="false") {
-      body.addAll({
-        'id_clients':res,
-        'nameUser':username,
-        'name_regoin':regoin
-      });
+    ClientModel res = await ClientService().addClient(body);
+    //if (res!="false") {
+      // body.addAll({
+      //   'id_clients':res,
+      //   'nameUser':username,
+      //   'name_regoin':regoin
+      // });
 
       //listClientbyCurrentUser.insert(0, ClientModel.fromJson(body));
-      listClient.insert(0, ClientModel.fromJson(body));
+      listClient.insert(0,res);// ClientModel.fromJson(body));
       notifyListeners();
-    }
-    return res;
+    //}
+    return "done";
   }
 
   Future<bool> updateclient_vm(Map<String, dynamic?> body,String? id_client) async {

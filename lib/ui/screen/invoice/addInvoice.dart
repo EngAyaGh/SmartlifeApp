@@ -87,7 +87,7 @@ void dispose() async{
   imageController.dispose();
   amount_paidController.dispose();
   print('in dispos add invoice *****************');
-  _resetState();
+  //_resetState();
   //await FilePicker.platform.clearTemporaryFiles();
     super.dispose();
   }
@@ -99,10 +99,15 @@ void dispose() async{
     // Add Your Code here.
      Provider.of<LoadProvider>(context, listen: false)
          .changebooladdinvoice(false);
+     Provider.of<invoice_vm>(context, listen: false)
+         .listproductinvoic=[];
+     Provider.of<invoice_vm>(context,listen: false)
+         .set_total('0'.toString());
      print('init in addinvoice screen main');
      totalController='0';
      _invoice=widget.invoice;
   if(_invoice!=null){
+    print('in if invoice');
   //in mode edit
   totalController=_invoice!.total.toString();
   // Provider.of<invoice_vm>(context,listen: false).set_total(totalController.toString());
@@ -125,6 +130,7 @@ else{
   /// add invoice
   // Provider.of<invoice_vm>(context,listen: false)
   //     .listinvoiceClient.add(
+    print('in else invoice');
     _invoice=  InvoiceModel(
         products: [],
         renewYear: renewController.text,
@@ -196,14 +202,14 @@ else{
                             listen: false)
                             .addlistinvoicedeleted(
                             DeletedinvoiceModel(
-                              fkClient: widget.invoice!.fkIdClient.toString(),
+                              fkClient: _invoice!.fkIdClient.toString(),
                               fkUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
                                   .idUser, //cuerrent user
                               dateDelete:
                               formatter.format(_currentDate),
                               //city:itemProd.
                               nameClient:
-                              widget.invoice!.nameClient.toString(),
+                              _invoice!.nameClient.toString(),
                               nameEnterprise:
                               widget.itemClient.nameEnterprise,
                               mobileclient:
@@ -217,8 +223,8 @@ else{
                         Provider.of<invoice_vm>(context,
                             listen: false)
                             .delete_invoice({
-                          "id_invoice": widget
-                              .invoice!.idInvoice
+                          "id_invoice":
+                              _invoice!.idInvoice
                               .toString(),
                           "fkUserdo":
                           Provider.of<user_vm_provider>(context, listen: false).currentUser!
@@ -229,16 +235,24 @@ else{
                           "nameUserdo":
                           Provider.of<user_vm_provider>(context, listen: false).currentUser!
                               .nameUser.toString(),
-                        }, widget.invoice!.idInvoice);
-                        setState(() {
-                          _invoice=  InvoiceModel(products: []);
-                          renewController.text='';
-                          noteController.text='';
-                          imageController.text='';
-                          amount_paidController.text='';
+                        }, _invoice!.idInvoice);
+                        Navigator.pop(context);
+                        //     .then(
+                        //         (value) =>
+                        //             setState(() {
+                        //   _invoice=  InvoiceModel(products: []);
+                        //   widget.invoice=null;
+                        //   // Provider.of<invoice_vm>(context, listen: false)
+                        //   //     .listproductinvoic=[];
+                        //   //Provider.of<invoice_vm>(context,listen: false).total='0';
+                        //       //.set_total('0'.toString());
+                        //   renewController.text='';
+                        //   noteController.text='';
+                        //   imageController.text='';
+                        //   amount_paidController.text='';
+                        //   _resetState();
+                        // }));
 
-                          _resetState();
-                        });
                       },
                       child: Text('نعم'),
                     ),
@@ -301,7 +315,7 @@ else{
                               fontWeight: FontWeight.normal,
                               textstring:
                               // widget.indexinvoice>=0?
-                               Provider.of<invoice_vm>(context,listen: true).total,
+                              Provider.of<invoice_vm>(context,listen: true).total,
                               //     .listinvoiceClient[widget.indexinvoice]
                                //_invoice!.total.toString(),//totalController,
                               underline: TextDecoration.none,

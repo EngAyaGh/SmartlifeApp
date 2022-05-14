@@ -34,9 +34,15 @@ class InvoiceView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(invoice!=null||idinvoice!='')
-    invoice=Provider.of<invoice_vm>(context,listen: true).listinvoices
-        .firstWhere((element) => element.idInvoice==idinvoice);
+    if(invoice!=null||idinvoice!=''){
+      int index=Provider.of<invoice_vm>(context,listen: true)
+          .listinvoices.indexWhere((element) => element.idInvoice==idinvoice);
+    if(index!=-1) invoice=Provider.of<invoice_vm>(context,listen: true)
+        .listinvoices[index];
+    }
+    // invoice=Provider.of<invoice_vm>(context,listen: true).listinvoices
+    //     .firstWhere((element) => element.idInvoice==idinvoice,orElse: ()=>null);
+
     return SingleChildScrollView(
       child: Directionality(
         textDirection: TextDirection.rtl,
@@ -45,12 +51,12 @@ class InvoiceView extends StatelessWidget {
         Column(
           children: [
             Container(
-                height: MediaQuery.of(context).size.height * 0.2,
+                height: MediaQuery.of(context).size.height * 0.15,
                 child: _product(invoice!.products)),
             Column(
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  width: MediaQuery.of(context).size.width * 0.85,
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     border: Border.all(color: Colors.amber),

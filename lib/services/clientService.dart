@@ -7,18 +7,19 @@ import '../constants.dart';
 
 class ClientService{
 
-  Future<String> addClient( Map<String,dynamic?> body) async {
+  Future<ClientModel> addClient( Map<String,dynamic?> body) async {
     print("$body");
-    try{
-      String result = await Api()
+   // try{
+      var result = await Api()
           .post( url:url+"client/clientAdd.php",
           body: body);
-      print(result);
-      return result !="error"? result:"false";}
-    catch(e){
-      print(e);
-      return "false";
-    }
+    //   print(result);
+    //   return result !="error"? result:"false";}
+    // catch(e){
+    //   print(e);
+    //   return "false";
+    // }
+    return ClientModel.fromJson(result[0]);
   }
   //id_product
   Future<List<ClientModel>> updateClient( Map<String,dynamic> body,String idclient) async {

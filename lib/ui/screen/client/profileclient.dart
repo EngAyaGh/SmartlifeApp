@@ -50,9 +50,14 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
 
     Provider.of<ticket_vm>(context, listen: false)
         .getticket();
+
+
     // Provider.of<ticket_vm>(context, listen: false)
     //     .getclient_ticket(widget.idclient.toString());
         //.getclient_ticket(_invoice!.fkIdClient.toString());
+
+    Provider.of<ticket_vm>(context, listen: false)
+        .getclient_ticket( widget.idclient.toString());
   });
 
 
@@ -62,6 +67,10 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
     _tabcontroller= TabController(length: 5, vsync: this,initialIndex: 0);
 
 }
+@override void didChangeDependencies() {
+
+    super.didChangeDependencies();
+  }
   @override
   Widget build(BuildContext context) {
     _clientModel=Provider.of<client_vm>(context,listen: true).listClient
@@ -173,7 +182,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
                 ),
                 commentView(
                     fk_client:_clientModel.idClients.toString(),
-                 nameEnterprise: _clientModel.nameEnterprise),
+                nameEnterprise: _clientModel.nameEnterprise),
                 support_add(
 
                   idinvoice:_invoiceModel==null?'': _invoiceModel!.idInvoice,

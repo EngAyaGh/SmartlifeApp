@@ -68,7 +68,7 @@ Future<void> getclient_ticket(String fkIdClient)async{
     if( element.fkClient==fkIdClient);
     listticket_client.add(element);
   });}
-  // notifyListeners();
+   notifyListeners();
 }
 Future<void> getticket() async {
   var

@@ -20,7 +20,6 @@ import 'package:provider/provider.dart';
 class support_add extends StatefulWidget {
    support_add({ required this.idinvoice, Key? key}) : super(key: key);
    String? idinvoice;
-
   @override
   _support_addState createState() => _support_addState();
 }
@@ -75,15 +74,19 @@ class _support_addState extends State<support_add> {
 
     if (widget.idinvoice != '') {
 
-    _invoice = Provider
-        .of<invoice_vm>(context, listen: true)
-        .listinvoices
-        .firstWhere(
-            (element) =>
-        element.idInvoice == widget.idinvoice);
-      fk_client= _invoice!.fkIdClient;
-    Provider.of<ticket_vm>(context, listen: true)
-        .getclient_ticket( fk_client.toString());
+    // _invoice = Provider
+    //     .of<invoice_vm>(context, listen: true)
+    //     .listinvoices
+    //     .firstWhere(
+    //         (element) =>
+    //     element.idInvoice == widget.idinvoice);
+    int index=Provider.of<invoice_vm>(context,listen: true)
+        .listinvoices.indexWhere((element) => element.idInvoice==widget.idinvoice);
+    if(index!=-1){ _invoice=Provider.of<invoice_vm>(context,listen: true)
+        .listinvoices[index];
+      fk_client= _invoice!.fkIdClient;}
+    // Provider.of<ticket_vm>(context, listen: true)
+    //     .getclient_ticket( fk_client.toString());
     }
     print('builld');
     return Scaffold(
