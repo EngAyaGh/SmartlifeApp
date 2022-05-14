@@ -40,8 +40,8 @@ class TicketModel {
   late final String nameEnterprise;
   late final String nameRegoin;
   late final String nameuseropen;
-  late final String nameuserrecive;
-  late final String nameuserclose;
+  late final String? nameuserrecive;
+  late final String? nameuserclose;
   late final String fk_country;
 
   TicketModel.fromJson(Map<String, dynamic> json){

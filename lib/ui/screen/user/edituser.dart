@@ -63,7 +63,7 @@ class _EditUserState extends State<EditUser> {
       //   (context,listen: false).userall!;
        Provider.of<level_vm>(context,listen: false).getlevel();
 
-       Provider.of<regoin_vm>(context,listen: false).getregoin();
+       //Provider.of<regoin_vm>(context,listen: false).getregoin();
     }
     );
 

@@ -56,17 +56,20 @@ class Api {
     );
 
     String result= response.body;
-    // int idx = result.indexOf("{");
-    // int length=result.length;
-    // result=result.substring(idx,length);//run for login and update client
+    print('before');
+    print(result);
+    int idx = result.indexOf("{");
+    int length=result.length;
+    result=result.substring(idx,length);//run for login and update client and set date task
     // // String result= response.body;
     // int idx = result.indexOf("{");
     // int idxEnd = result.indexOf("}");
     // int length=result.length;
-    // result=result.substring(idx,idxEnd+1);
-    print(result);
+    // result=result.substring(idx,idxEnd+1);//set approve is run but set don date not run
+
     print("resultttt");
     print(json.decode(result)["code"]);
+
     if (json.decode(result)["code"] == "200") {
 
       return jsonDecode(result)["message"];

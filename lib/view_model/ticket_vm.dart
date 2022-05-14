@@ -23,18 +23,19 @@ class ticket_vm extends ChangeNotifier{
   Future<void> addticket(Map<String, dynamic?> body)async {
     addvalue=true;
     notifyListeners();
-    listticket.add(
-        await Api()
+    var data= await Api()
         .post( url:url+"ticket/add_ticket.php",body:
     body
-    ));
+    );
+    TicketModel tm=  TicketModel.fromJson(data[0]);
+    listticket.add(tm);
     addvalue=false;
     notifyListeners();
   }
 
   Future<bool> updateTicketvm(Map<String, dynamic?> body,String? id_ticket)
   async {
-    TicketModel data = await Api()
+    var data = await Api()
         .post(
         url:url+"ticket/recive_ticket.php?id_ticket=$id_ticket",
         body: body
@@ -42,30 +43,32 @@ class ticket_vm extends ChangeNotifier{
     int index=listticket.indexWhere(
             (element) => element.idTicket==id_ticket);
 
-    listticket[index]=data;
+    listticket[index]=TicketModel.fromJson(data[0]);
     notifyListeners();
 
     return true;
   }
   Future<void> setfTicketclient_vm(Map<String, dynamic?> body,String? id_ticket) async {
-    await Api()
+   var data= await Api()
         .post( url:url+"ticket/trasfer_ticket.php?id_ticket=$id_ticket",
         body: body
     );
       int index=listticket.indexWhere(
               (element) => element.idTicket==id_ticket);
-    listticket.removeAt(index);
+    listticket[index]=TicketModel.fromJson(data[0]);
+   // listticket.removeAt(index);
       notifyListeners();
 
   }
 Future<void> getclient_ticket(String fkIdClient)async{
     listticket_client=[];
+    //notifyListeners();
    if(listticket.isNotEmpty){
     listticket.forEach((element) {
     if( element.fkClient==fkIdClient);
     listticket_client.add(element);
   });}
-   notifyListeners();
+  // notifyListeners();
 }
 Future<void> getticket() async {
   var

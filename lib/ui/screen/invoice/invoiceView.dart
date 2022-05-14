@@ -45,12 +45,12 @@ class InvoiceView extends StatelessWidget {
         Column(
           children: [
             Container(
-                height: MediaQuery.of(context).size.height * 0.1,
+                height: MediaQuery.of(context).size.height * 0.2,
                 child: _product(invoice!.products)),
             Column(
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
+                  width: MediaQuery.of(context).size.width * 0.8,
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     border: Border.all(color: Colors.amber),

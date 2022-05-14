@@ -10,6 +10,7 @@ import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
+import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class _HomeState extends State<Home> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
      // try{
       print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
+      print('Message data: ${message.data['idclient']}');
 
       if (message.notification != null) {
         print('Message also contained a notification: ${message.notification}');
@@ -59,7 +60,7 @@ class _HomeState extends State<Home> {
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       print('onMessageOpenedApp');
       Provider.of<notifyvm>(context,listen: false).addcounter();
-      //Provider.of<notifyvm>(context,listen: false).getcounter();
+      // Provider.of<notifyvm>(context,listen: false).getcounter();
       String typeNotify= event.data['Typenotify'];
       route_notifyto(typeNotify,context,event.data,null);
     });
@@ -67,13 +68,16 @@ class _HomeState extends State<Home> {
     // Provider.of<user_vm_provider>(context, listen: false)
     //     .getcurrentuser();
     print('in home...didchange');
-    // WidgetsBinding.instance!.addPostFrameCallback((_){
-    //
-    //   // Add Your Code here.
-    //    Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
-    //
-    // });
-   // List<PrivilgeModel> list= Provider.of<privilge_vm>(context,listen: false).privilgelist;
+    WidgetsBinding.instance!.addPostFrameCallback((_){
+
+      // Add Your Code here.
+       //Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
+      Provider.of<regoin_vm>(context,listen: false).getregoin();
+      Provider.of<notifyvm>(context,listen: false).getcounter();
+
+    });
+
+    // List<PrivilgeModel> list= Provider.of<privilge_vm>(context,listen: false).privilgelist;
     //check level user
     //Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
     // Provider.of<client_vm>(context, listen: false)

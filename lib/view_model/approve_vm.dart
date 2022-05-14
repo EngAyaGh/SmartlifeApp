@@ -19,7 +19,7 @@ class approve_vm extends ChangeNotifier {
             (element) => element.idApproveClient==idApproveClient);
 
     listapprove.removeAt(index);
-    notifyListeners();
+    //notifyListeners();
 
   }
   Future<void> getApprovebyregoin() async {

@@ -18,6 +18,14 @@ class ApprovePage extends StatefulWidget {
 class _ApprovePageState extends State<ApprovePage> {
   @override
   void initState() {
+    if( Provider.of<privilge_vm>(context,listen: false)
+        .checkprivlge('7'))
+          Provider.of<approve_vm>(context, listen: false)
+        .getApprovebyregoin();//getApprovebycountry
+    if( Provider.of<privilge_vm>(context,listen: false)
+        .checkprivlge('2'))
+          Provider.of<approve_vm>(context, listen: false)
+        .getApprovebycountry();
     //Provider.of<notifyvm>(context,listen: false).getNotification();
     super.initState();
   }
@@ -25,16 +33,15 @@ class _ApprovePageState extends State<ApprovePage> {
   void didChangeDependencies() {
 
     Future.delayed(Duration(milliseconds: 10)).then((_) async {
-     if( Provider.of<privilge_vm>(context,listen: false)
-          .checkprivlge('7'))
-      await    Provider.of<approve_vm>(context, listen: false)
-          .getApprovebyregoin();//getApprovebycountry
-     if( Provider.of<privilge_vm>(context,listen: true)
-          .checkprivlge('2'))
-      await    Provider.of<approve_vm>(context, listen: false)
-          .getApprovebycountry();
-    }
-    );
+     // if( Provider.of<privilge_vm>(context,listen: false)
+     //      .checkprivlge('7'))
+     //  await    Provider.of<approve_vm>(context, listen: false)
+     //      .getApprovebyregoin();//getApprovebycountry
+     // if( Provider.of<privilge_vm>(context,listen: false)
+     //      .checkprivlge('2'))
+     //  await    Provider.of<approve_vm>(context, listen: false)
+     //      .getApprovebycountry();
+    });
     super.didChangeDependencies();
   }
 

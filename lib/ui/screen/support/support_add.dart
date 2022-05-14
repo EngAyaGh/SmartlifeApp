@@ -18,8 +18,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class support_add extends StatefulWidget {
-   support_add({required this.idinvoice, Key? key}) : super(key: key);
+   support_add({ required this.idinvoice, Key? key}) : super(key: key);
    String? idinvoice;
+
   @override
   _support_addState createState() => _support_addState();
 }
@@ -30,6 +31,7 @@ class _support_addState extends State<support_add> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _globalKey=GlobalKey<FormState>();
   late InvoiceModel? _invoice=null;
+  String? fk_client;
   @override void dispose() {
     _textsupport.dispose();
     super.dispose();
@@ -37,13 +39,13 @@ class _support_addState extends State<support_add> {
   @override
   void initState()  {
       if (widget.idinvoice != '') {
-        _invoice = Provider
-            .of<invoice_vm>(context, listen: false)
-            .listinvoices
-            .firstWhere(
-                (element) =>
-            element.idInvoice == widget.idinvoice);
-        _textsupport.text = _invoice!.reason_date.toString();
+        // _invoice = Provider
+        //     .of<invoice_vm>(context, listen: false)
+        //     .listinvoices
+        //     .firstWhere(
+        //         (element) =>
+        //     element.idInvoice == widget.idinvoice);
+        // _textsupport.text = _invoice!.reason_date.toString();
         WidgetsBinding.instance!.addPostFrameCallback((_)async {
 
         //_ticketModel=_list.firstWhere((element) => element.fkClient)
@@ -71,6 +73,18 @@ class _support_addState extends State<support_add> {
   @override
   Widget build(BuildContext context) {
 
+    if (widget.idinvoice != '') {
+
+    _invoice = Provider
+        .of<invoice_vm>(context, listen: true)
+        .listinvoices
+        .firstWhere(
+            (element) =>
+        element.idInvoice == widget.idinvoice);
+      fk_client= _invoice!.fkIdClient;
+    Provider.of<ticket_vm>(context, listen: true)
+        .getclient_ticket( fk_client.toString());
+    }
     print('builld');
     return Scaffold(
       key: _scaffoldKey,
@@ -169,7 +183,7 @@ class _support_addState extends State<support_add> {
                         ):Container(),
                       ],
                     ),
-                    _invoice!.dateinstall_task!=null?
+                    _invoice!.dateinstall_task!=null&&_invoice!.dateinstall_done==null ?
                     Padding(
                       padding: const EdgeInsets.only(top:8.0),
                       child:Form(
@@ -275,7 +289,7 @@ class _support_addState extends State<support_add> {
                                      'name_enterprise':_invoice!.name_enterprise,
                                     'fkcountry':_invoice!.fk_country,
                                     'fk_regoin':_invoice!.fk_regoin
-                                  }, _invoice!.idInvoice).then(clear());;
+                                  }, _invoice!.idInvoice).then((value) => clear());
 
                                 },
                                 child: Text('نعم'),

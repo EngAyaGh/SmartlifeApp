@@ -17,10 +17,10 @@ class notifyvm extends ChangeNotifier {
     countnotify++;
     notifyListeners();
   }
-  void getcounter(){
+  void getcounter()async{
     //
-    //getNotification();
-    //countnotify=0;
+   await getNotification();
+    countnotify=0;
     print('get counter');
     listnotify.forEach((element) {
      if(element.isread=="0")
@@ -49,7 +49,7 @@ class notifyvm extends ChangeNotifier {
     }
     listnotify=list;
     print(listnotify.length);
-    notifyListeners();
+    //notifyListeners();
 
   }
   Future<String> setRead_notify_vm() async {

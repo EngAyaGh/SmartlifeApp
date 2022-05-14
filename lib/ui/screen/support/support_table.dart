@@ -32,7 +32,7 @@ class _support_tableState extends State<support_table> {
           .getuser_vm();
       print(Provider.of<user_vm_provider>(context,listen: false)
           .userall.length);
-      Provider.of<regoin_vm>(context,listen: false).getregoin();
+      //Provider.of<regoin_vm>(context,listen: false).getregoin();
       Provider.of<EventProvider>(context,listen: false). getevent_vm();
     }
     );

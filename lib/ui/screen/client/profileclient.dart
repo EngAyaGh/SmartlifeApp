@@ -50,8 +50,8 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
 
     Provider.of<ticket_vm>(context, listen: false)
         .getticket();
-    Provider.of<ticket_vm>(context, listen: false)
-        .getclient_ticket(widget.idclient.toString());
+    // Provider.of<ticket_vm>(context, listen: false)
+    //     .getclient_ticket(widget.idclient.toString());
         //.getclient_ticket(_invoice!.fkIdClient.toString());
   });
 
@@ -174,7 +174,11 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
                 commentView(
                     fk_client:_clientModel.idClients.toString(),
                  nameEnterprise: _clientModel.nameEnterprise),
-                support_add( idinvoice:_invoiceModel==null?'': _invoiceModel!.idInvoice,),
+                support_add(
+
+                  idinvoice:_invoiceModel==null?'': _invoiceModel!.idInvoice,
+
+                ),
                 careView(   fk_client:_clientModel.idClients.toString(),),
                 //InvoiceView(invoice: _invoiceModel,),
                 //Icon(Icons.add),

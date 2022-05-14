@@ -34,37 +34,39 @@ class _ClientViewState extends State<ClientView> {
           padding: const EdgeInsets.only(
               left: 8,right: 8,
               top:2,bottom: 2),
-          child:Column(
-            children: [
-              cardRow(  title: 'اسم المؤسسة',value:clientModel.nameEnterprise.toString()),
-              cardRow( title:'موظف المبيعات',value:clientModel.nameUser.toString()),
-              cardRow( title:'التاريخ',value:clientModel.dateCreate.toString()),
-              cardRow( title:'اسم العميل',value:clientModel.nameClient.toString()),
-              cardRow( title:' المنطقة',value:clientModel.name_regoin.toString()),
-              cardRow( title:' المدينة',value:clientModel.city.toString()),
-              cardRow( title:' حالة العميل',value:clientModel.typeClient.toString()),
-              Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CustomButton(
-                    text: 'تعديل بيانات العميل',
-                    onTap: () async {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => editclient(
-                                  itemClient: clientModel,
-                                  fkclient: clientModel.idClients.toString(),
-                                  fkuser: clientModel.fkUser.toString())
-                                  ));
-                    },
-                  ),
-              ],
-          ),
-            )
+          child:SingleChildScrollView(
+            child: Column(
+              children: [
+                cardRow(  title: 'اسم المؤسسة',value:clientModel.nameEnterprise.toString()),
+                cardRow( title:'موظف المبيعات',value:clientModel.nameUser.toString()),
+                cardRow( title:'التاريخ',value:clientModel.dateCreate.toString()),
+                cardRow( title:'اسم العميل',value:clientModel.nameClient.toString()),
+                cardRow( title:' المنطقة',value:clientModel.name_regoin.toString()),
+                cardRow( title:' المدينة',value:clientModel.city.toString()),
+                cardRow( title:' حالة العميل',value:clientModel.typeClient.toString()),
+                Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CustomButton(
+                      text: 'تعديل بيانات العميل',
+                      onTap: () async {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => editclient(
+                                    itemClient: clientModel,
+                                    fkclient: clientModel.idClients.toString(),
+                                    fkuser: clientModel.fkUser.toString())
+                                    ));
+                      },
+                    ),
+                ],
+            ),
+              )
         ]),
+          ),
       ),
     ));
   }

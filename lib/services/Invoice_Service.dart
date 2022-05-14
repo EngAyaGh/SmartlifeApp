@@ -40,6 +40,7 @@ class Invoice_Service {
     print(prodlist);
     return prodlist;
   }
+
   Future<InvoiceModel> setdate(
       Map<String,dynamic> body,String id_invoice) async {
     var result = await Api()
@@ -57,7 +58,7 @@ class Invoice_Service {
     body
     );
     //client/setApproveClient.php
-    return result[0];//=="done"? true:false;
+    return InvoiceModel.fromJson(result[0]);//=="done"? true:false;
   }
   Future<List<InvoiceModel>> getinvoicebyiduser(String fk_idUser) async {
     var

@@ -87,7 +87,7 @@ void dispose() async{
   imageController.dispose();
   amount_paidController.dispose();
   print('in dispos add invoice *****************');
-  //_resetState();
+  _resetState();
   //await FilePicker.platform.clearTemporaryFiles();
     super.dispose();
   }
@@ -102,7 +102,7 @@ void dispose() async{
      print('init in addinvoice screen main');
      totalController='0';
      _invoice=widget.invoice;
-if(_invoice!=null){
+  if(_invoice!=null){
   //in mode edit
   totalController=_invoice!.total.toString();
   // Provider.of<invoice_vm>(context,listen: false).set_total(totalController.toString());
@@ -155,9 +155,7 @@ else{
      print(typeinstallController);
      });
      super.initState();
-
    }
-
 
    @override
   Widget build(BuildContext context) {
@@ -194,7 +192,6 @@ else{
                         DateTime _currentDate = DateTime.now();
                         final rt.DateFormat formatter =
                         rt.DateFormat('yyyy-MM-dd');
-
                         Provider.of<invoice_vm>(context,
                             listen: false)
                             .addlistinvoicedeleted(
@@ -233,6 +230,15 @@ else{
                           Provider.of<user_vm_provider>(context, listen: false).currentUser!
                               .nameUser.toString(),
                         }, widget.invoice!.idInvoice);
+                        setState(() {
+                          _invoice=  InvoiceModel(products: []);
+                          renewController.text='';
+                          noteController.text='';
+                          imageController.text='';
+                          amount_paidController.text='';
+
+                          _resetState();
+                        });
                       },
                       child: Text('نعم'),
                     ),

@@ -130,7 +130,7 @@ class _ticketAddState extends State<ticketAdd> {
                                 'fk_client': widget.fk_client.toString(),
                                 'type_problem': Provider
                                     .of<typeclient>(context, listen: false)
-                                    .selectedValuemanag.toString(),
+                                    .selectedValueOut.toString(),
                                 'details_problem': problem_desc.text,
                                 'notes_ticket': notes.text,
                                 'type_ticket': 'جديدة',
@@ -170,7 +170,7 @@ class _ticketAddState extends State<ticketAdd> {
   clear(BuildContext context) {
 
     _scaffoldKey.currentState!.showSnackBar(
-        SnackBar(content: Text('تم إنشاء مستوى جديد'))
+        SnackBar(content: Text('تم إنشاء تذكرة جديد'))
     );
     // print("succ");
   }
