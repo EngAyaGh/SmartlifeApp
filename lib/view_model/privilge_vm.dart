@@ -39,7 +39,7 @@ return list;
 Future<String> updatepriv_vm(
     String? fk_privileg,String is_check) async {
   String res = await Api( ).post(
-      url: url+'privilge/privUpdate.php?fk_privileg=$fk_privileg',
+      url: url+'privilge/privUpdate.php?id_privg_user=$fk_privileg',
       body: {'is_check':is_check});
   //if (res) {
     int index=privilgelist.indexWhere((element)

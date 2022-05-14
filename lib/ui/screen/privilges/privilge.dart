@@ -54,7 +54,7 @@ class _privilge_pageState extends State<privilge_page> {
                   Provider.of<privilge_vm>(context,listen: false)
                       .updatepriv_vm(
                       Provider.of<privilge_vm>(context,listen: false)
-                      .privilgelist[i].fkPrivileg,
+                      .privilgelist[i].idPrivgUser,
                       Provider.of<privilge_vm>(context,listen: false)
                           .privilgelist[i].isCheck);
                 }
