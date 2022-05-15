@@ -88,10 +88,10 @@ class _addClientState extends State<addClient> {
                     right: 20,
                     left: 20,
                     bottom: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
-                child: ContainerShadows(
-                  width: double.infinity,
-                  //height: 400,
-                  margin: EdgeInsets.only(),
+                // child: ContainerShadows(
+                //   width: double.infinity,
+                //   //height: 400,
+                //   margin: EdgeInsets.only(),
                   child: Column(
                     //textDirection: TextDirection.rtl,
 
@@ -268,7 +268,7 @@ class _addClientState extends State<addClient> {
                       )
                     ],
                   ),
-                ),
+               // ),
               ),
             ),
           ),
@@ -281,15 +281,17 @@ class _addClientState extends State<addClient> {
 
     Provider.of<LoadProvider>(context, listen: false)
         .changebooladdclient(false);
-    nameEnterpriseController.text="";
-    nameclientController.text="";
-    locationController.text="";
-    mobileController.text="";
-    cityController.text="";
-    typejobController.text="";
-    _scaffoldKey.currentState!.showSnackBar(
-        SnackBar(content: Text(label_Addeduser))
-    );
+    Navigator.pop(context);
+
+    // nameEnterpriseController.text="";
+    // nameclientController.text="";
+    // locationController.text="";
+    // mobileController.text="";
+    // cityController.text="";
+    // typejobController.text="";
+    // _scaffoldKey.currentState!.showSnackBar(
+    //     SnackBar(content: Text(label_Addeduser))
+   // );
     print("succ");
   }
 

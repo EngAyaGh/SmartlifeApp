@@ -31,6 +31,7 @@ class _support_addState extends State<support_add> {
   final _globalKey=GlobalKey<FormState>();
   late InvoiceModel? _invoice=null;
   String? fk_client;
+  bool valueresoan=false;
   @override void dispose() {
     _textsupport.dispose();
     super.dispose();
@@ -166,28 +167,50 @@ class _support_addState extends State<support_add> {
                         :Container(),
                         SizedBox(height: 6,),
                         _invoice!.dateinstall_task!=null?
-                        Row(
-                          children: [
-                            SizedBox(width: 6,),
-                            Text('إعادة الجدولة'),
-                            IconButton(onPressed: (){
-                              if(_globalKey.currentState!.validate()) {
-                                _globalKey.currentState!.save();
-                                Provider.of<invoice_vm>(context, listen: false)
-                                    .setdate_vm({
-                                  'dateinstall_task': _currentDate.toString(),
-                                  'reason_date': _textsupport.text.toString()
-                                }, _invoice!.idInvoice).then((value) =>
-                                    clear());
-                              }},
-                                icon:Icon( Icons.check,color: kMainColor)),
-
-                          ],
-                        ):Container(),
+                        IconButton(onPressed: (){
+                          if(_globalKey.currentState!.validate()) {
+                            _globalKey.currentState!.save();
+                            Provider.of<invoice_vm>(context, listen: false)
+                                .setdate_vm({
+                              'dateinstall_task': _currentDate.toString(),
+                              'reason_date': _textsupport.text.toString()
+                            }, _invoice!.idInvoice).then((value) =>
+                                clear());
+                          }},
+                            icon:Icon( Icons.check,color: kMainColor))
+                        // Row(
+                        //   children: [
+                        //     SizedBox(width: 6,),
+                        //     Text('إعادة الجدولة'),
+                        //     IconButton(onPressed: (){
+                        //       if(_globalKey.currentState!.validate()) {
+                        //         _globalKey.currentState!.save();
+                        //         Provider.of<invoice_vm>(context, listen: false)
+                        //             .setdate_vm({
+                        //           'dateinstall_task': _currentDate.toString(),
+                        //           'reason_date': _textsupport.text.toString()
+                        //         }, _invoice!.idInvoice).then((value) =>
+                        //             clear());
+                        //       }},
+                        //         icon:Icon( Icons.check,color: kMainColor)),
+                        //
+                        //   ],
+                        // )
+                        :Container(),
                       ],
                     ),
                     _invoice!.dateinstall_task!=null&&_invoice!.dateinstall_done==null ?
-                    Padding(
+                    ElevatedButton(
+    style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(
+    kMainColor)),
+    onPressed: () async{
+      setState(() {
+        valueresoan=true;
+      });
+
+    }, child:  Text('إعادة الجدولة'),):Container(),
+                     valueresoan==true?   Padding(
                       padding: const EdgeInsets.only(top:8.0),
                       child:Form(
                         key:_globalKey ,
@@ -206,20 +229,25 @@ class _support_addState extends State<support_add> {
                     ):Container(),
                     SizedBox(height: 20,),
 
-                    cardRow(title: 'اسم المؤسسة',value: _invoice!.name_enterprise.toString()),
-                    cardRow(title: 'معتمد الاشتراك ',value:_invoice!.nameuserApprove==null?'':
-                    _invoice!.nameuserApprove.toString()),
+                    // cardRow(title: 'اسم المؤسسة',value: _invoice!.name_enterprise.toString()),
+                    // cardRow(title: 'معتمد الاشتراك ',value:_invoice!.nameuserApprove==null?'':
+                    // _invoice!.nameuserApprove.toString()),
+                    _invoice!.dateinstall_done==null?
+                    _invoice!.dateinstall_task==null?Container():
+                    cardRow(title: ' تاريخ جدولة التركيب ',value: _invoice!.dateinstall_done.toString())
+                    :Container(),
+                    cardRow(title: 'طريقة التركيب ',
+                        value: _invoice!.typeInstallation.toString()=='0'?'ميداني':'اونلاين'),
+                    cardRow(title: 'هل تم التركيب للعميل ',
+                        value: _invoice!.dateinstall_done==null? 'بالانتظار' : 'تم التركيب'),
+                    _invoice!.dateinstall_done==null? Container():
+                    cardRow(title: ' تاريخ التركيب ',value: _invoice!.dateinstall_done.toString()),
 
                     _invoice!.dateinstall_done==null? Container()
                     :cardRow(title: ' تم التركيب من قبل ',value: _invoice!.nameuserinstall.toString()),
                     _invoice!.dateinstall_done==null? Container():
-                    cardRow(title: ' تاريخ التركيب ',value: _invoice!.dateinstall_done.toString()),
 
-                    cardRow(title: 'هل تم التركيب ',
-                        value: _invoice!.dateinstall_done==null? 'بالانتظار' : 'تم التركيب'),
-                    cardRow(title: 'طريقة التركيب ',
-                        value: _invoice!.typeInstallation.toString()=='0'?'ميداني':'اونلاين'),
-                    SizedBox(height: 16,),
+                          SizedBox(height: 16,),
                     Provider.of<ticket_vm>(context,listen: true)
                         .listticket_client.isEmpty?
                     ElevatedButton(
@@ -249,10 +277,10 @@ class _support_addState extends State<support_add> {
                     SizedBox(height: 15,),
                     _invoice!.dateinstall_done==null?
                     ElevatedButton(
-    style: ButtonStyle(
-    backgroundColor: MaterialStateProperty.all(
-    kMainColor)),
-    onPressed: () async{
+                     style: ButtonStyle(
+                     backgroundColor: MaterialStateProperty.all(
+                         kMainColor)),
+                     onPressed: () async{
                       bool result = await showDialog(
                         context: context,
                         builder: (context) {
@@ -308,7 +336,7 @@ class _support_addState extends State<support_add> {
                 )
                 :Center(
                   child: Container(
-                    child: Text('العميل ليس مشترك'),
+                    child: Text('العميل غير مشترك'),
                   ),
                 ),
               ),

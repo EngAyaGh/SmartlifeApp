@@ -202,17 +202,53 @@ bool isepmty=false;
           child: Text('تم'),
         ),
         isepmty==true?Text('لا يمكن أن يكون السعر فارغ'):Text(''),
+
+        ElevatedButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                    kMainColor)),
+            child: Text('حذف'),
+            onPressed: ()   {
+              if(widget.itemProd.idInvoiceProduct!=null)
+                {
+                  // Provider.of<invoice_vm>(context,listen: false)
+                  //     .listproductinvoic[index].isdeleted=true,
+
+                  Provider.of<invoice_vm>(context,listen: false)
+                      .removelistproductinvoic(index);
+                  Provider.of<invoice_vm>(
+                      context, listen: false)
+                      .deleteProductInInvoice(
+                      widget.itemProd.idInvoiceProduct);
+                }
+              else
+                {
+
+                  Provider.of<invoice_vm>(context,listen: false)
+                      .removelistproductinvoic(index);
+
+                }
+              Navigator.of(context, rootNavigator: true)
+                  .pop(false);
+            }
+
+          //onPressed: COPY,
+        ),
             ],
     );
 
     return Padding(
       padding: const EdgeInsets.all(2),
       child: Center(
-        // child: InkWell(
-        //   //splashColor: Colors.blue.withAlpha(30),
-        //   onTap: () {
-        //     //Navigator.push(context, MaterialPageRoute(builder: (context)=>Detail_Client()));
-        //   },
+        child: InkWell(
+          //splashColor: Colors.blue.withAlpha(30),
+          onTap: () {
+            showDialog<void>(
+                context: context,
+                builder: (context) => dialog);
+
+            //Navigator.push(context, MaterialPageRoute(builder: (context)=>Detail_Client()));
+          },
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
@@ -244,14 +280,8 @@ bool isepmty=false;
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                // mainAxisAlignment:
-                                //     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  // Text(
-                                  //   ' اسم المنتج : ',
-                                  //   style:
-                                  //   TextStyle(fontFamily: kfontfamily2),
-                                  // ),
+
                                   Text(
                                     widget.itemProd.nameProduct.toString(),
                                     maxLines: 4,
@@ -265,8 +295,6 @@ bool isepmty=false;
 
                                 children: [
                                Row(
-                                 // mainAxisAlignment:
-                                 //     MainAxisAlignment.spaceEvenly,
                                  children: [
                                    Text(
                                      ' السعر : ',
@@ -289,110 +317,17 @@ bool isepmty=false;
                                      style:
                                      TextStyle(fontFamily: kfontfamily2),
                                    ),
-                                   // SizedBox(width: 3,),
-                                   // Text(
-                                   //   ' قيمة الحسم : ',
-                                   //   style:
-                                   //   TextStyle(fontFamily: kfontfamily2),
-                                   // ),
-                                   // Text(
-                                   //   totaltax.toString(),
-                                   //   style:
-                                   //   TextStyle(fontFamily: kfontfamily2),
-                                   // ),
+
                                  ],
                                ),
-                               // Row(
-                               //   // mainAxisAlignment:
-                               //   //     MainAxisAlignment.spaceEvenly,
-                               //   children: [
-                               //     Text(
-                               //       ' الكمية : ',
-                               //       style:
-                               //       TextStyle(fontFamily: kfontfamily2),
-                               //     ),
-                               //     Text(
-                               //       itemProd.amount.toString(),
-                               //       style:
-                               //       TextStyle(fontFamily: kfontfamily2),
-                               //     ),
-                               //   ],
-                               // ),
+
                              ],
                            ),
-                              // Row(
-                              //   // mainAxisAlignment:
-                              //   //     MainAxisAlignment.spaceEvenly,
-                              //   children: [
-                              //     Text(
-                              //       ' قيمة الحسم : ',
-                              //       style:
-                              //       TextStyle(fontFamily: kfontfamily2),
-                              //     ),
-                              //     Text(
-                              //
-                              //           totaltax.toString(),
-                              //       style:
-                              //       TextStyle(fontFamily: kfontfamily2),
-                              //     ),
-                              //   ],
-                              // ),
+
                             ],
                           ),
-                          //this Row --> for icon
-                          Row(
-                            children: [
-                              new IconButton(
-                                icon: Icon(
-                                  Icons.edit,
-                                  color: kMainColor,
-                                ),
-                                onPressed: () {
+                          //this Row --> for icon edit and delete
 
-                                  showDialog<void>(
-                                      context: context,
-                                      builder: (context) => dialog);
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => EditProduct(
-                                  //           productModel: itemProd,
-                                  //         )));
-                                },
-                                //onPressed: BOOKMARK,
-                              ),
-                              new IconButton(
-                                  icon: Icon(
-                                    Icons.delete,
-                                    color: Colors.red,
-                                  ),
-                                  onPressed: () => {
-
-                                    if(widget.itemProd.idInvoiceProduct!=null)
-                                      {
-                                        // Provider.of<invoice_vm>(context,listen: false)
-                                        //     .listproductinvoic[index].isdeleted=true,
-
-                                        Provider.of<invoice_vm>(context,listen: false)
-                                            .removelistproductinvoic(index),
-                                        Provider.of<invoice_vm>(
-                                            context, listen: false)
-                                            .deleteProductInInvoice(
-                                            widget.itemProd.idInvoiceProduct)
-                                      }
-                                    else
-                                      {
-
-                                        Provider.of<invoice_vm>(context,listen: false)
-                                          .removelistproductinvoic(index)
-
-                                      }
-                                  }
-
-                                //onPressed: COPY,
-                              ),
-                            ],
-                          ),
                         ],
                       )
                     ],
@@ -402,7 +337,7 @@ bool isepmty=false;
             ),
           ),
         ),
-        //  ),
+          ),
       );
 
   }

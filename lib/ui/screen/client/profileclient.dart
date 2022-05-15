@@ -108,7 +108,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
 
           tabs: <Widget>[
             Text(
-              'بيانات ',
+              'البيانات ',
                style: TextStyle(
                   fontFamily: kfontfamily2,
                   //fontWeight: FontWeight.bold,
@@ -170,16 +170,16 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
               controller: _tabcontroller,
               children: <Widget>[
                 ClientView(idclient: _clientModel.idClients.toString()),
-                // invoices(
-                //   itemClient: _clientModel,
-                //   fkclient: _clientModel.idClients.toString(),
-                //   fkuser: '',),
-                InvoiceView(
-                idinvoice:
-                _invoiceModel==null?'':
-                _invoiceModel!.idInvoice.toString(),
-                clientmodel: _clientModel,
-                ),
+                invoices(
+                  itemClient: _clientModel,
+                  fkclient: _clientModel.idClients.toString(),
+                  fkuser: '',),
+                // InvoiceView(
+                // idinvoice:
+                // _invoiceModel==null?'':
+                // _invoiceModel!.idInvoice.toString(),
+                // clientmodel: _clientModel,
+                // ),
                 commentView(
                     fk_client:_clientModel.idClients.toString(),
                 nameEnterprise: _clientModel.nameEnterprise),

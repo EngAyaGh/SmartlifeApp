@@ -4,6 +4,7 @@ import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/productmodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
+import 'package:crm_smart/ui/screen/invoice/invoiceView.dart';
 import 'package:crm_smart/ui/screen/product/editproduct.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
@@ -60,10 +61,21 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
           //splashColor: Colors.blue.withAlpha(30),
           onTap: () {
             Navigator.push(context, MaterialPageRoute(
-                builder: (context)=>addinvoice(
-                    itemClient: widget.itemClient,
-                    invoice:widget.itemProd ,
+                builder: (context)=>InvoiceView(
+                  clientmodel: widget.itemClient,
+                  invoice:widget.itemProd ,
                 )));
+            // InvoiceView(
+            // idinvoice:
+            // _invoiceModel==null?'':
+            // _invoiceModel!.idInvoice.toString(),
+            // clientmodel: _clientModel,
+            // ),
+            // Navigator.push(context, MaterialPageRoute(
+            //     builder: (context)=>addinvoice(
+            //         itemClient: widget.itemClient,
+            //         invoice:widget.itemProd ,
+            //     )));
           },
           child: Directionality(
             textDirection: TextDirection.rtl,

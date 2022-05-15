@@ -74,7 +74,7 @@ class _salesState extends State<sales> {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context)=>
                             tabclients()));
-              }, title: ' العملاء') :Container(),
+              }, title: ' كل قائمة العملاء') :Container(),
    // ;}),
 
     // Consumer<privilge_vm>(

@@ -38,6 +38,7 @@ class InvoiceModel extends CacheRepository{
     this.path,
     this.fk_country,
     this.reason_date,
+    this.date_approve,
 
 
   });
@@ -71,6 +72,7 @@ class InvoiceModel extends CacheRepository{
     String? path = '';
     String? fk_country;
     String? reason_date;
+    String? date_approve;
 
   //Map<String, dynamic> products;
    List<ProductsInvoice>? products;
@@ -111,6 +113,7 @@ class InvoiceModel extends CacheRepository{
     path=jsondata['path'];
     fk_country=jsondata['fk_country'];
     reason_date=jsondata['reason_date'];
+    date_approve=jsondata['date_approve'];
 
     products=getproud(jsondata['products']);
       //  json.decode(
@@ -174,6 +177,7 @@ class InvoiceModel extends CacheRepository{
     _data['path'] = path;
     _data['fk_country'] = fk_country;
     _data['reason_date'] = reason_date;
+    _data['date_approve'] = date_approve;
 
     _data['products'] =
         products!.map((e)=>e.toJson()).toList();

@@ -5,6 +5,7 @@ import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/ui/screen/user/userview.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardClient.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardclientAccept.dart';
+import 'package:crm_smart/ui/widgets/client_widget/clientCardNew.dart';
 import 'package:crm_smart/ui/widgets/user_widget/carduserbuild.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,11 +27,24 @@ class productSearchView extends StatelessWidget {
      //   productName.substring(1);
     print('search');
     print(searchKey);
-    if(list is List<ClientModel> )
+    if(list is List<ClientModel> ){
       list.forEach((element) {
         if(element.nameEnterprise!.contains(searchKey,0))
           clientlistsearch.add(element);
       });
+    if(clientlistsearch.isEmpty){
+      list.forEach((element) {
+        if(element.nameClient!.contains(searchKey,0))
+          clientlistsearch.add(element);
+      });
+    }
+      if(clientlistsearch.isEmpty){
+        list.forEach((element) {
+          if(element.mobile!.contains(searchKey,0))
+            clientlistsearch.add(element);
+        });
+      }
+    }
     if(list is List<UserModel>)
       list.forEach((element) {
         print(element.nameUser);
@@ -54,7 +68,7 @@ class productSearchView extends StatelessWidget {
    //InvoiceModel
    //ProductsInvoice
    if(val is ClientModel )
-  return cardClient(
+  return cardClientnew(
      itemClient:
      val,//_listProductFilter.data![index],
     iduser: '',

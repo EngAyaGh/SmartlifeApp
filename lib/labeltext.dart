@@ -36,7 +36,7 @@ const String label_clientregoin='المنطقة';
 const String label_clientdate='تاريخ الرفع';
 const String label_clienttype='حالة العميل';
 const String label_clientnameuser='اسم الموظف';
-const String label_clientadd='إضافة عميل';
+const String label_clientadd='إضافة العميل';
 
 const String label_empty='Value is Empty';
 /////////////////////////////////////////

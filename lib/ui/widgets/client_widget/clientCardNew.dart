@@ -119,7 +119,8 @@ ${itemClient.nameEnterprise.toString().substring(45,itemClient.nameEnterprise.to
                             fontSize: 10,
                             fontFamily: kfontfamily2),),
 
-                      Text(itemClient.nameUser.toString(),
+                      Text(itemClient.nameUser.toString().length>15?
+                      itemClient.nameUser.toString():itemClient.nameUser.toString()+'...',
                         style: TextStyle(
                           color: kMainColor,
                             // fontWeight: FontWeight.bold,

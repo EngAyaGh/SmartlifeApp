@@ -1,6 +1,7 @@
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/invoice_widget/Card_invoice_client.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:flutter/material.dart';
@@ -52,37 +53,37 @@ class _invoicesState extends State<invoices> {
      print(listinvoice.length);
      return Scaffold(
        key: _scaffoldKey,
-       floatingActionButton:FloatingActionButton(
-         backgroundColor: kMainColor,
-         onPressed: () {
-           Navigator.of(context).pushAndRemoveUntil(
-               MaterialPageRoute(
-                   builder: (context) =>
-                     addinvoice(
-                         //add new invoice
-                         itemClient:widget.itemClient,
-                         // iduser: widget.fkuser,
-                         // idClient: widget.fkclient,
-                         // indexinvoice: listinvoice.length>0?
-                         // listinvoice.length-1:0
-                     )
-           ), (Route<dynamic> route) => true);
-           // Navigator.push(
-           //     context, MaterialPageRoute(
-           //     builder: (context)=>
-           //     addinvoice(
-           //         //add new invoice
-           //         itemClient:widget.itemClient,
-           //         iduser: widget.fkuser,
-           //         idClient: widget.fkclient,
-           //         indexinvoice: listinvoice.length>0?
-           //         listinvoice.length-1:0
-           //     )
-           //     ));
-         },
-         tooltip: 'إضافة فاتورة',
-         child: Icon(Icons.add),
-       ),
+       // floatingActionButton:FloatingActionButton(
+       //   backgroundColor: kMainColor,
+       //   onPressed: () {
+       //     Navigator.of(context).pushAndRemoveUntil(
+       //         MaterialPageRoute(
+       //             builder: (context) =>
+       //               addinvoice(
+       //                   //add new invoice
+       //                   itemClient:widget.itemClient,
+       //                   // iduser: widget.fkuser,
+       //                   // idClient: widget.fkclient,
+       //                   // indexinvoice: listinvoice.length>0?
+       //                   // listinvoice.length-1:0
+       //               )
+       //     ), (Route<dynamic> route) => true);
+       //     // Navigator.push(
+       //     //     context, MaterialPageRoute(
+       //     //     builder: (context)=>
+       //     //     addinvoice(
+       //     //         //add new invoice
+       //     //         itemClient:widget.itemClient,
+       //     //         iduser: widget.fkuser,
+       //     //         idClient: widget.fkclient,
+       //     //         indexinvoice: listinvoice.length>0?
+       //     //         listinvoice.length-1:0
+       //     //     )
+       //     //     ));
+       //   },
+       //   tooltip: 'إضافة فاتورة',
+       //   child: Icon(Icons.add),
+       // ),
        // appBar: AppBar(
        //   leading: IconButton(
        //     icon: Icon(Icons.arrow_back, color: kWhiteColor),
@@ -97,37 +98,45 @@ class _invoicesState extends State<invoices> {
        //   TextStyle(color: kWhiteColor),
        //     textAlign: TextAlign.center,),
        // ),
-       body: _isLoading?
-       Center(child: CircularProgressIndicator(),)
-           :(listinvoice.isEmpty
-           ? Center(child: Text('لا يوجد فواتير لهذا العميل',style: TextStyle(fontSize: 22,color: kWhiteColor),),)
-           :Padding(
+       body: Padding(
          padding: const EdgeInsets.only(left:2,right: 2,top: 10,bottom: 10),
-         child: Container(
-           height: MediaQuery
-               .of(context)
-               .size
-               .height *0.95,
-           child: ListView.separated(
-             itemCount: listinvoice.length,
-             separatorBuilder: (BuildContext context, int index)
-             => const Divider(),
-             itemBuilder: (BuildContext context, int index)=>
-                 Builder(builder:
-                     (context)=>
+         child: ListView(
+           children: [
+              CustomButton(
+                text: 'إنشاء فاتورة جديدة',
+                onTap: () async {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => addinvoice(
+                              //invoice: invoice,
+                              itemClient: widget.itemClient)));
+                },
+              ),
+
+             Container(
+               height: MediaQuery.of(context).size.height * 0.8,
+               child: ListView.separated(
+                 itemCount: listinvoice.length,
+                 separatorBuilder: (BuildContext context, int index)
+                 => const Divider(),
+                 itemBuilder: (BuildContext context, int index)=>
+                     Builder(builder:
+                         (context)=>
                          CardInvoiceClient(
-                         itemProd: listinvoice[index],
+                           itemProd: listinvoice[index],
                            itemClient :  widget.itemClient,
-                         //scaffoldKey: _scaffoldKey,
-                         //indexinvoice: index,
+                           //scaffoldKey: _scaffoldKey,
+                           //indexinvoice: index,
                          )) ,
-             //     _listProd.map(
-             //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
-             // ).toList(),
-           ),
-         ),
-       )
+                 //     _listProd.map(
+                 //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
+                 // ).toList(),
+               ),
+             ),
+
+           ]
        ),
-     );
-   }
+     ),
+     );}
 }

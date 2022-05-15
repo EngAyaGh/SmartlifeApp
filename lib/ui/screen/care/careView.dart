@@ -15,7 +15,6 @@ class careView extends StatefulWidget {
   @override
   _careViewState createState() => _careViewState();
 }
-
 class _careViewState extends State<careView> {
   List<CommunicationModel> listCommunication=[];
   @override void initState() {

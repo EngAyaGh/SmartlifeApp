@@ -11,7 +11,7 @@ class typeclient extends ChangeNotifier{
 
   late String? selectedValuemanag=null;
 
-  void changevalue(String s){
+  void changevalue(String? s){
     selectedValuemanag=s;
     notifyListeners();
   }

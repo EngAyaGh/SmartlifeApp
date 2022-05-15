@@ -24,7 +24,7 @@ import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'dart:ui' as myui;
-import 'package:intl/intl.dart' as rt;
+
 import '../../../constants.dart';
 import '../../../labeltext.dart';
 import '../showpdf.dart';
@@ -168,102 +168,102 @@ else{
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        actions: [
-          _invoice!.idInvoice!=null? new IconButton(
-          icon: Icon(Icons.delete),
-          onPressed: () async {
-            bool result = await showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text('التأكيد'),
-                  content: Text('هل تريد حذف الفاتورة'),
-                  actions: <Widget>[
-                    new FlatButton(
-                      onPressed: () {
-                        Navigator.of(context,
-                            rootNavigator: true)
-                            .pop(
-                            false); // dismisses only the dialog and returns false
-                      },
-                      child: Text('لا'),
-                    ),
-                    FlatButton(
-                      onPressed: () async {
-                        Navigator.of(context,
-                            rootNavigator: true)
-                            .pop(true);
-                        // dismisses only the dialog and returns true
-                        // if(itemProd.idInvoice!=null)
-                        DateTime _currentDate = DateTime.now();
-                        final rt.DateFormat formatter =
-                        rt.DateFormat('yyyy-MM-dd');
-                        Provider.of<invoice_vm>(context,
-                            listen: false)
-                            .addlistinvoicedeleted(
-                            DeletedinvoiceModel(
-                              fkClient: _invoice!.fkIdClient.toString(),
-                              fkUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
-                                  .idUser, //cuerrent user
-                              dateDelete:
-                              formatter.format(_currentDate),
-                              //city:itemProd.
-                              nameClient:
-                              _invoice!.nameClient.toString(),
-                              nameEnterprise:
-                              widget.itemClient.nameEnterprise,
-                              mobileclient:
-                              widget.itemClient.mobile,
-                              //mobileuser:widget.itemClient. ,
-                              // nameUser: widget.itemProd
-                              //     .nameUser, //موظف المبيعات
-                              nameUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
-                                  .nameUser, //name user that doing delete
-                            ));
-                        Provider.of<invoice_vm>(context,
-                            listen: false)
-                            .delete_invoice({
-                          "id_invoice":
-                              _invoice!.idInvoice
-                              .toString(),
-                          "fkUserdo":
-                          Provider.of<user_vm_provider>(context, listen: false).currentUser!
-                              .idUser.toString(),
-                          "name_enterprise": widget
-                              .itemClient.nameEnterprise
-                              .toString(),
-                          "nameUserdo":
-                          Provider.of<user_vm_provider>(context, listen: false).currentUser!
-                              .nameUser.toString(),
-                        }, _invoice!.idInvoice);
-                        Navigator.pop(context);
-                        //     .then(
-                        //         (value) =>
-                        //             setState(() {
-                        //   _invoice=  InvoiceModel(products: []);
-                        //   widget.invoice=null;
-                        //   // Provider.of<invoice_vm>(context, listen: false)
-                        //   //     .listproductinvoic=[];
-                        //   //Provider.of<invoice_vm>(context,listen: false).total='0';
-                        //       //.set_total('0'.toString());
-                        //   renewController.text='';
-                        //   noteController.text='';
-                        //   imageController.text='';
-                        //   amount_paidController.text='';
-                        //   _resetState();
-                        // }));
-
-                      },
-                      child: Text('نعم'),
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-          //onPressed: COPY,
-        ):Container(),
-        ],
+        // actions: [
+        //   _invoice!.idInvoice!=null? new IconButton(
+        //   icon: Icon(Icons.delete),
+        //   onPressed: () async {
+        //     bool result = await showDialog(
+        //       context: context,
+        //       builder: (context) {
+        //         return AlertDialog(
+        //           title: Text('التأكيد'),
+        //           content: Text('هل تريد حذف الفاتورة'),
+        //           actions: <Widget>[
+        //             new FlatButton(
+        //               onPressed: () {
+        //                 Navigator.of(context,
+        //                     rootNavigator: true)
+        //                     .pop(
+        //                     false); // dismisses only the dialog and returns false
+        //               },
+        //               child: Text('لا'),
+        //             ),
+        //             FlatButton(
+        //               onPressed: () async {
+        //                 Navigator.of(context,
+        //                     rootNavigator: true)
+        //                     .pop(true);
+        //                 // dismisses only the dialog and returns true
+        //                 // if(itemProd.idInvoice!=null)
+        //                 DateTime _currentDate = DateTime.now();
+        //                 final rt.DateFormat formatter =
+        //                 rt.DateFormat('yyyy-MM-dd');
+        //                 Provider.of<invoice_vm>(context,
+        //                     listen: false)
+        //                     .addlistinvoicedeleted(
+        //                     DeletedinvoiceModel(
+        //                       fkClient: _invoice!.fkIdClient.toString(),
+        //                       fkUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
+        //                           .idUser, //cuerrent user
+        //                       dateDelete:
+        //                       formatter.format(_currentDate),
+        //                       //city:itemProd.
+        //                       nameClient:
+        //                       _invoice!.nameClient.toString(),
+        //                       nameEnterprise:
+        //                       widget.itemClient.nameEnterprise,
+        //                       mobileclient:
+        //                       widget.itemClient.mobile,
+        //                       //mobileuser:widget.itemClient. ,
+        //                       // nameUser: widget.itemProd
+        //                       //     .nameUser, //موظف المبيعات
+        //                       nameUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
+        //                           .nameUser, //name user that doing delete
+        //                     ));
+        //                 Provider.of<invoice_vm>(context,
+        //                     listen: false)
+        //                     .delete_invoice({
+        //                   "id_invoice":
+        //                       _invoice!.idInvoice
+        //                       .toString(),
+        //                   "fkUserdo":
+        //                   Provider.of<user_vm_provider>(context, listen: false).currentUser!
+        //                       .idUser.toString(),
+        //                   "name_enterprise": widget
+        //                       .itemClient.nameEnterprise
+        //                       .toString(),
+        //                   "nameUserdo":
+        //                   Provider.of<user_vm_provider>(context, listen: false).currentUser!
+        //                       .nameUser.toString(),
+        //                 }, _invoice!.idInvoice);
+        //                 Navigator.pop(context);
+        //                 //     .then(
+        //                 //         (value) =>
+        //                 //             setState(() {
+        //                 //   _invoice=  InvoiceModel(products: []);
+        //                 //   widget.invoice=null;
+        //                 //   // Provider.of<invoice_vm>(context, listen: false)
+        //                 //   //     .listproductinvoic=[];
+        //                 //   //Provider.of<invoice_vm>(context,listen: false).total='0';
+        //                 //       //.set_total('0'.toString());
+        //                 //   renewController.text='';
+        //                 //   noteController.text='';
+        //                 //   imageController.text='';
+        //                 //   amount_paidController.text='';
+        //                 //   _resetState();
+        //                 // }));
+        //
+        //               },
+        //               child: Text('نعم'),
+        //             ),
+        //           ],
+        //         );
+        //       },
+        //     );
+        //   },
+        //   //onPressed: COPY,
+        // ):Container(),
+        // ],
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: kWhiteColor),
           onPressed: () {
@@ -278,10 +278,10 @@ else{
               top: 10,
               right: 20,
               left: 20,bottom: 10),
-          child: ContainerShadows(
-            width: double.infinity,
-            //height: 400,
-            margin: EdgeInsets.only(),
+          // child: ContainerShadows(
+          //   width: double.infinity,
+          //   //height: 400,
+          //   margin: EdgeInsets.only(),
             child: Directionality(
               textDirection: myui.TextDirection.rtl,
               child: SingleChildScrollView(
@@ -298,6 +298,36 @@ else{
 
                       children: [
 
+                        ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    kMainColor)),
+                            onPressed: () {
+
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        add_invoiceProduct(
+                                            invoice:
+                                            _invoice
+                                          // Provider.of<invoice_vm>(context,listen: false)
+                                          //     .listinvoiceClient[widget.indexinvoice],
+                                          // indexinvoic:  widget.indexinvoice,
+                                        ),
+                                  ), (Route<dynamic> route) => true);
+                              // Navigator.push(context, MaterialPageRoute(
+                              //     builder: (context)=>
+                              //         add_invoiceProduct(
+                              //           invoice:
+                              //           Provider.of<invoice_vm>(context,listen: false)
+                              //               .listinvoiceClient[widget.indexinvoice],
+                              //           indexinvoic:  widget.indexinvoice,
+                              //         ), fullscreenDialog: true,
+                              // ));
+
+                            },
+                            child: Text("إضافة منتجات الفاتورة")),
+                        SizedBox(height: 2,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -320,46 +350,8 @@ else{
                                //_invoice!.total.toString(),//totalController,
                               underline: TextDecoration.none,
                             ),
-                            SizedBox(width: 10,),
-                            ElevatedButton
-                              (
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                    kMainColor)),
-                                onPressed: () {
+                          //  SizedBox(width: 10,),
 
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute<void>(
-                                  //     builder: (BuildContext context)
-                                  //     => FullScreenDialog(),
-                                  //     fullscreenDialog: true,
-                                  //   ),
-                                  // );
-
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                  builder: (context) =>
-                                            add_invoiceProduct(
-                                              invoice:
-                                                _invoice
-                                              // Provider.of<invoice_vm>(context,listen: false)
-                                              //     .listinvoiceClient[widget.indexinvoice],
-                                              // indexinvoic:  widget.indexinvoice,
-                                            ),
-                                  ), (Route<dynamic> route) => true);
-                                  // Navigator.push(context, MaterialPageRoute(
-                                  //     builder: (context)=>
-                                  //         add_invoiceProduct(
-                                  //           invoice:
-                                  //           Provider.of<invoice_vm>(context,listen: false)
-                                  //               .listinvoiceClient[widget.indexinvoice],
-                                  //           indexinvoic:  widget.indexinvoice,
-                                  //         ), fullscreenDialog: true,
-                                  // ));
-
-                                },
-                                child: Text("منتجات الفاتورة")),
                           ],
                         ),
 
@@ -699,7 +691,7 @@ else{
               ),
             ),
           ),
-        ),
+        //),
       ),
     );
   }
@@ -777,11 +769,12 @@ else{
 
      Provider.of<LoadProvider>(context, listen: false)
          .changebooladdinvoice(false);
-     _scaffoldKey.currentState!.showSnackBar(
-         SnackBar(content: Text('تم الحفظ بنجاح'))
-     );
-     setState(() {
-     });
+     Navigator.pop(context);
+     // _scaffoldKey.currentState!.showSnackBar(
+     //     SnackBar(content: Text('تم الحفظ بنجاح'))
+     // );
+     // setState(() {
+     // });
   }
 
   error(context) {

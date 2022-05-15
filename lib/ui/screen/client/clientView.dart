@@ -4,6 +4,7 @@
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/ui/screen/client/addClient.dart';
 import 'package:crm_smart/ui/screen/client/editClient.dart';
+import 'package:crm_smart/ui/screen/client/transfer_client.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/RowWidget.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/separatorLine.dart';
@@ -11,6 +12,8 @@ import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../constants.dart';
 
 class ClientView extends StatefulWidget {
   ClientView( {required this.idclient, Key? key}) : super(key: key);
@@ -37,18 +40,31 @@ class _ClientViewState extends State<ClientView> {
           child:SingleChildScrollView(
             child: Column(
               children: [
-                cardRow(  title: 'اسم المؤسسة',value:clientModel.nameEnterprise.toString()),
-                cardRow( title:'موظف المبيعات',value:clientModel.nameUser.toString()),
-                cardRow( title:'التاريخ',value:clientModel.dateCreate.toString()),
+                cardRow(  title: 'رقم الهاتف',value:clientModel.mobile.toString()),
+                cardRow( title:'تاريخ الاضافة',value:clientModel.dateCreate.toString()),
+                cardRow(  title: 'المؤسسة',value:clientModel.nameEnterprise.toString()),
                 cardRow( title:'اسم العميل',value:clientModel.nameClient.toString()),
                 cardRow( title:' المنطقة',value:clientModel.name_regoin.toString()),
                 cardRow( title:' المدينة',value:clientModel.city.toString()),
                 cardRow( title:' حالة العميل',value:clientModel.typeClient.toString()),
+                clientModel.offer_price!=null?
+                cardRow( title:'مبلغ عرض السعر',value:clientModel.offer_price.toString()):Container(),
+                clientModel.offer_price!=null?
+                cardRow( title:'تاريخ عرض السعر',value:clientModel.date_price.toString()):Container(),
+
+                cardRow( title:'الموظف',value:clientModel.nameUser.toString()),
+                cardRow( title:'رقم الموظف',value:clientModel.mobileuser.toString()),
+                clientModel.dateTransfer!=null?
+                cardRow( title:' قام بتحويل العميل',value:clientModel.nameusertransfer.toString()):Container(),
+                clientModel.dateTransfer!=null?
+                cardRow( title:' تاريخ التحويل',value:clientModel.dateTransfer.toString()):Container(),
+
                 Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   //crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+
                     CustomButton(
                       text: 'تعديل بيانات العميل',
                       onTap: () async {
@@ -62,6 +78,23 @@ class _ClientViewState extends State<ClientView> {
                                     ));
                       },
                     ),
+                    clientModel.typeClient=="عرض سعر"
+                        ||  clientModel.typeClient=="تفاوض"?
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              kMainColor)),
+                      onPressed: () {
+                        Navigator.push(context,MaterialPageRoute(
+                            builder: (context)=>transferClient(
+                              name_enterprise:  clientModel.nameEnterprise.toString(),
+                              idclient:   clientModel.idClients.toString(),
+                              type: "client",),fullscreenDialog: true
+
+                        ));
+                      },
+                      child: Text('تحويل العميل'),
+                     ):Container(),
                 ],
             ),
               )

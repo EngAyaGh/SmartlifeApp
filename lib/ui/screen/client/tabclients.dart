@@ -11,6 +11,8 @@ import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
+import 'package:crm_smart/view_model/typeclient.dart';
+import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,6 +36,8 @@ class _tabclientsState extends State<tabclients> {
   // final controllerUsers = Get.find<AllUserVMController>();
   List<ClientModel> _list = [];
   String? iduser;
+  String? regoin;
+  String? typeclientvalue;
   UserModel? user;
   bool _isLoading = false;
   int isSelectedtypeinstall=0;
@@ -49,7 +53,8 @@ class _tabclientsState extends State<tabclients> {
 
       // Add Your Code here.
       // Provider.of<regoin_vm>(context,listen: false).getregoin();
-
+      Provider.of<typeclient>(context,listen: false).type_of_client=
+      ['تفاوض','عرض سعر','مستبعد','منسحب'];
       List<PrivilgeModel> list=
           await   Provider.of<privilge_vm>(context,listen: false).privilgelist;
       Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
@@ -141,18 +146,20 @@ class _tabclientsState extends State<tabclients> {
                                 // ),
                                 //   ),
                                 //   child:
-                                  Container(
-                                    height: 57,
-                                    child: DropdownButtonFormField(
-
-                                      decoration:InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(10),
-                                              borderSide: BorderSide(
-                                                  width: 1,
-                                                  color: Colors.grey)
-                                          )
-                                      ) ,
+                                //   Container(
+                                //     height: 57,
+                                //     child:
+                                //     DropdownButtonFormField(
+                                //
+                                //       decoration:InputDecoration(
+                                //           enabledBorder: OutlineInputBorder(
+                                //               borderRadius: BorderRadius.circular(10),
+                                //               borderSide: BorderSide(
+                                //                   width: 1,
+                                //                   color: Colors.grey)
+                                //           )
+                                //       ) ,
+                                  DropdownButton(
                                       isExpanded: true,
                                       hint: Padding(
                                         padding: const EdgeInsets.only(right: 10),
@@ -169,13 +176,15 @@ class _tabclientsState extends State<tabclients> {
                                       onChanged:(value) {
                                         //  setState(() {
                                         cart.changeVal(value.toString());
-                                        Provider.of<client_vm>(context, listen: false)
-                                            .getclientfilter_Local(value.toString(),"regoin");
-                                        // });
+                                        regoin=value.toString();
+                                        filtershow();
+                                        // Provider.of<client_vm>(context, listen: false)
+                                        //     .getclientfilter_Local(value.toString(),"regoin",
+                                        //     Provider.of<typeclient>(context,listen: false).selectedValuemanag);
+                                        // // });
                                       },
-                                 // ),
-                                ),
-                                  );
+                                    );
+                                  //);
                               },
                             ),
                           ),
@@ -192,23 +201,23 @@ class _tabclientsState extends State<tabclients> {
                                 return  DropdownSearch<UserModel>(
                                   mode: Mode.DIALOG,
                                   label: " الموظف ",
-
                                   //onFind: (String filter) => cart.getfilteruser(filter),
                                   filterFn: (user, filter) => user!.getfilteruser(filter!),
                                   //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
                                   // itemAsString: (UserModel u) => u.userAsStringByName(),
                                   items: cart.userall,
-                                  itemAsString:
-                                      ( u) => u!.userAsString(),
-
+                                  itemAsString: (u) => u!.userAsString(),
                                   // selectedItem: cart.currentUser,
                                   onChanged: (data) {
                                     iduser=data!.idUser;
-                                    Provider.of<client_vm>(context, listen: false)
-                                        .getclientfilter_Local(iduser!,"user");
-                                  } ,//print(data!.nameUser),
-                                  showSearchBox: true,
+                                    filtershow();
+                                    // Provider.of<client_vm>(context, listen: false)
+                                    //     .getclientfilter_Local(iduser!,"user",
+                                    //     Provider.of<typeclient>(context,listen: false).selectedValuemanag);
+                                    //
 
+                                  } ,//print(data!.nameUser),
+                                  showSearchBox: false,
                                   dropdownSearchDecoration:
                                   InputDecoration(
                                     fillColor:  Colors.grey.withOpacity(0.2),
@@ -227,42 +236,38 @@ class _tabclientsState extends State<tabclients> {
                             ),
                           )
                         ):Container(),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0,right: 8),
+                            child: Consumer<typeclient>(
+                                builder: (context, cart, child){
+
+
+                                  return DropdownButton(
+                                    isExpanded: true,
+                                    //hint: Text("حدد حالة العميل"),
+                                    items: cart.type_of_client.map((level_one) {
+                                      return DropdownMenuItem(
+
+                                        child: Text(level_one), //label of item
+                                        value: level_one, //value of item
+                                      );
+                                    }).toList(),
+                                    value:cart.selectedValuemanag,
+                                    onChanged:(value) {
+                                      //namemanage=value.toString();
+                                      cart.changevalue(value.toString());
+                                      typeclientvalue=value.toString();
+                                      filtershow();
+                                    },
+                                  );}
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                    // Center(
-                    //   child:
-                    //   Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //     children: [
-                    //    // Row(
-                    //    //
-                    //    //   children: [   Text('فلترة'),
-                    //    //     Icon(Icons.filter_alt_sharp),],
-                    //    // ),
-                    //       GroupButton(
-                    //           controller: GroupButtonController(
-                    //             selectedIndex:isSelectedtypeinstall,
-                    //
-                    //           ),
-                    //           options: GroupButtonOptions(
-                    //               buttonWidth: 100,
-                    //
-                    //               borderRadius: BorderRadius.circular(10)),
-                    //           buttons: ['الموظف','المناطق'],
-                    //           onSelected: (index,isselected) {
-                    //             print(index);
-                    //             setState(() {
-                    //               isSelectedtypeinstall=index;
-                    //
-                    //             });
-                    //           }
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    //SizedBox(height: 5,),
 
-                    //isSelectedtypeinstall==1?
+                    SizedBox(height: 2,),
 
                     SizedBox(height: 2,),
                     search_widget("المؤسسة....",
@@ -273,6 +278,10 @@ class _tabclientsState extends State<tabclients> {
                     ),
                     RefreshIndicator(
                       onRefresh: ()async{
+                      Provider.of<regoin_vm>(context,listen: false).changeVal(null);
+                      Provider.of<typeclient>
+                        (context,listen: false)
+                          .changevalue(null);
                         await    Provider.of<client_vm>(context, listen: false)
                             .getclient_vm(
                             // Provider.of<privilge_vm>(context,listen: false)
@@ -321,5 +330,29 @@ class _tabclientsState extends State<tabclients> {
 
         //    )
         );
+  }
+  void filtershow(){
+    if( Provider.of<regoin_vm>(context,listen: false).selectedValueLevel!=null&&
+        iduser!=null){
+      Provider.of<client_vm>(context, listen: false)
+          .getclientfilter_Local(iduser ,"3", typeclientvalue, regoin,);
+    }else{
+      if(Provider.of<regoin_vm>(context,listen: false).selectedValueLevel==null&&
+          iduser==null){
+        Provider.of<client_vm>(context, listen: false)
+            .getclientfilter_Local(typeclientvalue,"type",null,null);
+      }
+      else{
+        if(iduser==null) {
+          Provider.of<client_vm>(context, listen: false)
+              .getclientfilter_Local(
+             regoin, "regoin",
+              typeclientvalue,null);
+        }else{
+
+          Provider.of<client_vm>(context, listen: false)
+              .getclientfilter_Local(iduser,"user",typeclientvalue,null);
+        }
+      }}
   }
 }

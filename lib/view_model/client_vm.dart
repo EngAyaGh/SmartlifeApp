@@ -61,29 +61,53 @@ class client_vm extends ChangeNotifier {
     notifyListeners();
   }
   Future<void> getclientfilter_Local(
-      String? searchfilter,String type
+      String? searchfilter,String type,String? filter2,String? filter3
       // , List<ClientModel> list
       )
   async {
     // if(listClient.isEmpty)
     // List<ClientModel> lists=[];
     listClientfilter=[];
+    if(type=="3"){
+      listClient.forEach((element) {
+        if( element.fkUser==searchfilter&&element.typeClient==filter2&&element.fkRegoin==filter3)
+          listClientfilter.add(element);
+      });
+    }
+    if(type=="type"){
+
+      listClient.forEach((element) {
+        if( element.typeClient==searchfilter)
+          listClientfilter.add(element);
+      });
+    }
     if(type=="user"){
-      print(searchfilter);
       print('in user search');
-    listClient.forEach((element) {
+      if(filter2==null){
+        listClient.forEach((element) {
       if( element.fkUser==searchfilter)
         listClientfilter.add(element);
     });
+      }else{
+        listClient.forEach((element) {
+          if( element.fkUser==searchfilter&&element.typeClient==filter2)
+            listClientfilter.add(element);
+        });
+      }
     }
     else {
       if(type=="regoin"){
-        print('regoin');
-        print(searchfilter);
-        listClient.forEach((element) {
-          if( element.fkRegoin==searchfilter)
-            listClientfilter.add(element);
-        });
+        if(filter2==null) {
+          listClient.forEach((element) {
+            if (element.fkRegoin == searchfilter)
+              listClientfilter.add(element);
+          });
+        }else{
+          listClient.forEach((element) {
+            if (element.fkRegoin == searchfilter&&element.typeClient==filter2)
+              listClientfilter.add(element);
+          });
+        }
       }
     }
 

@@ -313,9 +313,9 @@ void calculate(){
                       Padding(
                         padding: const EdgeInsets.only(top:8.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.add,color: kMainColor,),
+
                            // Text(' إضافة منتج للفاتورة ' ,style: TextStyle(fontFamily: kfontfamily2),),
                             ElevatedButton(
                                 style: ButtonStyle(
@@ -357,8 +357,12 @@ void calculate(){
                                     _scaffoldKey.currentState!.showSnackBar(
                                         SnackBar(content: Text('من فضلك تأكد من عملية الإدخال')));
                                   }
+                                  _taxuser.text='';_taxuser_value='';
+                                  _taxadmin.text='';_taxadmin_value='';
+                                  _textprice.text='0';
+                                  _amount.text='1';_amount_value='1';
                                 },
-                                child: Text('إضافة منتج للفاتورة')),
+                                child: Text('إضافة المنتج للفاتورة')),
                             Text(''),
                           ],
                         ),
