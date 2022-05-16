@@ -9,6 +9,7 @@ import 'package:crm_smart/ui/screen/care/comment_view.dart';
 import 'package:crm_smart/ui/screen/invoice/invoces.dart';
 import 'package:crm_smart/ui/screen/invoice/invoiceView.dart';
 import 'package:crm_smart/ui/screen/support/support_add.dart';
+import 'package:crm_smart/ui/screen/support/support_view_invoices.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/comment.dart';
 import 'package:crm_smart/view_model/communication_vm.dart';
@@ -48,8 +49,6 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
     Provider.of<comment_vm>(context, listen: false)
         .getComment(widget.idclient.toString());
 
-    Provider.of<ticket_vm>(context, listen: false)
-        .getticket();
 
 
     // Provider.of<ticket_vm>(context, listen: false)
@@ -183,11 +182,14 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
                 commentView(
                     fk_client:_clientModel.idClients.toString(),
                 nameEnterprise: _clientModel.nameEnterprise),
-                support_add(
-
-                  idinvoice:_invoiceModel==null?'': _invoiceModel!.idInvoice,
-
+                support_view_invoices(
+                  itemClient: _clientModel,
                 ),
+                // support_add(
+                //
+                //   idinvoice:_invoiceModel==null?'': _invoiceModel!.idInvoice,
+                //
+                // ),
                 careView(   fk_client:_clientModel.idClients.toString(),),
                 //InvoiceView(invoice: _invoiceModel,),
                 //Icon(Icons.add),

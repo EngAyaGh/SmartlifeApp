@@ -20,6 +20,7 @@ import 'package:provider/provider.dart';
 class support_add extends StatefulWidget {
    support_add({ required this.idinvoice, Key? key}) : super(key: key);
    String? idinvoice;
+
   @override
   _support_addState createState() => _support_addState();
 }
@@ -29,7 +30,7 @@ class _support_addState extends State<support_add> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _globalKey=GlobalKey<FormState>();
-  late InvoiceModel? _invoice=null;
+   late InvoiceModel? _invoice=null;
   String? fk_client;
   bool valueresoan=false;
   @override void dispose() {
@@ -38,22 +39,22 @@ class _support_addState extends State<support_add> {
   }
   @override
   void initState()  {
-      if (widget.idinvoice != '') {
-        // _invoice = Provider
-        //     .of<invoice_vm>(context, listen: false)
-        //     .listinvoices
-        //     .firstWhere(
-        //         (element) =>
-        //     element.idInvoice == widget.idinvoice);
-        // _textsupport.text = _invoice!.reason_date.toString();
-        WidgetsBinding.instance!.addPostFrameCallback((_)async {
-
-        //_ticketModel=_list.firstWhere((element) => element.fkClient)
-
-          Provider.of<typeclient>(context,listen: false).getreasons('ticket');
-        });
-
-      }
+      // if (widget.idinvoice != '') {
+      //   // _invoice = Provider
+      //   //     .of<invoice_vm>(context, listen: false)
+      //   //     .listinvoices
+      //   //     .firstWhere(
+      //   //         (element) =>
+      //   //     element.idInvoice == widget.idinvoice);
+      //   // _textsupport.text = _invoice!.reason_date.toString();
+      //   WidgetsBinding.instance!.addPostFrameCallback((_)async {
+      //
+      //   //_ticketModel=_list.firstWhere((element) => element.fkClient)
+      //
+      //     Provider.of<typeclient>(context,listen: false).getreasons('ticket');
+      //   });
+      //
+      // }
     print('init support');
     super.initState();
   }
@@ -73,22 +74,22 @@ class _support_addState extends State<support_add> {
   @override
   Widget build(BuildContext context) {
 
-    if (widget.idinvoice != '') {
-
-    // _invoice = Provider
-    //     .of<invoice_vm>(context, listen: true)
-    //     .listinvoices
-    //     .firstWhere(
-    //         (element) =>
-    //     element.idInvoice == widget.idinvoice);
-    int index=Provider.of<invoice_vm>(context,listen: true)
-        .listinvoices.indexWhere((element) => element.idInvoice==widget.idinvoice);
-    if(index!=-1){ _invoice=Provider.of<invoice_vm>(context,listen: true)
-        .listinvoices[index];
-      fk_client= _invoice!.fkIdClient;}
-    // Provider.of<ticket_vm>(context, listen: true)
-    //     .getclient_ticket( fk_client.toString());
-    }
+    // if (widget.idinvoice != '') {
+    //
+    _invoice = Provider
+        .of<invoice_vm>(context, listen: true)
+        .listinvoices
+        .firstWhere(
+            (element) =>
+        element.idInvoice == widget.idinvoice);
+    // int index=Provider.of<invoice_vm>(context,listen: true)
+    //     .listinvoices.indexWhere((element) => element.idInvoice==widget.idinvoice);
+    // if(index!=-1){ _invoice=Provider.of<invoice_vm>(context,listen: true)
+    //     .listinvoices[index];
+    //   fk_client= _invoice!.fkIdClient;}
+    // // Provider.of<ticket_vm>(context, listen: true)
+    // //     .getclient_ticket( fk_client.toString());
+    // }
     print('builld');
     return Scaffold(
       key: _scaffoldKey,
@@ -247,33 +248,7 @@ class _support_addState extends State<support_add> {
                     :cardRow(title: ' تم التركيب من قبل ',value: _invoice!.nameuserinstall.toString()),
                     _invoice!.dateinstall_done==null? Container():
 
-                          SizedBox(height: 16,),
-                    Provider.of<ticket_vm>(context,listen: true)
-                        .listticket_client.isEmpty?
-                    ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                kMainColor)),
-                        onPressed: () async{
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context)=>
-                                  ticketAdd(fk_client: _invoice!.fkIdClient.toString(),)));
-                        },
-                        child: Text(' فتح تذكرة دعم '))
-                        : ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                kMainColor)),
-                        onPressed: () async{
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context)=>
-                                  TicketView(
-                                   ticketModel:
-                                   Provider.of<ticket_vm>(context,listen: true)
-                                       .listticket_client[0]
-                                  )));
-                        },
-                        child: Text('تذاكر العميل')) ,
+
                     SizedBox(height: 15,),
                     _invoice!.dateinstall_done==null?
                     ElevatedButton(

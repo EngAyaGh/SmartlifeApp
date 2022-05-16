@@ -70,6 +70,9 @@ Future<void> getclient_ticket(String fkIdClient)async{
   });}
    notifyListeners();
 }
+
+
+
 Future<void> getticket() async {
   var
   data=await Api()

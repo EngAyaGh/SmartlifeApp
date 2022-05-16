@@ -18,7 +18,6 @@ class support_view extends StatefulWidget {
 class _support_viewState extends State<support_view> {
   @override void didChangeDependencies() async {
 
-
     WidgetsBinding.instance!.addPostFrameCallback((_)async{
      await   Provider.of<invoice_vm>(context, listen: false).getinvoices();
       // Add Your Code here.

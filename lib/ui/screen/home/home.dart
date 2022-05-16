@@ -11,6 +11,7 @@ import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
+import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +104,8 @@ class _HomeState extends State<Home> {
       Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
       await Provider.of<client_vm>(context, listen: false)
           .getclient_vm();
-
+      Provider.of<ticket_vm>(context, listen: false)
+          .getticket();
     });
     super.didChangeDependencies();
   }
