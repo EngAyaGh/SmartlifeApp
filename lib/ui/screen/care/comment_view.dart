@@ -67,8 +67,10 @@ print('init in comment');
                               .idUser
                               .toString(),
                           'fk_client': widget.fk_client,
-                          'date_comment':Utils.toDateTime(
-                              DateTime.now()),
+                          'date_comment':
+                          //Utils.toDateTime(
+                              DateTime.now().toString(),
+                          //),
                           'nameUser': Provider.of<user_vm_provider>(context,
                               listen: false)
                               .currentUser!.nameUser,
@@ -104,7 +106,7 @@ print('init in comment');
                                               child:
                                                   //Text(''),
                                                   cardcomment(
-                                                commentmodel:
+                                                  commentmodel:
                                                     value.listComments[index],
                                               )));
                                     }),

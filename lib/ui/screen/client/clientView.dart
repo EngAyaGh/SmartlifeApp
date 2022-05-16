@@ -47,21 +47,21 @@ class _ClientViewState extends State<ClientView> {
                 cardRow( title:' المنطقة',value:clientModel.name_regoin.toString()),
                 cardRow( title:' المدينة',value:clientModel.city.toString()),
                 cardRow( title:' حالة العميل',value:clientModel.typeClient.toString()),
-                clientModel.offer_price!=null?
+                clientModel.offer_price!=null&&clientModel.offer_price.toString().trim().isNotEmpty?
                 cardRow( title:'مبلغ عرض السعر',value:clientModel.offer_price.toString()):Container(),
-                clientModel.offer_price!=null?
+                clientModel.offer_price!=null&&clientModel.offer_price.toString().trim().isNotEmpty?
                 cardRow( title:'تاريخ عرض السعر',value:clientModel.date_price.toString()):Container(),
 
                 cardRow( title:'الموظف',value:clientModel.nameUser.toString()),
                 cardRow( title:'رقم الموظف',value:clientModel.mobileuser.toString()),
-                clientModel.dateTransfer!=null?
+                clientModel.nameusertransfer!=null?
                 cardRow( title:' قام بتحويل العميل',value:clientModel.nameusertransfer.toString()):Container(),
-                clientModel.dateTransfer!=null?
+                clientModel.nameusertransfer!=null?
                 cardRow( title:' تاريخ التحويل',value:clientModel.dateTransfer.toString()):Container(),
 
                 Center(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   //crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
 
@@ -78,6 +78,9 @@ class _ClientViewState extends State<ClientView> {
                                     ));
                       },
                     ),
+                    clientModel.typeClient=="عرض سعر"
+                        ||  clientModel.typeClient=="تفاوض"?
+                        SizedBox(width:5 ,):Container(),
                     clientModel.typeClient=="عرض سعر"
                         ||  clientModel.typeClient=="تفاوض"?
                     ElevatedButton(

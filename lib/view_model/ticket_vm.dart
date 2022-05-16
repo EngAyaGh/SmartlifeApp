@@ -60,14 +60,24 @@ class ticket_vm extends ChangeNotifier{
       notifyListeners();
 
   }
-Future<void> getclient_ticket(String fkIdClient)async{
+void getclient_ticket(String fkIdClient){
     listticket_client=[];
     //notifyListeners();
+    int index=0;
    if(listticket.isNotEmpty){
+
     listticket.forEach((element) {
-    if( element.fkClient==fkIdClient);
-    listticket_client.add(element);
+    if( element.fkClient==fkIdClient)
+    {
+      listticket_client.add(element);
+      print('vghfggcgbbbbbbbbbbbbbbbbbbbb');
+      print(listticket_client[index].nameEnterprise);
+      print(fkIdClient);
+      index++;
+    }
   });}
+
+
    notifyListeners();
 }
 

@@ -3,6 +3,7 @@
 
 import 'package:crm_smart/api/api.dart';
 import 'package:crm_smart/model/commentmodel.dart';
+import 'package:crm_smart/ui/widgets/widgetcalendar/utils.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../constants.dart';
@@ -37,6 +38,7 @@ bool isloadadd=false;
     if (res!="error") {
       body.addAll({
         'id_comment':res,
+        'date_comment':Utils.toDate(DateTime.now()),
       });
       //listComments=[];
       listComments.add(CommentModel.fromJson(body));

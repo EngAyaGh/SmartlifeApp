@@ -91,9 +91,7 @@ class _support_addState extends State<support_add> {
     // //     .getclient_ticket( fk_client.toString());
     // }
     print('builld');
-    return Scaffold(
-      key: _scaffoldKey,
-      body: SafeArea(
+    return SafeArea(
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: SingleChildScrollView(
@@ -102,7 +100,6 @@ class _support_addState extends State<support_add> {
               child: ContainerShadows(
                 margin: EdgeInsets.all(12),
                 child:
-                _invoice!=null?
                 Column(
                   children: [
                     _invoice!.dateinstall_done!=null?
@@ -308,19 +305,12 @@ class _support_addState extends State<support_add> {
                     },
                         child: Text('تم التركيب للعميل')):Container(),
                   ],
-                )
-                :Center(
-                  child: Container(
-                    child: Text('العميل غير مشترك'),
-                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
-
-    );
+      );
   }
    late DateTime _currentDate = DateTime(1,1,1);
   // final DateFormat formatter = DateFormat('yyyy-MM-dd');

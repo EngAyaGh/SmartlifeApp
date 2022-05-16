@@ -2,8 +2,10 @@
 
 import 'package:crm_smart/model/communication_modle.dart';
 import 'package:crm_smart/model/ticketmodel.dart';
+import 'package:crm_smart/ui/screen/home/ticket/ticket_all.dart';
 import 'package:crm_smart/ui/screen/home/ticket/ticketadd.dart';
 import 'package:crm_smart/ui/screen/home/ticket/ticketview.dart';
+import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/RowWidget.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_widget.dart';
 import 'package:crm_smart/view_model/communication_vm.dart';
@@ -24,7 +26,7 @@ class careView extends StatefulWidget {
 class _careViewState extends State<careView> {
   List<CommunicationModel> listCommunication=[];
   List<TicketModel> listticket_client=[];
-
+  TicketModel? ttc;
   @override void initState() {
     // Provider.of<communication_vm>(context, listen: false)
     //     .getCommunication(widget.fk_client);
@@ -43,7 +45,8 @@ class _careViewState extends State<careView> {
         padding: const EdgeInsets.all(16.0),
         child:ListView(
           children: [
-            Container(
+        listCommunication.isNotEmpty?
+        Container(
               height: MediaQuery.of(context).size.height*0.6,
               child: GroupedListView<CommunicationModel, String>(
                 elements:  listCommunication,
@@ -113,7 +116,11 @@ class _careViewState extends State<careView> {
 
                 },
               ),
-            ),
+            ):
+        ContainerShadows(
+        margin: EdgeInsets.only(),
+        child: Center(child: Text('العميل غير مشترك')),
+    ),
 
             Container(
                 height: MediaQuery.of(context).size.height*0.4,
@@ -121,8 +128,31 @@ class _careViewState extends State<careView> {
                 Column(
                   children: [
                     SizedBox(height: 16,) ,
-                    Provider.of<ticket_vm>(context,listen: true)
-                        .listticket_client.isEmpty?
+                    listticket_client.isEmpty||
+                        listticket_client.firstWhere(
+                                (element) =>
+                                element!.typeTicket=='قيد التنفيذ',
+                            orElse: ()=>TicketModel(
+                                idTicket: '',
+                                fkClient: '',
+                                typeProblem: '',
+                                detailsProblem: '',
+                                notesTicket: '',
+                                typeTicket: '',
+                                fkUserOpen: '',
+                                fkUserClose: '',
+                                fkUserRecive: '',
+                                dateOpen: '',
+                                dateClose: '',
+                                dateRecive: '',
+                                clientType: '',
+                                nameClient: '',
+                                nameEnterprise: '',
+                                nameRegoin: '',
+                                nameuseropen: '',
+                                nameuserrecive: '', nameuserclose: '',
+                                fk_country: '')).idTicket!=''?
+
                     ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
@@ -140,42 +170,23 @@ class _careViewState extends State<careView> {
                         onPressed: () async{
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context)=>
-                                  TicketView(
-                                      ticketModel:
-                                      Provider.of<ticket_vm>(context,listen: true)
-                                          .listticket_client[0]
-                                  )));
+                          ticketall()
+                                  // TicketView(
+                                  //     ticketModel:
+                                  //     listticket_client[0]
+                                  // ))
+                          ));
                         },
                         child: Text('تذاكر العميل')) ,
+                    listticket_client.isNotEmpty? Text('تفاصيل آخر تذكرة'):Container(),
+                    listticket_client.isNotEmpty?
+                    TicketView(ticketModel: listticket_client.last):Container(),
+                       Text('عدد التذاكر التي فتحت للعميل '+listticket_client.length.toString()),
+
                   ],
                 )
               ),
-            // Provider.of<ticket_vm>(context,listen: true)
-            //     .listticket_client.isEmpty?
-            // ElevatedButton(
-            //     style: ButtonStyle(
-            //         backgroundColor: MaterialStateProperty.all(
-            //             kMainColor)),
-            //     onPressed: () async{
-            //       Navigator.push(context,
-            //           MaterialPageRoute(builder: (context)=>
-            //               ticketAdd(fk_client: widget.fk_client.toString(),)));
-            //     },
-            //     child: Text(' فتح تذكرة دعم '))
-            //     : ElevatedButton(
-            //     style: ButtonStyle(
-            //         backgroundColor: MaterialStateProperty.all(
-            //             kMainColor)),
-            //     onPressed: () async{
-            //       Navigator.push(context,
-            //           MaterialPageRoute(builder: (context)=>
-            //               TicketView(
-            //                   ticketModel:
-            //                   Provider.of<ticket_vm>(context,listen: true)
-            //                       .listticket_client[0]
-            //               )));
-            //     },
-            //     child: Text('تذاكر العميل')) ,
+
           ],
         ),
 

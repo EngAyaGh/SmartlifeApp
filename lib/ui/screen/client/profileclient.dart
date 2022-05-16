@@ -49,8 +49,6 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
     Provider.of<comment_vm>(context, listen: false)
         .getComment(widget.idclient.toString());
 
-
-
     // Provider.of<ticket_vm>(context, listen: false)
     //     .getclient_ticket(widget.idclient.toString());
         //.getclient_ticket(_invoice!.fkIdClient.toString());

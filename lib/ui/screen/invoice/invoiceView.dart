@@ -74,11 +74,12 @@ class InvoiceView extends StatelessWidget {
               //   //   alignment: MainAxisAlignment.center,
               //   // ),
               // ),
+              //_product(invoice!.products),
+
               Container(
                 // height: MediaQuery.of(context).size.height * 0.9,
                 child: Column(
                   children: [
-                    _product(invoice!.products),
                     SizedBox(
                       height: 10,
                     ),
@@ -98,7 +99,8 @@ class InvoiceView extends StatelessWidget {
                         title: ' التجديد السنوي',
                         value: invoice!.renewYear.toString()),
                     cardRow(
-                        title: ' طريقة الدفع', value: invoice!.typePay.toString()),
+                        title: ' طريقة الدفع',
+                        value: invoice!.typePay.toString()=='0'?'نقدا':'تحويل'),
                     //nameuserApprove
                     cardRow(
                         title: 'معتمد الاشتراك',
