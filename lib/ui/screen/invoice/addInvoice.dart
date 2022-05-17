@@ -699,15 +699,21 @@ else{
 
   int index=  Provider.of<client_vm>(context,listen: false)
       .listClient.indexWhere(
-            (element) => element.id_invoice==value);
+            (element) => element.idClients==widget.itemClient.idClients);
    //
 
   if(index!=-1) {
-    Provider.of<client_vm>(context,listen: false).listClient[index]
-        .amount_paid=amount_paidController.text;
+    double total_paid=0;
+
+    total_paid=double.parse(Provider.of<client_vm>(context,listen: false)
+        .listClient[index].total_paid.toString());
+
+    total_paid=total_paid+(
+         double.parse(totalController)
+        -double.parse(amount_paidController.text));
 
     Provider.of<client_vm>(context,listen: false).listClient[index]
-        .total=totalController;
+        .total_paid  =total_paid.toString();
   }
      print('in clear');
      //widget.indexinvoice = 0;
@@ -751,21 +757,21 @@ else{
       }
     }
     //for loop
-  int index1=  Provider.of<invoice_vm>(context,listen: false)
-      .listinvoices.indexWhere(
-          (element) => element.idInvoice==value);
-  _invoice==Provider.of<invoice_vm>(context,listen: false)
-      .listinvoices[index1];
-  _invoice!.idInvoice=value;
-   _invoice!.products
-     = Provider
-         .of<invoice_vm>(context, listen: false)
-         .listproductinvoic;
-
-  Provider.of<invoice_vm>(context,listen: false)
-      .listinvoices[index1].products=_invoice!.products;
-      Provider
-          .of<invoice_vm>(context, listen: false).updatelistproducetInvoice();
+  // int index1=  Provider.of<invoice_vm>(context,listen: false)
+  //     .listinvoices.indexWhere(
+  //         (element) => element.idInvoice==value);
+  // _invoice==Provider.of<invoice_vm>(context,listen: false)
+  //     .listinvoices[index1];
+  // _invoice!.idInvoice=value;
+  //  _invoice!.products
+  //    = Provider
+  //        .of<invoice_vm>(context, listen: false)
+  //        .listproductinvoic;
+  //
+  // Provider.of<invoice_vm>(context,listen: false)
+  //     .listinvoices[index1].products=_invoice!.products;
+  //     Provider
+  //         .of<invoice_vm>(context, listen: false).updatelistproducetInvoice();
 
      Provider.of<LoadProvider>(context, listen: false)
          .changebooladdinvoice(false);

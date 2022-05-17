@@ -270,7 +270,7 @@ class _tabclientsState extends State<tabclients> {
                       ),
                     ):Container(),
                     SizedBox(height: 2,),
-                    search_widget("المؤسسة....",
+                    search_widget("المؤسسة ,العميل , رقم الجوال....",
                         Provider.of<client_vm>(context, listen: true)
                             .listClientfilter,),
                     SizedBox(

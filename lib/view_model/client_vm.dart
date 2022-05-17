@@ -143,6 +143,7 @@ class client_vm extends ChangeNotifier {
         listClientfilter = listClient;
       }
     } }
+    //listClient.where((element) => false)
     notifyListeners();
   }
 

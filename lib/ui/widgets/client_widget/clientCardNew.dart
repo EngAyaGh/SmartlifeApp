@@ -105,9 +105,9 @@ ${itemClient.nameEnterprise.toString().substring(45,itemClient.nameEnterprise.to
                           color: kMainColor,
                             fontFamily: kfontfamily2),),
 
-                      itemClient.amount_paid!=null?
+                      itemClient.total_paid!=null?
                       Text(' المتبقي ' +
-                        itemClient.amount_paid.toString(),
+                        itemClient.total_paid.toString(),
                         style: TextStyle(
                           color: kMainColor,
                             fontSize: 10,
@@ -119,8 +119,9 @@ ${itemClient.nameEnterprise.toString().substring(45,itemClient.nameEnterprise.to
                             fontSize: 10,
                             fontFamily: kfontfamily2),),
 
-                      Text(itemClient.nameUser.toString().length>15?
-                      itemClient.nameUser.toString():itemClient.nameUser.toString()+'...',
+                      Text(itemClient.nameUser.toString().length<15?
+                      itemClient.nameUser.toString():
+                      itemClient.nameUser.toString()+'...',
                         style: TextStyle(
                           color: kMainColor,
                             // fontWeight: FontWeight.bold,

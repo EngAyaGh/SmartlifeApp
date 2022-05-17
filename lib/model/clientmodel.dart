@@ -38,6 +38,7 @@ class ClientModel extends CacheRepository{
     this.nameusertransfer,
     this.fkusertrasfer,
     this.mobileuser,
+    this.total_paid,
   });
   late final String? idClients;
   late final String? nameClient;
@@ -78,6 +79,7 @@ class ClientModel extends CacheRepository{
   late final String? nameusertransfer;
   late final String? fkusertrasfer;
   late final String? mobileuser;
+  late  String? total_paid;
 
   ClientModel.fromJson(Map<String, dynamic> json){
     idClients = json['id_clients'];
@@ -118,6 +120,7 @@ class ClientModel extends CacheRepository{
     nameusertransfer = json['nameusertransfer'];
     fkusertrasfer = json['fkusertrasfer'];
     mobileuser = json['mobileuser'];
+    total_paid = json['total_paid'];
   }
 
   Map<String, dynamic> toJson() {
@@ -158,6 +161,7 @@ class ClientModel extends CacheRepository{
      _data['nameusertransfer'] = nameusertransfer;
      _data['fkusertrasfer'] = fkusertrasfer;
      _data['mobileuser'] = mobileuser;
+     _data['total_paid'] = total_paid;
     return _data;
   }
 
