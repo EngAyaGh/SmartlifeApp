@@ -52,36 +52,31 @@ class support_view_invoicesState extends State<support_view_invoices> {
       key: _scaffoldKey,
       body: Padding(
         padding: const EdgeInsets.only(left:2,right: 2,top: 10,bottom: 10),
-        child: ListView(
-            children: [
-              listinvoice.isNotEmpty?
-              Container(
-                height: MediaQuery.of(context).size.height * 0.9,
-                child: ListView.separated(
-                  itemCount: listinvoice.length,
-                  separatorBuilder: (BuildContext context, int index)
-                  => const Divider(),
-                  itemBuilder: (BuildContext context, int index)=>
-                      Builder(builder:
-                          (context)=>
-                          support_add(
-                            idinvoice: listinvoice[index].idInvoice,
-                            // itemProd: listinvoice[index],
-                            // itemClient :  widget.itemClient,
-                            //scaffoldKey: _scaffoldKey,
-                            //indexinvoice: index,
-                          )) ,
-                  //     _listProd.map(
-                  //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
-                  // ).toList(),
-                ),
-              ):
-              ContainerShadows(
-                margin: EdgeInsets.only(),
-                child: Center(child: Text('العميل غير مشترك')),
-              ),
-
-            ]
+        child: listinvoice.isNotEmpty?
+        Container(
+          //height: MediaQuery.of(context).size.height * 1,
+          child: ListView.separated(
+            itemCount: listinvoice.length,
+            separatorBuilder: (BuildContext context, int index)
+            => const Divider(),
+            itemBuilder: (BuildContext context, int index)=>
+                Builder(builder:
+                    (context)=>
+                    support_add(
+                      idinvoice: listinvoice[index].idInvoice,
+                      // itemProd: listinvoice[index],
+                      // itemClient :  widget.itemClient,
+                      //scaffoldKey: _scaffoldKey,
+                      //indexinvoice: index,
+                    )) ,
+            //     _listProd.map(
+            //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
+            // ).toList(),
+          ),
+        ):
+        ContainerShadows(
+          margin: EdgeInsets.only(),
+          child: Center(child: Text('العميل غير مشترك')),
         ),
       ),
     );}

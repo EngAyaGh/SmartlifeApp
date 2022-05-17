@@ -18,7 +18,7 @@ class communication_vm extends ChangeNotifier{
     List<dynamic> data=[];
     data= await Api().get(url:url+ 'care/view_communcation.php?fk_client=$fk_client');
     print(data);
-    if(data !=null) {
+    if(data.length.toString().isNotEmpty) {
       for (int i = 0; i < data.length; i++) {
         listCommunication.add(CommunicationModel.fromJson(data[i]));
       }

@@ -38,29 +38,33 @@ class ticketallState extends State<ticketall> {
     return Scaffold(
       key: _scaffoldKey,
 
-      body: Padding(
+      body: 
+      Padding(
         padding: const EdgeInsets.only(left:2,right: 2,top: 10,bottom: 10),
         child: ListView(
             children: [
               Container(
                 height: MediaQuery.of(context).size.height * 0.9,
-                child: ListView.separated(
-                  itemCount: listticket_client.length,
-                  separatorBuilder: (BuildContext context, int index)
-                  => const Divider(),
-                  itemBuilder: (BuildContext context, int index)=>
-                      Builder(builder:
-                          (context)=>
-                          TicketView(
-                            ticketModel: listticket_client[index],
-                            //idinvoice: listinvoice[index].idInvoice,
+                child: Expanded(
+                  child: ListView.separated(
+                    itemCount: listticket_client.length,
+                    separatorBuilder: (BuildContext context, int index)
+                    => const Divider(),
+                    itemBuilder: (BuildContext context, int index)=>
+                        Builder(builder:
+                            (context)=>
+                            TicketView(
+                              ticketModel: listticket_client[index],
+                              //idinvoice: listinvoice[index].idInvoice,
 
-                          )) ,
+                            )) ,
+                  ),
                 ),
               ),
 
             ]
         ),
       ),
-    );}
+    );
+  }
 }

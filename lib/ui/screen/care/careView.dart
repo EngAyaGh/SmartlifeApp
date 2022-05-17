@@ -42,7 +42,7 @@ class _careViewState extends State<careView> {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(2.0),
         child:ListView(
           children: [
         listCommunication.isNotEmpty?
@@ -128,11 +128,11 @@ class _careViewState extends State<careView> {
                 Column(
                   children: [
                     SizedBox(height: 16,) ,
-                    listticket_client.isEmpty||
+                    listticket_client.isNotEmpty||
                         listticket_client.firstWhere(
                                 (element) =>
-                                element!.typeTicket=='قيد التنفيذ',
-                            orElse: ()=>TicketModel(
+                                element.typeTicket=='قيد التنفيذ' ||   element.typeTicket=='جديدة',
+                                orElse: ()=>TicketModel(
                                 idTicket: '',
                                 fkClient: '',
                                 typeProblem: '',
@@ -153,17 +153,8 @@ class _careViewState extends State<careView> {
                                 nameuserrecive: '', nameuserclose: '',
                                 fk_country: '')).idTicket!=''?
 
-                    ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                kMainColor)),
-                        onPressed: () async{
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context)=>
-                                  ticketAdd(fk_client: widget.fk_client.toString(),)));
-                        },
-                        child: Text(' فتح تذكرة دعم '))
-                        : ElevatedButton(
+
+                        ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                                 kMainColor)),
@@ -177,11 +168,31 @@ class _careViewState extends State<careView> {
                                   // ))
                           ));
                         },
-                        child: Text('تذاكر العميل')) ,
-                    listticket_client.isNotEmpty? Text('تفاصيل آخر تذكرة'):Container(),
+                        child: Text('تذاكر العميل')):
+                    ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                kMainColor)),
+                        onPressed: () async{
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context)=>
+                                  ticketAdd(fk_client: widget.fk_client.toString(),)));
+                        },
+                        child: Text(' فتح تذكرة دعم ')) ,
+
+                    listticket_client.isNotEmpty? Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text('تفاصيل آخر تذكرة'),
+                    ):Container(),
                     listticket_client.isNotEmpty?
-                    TicketView(ticketModel: listticket_client.last):Container(),
-                       Text('عدد التذاكر التي فتحت للعميل '+listticket_client.length.toString()),
+                    Expanded(
+                      child: ListView(children: [
+                        TicketView(ticketModel: listticket_client.last)]),
+                    ):Container(),
+                     Padding(
+                       padding: const EdgeInsets.only(top: 8.0),
+                       child: Text('عدد التذاكر التي فتحت للعميل '+listticket_client.length.toString()),
+                     ),
 
                   ],
                 )

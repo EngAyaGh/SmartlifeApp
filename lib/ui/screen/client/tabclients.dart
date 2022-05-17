@@ -124,7 +124,6 @@ class _tabclientsState extends State<tabclients> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-
                         privilge.checkprivlge('8')==true? //regoin
                         Expanded(
                           child: Padding(
@@ -160,11 +159,9 @@ class _tabclientsState extends State<tabclients> {
                                 //           )
                                 //       ) ,
                                   DropdownButton(
+
                                       isExpanded: true,
-                                      hint: Padding(
-                                        padding: const EdgeInsets.only(right: 10),
-                                        child: Text("المنطقة"),
-                                      ),
+                                      hint: Text("المنطقة"),
                                       items: cart.listregoin.map((level_one) {
                                         return DropdownMenuItem(
 
@@ -192,59 +189,15 @@ class _tabclientsState extends State<tabclients> {
                         // (   privilge.checkprivlge('16')==true
                         //     && privilge.checkprivlge('8')!=true
                         //     && privilge.checkprivlge('15')!=true )?
-                        privilge.checkprivlge('15')==true|| privilge.checkprivlge('8')==true? //user
+
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0,right: 8),
-                            child: Consumer<user_vm_provider>(
-                              builder: (context, cart, child){
-                                return  DropdownSearch<UserModel>(
-                                  mode: Mode.DIALOG,
-                                  label: " الموظف ",
-                                  //onFind: (String filter) => cart.getfilteruser(filter),
-                                  filterFn: (user, filter) => user!.getfilteruser(filter!),
-                                  //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
-                                  // itemAsString: (UserModel u) => u.userAsStringByName(),
-                                  items: cart.userall,
-                                  itemAsString: (u) => u!.userAsString(),
-                                  // selectedItem: cart.currentUser,
-                                  onChanged: (data) {
-                                    iduser=data!.idUser;
-                                    filtershow();
-                                    // Provider.of<client_vm>(context, listen: false)
-                                    //     .getclientfilter_Local(iduser!,"user",
-                                    //     Provider.of<typeclient>(context,listen: false).selectedValuemanag);
-                                    //
-
-                                  } ,//print(data!.nameUser),
-                                  showSearchBox: false,
-                                  dropdownSearchDecoration:
-                                  InputDecoration(
-                                    fillColor:  Colors.grey.withOpacity(0.2),
-                                    labelText: "choose a user",
-                                    contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: const BorderSide(color: Colors.white)),
-                                    border:OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: const BorderSide(color: Colors.white)),
-                                  ),
-                                );
-
-                              },
-                            ),
-                          )
-                        ):Container(),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0,right: 8),
+                            padding: const EdgeInsets.only(left: 20.0,right: 8),
                             child: Consumer<typeclient>(
                                 builder: (context, cart, child){
-
-
                                   return DropdownButton(
                                     isExpanded: true,
+                                    hint: Text('الحالة'),
                                     //hint: Text("حدد حالة العميل"),
                                     items: cart.type_of_client.map((level_one) {
                                       return DropdownMenuItem(
@@ -268,7 +221,54 @@ class _tabclientsState extends State<tabclients> {
                     ),
 
                     SizedBox(height: 2,),
+                    privilge.checkprivlge('15')==true|| privilge.checkprivlge('8')==true? //user
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0,right: 8,),
+                      child: Consumer<user_vm_provider>(
+                        builder: (context, cart, child){
+                          return  DropdownSearch<UserModel>(
+                            mode: Mode.DIALOG,
+                            // label: " الموظف ",
+                            //hint: 'الموظف',
+                            //onFind: (String filter) => cart.getfilteruser(filter),
+                            filterFn: (user, filter) => user!.getfilteruser(filter!),
+                            //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
+                            // itemAsString: (UserModel u) => u.userAsStringByName(),
+                            items: cart.userall,
+                            itemAsString: (u) => u!.userAsString(),
+                            onChanged: (data) {
+                              iduser=data!.idUser;
+                              filtershow();
+                            } ,
+                            showSearchBox: true,
+                            dropdownSearchDecoration:
+                            InputDecoration(
+                              //filled: true,
+                              isCollapsed: true,
+                              hintText: 'الموظف',
+                              alignLabelWithHint: true,
+                              fillColor:  Colors.grey.withOpacity(0.2),
+                              //labelText: "choose a user",
+                              contentPadding: EdgeInsets.all(0),
+                              //contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                              // focusedBorder: OutlineInputBorder(
+                              //     borderRadius: BorderRadius.circular(10),
+                              //     borderSide: const BorderSide(color: Colors.white)),
+                              border:
+                              UnderlineInputBorder(
+                                  borderSide: const BorderSide(  color: Colors.grey)
+                              ),
+                              // OutlineInputBorder(
+                              //     borderRadius: BorderRadius.circular(10),
+                              //     borderSide: const BorderSide( color: Colors.white)),
+                            ),
+                            // InputDecoration(border: InputBorder.none),
 
+                          );
+
+                        },
+                      ),
+                    ):Container(),
                     SizedBox(height: 2,),
                     search_widget("المؤسسة....",
                         Provider.of<client_vm>(context, listen: true)
