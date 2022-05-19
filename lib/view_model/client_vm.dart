@@ -334,6 +334,40 @@ else{
     notifyListeners();
   }
 
+  Future<void> searchProducts(
+      String productName) async {
+    List<ClientModel> clientlistsearch=[];
+    // code to convert the first character to uppercase
+    String searchKey =productName;//
+    // productName[0].toUpperCase() +
+    //   productName.substring(1);
+    print('search');
+    print(searchKey);
+    if(listClient is List<ClientModel> ){
+      listClient.forEach((element) {
+        if(element.nameEnterprise!.contains(searchKey,0)
+            || element.nameClient!.contains(searchKey,0)
+            || element.mobile!.contains(searchKey,0) )
+          clientlistsearch.add(element);
+      });
+      // if(clientlistsearch.isEmpty){
+      //   list.forEach((element) {
+      //     if(element.nameClient!.contains(searchKey,0))
+      //       clientlistsearch.add(element);
+      //   });
+      // }
+      //   if(clientlistsearch.isEmpty){
+      //     list.forEach((element) {
+      //       if(element.mobile!.contains(searchKey,0))
+      //         clientlistsearch.add(element);
+      //     });
+      //   }
+    }
+
+listClientfilter=clientlistsearch;
+    notifyListeners();
+    //return clientlistsearch;
+  }
 }
 
 

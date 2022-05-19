@@ -397,20 +397,21 @@ else{
 
                         //admin
                         RowEdit(name: label_typepay, des: 'Required'),
-                        Container(
-                          padding: EdgeInsets.only(left: 2,right: 2),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                offset: Offset(1.0, 1.0),
-                                blurRadius: 8.0,
-                                color: Colors.black87.withOpacity(0.2),
-                              ),
-                            ],
-                            color: Colors.white,
-                          ),
-                          child: Consumer<selected_button_provider>(
+                        // Container(
+                        //   padding: EdgeInsets.only(left: 2,right: 2),
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
+                        //     boxShadow: <BoxShadow>[
+                        //       BoxShadow(
+                        //         offset: Offset(1.0, 1.0),
+                        //         blurRadius: 8.0,
+                        //         color: Colors.black87.withOpacity(0.2),
+                        //       ),
+                        //     ],
+                        //     color: Colors.white,
+                        //   ),
+                        //   child:
+                          Consumer<selected_button_provider>(
                               builder: (context, selectedProvider, child){
                                 return  GroupButton(
                                     controller: GroupButtonController(
@@ -436,26 +437,27 @@ else{
                               }
 
                           ),
-                        ),
+                        //),
                         //manage
                         SizedBox(
                           height: 5,
                         ),
                         RowEdit(name: label_typeinstall, des: 'Required'),
-                        Container(
-                          padding: EdgeInsets.only(left: 2,right: 2),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                offset: Offset(1.0, 1.0),
-                                blurRadius: 8.0,
-                                color: Colors.black87.withOpacity(0.2),
-                              ),
-                            ],
-                            color: Colors.white,
-                          ),
-                        child: Consumer<selected_button_provider>(
+                        // Container(
+                        //   padding: EdgeInsets.only(left: 2,right: 2),
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
+                        //     boxShadow: <BoxShadow>[
+                        //       BoxShadow(
+                        //         offset: Offset(1.0, 1.0),
+                        //         blurRadius: 8.0,
+                        //         color: Colors.black87.withOpacity(0.2),
+                        //       ),
+                        //     ],
+                        //     color: Colors.white,
+                        //   ),
+                        // child:
+                        Consumer<selected_button_provider>(
                             builder: (context, selectedProvider, child) {
                               return  GroupButton(
                                   controller: GroupButtonController(
@@ -480,7 +482,7 @@ else{
                             }
 
                           ),
-                        ),
+                       // ),
                         //RowEdit(name: 'Image', des: ''),
                         SizedBox(
                           height: 15,
@@ -683,7 +685,10 @@ else{
 
                             ],
                           ),
-                        )
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
                       ],
                     ),
                   ),

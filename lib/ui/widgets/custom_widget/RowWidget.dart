@@ -20,15 +20,15 @@ class cardRow extends StatelessWidget {
         Row(
           mainAxisAlignment: alignment==null? MainAxisAlignment.end:alignment,
           children: [
-            Text(title,style: TextStyle(fontFamily: kfontfamily3),),
+            Text(title,style: TextStyle(fontFamily: kfontfamily2),),
             Spacer(),
             Text(value,style: TextStyle(fontFamily: kfontfamily2),),
           ],
         ),
         //Spacer(),
-        Divider(thickness: 2,color: Colors.black54,),
+        Divider(thickness: 1,color: Colors.grey,),
         //const MySeparator(color: Colors.grey),
-        SizedBox(height: 10,),
+        SizedBox(height: 5,),
 
       ],
     );

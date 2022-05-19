@@ -97,23 +97,7 @@ class _addClientState extends State<addClient> {
 
                     //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      RowEdit(name: label_clientname, des: 'required'),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      EditTextFormField(
-                        vaild: (value) {
-                          if (value!.isEmpty) {
-                            return label_empty;
-                          }
-                        },
-                        hintText: label_clientname,
-                        obscureText: false,
-                        controller: nameclientController,
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
+
                       RowEdit(name: label_cliententerprise, des: 'required'),
                       SizedBox(
                         height: 5,
@@ -131,6 +115,23 @@ class _addClientState extends State<addClient> {
                         onChanged: (val) {
                           // nameprod = val;
                         },
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      RowEdit(name: label_clientname, des: 'required'),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      EditTextFormField(
+                        vaild: (value) {
+                          if (value!.isEmpty) {
+                            return label_empty;
+                          }
+                        },
+                        hintText: label_clientname,
+                        obscureText: false,
+                        controller: nameclientController,
                       ),
                       SizedBox(
                         height: 15,
@@ -265,7 +266,8 @@ class _addClientState extends State<addClient> {
                             }
                           },
                         ),
-                      )
+                      ),
+                      SizedBox(height: 3,),
                     ],
                   ),
                // ),

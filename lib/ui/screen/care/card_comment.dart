@@ -7,6 +7,8 @@ import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../function_global.dart';
+
 class cardcomment extends StatelessWidget {
    cardcomment({ required this.commentmodel, Key? key}) : super(key: key);
    CommentModel commentmodel;
@@ -24,37 +26,6 @@ class cardcomment extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    maxRadius: 18,
-                    child:
-                    commentmodel.imgImage.toString().trim().length==0
-                    // ||usermodell.img_thumbnail.toString().trim().isEmpty
-                        ? commentmodel.nameUser.toString().isEmpty||commentmodel.nameUser==null
-                        ? Icon(
-                      Icons.person,
-                      size: 50,
-                      color: Colors.lightBlueAccent,
-                    ) : Text(commentmodel.nameUser.toString().substring(0, 1))
-                        : CachedNetworkImage(
-                      placeholder: (context, url) =>
-                      const CircularProgressIndicator(),
-                      imageUrl: commentmodel.imgImage.toString(),
-                    ),
-                    // CachedNetworkImage(
-                    //   progressIndicatorBuilder: (context, url, progress) => Center(
-                    //     child: CircularProgressIndicator(
-                    //       value: progress.progress,
-                    //     ),
-                    //   ),
-                    //   imageUrl:usermodell.img_image!
-                    //    ),
-                    //Image.network(usermodell.img_image!, height: 150, width: 150, fit: BoxFit.cover,) ,
-                    // :  FileImage(
-                    //   File(
-                    //   //Provider.of<user_vm_provider>(context,listen: false)
-                    //   usermodell.img_thumbnail!)) as Widget ,//as ImageProvider,
-                    // backgroundColor: Colors.grey.withOpacity(0.1),
-                  ),
                   Container(
                   decoration: BoxDecoration(
                     borderRadius:
@@ -69,41 +40,70 @@ class cardcomment extends StatelessWidget {
                     color: Colors.black12,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(right: 8.0,bottom: 8),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           //crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            TextUtilis(
-                              color: Colors.black87,
-                              fontSize: 15,
-                              fontWeight: FontWeight.normal,
-                              textstring: commentmodel.nameUser.toString(),
-                              underline: TextDecoration.none,
+                            CircleAvatar(
+                              radius: 20,
+                              child:
+                              commentmodel.imgImage.toString().trim().length==0
+                              // ||usermodell.img_thumbnail.toString().trim().isEmpty
+                                  ? commentmodel.nameUser.toString().isEmpty||commentmodel.nameUser==null
+                                  ? Icon(
+                                Icons.person,
+                                size: 50,
+                                color: Colors.lightBlueAccent,
+                              ) : Text(commentmodel.nameUser.toString().substring(0, 1))
+                                  :  ClipRRect(
+                                borderRadius: BorderRadius.circular(45),
+                                    child: CachedNetworkImage(
+                                placeholder: (context, url) =>
+                                const CircularProgressIndicator(),
+                                imageUrl: commentmodel.imgImage.toString(),
+                              ),
+                                  ),
                             ),
-                            TextUtilis(
-                              color: Colors.black87,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              textstring: commentmodel.date_comment.toString(),
-                              underline: TextDecoration.none,
-                            ),
+                            SizedBox(width: 10,),
+                            Column(
+                              // mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextUtilis(
+                                  color: Colors.black87,
+                                  fontSize: 7,
+                                  fontWeight: FontWeight.bold,
+                                  textstring: getnameshort(commentmodel.nameUser.toString()),
+                                  underline: TextDecoration.none,
+                                ),
+                                TextUtilis(
+                                  color: Colors.black87,
+                                  fontSize: 7,
+                                  fontWeight: FontWeight.normal,
+                                  textstring: commentmodel.date_comment.toString(),
+                                  underline: TextDecoration.none,
+                                ),
+                              ],
+                            )
+
                           ],
                         ),
-
+                        SizedBox(height: 15,),
                         Text(
                               commentmodel.content,
                             // maxLines: 4,
                             //overflow: TextOverflow.ellipsis,
 
-                          ),],
+                          ),
+                      ],
                     ),
-                  ),
                     ),
-                ],
-              ),
+
             ),
 
             // Icon(
@@ -112,6 +112,7 @@ class cardcomment extends StatelessWidget {
             // ),
           ],
         ),
-      );
+     ),
+    ]));
   }
 }

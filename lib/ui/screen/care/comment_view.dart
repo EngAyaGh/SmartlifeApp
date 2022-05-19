@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crm_smart/ui/screen/care/card_comment.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/ui/widgets/widgetcalendar/utils.dart';
 import 'package:crm_smart/view_model/comment.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -49,11 +51,32 @@ print('init in comment');
               Row(
                 //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  CircleAvatar(
+                    radius: 30,
+                    child:
+                    Provider.of<user_vm_provider>(context,listen:true).currentUser!.img_image.toString().trim().length==0
+                    // ||usermodell.img_thumbnail.toString().trim().isEmpty
+                        ? Provider.of<user_vm_provider>(context,listen:true).currentUser!.nameUser.toString().isEmpty||
+                        Provider.of<user_vm_provider>(context,listen:true).currentUser!.nameUser==null
+                        ? Icon(
+                      Icons.person,
+                      size: 50,
+                      color: Colors.lightBlueAccent,
+                    ) : Text(Provider.of<user_vm_provider>(context,listen:true).currentUser!.nameUser.toString().substring(0, 1))
+                        : ClipRRect(
+                      borderRadius: BorderRadius.circular(45),
+                          child: CachedNetworkImage(
+                      placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                      imageUrl: Provider.of<user_vm_provider>(context,listen:true).currentUser!.img_image.toString(),
+                    ),
+                        ),
+                  ),
                   Flexible(
-                    child: TextField(
+                    child: EditTextFormField(
                      // maxLines: 3,
-                      controller: _comment,
-                      keyboardType: TextInputType.multiline,
+                      controller: _comment, hintText: 'إضافة تعليق',
+                     // keyboardType: TextInputType.multiline,
                     ),
                   ),
                   IconButton(
@@ -81,15 +104,15 @@ print('init in comment');
                             .currentUser!.img_image,);
                         _comment.text='';
                       },
-                      icon: Icon(Icons.check, color: kMainColor)),
+                      icon: Icon(Icons.send, color: kMainColor)),
 
                 ],
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.8,
+                height: MediaQuery.of(context).size.height ,//* 0.8,
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      left: 8, right: 8, top: 8.0, bottom: 20),
+                      left: 8, right: 8, top: 20.0, bottom: 10),
                   child: Consumer<comment_vm>(builder: (context, value, child) {
                     return value.listComments.length == 0
                         ? Text('')
@@ -107,7 +130,7 @@ print('init in comment');
                                                   //Text(''),
                                                   cardcomment(
                                                   commentmodel:
-                                                    value.listComments[index],
+                                                  value.listComments[index],
                                               )));
                                     }),
                               ),

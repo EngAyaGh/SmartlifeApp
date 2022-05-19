@@ -1,7 +1,8 @@
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/ui/screen/search/search_mv.dart';
+import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 class search_widget extends StatelessWidget {
   search_widget(this.hint, this.list, {Key? key}) : super(key: key);
   String hint='';
@@ -30,10 +31,11 @@ class search_widget extends StatelessWidget {
             ),
             title: TextField(
               textInputAction: TextInputAction.search,
-              onSubmitted: (pattern) async {
-                await Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => productSearchView(
-                        pattern, list))); //.search(productName: pattern);
+              onChanged: (pattern) async {
+                Provider.of<client_vm>(context,listen: false).searchProducts(pattern);
+                // await Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (context) => productSearchView(
+                //         pattern, list))); //.search(productName: pattern);
 //changeScreen(context, ProductSearchScreen());
               },
               decoration: InputDecoration(

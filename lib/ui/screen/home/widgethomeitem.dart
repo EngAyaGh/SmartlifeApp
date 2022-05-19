@@ -29,7 +29,7 @@ Widget buildSelectCategory({
               children: [
                 GestureDetector(
                   child: Text(title,
-                    style: TextStyle(fontFamily: kfontfamily3),),
+                    style: TextStyle(fontFamily: kfontfamily2),),
                 ),
                 Icon(
                   Icons.arrow_back_ios_new,

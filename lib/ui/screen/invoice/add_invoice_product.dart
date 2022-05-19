@@ -50,8 +50,8 @@ class _add_invoiceProductState extends State<add_invoiceProduct> {
 
     _taxuser.text='';_taxuser_value='';
     _taxadmin.text='';_taxadmin_value='';
-    _textprice.text='0';
-    _amount.text='1';_amount_value='1';
+    _textprice.text='';
+    _amount.text='';_amount_value='1';
     // String? id_country =
     //     Provider.of<user_vm_provider>(context, listen: false).currentUser!.fkCountry;
     // Provider.of<product_vm>(context, listen: false)
@@ -213,7 +213,7 @@ void calculate(){
                                     //read: false,
                                     onChanged: (val) {
                                       print(val);
-                                      if(val==null)_amount_value='1';
+                                      if(val==null)_amount_value='';
                                       _amount_value=val;
                                       calculate();
                                     },
@@ -323,7 +323,7 @@ void calculate(){
                                         kMainColor)),
                                 onPressed: () {
                                   //iduser
-                                  if(_textprice.text.isNotEmpty &&selectedvalue!=null){
+                                  if(_textprice.text.isNotEmpty && selectedvalue!=null){
                                     final index=listProduct.indexWhere(
                                             (element) => element.idProduct==selectedvalue);
                                     ProductModel pm=listProduct[index];
@@ -357,10 +357,13 @@ void calculate(){
                                     _scaffoldKey.currentState!.showSnackBar(
                                         SnackBar(content: Text('من فضلك تأكد من عملية الإدخال')));
                                   }
-                                  _taxuser.text='';_taxuser_value='';
-                                  _taxadmin.text='';_taxadmin_value='';
-                                  _textprice.text='0';
-                                  _amount.text='1';_amount_value='1';
+                                 setState(() {
+                                   _taxuser.text='';_taxuser_value='';
+                                   _taxadmin.text='';_taxadmin_value='';
+                                   _textprice.text='';
+                                   _amount.text='';_amount_value='1';
+                                   selectedvalue=null;
+                                 });
                                 },
                                 child: Text('إضافة المنتج للفاتورة')),
                             Text(''),

@@ -16,6 +16,8 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
+import '../../../function_global.dart';
+
 class cardClientnew extends StatelessWidget {
   cardClientnew(
       { Key? key,
@@ -119,9 +121,9 @@ ${itemClient.nameEnterprise.toString().substring(45,itemClient.nameEnterprise.to
                             fontSize: 10,
                             fontFamily: kfontfamily2),),
 
-                      Text(itemClient.nameUser.toString().length<15?
-                      itemClient.nameUser.toString():
-                      itemClient.nameUser.toString()+'...',
+                      Text(
+                          getnameshort(itemClient.nameUser.toString())
+                       ,
                         style: TextStyle(
                           color: kMainColor,
                             // fontWeight: FontWeight.bold,

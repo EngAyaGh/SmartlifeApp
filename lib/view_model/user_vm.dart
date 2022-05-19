@@ -25,7 +25,6 @@ class UserVMController extends GetxController {
       //   'subject': 'Example Subject & Symbols are allowed!'
       // }),
     );
-
    // launch(emailLaunchUri.toString());
   }
 

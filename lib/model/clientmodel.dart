@@ -26,9 +26,9 @@ class ClientModel extends CacheRepository{
     this.amount_paid,
     this.date_price,
     this.offer_price,
-    this.desc_reason,
+    // this.desc_reason,
     this.user_do,
-    this.value_back,
+    // this.value_back,
     this.iduser_approve,
     this.	isApprove,
     this.nameuserApprove,
@@ -67,8 +67,8 @@ class ClientModel extends CacheRepository{
   late final String? date_price;
 
   late final String? user_do;
-  late final String? desc_reason;//منسحب
-  late final String? value_back;
+  // late final String? desc_reason;//منسحب
+  // late final String? value_back;
   late final String? iduser_approve;
   late final String? 	isApprove;
   late final String? 	nameuserdoning;
@@ -108,8 +108,8 @@ class ClientModel extends CacheRepository{
     date_price=json['date_price'];
 
     user_do = json['user_do'];
-    desc_reason=json['desc_reason'];
-    value_back=json['value_back'];
+    // desc_reason=json['desc_reason'];
+    // value_back=json['value_back'];
     iduser_approve=json['iduser_approve'];
     isApprove=json['isApprove'];
     nameuserdoning=json['nameuserdoning'];//الموظف الي حول العميل
@@ -149,8 +149,8 @@ class ClientModel extends CacheRepository{
      _data['offer_price'] = offer_price;
      _data['date_price'] = date_price;
      _data['user_do'] = user_do;
-     _data['desc_reason'] = desc_reason;
-     _data['value_back'] = value_back;
+     // _data['desc_reason'] = desc_reason;
+     // _data['value_back'] = value_back;
      _data['iduser_approve'] = iduser_approve;
      _data['isApprove'] = 	isApprove;
      _data['nameuserdoning'] = 	nameuserdoning;

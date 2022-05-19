@@ -281,6 +281,20 @@ class invoice_vm extends ChangeNotifier{
       notifyListeners();
 
   }
+  Future<void> set_state_back(Map<String, dynamic?> body,String? id_invoice) async {
+
+      int index=listinvoices.indexWhere(
+              (element) => element.idInvoice==id_invoice);
+      listinvoices[index]=
+      await Invoice_Service().setstate(body,id_invoice!);
+
+      // body.addAll(
+      //     InvoiceModel.fromJson(listinvoices[index]));
+      // listinvoices[index]= InvoiceModel.fromJson(body);
+      // //listClient.removeAt(index);
+      notifyListeners();
+
+  }
 
   Future<void> setdatedone_vm(Map<String, dynamic?> body,String? id_invoice) async {
 

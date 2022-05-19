@@ -54,7 +54,7 @@ class _tabclientsState extends State<tabclients> {
       // Add Your Code here.
       // Provider.of<regoin_vm>(context,listen: false).getregoin();
       Provider.of<typeclient>(context,listen: false).type_of_client=
-      ['تفاوض','عرض سعر','مستبعد','منسحب'];
+      ['الكل','مشترك','تفاوض','عرض سعر','مستبعد','منسحب'];
       List<PrivilgeModel> list=
           await   Provider.of<privilge_vm>(context,listen: false).privilgelist;
       Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
@@ -86,7 +86,10 @@ class _tabclientsState extends State<tabclients> {
     // );
     super.didChangeDependencies();
   }
-
+@override void dispose() {
+  // Provider.of<typeclient>(context,listen: false).changevalue(null);
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
   //  Provider.of<client_vm>(context, listen: false).getudate();
@@ -114,182 +117,183 @@ class _tabclientsState extends State<tabclients> {
         body:
         Consumer<privilge_vm>(
             builder: (context, privilge, child){
-          return SafeArea(
-            child: Padding(
-              padding: EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: ListView(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        privilge.checkprivlge('8')==true? //regoin
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0,right: 8),
-                            child: Consumer<regoin_vm>(
-                              builder: (context, cart, child){
-                                return
-                                //   Container(
-                                //   height: 57,
-                                //   decoration: BoxDecoration(
-                                //
-                                //        border:Border.all(
-                                //
-                                //          color: Colors.grey.withOpacity(0.9)
-                                //          //width: 1,
-                                //        ),
-                                //     borderRadius: BorderRadius.all(
-                                //       Radius.circular(6.0) //                 <--- border radius here
-                                // ),
-                                //   ),
-                                //   child:
-                                //   Container(
-                                //     height: 57,
-                                //     child:
-                                //     DropdownButtonFormField(
-                                //
-                                //       decoration:InputDecoration(
-                                //           enabledBorder: OutlineInputBorder(
-                                //               borderRadius: BorderRadius.circular(10),
-                                //               borderSide: BorderSide(
-                                //                   width: 1,
-                                //                   color: Colors.grey)
-                                //           )
-                                //       ) ,
-                                  DropdownButton(
+          return RefreshIndicator(
+            onRefresh: ()async{
 
+              Provider.of<regoin_vm>(context,listen: false).changeVal(null);
+              Provider.of<typeclient>
+                (context,listen: false)
+                  .changevalue(null);
+              await    Provider.of<client_vm>(context, listen: false)
+                  .getclient_vm(
+                // Provider.of<privilge_vm>(context,listen: false)
+                //     .privilgelist
+              );
+            },
+            child: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 2),
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: ListView(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          privilge.checkprivlge('8')==true? //regoin
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0,right: 8),
+                              child: Consumer<regoin_vm>(
+                                builder: (context, cart, child){
+                                  return
+                                  //   Container(
+                                  //   height: 57,
+                                  //   decoration: BoxDecoration(
+                                  //
+                                  //        border:Border.all(
+                                  //
+                                  //          color: Colors.grey.withOpacity(0.9)
+                                  //          //width: 1,
+                                  //        ),
+                                  //     borderRadius: BorderRadius.all(
+                                  //       Radius.circular(6.0) //                 <--- border radius here
+                                  // ),
+                                  //   ),
+                                  //   child:
+                                  //   Container(
+                                  //     height: 57,
+                                  //     child:
+                                  //     DropdownButtonFormField(
+                                  //
+                                  //       decoration:InputDecoration(
+                                  //           enabledBorder: OutlineInputBorder(
+                                  //               borderRadius: BorderRadius.circular(10),
+                                  //               borderSide: BorderSide(
+                                  //                   width: 1,
+                                  //                   color: Colors.grey)
+                                  //           )
+                                  //       ) ,
+                                    DropdownButton(
+
+                                        isExpanded: true,
+                                        hint: Text("المنطقة"),
+                                        items: cart.listregoin.map((level_one) {
+                                          return DropdownMenuItem(
+
+                                            child: Text(level_one.name_regoin), //label of item
+                                            value: level_one.id_regoin, //value of item
+                                          );
+                                        }).toList(),
+                                        value:cart.selectedValueLevel,
+                                        onChanged:(value) {
+                                          //  setState(() {
+                                          cart.changeVal(value.toString());
+                                          regoin=value.toString();
+                                          filtershow();
+                                          // Provider.of<client_vm>(context, listen: false)
+                                          //     .getclientfilter_Local(value.toString(),"regoin",
+                                          //     Provider.of<typeclient>(context,listen: false).selectedValuemanag);
+                                          // // });
+                                        },
+                                      );
+                                    //);
+                                },
+                              ),
+                            ),
+                          ):Container(),
+                          // (   privilge.checkprivlge('16')==true
+                          //     && privilge.checkprivlge('8')!=true
+                          //     && privilge.checkprivlge('15')!=true )?
+
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20.0,right: 8),
+                              child: Consumer<typeclient>(
+                                  builder: (context, cart, child){
+                                    return DropdownButton(
                                       isExpanded: true,
-                                      hint: Text("المنطقة"),
-                                      items: cart.listregoin.map((level_one) {
+                                      hint: Text('الحالة'),
+                                      //hint: Text("حدد حالة العميل"),
+                                      items: cart.type_of_client.map((level_one) {
                                         return DropdownMenuItem(
 
-                                          child: Text(level_one.name_regoin), //label of item
-                                          value: level_one.id_regoin, //value of item
+                                          child: Text(level_one), //label of item
+                                          value: level_one, //value of item
                                         );
                                       }).toList(),
-                                      value:cart.selectedValueLevel,
+                                      value:cart.selectedValuemanag,
                                       onChanged:(value) {
-                                        //  setState(() {
-                                        cart.changeVal(value.toString());
-                                        regoin=value.toString();
+                                        //namemanage=value.toString();
+                                        cart.changevalue(value.toString());
+                                        typeclientvalue=value.toString();
                                         filtershow();
-                                        // Provider.of<client_vm>(context, listen: false)
-                                        //     .getclientfilter_Local(value.toString(),"regoin",
-                                        //     Provider.of<typeclient>(context,listen: false).selectedValuemanag);
-                                        // // });
                                       },
-                                    );
-                                  //);
-                              },
-                            ),
-                          ),
-                        ):Container(),
-                        // (   privilge.checkprivlge('16')==true
-                        //     && privilge.checkprivlge('8')!=true
-                        //     && privilge.checkprivlge('15')!=true )?
-
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20.0,right: 8),
-                            child: Consumer<typeclient>(
-                                builder: (context, cart, child){
-                                  return DropdownButton(
-                                    isExpanded: true,
-                                    hint: Text('الحالة'),
-                                    //hint: Text("حدد حالة العميل"),
-                                    items: cart.type_of_client.map((level_one) {
-                                      return DropdownMenuItem(
-
-                                        child: Text(level_one), //label of item
-                                        value: level_one, //value of item
-                                      );
-                                    }).toList(),
-                                    value:cart.selectedValuemanag,
-                                    onChanged:(value) {
-                                      //namemanage=value.toString();
-                                      cart.changevalue(value.toString());
-                                      typeclientvalue=value.toString();
-                                      filtershow();
-                                    },
-                                  );}
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 2,),
-                    privilge.checkprivlge('15')==true|| privilge.checkprivlge('8')==true? //user
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0,right: 8,),
-                      child: Consumer<user_vm_provider>(
-                        builder: (context, cart, child){
-                          return  DropdownSearch<UserModel>(
-                            mode: Mode.DIALOG,
-                            // label: " الموظف ",
-                            //hint: 'الموظف',
-                            //onFind: (String filter) => cart.getfilteruser(filter),
-                            filterFn: (user, filter) => user!.getfilteruser(filter!),
-                            //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
-                            // itemAsString: (UserModel u) => u.userAsStringByName(),
-                            items: cart.userall,
-                            itemAsString: (u) => u!.userAsString(),
-                            onChanged: (data) {
-                              iduser=data!.idUser;
-                              filtershow();
-                            } ,
-                            showSearchBox: true,
-                            dropdownSearchDecoration:
-                            InputDecoration(
-                              //filled: true,
-                              isCollapsed: true,
-                              hintText: 'الموظف',
-                              alignLabelWithHint: true,
-                              fillColor:  Colors.grey.withOpacity(0.2),
-                              //labelText: "choose a user",
-                              contentPadding: EdgeInsets.all(0),
-                              //contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                              // focusedBorder: OutlineInputBorder(
-                              //     borderRadius: BorderRadius.circular(10),
-                              //     borderSide: const BorderSide(color: Colors.white)),
-                              border:
-                              UnderlineInputBorder(
-                                  borderSide: const BorderSide(  color: Colors.grey)
+                                    );}
                               ),
-                              // OutlineInputBorder(
-                              //     borderRadius: BorderRadius.circular(10),
-                              //     borderSide: const BorderSide( color: Colors.white)),
                             ),
-                            // InputDecoration(border: InputBorder.none),
-
-                          );
-
-                        },
+                          ),
+                        ],
                       ),
-                    ):Container(),
-                    SizedBox(height: 2,),
-                    search_widget("المؤسسة ,العميل , رقم الجوال....",
-                        Provider.of<client_vm>(context, listen: true)
-                            .listClientfilter,),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    RefreshIndicator(
-                      onRefresh: ()async{
-                      Provider.of<regoin_vm>(context,listen: false).changeVal(null);
-                      Provider.of<typeclient>
-                        (context,listen: false)
-                          .changevalue(null);
-                        await    Provider.of<client_vm>(context, listen: false)
-                            .getclient_vm(
-                            // Provider.of<privilge_vm>(context,listen: false)
-                            //     .privilgelist
-                        );
-                      },
-                      child: Container(
-                        height: MediaQuery.of(context).size.height*0.8,
+
+                      //SizedBox(height: 2,),
+                      privilge.checkprivlge('15')==true|| privilge.checkprivlge('8')==true? //user
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0,right: 8,),
+                        child: Consumer<user_vm_provider>(
+                          builder: (context, cart, child){
+                            return  DropdownSearch<UserModel>(
+                              mode: Mode.DIALOG,
+                              // label: " الموظف ",
+                              //hint: 'الموظف',
+                              //onFind: (String filter) => cart.getfilteruser(filter),
+                              filterFn: (user, filter) => user!.getfilteruser(filter!),
+                              //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
+                              // itemAsString: (UserModel u) => u.userAsStringByName(),
+                              items: cart.userall,
+                              itemAsString: (u) => u!.userAsString(),
+                              onChanged: (data) {
+                                iduser=data!.idUser;
+                                filtershow();
+                              } ,
+                              showSearchBox: true,
+                              dropdownSearchDecoration:
+                              InputDecoration(
+                                //filled: true,
+                                isCollapsed: true,
+                                hintText: 'الموظف',
+                                alignLabelWithHint: true,
+                                fillColor:  Colors.grey.withOpacity(0.2),
+                                //labelText: "choose a user",
+                                contentPadding: EdgeInsets.all(0),
+                                //contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                // focusedBorder: OutlineInputBorder(
+                                //     borderRadius: BorderRadius.circular(10),
+                                //     borderSide: const BorderSide(color: Colors.white)),
+                                border:
+                                UnderlineInputBorder(
+                                    borderSide: const BorderSide(  color: Colors.grey)
+                                ),
+                                // OutlineInputBorder(
+                                //     borderRadius: BorderRadius.circular(10),
+                                //     borderSide: const BorderSide( color: Colors.white)),
+                              ),
+                              // InputDecoration(border: InputBorder.none),
+
+                            );
+
+                          },
+                        ),
+                      ):Container(),
+                      SizedBox(height: 2,),
+                      search_widget("المؤسسة ,العميل , رقم الهاتف....",
+                          Provider.of<client_vm>(context, listen: true)
+                              .listClientfilter,),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.height*0.75,
                         child: Padding(
                           padding: const EdgeInsets.only(
                               left: 8,right: 8,
@@ -318,11 +322,11 @@ class _tabclientsState extends State<tabclients> {
                             ),
                                    ],
                                  );
-                          }),
+                            }) ,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

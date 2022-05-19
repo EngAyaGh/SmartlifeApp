@@ -39,7 +39,13 @@ class InvoiceModel extends CacheRepository{
     this.fk_country,
     this.reason_date,
     this.date_approve,
-
+    this.stateclient,
+    this.value_back,
+    this.desc_reason_back,
+    this.reason_back,
+    this.fkuser_back,
+    this.date_change_back,
+    this.nameuserback,
 
   });
     String? idInvoice;
@@ -73,6 +79,13 @@ class InvoiceModel extends CacheRepository{
     String? fk_country;
     String? reason_date;
     String? date_approve;
+    String? stateclient;
+    String? value_back;
+    String? desc_reason_back;
+    String? reason_back;
+    String? fkuser_back;
+    String? date_change_back;
+    String? nameuserback;
 
   //Map<String, dynamic> products;
    List<ProductsInvoice>? products;
@@ -114,6 +127,13 @@ class InvoiceModel extends CacheRepository{
     fk_country=jsondata['fk_country'];
     reason_date=jsondata['reason_date'];
     date_approve=jsondata['date_approve'];
+    stateclient=jsondata['stateclient'];
+    value_back=jsondata['value_back'];
+    desc_reason_back=jsondata['desc_reason_back'];
+    reason_back=jsondata['reason_back'];
+    fkuser_back=jsondata['fkuser_back'];
+    date_change_back=jsondata['date_change_back'];
+    nameuserback=jsondata['nameuserback'];
 
     products=getproud(jsondata['products']);
       //  json.decode(
@@ -178,6 +198,13 @@ class InvoiceModel extends CacheRepository{
     _data['fk_country'] = fk_country;
     _data['reason_date'] = reason_date;
     _data['date_approve'] = date_approve;
+    _data['stateclient'] = stateclient;
+    _data['value_back'] = value_back;
+    _data['desc_reason_back'] = desc_reason_back;
+    _data['reason_back'] = reason_back;
+    _data['fkuser_back'] = fkuser_back;
+    _data['date_change_back'] = date_change_back;
+    _data['nameuserback'] = nameuserback;
 
     _data['products'] =
         products!.map((e)=>e.toJson()).toList();

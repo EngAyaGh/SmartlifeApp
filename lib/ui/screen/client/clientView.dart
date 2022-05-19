@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../function_global.dart';
 
 class ClientView extends StatefulWidget {
   ClientView( {required this.idclient, Key? key}) : super(key: key);
@@ -52,10 +53,10 @@ class _ClientViewState extends State<ClientView> {
                 clientModel.offer_price!=null&&clientModel.offer_price.toString().trim().isNotEmpty?
                 cardRow( title:'تاريخ عرض السعر',value:clientModel.date_price.toString()):Container(),
 
-                cardRow( title:'الموظف',value:clientModel.nameUser.toString()),
+                cardRow( title:'الموظف',value:getnameshort(clientModel.nameUser.toString())),
                 cardRow( title:'رقم الموظف',value:clientModel.mobileuser.toString()),
                 clientModel.nameusertransfer!=null?
-                cardRow( title:' قام بتحويل العميل',value:clientModel.nameusertransfer.toString()):Container(),
+                cardRow( title:' قام بتحويل العميل',value:getnameshort(clientModel.nameusertransfer.toString())):Container(),
                 clientModel.nameusertransfer!=null?
                 cardRow( title:' تاريخ التحويل',value:clientModel.dateTransfer.toString()):Container(),
 
@@ -98,6 +99,7 @@ class _ClientViewState extends State<ClientView> {
                       },
                       child: Text('تحويل العميل'),
                      ):Container(),
+                    SizedBox(height: 3,),
                 ],
             ),
               )

@@ -1,5 +1,6 @@
 
 import 'package:crm_smart/constants.dart';
+import 'package:crm_smart/function_global.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/ticketmodel.dart';
 import 'package:crm_smart/ui/screen/home/ticket/ticketadd.dart';
@@ -104,7 +105,7 @@ class _support_addState extends State<support_add> {
                   children: [
                     _invoice!.dateinstall_done!=null?
                     RowEdit(name: 'تم التركيب ', des: '')
-                    :RowEdit(name: 'موعد التركيب للعميل من ', des: ''),
+                    :RowEdit(name: 'تحديد موعد التركيب والتدريب ', des: ''),
                     SizedBox(height: 10,),
                     _invoice!.dateinstall_done!=null?//تم التركيب
                     TextField(
@@ -139,8 +140,9 @@ class _support_addState extends State<support_add> {
                                   color: Colors.black45,
                                   fontSize: 16, fontWeight: FontWeight.w500),
                               hintText:
-                              _invoice!.dateinstall_task==null || _currentDate!=DateTime(1,1,1)
-                                ?_currentDate.toString()
+                              _invoice!.dateinstall_task==null
+                                  || _currentDate!=DateTime(1,1,1)
+                                ?'تعيين الوقت والتاريخ'//_currentDate.toString()
                                 :_invoice!.dateinstall_task.toString(),
                               filled: true,
                               fillColor: Colors.grey.shade200,
@@ -161,21 +163,12 @@ class _support_addState extends State<support_add> {
                             'dateinstall_task':_currentDate.toString(),//_invoice.dateinstall_task.toString()
                           }, _invoice!.idInvoice).then((value) => clear());
                           _invoice!.dateinstall_task=_currentDate.toString();
-                        }, icon:Icon( Icons.check,color: kMainColor))
+                        }, icon:Icon( Icons.check,
+                            size: 50,
+                            color: kMainColor))
                         :Container(),
                         SizedBox(height: 6,),
-                        _invoice!.dateinstall_task!=null?
-                        IconButton(onPressed: (){
-                          if(_globalKey.currentState!.validate()) {
-                            _globalKey.currentState!.save();
-                            Provider.of<invoice_vm>(context, listen: false)
-                                .setdate_vm({
-                              'dateinstall_task': _currentDate.toString(),
-                              'reason_date': _textsupport.text.toString()
-                            }, _invoice!.idInvoice).then((value) =>
-                                clear());
-                          }},
-                            icon:Icon( Icons.check,color: kMainColor))
+
                         // Row(
                         //   children: [
                         //     SizedBox(width: 6,),
@@ -194,20 +187,33 @@ class _support_addState extends State<support_add> {
                         //
                         //   ],
                         // )
-                        :Container(),
+
                       ],
                     ),
+                   // _invoice!.dateinstall_task!=null?
+                    IconButton(onPressed: (){
+                      if(_globalKey.currentState!.validate()) {
+                        _globalKey.currentState!.save();
+                        Provider.of<invoice_vm>(context, listen: false)
+                            .setdate_vm({
+                          'dateinstall_task': _currentDate.toString(),
+                          'reason_date': _textsupport.text.toString()
+                        }, _invoice!.idInvoice).then((value) =>
+                            clear());
+                      }},
+                        icon:Icon( Icons.check,color: kMainColor)),
                     _invoice!.dateinstall_task!=null&&_invoice!.dateinstall_done==null ?
                     ElevatedButton(
     style: ButtonStyle(
     backgroundColor: MaterialStateProperty.all(
     kMainColor)),
     onPressed: () async{
+
       setState(() {
         valueresoan=true;
       });
 
-    }, child:  Text('إعادة الجدولة'),):Container(),
+    }, child:  Text('إعادة تعيين تاريخ التركيب'),):Container(),
                      valueresoan==true?   Padding(
                       padding: const EdgeInsets.only(top:8.0),
                       child:Form(
@@ -242,11 +248,10 @@ class _support_addState extends State<support_add> {
                     cardRow(title: ' تاريخ التركيب ',value: _invoice!.dateinstall_done.toString()),
 
                     _invoice!.dateinstall_done==null? Container()
-                    :cardRow(title: ' تم التركيب من قبل ',value: _invoice!.nameuserinstall.toString()),
-                    _invoice!.dateinstall_done==null? Container():
+                    :cardRow(title: ' تم التركيب من قبل ',
+                        value:getnameshort(_invoice!.nameuserinstall.toString())),
 
 
-                    SizedBox(height: 15,),
                     _invoice!.dateinstall_done==null?
                     ElevatedButton(
                      style: ButtonStyle(
@@ -330,7 +335,7 @@ class _support_addState extends State<support_add> {
         _currentDate = pickedDate;
         final time = Duration(hours: DateTime.now().hour, minutes: DateTime.now().minute);
         _currentDate.add(time);
-        //_invoice.dateinstall_task=_currentDate.toString();
+        _invoice!.dateinstall_task=_currentDate.toString();
         //_currentDate.hour=DateTime.now().hour;
       });
   }

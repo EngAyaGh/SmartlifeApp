@@ -12,6 +12,14 @@ import 'model/clientmodel.dart';
 import 'model/invoiceModel.dart';
 import 'model/usermodel.dart';
 
+
+String getnameshort(String name){
+
+  String nameshort=name.length>15?
+  '..'+ name.substring(0, 15).toString():
+  name.toString();
+  return nameshort;
+}
 String showtext(String typeNotify){
 
   switch (typeNotify){

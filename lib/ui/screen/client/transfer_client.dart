@@ -118,7 +118,7 @@ class _transferClientState extends State<transferClient> {
 
                 //navigator to clients view page
                 Navigator.pushAndRemoveUntil(context,
-                    MaterialPageRoute(builder: (context)=>Home()),
+                    MaterialPageRoute(builder: (context)=>tabclients()),
                         (route) => false
                       );
               },

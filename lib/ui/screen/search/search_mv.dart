@@ -29,21 +29,23 @@ class productSearchView extends StatelessWidget {
     print(searchKey);
     if(list is List<ClientModel> ){
       list.forEach((element) {
-        if(element.nameEnterprise!.contains(searchKey,0))
-          clientlistsearch.add(element);
-      });
-    if(clientlistsearch.isEmpty){
-      list.forEach((element) {
-        if(element.nameClient!.contains(searchKey,0))
-          clientlistsearch.add(element);
-      });
-    }
-      if(clientlistsearch.isEmpty){
-        list.forEach((element) {
-          if(element.mobile!.contains(searchKey,0))
+        if(element.nameEnterprise!.contains(searchKey,0)
+            || element.nameClient!.contains(searchKey,0)
+            || element.mobile!.contains(searchKey,0) )
             clientlistsearch.add(element);
-        });
-      }
+      });
+    // if(clientlistsearch.isEmpty){
+    //   list.forEach((element) {
+    //     if(element.nameClient!.contains(searchKey,0))
+    //       clientlistsearch.add(element);
+    //   });
+    // }
+    //   if(clientlistsearch.isEmpty){
+    //     list.forEach((element) {
+    //       if(element.mobile!.contains(searchKey,0))
+    //         clientlistsearch.add(element);
+    //     });
+    //   }
     }
     if(list is List<UserModel>)
       list.forEach((element) {

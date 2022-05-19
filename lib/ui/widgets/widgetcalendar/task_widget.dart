@@ -1,6 +1,7 @@
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/calendar/event_data_source.dart';
 import 'package:crm_smart/ui/screen/calendar/event_view_page.dart';
+import 'package:crm_smart/ui/screen/client/profileclient.dart';
 import 'package:crm_smart/ui/screen/support/support_add.dart';
 import 'package:crm_smart/view_model/event_provider.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ class _TaskWidgetState extends State<TaskWidget> {
           print(event.idinvoice);
           Navigator.push(context, MaterialPageRoute(
               builder: (context)=>
-              support_add( idinvoice: event.idinvoice,)
+                  ProfileClient( idclient: event.fkIdClient,)
                   // EventViewingPage(
                   //   event: event,)
           ));
