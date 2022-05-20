@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
-//import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-// import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserVMController extends GetxController {
   var isProbicpicpathSet = false.obs;
   var profilepicpath = "".obs;
 
   void onPressPhone(String phone) async {
-   // await FlutterPhoneDirectCaller.callNumber(phone);
+    await FlutterPhoneDirectCaller.callNumber(phone);
   }
 
   void onPressEmail(String path) {
@@ -25,7 +25,7 @@ class UserVMController extends GetxController {
       //   'subject': 'Example Subject & Symbols are allowed!'
       // }),
     );
-   // launch(emailLaunchUri.toString());
+    launch(emailLaunchUri.toString());
   }
 
   void setProfileImagePath(String path) {

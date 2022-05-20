@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 class typeclient extends ChangeNotifier{
   List<String> type_of_client=[];
+  List<String> type_of_client_filter=['الكل','مشترك','تفاوض','عرض سعر','مستبعد','منسحب'];
  // List<String> type_of_client=['تفاوض','عرض سعر','مستبعد','منسحب'];
   List<ReasonModel> type_of_out=[]; //أسباب الانسحاب
 
@@ -13,6 +14,12 @@ class typeclient extends ChangeNotifier{
 
   void changevalue(String? s){
     selectedValuemanag=s;
+    notifyListeners();
+  }
+  late String? selectedValufilter=null;
+
+  void changevaluefilter(String? s){
+    selectedValufilter=s;
     notifyListeners();
   }
   late String? selectedValueOut=null;

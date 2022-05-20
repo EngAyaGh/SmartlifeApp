@@ -64,8 +64,7 @@ class Invoice_Service {
       Map<String,dynamic> body,String id_invoice) async {
     var result = await Api()
         .post( url:url+
-        "client/invoice/update_stateback.php?id_invoice=$id_invoice",body:
-    body
+        "client/invoice/update_stateback.php?id_invoice=$id_invoice",body: body
     );
     //client/setApproveClient.php
     return InvoiceModel.fromJson(result[0]);//=="done"? true:false;

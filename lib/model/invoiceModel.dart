@@ -33,6 +33,7 @@ class InvoiceModel extends CacheRepository{
     this.isdoneinstall,
     this.userinstall,
     this.dateinstall_task,
+    this.fkusertask,
     this.nameuserApprove,
     this.date_lastuserupdate,
     this.path,
@@ -46,6 +47,11 @@ class InvoiceModel extends CacheRepository{
     this.fkuser_back,
     this.date_change_back,
     this.nameuserback,
+    this.nameuserreplay,
+    this.nameusertask,
+
+    this.daterepaly,
+    this.fkuserdatareplay,
 
   });
     String? idInvoice;
@@ -73,6 +79,7 @@ class InvoiceModel extends CacheRepository{
     String? isdoneinstall;
     String? userinstall;
     String? dateinstall_task;
+    String? fkusertask;
     String? nameuserApprove;
     String? date_lastuserupdate;
     String? path = '';
@@ -86,6 +93,10 @@ class InvoiceModel extends CacheRepository{
     String? fkuser_back;
     String? date_change_back;
     String? nameuserback;
+    String? nameuserreplay;
+    String? nameusertask;
+    String? daterepaly;
+    String? fkuserdatareplay;
 
   //Map<String, dynamic> products;
    List<ProductsInvoice>? products;
@@ -121,6 +132,7 @@ class InvoiceModel extends CacheRepository{
     isdoneinstall=jsondata['isdoneinstall'];
     userinstall=jsondata['userinstall'];
     dateinstall_task=jsondata['dateinstall_task'];
+    fkusertask=jsondata['fkusertask'];
     nameuserApprove=jsondata['nameuserApprove'];
     date_lastuserupdate=jsondata['date_lastuserupdate'];
     path=jsondata['path'];
@@ -134,6 +146,11 @@ class InvoiceModel extends CacheRepository{
     fkuser_back=jsondata['fkuser_back'];
     date_change_back=jsondata['date_change_back'];
     nameuserback=jsondata['nameuserback'];
+    nameuserreplay=jsondata['nameuserreplay'];
+    nameusertask=jsondata['nameusertask'];
+
+    daterepaly=jsondata['daterepaly'];
+    fkuserdatareplay=jsondata['fkuserdatareplay'];
 
     products=getproud(jsondata['products']);
       //  json.decode(
@@ -192,6 +209,7 @@ class InvoiceModel extends CacheRepository{
     _data['isdoneinstall'] = isdoneinstall;
     _data['userinstall'] = userinstall;//id user
     _data['dateinstall_task'] = dateinstall_task;
+    _data['fkusertask'] = fkusertask;
     _data['nameuserApprove'] = nameuserApprove;
     _data['date_lastuserupdate'] = date_lastuserupdate;
     _data['path'] = path;
@@ -205,6 +223,11 @@ class InvoiceModel extends CacheRepository{
     _data['fkuser_back'] = fkuser_back;
     _data['date_change_back'] = date_change_back;
     _data['nameuserback'] = nameuserback;
+    _data['nameuserreplay'] = nameuserreplay;
+    _data['nameusertask'] = nameusertask;
+
+    _data['daterepaly'] = daterepaly;
+    _data['fkuserdatareplay'] = fkuserdatareplay;
 
     _data['products'] =
         products!.map((e)=>e.toJson()).toList();

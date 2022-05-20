@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../constants.dart';
+import '../../../../function_global.dart';
 
 class TicketView extends StatefulWidget {
    TicketView({ required this.ticketModel, Key? key}) : super(key: key);
@@ -36,18 +37,18 @@ class _TicketViewState extends State<TicketView> {
             children: [
               cardRow(title: 'اسم المؤسسة',value:widget.ticketModel.nameEnterprise.toString()),
               cardRow(title: 'المدينة',value: widget.ticketModel.nameRegoin.toString()),
-              cardRow(title: 'قام بفتح التذكرة ',value:  widget.ticketModel.nameuseropen.toString()),
+              cardRow(title: 'قام بفتح التذكرة ',value: getnameshort( widget.ticketModel.nameuseropen.toString())),
               cardRow(title: 'تاريخ فتح التذكرة ',value:  widget.ticketModel.dateOpen.toString()),
               cardRow(title: 'حالة التذكرة',value: widget.ticketModel.typeTicket.toString()),
               cardRow(title: 'وصف المشكلة',value: widget.ticketModel.detailsProblem.toString()),
               cardRow(title: 'نوع المشكلة',value: widget.ticketModel.typeProblem.toString()),
 
                 widget.ticketModel.dateRecive!=null?
-                cardRow(title: 'قام باستلام التذكرة ',value:  widget.ticketModel.nameuserrecive.toString()):Container(),
+                cardRow(title: 'قام باستلام التذكرة ',value: getnameshort( widget.ticketModel.nameuserrecive.toString())):Container(),
                 widget.ticketModel.dateRecive!=null?
                 cardRow(title: 'تاريخ استلام التذكرة ',value:  widget.ticketModel.dateRecive.toString()):Container(),
                 widget.ticketModel.dateClose!=null?
-                cardRow(title: 'قام بإغلاق التذكرة ',value:  widget.ticketModel.nameuserclose.toString()):Container(),
+                cardRow(title: 'قام بإغلاق التذكرة ',value: getnameshort( widget.ticketModel.nameuserclose.toString())):Container(),
                 widget.ticketModel.dateClose!=null?
                 cardRow(title: 'تاريخ إغلاق التذكرة ',value:  widget.ticketModel.dateClose.toString()):Container(),
                 SizedBox(height: 15,),

@@ -107,8 +107,8 @@ class _InvoiceViewState extends State<InvoiceView> {
       String val=widget.invoice!.stateclient.toString()=="منسحب"
           ? widget.invoice!.date_change_back.toString()
           : formatter.format(DateTime.now());
-
       _currentDate=DateTime.parse(val);
+
     });
     super.initState();
   }
@@ -136,6 +136,7 @@ class _InvoiceViewState extends State<InvoiceView> {
 
       });
   }
+
   @override
   Widget build(BuildContext context) {
     final _globalKey = GlobalKey<FormState>();
@@ -146,7 +147,7 @@ class _InvoiceViewState extends State<InvoiceView> {
       // shape: StadiumBorder(
       //    side: BorderSide.none
       // ),
-
+      titlePadding:const EdgeInsets.fromLTRB(24.0, 1.0, 24.0, 10.0) ,
       insetPadding:  EdgeInsets.only(left: 10,right: 10,bottom: 10),
       contentPadding: EdgeInsets.only(left: 10,right: 10,bottom: 10),
       title: Center(child: Text('تحويل العميل إلى منسحب',style:TextStyle(fontFamily: kfontfamily2))),
@@ -162,7 +163,6 @@ class _InvoiceViewState extends State<InvoiceView> {
                 Consumer<typeclient>(
                   builder: (context, cart, child){
                     return DropdownButton(
-
                       isExpanded: true,
                       //hint: Text("حدد حالة العميل"),
                       items: cart.type_of_out.map((level_one) {
@@ -174,7 +174,10 @@ class _InvoiceViewState extends State<InvoiceView> {
                       value:cart.selectedValueOut,
                       onChanged:(value) {
                         //  setState(() {
+                        print('vvvvvvvvvvvvvvvvvvvvvv');
+                        print(value);
                         cart.changevalueOut(value.toString());
+
                         // });
                       },
                     );},
@@ -251,24 +254,24 @@ class _InvoiceViewState extends State<InvoiceView> {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                                 kMainColor)),
-                        onPressed: () {
+                        onPressed: () async {
+                          print('2121211111111111111111');
+                          print(typeclient_provider.selectedValueOut);
                          // dismisses only the dialog and returns false
     if (_globalKey.currentState!.validate()) {
-      Navigator.of(context, rootNavigator: true)
-          .pop(false);
       _globalKey.currentState!.save();
-      Provider.of<invoice_vm>(context, listen: false)
+
+     await Provider.of<invoice_vm>(context, listen: false)
           .set_state_back({
         "reason_back": typeclient_provider.selectedValueOut,
         "fkuser_back": Provider
-            .of<user_vm_provider>(context, listen: false)
-            .currentUser!
-            .idUser
-            .toString(),
+            .of<user_vm_provider>(context, listen: false).currentUser!.idUser.toString(),
         "desc_reason_back": descresaonController.text,
-        "date_change_back": DateTime.now().toString(),
+        "date_change_back": _currentDate.toString(),//DateTime.now().toString(),
         "value_back": valueBackController.text,
       }, widget.invoice!.idInvoice.toString());
+      Navigator.of(context, rootNavigator: true)
+          .pop(false);
     }},
                         child: Text('حفظ'),
                       ),
@@ -304,199 +307,189 @@ class _InvoiceViewState extends State<InvoiceView> {
             //invoice!=null?
             Container(
               // height: MediaQuery.of(context).size.height * 0.9,
-              child: Column(
-                children: [
-                  for(int index=0;index<widget.invoice!.products!.length;index++)
-                  _product(widget.invoice!.products![index].nameProduct.toString(),
-                      widget.invoice!.products![index].price.toString()),
-                  Container(
-                    color: Colors.amberAccent,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('المبلغ الإجمالي   ',
-                          style: TextStyle(fontFamily: kfontfamily3),),
-                        //Spacer(),
-                        Text(widget.invoice!.total.toString(),style: TextStyle(fontFamily: kfontfamily2),),
-                      ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    for(int index=0;index<widget.invoice!.products!.length;index++)
+                    _product(widget.invoice!.products![index].nameProduct.toString(),
+                        widget.invoice!.products![index].price.toString()),
+                    Container(
+                      color: Colors.amberAccent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('المبلغ الإجمالي   ',
+                            style: TextStyle(fontFamily: kfontfamily3),),
+                          //Spacer(),
+                          Text(widget.invoice!.total.toString(),style: TextStyle(fontFamily: kfontfamily2),),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10,),
-                  cardRow(
-                      title: 'تاريخ عقد الإشتراك',
-                      value: widget.invoice!.dateCreate.toString()),
-                  cardRow(
-                      title: 'المبلغ المدفوع',
-                      value: widget.invoice!.amountPaid.toString()),
-                  cardRow(
-                      title: ' المبلغ المتبقي',
-                      value: (double.parse(widget.invoice!.total.toString()) -
-                          double.parse(widget.invoice!.amountPaid.toString()))
-                          .toString()),
-                  cardRow(
-                      title: ' التجديد السنوي',
-                      value: widget.invoice!.renewYear.toString()),
-                  cardRow(
-                      title: ' طريقة الدفع',
-                      value: widget.invoice!.typePay.toString()=='0'?'نقدا':'تحويل'),
-                  //nameuserApprove
-                  widget.invoice!.nameuserApprove!=null? cardRow(
-                      title: 'معتمد الاشتراك',
-                      value: getnameshort(widget.invoice!.nameuserApprove.toString())):Container(),
+                    SizedBox(height: 10,),
+                    cardRow(
+                        title: 'تاريخ عقد الإشتراك',
+                        value: widget.invoice!.dateCreate.toString()),
+                    cardRow(
+                        title: 'المبلغ المدفوع',
+                        value: widget.invoice!.amountPaid.toString()),
+                    cardRow(
+                        title: ' المبلغ المتبقي',
+                        value: (double.parse(widget.invoice!.total.toString()) -
+                            double.parse(widget.invoice!.amountPaid.toString()))
+                            .toString()),
+                    cardRow(
+                        title: ' التجديد السنوي',
+                        value: widget.invoice!.renewYear.toString()),
+                    cardRow(
+                        title: ' طريقة الدفع',
+                        value: widget.invoice!.typePay.toString()=='0'?'نقدا':'تحويل'),
+                    //nameuserApprove
+                    widget.invoice!.nameuserApprove!=null? cardRow(
+                        title: 'معتمد الاشتراك',
+                        value: getnameshort(widget.invoice!.nameuserApprove.toString())):Container(),
 
-                  widget.invoice!.nameuserApprove!=null?  cardRow(
-                      title: 'تاريخ اعتماد الاشتراك',
-                      value: widget.invoice!.date_approve.toString()):Container(),
-                  //date_approve
-                  //   cardRow(
-                  //       title: 'اسم المؤسسة',
-                  //       value: invoice!.name_enterprise.toString()),
-                  //   cardRow(
-                  //       title: 'موظف المبيعات',
-                  //       value: invoice!.nameUser.toString()),
-                  //
-                  //   cardRow(
-                  //       title: ' المنطقة', value: invoice!.name_regoin.toString()),
+                    widget.invoice!.nameuserApprove!=null?  cardRow(
+                        title: 'تاريخ اعتماد الاشتراك',
+                        value: widget.invoice!.date_approve.toString()):Container(),
+                    cardRow(
+                        title: 'تاريخ آخر تعديل',
+                        value: widget.invoice!.date_lastuserupdate != null
+                            ? widget.invoice!.date_lastuserupdate.toString()
+                            : ''),
+                    cardRow(
+                        title: 'آخر تعديل من قبل',
+                        value: widget.invoice!.date_lastuserupdate != null?
+                        getnameshort(  widget.invoice!.lastuserupdateName.toString()):''),
+                   widget.invoice!.date_change_back==null?
+                   cardRow(
+                        title: 'تاريخ الإنسحاب',
+                        value: widget.invoice!.date_change_back.toString() ):Container(),
+                    widget.invoice!.date_change_back==null?
+                    cardRow(
+                        title: 'تم الإنسحاب عن طريق',
+                        value:
+                        getnameshort(widget.invoice!.nameuserback.toString())):Container(),
+                    widget.invoice!.fkuser_back==null?
+                    cardRow(
+                        title: 'المبلغ المسترجع',
+                        value: widget.invoice!.value_back.toString() ):Container(),
+                    widget.invoice!.fkuser_back==null?  cardRow(
+                        title: 'سبب الإنسحاب',
+                        value:
+                         widget.invoice!.desc_reason_back.toString()):Container(),
 
-
-                  //cardRow('  المنتجات',invoice.products.toString()),
-                  cardRow(
-                      title: 'تاريخ آخر تعديل',
-                      value: widget.invoice!.date_lastuserupdate != null
-                          ? widget.invoice!.date_lastuserupdate.toString()
-                          : ''),
-                  cardRow(
-                      title: 'آخر تعديل من قبل',
-                      value: widget.invoice!.date_lastuserupdate != null?
-                      getnameshort(  widget.invoice!.lastuserupdateName.toString()):''),
-                 widget.invoice!.date_change_back==null?
-                 cardRow(
-                      title: 'تاريخ الإنسحاب',
-                      value: widget.invoice!.date_change_back.toString() ):Container(),
-                  widget.invoice!.date_change_back==null?
-                  cardRow(
-                      title: 'تم الإنسحاب عن طريق',
-                      value:
-                      getnameshort(widget.invoice!.nameuserback.toString())):Container(),
-                  widget.invoice!.fkuser_back==null?
-                  cardRow(
-                      title: 'المبلغ المسترجع',
-                      value: widget.invoice!.value_back.toString() ):Container(),
-                  widget.invoice!.fkuser_back==null?  cardRow(
-                      title: 'سبب الإنسحاب',
-                      value:
-                       widget.invoice!.desc_reason_back.toString()):Container(),
-
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      //crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomButton(
-                          text: 'تعديل الفاتورة',
-                          onTap: () async {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => addinvoice(
-                                        invoice: widget.invoice,
-                                        itemClient: widget.clientmodel)));
-                          },
-                        ),
-
-                        CustomButton(
-                          //width: MediaQuery.of(context).size.width * 0.2,
-                          text: 'خيارات إضافية',
-                          onTap: () async {
-                            showDialog<void>(
-                                context: context,
-                                builder: (context) => dialog);
-                          },
-                        ),
-                        CustomButton(
-                          //width: MediaQuery.of(context).size.width * 0.2,
-                            text: 'حذف الفاتورة',
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CustomButton(
+                            text: 'تعديل الفاتورة',
                             onTap: () async {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => addinvoice(
+                                          invoice: widget.invoice,
+                                          itemClient: widget.clientmodel)));
+                            },
+                          ),
 
-                              bool result = await showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Text('التأكيد'),
-                                    content: Text('هل تريد حذف الفاتورة'),
-                                    actions: <Widget>[
-                                      new FlatButton(
-                                        onPressed: () {
-                                          Navigator.of(context,
-                                              rootNavigator: true)
-                                              .pop(
-                                              false); // dismisses only the dialog and returns false
-                                        },
-                                        child: Text('لا'),
-                                      ),
-                                      FlatButton(
-                                        onPressed: () async {
-                                          Navigator.of(context,
-                                              rootNavigator: true)
-                                              .pop(true);
-                                          // dismisses only the dialog and returns true
-                                          // if(itemProd.idInvoice!=null)
-                                          DateTime _currentDate = DateTime.now();
-                                          final rt.DateFormat formatter =
-                                          rt.DateFormat('yyyy-MM-dd');
-                                          Provider.of<invoice_vm>(context,
-                                              listen: false)
-                                              .addlistinvoicedeleted(
-                                              DeletedinvoiceModel(
-                                                fkClient: widget.invoice!.fkIdClient.toString(),
-                                                fkUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
-                                                    .idUser, //cuerrent user
-                                                dateDelete:
-                                                formatter.format(_currentDate),
-                                                //city:itemProd.
-                                                nameClient:
-                                                widget.invoice!.nameClient.toString(),
-                                                nameEnterprise:
-                                                widget.clientmodel.nameEnterprise,
-                                                mobileclient:
-                                                widget.clientmodel.mobile,
-                                                //mobileuser:widget.itemClient. ,
-                                                // nameUser: widget.itemProd
-                                                //     .nameUser, //موظف المبيعات
-                                                nameUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
-                                                    .nameUser, //name user that doing delete
-                                              ));
-                                          Provider.of<invoice_vm>(context,
-                                              listen: false)
-                                              .delete_invoice({
-                                            "id_invoice":
-                                            widget.invoice!.idInvoice
-                                                .toString(),
-                                            "fkUserdo":
-                                            Provider.of<user_vm_provider>(context, listen: false).currentUser!
-                                                .idUser.toString(),
-                                            "name_enterprise": widget.clientmodel.nameEnterprise
-                                                .toString(),
-                                            "nameUserdo":
-                                            Provider.of<user_vm_provider>(context, listen: false).currentUser!
-                                                .nameUser.toString(),
-                                          }, widget.invoice!.idInvoice);
-                                          Navigator.pop(context);
+                          CustomButton(
+                            //width: MediaQuery.of(context).size.width * 0.2,
+                            text: 'خيارات إضافية',
+                            onTap: () async {
+                              showDialog<void>(
+                                  context: context,
+                                  builder: (context) => dialog);
+                            },
+                          ),
+                          CustomButton(
+                            //width: MediaQuery.of(context).size.width * 0.2,
+                              text: 'حذف الفاتورة',
+                              onTap: () async {
+
+                                bool result = await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('التأكيد'),
+                                      content: Text('هل تريد حذف الفاتورة'),
+                                      actions: <Widget>[
+                                        new FlatButton(
+                                          onPressed: () {
+                                            Navigator.of(context,
+                                                rootNavigator: true)
+                                                .pop(
+                                                false); // dismisses only the dialog and returns false
+                                          },
+                                          child: Text('لا'),
+                                        ),
+                                        FlatButton(
+                                          onPressed: () async {
+                                            Navigator.of(context,
+                                                rootNavigator: true)
+                                                .pop(true);
+                                            // dismisses only the dialog and returns true
+                                            // if(itemProd.idInvoice!=null)
+                                            DateTime _currentDate = DateTime.now();
+                                            final rt.DateFormat formatter =
+                                            rt.DateFormat('yyyy-MM-dd');
+                                            Provider.of<invoice_vm>(context,
+                                                listen: false)
+                                                .addlistinvoicedeleted(
+                                                DeletedinvoiceModel(
+                                                  fkClient: widget.invoice!.fkIdClient.toString(),
+                                                  fkUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
+                                                      .idUser, //cuerrent user
+                                                  dateDelete:
+                                                  formatter.format(_currentDate),
+                                                  //city:itemProd.
+                                                  nameClient:
+                                                  widget.invoice!.nameClient.toString(),
+                                                  nameEnterprise:
+                                                  widget.clientmodel.nameEnterprise,
+                                                  mobileclient:
+                                                  widget.clientmodel.mobile,
+                                                  //mobileuser:widget.itemClient. ,
+                                                  // nameUser: widget.itemProd
+                                                  //     .nameUser, //موظف المبيعات
+                                                  nameUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
+                                                      .nameUser, //name user that doing delete
+                                                ));
+                                            Provider.of<invoice_vm>(context,
+                                                listen: false)
+                                                .delete_invoice({
+                                              "id_invoice":
+                                              widget.invoice!.idInvoice
+                                                  .toString(),
+                                              "fkUserdo":
+                                              Provider.of<user_vm_provider>(context, listen: false).currentUser!
+                                                  .idUser.toString(),
+                                              "name_enterprise": widget.clientmodel.nameEnterprise
+                                                  .toString(),
+                                              "nameUserdo":
+                                              Provider.of<user_vm_provider>(context, listen: false).currentUser!
+                                                  .nameUser.toString(),
+                                            }, widget.invoice!.idInvoice);
+                                            Navigator.pop(context);
 
 
-                                        },
-                                        child: Text('نعم'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
+                                          },
+                                          child: Text('نعم'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
 
-                            }),
-                      ],
-                    ),),
-                ],
+                              }),
+                        ],
+                      ),),
+                    SizedBox(height: 15,),
+                  ],
+                ),
               ),
             ),
         ),),

@@ -186,7 +186,7 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                         Row(
                           children: [
                             Text(
-                              'المتبقي',
+                              'المدفوع',
                               style: TextStyle(
                                   fontFamily: kfontfamily2,
                                   color: kMainColor,
@@ -196,10 +196,8 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                               width: 4,
                             ),
                             Text(
-                              (double.parse(widget.itemProd.total.toString()) -
-                                  double.parse(widget.itemProd.amountPaid
-                                      .toString()))
-                                  .toString(),
+                                (widget.itemProd.amountPaid
+                                      .toString()),
                               style: TextStyle(
                                   fontFamily: kfontfamily2,
                                   color: kMainColor,

@@ -74,9 +74,16 @@ class support_view_invoicesState extends State<support_view_invoices> {
             // ).toList(),
           ),
         ):
-        ContainerShadows(
-          margin: EdgeInsets.only(),
-          child: Center(child: Text('العميل غير مشترك')),
+        Padding(
+          padding: EdgeInsets.only(top: 10,bottom: 50,right: 10,left: 10),
+
+          child: Container(
+            height: MediaQuery.of(context).size.height*0.06,
+            child: ContainerShadows(
+              margin: EdgeInsets.only(),
+              child: Center(child: Text('العميل غير مشترك')),
+            ),
+          ),
         ),
       ),
     );}

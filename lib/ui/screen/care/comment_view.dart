@@ -109,10 +109,10 @@ print('init in comment');
                 ],
               ),
               Container(
-                height: MediaQuery.of(context).size.height ,//* 0.8,
+                height: MediaQuery.of(context).size.height* 0.7,
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      left: 8, right: 8, top: 20.0, bottom: 10),
+                      left: 8, right: 8, top: 10.0, bottom: 5),
                   child: Consumer<comment_vm>(builder: (context, value, child) {
                     return value.listComments.length == 0
                         ? Text('')

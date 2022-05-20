@@ -15,14 +15,18 @@ class cardRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-
+      mainAxisAlignment: MainAxisAlignment.end,
+       // crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Row(
-          mainAxisAlignment: alignment==null? MainAxisAlignment.end:alignment,
+          mainAxisAlignment: alignment==null? MainAxisAlignment.start:alignment,
+
           children: [
             Text(title,style: TextStyle(fontFamily: kfontfamily2),),
             Spacer(),
-            Text(value,style: TextStyle(fontFamily: kfontfamily2),),
+            Expanded(
+                flex: 1,
+                child: Text(value,style: TextStyle(fontFamily: kfontfamily2),)),
           ],
         ),
         //Spacer(),

@@ -103,7 +103,7 @@ bool isepmty=false;
       if (widget.itemProd.rateUser.toString() != '')
       totaltax=double.tryParse(widget.itemProd.rateUser.toString())!;
     }
-
+    final _globalKey = GlobalKey<FormState>();
     Widget dialog =
     SimpleDialog(
       //elevation: 1,
@@ -111,129 +111,161 @@ bool isepmty=false;
       // shape: StadiumBorder(
       //    side: BorderSide.none
       // ),
-      contentPadding: EdgeInsets.only(left: 10,right: 10,top:2),
-      title: Text(''),
+      titlePadding:const EdgeInsets.fromLTRB(24.0, 1.0, 24.0, 10.0) ,
+      insetPadding:  EdgeInsets.only(left: 10,right: 10,bottom: 10),
+      contentPadding: EdgeInsets.only(left: 10,right: 10,bottom: 10),
+      title: Center(child: Text('تعديل المنتج',style:TextStyle(fontFamily: kfontfamily2))),
       children: [
+        Directionality(
+          textDirection: TextDirection.rtl,
+          child: Form(
+            key: _globalKey,
+            child: Column(
 
-        RowEdit(name: 'الكمية', des: ''),
-        EditTextFormField(
-          //read: false,
-          onChanged: (val) {
-            print(val);
-            if(val==null)_amount_value='1';
-            _amount_value=val;
-            calculate();
-          },
-          inputType: TextInputType.number,
-          label: 'الكمية',
-          // radius: 10,
-          controller:_amount, hintText: 'الكمية',),
-        SizedBox(width: 10,),
+              children: [
 
-        RowEdit(name: 'السعر', des: ''),
-        EditTextFormField(
-          ontap:(){}, ///calculate,
-          //read: false,
-          controller: _textprice,
-          label: 'السعر',
-          hintText: Provider.of<user_vm_provider>(context, listen: true)
-              .currentUser!.currency.toString(),
-          //radius: 10
-        ),
-        SizedBox(height: 5,),
-        RowEdit(name: 'نسبة الخصم المتاحة للموظف', des: 'اختياري'),
-        EditTextFormField(
+                RowEdit(name: 'الكمية', des: 'اجباري'),
+                EditTextFormField(
+                  vaild: (value) {
+                    if (value!.isEmpty) {
+                      return 'الحقل فارغ';
+                    }
+                  },
+                  //read: false,
+                  onChanged: (val) {
+                    print(val);
+                    if(val==null)_amount_value='1';
+                    _amount_value=val;
+                    calculate();
+                  },
+                  inputType: TextInputType.number,
+                  label: 'الكمية',
+                  // radius: 10,
+                  controller:_amount, hintText: 'الكمية',),
+                //SizedBox(width: 10,),
 
-        //read: false,
-        onChanged: (val) {
-      _taxuser_value=val;
-      calculate();
-    },
-    inputType: TextInputType.number,
+                RowEdit(name: 'السعر', des: 'اجباري'),
+                EditTextFormField(
+                  vaild: (value) {
+                    if (value!.isEmpty) {
+                      return 'الحقل فارغ';
+                    }
+                  },
+                  inputType: TextInputType.number,
 
-    controller: _taxuser,
-    // label: 'نسبة الخصم المتاحة للموظف',
-    hintText: '%',
-    //radius: 10
-    ),
+                  //read: false,
+                  controller: _textprice,
+                  label: 'السعر',
+                  hintText: Provider.of<user_vm_provider>(context, listen: true)
+                      .currentUser!.currency.toString(),
+                  //radius: 10
+                ),
+                SizedBox(height: 5,),
+                RowEdit(name: 'نسبة الخصم المتاحة للموظف', des: 'اختياري'),
+                EditTextFormField(
+                  //read: false,
+                  onChanged: (val) {
+                    _taxuser_value=val;
+                    calculate();
+                  },
+                  inputType: TextInputType.number,
 
-        SizedBox(height: 3,),
-        RowEdit(name: 'نسبة الخصم المتاحة للمشرف', des: 'اختياري'),
-        EditTextFormField(
-          onChanged: (val) {
-            _taxadmin_value=val;
-            calculate();
-          },
-          inputType: TextInputType.number,
+                  controller: _taxuser,
+                  // label: 'نسبة الخصم المتاحة للموظف',
+                  hintText: '%',
+                  //radius: 10
+                ),
 
-          //read: false,
-          controller: _taxadmin,
-          // label: 'نسبة الخصم المتاحة للمشرف',
-          hintText: '%',
-          //radius: 10
-        ),
+                SizedBox(height: 3,),
+                RowEdit(name: 'نسبة الخصم المتاحة للمشرف', des: 'اختياري'),
+                EditTextFormField(
+                  onChanged: (val) {
+                    _taxadmin_value=val;
+                    calculate();
+                  },
+                  inputType: TextInputType.number,
 
+                  //read: false,
+                  controller: _taxadmin,
+                  // label: 'نسبة الخصم المتاحة للمشرف',
+                  hintText: '%',
+                  //radius: 10
+                ),
 
-        ElevatedButton(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(
-                  kMainColor)),
-          onPressed: () {
-            setState(() {
-              if(_textprice.text.isNotEmpty){
-                isepmty=false;
-              widget.itemProd.rateUser= _taxuser.text;
-              widget.itemProd.price=_textprice.text;
-              widget.itemProd.rateAdmin=_taxadmin.text;
-              widget.itemProd.amount=_amount.text;
-                Navigator.of(context, rootNavigator: true)
-                    .pop(false);
-              }
-              else{
-             setState(() {
-               isepmty=true;
-             });
+SizedBox(height: 5,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                      kMainColor)),
+              onPressed: () {
+                //setState(() {
+                //if(_textprice.text.isNotEmpty){
+                if (_globalKey.currentState!
+                    .validate()) {
+                  _globalKey.currentState!.save();
+                  isepmty=false;
+                  widget.itemProd.rateUser= _taxuser.text;
+                  widget.itemProd.price=_textprice.text;
+                  widget.itemProd.rateAdmin=_taxadmin.text;
+                  widget.itemProd.amount=_amount.text;
+                  Navigator.of(context, rootNavigator: true)
+                      .pop(false);}
+                // }
+                // else{
+                //   setState(() {
+                //     isepmty=true;
+                //   });
                 // _scaffoldKey.currentState!.showSnackBar(
                 //     SnackBar(content: Text('من فضلك ادخل السعر')));
-              }
-            });
-       // dismisses only the dialog and returns false
-          },
-          child: Text('تم'),
-        ),
-        isepmty==true?Text('لا يمكن أن يكون السعر فارغ'):Text(''),
+                // }
+                // });
+                // dismisses only the dialog and returns false
+              },
+              child: Text('تم'),
+            ),
+            //isepmty==true?Text('لا يمكن أن يكون السعر فارغ'):Container(),
+SizedBox(width: 15,),
+            ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        kMainColor)),
+                child: Text('حذف'),
+                onPressed: ()   {
+                  if(widget.itemProd.idInvoiceProduct!=null)
+                  {
+                    // Provider.of<invoice_vm>(context,listen: false)
+                    //     .listproductinvoic[index].isdeleted=true,
 
-        ElevatedButton(
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                    kMainColor)),
-            child: Text('حذف'),
-            onPressed: ()   {
-              if(widget.itemProd.idInvoiceProduct!=null)
-                {
-                  // Provider.of<invoice_vm>(context,listen: false)
-                  //     .listproductinvoic[index].isdeleted=true,
+                    Provider.of<invoice_vm>(context,listen: false)
+                        .removelistproductinvoic(index);
+                    Provider.of<invoice_vm>(
+                        context, listen: false)
+                        .deleteProductInInvoice(
+                        widget.itemProd.idInvoiceProduct);
+                  }
+                  else
+                  {
 
-                  Provider.of<invoice_vm>(context,listen: false)
-                      .removelistproductinvoic(index);
-                  Provider.of<invoice_vm>(
-                      context, listen: false)
-                      .deleteProductInInvoice(
-                      widget.itemProd.idInvoiceProduct);
+                    Provider.of<invoice_vm>(context,listen: false)
+                        .removelistproductinvoic(index);
+
+                  }
+                  Navigator.of(context, rootNavigator: true)
+                      .pop(false);
                 }
-              else
-                {
 
-                  Provider.of<invoice_vm>(context,listen: false)
-                      .removelistproductinvoic(index);
-
-                }
-              Navigator.of(context, rootNavigator: true)
-                  .pop(false);
-            }
-
-          //onPressed: COPY,
+              //onPressed: COPY,
+            ),
+          ],
         ),
+                SizedBox(height: 5,)
+              ],
+            ),
+          ),
+        )
             ],
     );
 

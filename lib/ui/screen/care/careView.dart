@@ -1,5 +1,6 @@
 
 
+import 'package:crm_smart/function_global.dart';
 import 'package:crm_smart/model/communication_modle.dart';
 import 'package:crm_smart/model/ticketmodel.dart';
 import 'package:crm_smart/ui/screen/home/ticket/ticket_all.dart';
@@ -88,13 +89,14 @@ class _careViewState extends State<careView> {
                           Column(
                             children: [
                               element.typeCommuncation=='ترحيب'?
-                              cardRow(title:'تم الترحيب من قبل' ,value:element.nameUser ,):Container(),
+                              cardRow(title:'تم الترحيب من قبل' ,value:getnameshort(element.nameUser) ,):Container(),
                               element.typeCommuncation=='ترحيب'?
                               cardRow(title:'تاريخ الترحيب بالعميل' ,value: element.dateCommunication.toString(),):Container(),
 
 
                               element.typeCommuncation=='تركيب'?
-                              cardRow(title:'تم التأكد من جودة التركيب من قبل' ,value:element.nameUser ,):Container(),
+                              cardRow(title:'تم التأكد من جودة التركيب من قبل' ,
+                                  value:getnameshort(element.nameUser) ,):Container(),
                               element.typeCommuncation=='تركيب'?
                               cardRow(title:'تاريخ التأكد من التركيب للعميل' ,value: element.dateCommunication.toString(),):Container(),
                               element.typeCommuncation=='تركيب'?
@@ -102,7 +104,7 @@ class _careViewState extends State<careView> {
 
 
                               element.typeCommuncation=='دوري'?
-                              cardRow(title:'موظف التقييم' ,value:element.nameUser ,):Container(),
+                              cardRow(title:'موظف التقييم' ,value:getnameshort(element.nameUser) ,):Container(),
                               element.typeCommuncation=='دوري'?
                               cardRow(title:'تاريخ التقييم' ,value: element.dateCommunication.toString(),):Container(),
                               element.typeCommuncation=='دوري'?

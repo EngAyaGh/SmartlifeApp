@@ -53,8 +53,7 @@ class _tabclientsState extends State<tabclients> {
 
       // Add Your Code here.
       // Provider.of<regoin_vm>(context,listen: false).getregoin();
-      Provider.of<typeclient>(context,listen: false).type_of_client=
-      ['الكل','مشترك','تفاوض','عرض سعر','مستبعد','منسحب'];
+
       List<PrivilgeModel> list=
           await   Provider.of<privilge_vm>(context,listen: false).privilgelist;
       Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
@@ -215,17 +214,17 @@ class _tabclientsState extends State<tabclients> {
                                       isExpanded: true,
                                       hint: Text('الحالة'),
                                       //hint: Text("حدد حالة العميل"),
-                                      items: cart.type_of_client.map((level_one) {
+                                      items: cart.type_of_client_filter.map((level_one) {
                                         return DropdownMenuItem(
 
                                           child: Text(level_one), //label of item
                                           value: level_one, //value of item
                                         );
                                       }).toList(),
-                                      value:cart.selectedValuemanag,
+                                      value:cart.selectedValufilter,
                                       onChanged:(value) {
                                         //namemanage=value.toString();
-                                        cart.changevalue(value.toString());
+                                        cart.changevaluefilter(value.toString());
                                         typeclientvalue=value.toString();
                                         filtershow();
                                       },

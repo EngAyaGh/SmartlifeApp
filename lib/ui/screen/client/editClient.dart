@@ -95,7 +95,7 @@ class _editclientState extends State<editclient> {
       // Add Your Code here.
       typeclient_provider=Provider.of<typeclient>(context,listen: false);
       typeclient_provider.type_of_client =
-      widget.itemClient.typeClient!="مشترك"||widget.itemClient.typeClient!="منسحب"?
+      widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
       ['تفاوض','عرض سعر','مستبعد'] :[];
       // widget.itemClient.typeClient=="مشترك"?
       // ['منسحب','مشترك']//'مستبعد'
@@ -103,21 +103,22 @@ class _editclientState extends State<editclient> {
       // widget.itemClient.typeClient=="منسحب"?
       // ['مشترك','منسحب']
       //     :['تفاوض','عرض سعر','مستبعد'];
+      widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
+      typeclient_provider.selectedValuemanag=
+          widget.itemClient.typeClient.toString():null;
+      //typeclient_provider.getreasons('client');
+      // typeclient_provider.selectedValuemanag=
+      //     widget.itemClient.typeClient.toString();
 
-      typeclient_provider.selectedValuemanag=widget.itemClient.typeClient.toString();
-      typeclient_provider.getreasons('client');
-      typeclient_provider.selectedValuemanag=widget.itemClient.typeClient.toString();
-
-      typeclient_provider.selectedValueOut=typeclient_provider.selectedValuemanag=="منسحب"?
-      widget.itemClient.reasonChange==null?
-      null:widget.itemClient.reasonChange!.toString()
-          :null;
-
-      String val=typeclient_provider.selectedValuemanag=="منسحب"
-          ?widget.itemClient.dateChangetype.toString()
-          :formatter.format(DateTime.now());
-
-      _currentDate=DateTime.parse(val);
+      // typeclient_provider.selectedValueOut=typeclient_provider.selectedValuemanag=="منسحب"?
+      // widget.itemClient.reasonChange==null?
+      // null:widget.itemClient.reasonChange!.toString()
+      //     :null;
+      //
+      // String val=typeclient_provider.selectedValuemanag=="منسحب"
+      //     ?widget.itemClient.dateChangetype.toString()
+      //     :formatter.format(DateTime.now());
+      //_currentDate=DateTime.parse(val);
 
     });
 
@@ -133,97 +134,96 @@ void didChangeDependencies() {
   }
     @override
   Widget build(BuildContext context) {
-     // typeclient_provider=Provider.of<typeclient>(context,listen: true);
-
-      Widget dialog =
-      SimpleDialog(
-        elevation: 5,
-        //backgroundColor: Colors.yellowAccent,
-        // shape: StadiumBorder(
-        //    side: BorderSide.none
-        // ),
-        contentPadding: EdgeInsets.all(10),
-        title: Text(''),
-        children: [
-          RowEdit(name: "اسباب الإنسحاب", des: 'required'),
-          Consumer<typeclient>(
-          builder: (context, cart, child){
-            return DropdownButton(
-              isExpanded: true,
-              //hint: Text("حدد حالة العميل"),
-              items: cart.type_of_out.map((level_one) {
-                return DropdownMenuItem(
-                  child: Text(level_one.nameReason), //label of item
-                  value: level_one.idReason, //value of item
-                );
-              }).toList(),
-              value:cart.selectedValueOut,
-              onChanged:(value) {
-              //  setState(() {
-                cart.changevalueOut(value.toString());
-              // });
-              },
-            );},
-          ),
-          SizedBox(height: 3,),
-          EditTextFormField(
-            vaild: (value) {
-              if (value!.isEmpty) {
-                return label_empty;
-              }
-            },
-            hintText: "وصف سبب الإنسحاب",
-            //obscureText: false,
-          //  con: descresaonController, read: false,
-            //radius: 5,
-            maxline: 5,
-            controller: descresaonController,
-          ),
-          SizedBox(height: 3,),
-          EditTextFormField(
-            //read: false,
-            hintText: 'المبلغ المسترجع',
-            //obscureText: false,
-            controller: valueBackController,
-            //radius: 5,
-          ),
-          SizedBox(height: 3,),
-          RowEdit(name: "تاريخ الإنسحاب", des: 'required'),
-          RaisedButton(
-            onPressed: () => _selectDate(context,_currentDate),
-            child: Text('Select date'),
-          ),
-          SizedBox(height: 6,),
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // ElevatedButton(
-                //   style: ButtonStyle(
-                //       backgroundColor: MaterialStateProperty.all(
-                //           kMainColor)),
-                //   onPressed: () {
-                //
-                //     Navigator.of(context, rootNavigator: true)
-                //         .pop(false); // dismisses only the dialog and returns false
-                //   },
-                //   child: Text('تم'),
-                // ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          kMainColor)),
-                  onPressed: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .pop(false); // dismisses only the dialog and returns false
-                  },
-                  child: Text('تم'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      );
+      typeclient_provider=Provider.of<typeclient>(context,listen: true);
+      // Widget dialog =
+      // SimpleDialog(
+      //   elevation: 5,
+      //   //backgroundColor: Colors.yellowAccent,
+      //   // shape: StadiumBorder(
+      //   //    side: BorderSide.none
+      //   // ),
+      //   contentPadding: EdgeInsets.all(10),
+      //   title: Text(''),
+      //   children: [
+      //     RowEdit(name: "اسباب الإنسحاب", des: 'required'),
+      //     Consumer<typeclient>(
+      //     builder: (context, cart, child){
+      //       return DropdownButton(
+      //         isExpanded: true,
+      //         //hint: Text("حدد حالة العميل"),
+      //         items: cart.type_of_out.map((level_one) {
+      //           return DropdownMenuItem(
+      //             child: Text(level_one.nameReason), //label of item
+      //             value: level_one.idReason, //value of item
+      //           );
+      //         }).toList(),
+      //         value:cart.selectedValueOut,
+      //         onChanged:(value) {
+      //         //  setState(() {
+      //           cart.changevalueOut(value.toString());
+      //         // });
+      //         },
+      //       );},
+      //     ),
+      //     SizedBox(height: 3,),
+      //     EditTextFormField(
+      //       vaild: (value) {
+      //         if (value!.isEmpty) {
+      //           return label_empty;
+      //         }
+      //       },
+      //       hintText: "وصف سبب الإنسحاب",
+      //       //obscureText: false,
+      //     //  con: descresaonController, read: false,
+      //       //radius: 5,
+      //       maxline: 5,
+      //       controller: descresaonController,
+      //     ),
+      //     SizedBox(height: 3,),
+      //     EditTextFormField(
+      //       //read: false,
+      //       hintText: 'المبلغ المسترجع',
+      //       //obscureText: false,
+      //       controller: valueBackController,
+      //       //radius: 5,
+      //     ),
+      //     SizedBox(height: 3,),
+      //     RowEdit(name: "تاريخ الإنسحاب", des: 'required'),
+      //     RaisedButton(
+      //       onPressed: () => _selectDate(context,_currentDate),
+      //       child: Text('Select date'),
+      //     ),
+      //     SizedBox(height: 6,),
+      //     Center(
+      //       child: Row(
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         children: [
+      //           // ElevatedButton(
+      //           //   style: ButtonStyle(
+      //           //       backgroundColor: MaterialStateProperty.all(
+      //           //           kMainColor)),
+      //           //   onPressed: () {
+      //           //
+      //           //     Navigator.of(context, rootNavigator: true)
+      //           //         .pop(false); // dismisses only the dialog and returns false
+      //           //   },
+      //           //   child: Text('تم'),
+      //           // ),
+      //           ElevatedButton(
+      //             style: ButtonStyle(
+      //                 backgroundColor: MaterialStateProperty.all(
+      //                     kMainColor)),
+      //             onPressed: () {
+      //               Navigator.of(context, rootNavigator: true)
+      //                   .pop(false); // dismisses only the dialog and returns false
+      //             },
+      //             child: Text('تم'),
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //   ],
+      // );
 
       return Scaffold(
         key: _scaffoldKey,
@@ -233,19 +233,15 @@ void didChangeDependencies() {
             onPressed: () => Navigator.of(context).pop(),
           ),
           actions: [
-            IconButton(
-
-            onPressed: (){
-      if (_globalKey.currentState!.validate()) {
+        IconButton(
+        onPressed: () {
+        if (_globalKey.currentState!.validate()) {
         _globalKey.currentState!.save();
         Provider.of<LoadProvider>(context, listen: false)
             .changebooladdclient(true);
         Map<String,dynamic> body={};
         if(typeclient_provider.selectedValuemanag == "عرض سعر")
-      body={
-          "date_price":
-          formatter.format(DateTime.now()) ,
-        };
+        body={"date_price": formatter.format(DateTime.now()), };
         body.addAll({
           'name_client': nameclientController.text,
           'name_enterprise': nameEnterpriseController.text,
@@ -256,7 +252,8 @@ void didChangeDependencies() {
               : locationController.text,
           //"fk_regoin":currentUser.fkRegoin==null?"null" :currentUser.fkRegoin,
           //"date_create": ,
-          "type_client": typeclient_provider.selectedValuemanag,
+          "type_client": widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
+          typeclient_provider.selectedValuemanag:widget.itemClient.typeClient!,
           //"fk_user":widget.fkuser,
           // "date_transfer":,
           "mobile": mobileController.text,
@@ -299,7 +296,7 @@ void didChangeDependencies() {
               key: _globalKey,
               child:  Padding(
                 padding: EdgeInsets.only(
-                    top: 10,
+                    top: 20,
                     right: 20,
                     left: 20,
                     bottom: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
@@ -415,8 +412,9 @@ void didChangeDependencies() {
                       SizedBox(
                         height: 15,
                       ),
-                      RowEdit(name: label_clienttype, des: ""),
-
+                      widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
+                      RowEdit(name: label_clienttype, des: ""):Container(),
+                      widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
                       Provider.of<privilge_vm>(context,listen: true)
                           .checkprivlge('27')==true||  Provider.of<privilge_vm>(context,listen: true)
                           .checkprivlge('28')==true ?
@@ -440,7 +438,7 @@ void didChangeDependencies() {
                         //       builder: (context) => dialog);
                         // }
                       },
-                    ):Container(),
+                    ):Container():Container(),
                       SizedBox(height: 2,),
                       // Provider.of<privilge_vm>(context,listen: true)
                       //     .checkprivlge('27')==true||  Provider.of<privilge_vm>(context,listen: true)

@@ -47,6 +47,7 @@ class EditTextFormField extends StatelessWidget {
       onTap: ontap,
       keyboardType: inputType,
       readOnly: read==null?false:true,
+
       decoration: InputDecoration(
         prefixIcon: Icon(
           icon,

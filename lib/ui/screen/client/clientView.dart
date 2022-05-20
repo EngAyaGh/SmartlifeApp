@@ -11,6 +11,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/separatorLine.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
@@ -41,7 +42,11 @@ class _ClientViewState extends State<ClientView> {
           child:SingleChildScrollView(
             child: Column(
               children: [
-                cardRow(  title: 'رقم الهاتف',value:clientModel.mobile.toString()),
+                InkWell(
+                    onTap: ()async{
+                      await FlutterPhoneDirectCaller.callNumber(clientModel.mobile.toString());
+                    },
+                    child: cardRow(  title: 'رقم الهاتف',value:clientModel.mobile.toString())),
                 cardRow( title:'تاريخ الاضافة',value:clientModel.dateCreate.toString()),
                 cardRow(  title: 'المؤسسة',value:clientModel.nameEnterprise.toString()),
                 cardRow( title:'اسم العميل',value:clientModel.nameClient.toString()),
@@ -82,8 +87,7 @@ class _ClientViewState extends State<ClientView> {
                     clientModel.typeClient=="عرض سعر"
                         ||  clientModel.typeClient=="تفاوض"?
                         SizedBox(width:5 ,):Container(),
-                    clientModel.typeClient=="عرض سعر"
-                        ||  clientModel.typeClient=="تفاوض"?
+                    clientModel.typeClient=="عرض سعر" ||  clientModel.typeClient=="تفاوض"?
                     ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(

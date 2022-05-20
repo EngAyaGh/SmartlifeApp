@@ -30,7 +30,7 @@ class EventProvider extends ChangeNotifier {
     _events.clear();
     listinvoices.forEach((element) {
       if(element.dateinstall_task!=null && (element.isdoneinstall!=null ||
-          element.isdoneinstall!='0')){
+          element.isdoneinstall!='0')&& element.daterepaly==null){
           DateTime temp= DateTime.parse(element.dateinstall_task.toString()).hour>=21
               ? DateTime.parse(element.dateinstall_task.toString())
               .subtract(Duration(hours: 3)): DateTime.parse(element.dateinstall_task.toString());
@@ -43,6 +43,8 @@ class EventProvider extends ChangeNotifier {
               to:    temp.add(Duration(hours: 2)),
               idinvoice: element.idInvoice);
           addEvents(event);
+
+      }else{
 
       }
     });

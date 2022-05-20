@@ -45,20 +45,18 @@ class ticketallState extends State<ticketall> {
             children: [
               Container(
                 height: MediaQuery.of(context).size.height * 0.9,
-                child: Expanded(
-                  child: ListView.separated(
-                    itemCount: listticket_client.length,
-                    separatorBuilder: (BuildContext context, int index)
-                    => const Divider(),
-                    itemBuilder: (BuildContext context, int index)=>
-                        Builder(builder:
-                            (context)=>
-                            TicketView(
-                              ticketModel: listticket_client[index],
-                              //idinvoice: listinvoice[index].idInvoice,
+                child: ListView.separated(
+                  itemCount: listticket_client.length,
+                  separatorBuilder: (BuildContext context, int index)
+                  => const Divider(),
+                  itemBuilder: (BuildContext context, int index)=>
+                      Builder(builder:
+                          (context)=>
+                          TicketView(
+                            ticketModel: listticket_client[index],
+                            //idinvoice: listinvoice[index].idInvoice,
 
-                            )) ,
-                  ),
+                          )) ,
                 ),
               ),
 

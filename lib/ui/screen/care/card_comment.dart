@@ -6,6 +6,7 @@ import 'package:crm_smart/model/commentmodel.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../function_global.dart';
 
@@ -94,12 +95,19 @@ class cardcomment extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 15,),
-                        Text(
-                              commentmodel.content,
-                            // maxLines: 4,
-                            //overflow: TextOverflow.ellipsis,
-
-                          ),
+                        GestureDetector(
+                          onLongPress: () {
+                            Clipboard.setData(new ClipboardData(text: commentmodel.content)).then((_){
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(content: Text('Copied to your clipboard !')));
+                            });
+                          },
+                          child: Text(
+                                commentmodel.content,
+                              // maxLines: 4,
+                              //overflow: TextOverflow.ellipsis,
+                            ),
+                        ),
                       ],
                     ),
                     ),
