@@ -28,7 +28,8 @@ class EventViewingPage extends StatelessWidget {
                 // ));
               },
               icon: Icon(Icons.edit)),
-          IconButton(
+
+              IconButton(
               onPressed: () {
                 final provider =
                     Provider.of<EventProvider>(

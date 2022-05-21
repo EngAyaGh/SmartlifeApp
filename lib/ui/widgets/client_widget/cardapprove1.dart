@@ -110,6 +110,7 @@ class cardapprove1 extends StatelessWidget {
                                               'idApproveClient':itemapprove.idApproveClient,
                                               "fk_user":itemapprove.fkUser,//صاحب العميل
                                               "fk_regoin":itemapprove.fk_regoin,
+                                              "regoin":itemapprove.nameRegoin,
                                               "fk_country":itemapprove.fk_country,
                                               "isApprove": "1",
                                               'fk_invoice':itemapprove.fk_invoice,
@@ -175,6 +176,7 @@ class cardapprove1 extends StatelessWidget {
                                               'idApproveClient':itemapprove.idApproveClient,
                                               "fk_user":itemapprove.fkUser,
                                               "fk_regoin":itemapprove.fk_regoin,
+                                              "regoin":itemapprove.nameRegoin,
                                               "fk_country":itemapprove.fk_country,
                                               "isApprove": "0",
                                               "name_enterprise":itemapprove.name_enterprise,

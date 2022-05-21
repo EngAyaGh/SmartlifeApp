@@ -51,6 +51,7 @@ class _tabclientsState extends State<tabclients> {
       print(Provider.of<user_vm_provider>(context,listen: false)
           .userall.length);
       Provider.of<regoin_vm>(context,listen: false).changeVal(null);
+      Provider.of<user_vm_provider>(context,listen: false).changevalueuser(null);
       Provider.of<typeclient>(context,listen: false).changevaluefilter(null);
       // Add Your Code here.
       // Provider.of<regoin_vm>(context,listen: false).getregoin();

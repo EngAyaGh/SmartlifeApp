@@ -101,8 +101,10 @@ late NotificationModel itemNotify;
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(itemNotify.message,
-                          style: TextStyle(fontFamily: kfontfamily3),),
+                        Expanded(
+                          child: Text(itemNotify.message,
+                            style: TextStyle(fontFamily: kfontfamily3),),
+                        ),
                           ]),
                   //Row(),
                 ],

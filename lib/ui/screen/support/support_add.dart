@@ -9,9 +9,11 @@ import 'package:crm_smart/ui/screen/support/support_view.dart';
 import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/RowWidget.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/card_expansion.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/ui/widgets/widgetcalendar/utils.dart';
+import 'package:crm_smart/view_model/datetime_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
@@ -50,15 +52,17 @@ class _support_addState extends State<support_add> {
     //   //     .firstWhere(
     //   //         (element) =>
     //   //     element.idInvoice == widget.idinvoice);
-    //   // _textsupport.text = _invoice!.reason_date.toString();
-    //   WidgetsBinding.instance!.addPostFrameCallback((_)async {
-    //
-    //   //_ticketModel=_list.firstWhere((element) => element.fkClient)
-    //
-    //     Provider.of<typeclient>(context,listen: false).getreasons('ticket');
-    //   });
-    //
-    // }
+      // _textsupport.text = _invoice!.reason_date.toString();
+      WidgetsBinding.instance!.addPostFrameCallback((_)async {
+
+      //_ticketModel=_list.firstWhere((element) => element.fkClient)
+        Provider.of<datetime_vm>(context,listen: false)
+            .setdatetimevalue(DateTime(1, 1, 1));
+
+      //  Provider.of<typeclient>(context,listen: false).getreasons('ticket');
+      });
+
+
     print('init support');
     super.initState();
   }
@@ -101,87 +105,91 @@ class _support_addState extends State<support_add> {
         contentPadding: EdgeInsets.only(left: 10,right: 10,bottom: 10),
         title: Center(child: Text('إعادة جدولة',style:TextStyle(fontFamily: kfontfamily2))),
         children:[
-          Form(
-            key: _globalKey,
-            child: Column(
-              children: [
-                TextField(
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.date_range,
-                      color: kMainColor,
-                    ),
-                    hintStyle:
-                    const TextStyle(
-                        color: Colors.black45,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
-                    hintText:
-                    _invoice!.daterepaly == null
-                        && _currentDate == DateTime(1, 1, 1)
-                        ? 'تعيين الوقت والتاريخ' //_currentDate.toString()
-                        : _currentDate.toString(),//_invoice!.daterepaly.toString(),
-                    filled: true,
-                    fillColor: Colors.grey.shade200,
-                  ),
-                  readOnly:  true,
-                  onTap: () {
-                    _selectDate(context,
-                        DateTime.now());
-                    // final DateTime? pickedDate =
-                    //     await showDatePicker(
-                    //     context: context,
-                    //     currentDate: _currentDate,
-                    //     initialDate: _currentDate,
-                    //     firstDate: DateTime(2015),
-                    //     lastDate: DateTime(2090));
-                    // if (pickedDate !=
-                    //     null) //&& pickedDate != currentDate)
-                    //   setState(() {
-                    //     _currentDate = pickedDate;
-                    //     final time = Duration(
-                    //         hours: DateTime.now().hour, minutes: DateTime.now().minute);
-                    //     _currentDate.add(time);
-                    //     _invoice!.dateinstall_task = _currentDate.toString();
-                    //   });
-                  },
-                ),
-                SizedBox(height: 5,),
-                EditTextFormField(
-                  maxline: 4,
-                  hintText:
-                  'أسباب إعادة الجدولة',
-                  obscureText: false,
-                  controller: _textsupport,
-                  vaild: (value) {
-                    if (value!.isEmpty) {
-                      return 'الحقل فارغ';
-                    }
-                  },
-                ),
-                TextButton(
-                  child: Text("تثبيت"),
-                  onPressed: () async {
-                    if (_globalKey.currentState!
-                        .validate()) {
-                      _globalKey.currentState!.save();
-                      Provider.of<invoice_vm>(context, listen: false)
-                          .setdate_vm({
-                        // 'fk_invoice':,
-                        // 'fk_idClient':,
-                        // 'fk_idUser':,
-                        // 'type_date':,
-                        // 'date_install':,
-                        'daterepaly': _currentDate.toString(),
-                        'fkuserdatareplay':Provider.of<user_vm_provider>(context,listen: false)
-                            .currentUser!.idUser,
-                        'reason_date': _textsupport.text.toString()
-                      }, _invoice!.idInvoice).then((value) => clear());
-                    }
-                  },
-                ),
-              ],
-            ),
+          StatefulBuilder(
+            builder: (BuildContext context,
+                void Function(void Function()) setState) {
+             return  Form(
+  key: _globalKey,
+  child: Column(
+    children: [
+      TextField(
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            Icons.date_range,
+            color: kMainColor,
+          ),
+          hintStyle:
+          const TextStyle(
+              color: Colors.black45,
+              fontSize: 16,
+              fontWeight: FontWeight.w500),
+          hintText:
+          // _invoice!.daterepaly == null
+          //     &&
+          Provider.of<datetime_vm>(context,listen: true).valuedateTime == DateTime(1, 1, 1)
+              ? 'تعيين الوقت والتاريخ' //_currentDate.toString()
+              :
+         //_currentDate.toString(),
+        Provider.of<datetime_vm>(context,listen: true).valuedateTime.toString(),
+          //_invoice!.daterepaly.toString(),
+          filled: true,
+          fillColor: Colors.grey.shade200,
+        ),
+        readOnly:  true,
+        onTap: () {
+         setState((){
+           _selectDate(context,
+              DateTime.now());
+           print('before on tap '+_currentDate.toString());
+
+         });
+
+        },
+      ),
+      SizedBox(height: 5,),
+      EditTextFormField(
+        maxline: 4,
+        paddcustom: EdgeInsets.all(10),
+        hintText:
+        'أسباب إعادة الجدولة',
+        obscureText: false,
+        controller: _textsupport,
+        vaild: (value) {
+          if (value!.isEmpty) {
+            return 'الحقل فارغ';
+          }
+        },
+      ),
+      SizedBox(height: 10,),
+      CustomButton(
+        text: "تثبيت",
+        onTap:() async {
+          if (_globalKey.currentState!
+              .validate()) {
+            _globalKey.currentState!.save();
+            Provider.of<invoice_vm>(context, listen: false)
+                .setdate_vm({
+              // 'fk_invoice':,
+              // 'fk_idClient':,
+              // 'fk_idUser':,
+              // 'type_date':,
+              // 'date_install':,
+              'daterepaly': _currentDate.toString(),
+              'fkuserdatareplay':Provider.of<user_vm_provider>(context,listen: false)
+                  .currentUser!.idUser,
+              'reason_date': _textsupport.text.toString()
+            }, _invoice!.idInvoice).then((value) => clear());
+          }
+          Navigator.of(context, rootNavigator: true)
+              .pop(false);
+        },
+      ),
+
+    ],
+  ),
+);
+            },
+
           ),
 
         ]);
@@ -205,25 +213,6 @@ class _support_addState extends State<support_add> {
                   _invoice!.dateinstall_done == null &&
                       _invoice!.dateinstall_task==null
                       ? //تم التركيب
-
-                  //TextField(
-                  //     decoration: InputDecoration(
-                  //     prefixIcon: Icon(
-                  //       Icons.date_range,
-                  //       color: kMainColor,
-                  //     ),
-                  //     hintStyle: const TextStyle(
-                  //         color: Colors.black45,
-                  //         fontSize: 16,
-                  //         fontWeight: FontWeight.w500),
-                  //     hintText: _invoice!.dateinstall_done.toString(),
-                  //     filled: true,
-                  //     fillColor: Colors.grey.shade200,
-                  //   ),
-                  //   readOnly: true,
-                  //   onTap: () {},
-                  // )
-
                   Row(
                     children: [
                       //  SizedBox(width: 3,),
@@ -241,7 +230,7 @@ class _support_addState extends State<support_add> {
                             hintText: _invoice!.dateinstall_task ==null
                                 &&  _currentDate == DateTime(1, 1, 1)
                                 ? 'تعيين الوقت والتاريخ' //_currentDate.toString()
-                                : _invoice!.dateinstall_task.toString(),
+                                :_currentDate.toString(), //_invoice!.dateinstall_task.toString(),
                             filled: true,
                             fillColor: Colors.grey.shade200,
                           ),
@@ -464,22 +453,29 @@ class _support_addState extends State<support_add> {
       setState(() {
         // _invoice.dateinstall_task=pickedDate.toString() ;
         _currentDate = pickedDate;
-        final time = Duration(
-            hours: DateTime.now().hour, minutes: DateTime.now().minute);
+        print(_currentDate.toString());
+
+        final time = Duration(hours: DateTime.now().hour,
+            minutes: DateTime.now().minute,seconds: DateTime.now().second);
         _currentDate.add(time);
+       print('timme');
+       print(_currentDate.hour.toString());
+       print(time.toString());
         // _invoice!.dateinstall_task = _currentDate.toString();
         //_invoice!.daterepaly = _currentDate.toString();
         //_currentDate.hour=DateTime.now().hour;
+
       });
+    Provider.of<datetime_vm>(context,listen: false).setdatetimevalue(_currentDate);
+
   }
 
   clear() {
-    _scaffoldKey.currentState!
-        .showSnackBar(SnackBar(content: Text('تم التثبيت بنجاح')));
+    _currentDate = DateTime(1, 1, 1);
+    // _scaffoldKey.currentState!.showSnackBar(SnackBar(content: Text('تم التثبيت بنجاح')));
   }
 
   error() {
-    _scaffoldKey.currentState!
-        .showSnackBar(SnackBar(content: Text('يوجد مشكلة ما  ')));
+    // _scaffoldKey.currentState!.showSnackBar(SnackBar(content: Text('يوجد مشكلة ما  ')));
   }
 }

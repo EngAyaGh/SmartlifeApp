@@ -7,6 +7,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/datetime_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -49,11 +50,9 @@ class _InvoiceViewState extends State<InvoiceView> {
           Row(
 
             children: [
-              Expanded(
-                flex: 1,
-                child: Text(name,
-                  style: TextStyle(fontFamily: kfontfamily2),),
-              ),
+              //Expanded flex 1
+              Text(name,
+                style: TextStyle(fontFamily: kfontfamily2),),
               Spacer(),
               Text( price,style: TextStyle(fontFamily: kfontfamily2),),
             ],
@@ -108,7 +107,7 @@ class _InvoiceViewState extends State<InvoiceView> {
           ? widget.invoice!.date_change_back.toString()
           : formatter.format(DateTime.now());
       _currentDate=DateTime.parse(val);
-
+       Provider.of<datetime_vm>(context,listen: false).setdatetimevalue(_currentDate);
     });
     super.initState();
   }
@@ -132,8 +131,9 @@ class _InvoiceViewState extends State<InvoiceView> {
         lastDate: DateTime(2080));
     if (pickedDate != null )//&& pickedDate != currentDate)
       setState(() {
-        _currentDate = pickedDate;
-      });
+        _currentDate = pickedDate;});
+    Provider.of<datetime_vm>(context,listen: false).setdatetimevalue(_currentDate);
+     // });
   }
 
   @override
@@ -154,132 +154,131 @@ class _InvoiceViewState extends State<InvoiceView> {
       children: [
         Directionality(
           textDirection: myui.TextDirection.rtl,
-          child: Form(
-            key: _globalKey,
-            child: Column(
-              children: [
-                RowEdit(name: "اسباب الإنسحاب", des: 'required'),
-                Consumer<typeclient>(
-                  builder: (context, cart, child){
-                    return DropdownButton(
-                      isExpanded: true,
-                      //hint: Text("حدد حالة العميل"),
-                      items: cart.type_of_out.map((level_one) {
-                        return DropdownMenuItem(
-                          child: Text(level_one.nameReason), //label of item
-                          value: level_one.idReason, //value of item
-                        );
-                      }).toList(),
-                      value:cart.selectedValueOut,
-                      onChanged:(value) {
-                        //  setState(() {
-                        print('vvvvvvvvvvvvvvvvvvvvvv');
-                        print(value);
-                        cart.changevalueOut(value.toString());
+          child: StatefulBuilder(
 
-                        // });
-                      },
-                    );},
-                ),
-                SizedBox(height: 3,),
-                EditTextFormField(
-                  vaild: (value) {
-                    if (value!.isEmpty) {
-                      return label_empty;
-                    }
-                  },
-                  hintText: "وصف سبب الإنسحاب",
-                  //obscureText: false,
-                  //  con: descresaonController, read: false,
-                  //radius: 5,
-                  paddcustom: EdgeInsets.all(8),
-                  maxline: 5,
-                  controller: descresaonController,
-                ),
-                SizedBox(height: 3,),
-                EditTextFormField(
-                  //read: false,
-                  vaild: (value) {
-                    if (value!.isEmpty) {
-                      return label_empty;
-                    }
-                  },
-                  hintText: 'المبلغ المسترجع',
-                  //obscureText: false,
-                  controller: valueBackController,
-                  //radius: 5,
-                ),
-                SizedBox(height: 3,),
-                RowEdit(name: "تاريخ الإنسحاب", des: 'required'),
-                TextField(
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.date_range,
-                      color: kMainColor,
+            builder: (BuildContext context, void Function(void Function()) setState) {
+              return   Form(
+                key: _globalKey,
+                child: Column(
+                  children: [
+                    RowEdit(name: "اسباب الإنسحاب", des: 'required'),
+                    Consumer<typeclient>(
+                      builder: (context, cart, child){
+                        return DropdownButton(
+                          isExpanded: true,
+                          //hint: Text("حدد حالة العميل"),
+                          items: cart.type_of_out.map((level_one) {
+                            return DropdownMenuItem(
+                              child: Text(level_one.nameReason), //label of item
+                              value: level_one.idReason, //value of item
+                            );
+                          }).toList(),
+                          value:cart.selectedValueOut,
+                          onChanged:(value) {
+                            //  setState(() {
+                            print('vvvvvvvvvvvvvvvvvvvvvv');
+                            print(value);
+                            cart.changevalueOut(value.toString());
+
+                            // });
+                          },
+                        );},
                     ),
-                    hintStyle: const TextStyle(
-                        color: Colors.black45,
-                        fontSize: 16, fontWeight: FontWeight.w500),
-                    hintText:
-                    _currentDate.toString(),
-                    filled: true,
-                    fillColor: Colors.grey.shade200,
-                  ),
-                  readOnly: true,
-                  onTap: () {
-                    _selectDate(context,_currentDate);
-                  },
-                ),
-                // RaisedButton(
-                //   onPressed: () => _selectDate(context,_currentDate),
-                //   child: Text('Select date'),
-                // ),
-                SizedBox(height: 6,),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // ElevatedButton(
-                      //   style: ButtonStyle(
-                      //       backgroundColor: MaterialStateProperty.all(
-                      //           kMainColor)),
-                      //   onPressed: () {
-                      //
-                      //     Navigator.of(context, rootNavigator: true)
-                      //         .pop(false); // dismisses only the dialog and returns false
-                      //   },
-                      //   child: Text('تم'),
-                      // ),
-                      ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                kMainColor)),
-                        onPressed: () async {
-                          print('2121211111111111111111');
-                          print(typeclient_provider.selectedValueOut);
-                         // dismisses only the dialog and returns false
-    if (_globalKey.currentState!.validate()) {
-      _globalKey.currentState!.save();
-
-     await Provider.of<invoice_vm>(context, listen: false)
-          .set_state_back({
-        "reason_back": typeclient_provider.selectedValueOut,
-        "fkuser_back": Provider
-            .of<user_vm_provider>(context, listen: false).currentUser!.idUser.toString(),
-        "desc_reason_back": descresaonController.text,
-        "date_change_back": _currentDate.toString(),//DateTime.now().toString(),
-        "value_back": valueBackController.text,
-      }, widget.invoice!.idInvoice.toString());
-      Navigator.of(context, rootNavigator: true)
-          .pop(false);
-    }},
-                        child: Text('حفظ'),
+                    SizedBox(height: 3,),
+                    EditTextFormField(
+                      vaild: (value) {
+                        if (value!.isEmpty) {
+                          return label_empty;
+                        }
+                      },
+                      hintText: "وصف سبب الإنسحاب",
+                      //obscureText: false,
+                      //  con: descresaonController, read: false,
+                      //radius: 5,
+                      paddcustom: EdgeInsets.all(8),
+                      maxline: 5,
+                      controller: descresaonController,
+                    ),
+                    SizedBox(height: 3,),
+                    EditTextFormField(
+                      //read: false,
+                      vaild: (value) {
+                        if (value!.isEmpty) {
+                          return label_empty;
+                        }
+                      },
+                      hintText: 'المبلغ المسترجع',
+                      //obscureText: false,
+                      controller: valueBackController,
+                      //radius: 5,
+                    ),
+                    SizedBox(height: 3,),
+                    RowEdit(name: "تاريخ الإنسحاب", des: 'required'),
+                    TextField(
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.date_range,
+                          color: kMainColor,
+                        ),
+                        hintStyle: const TextStyle(
+                            color: Colors.black45,
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                        hintText://_currentDate.toString(),
+                        Provider.of<datetime_vm>(context,listen: true).valuedateTime.toString(),
+                        filled: true,
+                        fillColor: Colors.grey.shade200,
                       ),
-                    ],
-                  ),
+                      readOnly: true,
+                      onTap: () {
+                        setState((){
+                          _selectDate(context,_currentDate);
+                        });
+                      },
+                    ),
+                    // RaisedButton(
+                    //   onPressed: () => _selectDate(context,_currentDate),
+                    //   child: Text('Select date'),
+                    // ),
+                    SizedBox(height: 6,),
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+
+                          ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    kMainColor)),
+                            onPressed: () async {
+                              print('2121211111111111111111');
+                              print(typeclient_provider.selectedValueOut);
+                              // dismisses only the dialog and returns false
+                              if (_globalKey.currentState!.validate()) {
+                                _globalKey.currentState!.save();
+
+                                await Provider.of<invoice_vm>(context, listen: false)
+                                    .set_state_back({
+                                  "reason_back": typeclient_provider.selectedValueOut,
+                                  "fkuser_back": Provider
+                                      .of<user_vm_provider>(context, listen: false).currentUser!.idUser.toString(),
+                                  "desc_reason_back": descresaonController.text,
+                                  "date_change_back": _currentDate.toString(),//DateTime.now().toString(),
+                                  "value_back": valueBackController.text,
+                                }, widget.invoice!.idInvoice.toString());
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop(false);
+                              }},
+                            child: Text('حفظ'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              );
+
+            },
+
           ),
         )
 

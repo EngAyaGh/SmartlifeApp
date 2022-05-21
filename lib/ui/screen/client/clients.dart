@@ -237,6 +237,7 @@ ApproveModel itemapprove;
                                       'idApproveClient':widget.itemapprove.idApproveClient,
                                       "fk_user":widget.itemapprove.fkUser,//صاحب العميل
                                       "fk_regoin":widget.itemapprove.fk_regoin,
+                                      "regoin":widget.itemapprove.nameRegoin,
                                       "fk_country":widget.itemapprove.fk_country,
                                       "isApprove": "1",
                                       "name_enterprise":widget.itemapprove.name_enterprise,
@@ -283,6 +284,7 @@ ApproveModel itemapprove;
                           'idApproveClient':widget.itemapprove.idApproveClient,
                           "fk_user":widget.itemapprove.fkUser,
                           "fk_regoin":widget.itemapprove.fk_regoin,
+                          "regoin":widget.itemapprove.nameRegoin,
                           "fk_country":widget.itemapprove.fk_country,
                           "isApprove": "0",
                           "name_enterprise":widget.itemapprove.name_enterprise,

@@ -21,14 +21,14 @@ class cardRow extends StatelessWidget {
        // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          mainAxisAlignment: alignment==null? MainAxisAlignment.end:alignment,
+          mainAxisAlignment: alignment==null? MainAxisAlignment.spaceBetween:alignment,
          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(title,style: TextStyle(
                fontWeight: FontWeight.w600,
                 fontFamily: kfontfamily2),),
-           //SizedBox(width: 100,),
-            Spacer(flex: 1,),
+           SizedBox(width: 50,),
+            //Spacer(flex: 1,),
             isExpanded==true?
             Expanded(
                 flex: 1,

@@ -127,7 +127,7 @@ ${itemClient.nameEnterprise.toString().substring(45,itemClient.nameEnterprise.to
                         style: TextStyle(
                           color: kMainColor,
                             // fontWeight: FontWeight.bold,
-                            fontFamily: kfontfamily3 ),),
+                            fontFamily: kfontfamily2 ),),
 
                     ],
                   ),

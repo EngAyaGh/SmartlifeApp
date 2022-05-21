@@ -397,20 +397,20 @@ else{
 
                         //admin
                         RowEdit(name: label_typepay, des: 'Required'),
-                        // Container(
-                        //   padding: EdgeInsets.only(left: 2,right: 2),
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
-                        //     boxShadow: <BoxShadow>[
-                        //       BoxShadow(
-                        //         offset: Offset(1.0, 1.0),
-                        //         blurRadius: 8.0,
-                        //         color: Colors.black87.withOpacity(0.2),
-                        //       ),
-                        //     ],
-                        //     color: Colors.white,
-                        //   ),
-                        //   child:
+                        Container(
+                          padding: EdgeInsets.only(left: 2,right: 2),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all( Radius.circular(12)),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                offset: Offset(1.0, 1.0),
+                                blurRadius: 8.0,
+                                color: Colors.black87.withOpacity(0.2),
+                              ),
+                            ],
+                            color: Colors.white,
+                          ),
+                          child:
                           Consumer<selected_button_provider>(
                               builder: (context, selectedProvider, child){
                                 return  GroupButton(
@@ -437,26 +437,26 @@ else{
                               }
 
                           ),
-                        //),
+                        ),
                         //manage
                         SizedBox(
                           height: 5,
                         ),
                         RowEdit(name: label_typeinstall, des: 'Required'),
-                        // Container(
-                        //   padding: EdgeInsets.only(left: 2,right: 2),
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
-                        //     boxShadow: <BoxShadow>[
-                        //       BoxShadow(
-                        //         offset: Offset(1.0, 1.0),
-                        //         blurRadius: 8.0,
-                        //         color: Colors.black87.withOpacity(0.2),
-                        //       ),
-                        //     ],
-                        //     color: Colors.white,
-                        //   ),
-                        // child:
+                        Container(
+                          padding: EdgeInsets.only(left: 2,right: 2),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                offset: Offset(1.0, 1.0),
+                                blurRadius: 8.0,
+                                color: Colors.black87.withOpacity(0.2),
+                              ),
+                            ],
+                            color: Colors.white,
+                          ),
+                        child:
                         Consumer<selected_button_provider>(
                             builder: (context, selectedProvider, child) {
                               return  GroupButton(
@@ -482,7 +482,7 @@ else{
                             }
 
                           ),
-                       // ),
+                        ),
                         //RowEdit(name: 'Image', des: ''),
                         SizedBox(
                           height: 15,
@@ -703,24 +703,24 @@ else{
   }
   clear(BuildContext context,String value,List<ProductsInvoice>? _products) async {
 
-  int index=  Provider.of<client_vm>(context,listen: false)
-      .listClient.indexWhere(
-            (element) => element.idClients==widget.itemClient.idClients);
-   //
-
-  if(index!=-1) {
-    double total_paid=0;
-
-    total_paid=double.parse(Provider.of<client_vm>(context,listen: false)
-        .listClient[index].total_paid.toString());
-
-    total_paid=total_paid+(
-         double.parse(totalController)
-        -double.parse(amount_paidController.text));
-
-    Provider.of<client_vm>(context,listen: false).listClient[index]
-        .total_paid  =total_paid.toString();
-  }
+  // int index=  Provider.of<client_vm>(context,listen: false)
+  //     .listClient.indexWhere(
+  //           (element) => element.idClients==widget.itemClient.idClients);
+  //  //
+  //
+  // if(index!=-1) {
+  //   double total_paid=0;
+  //
+  //   total_paid=double.parse(Provider.of<client_vm>(context,listen: false)
+  //       .listClient[index].total_paid.toString());
+  //
+  //   total_paid=total_paid+(
+  //        double.parse(totalController)
+  //       -double.parse(amount_paidController.text));
+  //
+  //   Provider.of<client_vm>(context,listen: false).listClient[index]
+  //       .total_paid  =total_paid.toString();
+  // }
      print('in clear');
      //widget.indexinvoice = 0;
      _products=
