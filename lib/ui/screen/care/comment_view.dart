@@ -72,9 +72,11 @@ print('init in comment');
                     ),
                         ),
                   ),
+                  SizedBox(width: 2,),
                   Flexible(
                     child: EditTextFormField(
                      // maxLines: 3,
+                      paddcustom: EdgeInsets.all(20),
                       controller: _comment, hintText: 'إضافة تعليق',
                      // keyboardType: TextInputType.multiline,
                     ),

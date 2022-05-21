@@ -7,27 +7,36 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class cardRow extends StatelessWidget {
-  cardRow({this.alignment,required this.value,required this.title,Key? key})
+  cardRow({
+    this.alignment,required this.value,required this.title,this.isExpanded,Key? key})
       : super(key: key);
   var alignment;
   String title;
   String value;
+  bool? isExpanded=false;
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-       // crossAxisAlignment: CrossAxisAlignment.end,
+        //mainAxisAlignment: MainAxisAlignment.start,
+       // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          mainAxisAlignment: alignment==null? MainAxisAlignment.start:alignment,
-
+          mainAxisAlignment: alignment==null? MainAxisAlignment.end:alignment,
+         crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(title,style: TextStyle(fontFamily: kfontfamily2),),
-            Spacer(),
+            Text(title,style: TextStyle(
+               fontWeight: FontWeight.w600,
+                fontFamily: kfontfamily2),),
+           //SizedBox(width: 100,),
+            Spacer(flex: 1,),
+            isExpanded==true?
             Expanded(
                 flex: 1,
-                child: Text(value,style: TextStyle(fontFamily: kfontfamily2),)),
-          ],
+                child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Text(value,style: TextStyle( fontWeight: FontWeight.w500,fontFamily: kfontfamily2),)))
+          :Text(value,style: TextStyle( fontWeight: FontWeight.w500,fontFamily: kfontfamily2),),
+    ],
         ),
         //Spacer(),
         Divider(thickness: 1,color: Colors.grey,),

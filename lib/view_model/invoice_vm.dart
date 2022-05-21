@@ -260,7 +260,7 @@ class invoice_vm extends ChangeNotifier{
     if(res=="done"){
       int index=listproductinvoic
           .indexWhere((element) => element.idInvoiceProduct==idInvoiceProduct);
-      listproductinvoic.removeAt(index);
+     if(index!=-1) listproductinvoic.removeAt(index);
 
       notifyListeners();
 

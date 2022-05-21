@@ -65,8 +65,8 @@ class _add_invoiceProductState extends State<add_invoiceProduct> {
     //         .fkCountry;
 
     WidgetsBinding.instance!.addPostFrameCallback((_){
-    Provider.of<product_vm>(context, listen: false)
-        .getproduct_vm();});
+
+    });
     super.initState();
   }
   @override void didChangeDependencies() {
@@ -137,8 +137,7 @@ void calculate(){
             for(int i=0; i<pinv.length;i++){
               _total=_total+double.parse(pinv[i].price.toString());
             }
-            widget.invoice!
-                .total=_total.toString();
+            widget.invoice!.total=_total.toString();
             print('_total.toString();');
             print(_total.toString());
             Provider.of<invoice_vm>(context,listen: false).set_total(_total.toString());

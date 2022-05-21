@@ -46,13 +46,13 @@ class _ClientViewState extends State<ClientView> {
                     onTap: ()async{
                       await FlutterPhoneDirectCaller.callNumber(clientModel.mobile.toString());
                     },
-                    child: cardRow(  title: 'رقم الهاتف',value:clientModel.mobile.toString())),
+                    child: cardRow(  title:'رقم الهاتف',value:clientModel.mobile.toString())),
                 cardRow( title:'تاريخ الاضافة',value:clientModel.dateCreate.toString()),
-                cardRow(  title: 'المؤسسة',value:clientModel.nameEnterprise.toString()),
-                cardRow( title:'اسم العميل',value:clientModel.nameClient.toString()),
+                cardRow(  title: 'المؤسسة',value:clientModel.nameEnterprise.toString(),isExpanded: true,),
+                cardRow( title:'اسم العميل',value:clientModel.nameClient.toString(),isExpanded: true,),
                 cardRow( title:' المنطقة',value:clientModel.name_regoin.toString()),
                 cardRow( title:' المدينة',value:clientModel.city.toString()),
-                cardRow( title:' حالة العميل',value:clientModel.typeClient.toString()),
+                cardRow( title:'حالة العميل',value:clientModel.typeClient.toString()),
                 clientModel.offer_price!=null&&clientModel.offer_price.toString().trim().isNotEmpty?
                 cardRow( title:'مبلغ عرض السعر',value:clientModel.offer_price.toString()):Container(),
                 clientModel.offer_price!=null&&clientModel.offer_price.toString().trim().isNotEmpty?
@@ -61,9 +61,9 @@ class _ClientViewState extends State<ClientView> {
                 cardRow( title:'الموظف',value:getnameshort(clientModel.nameUser.toString())),
                 cardRow( title:'رقم الموظف',value:clientModel.mobileuser.toString()),
                 clientModel.nameusertransfer!=null?
-                cardRow( title:' قام بتحويل العميل',value:getnameshort(clientModel.nameusertransfer.toString())):Container(),
+                cardRow( title:'قام بتحويل العميل',value:getnameshort(clientModel.nameusertransfer.toString())):Container(),
                 clientModel.nameusertransfer!=null?
-                cardRow( title:' تاريخ التحويل',value:clientModel.dateTransfer.toString()):Container(),
+                cardRow( title:'تاريخ التحويل',value:clientModel.dateTransfer.toString()):Container(),
 
                 Center(
                 child: Row(
@@ -71,19 +71,20 @@ class _ClientViewState extends State<ClientView> {
                   //crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
 
-                    CustomButton(
-                      text: 'تعديل بيانات العميل',
-                      onTap: () async {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => editclient(
-                                    itemClient: clientModel,
-                                    fkclient: clientModel.idClients.toString(),
-                                    fkuser: clientModel.fkUser.toString())
-                                    ));
-                      },
-                    ),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              kMainColor)),
+                      onPressed: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => editclient(
+                                  itemClient: clientModel,
+                                  fkclient: clientModel.idClients.toString(),
+                                  fkuser: clientModel.fkUser.toString())
+                          ));
+                     },  child:Text ('تعديل بيانات العميل'),),
                     clientModel.typeClient=="عرض سعر"
                         ||  clientModel.typeClient=="تفاوض"?
                         SizedBox(width:5 ,):Container(),

@@ -133,7 +133,6 @@ class _InvoiceViewState extends State<InvoiceView> {
     if (pickedDate != null )//&& pickedDate != currentDate)
       setState(() {
         _currentDate = pickedDate;
-
       });
   }
 
@@ -193,6 +192,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                   //obscureText: false,
                   //  con: descresaonController, read: false,
                   //radius: 5,
+                  paddcustom: EdgeInsets.all(8),
                   maxline: 5,
                   controller: descresaonController,
                 ),
@@ -360,23 +360,23 @@ class _InvoiceViewState extends State<InvoiceView> {
                         title: 'آخر تعديل من قبل',
                         value: widget.invoice!.date_lastuserupdate != null?
                         getnameshort(  widget.invoice!.lastuserupdateName.toString()):''),
-                   widget.invoice!.date_change_back==null?
+                   widget.invoice!.date_change_back!=null?
                    cardRow(
                         title: 'تاريخ الإنسحاب',
                         value: widget.invoice!.date_change_back.toString() ):Container(),
-                    widget.invoice!.date_change_back==null?
+                    widget.invoice!.date_change_back!=null?
                     cardRow(
                         title: 'تم الإنسحاب عن طريق',
                         value:
                         getnameshort(widget.invoice!.nameuserback.toString())):Container(),
-                    widget.invoice!.fkuser_back==null?
+                    widget.invoice!.fkuser_back!=null?
                     cardRow(
                         title: 'المبلغ المسترجع',
                         value: widget.invoice!.value_back.toString() ):Container(),
-                    widget.invoice!.fkuser_back==null?  cardRow(
+                    widget.invoice!.fkuser_back!=null?  cardRow(
                         title: 'سبب الإنسحاب',
                         value:
-                         widget.invoice!.desc_reason_back.toString()):Container(),
+                         widget.invoice!.desc_reason_back.toString(),isExpanded: true,):Container(),
 
                     Padding(
                       padding: const EdgeInsets.all(8.0),

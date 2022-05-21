@@ -13,6 +13,8 @@ class CommunicationModel {
     required this.dateNext,
     required this.nameEnterprise,
     required this.nameUser,
+    required this.id_invoice,
+    required this.date_create,
   });
   late final String idCommunication;
   late final String fkClient;
@@ -27,6 +29,8 @@ class CommunicationModel {
   late final String? dateNext;
   late final String nameEnterprise;
   late final String nameUser;
+  late final String id_invoice;
+  late final String date_create;
 
   CommunicationModel.fromJson(Map<String, dynamic> json){
     idCommunication = json['id_communication'];
@@ -42,6 +46,8 @@ class CommunicationModel {
     dateNext = json['date_next'];
     nameEnterprise = json['name_enterprise'];
     nameUser = json['nameUser'];
+    id_invoice = json['id_invoice'];
+    date_create = json['date_create'];
   }
 
   Map<String, dynamic> toJson() {
@@ -59,6 +65,8 @@ class CommunicationModel {
     _data['date_next'] = dateNext;
     _data['name_enterprise'] = nameEnterprise;
     _data['nameUser'] = nameUser;
+    _data['id_invoice'] = id_invoice;
+    _data['date_create'] = date_create;
     return _data;
   }
 }

@@ -14,9 +14,9 @@ class user_vm_provider extends ChangeNotifier{
   List<UserModel> userall=[];
   var isLoading = true;
   bool isupdate=false;
-  late String? selecteduser=null;
+  late UserModel? selecteduser=null;
 
-  void changevalueuser(String s){
+  void changevalueuser(UserModel? s){
     selecteduser=s;
     notifyListeners();
   }

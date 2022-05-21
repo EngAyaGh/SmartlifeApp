@@ -10,6 +10,7 @@ import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
+import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -68,14 +69,15 @@ class _HomeState extends State<Home> {
 
     // Provider.of<user_vm_provider>(context, listen: false)
     //     .getcurrentuser();
-    print('in home...didchange');
+    print('in home...init');
     WidgetsBinding.instance!.addPostFrameCallback((_){
 
       // Add Your Code here.
        //Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
       Provider.of<regoin_vm>(context,listen: false).getregoin();
       Provider.of<notifyvm>(context,listen: false).getcounter();
-
+      Provider.of<product_vm>(context, listen: false)
+          .getproduct_vm();
     });
 
     // List<PrivilgeModel> list= Provider.of<privilge_vm>(context,listen: false).privilgelist;

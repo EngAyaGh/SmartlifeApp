@@ -55,10 +55,9 @@ class support_view_invoicesState extends State<support_view_invoices> {
         child: listinvoice.isNotEmpty?
         Container(
           //height: MediaQuery.of(context).size.height * 1,
-          child: ListView.separated(
+          child: ListView.builder(
             itemCount: listinvoice.length,
-            separatorBuilder: (BuildContext context, int index)
-            => const Divider(),
+
             itemBuilder: (BuildContext context, int index)=>
                 Builder(builder:
                     (context)=>

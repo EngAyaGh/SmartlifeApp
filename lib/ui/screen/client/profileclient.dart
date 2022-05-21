@@ -5,6 +5,7 @@ import 'package:crm_smart/model/communication_modle.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/ui/screen/care/careView.dart';
+import 'package:crm_smart/ui/screen/care/care_client_view.dart';
 import 'package:crm_smart/ui/screen/care/comment_view.dart';
 import 'package:crm_smart/ui/screen/invoice/invoces.dart';
 import 'package:crm_smart/ui/screen/invoice/invoiceView.dart';
@@ -188,7 +189,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
                 //   idinvoice:_invoiceModel==null?'': _invoiceModel!.idInvoice,
                 //
                 // ),
-                careView(   fk_client:_clientModel.idClients.toString(),),
+                care_client_view(   fk_client:_clientModel.idClients.toString(),),
                 //InvoiceView(invoice: _invoiceModel,),
                 //Icon(Icons.add),
               ],

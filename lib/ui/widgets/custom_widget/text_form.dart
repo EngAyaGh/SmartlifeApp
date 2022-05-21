@@ -16,6 +16,7 @@ class EditTextFormField extends StatelessWidget {
   IconData? icon;
   TextInputType? inputType;
    bool? read=null;
+   EdgeInsetsGeometry? paddcustom;
 
   EditTextFormField(
        {
@@ -30,6 +31,8 @@ class EditTextFormField extends StatelessWidget {
          this.maxline,
          this.inputType,
          this.read,
+         this.paddcustom,
+
         Key? key
        })
       : super(key: key);
@@ -49,6 +52,10 @@ class EditTextFormField extends StatelessWidget {
       readOnly: read==null?false:true,
 
       decoration: InputDecoration(
+
+        contentPadding:
+        paddcustom==null?
+         EdgeInsets.all(2):paddcustom,
         prefixIcon: Icon(
           icon,
           color: kMainColor,

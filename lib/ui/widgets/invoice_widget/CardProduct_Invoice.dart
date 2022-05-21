@@ -30,7 +30,7 @@ class CardProduct_invoice extends StatefulWidget {
 class _CardProduct_invoiceState extends State<CardProduct_invoice> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 bool isepmty=false;
-  int index=0;
+  // int index=0;
   TextEditingController _taxuser = TextEditingController();
   late String _taxuser_value;
 
@@ -238,20 +238,19 @@ SizedBox(width: 15,),
                   {
                     // Provider.of<invoice_vm>(context,listen: false)
                     //     .listproductinvoic[index].isdeleted=true,
-
-                    Provider.of<invoice_vm>(context,listen: false)
-                        .removelistproductinvoic(index);
+                    // Provider.of<invoice_vm>(context,listen: false)
+                    //     .removelistproductinvoic(index);
                     Provider.of<invoice_vm>(
                         context, listen: false)
-                        .deleteProductInInvoice(
-                        widget.itemProd.idInvoiceProduct);
+                        .deleteProductInInvoice(widget.itemProd.idInvoiceProduct);
+
                   }
                   else
                   {
-
+                    int index=Provider.of<invoice_vm>(context,listen: false).listproductinvoic
+                        .indexWhere((element) => element.idInvoiceProduct== widget.itemProd.idInvoiceProduct);
                     Provider.of<invoice_vm>(context,listen: false)
                         .removelistproductinvoic(index);
-
                   }
                   Navigator.of(context, rootNavigator: true)
                       .pop(false);

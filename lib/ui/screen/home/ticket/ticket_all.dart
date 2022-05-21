@@ -4,6 +4,7 @@ import 'package:crm_smart/model/ticketmodel.dart';
 import 'package:crm_smart/ui/screen/home/ticket/ticketview.dart';
 import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
 import 'package:crm_smart/ui/screen/support/support_add.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/card_expansion.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/invoice_widget/Card_invoice_client.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
@@ -52,11 +53,14 @@ class ticketallState extends State<ticketall> {
                   itemBuilder: (BuildContext context, int index)=>
                       Builder(builder:
                           (context)=>
-                          TicketView(
-                            ticketModel: listticket_client[index],
-                            //idinvoice: listinvoice[index].idInvoice,
+                         buildcardExpansion('تاريخ فتح التذكرة  '+listticket_client[index].dateOpen,
+                             listticket_client[index].typeTicket ,
+                             TicketView(
+                           ticketModel: listticket_client[index],
+                           //idinvoice: listinvoice[index].idInvoice,
 
-                          )) ,
+                         ))
+                       ) ,
                 ),
               ),
 

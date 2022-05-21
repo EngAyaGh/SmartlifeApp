@@ -27,31 +27,32 @@ class _TicketViewState extends State<TicketView> {
   @override
   Widget build(BuildContext context) {
     return  Padding(
-        padding: const EdgeInsets.only(top: 10,bottom: 20,left: 10,right: 10),
+        padding: const EdgeInsets.only(top: 10,bottom: 4,left: 10,right: 10),
         // child:
         // ContainerShadows (
         //   margin: EdgeInsets.all(2),
-          child: Padding(
-            padding: const EdgeInsets.all(2),
-            child: Column(
-            children: [
-              cardRow(title: 'اسم المؤسسة',value:widget.ticketModel.nameEnterprise.toString()),
-              cardRow(title: 'المدينة',value: widget.ticketModel.nameRegoin.toString()),
-              cardRow(title: 'قام بفتح التذكرة ',value: getnameshort( widget.ticketModel.nameuseropen.toString())),
-              cardRow(title: 'تاريخ فتح التذكرة ',value:  widget.ticketModel.dateOpen.toString()),
-              cardRow(title: 'حالة التذكرة',value: widget.ticketModel.typeTicket.toString()),
-              cardRow(title: 'وصف المشكلة',value: widget.ticketModel.detailsProblem.toString()),
-              cardRow(title: 'نوع المشكلة',value: widget.ticketModel.typeProblem.toString()),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(2),
+              child: Column(
+              children: [
+                cardRow(title: 'اسم المؤسسة',value:widget.ticketModel.nameEnterprise.toString()),
+                cardRow(title: 'المدينة',value: widget.ticketModel.nameRegoin.toString()),
+                cardRow(title: 'قام بفتح التذكرة ',value: getnameshort( widget.ticketModel.nameuseropen.toString())),
+                cardRow(title: 'تاريخ فتح التذكرة ',value:  widget.ticketModel.dateOpen.toString()),
+                cardRow(title: 'حالة التذكرة',value: widget.ticketModel.typeTicket.toString()),
+                //cardRow(title: 'وصف المشكلة',value: widget.ticketModel.detailsProblem.toString(),isExpanded: true,),
+                cardRow(title: 'نوع المشكلة',value: widget.ticketModel.typeProblem.toString(),isExpanded: true,),
 
-                widget.ticketModel.dateRecive!=null?
-                cardRow(title: 'قام باستلام التذكرة ',value: getnameshort( widget.ticketModel.nameuserrecive.toString())):Container(),
-                widget.ticketModel.dateRecive!=null?
-                cardRow(title: 'تاريخ استلام التذكرة ',value:  widget.ticketModel.dateRecive.toString()):Container(),
-                widget.ticketModel.dateClose!=null?
-                cardRow(title: 'قام بإغلاق التذكرة ',value: getnameshort( widget.ticketModel.nameuserclose.toString())):Container(),
-                widget.ticketModel.dateClose!=null?
-                cardRow(title: 'تاريخ إغلاق التذكرة ',value:  widget.ticketModel.dateClose.toString()):Container(),
-                SizedBox(height: 15,),
+                  widget.ticketModel.dateRecive!=null?
+                  cardRow(title: 'قام باستلام التذكرة ',value: getnameshort( widget.ticketModel.nameuserrecive.toString())):Container(),
+                  widget.ticketModel.dateRecive!=null?
+                  cardRow(title: 'تاريخ استلام التذكرة ',value:  widget.ticketModel.dateRecive.toString()):Container(),
+                  widget.ticketModel.dateClose!=null?
+                  cardRow(title: 'قام بإغلاق التذكرة ',value: getnameshort( widget.ticketModel.nameuserclose.toString())):Container(),
+                  widget.ticketModel.dateClose!=null?
+                  cardRow(title: 'تاريخ إغلاق التذكرة ',value:  widget.ticketModel.dateClose.toString()):Container(),
+                  SizedBox(height: 10,),
       widget.ticketModel.dateRecive!=null &&  widget.ticketModel.dateClose==null?
       Padding(
       padding: const EdgeInsets.all(6.0),
@@ -66,45 +67,47 @@ class _TicketViewState extends State<TicketView> {
       builder: (context)=>transferClient(
       name_enterprise:   widget.ticketModel.nameEnterprise.toString(),
       idclient:    widget.ticketModel.fkClient.toString(),
-            idticket:widget.ticketModel.idTicket,
+              idticket:widget.ticketModel.idTicket,
       type: "ticket",),fullscreenDialog: true
 
       ));
       },
       child: Text('تحويل العميل'),
       ))):Container(),
-                widget.ticketModel.dateRecive==null?  ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            kMainColor)),
-                    onPressed: () async{
-                     Provider.of<ticket_vm>(context,listen: false)
-                         .updateTicketvm({
-                       'fk_user_recive':Provider.of<user_vm_provider>
-                         (context,listen: false).currentUser!.idUser.toString(),
-                           'date_recive':DateTime.now().toString(),
-                          'type_ticket':'قيد التنفيذ'
+                  widget.ticketModel.dateRecive==null?  ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              kMainColor)),
+                      onPressed: () async{
+                       Provider.of<ticket_vm>(context,listen: false)
+                           .updateTicketvm({
+                         'fk_user_recive':Provider.of<user_vm_provider>
+                           (context,listen: false).currentUser!.idUser.toString(),
+                             'date_recive':DateTime.now().toString(),
+                            'type_ticket':'قيد التنفيذ'
 
-                     },  widget.ticketModel.idTicket);
-                    },
-                    child: Text('استلام التذكرة'))
-                   : ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            kMainColor)),
-                    onPressed: () async{
-                      Provider.of<ticket_vm>(context,listen: false)
-                          .updateTicketvm({
-                        'fk_user_close':Provider.of<user_vm_provider>
-                          (context,listen: false).currentUser!.idUser.toString(),
-                        'date_close':DateTime.now().toString(),
-                        'type_ticket':'مغلقة '
-                      },  widget.ticketModel.idTicket);
-                    },
-                    child: Text('اغلاق التذكرة'))
+                       },  widget.ticketModel.idTicket);
+                      },
+                      child: Text('استلام التذكرة'))
+                     : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              kMainColor)),
+                      onPressed: () async{
+                        Provider.of<ticket_vm>(context,listen: false)
+                            .updateTicketvm({
+                          'fk_user_close':Provider.of<user_vm_provider>
+                            (context,listen: false).currentUser!.idUser.toString(),
+                          'date_close':DateTime.now().toString(),
+                          'type_ticket':'مغلقة '
+                        },  widget.ticketModel.idTicket);
+                      },
+                      child: Text('اغلاق التذكرة')),
+              SizedBox(height: 5,)
               ],
-            ),
-            ),
+              ),
+              ),
+          ),
          // ),
         );
   }

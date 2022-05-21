@@ -20,6 +20,17 @@ String getnameshort(String name){
   name.toString();
   return nameshort;
 }
+String get_title_care(String type ){
+  switch(type){
+    case 'ترحيب':
+      return 'تفاصيل الترحيب بالعميل ';
+    case 'تركيب':
+      return  'تفاصيل جودة التركيب والتدريب  ';
+    case 'دوري':
+      return 'تفاصيل آخر تقييم للخدمة ';
+  }
+return '';
+}
 String showtext(String typeNotify){
 
   switch (typeNotify){

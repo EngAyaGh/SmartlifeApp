@@ -489,6 +489,7 @@ else{
                         ),
                         RowEdit(name: label_note, des: ''),
                         EditTextFormField(
+                          paddcustom: EdgeInsets.all(16),
                           maxline: 3,
                           hintText: label_note,
                           obscureText: false,

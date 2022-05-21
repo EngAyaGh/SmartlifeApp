@@ -44,13 +44,14 @@ class _tabclientsState extends State<tabclients> {
   @override
   void initState() {
     super.initState();
-    Provider.of<user_vm_provider>(context,listen: false)
-        .getuser_vm();
-    print(Provider.of<user_vm_provider>(context,listen: false)
-        .userall.length);
 
     WidgetsBinding.instance!.addPostFrameCallback((_)async{
-
+      Provider.of<user_vm_provider>(context,listen: false)
+          .getuser_vm();
+      print(Provider.of<user_vm_provider>(context,listen: false)
+          .userall.length);
+      Provider.of<regoin_vm>(context,listen: false).changeVal(null);
+      Provider.of<typeclient>(context,listen: false).changevaluefilter(null);
       // Add Your Code here.
       // Provider.of<regoin_vm>(context,listen: false).getregoin();
 
@@ -118,16 +119,19 @@ class _tabclientsState extends State<tabclients> {
             builder: (context, privilge, child){
           return RefreshIndicator(
             onRefresh: ()async{
-
-              Provider.of<regoin_vm>(context,listen: false).changeVal(null);
-              Provider.of<typeclient>
-                (context,listen: false)
-                  .changevalue(null);
+              ///setstat
+               Provider.of<regoin_vm>(context,listen: false).changeVal(null);
+               Provider.of<typeclient>(context,listen: false).changevaluefilter(null);
+               Provider.of<user_vm_provider>(context,listen: false).changevalueuser(null);
               await    Provider.of<client_vm>(context, listen: false)
                   .getclient_vm(
                 // Provider.of<privilge_vm>(context,listen: false)
                 //     .privilgelist
               );
+               // setState(() {
+               //   Provider.of<user_vm_provider>(context,listen: false).changevalueuser();
+               // });
+
             },
             child: SafeArea(
               child: Padding(
@@ -253,8 +257,10 @@ class _tabclientsState extends State<tabclients> {
                               itemAsString: (u) => u!.userAsString(),
                               onChanged: (data) {
                                 iduser=data!.idUser;
+                                cart.changevalueuser(data);
                                 filtershow();
                               } ,
+                              selectedItem: cart.selecteduser,
                               showSearchBox: true,
                               dropdownSearchDecoration:
                               InputDecoration(
@@ -335,6 +341,11 @@ class _tabclientsState extends State<tabclients> {
         );
   }
   void filtershow(){
+
+    if(typeclientvalue=='الكل'){
+      Provider.of<client_vm>(context, listen: false) .resetlist();
+    }
+    else{
     if( Provider.of<regoin_vm>(context,listen: false).selectedValueLevel!=null&&
         iduser!=null){
       Provider.of<client_vm>(context, listen: false)
@@ -357,5 +368,6 @@ class _tabclientsState extends State<tabclients> {
               .getclientfilter_Local(iduser,"user",typeclientvalue,null);
         }
       }}
+    }
   }
 }

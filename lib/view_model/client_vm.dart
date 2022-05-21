@@ -69,10 +69,18 @@ class client_vm extends ChangeNotifier {
     // List<ClientModel> lists=[];
     listClientfilter=[];
     if(type=="3"){
+      print('kljkjk');
+      if(filter2==null){
       listClient.forEach((element) {
-        if( element.fkUser==searchfilter&&element.typeClient==filter2&&element.fkRegoin==filter3)
+        if( element.fkUser==searchfilter&&element.fkRegoin==filter3)
           listClientfilter.add(element);
       });
+      }else{
+        listClient.forEach((element) {
+          if( element.fkUser==searchfilter&&element.typeClient==filter2&&element.fkRegoin==filter3)
+            listClientfilter.add(element);
+        });
+      }
     }
     if(type=="type"){
 
@@ -112,6 +120,11 @@ class client_vm extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+  void resetlist(){
+
+   listClientfilter= listClient;
+   notifyListeners();
   }
   Future<void> getclient_vm(
      // List<PrivilgeModel> privilgelist
