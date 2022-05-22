@@ -248,51 +248,122 @@ class _EditProductState extends State<EditProduct> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
-                    _isLoading
-                        ? CircularProgressIndicator()
-                        : CustomButton(
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      text: "تعديل",
-                      onTap: () async {
-                        if (_globalKey.currentState!.validate()) {
-                          _globalKey.currentState!.save();
-                          Provider.of<LoadProvider>(context, listen: false)
-                              .changeLoadingupdateprod(true);
+                    Row(
+                      children: [
+                        _isLoading
+                            ? CircularProgressIndicator()
+                            : CustomButton(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          text: "تعديل",
+                          onTap: () async {
+                            if (_globalKey.currentState!.validate()) {
+                              _globalKey.currentState!.save();
+                              Provider.of<LoadProvider>(context, listen: false)
+                                  .changeLoadingupdateprod(true);
 
-                          settaxrate(context);
-                          print("update");
-                          print(valtype_product);
-                          print(valtaxrate);
-                          print(taxrate.id_config);
-                          valtype_product=   Provider.of<selected_button_provider>(context,listen: false)
-                              .isSelected;
-                          valtaxrate=  Provider.of<switch_provider>(context,listen: false).isSwitched;
-                          Provider.of<product_vm>(context, listen: false)
-                              .updateproduct_vm(
-                              {
-                                'nameProduct': nameprod,
-                                'priceProduct': price.toString(),
-                                'type': valtype_product.toString(),
-                                'fk_country':idCountry,
-                                'fk_config': valtaxrate ? taxrate.id_config : "null",
-                                "value_config":valtaxrate ?taxrate.value_config:"null",
-                                "id_product": widget.productModel.idProduct.toString()
-                              },
-                              widget.productModel.idProduct.toString())
-                              .then((value) => value
-                              ? clear(context)
-                              : error()
-                            // Fluttertoast.showToast(
-                            //  backgroundColor:
-                            //      Colors.lightBlueAccent,
-                            //  msg: label_errorAddProd, // message
-                            //  toastLength:
-                            //      Toast.LENGTH_SHORT, // length
-                            //  gravity: ToastGravity.CENTER, //
-                          );
-                        }
-                      },
+                              settaxrate(context);
+                              print("update");
+                              print(valtype_product);
+                              print(valtaxrate);
+                              print(taxrate.id_config);
+                              valtype_product=   Provider.of<selected_button_provider>(context,listen: false)
+                                  .isSelected;
+                              valtaxrate=  Provider.of<switch_provider>(context,listen: false).isSwitched;
+                              Provider.of<product_vm>(context, listen: false)
+                                  .updateproduct_vm(
+                                  {
+                                    'nameProduct': nameprod,
+                                    'priceProduct': price.toString(),
+                                    'type': valtype_product.toString(),
+                                    'fk_country':idCountry,
+                                    'fk_config': valtaxrate ? taxrate.id_config : "null",
+                                    "value_config":valtaxrate ?taxrate.value_config:"null",
+                                    "id_product": widget.productModel.idProduct.toString()
+                                  },
+                                  widget.productModel.idProduct.toString())
+                                  .then((value) => value
+                                  ? clear(context)
+                                  : error()
+                                // Fluttertoast.showToast(
+                                //  backgroundColor:
+                                //      Colors.lightBlueAccent,
+                                //  msg: label_errorAddProd, // message
+                                //  toastLength:
+                                //      Toast.LENGTH_SHORT, // length
+                                //  gravity: ToastGravity.CENTER, //
+                              );
+                            }
+                          },
+                        ),
+
+                        CustomButton(
+                            onTap: ()async{
+                              bool result = await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return ModalProgressHUD(
+                                    inAsyncCall: Provider.of<LoadProvider>(context)
+                                        .isLoadingdelete,
+
+                                    child: AlertDialog(
+                                      title: Text('تأكيد'),
+                                      content: Text('هل تريد الحذف'),
+                                      actions: <Widget>[
+                                        new FlatButton(
+                                          onPressed: () {
+                                            Navigator.of(context, rootNavigator: true)
+                                                .pop(false); // dismisses only the dialog and returns false
+                                          },
+                                          child: Text('لا'),
+                                        ),
+                                        FlatButton(
+                                          onPressed: ()async {
+                                            Provider.of<LoadProvider>(context,listen: false)
+                                                .changebooldelete(true);
+                                            String res =await Provider.of<product_vm>(context,listen: false)
+                                                .deleteProduct( widget.productModel.idProduct);
+                                            Provider.of<LoadProvider>(context,listen: false)
+                                                .changebooldelete(false);
+                                            print(res);
+                                            if(res=="remove error")
+                                              _scaffoldKey!.currentState!.showSnackBar(
+                                                  SnackBar(content: Text("لا يمكن حذف هذا المنتج"))
+                                              );
+                                            else{
+
+                                              if(res=="done")
+                                                _scaffoldKey!.currentState!.showSnackBar(
+                                                    SnackBar(content: Text("تم الحذف بنجاح")) );
+                                              else
+                                              if(res=='bad requst')
+                                                _scaffoldKey!.currentState!.showSnackBar(
+                                                    SnackBar(content: Text("ارسال خاطئ")));
+                                              else
+                                              if(res=='error')
+                                                _scaffoldKey!.currentState!.showSnackBar(
+                                                    SnackBar(content: Text(" هناك مشكلة ما أثناء حذف المنتج")));
+                                              else
+                                                _scaffoldKey!.currentState!.showSnackBar(
+                                                    SnackBar(content: Text("يوجد مشكلة ما ")));
+                                            }
+
+                                            Navigator.of(context, rootNavigator: true)
+                                                .pop(true); // dismisses only the dialog and returns true
+                                          },
+                                          child: Text('نعم'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+
+                            },
+                            text: 'حذف'),
+                      ],
                     )
+
+
                   ],
                 ),
               ),

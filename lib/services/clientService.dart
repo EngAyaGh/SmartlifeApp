@@ -22,29 +22,29 @@ class ClientService{
     return ClientModel.fromJson(result[0]);
   }
   //id_product
-  Future<List<ClientModel>> updateClient( Map<String,dynamic> body,String idclient) async {
+  Future<ClientModel> updateClient( Map<String,dynamic> body,String idclient) async {
     var data = await Api()
         .post( url:url+"client/clientUpdate.php?id_clients=$idclient",
         body: body );
-    List<ClientModel> prodlist = [];
-
-    for (int i = 0; i < data.length; i++) {
-      prodlist.add(ClientModel.fromJson(data[i]));
-    }
-    print(prodlist);
-    return prodlist;  // );//=="done"? true:false;
+    // List<ClientModel> prodlist = [];
+    //
+    // for (int i = 0; i < data.length; i++) {
+    //   prodlist.add(ClientModel.fromJson(data[i]));
+    // }
+    // print(prodlist);
+    return ClientModel.fromJson(data[0]);  // );//=="done"? true:false;
   }
-  Future<List<ClientModel>> setApproveClient( Map<String,dynamic> body,String idclient) async {
+  Future<ClientModel> setApproveClient( Map<String,dynamic> body,String idclient) async {
     var data = await Api()
         .post( url:url+"client/setApproveClient.php?id_clients=$idclient",body:
     body
     );
-    List<ClientModel> prodlist = [];
-    for (int i = 0; i < data.length; i++) {
-      prodlist.add(ClientModel.fromJson(data[i]));
-    }
-    print(prodlist);
-    return prodlist;
+    // List<ClientModel> prodlist = [];
+    // for (int i = 0; i < data.length; i++) {
+    //   prodlist.add(ClientModel.fromJson(data[i]));
+    // }
+    // print(prodlist);
+    return ClientModel.fromJson(data[0]);
     //client/setApproveClient.php
   // return result[0];//=="done"? true:false;
   }

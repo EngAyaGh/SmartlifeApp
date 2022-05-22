@@ -55,9 +55,9 @@ bool isepmty=false;
         _textprice.text=widget.itemProd.priceProduct!;
         String? taxCountry=widget.itemProd.taxtotal;
         print(taxCountry);
-        if(taxCountry!=null)
+        if(taxCountry!=null||taxCountry!='null')
         {
-          double pricewithtax=double.parse(_textprice.text)* double.parse(taxCountry)/100;
+          double pricewithtax=double.parse(_textprice.text)* double.parse(taxCountry!)/100;
           print(pricewithtax);
           _textprice.text =(double.parse(_textprice.text) +pricewithtax).toString();
         }

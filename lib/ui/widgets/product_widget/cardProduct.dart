@@ -10,9 +10,9 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
 class CardProduct extends StatelessWidget {
-   CardProduct( {required this.itemProd, this.scaffoldKey, Key? key}) : super(key: key);
+   CardProduct( {required this.itemProd, Key? key}) : super(key: key);
   ProductModel itemProd;
-   final GlobalKey<ScaffoldState>? scaffoldKey;
+
   @override
   Widget build(BuildContext context) {
 
@@ -35,6 +35,11 @@ class CardProduct extends StatelessWidget {
           child: InkWell(
             //splashColor: Colors.blue.withAlpha(30),
             onTap: () {
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context)=>
+                      EditProduct(
+                        productModel: itemProd,)));
+
               //Navigator.push(context, MaterialPageRoute(builder: (context)=>Detail_Client()));
             },
             child: Container(
@@ -99,89 +104,89 @@ class CardProduct extends StatelessWidget {
 
                               ],
                             ),
-                            Row(
-                              children: [
-                                 IconButton(
-                                  icon: Icon(Icons.edit, color: kMainColor,),
-                                  onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(
-                                        builder: (context)=>
-                                            EditProduct(
-                                              productModel: itemProd,)));
-
-                                },
-                                  //onPressed: BOOKMARK,
-                                ),
-                                 IconButton(
-                                  icon: Icon(Icons.delete), onPressed: () async {
-                                  bool result = await showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return ModalProgressHUD(
-                                        inAsyncCall: Provider.of<LoadProvider>(context)
-                                            .isLoadingdelete,
-
-                                        child: AlertDialog(
-                                          title: Text('تأكيد'),
-                                          content: Text('هل تريد الحذف'),
-                                          actions: <Widget>[
-                                            new FlatButton(
-                                              onPressed: () {
-                                                Navigator.of(context, rootNavigator: true)
-                                                    .pop(false); // dismisses only the dialog and returns false
-                                              },
-                                              child: Text('لا'),
-                                            ),
-                                            FlatButton(
-                                              onPressed: ()async {
-                                                Provider.of<LoadProvider>(context,listen: false)
-                                                    .changebooldelete(true);
-                                                String res =await Provider.of<product_vm>(context,listen: false)
-                                                    .deleteProduct(itemProd.idProduct);
-                                                Provider.of<LoadProvider>(context,listen: false)
-                                                    .changebooldelete(false);
-                                                print(res);
-                                                if(res=="remove error")
-                                                  scaffoldKey!.currentState!.showSnackBar(
-                                                      SnackBar(content: Text("لا يمكن حذف هذا المنتج"))
-                                                  );
-                                                else{
-
-                                                    if(res=="done")
-                                                      scaffoldKey!.currentState!.showSnackBar(
-                                                          SnackBar(content: Text("تم الحذف بنجاح")) );
-                                                    else
-                                                          if(res=='bad requst')
-                                                    scaffoldKey!.currentState!.showSnackBar(
-                                                        SnackBar(content: Text("ارسال خاطئ")));
-                                                        else
-                                                          if(res=='error')
-                                                            scaffoldKey!.currentState!.showSnackBar(
-                                                                SnackBar(content: Text(" هناك مشكلة ما أثناء حذف المنتج")));
-                                                          else
-                                                        scaffoldKey!.currentState!.showSnackBar(
-                                                        SnackBar(content: Text("يوجد مشكلة ما ")));
-                                                }
-
-                                                Navigator.of(context, rootNavigator: true)
-                                                    .pop(true); // dismisses only the dialog and returns true
-                                              },
-                                              child: Text('نعم'),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  );
-
-
-
-
-                                },
-                                  //onPressed: COPY,
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //      IconButton(
+                            //       icon: Icon(Icons.edit, color: kMainColor,),
+                            //       onPressed: () {
+                            //         Navigator.push(context, MaterialPageRoute(
+                            //             builder: (context)=>
+                            //                 EditProduct(
+                            //                   productModel: itemProd,)));
+                            //
+                            //     },
+                            //       //onPressed: BOOKMARK,
+                            //     ),
+                            //      IconButton(
+                            //       icon: Icon(Icons.delete), onPressed: () async {
+                            //       bool result = await showDialog(
+                            //         context: context,
+                            //         builder: (context) {
+                            //           return ModalProgressHUD(
+                            //             inAsyncCall: Provider.of<LoadProvider>(context)
+                            //                 .isLoadingdelete,
+                            //
+                            //             child: AlertDialog(
+                            //               title: Text('تأكيد'),
+                            //               content: Text('هل تريد الحذف'),
+                            //               actions: <Widget>[
+                            //                 new FlatButton(
+                            //                   onPressed: () {
+                            //                     Navigator.of(context, rootNavigator: true)
+                            //                         .pop(false); // dismisses only the dialog and returns false
+                            //                   },
+                            //                   child: Text('لا'),
+                            //                 ),
+                            //                 FlatButton(
+                            //                   onPressed: ()async {
+                            //                     Provider.of<LoadProvider>(context,listen: false)
+                            //                         .changebooldelete(true);
+                            //                     String res =await Provider.of<product_vm>(context,listen: false)
+                            //                         .deleteProduct(itemProd.idProduct);
+                            //                     Provider.of<LoadProvider>(context,listen: false)
+                            //                         .changebooldelete(false);
+                            //                     print(res);
+                            //                     if(res=="remove error")
+                            //                       scaffoldKey!.currentState!.showSnackBar(
+                            //                           SnackBar(content: Text("لا يمكن حذف هذا المنتج"))
+                            //                       );
+                            //                     else{
+                            //
+                            //                         if(res=="done")
+                            //                           scaffoldKey!.currentState!.showSnackBar(
+                            //                               SnackBar(content: Text("تم الحذف بنجاح")) );
+                            //                         else
+                            //                               if(res=='bad requst')
+                            //                         scaffoldKey!.currentState!.showSnackBar(
+                            //                             SnackBar(content: Text("ارسال خاطئ")));
+                            //                             else
+                            //                               if(res=='error')
+                            //                                 scaffoldKey!.currentState!.showSnackBar(
+                            //                                     SnackBar(content: Text(" هناك مشكلة ما أثناء حذف المنتج")));
+                            //                               else
+                            //                             scaffoldKey!.currentState!.showSnackBar(
+                            //                             SnackBar(content: Text("يوجد مشكلة ما ")));
+                            //                     }
+                            //
+                            //                     Navigator.of(context, rootNavigator: true)
+                            //                         .pop(true); // dismisses only the dialog and returns true
+                            //                   },
+                            //                   child: Text('نعم'),
+                            //                 ),
+                            //               ],
+                            //             ),
+                            //           );
+                            //         },
+                            //       );
+                            //
+                            //
+                            //
+                            //
+                            //     },
+                            //       //onPressed: COPY,
+                            //     ),
+                            //   ],
+                            // ),
                           ],
                         )
                       ],

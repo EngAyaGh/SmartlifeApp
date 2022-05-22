@@ -84,7 +84,7 @@ void initState() {
                       Builder(
                           builder: (context) => CardProduct(
                               itemProd: _listProd[index],
-                              scaffoldKey: _scaffoldKey)),
+                            )),
                   //     _listProd.map(
                   //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
                   // ).toList(),

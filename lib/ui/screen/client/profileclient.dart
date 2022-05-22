@@ -1,5 +1,6 @@
 
 
+import 'package:crm_smart/model/approvemodel.dart';
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/communication_modle.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
@@ -24,8 +25,10 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import 'clientView.dart';
 class ProfileClient extends StatefulWidget {
-  ProfileClient({required this.idclient, Key? key}) : super(key: key);
+  ProfileClient({this.itemapprove,required this.idclient, Key? key}) : super(key: key);
 String? idclient;
+ ApproveModel? itemapprove;
+
   @override
   _ProfileClientState createState() => _ProfileClientState();
 }
@@ -167,7 +170,8 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
             child: TabBarView(
               controller: _tabcontroller,
               children: <Widget>[
-                ClientView(idclient: _clientModel.idClients.toString()),
+                ClientView(idclient: _clientModel.idClients.toString(),
+                  itemapprove: widget.itemapprove,),
                 invoices(
                   itemClient: _clientModel,
                   fkclient: _clientModel.idClients.toString(),
