@@ -249,6 +249,7 @@ class _EditProductState extends State<EditProduct> {
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _isLoading
                             ? CircularProgressIndicator()
@@ -297,6 +298,8 @@ class _EditProductState extends State<EditProduct> {
                         ),
 
                         CustomButton(
+                            width: MediaQuery.of(context).size.width * 0.2,
+
                             onTap: ()async{
                               bool result = await showDialog(
                                 context: context,
@@ -326,24 +329,24 @@ class _EditProductState extends State<EditProduct> {
                                                 .changebooldelete(false);
                                             print(res);
                                             if(res=="remove error")
-                                              _scaffoldKey!.currentState!.showSnackBar(
+                                              _scaffoldKey.currentState!.showSnackBar(
                                                   SnackBar(content: Text("لا يمكن حذف هذا المنتج"))
                                               );
                                             else{
 
                                               if(res=="done")
-                                                _scaffoldKey!.currentState!.showSnackBar(
+                                                _scaffoldKey.currentState!.showSnackBar(
                                                     SnackBar(content: Text("تم الحذف بنجاح")) );
                                               else
                                               if(res=='bad requst')
-                                                _scaffoldKey!.currentState!.showSnackBar(
+                                                _scaffoldKey.currentState!.showSnackBar(
                                                     SnackBar(content: Text("ارسال خاطئ")));
                                               else
                                               if(res=='error')
-                                                _scaffoldKey!.currentState!.showSnackBar(
+                                                _scaffoldKey.currentState!.showSnackBar(
                                                     SnackBar(content: Text(" هناك مشكلة ما أثناء حذف المنتج")));
                                               else
-                                                _scaffoldKey!.currentState!.showSnackBar(
+                                                _scaffoldKey.currentState!.showSnackBar(
                                                     SnackBar(content: Text("يوجد مشكلة ما ")));
                                             }
 

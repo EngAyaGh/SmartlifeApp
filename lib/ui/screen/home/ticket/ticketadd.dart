@@ -22,9 +22,12 @@ class _ticketAddState extends State<ticketAdd> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   final TextEditingController problem_desc = TextEditingController();
-  final TextEditingController notes = TextEditingController();
+  //final TextEditingController notes = TextEditingController();
   final _globalKey=GlobalKey<FormState>();
-
+@override void dispose() {
+    problem_desc.dispose();
+    super.dispose();
+  }
   @override void initState() {
     super.initState();
   }
@@ -92,19 +95,19 @@ class _ticketAddState extends State<ticketAdd> {
                             );},
                         ),
                         SizedBox(height: 15,),
-                        RowEdit(name: 'ملاحظات ', des: ''),
-
-                        EditTextFormField(
-                          vaild: (value) {
-                            if (value!.isEmpty) {
-                              return 'الحقل فارغ';
-                            }
-                          },
-                          hintText: '',
-                          controller: notes,
-                          maxline: 3,
-                        ),
-                        SizedBox(height: 15,),
+                        // RowEdit(name: 'ملاحظات ', des: ''),
+                        //
+                        // EditTextFormField(
+                        //   vaild: (value) {
+                        //     if (value!.isEmpty) {
+                        //       return 'الحقل فارغ';
+                        //     }
+                        //   },
+                        //   hintText: '',
+                        //   controller: notes,
+                        //   maxline: 3,
+                        // ),
+                        //SizedBox(height: 15,),
                         RowEdit(name: 'وصف المشكلة', des: ''),
                         EditTextFormField(
                           vaild: (value) {
@@ -132,7 +135,7 @@ class _ticketAddState extends State<ticketAdd> {
                                     .of<typeclient>(context, listen: false)
                                     .selectedValueOut.toString(),
                                 'details_problem': problem_desc.text,
-                                'notes_ticket': notes.text,
+                                //'notes_ticket': notes.text,
                                 'type_ticket': 'جديدة',
                                 'fk_user_open': Provider
                                     .of<user_vm_provider>(

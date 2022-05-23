@@ -55,10 +55,28 @@ class cardapprove1 extends StatelessWidget {
               child: Flex(
                 direction: Axis.vertical,
                 children: [
-                  Row(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
+                      Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            itemapprove.fk_invoice.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                fontFamily: kfontfamily2,
+                                color: kMainColor),
+                          ),
+                          Text(
+                            itemapprove.nameUser.toString(),
+                            style: TextStyle(
+                                fontFamily: kfontfamily2,
+                                color: kMainColor),
+                          ),
+                        ],
+                      ),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
@@ -66,7 +84,8 @@ class cardapprove1 extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
-                                fontFamily: kfontfamily3),
+                                fontFamily: kfontfamily2,
+                         ),
                           ),
                           Text(
                             itemapprove.nameUser.toString(),

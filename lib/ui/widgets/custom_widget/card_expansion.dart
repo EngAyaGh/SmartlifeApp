@@ -7,11 +7,16 @@ import 'package:flutter/material.dart';
 Widget buildcardExpansion( String title,String? subtitle, Widget items) {
   return Card(
     child: ExpansionTile(
-      subtitle: Text(subtitle!,  style: TextStyle(
-          color: kMainColor,
-          fontSize: 13.0,
-          fontFamily: kfontfamily2,
-          fontWeight: FontWeight.bold),),
+      subtitle: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Text(subtitle!,  style: TextStyle(
+              color: Colors.black,
+              fontSize: 13.0,
+              fontFamily: kfontfamily2,
+              fontWeight: FontWeight.bold),),
+        ),
+      ),
       collapsedIconColor: kMainColor,
       textColor: kMainColor,
       iconColor: kMainColor,

@@ -54,7 +54,7 @@ class ticketallState extends State<ticketall> {
                       Builder(builder:
                           (context)=>
                          buildcardExpansion('تاريخ فتح التذكرة  '+listticket_client[index].dateOpen,
-                             listticket_client[index].typeTicket ,
+                             listticket_client[index].nameEnterprise ,
                              TicketView(
                            ticketModel: listticket_client[index],
                            //idinvoice: listinvoice[index].idInvoice,
