@@ -13,10 +13,20 @@ class ticket_vm extends ChangeNotifier{
 
   List<TicketModel> listticket=[];
   List<TicketModel> listticket_client=[];
+  List<TicketModel> listticket_clientfilter=[];
+  List<TicketModel> tickesearchlist=[];
   UserModel? usercurrent;
 
   void setvalue(user){
     usercurrent=user;
+    notifyListeners();
+  }
+  //List<String> Typeticket= ['مغلقة','مستلمة','جديدة'];
+
+  int selectedtypeticket=0;
+
+  void changeticket(int s){
+    selectedtypeticket=s;
     notifyListeners();
   }
    bool addvalue=false;
@@ -32,7 +42,26 @@ class ticket_vm extends ChangeNotifier{
     addvalue=false;
     notifyListeners();
   }
+  Future<void> searchProducts(
+      String productName) async {
+    List<TicketModel> ticketlistsearch=[];
+    // code to convert the first character to uppercase
+    String searchKey =productName;//
 
+    print('search');
+    print(searchKey);
+    if(listticket.isNotEmpty ){
+      listticket.forEach((element) {
+        if(element.nameEnterprise.contains(searchKey,0)
+            || element.nameClient.contains(searchKey,0)
+            || element.mobile!.contains(searchKey,0) )
+          ticketlistsearch.add(element);
+      });
+    }
+
+    tickesearchlist=ticketlistsearch;
+    notifyListeners();
+  }
   Future<bool> updateTicketvm(Map<String, dynamic?> body,String? id_ticket)
   async {
     var data = await Api()
@@ -75,13 +104,26 @@ void getclient_ticket(String fkIdClient){
       print(fkIdClient);
       index++;
     }
-  });}
+  });
+   }
 
 
    notifyListeners();
 }
 
+void getclientticket_filter(String filter){
+  listticket_clientfilter=[];
+  if(listticket.isNotEmpty){
+    listticket.forEach((element) {
+      if( element.typeTicket==filter)
+      {
+        listticket_clientfilter.add(element);
 
+      }
+    });}
+
+    notifyListeners();
+}
 
 Future<void> getticket() async {
   var
@@ -94,6 +136,7 @@ Future<void> getticket() async {
     prodlist.add(TicketModel.fromJson(data[i]));
   }
   listticket=prodlist;
+  tickesearchlist=listticket;
   notifyListeners();
 
 }

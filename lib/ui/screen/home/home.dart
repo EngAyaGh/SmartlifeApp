@@ -7,6 +7,7 @@ import 'package:crm_smart/ui/screen/invoice/get_deleted_invoice.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/appbar.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/customDrawer.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/communication_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
@@ -19,7 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:crm_smart/ui/screen/home/approvepage.dart';
-
+import 'package:crm_smart/view_model/typeclient.dart';
 import '../../../function_global.dart';
 
 class Home extends StatefulWidget {
@@ -73,13 +74,15 @@ class _HomeState extends State<Home> {
     WidgetsBinding.instance!.addPostFrameCallback((_){
 
       // Add Your Code here.
-       //Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
+      //Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
       Provider.of<regoin_vm>(context,listen: false).getregoin();
       Provider.of<notifyvm>(context,listen: false).getcounter();
       Provider.of<product_vm>(context, listen: false)
           .getproduct_vm();
+      Provider.of<typeclient>(context,listen: false).getreasons('ticket');
+      Provider.of<communication_vm>(context, listen: false)
+          .getCommunicationall();
     });
-
     // List<PrivilgeModel> list= Provider.of<privilge_vm>(context,listen: false).privilgelist;
     //check level user
     //Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();

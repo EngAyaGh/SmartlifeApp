@@ -23,6 +23,7 @@ class TicketModel {
     required this.fk_country,
      this.nameusertransfer,
      this.fkusertrasfer,
+     this.mobile,
 
   });
   late final String idTicket;
@@ -48,6 +49,7 @@ class TicketModel {
   late final String fk_country;
   late final String? nameusertransfer;
   late final String? fkusertrasfer;
+  late final String? mobile;
 
   TicketModel.fromJson(Map<String, dynamic> json){
     idTicket = json['id_ticket'];
@@ -73,6 +75,7 @@ class TicketModel {
     fk_country = json['fk_country'];
     nameusertransfer = json['nameusertransfer'];
     fkusertrasfer = json['fkusertrasfer'];
+    mobile = json['mobile'];
   }
 
   Map<String, dynamic> toJson() {
@@ -100,6 +103,7 @@ class TicketModel {
     _data['fk_country'] = fk_country;
     _data['nameusertransfer'] = nameusertransfer;
     _data['fkusertrasfer'] = fkusertrasfer;
+    _data['mobile'] = mobile;
     return _data;
   }
 }

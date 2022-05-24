@@ -32,8 +32,14 @@ class SelectCategory extends StatelessWidget {
         padding: EdgeInsets.only(top: 50),
         child:
           Column(children: [
-            buildSelectCategory(onTap: () {  }, title: ''),
-            buildSelectCategory(onTap: () {  }, title: ''),
+            buildSelectCategory(
+                colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,
+                onTap: () {  }, title: ''),
+            buildSelectCategory(         colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,onTap: () {  }, title: ''),
 
           ],),
         // ListView.builder(

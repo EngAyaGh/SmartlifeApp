@@ -39,16 +39,38 @@ class invoice_vm extends ChangeNotifier{
   List<InvoiceModel> listInvoicesAccept=[];
   //List<>
   //List<>
-  Future<void> getinvoice_Local(String searchfilter
+  Future<void> searchProducts(
+      String productName) async {
+    listInvoicesAccept=[];
+    // code to convert the first character to uppercase
+    String searchKey =productName;//
+    if(productName.isNotEmpty)
+      if(listinvoices.isNotEmpty ){
+        listinvoices.forEach((element) {
+          if(element.nameUser!.contains(searchKey,0)
+              || element.mobile!.contains(searchKey,0)
+          )
+            listInvoicesAccept.add(element);
+        });
+      }
+      // else listInvoicesAccept=userall;
+    notifyListeners();
+  }
+  Future<void> getinvoice_Local(String searchfilter,String type
       // , List<ClientModel> list
       )
   async {
     listInvoicesAccept=[];
+    if(type=='approved')
     listinvoices.forEach((element) {
-      if( element.type_client==searchfilter)
+      if( element.type_client==searchfilter&&element.isApprove==1)
         listInvoicesAccept.add(element);
     });
-
+   if(type=='not approved')
+     listinvoices.forEach((element) {
+       if( element.type_client==searchfilter&&element.isApprove==null)
+         listInvoicesAccept.add(element);
+     });
     //listInvoicesAccept=listinvoices;
 
     notifyListeners();
@@ -74,6 +96,17 @@ class invoice_vm extends ChangeNotifier{
     listdeletedinvoice.removeAt(index);
     notifyListeners();
   }
+
+  Future<bool> setApproveclient_vm(Map<String, dynamic?> body,String? idInvoice) async {
+    InvoiceModel data = await Invoice_Service().setApproveClient(body,idInvoice!);
+
+    int index=listinvoices.indexWhere((element) => element.idInvoice==idInvoice);
+    listinvoices[index]=data;
+    notifyListeners();
+
+    return true;
+  }
+
   // fk_idUser
   Future<void> get_invoiceclientlocal(String? fk_client
      // ,List<InvoiceModel> list

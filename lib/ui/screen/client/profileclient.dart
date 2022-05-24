@@ -25,9 +25,9 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import 'clientView.dart';
 class ProfileClient extends StatefulWidget {
-  ProfileClient({this.itemapprove,required this.idclient, Key? key}) : super(key: key);
-String? idclient;
- ApproveModel? itemapprove;
+  ProfileClient({required this.idclient, Key? key}) : super(key: key);
+   String? idclient;
+
 
   @override
   _ProfileClientState createState() => _ProfileClientState();
@@ -46,9 +46,8 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
     Provider.of<invoice_vm>(context, listen: false)
         .get_invoiceclientlocal(widget.idclient);
 
-
     Provider.of<communication_vm>(context, listen: false)
-        .getCommunication(widget.idclient.toString());
+        .getCommunicationclient(widget.idclient.toString());
 
     Provider.of<comment_vm>(context, listen: false)
         .getComment(widget.idclient.toString());
@@ -61,10 +60,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
         .getclient_ticket( widget.idclient.toString());
   });
 
-
   super.initState();
-
-
     _tabcontroller= TabController(length: 5, vsync: this,initialIndex: 0);
 
 }
@@ -170,12 +166,14 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
             child: TabBarView(
               controller: _tabcontroller,
               children: <Widget>[
-                ClientView(idclient: _clientModel.idClients.toString(),
-                  itemapprove: widget.itemapprove,),
+                ClientView(idclient: _clientModel.idClients.toString(),),
                 invoices(
                   itemClient: _clientModel,
                   fkclient: _clientModel.idClients.toString(),
-                  fkuser: '',),
+                  fkuser: '',
+
+
+                ),
                 // InvoiceView(
                 // idinvoice:
                 // _invoiceModel==null?'':

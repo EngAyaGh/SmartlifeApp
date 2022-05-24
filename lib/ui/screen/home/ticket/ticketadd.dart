@@ -1,19 +1,21 @@
-
-
+import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
+import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+
 class ticketAdd extends StatefulWidget {
-  ticketAdd({ required this.fk_client, Key? key}) : super(key: key);
-  String fk_client;
+  ticketAdd({this.fk_client, Key? key}) : super(key: key);
+  String? fk_client;
   @override
   _ticketAddState createState() => _ticketAddState();
 }
@@ -23,78 +25,136 @@ class _ticketAddState extends State<ticketAdd> {
 
   final TextEditingController problem_desc = TextEditingController();
   //final TextEditingController notes = TextEditingController();
-  final _globalKey=GlobalKey<FormState>();
-@override void dispose() {
+  final _globalKey = GlobalKey<FormState>();
+  @override
+  void dispose() {
     problem_desc.dispose();
     super.dispose();
   }
-  @override void initState() {
+
+  @override
+  void initState() {
     super.initState();
   }
-  @override void didChangeDependencies() {
+
+  @override
+  void didChangeDependencies() {
     // Future.delayed(Duration(milliseconds: 30)).then((_) async {
     //   Provider.of<typeclient>(context,listen: false).getreasons('ticket');
     //});
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key:_scaffoldKey,
-        body:ModalProgressHUD(
-          inAsyncCall:  Provider.of<ticket_vm>(context,listen: true).addvalue,
-          child : SingleChildScrollView(
+        key: _scaffoldKey,
+        body: ModalProgressHUD(
+          inAsyncCall: Provider.of<ticket_vm>(context, listen: true).addvalue,
+          child: SingleChildScrollView(
             child: Directionality(
               textDirection: TextDirection.rtl,
               child: Form(
                 key: _globalKey,
                 child: Padding(
                   padding: EdgeInsets.only(
-                      top: 150,
-                      right: 20,
-                      left: 20,bottom: 150),
+                      top: 150, right: 20, left: 20, bottom: 150),
                   child: ContainerShadows(
                     width: double.infinity,
                     //height: 400,
                     margin: EdgeInsets.only(),
-                    padding:EdgeInsets.only(top: 50,left: 20,right: 20,bottom: 20) ,
+                    padding: EdgeInsets.only(
+                        top: 50, left: 20, right: 20, bottom: 20),
                     child: Column(
                       children: [
-                        SizedBox(height: 15,),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        RowEdit(name: 'اسم العميل', des: 'REQUIRED'),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 8.0,
+                            right: 8,
+                          ),
+                          child: Consumer<client_vm>(
+                            builder: (context, cart, child) {
+                              return DropdownSearch<ClientModel>(
+                                mode: Mode.DIALOG,
+                                // label: " الموظف ",
+                                //hint: 'الموظف',
+                                //onFind: (String filter) => cart.getfilteruser(filter),
+                                filterFn: (user, filter) =>
+                                    user!.getfilteruser(filter!),
+                                //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
+                                // itemAsString: (UserModel u) => u.userAsStringByName(),
+                                items: cart.listClient,
+                                itemAsString: (u) => u!.userAsString(),
+                                onChanged: (data) {
+                                  widget.fk_client = data!.idClients;
+                                  cart.changevalueclient(data);
+                                  //filtershow();
+                                },
+                                selectedItem: cart.selectedclient,
+                                showSearchBox: true,
+                                dropdownSearchDecoration: InputDecoration(
+                                  //filled: true,
+                                  isCollapsed: true,
+                                  hintText: 'الموظف',
+                                  alignLabelWithHint: true,
+                                  fillColor: Colors.grey.withOpacity(0.2),
+                                  //labelText: "choose a user",
+                                  contentPadding: EdgeInsets.all(0),
+                                  //contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                  // focusedBorder: OutlineInputBorder(
+                                  //     borderRadius: BorderRadius.circular(10),
+                                  //     borderSide: const BorderSide(color: Colors.white)),
+                                  border: UnderlineInputBorder(
+                                      borderSide:
+                                          const BorderSide(color: Colors.grey)),
+                                  // OutlineInputBorder(
+                                  //     borderRadius: BorderRadius.circular(10),
+                                  //     borderSide: const BorderSide( color: Colors.white)),
+                                ),
+                                // InputDecoration(border: InputBorder.none),
+                              );
+                            },
+                          ),
+                        ),
                         RowEdit(name: 'نوع المشكلة', des: 'REQUIRED'),
 
                         Consumer<typeclient>(
-                          builder: (context, cart, child){
+                          builder: (context, cart, child) {
                             return SizedBox(
                               //width: 240,
                               child: DropdownButtonFormField(
-                                decoration:InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                        width: 2,
-                                        color: Colors.grey)
-                                  )
-                                ) ,
+                                decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                        borderSide: BorderSide(
+                                            width: 2, color: Colors.grey))),
 
                                 isExpanded: true,
                                 //hint: Text("حدد حالة العميل"),
                                 items: cart.type_of_out.map((level_one) {
                                   return DropdownMenuItem(
-                                    child: Text(level_one.nameReason), //label of item
+                                    child: Text(
+                                        level_one.nameReason), //label of item
                                     value: level_one.nameReason, //value of item
                                   );
                                 }).toList(),
-                                value:cart.selectedValueOut,
-                                onChanged:(value) {
+                                value: cart.selectedValueOut,
+                                onChanged: (value) {
                                   //  setState(() {
                                   cart.changevalueOut(value.toString());
                                   // });
                                 },
                               ),
-                            );},
+                            );
+                          },
                         ),
-                        SizedBox(height: 15,),
+                        SizedBox(
+                          height: 15,
+                        ),
                         // RowEdit(name: 'ملاحظات ', des: ''),
                         //
                         // EditTextFormField(
@@ -119,70 +179,69 @@ class _ticketAddState extends State<ticketAdd> {
                           controller: problem_desc,
                           maxline: 4,
                         ),
-                        SizedBox(height: 15,),
-                        CustomButton(
-                          width:double.infinity,
-                          //MediaQuery.of(context).size.width * 0.2,
-                          text: 'حفظ',
-                          onTap: () async {
-                            if (_globalKey.currentState!.validate()) {
-                              _globalKey.currentState!.save();
-
-                              Provider.of<ticket_vm>(context, listen: false)
-                                  .addticket({
-                                'fk_client': widget.fk_client.toString(),
-                                'type_problem': Provider
-                                    .of<typeclient>(context, listen: false)
-                                    .selectedValueOut.toString(),
-                                'details_problem': problem_desc.text,
-                                //'notes_ticket': notes.text,
-                                'type_ticket': 'جديدة',
-                                'fk_user_open': Provider
-                                    .of<user_vm_provider>(
-                                    context, listen: false)
-                                    .currentUser!
-                                    .idUser
-                                    .toString(),
-                                'date_open': DateTime.now().toString(),
-                                'client_type': '0'
-                              })
-                                  .then(
-                                      (value) =>
-                                  //value!="error"
-                                  clear(context)
-                                // : error(context)
-                              );
-                              // }else {
-                              //   _scaffoldKey.currentState!.showSnackBar(
-                              //       SnackBar(content: Text('الحقل فارغ  '))
-                              //   );
-                              // }
-                            } },
-                          //child: Text(" حفظ"),
+                        SizedBox(
+                          height: 15,
                         ),
+                        CustomButton(
+                            width: double.infinity,
+                            //MediaQuery.of(context).size.width * 0.2,
+                            text: 'حفظ',
+                            onTap: () async {
+                              if (_globalKey.currentState!.validate()) {
+                                _globalKey.currentState!.save();
+                                if (widget.fk_client != null) {
+                                  Provider.of<ticket_vm>(context, listen: false)
+                                      .addticket({
+                                    'fk_client': widget.fk_client.toString(),
+                                    'type_problem': Provider.of<typeclient>(
+                                            context,
+                                            listen: false)
+                                        .selectedValueOut
+                                        .toString(),
+                                    'details_problem': problem_desc.text,
+                                    //'notes_ticket': notes.text,
+                                    'type_ticket': 'جديدة',
+                                    'fk_user_open':
+                                        Provider.of<user_vm_provider>(context,
+                                                listen: false)
+                                            .currentUser!
+                                            .idUser
+                                            .toString(),
+                                    'date_open': DateTime.now().toString(),
+                                    'client_type': '0'
+                                  }).then((value) =>
+                                              //value!="error"
+                                              clear(context)
+                                          // : error(context)
+                                          );
+                                } else {
+                                  _scaffoldKey.currentState!.showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'من فضلك تأكد من عملية الإدخال')));
+                                }
+                              }
+                              //child: Text(" حفظ"),
+                            }),
                       ],
                     ),
                   ),
-
                 ),
               ),
             ),
           ),
         ));
   }
-  clear(BuildContext context) {
 
-    _scaffoldKey.currentState!.showSnackBar(
-        SnackBar(content: Text('تم إنشاء تذكرة جديد'))
-    );
+  clear(BuildContext context) {
+    _scaffoldKey.currentState!
+        .showSnackBar(SnackBar(content: Text('تم إنشاء تذكرة جديد')));
     // print("succ");
   }
 
   error(context) {
-
-    _scaffoldKey.currentState!.showSnackBar(
-        SnackBar(content: Text('هناك خطأ ما'))
-    );
+    _scaffoldKey.currentState!
+        .showSnackBar(SnackBar(content: Text('هناك خطأ ما')));
     print("error");
   }
 }

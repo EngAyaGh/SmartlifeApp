@@ -53,6 +53,12 @@ class InvoiceModel extends CacheRepository{
     this.daterepaly,
     this.fkuserdatareplay,
 
+    this.iduser_approve,
+    this.isApprove,
+    this.mobile,
+    // this.nameuserApprove,
+    // this.date_approve,
+
   });
     String? idInvoice;
     String? dateCreate;
@@ -80,12 +86,10 @@ class InvoiceModel extends CacheRepository{
     String? userinstall;
     String? dateinstall_task;
     String? fkusertask;
-    String? nameuserApprove;
     String? date_lastuserupdate;
     String? path = '';
     String? fk_country;
     String? reason_date;
-    String? date_approve;
     String? stateclient;
     String? value_back;
     String? desc_reason_back;
@@ -97,6 +101,12 @@ class InvoiceModel extends CacheRepository{
     String? nameusertask;
     String? daterepaly;
     String? fkuserdatareplay;
+
+    String? iduser_approve;
+    String? isApprove;
+    String? nameuserApprove;
+    String? date_approve;
+    String? mobile;//mobile client
 
   //Map<String, dynamic> products;
    List<ProductsInvoice>? products;
@@ -133,12 +143,10 @@ class InvoiceModel extends CacheRepository{
     userinstall=jsondata['userinstall'];
     dateinstall_task=jsondata['dateinstall_task'];
     fkusertask=jsondata['fkusertask'];
-    nameuserApprove=jsondata['nameuserApprove'];
     date_lastuserupdate=jsondata['date_lastuserupdate'];
     path=jsondata['path'];
     fk_country=jsondata['fk_country'];
     reason_date=jsondata['reason_date'];
-    date_approve=jsondata['date_approve'];
     stateclient=jsondata['stateclient'];
     value_back=jsondata['value_back'];
     desc_reason_back=jsondata['desc_reason_back'];
@@ -151,6 +159,12 @@ class InvoiceModel extends CacheRepository{
 
     daterepaly=jsondata['daterepaly'];
     fkuserdatareplay=jsondata['fkuserdatareplay'];
+
+    iduser_approve=jsondata['iduser_approve'];
+    isApprove=jsondata['isApprove'];
+    nameuserApprove=jsondata['nameuserApprove'];
+    date_approve=jsondata['date_approve'];
+    mobile=jsondata['mobile'];
 
     products=getproud(jsondata['products']);
       //  json.decode(
@@ -210,12 +224,10 @@ class InvoiceModel extends CacheRepository{
     _data['userinstall'] = userinstall;//id user
     _data['dateinstall_task'] = dateinstall_task;
     _data['fkusertask'] = fkusertask;
-    _data['nameuserApprove'] = nameuserApprove;
     _data['date_lastuserupdate'] = date_lastuserupdate;
     _data['path'] = path;
     _data['fk_country'] = fk_country;
     _data['reason_date'] = reason_date;
-    _data['date_approve'] = date_approve;
     _data['stateclient'] = stateclient;
     _data['value_back'] = value_back;
     _data['desc_reason_back'] = desc_reason_back;
@@ -228,6 +240,13 @@ class InvoiceModel extends CacheRepository{
 
     _data['daterepaly'] = daterepaly;
     _data['fkuserdatareplay'] = fkuserdatareplay;
+
+    _data['iduser_approve'] = iduser_approve;
+    _data['isApprove'] = 	isApprove;
+
+    _data['date_approve'] = date_approve;
+    _data['nameuserApprove'] = nameuserApprove;
+    _data['mobile'] = mobile;
 
     _data['products'] =
         products!.map((e)=>e.toJson()).toList();
@@ -286,6 +305,8 @@ class ProductsInvoice extends CacheRepository{
   bool? isdeleted =false;
   String? fkuser;
   String? fkclient;
+
+
   ProductsInvoice.fromJson(Map<String, dynamic> json){
     print('in product from json ');
     print(json);

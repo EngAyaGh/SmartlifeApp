@@ -60,6 +60,20 @@ class client_vm extends ChangeNotifier {
 
     notifyListeners();
   }
+  bool getfilterclient(String filter){
+    UserModel? user;
+    listClient.map(
+            (e) {
+          e.nameEnterprise!.contains(filter);return true;
+        }
+    );
+    return false;
+  }
+  ClientModel? selectedclient;
+  void changevalueclient(ClientModel? s){
+    selectedclient=s;
+    notifyListeners();
+  }
   Future<void> getclientfilter_Local(
       String? searchfilter,String type,String? filter2,String? filter3
       // , List<ClientModel> list
@@ -294,45 +308,7 @@ else{
     listClientfilter=listClient;
     notifyListeners();
   }
-  Future<bool> setApproveclient_vm(Map<String, dynamic?> body,String? id_client) async {
-    ClientModel data = await ClientService().setApproveClient(body,id_client!);
 
-      int index=listClient.indexWhere((element) => element.idClients==id_client);
-    // listClient.forEach((elementclient) {
-    //   data.forEach((element) {
-    //     if(elementclient.id_invoice== element.id_invoice)
-    //       elementclient=element;
-    //   });
-    // });
-    // body.addAll({
-       // 'id_clients':listClient[index].idClients,
-       // 'date_approve':Utils.toDate(DateTime.now()),
-       // "type_client": listClient[index].typeClient,
-       // 'name_client': listClient[index].nameClient,
-       // //'name_enterprise':
-       // 'type_job': listClient[index].typeJob,
-       // 'location': listClient[index].location,
-       // 'city': listClient[index].city,
-       // "mobile": listClient[index].mobile,
-       // "date_changetype": listClient[index].dateChangetype,
-       // "offer_price": listClient[index].offer_price,
-       // "reason_change": listClient[index].reasonChange,
-       // "user_do": listClient[index].user_do,
-       // "desc_reason": listClient[index].desc_reason,
-       // "value_back": listClient[index].value_back,
-       // 'name_regoin': listClient[index].name_regoin,
-       // "nameUser":listClient[index].nameUser,
-       // "amount_paid":listClient[index].amount_paid,
-       // "total":listClient[index].total
-       // //   'iduser_approve':listClientbyCurrentUser[index].iduser_approve,
-       // });
-      listClient[index]=data;
-      //ClientModel.fromJson(body);
-      //listProduct.insert(0, ProductModel.fromJson(body));
-      notifyListeners();
-
-    return true;
-  }
   Future<bool> setfkUserclient_vm(Map<String, dynamic?> body,String? id_client) async {
     bool res = await ClientService().setfkuserClient(body,id_client!);
     if (res) {
@@ -358,8 +334,7 @@ else{
     String searchKey =productName;//
     // productName[0].toUpperCase() +
     //   productName.substring(1);
-    print('search');
-    print(searchKey);
+
     if(listClient is List<ClientModel> ){
       listClient.forEach((element) {
         if(element.nameEnterprise!.contains(searchKey,0)
@@ -381,7 +356,7 @@ else{
       //   }
     }
 
-listClientfilter=clientlistsearch;
+    listClientfilter=clientlistsearch;
     notifyListeners();
     //return clientlistsearch;
   }

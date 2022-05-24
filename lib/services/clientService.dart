@@ -34,20 +34,7 @@ class ClientService{
     // print(prodlist);
     return ClientModel.fromJson(data[0]);  // );//=="done"? true:false;
   }
-  Future<ClientModel> setApproveClient( Map<String,dynamic> body,String idclient) async {
-    var data = await Api()
-        .post( url:url+"client/setApproveClient.php?id_clients=$idclient",body:
-    body
-    );
-    // List<ClientModel> prodlist = [];
-    // for (int i = 0; i < data.length; i++) {
-    //   prodlist.add(ClientModel.fromJson(data[i]));
-    // }
-    // print(prodlist);
-    return ClientModel.fromJson(data[0]);
-    //client/setApproveClient.php
-  // return result[0];//=="done"? true:false;
-  }
+
   Future<bool> setfkuserClient( Map<String,dynamic> body,String idclient) async {
     String result = await Api()
         .post( url:url+"client/set_fkuser_transfer.php?id_clients=$idclient",body:

@@ -39,7 +39,7 @@ class _ApprovePageState extends State<AcceptPage> {
       //     .getclient_vm();
 
       await    Provider.of<invoice_vm>(context, listen: false)
-          .getinvoice_Local("مشترك");
+          .getinvoice_Local("مشترك",'not approved');
     });
     //List<ClientModel> list= Provider.of<client_vm>(context).listClient;
 
@@ -67,9 +67,9 @@ class _ApprovePageState extends State<AcceptPage> {
               padding: const EdgeInsets.only(top: 10,bottom: 10),
               child: ListView(
                 children: [
-                   search_widget("المؤسسة....",
-                     Provider.of<invoice_vm>(context, listen: true)
-                         .listInvoicesAccept,),
+                   search_widget(
+                     'invoice',
+                     "المؤسسة....",),
                  SizedBox(height: 5,),
                   Container(
                     height: MediaQuery.of(context).size.height*0.8,

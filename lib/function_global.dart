@@ -94,9 +94,10 @@ void route_notifyto(typeNotify,context,
       case "Install":
       Navigator.push(context,
           MaterialPageRoute(
-              builder: (context) => support_add(
+              builder: (context) => ProfileClient(
 
-               idinvoice: data==null?datanotify:  data['id_invoice']
+                //idinvoice: data==null?datanotify:  data['id_invoice'],
+                idclient: data!['idclient'],
               )
           ));
       break;

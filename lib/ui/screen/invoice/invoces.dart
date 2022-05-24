@@ -113,7 +113,6 @@ class _invoicesState extends State<invoices> {
                               itemClient: widget.itemClient)));
                 },
               ),
-
              Container(
                height: MediaQuery.of(context).size.height * 0.8,
                child: ListView.separated(
@@ -126,6 +125,7 @@ class _invoicesState extends State<invoices> {
                          CardInvoiceClient(
                            itemProd: listinvoice[index],
                            itemClient :  widget.itemClient,
+
                            //scaffoldKey: _scaffoldKey,
                            //indexinvoice: index,
                          )) ,

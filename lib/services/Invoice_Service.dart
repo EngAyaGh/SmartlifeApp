@@ -23,6 +23,20 @@ class Invoice_Service {
     print(prodlist);
     return prodlist;
   }
+  Future<InvoiceModel> setApproveClient( Map<String,dynamic> body,String idInvoice) async {
+    var data = await Api()
+        .post( url:url+"client/setApproveClient.php?idInvoice=$idInvoice",body:
+    body
+    );
+    // List<ClientModel> prodlist = [];
+    // for (int i = 0; i < data.length; i++) {
+    //   prodlist.add(ClientModel.fromJson(data[i]));
+    // }
+    // print(prodlist);
+    return InvoiceModel.fromJson(data[0]);
+    //client/setApproveClient.php
+    // return result[0];//=="done"? true:false;
+  }
   Future<List<InvoiceModel>> getinvoicebyclient(String fk_idClient) async {
     //not called because get local
     var

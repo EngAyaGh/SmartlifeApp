@@ -1,5 +1,6 @@
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/approvemodel.dart';
+import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/notificationModel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/ui/screen/client/clients.dart';
@@ -14,7 +15,7 @@ import 'package:provider/provider.dart';
 
 class cardapprove1 extends StatelessWidget {
   cardapprove1({Key? key, required this.itemapprove}) : super(key: key);
-  late ApproveModel itemapprove;
+  late InvoiceModel itemapprove;
 
   late UserModel current ;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -41,8 +42,7 @@ class cardapprove1 extends StatelessWidget {
                 MaterialPageRoute(builder:
                     (context) =>
                         ProfileClient(
-                          itemapprove: itemapprove,
-                          idclient: itemapprove.fkClient,)));
+                          idclient: itemapprove.fkIdClient,)));
           },
           child: Container(
             decoration: BoxDecoration(
@@ -61,23 +61,24 @@ class cardapprove1 extends StatelessWidget {
                       Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            itemapprove.fk_invoice.toString(),
+                            itemapprove.name_regoin.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                                //fontSize: 16,
                                 fontFamily: kfontfamily2,
                                 color: kMainColor),
                           ),
                           Text(
-                            itemapprove.nameUser.toString(),
+                            itemapprove.dateCreate.toString(),
                             style: TextStyle(
+                                fontWeight: FontWeight.bold,
                                 fontFamily: kfontfamily2,
                                 color: kMainColor),
                           ),
                         ],
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        //mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
                             itemapprove.name_enterprise.toString(),
@@ -87,10 +88,10 @@ class cardapprove1 extends StatelessWidget {
                                 fontFamily: kfontfamily2,
                          ),
                           ),
-                          Text(
-                            itemapprove.nameUser.toString(),
-                            style: TextStyle(fontFamily: kfontfamily2),
-                          ),
+                          // Text(
+                          //   itemapprove.nameUser.toString(),
+                          //   style: TextStyle(fontFamily: kfontfamily2),
+                          // ),
                         ],
                       ),
                       // Row(

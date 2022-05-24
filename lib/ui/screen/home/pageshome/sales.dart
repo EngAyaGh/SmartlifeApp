@@ -70,6 +70,9 @@ class _salesState extends State<sales> {
               Provider.of<privilge_vm>(context,listen: true)
                   .checkprivlge('8')==true?
     buildSelectCategory(
+        colorbag: Colors.white,
+        colortitle: Colors.black,
+        colorarrow: Colors.black,
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context)=>
@@ -99,7 +102,11 @@ class _salesState extends State<sales> {
               Provider.of<privilge_vm>(context,listen: true)
                   .checkprivlge('2')==true || Provider.of<privilge_vm>(context,listen: true)
                   .checkprivlge('7')==true?
-    buildSelectCategory(onTap: () {
+    buildSelectCategory(
+        colorbag: Colors.white,
+        colortitle: Colors.black,
+        colorarrow: Colors.black,
+        onTap: () {
               Navigator.push(context, MaterialPageRoute(
                   builder: (context)=>
                       ApprovePage()));
@@ -115,6 +122,9 @@ class _salesState extends State<sales> {
               Provider.of<privilge_vm>(context,listen: true)
                 .checkprivlge('14')==true?
     buildSelectCategory(
+        colorbag: Colors.white,
+        colortitle: Colors.black,
+        colorarrow: Colors.black,
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
                       builder: (context)=>

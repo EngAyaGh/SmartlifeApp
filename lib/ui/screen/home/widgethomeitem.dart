@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 Widget buildSelectCategory({
   required String title,
   required Function() onTap,
+  required Color colorbag,
+  required Color colorarrow,
+  required Color colortitle,
+
+  String? subtitle
 }) {
   return Padding(
     padding: const EdgeInsets.only(
@@ -16,7 +21,7 @@ Widget buildSelectCategory({
       height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Colors.white,
+        color:colorbag,
       ),
       child: InkWell(
         onTap: onTap,
@@ -29,12 +34,19 @@ Widget buildSelectCategory({
               children: [
                 GestureDetector(
                   child: Text(title,
-                    style: TextStyle(fontFamily: kfontfamily2),),
+                    style: TextStyle(
+                        color: colortitle,
+                        fontFamily: kfontfamily2),),
                 ),
-                Icon(
-                  Icons.arrow_back_ios_new,
-                  color: kMainColor,
-                ),
+                Row(
+                  children: [
+                    subtitle!=null?Text(subtitle.toString()):Container(),
+                    Icon(
+                      Icons.arrow_back_ios_new,
+                      color: colorarrow,
+                    ),
+                  ],
+                )
               ],
             ),
           ),

@@ -167,7 +167,12 @@ void main() async {
 
         ),
          ChangeNotifierProvider<comment_vm>(create: (_)=> comment_vm()),
-         ChangeNotifierProvider<communication_vm>(create: (_)=> communication_vm()),
+        ChangeNotifierProxyProvider<user_vm_provider,communication_vm>(
+          create: (_)=> communication_vm(),
+          update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
+
+        ),
+
          ChangeNotifierProvider<datetime_vm>(create: (_)=> datetime_vm()),
         //ChangeNotifierProvider<ticket_vm>(create: (_)=> ticket_vm()),
 

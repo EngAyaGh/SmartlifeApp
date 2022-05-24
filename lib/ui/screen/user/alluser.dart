@@ -45,54 +45,57 @@ class _AllUserScreenState extends State<AllUserScreen> {
 
         //centerTitle: true,
       ),
-      body: Column(
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: search_widget(
+                'user',
+                "اسم الموظف....",
+            ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
 
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: search_widget("اسم الموظف....",
-              Provider.of<user_vm_provider>(context, listen: true)
-                  .userall,),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-
-          controllerUsers.userall.length == 0?
+            controllerUsers.listuserfilter.length == 0?
     Center(
     child: Text('لا يوجد مستخدمين')):
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: Expanded(
-              child: ListView.separated(
-                itemCount: controllerUsers.userall.length,
-                itemBuilder: (context, index) {
-                  return Consumer<user_vm_provider>(
-                      builder: (context, cart, child) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: buildCardUsers(
-                            usermodell: controllerUsers.userall[index],
-                          ),
-                        );
-                      });
-                },
-                separatorBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(right: 30, left: 20, bottom: 5),
-                    child: Divider(
-                      color: Colors.black12,
-                      thickness: 1,
-                    ),
-                  );
-                },
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: Expanded(
+                child: ListView.separated(
+                  itemCount: controllerUsers.listuserfilter.length,
+                  itemBuilder: (context, index) {
+                    return Consumer<user_vm_provider>(
+                        builder: (context, cart, child) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: buildCardUsers(
+                              usermodell: controllerUsers.listuserfilter[index],
+                            ),
+                          );
+                        });
+                  },
+                  separatorBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(right: 30, left: 20, bottom: 5),
+                      child: Divider(
+                        color: Colors.black12,
+                        thickness: 1,
+                      ),
+                    );
+                  },
+                ),
+
               ),
+            )
 
-            ),
-          )
-
-         //CardUsers(),
-        ],
+           //CardUsers(),
+          ],
+        ),
       ),
     );
   }

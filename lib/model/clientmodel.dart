@@ -29,12 +29,12 @@ class ClientModel extends CacheRepository{
     // this.desc_reason,
     this.user_do,
     // this.value_back,
-    this.iduser_approve,
-    this.	isApprove,
-    this.nameuserApprove,
+    // this.iduser_approve,
+    // this.	isApprove,
+    // this.nameuserApprove,
     this.nameuserdoning,
-    this.date_approve,
-    this.id_invoice,
+    // this.date_approve,
+    // this.id_invoice,
     this.nameusertransfer,
     this.fkusertrasfer,
     this.mobileuser,
@@ -69,12 +69,12 @@ class ClientModel extends CacheRepository{
   late final String? user_do;
   // late final String? desc_reason;//منسحب
   // late final String? value_back;
-  late final String? iduser_approve;
-  late final String? 	isApprove;
+  // late final String? iduser_approve;
+  // late final String? 	isApprove;
   late final String? 	nameuserdoning;
-  late final String? 	nameuserApprove;
-  late final String? 	date_approve;
-  late  String? 	id_invoice;
+  // late final String? 	nameuserApprove;
+  // late final String? 	date_approve;
+  //late  String? 	id_invoice;
 
   late final String? nameusertransfer;
   late final String? fkusertrasfer;
@@ -110,12 +110,12 @@ class ClientModel extends CacheRepository{
     user_do = json['user_do'];
     // desc_reason=json['desc_reason'];
     // value_back=json['value_back'];
-    iduser_approve=json['iduser_approve'];
-    isApprove=json['isApprove'];
+    // iduser_approve=json['iduser_approve'];
+    // isApprove=json['isApprove'];
     nameuserdoning=json['nameuserdoning'];//الموظف الي حول العميل
-    nameuserApprove=json['nameuserApprove'];//الموظف الي وافق على العميل معتمد الاشتراك
-    date_approve=json['date_approve'];  //
-    id_invoice=json['id_invoice'];  //
+    //nameuserApprove=json['nameuserApprove'];//الموظف الي وافق على العميل معتمد الاشتراك
+    //date_approve=json['date_approve'];  //
+    //id_invoice=json['id_invoice'];  //
 
     nameusertransfer = json['nameusertransfer'];
     fkusertrasfer = json['fkusertrasfer'];
@@ -151,12 +151,12 @@ class ClientModel extends CacheRepository{
      _data['user_do'] = user_do;
      // _data['desc_reason'] = desc_reason;
      // _data['value_back'] = value_back;
-     _data['iduser_approve'] = iduser_approve;
-     _data['isApprove'] = 	isApprove;
+     // _data['iduser_approve'] = iduser_approve;
+     // _data['isApprove'] = 	isApprove;
      _data['nameuserdoning'] = 	nameuserdoning;
-     _data['nameuserApprove'] = 	nameuserApprove;
-     _data['date_approve'] = 	date_approve;
-     _data['id_invoice'] = 	id_invoice;
+     // _data['nameuserApprove'] = 	nameuserApprove;
+     // _data['date_approve'] = 	date_approve;
+     //_data['id_invoice'] = 	id_invoice;
 
      _data['nameusertransfer'] = nameusertransfer;
      _data['fkusertrasfer'] = fkusertrasfer;
@@ -164,5 +164,13 @@ class ClientModel extends CacheRepository{
      _data['total_paid'] = total_paid;
     return _data;
   }
+  String userAsString() {
+    return "${this.nameEnterprise}";
+    // return '#${this.idUser} ${this.nameUser}';
+  }
 
+  ///this method will prevent the override of toString
+  bool getfilteruser(String filter) {
+    return this.nameEnterprise.toString().contains(filter);
+  }
 }

@@ -55,7 +55,11 @@ class _supportpageState extends State<supportpage> {
             // }, title: 'Task'),
 
            privilge.checkprivlge('19')==true?
-           buildSelectCategory(onTap: () {
+           buildSelectCategory(
+               colorbag: Colors.white,
+               colortitle: Colors.black,
+               colorarrow: Colors.black,
+               onTap: () {
               //
                Navigator.push(context, MaterialPageRoute(
                    builder: (context)=>
@@ -63,7 +67,11 @@ class _supportpageState extends State<supportpage> {
             }, title: 'العملاء المشتركين'):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
 
            privilge.checkprivlge('18')==true?
-           buildSelectCategory(onTap: () {
+           buildSelectCategory(
+               colorbag: Colors.white,
+               colortitle: Colors.black,
+               colorarrow: Colors.black,
+               onTap: () {
               Navigator.push(context, MaterialPageRoute(
                   builder: (context)=>
                       support_table()));

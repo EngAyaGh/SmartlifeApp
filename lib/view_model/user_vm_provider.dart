@@ -12,6 +12,7 @@ import 'dart:io';
 class user_vm_provider extends ChangeNotifier{
 
   List<UserModel> userall=[];
+  List<UserModel> listuserfilter=[];
   var isLoading = true;
   bool isupdate=false;
   late UserModel? selecteduser=null;
@@ -32,6 +33,7 @@ class user_vm_provider extends ChangeNotifier{
     isLoading=true;
     userall = await  UserService().usersServices();
     isLoading=false;
+    listuserfilter=userall;
     notifyListeners();
   }
   Future<void> updateuser_vm(Map<String, String?> body,String? iduser,File? file) async {
@@ -80,6 +82,24 @@ class user_vm_provider extends ChangeNotifier{
     }
     return res;
   }
+  Future<void> searchProducts(
+      String productName) async {
+    listuserfilter=[];
+    // code to convert the first character to uppercase
+    String searchKey =productName;//
+    if(productName.isNotEmpty)
+    if(userall.isNotEmpty ){
+      userall.forEach((element) {
+        if(element.nameUser!.contains(searchKey,0)
+
+            || element.mobile!.contains(searchKey,0) )
+          listuserfilter.add(element);
+      });
+    }
+    else listuserfilter=userall;
+    notifyListeners();
+  }
+
   bool getfilteruser(String filter){
     UserModel? user;
     userall.map(

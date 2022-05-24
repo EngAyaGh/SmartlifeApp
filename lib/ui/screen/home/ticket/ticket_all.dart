@@ -38,7 +38,9 @@ class ticketallState extends State<ticketall> {
         .listticket_client;
     return Scaffold(
       key: _scaffoldKey,
+appBar: AppBar(
 
+),
       body: 
       Padding(
         padding: const EdgeInsets.only(left:2,right: 2,top: 10,bottom: 10),

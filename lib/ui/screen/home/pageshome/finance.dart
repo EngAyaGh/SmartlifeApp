@@ -25,10 +25,19 @@ class financepage extends StatelessWidget {
         padding: EdgeInsets.only(top: 50),
         child:
         Column(children: [
-          buildSelectCategory(onTap: () {
+          buildSelectCategory(
+
+              colorbag: Colors.white,
+              colortitle: Colors.black,
+              colorarrow: Colors.black,
+              onTap: () {
 
           }, title: ''),
-          buildSelectCategory(onTap: () {  }, title: ''),
+          buildSelectCategory(
+              colorbag: Colors.white,
+              colortitle: Colors.black,
+              colorarrow: Colors.black,
+              onTap: () {  }, title: ''),
 
         ],),
 

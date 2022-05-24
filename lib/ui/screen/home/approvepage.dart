@@ -2,6 +2,7 @@ import 'package:crm_smart/constantsList.dart';
 import 'package:crm_smart/ui/widgets/cardapprove.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardapprove1.dart';
 import 'package:crm_smart/view_model/approve_vm.dart';
+import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -60,20 +61,20 @@ class _ApprovePageState extends State<ApprovePage> {
             padding: const EdgeInsets.only(top: 10,bottom: 10),
             child: Center(
               child:
-              Consumer<approve_vm> (
+              Consumer<invoice_vm> (
                   builder: (context,value,child) {
-                    return value.listapprove.length==0?
+                    return value.listinvoices.length==0?
                     Text('')
                         :ListView.builder(
                         scrollDirection: Axis.vertical,
-                        itemCount: value.listapprove.length,
+                        itemCount: value.listinvoices.length,
                         itemBuilder: (context, index) {
                           return SingleChildScrollView(
                               child: Padding(
                                 padding: const EdgeInsets.all(2),
                                 child: cardapprove1(
                                   itemapprove :
-                                  value.listapprove[index],
+                                  value.listinvoices[index],
                                   //data: widget.data,
                                 ),
                               ));

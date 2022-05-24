@@ -45,20 +45,34 @@ class _managmentpageState extends State<managmentpage> {
         Consumer<privilge_vm>(
     builder: (context, privilge, child){
           return Column(children: [
-            privilge.checkprivlge('3')==true?   buildSelectCategory(
+            privilge.checkprivlge('3')==true?
+            buildSelectCategory(
+                colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,
                 onTap: () {
               Navigator.push(context, MaterialPageRoute(
                   builder: (context)=>
                       AllUserScreen()));
             }, title: 'إدارة المستخدمين'):Container(),
 
-            privilge.checkprivlge('17')==true? buildSelectCategory(onTap: () {
+            privilge.checkprivlge('17')==true?
+            buildSelectCategory(
+                colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,
+                onTap: () {
               Navigator.push(context, MaterialPageRoute(
                   builder: (context)=>
                       check_level()));
             }, title: 'ادارة الصلاحيات'):Container(),
 
-            privilge.checkprivlge('4')==true?  buildSelectCategory(onTap: () {
+            privilge.checkprivlge('4')==true?
+            buildSelectCategory(
+                colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,
+                onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
@@ -68,7 +82,12 @@ class _managmentpageState extends State<managmentpage> {
                 ),
               );
             }, title: 'المنتجات '):Container(),
-            privilge.checkprivlge('20')==true?  buildSelectCategory(onTap: () {
+            privilge.checkprivlge('20')==true?
+            buildSelectCategory(
+                colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,
+                onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
