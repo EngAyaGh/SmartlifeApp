@@ -51,28 +51,6 @@ print('init in comment');
               Row(
                 //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // CircleAvatar(
-                  //   radius: 30,
-                  //   child:
-                  //   Provider.of<user_vm_provider>(context,listen:true).currentUser!.img_image.toString().trim().length==0
-                  //   // ||usermodell.img_thumbnail.toString().trim().isEmpty
-                  //       ? Provider.of<user_vm_provider>(context,listen:true).currentUser!.nameUser.toString().isEmpty||
-                  //       Provider.of<user_vm_provider>(context,listen:true).currentUser!.nameUser==null
-                  //       ? Icon(
-                  //     Icons.person,
-                  //     size: 50,
-                  //     color: Colors.lightBlueAccent,
-                  //   ) : Text(Provider.of<user_vm_provider>(context,listen:true).currentUser!.nameUser.toString().substring(0, 1))
-                  //       : ClipRRect(
-                  //     borderRadius: BorderRadius.circular(45),
-                  //         child: CachedNetworkImage(
-                  //     placeholder: (context, url) =>
-                  //     const CircularProgressIndicator(),
-                  //     imageUrl: Provider.of<user_vm_provider>(context,listen:true).currentUser!.img_image.toString(),
-                  //   ),
-                  //       ),
-                  // ),
-                  // SizedBox(width: 2,),
                   Flexible(
                     child: EditTextFormField(
                       maxline: 3,

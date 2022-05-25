@@ -15,32 +15,62 @@ class communication_vm extends ChangeNotifier{
   List<CommunicationModel> listCommunicationInstall=[];
   List<CommunicationModel> listCommunicationWelcome=[];
   List<CommunicationModel> listCommunicationClient=[];
+  List<CommunicationModel> listinstallnumber=[];
+  List<CommunicationModel> listwelcomenumber=[];
   UserModel? usercurrent;
 
   void setvalue(user){
     usercurrent=user;
     notifyListeners();
   }
-  void getCommunicationclient(String fk_client) {
+  int selectedtypeinstall=0;
 
+  void changeinstall(int s){
+    selectedtypeinstall=s;
+    notifyListeners();
+  }
+  void getCommunicationclient(String fk_client) {
     listCommunicationClient=[];
     if(listCommunication.isNotEmpty){
       listCommunication.forEach((element) {
-        if(element.fkClient==fk_client)
+        if(element.fkClient==fk_client&&element.fkUser!=null)
           listCommunicationClient.add(element);
       });
     }
       notifyListeners();
+  } 
+  void getCommunicationInstallednumber() {
+
+    listinstallnumber=[];
+    if(listCommunicationInstall.isNotEmpty){
+    listCommunicationInstall.forEach((element) {
+    if(element.fkUser==null)
+      listinstallnumber.add(element) ;
+    });
+    }
+      //notifyListeners();
+  }
+  void getCommunicationwelcomenumber() {
+
+    listwelcomenumber=[];
+    if(listCommunicationWelcome.isNotEmpty){
+      listCommunicationWelcome.forEach((element) {
+    if(element.fkUser==null)
+      listwelcomenumber.add(element) ;
+    });
+    }
+     // notifyListeners();
   }
   void getCommunicationInstall() {
 
     listCommunicationInstall=[];
     if(listCommunication.isNotEmpty){
       listCommunication.forEach((element) {
-        if(element.typeCommuncation=='تركيب'&&element.fkUser==null)
+        if(element.typeCommuncation=='تركيب')//&&element.fkUser==null)
           listCommunicationInstall.add(element);
       });
     }
+    getCommunicationInstallednumber();
     notifyListeners();
   }
   void getCommunicationWelcome() {
@@ -48,11 +78,25 @@ class communication_vm extends ChangeNotifier{
     listCommunicationWelcome=[];
     if(listCommunication.isNotEmpty){
       listCommunication.forEach((element) {
-        if(element.typeCommuncation=='ترحيب'&&element.fkUser==null)
+        if(element.typeCommuncation=='ترحيب')//&&element.fkUser==null)
           listCommunicationWelcome.add(element);
       });
     }
+    getCommunicationwelcomenumber();
     notifyListeners();
+  }
+  //addcommuncation
+  Future<CommunicationModel> addcommuncation(Map<String, dynamic?> body,String id_communication) async {
+    // ClientModel.fromJson(data[0])
+  var result=  await Api()
+        .post(url:url+ 'care/updateCommunication.php?id_communication=$id_communication');
+  CommunicationModel data = CommunicationModel.fromJson(result[0]);
+    int index= listCommunication.indexWhere((element) =>
+    element.idCommunication==id_communication);
+
+    listCommunication[index]=data;
+    notifyListeners();
+    return data;
   }
   Future<void> getCommunicationall()async {
     listCommunication=[];

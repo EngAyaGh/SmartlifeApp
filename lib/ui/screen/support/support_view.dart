@@ -1,6 +1,7 @@
 
 
 import 'package:crm_smart/constants.dart';
+import 'package:crm_smart/ui/screen/client/profileclient.dart';
 import 'package:crm_smart/ui/screen/search/search_container.dart';
 import 'package:crm_smart/ui/screen/support/support_add.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/separatorLine.dart';
@@ -13,8 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
 import 'package:provider/provider.dart';
 class support_view extends StatefulWidget {
-  const support_view({Key? key}) : super(key: key);
-
+   support_view({required this.type,Key? key}) : super(key: key);
+   String type;
   @override
   _support_viewState createState() => _support_viewState();
 }
@@ -25,15 +26,23 @@ class _support_viewState extends State<support_view> {
   late String typepayController;
   @override void didChangeDependencies() async {
 
-    WidgetsBinding.instance!.addPostFrameCallback((_)async{
-     // await   Provider.of<invoice_vm>(context, listen: false).getinvoices();
-      // Add Your Code here.
-      Provider.of<invoice_vm>(context, listen: false)
-          .getinvoice_Local("مشترك",'approved');
-    });
     super.didChangeDependencies();
   }
+@override void initState() {
 
+  WidgetsBinding.instance!.addPostFrameCallback((_)async{
+    // await   Provider.of<invoice_vm>(context, listen: false).getinvoices();
+    // Add Your Code here.
+    // only
+    if(widget.type=='only')
+      Provider.of<invoice_vm>(context, listen: false)
+          .getinvoice_Local("مشترك",'approved only');
+    if(widget.type=='client')
+      Provider.of<invoice_vm>(context, listen: false)
+          .getinvoice_Local("مشترك",'approved client');
+  });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,9 +99,11 @@ class _support_viewState extends State<support_view> {
 
                                 ),
                                 options: GroupButtonOptions(
+                                    selectedColor: kMainColor,
+
                                     buttonWidth: 110,
                                     borderRadius: BorderRadius.circular(10)),
-                                buttons: ['بالإنتظار','تم التركيب'],
+                                buttons: ['الكل','بالإنتظار','تم التركيب'],
                                 onSelected: (index,isselected){
                                   print(index);
                                   //setState(() {
@@ -167,17 +178,10 @@ class _support_viewState extends State<support_view> {
                                                     children: [
                                                       ListTile(
                                                         onTap: () {
-                                                          Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (
-                                                                      context) =>
-                                                                      support_add(
-                                                                          idinvoice: value
-                                                                              .listInvoicesAccept[index]
-                                                                              .idInvoice
-                                                                              .toString()
+                                                          Navigator.push(context, MaterialPageRoute(
+                                                                  builder: (context) => ProfileClient(
+                                                                        idclient: value
+                                                                            .listInvoicesAccept[index].fkIdClient,
                                                                       )));
                                                         },
                                                         title: Text(value
@@ -200,7 +204,8 @@ class _support_viewState extends State<support_view> {
                                                       Divider(thickness: 2,),
                                                     ],
                                                   ),
-                                                ));
+                                                )
+                                            );
                                           }),
                                     ),
                                   ],
@@ -217,6 +222,15 @@ class _support_viewState extends State<support_view> {
   }
 
     void filtershow(){
+      Provider.of<invoice_vm>(context,listen: false)
+          .getclienttype_filter(typepayController,regoin);
 
+    //   if(regoin==null)
+    //  Provider.of<invoice_vm>(context,listen: false).getclienttype_filter(typepayController,regoin);
+    // else {
+    //
+    //   Provider.of<invoice_vm>(context,listen: false).getclienttype_filter(typepayController,regoin);
+    //
+    // }
     }
 }

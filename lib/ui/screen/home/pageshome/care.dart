@@ -1,4 +1,7 @@
+import 'package:crm_smart/ui/screen/care/view_installed.dart';
+import 'package:crm_smart/ui/screen/care/view_welcome.dart';
 import 'package:crm_smart/ui/screen/home/ticket/ticketclientview.dart';
+import 'package:crm_smart/ui/screen/support/support_view.dart';
 import 'package:crm_smart/view_model/communication_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/ticket_vm.dart';
@@ -17,6 +20,8 @@ class carepage extends StatefulWidget {
 }
 
 class _carepageState extends State<carepage> {
+  int lengthInstall=0;
+  int lengthWelcome=0;
   @override void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_)async {
       Provider.of<privilge_vm>(context, listen: false).getprivlg_usercurrent();
@@ -26,8 +31,26 @@ class _carepageState extends State<carepage> {
           .getCommunicationInstall();
       Provider.of<communication_vm>(context, listen: false)
           .getCommunicationWelcome();
+//////////////////////////////////////////////
+//       Provider.of<communication_vm>(
+//           context, listen: false)
+//           .getCommunicationInstallednumber();
+//
+//       Provider.of<communication_vm>(
+//           context, listen: false)
+//           .getCommunicationwelcomenumber();
+
+
     });
     super.initState();
+  }
+
+  @override void didChangeDependencies() {
+    Future.delayed(Duration(milliseconds: 60)).then((_) async {
+
+
+    });
+    super.didChangeDependencies();
   }
   @override
   Widget build(BuildContext context) {
@@ -50,7 +73,19 @@ class _carepageState extends State<carepage> {
         Column(
 
           children: [
-          Provider.of<privilge_vm>(context,listen: true)
+            Provider.of<privilge_vm>(context,listen: true).checkprivlge('19')==true?
+            buildSelectCategory(
+                colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,
+                onTap: () {
+                  //
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context)=>
+                          support_view(type: 'only',)));
+                }, title: 'العملاء المشتركين'):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
+
+            Provider.of<privilge_vm>(context,listen: true)
               .checkprivlge('9')==true?
           buildSelectCategory(
               colorbag: Colors.white,
@@ -63,25 +98,30 @@ class _carepageState extends State<carepage> {
           Provider.of<privilge_vm>(context,listen: true)
               .checkprivlge('29')==true?
           buildSelectCategory(
-            subtitle:   Provider.of<communication_vm>
-              (context, listen: true).listCommunicationWelcome.length.toString(),
+            subtitle:   Provider.of<communication_vm>(
+                context, listen: true).listwelcomenumber.length.toString(),
               colorbag: Colors.white,
               colortitle: Colors.black,
               colorarrow: Colors.black,
               onTap: () {
-
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context)=>
+                        View_welcomeClient()));
           }, title: 'الترحيب بالعملاء'):Container(),
 
           Provider.of<privilge_vm>(context,listen: true)
               .checkprivlge('30')==true?
           buildSelectCategory(
-            subtitle:   Provider.of<communication_vm>(
-                context, listen: true).listCommunicationInstall.length.toString(),
+            subtitle:    Provider.of<communication_vm>(
+                context, listen: true).listinstallnumber.length.toString(),
               colorbag: Colors.white,
               colortitle: Colors.black,
               colorarrow: Colors.black,
               onTap: () {
-
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context)=>
+                        View_installedClient()));
+//View_installedClient
           }, title: ' جودة التركيب والتدريب'):Container(),
 
           Provider.of<privilge_vm>(context,listen: true)

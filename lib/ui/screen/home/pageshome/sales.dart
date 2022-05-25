@@ -4,6 +4,7 @@ import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/screen/home/approvepage.dart';
 import 'package:crm_smart/ui/screen/home/widgethomeitem.dart';
 import 'package:crm_smart/ui/screen/invoice/get_deleted_invoice.dart';
+import 'package:crm_smart/ui/screen/support/support_view.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -80,16 +81,20 @@ class _salesState extends State<sales> {
               }, title: ' قائمة العملاء') :Container(),
    // ;}),
 
-    // Consumer<privilge_vm>(
-    // builder: (context, privilge, child){
-    // return     privilge.checkprivlge('1')==true?
-    // buildSelectCategory(
-    //               onTap: () {
-    //             Navigator.push(context, MaterialPageRoute(
-    //                 builder: (context)=>
-    //                     AcceptPage()));
-    //           }, title:  'العملاء المشتركين '
-    // ),
+              Provider.of<privilge_vm>(context,listen: true)
+                  .checkprivlge('19')==true?
+              buildSelectCategory(
+                  colorbag: Colors.white,
+                  colortitle: Colors.black,
+                  colorarrow: Colors.black,
+                  onTap: () {
+                    //
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context)=>
+                            support_view(type: 'client',)));
+                  }, title: 'العملاء المشتركين'):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
+
+              // ),
               //:Container()
               // ;}),
             //AcceptPage

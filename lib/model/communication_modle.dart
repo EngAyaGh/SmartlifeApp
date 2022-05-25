@@ -8,29 +8,34 @@ class CommunicationModel {
     this.notes,
     required this.rate,
     required this.typeCommuncation,
-    required this.numberWrong,
+    required this.number_wrong,
     required this.clientRepeat,
     required this.dateNext,
     required this.nameEnterprise,
     required this.nameUser,
     required this.id_invoice,
     required this.date_create,
+    required this.dateinstall_done,
+     this.mobile,
   });
   late final String idCommunication;
   late final String fkClient;
-  late final String fkUser;
-  late final String dateCommunication;
+  String? fkUser;
+  late final String? dateCommunication;
   late final String? result;
   late final String? notes;
   late final String? rate;
   late final String? typeCommuncation;
-  late final String? numberWrong;
+  late final String? number_wrong;
   late final String? clientRepeat;
   late final String? dateNext;
   late final String nameEnterprise;
-  late final String nameUser;
+  late final String? nameUser;
   late final String id_invoice;
-  late final String date_create;
+  late final String? date_create;
+  late final String? date_approve;
+  late final String? dateinstall_done;
+  late final String? mobile;
 
   CommunicationModel.fromJson(Map<String, dynamic> json){
     idCommunication = json['id_communication'];
@@ -41,13 +46,16 @@ class CommunicationModel {
     notes = json['notes'];;
     rate = json['rate'];
     typeCommuncation = json['type_communcation'];
-    numberWrong = json['number_wrong'];
+    number_wrong = json['number_wrong'];
     clientRepeat = json['client_repeat'];
     dateNext = json['date_next'];
     nameEnterprise = json['name_enterprise'];
     nameUser = json['nameUser'];
     id_invoice = json['id_invoice'];
     date_create = json['date_create'];
+    date_approve = json['date_approve'];
+    dateinstall_done = json['dateinstall_done'];
+    mobile = json['mobile'];
   }
 
   Map<String, dynamic> toJson() {
@@ -60,13 +68,16 @@ class CommunicationModel {
     _data['notes'] = notes;
     _data['rate'] = rate;
     _data['type_communcation'] = typeCommuncation;
-    _data['number_wrong'] = numberWrong;
+    _data['number_wrong'] = number_wrong;
     _data['client_repeat'] = clientRepeat;
     _data['date_next'] = dateNext;
     _data['name_enterprise'] = nameEnterprise;
     _data['nameUser'] = nameUser;
     _data['id_invoice'] = id_invoice;
     _data['date_create'] = date_create;
+    _data['date_approve'] = date_approve;
+    _data['dateinstall_done'] = dateinstall_done;
+    _data['mobile'] = mobile;
     return _data;
   }
 }

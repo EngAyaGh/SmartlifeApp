@@ -32,7 +32,7 @@ class _care_client_viewState extends State<care_client_view> {
   @override
   Widget build(BuildContext context) {
     listCommunication=Provider.of<communication_vm>(context, listen: true)
-        .listCommunication;
+        .listCommunicationClient;
     listticket_client= Provider.of<ticket_vm>(context, listen: true)
         .listticket_client;
     return Scaffold(
@@ -105,6 +105,7 @@ class _care_client_viewState extends State<care_client_view> {
           Text(''):ContainerShadows(
           margin: EdgeInsets.only(),
           child: Center(child: Text('العميل ليس لديه أي تواصلات '))),
+
               listticket_client.isNotEmpty?
               buildcardExpansion('تفاصيل آخر تذكرة','',
                   TicketView(ticketModel: listticket_client.last)):Container(),
@@ -132,12 +133,13 @@ class _care_client_viewState extends State<care_client_view> {
           child: Column(
             children: [
               element.typeCommuncation=='ترحيب'?
-              cardRow(title:'تم الترحيب من قبل' ,value:getnameshort(element.nameUser) ,):Container(),
+              cardRow(title:'تم الترحيب من قبل' ,
+                value:getnameshort(element.nameUser.toString()) ,):Container(),
               element.typeCommuncation=='ترحيب'?
               cardRow(title:'تاريخ الترحيب بالعميل' ,value: element.dateCommunication.toString(),):Container(),
               element.typeCommuncation=='تركيب'?
               cardRow(title:'تم التأكد من جودة التركيب من قبل' ,
-                value:getnameshort(element.nameUser) ,):Container(),
+                value:getnameshort(element.nameUser.toString()) ,):Container(),
               element.typeCommuncation=='تركيب'?
               cardRow(title:'تاريخ التأكد من التركيب للعميل' ,value: element.dateCommunication.toString(),):Container(),
               element.typeCommuncation=='تركيب'?
@@ -145,7 +147,7 @@ class _care_client_viewState extends State<care_client_view> {
 
 
               element.typeCommuncation=='دوري'?
-              cardRow(title:'موظف التقييم' ,value:getnameshort(element.nameUser) ,):Container(),
+              cardRow(title:'موظف التقييم' ,value:getnameshort(element.nameUser.toString()) ,):Container(),
               element.typeCommuncation=='دوري'?
               cardRow(title:'تاريخ التقييم' ,value: element.dateCommunication.toString(),):Container(),
               element.typeCommuncation=='دوري'?

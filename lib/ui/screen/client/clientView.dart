@@ -48,11 +48,51 @@ class _ClientViewState extends State<ClientView> {
           child:SingleChildScrollView(
             child: Column(
               children: [
-                InkWell(
-                    onTap: ()async{
-                      await FlutterPhoneDirectCaller.callNumber(clientModel.mobile.toString());
-                    },
-                    child: cardRow(  title:'رقم الهاتف',value:clientModel.mobile.toString())),
+                // InkWell(
+                //     onTap: ()async{
+                //       await FlutterPhoneDirectCaller.callNumber(clientModel.mobile.toString());
+                //     },
+                //     child:
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          // height: 20,
+                          // width: 20,
+                          //color: kMainColor,
+                          decoration: BoxDecoration(
+                            color: kMainColor,
+                            borderRadius: BorderRadius.all(Radius.circular(20))
+                          ),
+                          child: IconButton(
+                            onPressed: (){},
+                              icon: Icon(Icons.call),iconSize: 25,color: kWhiteColor,
+                             ),
+                        ),
+                        // TextButton(
+                        //   onPressed: ()async{
+                        //     await FlutterPhoneDirectCaller.callNumber(clientModel.mobile.toString());
+                        //   },
+                        //   child:
+                        //   Text(clientModel.mobile.toString(),
+                        //     style: TextStyle(
+                        //       fontFamily: kfontfamily2,
+                        //       color: Colors.black
+                        //     ),
+                        //   ),
+                        //
+                        // ),
+                        Text(clientModel.mobile.toString(),
+                          style: TextStyle(
+                              fontFamily: kfontfamily2,
+                              color: Colors.black
+                          ),
+                        ),
+                      ],
+                    ),
+                    //cardRow(  title:'رقم الهاتف',value:clientModel.mobile.toString())
+               // ),
+                SizedBox(height: 20,),
                 cardRow( title:'تاريخ الاضافة',value:clientModel.dateCreate.toString()),
                 cardRow(  title: 'المؤسسة',value:clientModel.nameEnterprise.toString(),
                   isExpanded: true,),

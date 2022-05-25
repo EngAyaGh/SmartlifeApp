@@ -66,7 +66,8 @@ late NotificationModel itemNotify;
                       Text(
                         itemNotify.dateNotify,
                         style: TextStyle(
-                            fontFamily: kfontfamily3,color: kMainColor),),
+                          fontWeight: FontWeight.bold,
+                            fontFamily: kfontfamily2,color: kMainColor),),
                     ],
                   ),
 
@@ -103,7 +104,9 @@ late NotificationModel itemNotify;
                       children: [
                         Expanded(
                           child: Text(itemNotify.message,
-                            style: TextStyle(fontFamily: kfontfamily3),),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: kfontfamily2),),
                         ),
                           ]),
                   //Row(),

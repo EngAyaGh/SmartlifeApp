@@ -106,8 +106,6 @@ void getclient_ticket(String fkIdClient){
     }
   });
    }
-
-
    notifyListeners();
 }
 
@@ -115,10 +113,8 @@ void getclientticket_filter(String filter){
   listticket_clientfilter=[];
   if(listticket.isNotEmpty){
     listticket.forEach((element) {
-      if( element.typeTicket==filter)
-      {
+      if( element.typeTicket==filter) {
         listticket_clientfilter.add(element);
-
       }
     });}
 

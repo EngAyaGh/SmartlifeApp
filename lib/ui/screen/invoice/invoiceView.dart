@@ -329,7 +329,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                     SizedBox(height: 10,),
                     cardRow(
                         title: 'تاريخ عقد الإشتراك',
-                        value: widget.invoice!.dateCreate.toString()),
+                        value: widget.invoice!.date_approve.toString()),
                     cardRow(
                         title: 'المبلغ المدفوع',
                         value: widget.invoice!.amountPaid.toString()),

@@ -63,7 +63,7 @@ class _supportpageState extends State<supportpage> {
               //
                Navigator.push(context, MaterialPageRoute(
                    builder: (context)=>
-                      support_view()));
+                      support_view(type: 'only',)));
             }, title: 'العملاء المشتركين'):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
 
            privilge.checkprivlge('18')==true?

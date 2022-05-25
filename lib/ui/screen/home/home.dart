@@ -82,6 +82,8 @@ class _HomeState extends State<Home> {
       Provider.of<typeclient>(context,listen: false).getreasons('ticket');
       Provider.of<communication_vm>(context, listen: false)
           .getCommunicationall();
+      Provider.of<ticket_vm>(context, listen: false)
+          .getticket();
     });
     // List<PrivilgeModel> list= Provider.of<privilge_vm>(context,listen: false).privilgelist;
     //check level user
@@ -109,8 +111,7 @@ class _HomeState extends State<Home> {
       Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
       await Provider.of<client_vm>(context, listen: false)
           .getclient_vm();
-      Provider.of<ticket_vm>(context, listen: false)
-          .getticket();
+
     });
     super.didChangeDependencies();
   }

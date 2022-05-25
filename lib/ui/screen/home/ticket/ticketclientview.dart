@@ -57,9 +57,9 @@ class _ticketclientviewState extends State<ticketclientview> {
                       return  GroupButton(
                           controller: GroupButtonController(
                             selectedIndex:selectedProvider.selectedtypeticket,
-
                           ),
                           options: GroupButtonOptions(
+                            selectedColor: kMainColor,
                               buttonWidth: 110,
                               borderRadius: BorderRadius.circular(10)),
                           buttons: ['مغلقة','مستلمة','جديدة'],
@@ -72,7 +72,6 @@ class _ticketclientviewState extends State<ticketclientview> {
                           }
                       );
                     }
-
                 ),
                 SizedBox(height: 2,),
                 Container(

@@ -56,25 +56,77 @@ class invoice_vm extends ChangeNotifier{
       // else listInvoicesAccept=userall;
     notifyListeners();
   }
+  void getclienttype_filter(String filter,String? regoin){
+    // listInvoicesAccept=[];
+    List<InvoiceModel> _listInvoicesAccept=[];
+    if(regoin==null){
+    if(listInvoicesAccept.isNotEmpty){
+      if(filter=='0')
+        _listInvoicesAccept=listInvoicesAccept;
+      if(filter=='1')
+        listInvoicesAccept.forEach((element) {
+        if( element.isdoneinstall==null) {
+          _listInvoicesAccept.add(element);
+        }
+      });
+      if(filter=='2')
+        listInvoicesAccept.forEach((element) {
+          if( element.isdoneinstall=='1') {
+            _listInvoicesAccept.add(element);
+          }
+        });
+    }}
+    else{
+      if(listInvoicesAccept.isNotEmpty){
+        if(filter=='0')
+          listInvoicesAccept.forEach((element) {
+            if(element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+            }
+          });
+
+        if(filter=='1')
+          listInvoicesAccept.forEach((element) {
+            if( element.isdoneinstall==null&&element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+            }
+          });
+        if(filter=='2')
+          listInvoicesAccept.forEach((element) {
+            if( element.isdoneinstall=='1'&&element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+            }
+          });
+      }
+    }
+     listInvoicesAccept= _listInvoicesAccept;
+    notifyListeners();
+  }
   Future<void> getinvoice_Local(String searchfilter,String type
       // , List<ClientModel> list
-      )
-  async {
+      ) async {
     listInvoicesAccept=[];
-    if(type=='approved')
+    if(type=='approved only')
     listinvoices.forEach((element) {
-      if( element.type_client==searchfilter&&element.isApprove==1)
+      if( element.stateclient==searchfilter && element.isApprove=="1")
+        listInvoicesAccept.add(element);
+    });
+    if(type=='approved client')
+    listinvoices.forEach((element) {
+      if( element.type_client==searchfilter && element.isApprove=="1")
         listInvoicesAccept.add(element);
     });
    if(type=='not approved')
      listinvoices.forEach((element) {
-       if( element.type_client==searchfilter&&element.isApprove==null)
+       if( element.stateclient==searchfilter && element.isApprove==null)
          listInvoicesAccept.add(element);
      });
     //listInvoicesAccept=listinvoices;
+    // if(listInvoicesAccept.isEmpty)listInvoicesAccept=listinvoices;
 
     notifyListeners();
   }
+
   void addlistproductinvoic(value){
 
     listproductinvoic.add(value);
@@ -179,27 +231,6 @@ class invoice_vm extends ChangeNotifier{
      listinvoices=listinvoicebyregoin;
    }
 
-    // List<InvoiceModel>? val=await cahe_data_source_invoice()
-    //     .getCache(CACHE_InvoiceClient_KEY, CACHE_InvoiceClient_INTERVAL)   ;
-    // if(listinvoicebyregoin.isEmpty)
-    // {
-    //   print("inside get from api invoice");
-    //   //listinvoicebyregoin=[];
-    //   listinvoicebyregoin = await Invoice_Service()
-    //       .getinvoicebyregoin(usercurrent!.fkRegoin!);
-    //
-    //   if(listinvoicebyregoin!=null){
-    //     //listinvoicebyregoin=[];
-    //     await  cahe_data_source_invoice()
-    //    .saveToCache(listinvoicebyregoin, CACHE_InvoiceClient_KEY);}
-    // }
-    // else {
-    //   if(val!=null)// valid time
-    //  {
-    //    print("inside get from cache invoice");
-    //    listinvoicebyregoin.addAll(val);
-    //  }
-    // }
     notifyListeners();
   }
   Future<String> add_invoiceclient_vm(

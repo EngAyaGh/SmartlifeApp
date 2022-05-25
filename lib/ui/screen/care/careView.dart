@@ -52,7 +52,8 @@ class _careViewState extends State<careView> {
           listCommunication.isNotEmpty?
           Container(
                 height: MediaQuery.of(context).size.height*0.6,
-                child: GroupedListView<CommunicationModel, String>(
+                child:
+                GroupedListView<CommunicationModel, String>(
                   elements:  listCommunication,
                   groupBy: (element) {
                     switch(element.typeCommuncation)
@@ -92,12 +93,12 @@ class _careViewState extends State<careView> {
                             Column(
                           children: [
                             element.typeCommuncation=='ترحيب'?
-                            cardRow(title:'تم الترحيب من قبل' ,value:getnameshort(element.nameUser) ,):Container(),
+                            cardRow(title:'تم الترحيب من قبل' ,value:getnameshort(element.nameUser.toString()) ,):Container(),
                             element.typeCommuncation=='ترحيب'?
                             cardRow(title:'تاريخ الترحيب بالعميل' ,value: element.dateCommunication.toString(),):Container(),
                             element.typeCommuncation=='تركيب'?
                             cardRow(title:'تم التأكد من جودة التركيب من قبل' ,
-                              value:getnameshort(element.nameUser) ,):Container(),
+                              value:getnameshort(element.nameUser.toString()) ,):Container(),
                             element.typeCommuncation=='تركيب'?
                             cardRow(title:'تاريخ التأكد من التركيب للعميل' ,value: element.dateCommunication.toString(),):Container(),
                             element.typeCommuncation=='تركيب'?
@@ -105,7 +106,8 @@ class _careViewState extends State<careView> {
 
 
                             element.typeCommuncation=='دوري'?
-                            cardRow(title:'موظف التقييم' ,value:getnameshort(element.nameUser) ,):Container(),
+                            cardRow(title:'موظف التقييم' ,
+                              value:getnameshort(element.nameUser.toString()) ,):Container(),
                             element.typeCommuncation=='دوري'?
                             cardRow(title:'تاريخ التقييم' ,value: element.dateCommunication.toString(),):Container(),
                             element.typeCommuncation=='دوري'?
