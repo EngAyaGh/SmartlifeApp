@@ -1,10 +1,12 @@
 import 'package:crm_smart/constantsList.dart';
 import 'package:crm_smart/model/clientmodel.dart';
+import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/privilgemodel.dart';
 import 'package:crm_smart/ui/screen/search/search_container.dart';
 import 'package:crm_smart/ui/widgets/cardapprove.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardapprove1.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardclientAccept.dart';
+import 'package:crm_smart/ui/widgets/client_widget/clientCardNew.dart';
 import 'package:crm_smart/view_model/approve_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
@@ -22,6 +24,7 @@ class AcceptPage extends StatefulWidget {
 }
 
 class _ApprovePageState extends State<AcceptPage> {
+  List<InvoiceModel> listinvoice=[];
   @override
   void initState() {
     //Provider.of<notifyvm>(context,listen: false).getNotification();
@@ -35,11 +38,11 @@ class _ApprovePageState extends State<AcceptPage> {
       // List<PrivilgeModel> list=
       // await   Provider.of<privilge_vm>(context,listen: false).privilgelist;
       // Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
-      // await Provider.of<client_vm>(context, listen: false)
-      //     .getclient_vm();
+     listinvoice= Provider.of<invoice_vm>(context, listen: false)
+          .listinvoices;
 
-      await    Provider.of<invoice_vm>(context, listen: false)
-          .getinvoice_Local("مشترك",'not approved');
+      await Provider.of<client_vm>(context, listen: false)
+            .getclient_Local('مشترك');
     });
     //List<ClientModel> list= Provider.of<client_vm>(context).listClient;
 
@@ -68,7 +71,7 @@ class _ApprovePageState extends State<AcceptPage> {
               child: ListView(
                 children: [
                    search_widget(
-                     'invoice',
+                     'client',
                      "المؤسسة....",),
                  SizedBox(height: 5,),
                   Container(
@@ -76,24 +79,24 @@ class _ApprovePageState extends State<AcceptPage> {
 
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Consumer<invoice_vm> (
+                      child: Consumer<client_vm> (
                           builder: (context,value,child) {
-                            return value.listInvoicesAccept.length==0?
+                            return value.listClientAccept.length==0?
                             Text('')
                                 :Column(
                                   children: [
                                     Expanded(
                                       child: ListView.builder(
                                       scrollDirection: Axis.vertical,
-                                      itemCount: value.listInvoicesAccept.length,
+                                      itemCount: value.listClientAccept.length,
                                       itemBuilder: (context, index) {
 
                                         return SingleChildScrollView(
                                             child: Padding(
                                               padding: const EdgeInsets.all(2),
-                                              child: cardClientAccept(
-                                                iteminvoice :
-                                                value.listInvoicesAccept[index],
+                                              child:cardClientnew(
+                                                iduser: '',
+                                                itemClient:  value.listClientAccept[index],
                                               ),
                                             ));
                                       }),

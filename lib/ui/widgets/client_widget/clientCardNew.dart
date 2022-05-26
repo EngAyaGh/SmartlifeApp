@@ -73,11 +73,17 @@ class cardClientnew extends StatelessWidget {
 
                       Text(itemClient.typeClient.toString(),
                         style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+
                             fontFamily: kfontfamily2,color: kMainColor),),
                       itemClient.dateCreate==null?
                       Text(''):
                       Text(   itemClient.dateCreate.toString(),
                         style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+
                             fontFamily: kfontfamily2,color: kMainColor),),
 
                     ],
@@ -104,7 +110,10 @@ ${itemClient.nameEnterprise.toString().substring(45,itemClient.nameEnterprise.to
                       Text(
                         itemClient.name_regoin.toString(),
                         style: TextStyle(
-                          color: kMainColor,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+
+                            color: kMainColor,
                             fontFamily: kfontfamily2),),
 
                       itemClient.total_paid!=null?
@@ -112,21 +121,25 @@ ${itemClient.nameEnterprise.toString().substring(45,itemClient.nameEnterprise.to
                         itemClient.total_paid.toString(),
                         style: TextStyle(
                           color: kMainColor,
-                            fontSize: 10,
+                            fontSize: 11,                             fontWeight: FontWeight.bold,
+
                             fontFamily: kfontfamily2),)
                           : Text(
                         '' ,
                         style: TextStyle(
                             color: kMainColor,
-                            fontSize: 10,
+                            fontSize: 11,                             fontWeight: FontWeight.bold,
+
                             fontFamily: kfontfamily2),),
 
                       Text(
                           getnameshort(itemClient.nameUser.toString())
                        ,
                         style: TextStyle(
-                          color: kMainColor,
-                            // fontWeight: FontWeight.bold,
+                            fontSize: 11,
+
+                            color: kMainColor,
+                             fontWeight: FontWeight.bold,
                             fontFamily: kfontfamily2 ),),
 
                     ],

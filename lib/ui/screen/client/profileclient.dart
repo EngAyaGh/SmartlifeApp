@@ -28,7 +28,6 @@ class ProfileClient extends StatefulWidget {
   ProfileClient({required this.idclient, Key? key}) : super(key: key);
    String? idclient;
 
-
   @override
   _ProfileClientState createState() => _ProfileClientState();
 }
@@ -62,7 +61,6 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
 
   super.initState();
     _tabcontroller= TabController(length: 5, vsync: this,initialIndex: 0);
-
 }
 @override void didChangeDependencies() {
 
@@ -78,7 +76,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
 
    if(index !=-1)
      _invoiceModel=Provider.of<invoice_vm>(context,listen: true).listinvoices
-        .firstWhere((element) => element.fkIdClient==widget.idclient);
+        .lastWhere((element) => element.fkIdClient==widget.idclient&&element.isApprove==null);
 
     current = Provider.of<user_vm_provider>(context).currentUser!;
     int _tabBarIndex = 0;
@@ -166,13 +164,13 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
             child: TabBarView(
               controller: _tabcontroller,
               children: <Widget>[
-                ClientView(idclient: _clientModel.idClients.toString(),),
+                ClientView(idclient: _clientModel.idClients.toString(),
+                invoice: _invoiceModel,
+                ),
                 invoices(
                   itemClient: _clientModel,
                   fkclient: _clientModel.idClients.toString(),
                   fkuser: '',
-
-
                 ),
                 // InvoiceView(
                 // idinvoice:

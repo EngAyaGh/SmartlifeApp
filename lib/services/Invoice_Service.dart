@@ -112,22 +112,19 @@ class Invoice_Service {
     print(prodlist);
     return prodlist;
   }
-  Future<String> addInvoice( Map<String,dynamic?> body,File? file) async {
+  Future<InvoiceModel?> addInvoice( Map<String,dynamic?> body,File? file) async {
 
     try{
-      String result = await Api()
+      var data = await Api()
           .postRequestWithFile('',  url+"client/invoice/addinvoice.php",
-           body,
-      file
-      );
-      print("add invoice in services");
-      print(result);
-      return result !="error"? result:"false";
+           body, file);
+
+      return  InvoiceModel.fromJson(data[0]);
     }
     catch(e) {
-      print(e);
-      return "false";
+    return null;
     }
+
   }
   Future<String> addInvoiceProduct( Map<String,dynamic?> body) async {
     print("$body");

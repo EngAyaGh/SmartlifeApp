@@ -1,35 +1,26 @@
+
+
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/clientmodel.dart';
-import 'package:crm_smart/model/invoiceModel.dart';
+import 'package:crm_smart/model/notificationModel.dart';
 import 'package:crm_smart/ui/screen/client/detail_client.dart';
 import 'package:crm_smart/ui/screen/client/editClient.dart';
 import 'package:crm_smart/ui/screen/client/profileclient.dart';
-import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
-import 'package:crm_smart/ui/screen/invoice/invoces.dart';
-import 'package:crm_smart/ui/widgets/custom_widget/custom_button_new.dart';
-import 'package:crm_smart/ui/widgets/custom_widget/separatorLine.dart';
-import 'package:crm_smart/view_model/all_user_vm.dart';
+import 'package:crm_smart/ui/screen/home/approvepage.dart';
+import 'package:crm_smart/ui/screen/invoice/get_deleted_invoice.dart';
+import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:get/get.dart';
 
-class cardClientAccept extends StatelessWidget {
-  cardClientAccept(
-      { Key? key,
-       // required this.iduser,
-        required this.iteminvoice}) : super(key: key);
-  //ClientModel itemClient;
-  InvoiceModel iteminvoice;
-  //String iduser;
+class cardAllClient extends StatelessWidget {
+  cardAllClient({Key? key, required this.clientModel}) : super(key: key);
+  late ClientModel clientModel;
 
   @override
   Widget build(BuildContext context) {
-    //العملاء المشتركين
+
     return Container(
+      //color: itemNotify.isread==0?Colors.black12: Colors.white30,
 
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -51,7 +42,7 @@ class cardClientAccept extends StatelessWidget {
                 MaterialPageRoute(builder: (context) =>
                     ProfileClient(
                         idclient:
-                        iteminvoice.fkIdClient.toString())
+                        clientModel.idClients.toString())
                   //   editclient(
                   // itemClient: itemClient,
                   // fkclient: itemClient.idClients.toString(),
@@ -60,8 +51,10 @@ class cardClientAccept extends StatelessWidget {
           },
           child: Container(
             decoration: BoxDecoration(
-              color:Colors.white,
 
+              color: Colors.white,
+
+              //borderRadius: BorderRadius.all( Radius.circular(5)),
             ),
 
             child: Padding(
@@ -73,17 +66,46 @@ class cardClientAccept extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        iteminvoice.date_approve.toString(),
+                        clientModel.dateCreate.toString(),
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: kfontfamily2,color: kMainColor),),
                     ],
                   ),
+
+                  // Row(
+                  //   children: [
+                  //     Container(
+                  //
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.all(Radius.circular(15)),
+                  //         boxShadow: <BoxShadow>[
+                  //           BoxShadow(
+                  //             offset: Offset(1.0, 1.0),
+                  //             blurRadius: 8.0,
+                  //             color: Colors.black87.withOpacity(0.2),
+                  //           ),
+                  //         ],
+                  //         color: kMainColor,
+                  //       ),
+                  //       child: Padding(
+                  //         padding: const EdgeInsets.only(top: 3,bottom: 3, left:6,right: 6),
+                  //         child: Text(showtext(itemNotify.typeNotify),style:
+                  //         TextStyle(
+                  //           color: kWhiteColor,
+                  //             //fontWeight: FontWeight.bold,
+                  //             fontFamily: kfontfamily3),
+                  //
+                  //     ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                          child: Text(iteminvoice.name_enterprise.toString(),
+                          child: Text(clientModel.nameEnterprise.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: kfontfamily2),),

@@ -87,7 +87,7 @@ class communication_vm extends ChangeNotifier{
   }
   //addcommuncation
   Future<CommunicationModel> addcommuncation(Map<String, dynamic?> body,String id_communication) async {
-    // ClientModel.fromJson(data[0])
+    print(id_communication);
   var result=  await Api()
         .post(url:url+ 'care/updateCommunication.php?id_communication=$id_communication');
   CommunicationModel data = CommunicationModel.fromJson(result[0]);

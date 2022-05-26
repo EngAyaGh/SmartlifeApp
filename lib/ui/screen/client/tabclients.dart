@@ -4,7 +4,9 @@ import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/ui/screen/search/search_container.dart';
+import 'package:crm_smart/ui/widgets/client_widget/cardAllclient.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardClient.dart';
+import 'package:crm_smart/ui/widgets/client_widget/cardclientAccept.dart';
 import 'package:crm_smart/ui/widgets/client_widget/clientCardNew.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
@@ -181,8 +183,8 @@ class _tabclientsState extends State<tabclients> {
                                     DropdownButton(
 
                                         isExpanded: true,
-                                        hint: Text("المنطقة"),
-                                        items: cart.listregoin.map((level_one) {
+                                        hint: Text("الفرع"),
+                                        items: cart.listregoinfilter.map((level_one) {
                                           return DropdownMenuItem(
 
                                             child: Text(level_one.name_regoin), //label of item
@@ -209,7 +211,6 @@ class _tabclientsState extends State<tabclients> {
                           // (   privilge.checkprivlge('16')==true
                           //     && privilge.checkprivlge('8')!=true
                           //     && privilge.checkprivlge('15')!=true )?
-
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.only(left: 20.0,right: 8),
@@ -320,10 +321,13 @@ class _tabclientsState extends State<tabclients> {
                                             child: Padding(
                                           padding: const EdgeInsets.all(2),
                                           child:
-                                          //Text(''),
-                                          cardClientnew(
-                                              itemClient: value.listClientfilter[index],
-                                              iduser: iduser.toString()),
+                                          cardAllClient(
+                                            clientModel:
+                                            value.listClientfilter[index] ,)
+                                          //cardClientAccept(iteminvoice: null,)
+                                          // cardClientnew(
+                                          //     itemClient: value.listClientfilter[index],
+                                          //     iduser: iduser.toString()),
                                         ));
                                       }),
                             ),
@@ -362,7 +366,7 @@ class _tabclientsState extends State<tabclients> {
         if(iduser==null) {
           Provider.of<client_vm>(context, listen: false)
               .getclientfilter_Local(
-             regoin, "regoin",
+               regoin, "regoin",
               typeclientvalue,null);
         }else{
 

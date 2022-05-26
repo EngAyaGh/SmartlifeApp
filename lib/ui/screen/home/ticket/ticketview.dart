@@ -13,8 +13,8 @@ import '../../../../constants.dart';
 import '../../../../function_global.dart';
 
 class TicketView extends StatefulWidget {
-   TicketView({ required this.ticketModel, Key? key}) : super(key: key);
-
+   TicketView({this.type, required this.ticketModel, Key? key}) : super(key: key);
+   String? type=null;
    TicketModel ticketModel;
   @override
   _TicketViewState createState() => _TicketViewState();
@@ -65,8 +65,10 @@ class _TicketViewState extends State<TicketView> {
                 cardRow(title: 'نوع التذكرة',value: widget.ticketModel.typeProblem.toString()),
                 //cardRow(title: 'وصف المشكلة',value: widget.ticketModel.detailsProblem.toString(),isExpanded: true,),
                 cardRow(title: 'تفاصيل التذكرة',value: widget.ticketModel.detailsProblem.toString(),isExpanded: true,),
-                  SizedBox(height: 10,),
-              Row(
+                SizedBox(height: 10,),
+
+                widget.type==null?
+                Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
 
@@ -135,8 +137,8 @@ class _TicketViewState extends State<TicketView> {
                   ),
 
                 ],
-              ),
-              SizedBox(height: 5,)
+              ):Container(),
+                SizedBox(height: 5,)
               ],
               ),
               ),

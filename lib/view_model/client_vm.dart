@@ -45,9 +45,11 @@ class client_vm extends ChangeNotifier {
   }
 
   List<PrivilgeModel> privilgelist=[];
+  Future<void> getclienttypeInstall()async {
 
+  }
   Future<void> getclient_Local(String searchfilter
-     // , List<ClientModel> list
+    // , List<InvoiceModel> list
       )
   async {
     // if(listClient.isEmpty)

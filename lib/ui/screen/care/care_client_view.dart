@@ -101,14 +101,15 @@ class _care_client_viewState extends State<care_client_view> {
                     'عدد التذاكر التي فتحت للعميل   '+listticket_client.length.toString(),
                   ):Container(),
               ],),
-              listCommunication.isNotEmpty?
-          Text(''):ContainerShadows(
-          margin: EdgeInsets.only(),
-          child: Center(child: Text('العميل ليس لديه أي تواصلات '))),
+          //     listCommunication.isNotEmpty?
+          // Text(''):ContainerShadows(
+          // margin: EdgeInsets.only(),
+          // child: Center(child: Text('العميل ليس لديه أي تواصلات '))),
 
+              SizedBox(height: 10,),
               listticket_client.isNotEmpty?
               buildcardExpansion('تفاصيل آخر تذكرة','',
-                  TicketView(ticketModel: listticket_client.last)):Container(),
+                  TicketView(ticketModel: listticket_client.last ,type:'1' )):Container(),
 
               for(int i=0;i<listCommunication.length;i++)
                 if(listCommunication[i].typeCommuncation!='دوري') commview(listCommunication[i]) ,

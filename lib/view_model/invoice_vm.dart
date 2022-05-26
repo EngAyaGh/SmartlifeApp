@@ -56,45 +56,58 @@ class invoice_vm extends ChangeNotifier{
       // else listInvoicesAccept=userall;
     notifyListeners();
   }
-  void getclienttype_filter(String filter,String? regoin){
+  void getclienttype_filter(String filter,String? regoin,String tyype){
     // listInvoicesAccept=[];
+    if(tyype=='only') getinvoice_Local("مشترك",'approved only');
+    if(tyype=='client') getinvoice_Local("مشترك",'approved client');
     List<InvoiceModel> _listInvoicesAccept=[];
     if(regoin==null){
     if(listInvoicesAccept.isNotEmpty){
-      if(filter=='0')
-        _listInvoicesAccept=listInvoicesAccept;
-      if(filter=='1')
+      if(filter=='الكل') {
+        _listInvoicesAccept = listInvoicesAccept;
+        print('serch الكل');
+      }
+       if(filter=='بالإنتظار')
         listInvoicesAccept.forEach((element) {
         if( element.isdoneinstall==null) {
           _listInvoicesAccept.add(element);
+          print('serch بالانتظار');
+
         }
       });
-      if(filter=='2')
+      if(filter=='تم التركيب')
         listInvoicesAccept.forEach((element) {
           if( element.isdoneinstall=='1') {
             _listInvoicesAccept.add(element);
+            print('serch تم التركيب');
+
           }
         });
     }}
     else{
       if(listInvoicesAccept.isNotEmpty){
-        if(filter=='0')
+        if(filter=='الكل')
           listInvoicesAccept.forEach((element) {
             if(element.fk_regoin==regoin) {
               _listInvoicesAccept.add(element);
+              print('regoin الكل');
+
             }
           });
 
-        if(filter=='1')
+        if(filter=='بالإنتظار')
           listInvoicesAccept.forEach((element) {
-            if( element.isdoneinstall==null&&element.fk_regoin==regoin) {
+            if( element.isdoneinstall.toString()==null&&element.fk_regoin==regoin) {
               _listInvoicesAccept.add(element);
+              print('regoin بالإنتظار');
             }
           });
-        if(filter=='2')
+        if(filter=='تم التركيب')
           listInvoicesAccept.forEach((element) {
             if( element.isdoneinstall=='1'&&element.fk_regoin==regoin) {
               _listInvoicesAccept.add(element);
+              print('regoin تم التركيب');
+
             }
           });
       }
@@ -116,17 +129,15 @@ class invoice_vm extends ChangeNotifier{
       if( element.type_client==searchfilter && element.isApprove=="1")
         listInvoicesAccept.add(element);
     });
-   if(type=='not approved')
+    if(type=='not approved')
      listinvoices.forEach((element) {
        if( element.stateclient==searchfilter && element.isApprove==null)
          listInvoicesAccept.add(element);
      });
     //listInvoicesAccept=listinvoices;
     // if(listInvoicesAccept.isEmpty)listInvoicesAccept=listinvoices;
-
     notifyListeners();
   }
-
   void addlistproductinvoic(value){
 
     listproductinvoic.add(value);
@@ -235,27 +246,17 @@ class invoice_vm extends ChangeNotifier{
   }
   Future<String> add_invoiceclient_vm(
       Map<String, dynamic?> body,File? file) async {
-    //print('$body');
-    DateTime _currentDate = DateTime.now();
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    String res = await Invoice_Service().addInvoice(body,file);
 
-    if (res!="false") {
-      body.addAll({
-        'id_invoice':res,
-        'date_create':formatter.format(_currentDate),
-        "products":listproductinvoic.map((e)=>e.toJson()).toList()
-      });
-      print('in add invoice vm');
-      print('$body');
-      listinvoices.insert(0,InvoiceModel.fromJson(body));
-      listinvoiceClient.insert(0, InvoiceModel.fromJson(body));
-      //listinvoicebyregoin.add(InvoiceModel.fromJson(body));
-      print("////////////////////////////////////////////");
-      //print('${listinvoiceClient[0].idInvoice}');
-      //listinvoice[0].products=listproductinvoic;
-      notifyListeners();
+       String res='';
+      InvoiceModel? data=  = await Invoice_Service().addInvoice(body,file);
+     if(data !=null){
+    listinvoices.insert(0,data);
+    listinvoiceClient.insert(0, data);
+    res=data.idInvoice.toString();
     }
+     else res='false';
+
+      notifyListeners();
     return res;
   }
   Future<String> add_invoiceProduct_vm(Map<String, dynamic?>? body) async {

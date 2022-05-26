@@ -88,11 +88,11 @@ class _salesState extends State<sales> {
                   colortitle: Colors.black,
                   colorarrow: Colors.black,
                   onTap: () {
-                    //
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context)=>
-                            support_view(type: 'client',)));
-                  }, title: 'العملاء المشتركين'):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
+                        AcceptPage()   // support_view(type: 'client',)
+                    ));
+                  }, title:'العملاء المشتركين' ):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
 
               // ),
               //:Container()

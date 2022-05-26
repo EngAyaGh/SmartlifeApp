@@ -4,6 +4,8 @@ import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/ui/screen/client/profileclient.dart';
 import 'package:crm_smart/ui/screen/search/search_container.dart';
 import 'package:crm_smart/ui/screen/support/support_add.dart';
+import 'package:crm_smart/ui/widgets/client_widget/cardclientAccept.dart';
+import 'package:crm_smart/ui/widgets/client_widget/clientCardNew.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/separatorLine.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
@@ -23,7 +25,7 @@ class support_view extends StatefulWidget {
 class _support_viewState extends State<support_view> {
   String? regoin;
   String? typeclientvalue;
-  late String typepayController;
+  // late String typepayController;
   @override void didChangeDependencies() async {
 
     super.didChangeDependencies();
@@ -43,6 +45,7 @@ class _support_viewState extends State<support_view> {
   });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,89 +62,95 @@ class _support_viewState extends State<support_view> {
                   padding: const EdgeInsets.only(top: 10, bottom: 10),
                   child: ListView(
                     children: [
-                      privilge.checkprivlge('8') == true ? //regoin
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8),
-                        child: Consumer<regoin_vm>(
-                          builder: (context, cart, child) {
-                            return
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-                              DropdownButton(
+                      children: [
+                        privilge.checkprivlge('1') == true ? //regoin
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0, right: 8),
+                            child: Consumer<regoin_vm>(
+                              builder: (context, cart, child) {
+                                return
+                                  DropdownButton(
+                                    isExpanded: true,
+                                    hint: Text("الفرع"),
+                                    items: cart.listregoinfilter.map((level_one) {
+                                      return DropdownMenuItem(
 
-                                isExpanded: true,
-                                hint: Text("المنطقة"),
-                                items: cart.listregoin.map((level_one) {
-                                  return DropdownMenuItem(
-
-                                    child: Text(level_one.name_regoin),
-                                    //label of item
-                                    value: level_one
-                                        .id_regoin, //value of item
+                                        child: Text(level_one.name_regoin),
+                                        //label of item
+                                        value: level_one
+                                            .id_regoin, //value of item
+                                      );
+                                    }).toList(),
+                                    value: cart.selectedValueLevel,
+                                    onChanged: (value) {
+                                      //  setState(() {
+                                      cart.changeVal(value.toString());
+                                      regoin = value.toString();
+                                      filtershow();
+                                    },
                                   );
-                                }).toList(),
-                                value: cart.selectedValueLevel,
-                                onChanged: (value) {
-                                  //  setState(() {
-                                  cart.changeVal(value.toString());
-                                  regoin = value.toString();
-                                  filtershow();
-                                },
-                              );
-                            //);
-                          },
+                                //);
+                              },
+                            ),
+                          ),
+                        ) : Container(),
+                        // Consumer<typeclient>(
+                        //     builder: (context, selectedProvider, child){
+                        //       return  GroupButton(
+                        //           controller: GroupButtonController(
+                        //             selectedIndex:selectedProvider.selectedinstall,
+                        //
+                        //           ),
+                        //           options: GroupButtonOptions(
+                        //               selectedColor: kMainColor,
+                        //
+                        //               buttonWidth: 110,
+                        //               borderRadius: BorderRadius.circular(10)),
+                        //           buttons: ['الكل','بالإنتظار','تم التركيب'],
+                        //           onSelected: (index,isselected){
+                        //             print(index);
+                        //             //setState(() {
+                        //             typepayController=index.toString();
+                        //             selectedProvider.changeinstall(index);
+                        //             filtershow();
+                        //             //});
+                        //           }
+                        //       );
+                        //     }
+                        //
+                        // ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20.0,right: 8),
+                            child: Consumer<typeclient>(
+                                builder: (context, cart, child){
+                                  return DropdownButton(
+                                    isExpanded: true,
+                                    hint: Text('الحالة'),
+                                    //hint: Text("حدد حالة العميل"),
+                                    items: cart.listtype_install.map((level_one) {
+                                      return DropdownMenuItem(
+                                        child: Text(level_one), //label of item
+                                        value: level_one, //value of item
+                                      );
+                                    }).toList(),
+                                    value:cart.selectedlisttype_install,
+                                    onChanged:(value) {
+                                      //namemanage=value.toString();
+                                      cart.changelisttype_install(value.toString());
+                                      typeclientvalue=value.toString();
+                                      filtershow();
+                                    },
+                                  );}
+                            ),
+                          ),
                         ),
-                      ) : Container(),
-                      Consumer<typeclient>(
-                          builder: (context, selectedProvider, child){
-                            return  GroupButton(
-                                controller: GroupButtonController(
-                                  selectedIndex:selectedProvider.selectedinstall,
-
-                                ),
-                                options: GroupButtonOptions(
-                                    selectedColor: kMainColor,
-
-                                    buttonWidth: 110,
-                                    borderRadius: BorderRadius.circular(10)),
-                                buttons: ['الكل','بالإنتظار','تم التركيب'],
-                                onSelected: (index,isselected){
-                                  print(index);
-                                  //setState(() {
-                                  typepayController=index.toString();
-                                  selectedProvider.changeinstall(index);
-                                  //});
-                                }
-                            );
-                          }
-
-                      ),
-                      // Expanded(
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.only(left: 20.0, right: 8),
-                      //     child: Consumer<typeclient>(
-                      //         builder: (context, cart, child) {
-                      //           return DropdownButton(
-                      //             isExpanded: true,
-                      //             hint: Text('الحالة'),
-                      //             //hint: Text("حدد حالة العميل"),
-                      //             items: cart.listtype_install.map((level_one) {
-                      //               return DropdownMenuItem(
-                      //                 child: Text(level_one), //label of item
-                      //                 value: level_one, //value of item
-                      //               );
-                      //             }).toList(),
-                      //             value: cart.selectedinstall,
-                      //             onChanged: (value) {
-                      //               //namemanage=value.toString();
-                      //               cart.changeinstall(value.toString());
-                      //               typeclientvalue = value.toString();
-                      //               filtershow();
-                      //             },
-                      //           );
-                      //         }
-                      //     ),
-                      //   ),
-                      // ),
+                      ],
+                    ),
                       search_widget(
                         'invoice',
                         "المؤسسة....",
@@ -167,42 +176,15 @@ class _support_viewState extends State<support_view> {
                                     Expanded(
                                       child: ListView.builder(
                                           scrollDirection: Axis.vertical,
-                                          itemCount: value.listInvoicesAccept
-                                              .length,
+                                          itemCount: value.listInvoicesAccept.length,
                                           itemBuilder: (context, index) {
                                             return SingleChildScrollView(
                                                 child: Padding(
                                                   padding: const EdgeInsets.all(
                                                       2),
-                                                  child: Column(
-                                                    children: [
-                                                      ListTile(
-                                                        onTap: () {
-                                                          Navigator.push(context, MaterialPageRoute(
-                                                                  builder: (context) => ProfileClient(
-                                                                        idclient: value
-                                                                            .listInvoicesAccept[index].fkIdClient,
-                                                                      )));
-                                                        },
-                                                        title: Text(value
-                                                            .listInvoicesAccept[index]
-                                                            .name_enterprise
-                                                            .toString(),
-                                                          style: TextStyle(
-                                                              fontFamily: kfontfamily2
-                                                          ),),
-                                                        // leading:
-                                                        trailing: Text(value
-                                                            .listInvoicesAccept[index]
-                                                            .date_approve
-                                                            .toString(),
-                                                          style: TextStyle(
-                                                              fontFamily: kfontfamily2
-                                                          ),),
-                                                      ),
-                                                      // const MySeparator(color: Colors.grey),
-                                                      Divider(thickness: 2,),
-                                                    ],
+                                                  child:
+                                                  cardClientAccept(
+                                                        iteminvoice: value.listInvoicesAccept[index],
                                                   ),
                                                 )
                                             );
@@ -222,8 +204,10 @@ class _support_viewState extends State<support_view> {
   }
 
     void filtershow(){
+    print(regoin);
+    print(typeclientvalue);
       Provider.of<invoice_vm>(context,listen: false)
-          .getclienttype_filter(typepayController,regoin);
+          .getclienttype_filter(typeclientvalue!,regoin,'only');
 
     //   if(regoin==null)
     //  Provider.of<invoice_vm>(context,listen: false).getclienttype_filter(typepayController,regoin);

@@ -186,7 +186,7 @@ ApproveModel itemapprove;
               child: TabBarView(
                 controller: _tabcontroller,
                 children: <Widget>[
-                  ClientView(idclient: _clientModel.idClients.toString()),
+                  ClientView(idclient: _clientModel.idClients.toString(), invoice: null,),
                   InvoiceView(invoice:
                   _invoiceModel, clientmodel: _clientModel,),
                   //Icon(Icons.add),

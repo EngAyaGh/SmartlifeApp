@@ -7,6 +7,7 @@ import 'package:crm_smart/view_model/communication_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:group_button/group_button.dart';
 
 import '../../../constants.dart';
@@ -57,24 +58,39 @@ class _installAddState extends State<installAdd> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    // height: 20,
-                    // width: 20,
+                    height: 30,
+                    width: 30,
                     //color: kMainColor,
                     decoration: BoxDecoration(
                         color: kMainColor,
-                        borderRadius: BorderRadius.all(Radius.circular(20))
+                        borderRadius: BorderRadius.all(Radius.circular(10))
                     ),
                     child: IconButton(
-                      onPressed: (){},
-                      icon: Icon(Icons.call),iconSize: 25,color: kWhiteColor,
+                      onPressed: ()async{
+                        await FlutterPhoneDirectCaller.callNumber(widget.com.mobile.toString());
+                      },
+                      icon: Icon(Icons.call),iconSize: 15,color: kWhiteColor,
                     ),
                   ),
-                  Text(widget.com.mobile.toString(),
-                    style: TextStyle(
-                        fontFamily: kfontfamily2,
-                        color: Colors.black
+                  TextButton(
+                    onPressed: ()async{
+                      await FlutterPhoneDirectCaller.callNumber(widget.com.mobile.toString());
+                    },
+                    child:
+                    Text(widget.com.mobile.toString(),
+                      style: TextStyle(
+                          fontFamily: kfontfamily2,
+                          color: kMainColor
+                      ),
                     ),
+
                   ),
+                  // Text(widget.com.mobile.toString(),
+                  //   style: TextStyle(
+                  //       fontFamily: kfontfamily2,
+                  //       color: kMainColor
+                  //   ),
+                  // ),
                 ],
               ),
               SizedBox(height: 10,),
@@ -147,16 +163,18 @@ class _installAddState extends State<installAdd> {
                           )),
                       onPressed: () async{
                         if(widget.com.dateCommunication==null) {
+
                           Provider.of<communication_vm>
                         (context,listen: false).addcommuncation({
-                        'fk_user':Provider.of<user_vm_provider>
-                          (context,listen: false).currentUser!.idUser.toString(),
+                        'fk_user':'1',
+                        // Provider.of<user_vm_provider>
+                        //   (context,listen: false).currentUser!.idUser.toString(),
                         'date_communication':DateTime.now().toString(),
                         'result':typepayController,//
-                        'rate':widget.com.rate.toString(),
-                        'number_wrong':widget.com.number_wrong.toString(),
-                        'client_repeat':widget.com.clientRepeat.toString(),
-                        'date_next':widget.com.dateNext.toString(),
+                        // 'rate':widget.com.rate.toString(),
+                        // 'number_wrong':widget.com.number_wrong.toString(),
+                        // 'client_repeat':widget.com.clientRepeat.toString(),
+                        // 'date_next':widget.com.dateNext.toString(),
                       },widget.com.idCommunication).then((value) =>
 
                        clear(value)

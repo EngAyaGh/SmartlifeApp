@@ -53,51 +53,6 @@ class _invoicesState extends State<invoices> {
      print(listinvoice.length);
      return Scaffold(
        key: _scaffoldKey,
-       // floatingActionButton:FloatingActionButton(
-       //   backgroundColor: kMainColor,
-       //   onPressed: () {
-       //     Navigator.of(context).pushAndRemoveUntil(
-       //         MaterialPageRoute(
-       //             builder: (context) =>
-       //               addinvoice(
-       //                   //add new invoice
-       //                   itemClient:widget.itemClient,
-       //                   // iduser: widget.fkuser,
-       //                   // idClient: widget.fkclient,
-       //                   // indexinvoice: listinvoice.length>0?
-       //                   // listinvoice.length-1:0
-       //               )
-       //     ), (Route<dynamic> route) => true);
-       //     // Navigator.push(
-       //     //     context, MaterialPageRoute(
-       //     //     builder: (context)=>
-       //     //     addinvoice(
-       //     //         //add new invoice
-       //     //         itemClient:widget.itemClient,
-       //     //         iduser: widget.fkuser,
-       //     //         idClient: widget.fkclient,
-       //     //         indexinvoice: listinvoice.length>0?
-       //     //         listinvoice.length-1:0
-       //     //     )
-       //     //     ));
-       //   },
-       //   tooltip: 'إضافة فاتورة',
-       //   child: Icon(Icons.add),
-       // ),
-       // appBar: AppBar(
-       //   leading: IconButton(
-       //     icon: Icon(Icons.arrow_back, color: kWhiteColor),
-       //     onPressed: (){
-       //      //  Provider.of<invoice_vm>(context,listen: false)
-       //      // .disposValue(-1);
-       //       Navigator.of(context).pop();
-       //       },
-       //   ),
-        //centerTitle: true,
-       //   title: Text('فواتير العميل',style:
-       //   TextStyle(color: kWhiteColor),
-       //     textAlign: TextAlign.center,),
-       // ),
        body: Padding(
          padding: const EdgeInsets.only(left:2,right: 2,top: 10,bottom: 10),
          child: ListView(

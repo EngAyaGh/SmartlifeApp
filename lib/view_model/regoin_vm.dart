@@ -14,6 +14,7 @@ import '../constants.dart';
 class regoin_vm extends ChangeNotifier{
 
   late List<RegoinModel> listregoin=[];
+  late List<RegoinModel> listregoinfilter=[];
   late String? selectedValueLevel=null;
 
   void changeVal(String?  val){
@@ -53,6 +54,9 @@ class regoin_vm extends ChangeNotifier{
         }
       }
     }
+    listregoinfilter=listregoin;
+    listregoinfilter.insert(0,RegoinModel(
+        id_regoin: '0', name_regoin: 'الكل'));
     notifyListeners();
     //var  data=await RegoinService().getRegoinByCountry("1");
     //listregoin= data as  List<RegoinModel>;
