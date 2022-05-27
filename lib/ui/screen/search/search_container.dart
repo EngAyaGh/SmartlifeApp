@@ -47,6 +47,10 @@ class search_widget extends StatelessWidget {
                     Provider.of<client_vm>(context,listen: false)
                         .searchProducts(pattern);
                     break;
+                    case 'accept':
+                    Provider.of<client_vm>(context,listen: false)
+                        .searchclientAccept(pattern);
+                    break;
                   case 'ticket':
                     Provider.of<ticket_vm>(context,listen: false)
                         .searchProducts(pattern);
@@ -55,9 +59,13 @@ class search_widget extends StatelessWidget {
                     Provider.of<user_vm_provider>(context,listen: false)
                         .searchProducts(pattern);
                     break;
-                  case 'invoice':
+                  // case 'invoice':
+                  //   Provider.of<invoice_vm>(context,listen: false)
+                  //       .searchProducts(pattern);
+                  //   break;
+                    case 'wait':
                     Provider.of<invoice_vm>(context,listen: false)
-                        .searchProducts(pattern);
+                        .searchwait(pattern);
                     break;
                 }
                 //.search(productName: pattern);

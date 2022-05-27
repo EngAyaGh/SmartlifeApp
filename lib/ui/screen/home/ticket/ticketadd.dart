@@ -99,7 +99,7 @@ class _ticketAddState extends State<ticketAdd> {
                                 dropdownSearchDecoration: InputDecoration(
                                   //filled: true,
                                   isCollapsed: true,
-                                  hintText: 'الموظف',
+                                  hintText: 'العميل',
                                   alignLabelWithHint: true,
                                   fillColor: Colors.grey.withOpacity(0.2),
                                   //labelText: "choose a user",

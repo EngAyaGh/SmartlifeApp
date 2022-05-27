@@ -41,8 +41,8 @@ class cardapprove1 extends StatelessWidget {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder:
                     (context) =>
-                        ProfileClient(
-                          idclient: itemapprove.fkIdClient,)));
+                        client_dashboard(
+                           invoiceModel: itemapprove,)));
           },
           child: Container(
             decoration: BoxDecoration(
@@ -64,13 +64,14 @@ class cardapprove1 extends StatelessWidget {
                             itemapprove.name_regoin.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                //fontSize: 16,
+                                fontSize: 10,
                                 fontFamily: kfontfamily2,
                                 color: kMainColor),
                           ),
                           Text(
                             itemapprove.dateCreate.toString(),
                             style: TextStyle(
+                                fontSize: 10,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: kfontfamily2,
                                 color: kMainColor),
@@ -84,7 +85,7 @@ class cardapprove1 extends StatelessWidget {
                             itemapprove.name_enterprise.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                                //fontSize: 16,
                                 fontFamily: kfontfamily2,
                          ),
                           ),

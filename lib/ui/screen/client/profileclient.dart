@@ -25,23 +25,29 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import 'clientView.dart';
 class ProfileClient extends StatefulWidget {
-  ProfileClient({required this.idclient, Key? key}) : super(key: key);
+  ProfileClient({this.invoiceModel, this.tabindex, required this.idclient, Key? key}) : super(key: key);
    String? idclient;
+  int? tabindex=0;
+  InvoiceModel? invoiceModel=null;
+
 
   @override
   _ProfileClientState createState() => _ProfileClientState();
 }
 
 class _ProfileClientState extends State<ProfileClient> with TickerProviderStateMixin{
+
   late UserModel current ;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   late ClientModel _clientModel;
-  late InvoiceModel? _invoiceModel=null;
   late CommunicationModel? _CommunicationModel;
   late TabController _tabcontroller;
-
+  int indextab=0;
 @override void initState() {
+    indextab= (widget.tabindex==null?0: widget.tabindex)!;
   WidgetsBinding.instance!.addPostFrameCallback((_)async {
+  await  Provider.of<communication_vm>(context, listen: false)
+        .getCommunicationall();
     Provider.of<invoice_vm>(context, listen: false)
         .get_invoiceclientlocal(widget.idclient);
 
@@ -60,7 +66,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
   });
 
   super.initState();
-    _tabcontroller= TabController(length: 5, vsync: this,initialIndex: 0);
+    _tabcontroller= TabController(length: 5, vsync: this,initialIndex:indextab);
 }
 @override void didChangeDependencies() {
 
@@ -71,12 +77,21 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
     _clientModel=Provider.of<client_vm>(context,listen: true).listClient
         .firstWhere((element) => element.idClients==widget.idclient);
 
-    final index=Provider.of<invoice_vm>(context,listen: true).listinvoices.indexWhere(
-            (element) => element.fkIdClient==widget.idclient);
-
-   if(index !=-1)
-     _invoiceModel=Provider.of<invoice_vm>(context,listen: true).listinvoices
-        .lastWhere((element) => element.fkIdClient==widget.idclient&&element.isApprove==null);
+   //  final index=Provider.of<invoice_vm>(context,listen: true)
+   //      .listinvoices.indexWhere(
+   //          (element) => element.fkIdClient==widget.idclient);
+   //
+   // if(index !=-1)
+   //   _invoiceModel=Provider.of<invoice_vm>(context,listen: true).listinvoices
+   //      .lastWhere(
+   //           (element) => element.fkIdClient==widget.idclient
+   //               &&element.isApprove==null,
+   //       orElse: ()=>Provider.of<invoice_vm>(context,listen: true).listinvoices
+   //           .firstWhere(
+   //               (element) => element.fkIdClient==widget.idclient
+   //               &&element.isApprove==null , orElse: null)
+   //
+   //   );
 
     current = Provider.of<user_vm_provider>(context).currentUser!;
     int _tabBarIndex = 0;
@@ -164,8 +179,9 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
             child: TabBarView(
               controller: _tabcontroller,
               children: <Widget>[
-                ClientView(idclient: _clientModel.idClients.toString(),
-                invoice: _invoiceModel,
+                ClientView(
+                  idclient: _clientModel.idClients.toString(),
+                  invoice:null,//widget.invoiceModel,
                 ),
                 invoices(
                   itemClient: _clientModel,

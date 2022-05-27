@@ -26,12 +26,6 @@ class ClientService{
     var data = await Api()
         .post( url:url+"client/clientUpdate.php?id_clients=$idclient",
         body: body );
-    // List<ClientModel> prodlist = [];
-    //
-    // for (int i = 0; i < data.length; i++) {
-    //   prodlist.add(ClientModel.fromJson(data[i]));
-    // }
-    // print(prodlist);
     return ClientModel.fromJson(data[0]);  // );//=="done"? true:false;
   }
 

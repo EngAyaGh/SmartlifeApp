@@ -80,8 +80,7 @@ class _HomeState extends State<Home> {
       Provider.of<product_vm>(context, listen: false)
           .getproduct_vm();
       Provider.of<typeclient>(context,listen: false).getreasons('ticket');
-      Provider.of<communication_vm>(context, listen: false)
-          .getCommunicationall();
+
       Provider.of<ticket_vm>(context, listen: false)
           .getticket();
     });

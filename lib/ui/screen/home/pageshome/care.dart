@@ -1,5 +1,6 @@
 import 'package:crm_smart/ui/screen/care/view_installed.dart';
 import 'package:crm_smart/ui/screen/care/view_welcome.dart';
+import 'package:crm_smart/ui/screen/client/client_accept.dart';
 import 'package:crm_smart/ui/screen/home/ticket/ticketclientview.dart';
 import 'package:crm_smart/ui/screen/support/support_view.dart';
 import 'package:crm_smart/view_model/communication_vm.dart';
@@ -24,6 +25,8 @@ class _carepageState extends State<carepage> {
   int lengthWelcome=0;
   @override void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_)async {
+      await    Provider.of<communication_vm>(context, listen: false)
+          .getCommunicationall();
       Provider.of<privilge_vm>(context, listen: false).getprivlg_usercurrent();
       Provider.of<ticket_vm>(context,listen: false)
           .getclientticket_filter('جديدة');
@@ -73,7 +76,8 @@ class _carepageState extends State<carepage> {
         Column(
 
           children: [
-            Provider.of<privilge_vm>(context,listen: true).checkprivlge('19')==true?
+            Provider.of<privilge_vm>(context,listen: true)
+                .checkprivlge('19')==true?
             buildSelectCategory(
                 colorbag: Colors.white,
                 colortitle: Colors.black,
@@ -82,7 +86,7 @@ class _carepageState extends State<carepage> {
                   //
                   Navigator.push(context, MaterialPageRoute(
                       builder: (context)=>
-                          support_view(type: 'only',)));
+                          ClientAccept()));
                 }, title: 'العملاء المشتركين'):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
 
             Provider.of<privilge_vm>(context,listen: true)

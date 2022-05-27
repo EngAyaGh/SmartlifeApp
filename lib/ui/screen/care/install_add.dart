@@ -24,7 +24,7 @@ class installAdd extends StatefulWidget {
 }
 
 class _installAddState extends State<installAdd> {
-  String? typepayController;
+  String? typepayController='0';
 
   String?  titleWelcom='هذا عميل مشترك جديد , قم بالتواصل مع العميل والترحيب به ثم اكتب تعليق وانقر على زر تم الترحيب بالعميل';
 
@@ -166,9 +166,8 @@ class _installAddState extends State<installAdd> {
 
                           Provider.of<communication_vm>
                         (context,listen: false).addcommuncation({
-                        'fk_user':'1',
-                        // Provider.of<user_vm_provider>
-                        //   (context,listen: false).currentUser!.idUser.toString(),
+                        'fk_user':Provider.of<user_vm_provider>
+                           (context,listen: false).currentUser!.idUser.toString(),
                         'date_communication':DateTime.now().toString(),
                         'result':typepayController,//
                         // 'rate':widget.com.rate.toString(),

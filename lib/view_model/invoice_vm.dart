@@ -36,25 +36,66 @@ class invoice_vm extends ChangeNotifier{
   List<DeletedinvoiceModel> listdeleted=[];
   List<InvoiceModel> listinvoicebyregoin=[];
   List<InvoiceModel> listinvoices=[];
-  List<InvoiceModel> listInvoicesAccept=[];
+  List<InvoiceModel> listinvoicesApproved=[];
+  List<InvoiceModel> listInvoicesAccept=[];//مشتركين
   //List<>
   //List<>
-  Future<void> searchProducts(
-      String productName) async {
-    listInvoicesAccept=[];
+  Future<void> searchProducts(String productName) async {
+    List<InvoiceModel> _listInvoicesAccept=[];
+
     // code to convert the first character to uppercase
     String searchKey =productName;//
-    if(productName.isNotEmpty)
-      if(listinvoices.isNotEmpty ){
-        listinvoices.forEach((element) {
-          if(element.nameUser!.contains(searchKey,0)
+    if(productName.isNotEmpty){
+      if(listInvoicesAccept.isNotEmpty ){
+        listInvoicesAccept.forEach((element) {
+          if(element.name_enterprise!.contains(searchKey,0)
               || element.mobile!.contains(searchKey,0)
+          ||element.nameClient!.contains(searchKey,0)
           )
-            listInvoicesAccept.add(element);
+            _listInvoicesAccept.add(element);
         });
       }
-      // else listInvoicesAccept=userall;
+      listInvoicesAccept=_listInvoicesAccept;
+    }
+     //else listInvoicesAccept=userall;
     notifyListeners();
+  }
+  Future<void> searchwait(String productName) async {
+    List<InvoiceModel> _listInvoicesAccept=[];
+    // code to convert the first character to uppercase
+    String searchKey =productName;//
+    if(productName.isNotEmpty){
+      if(listInvoicesAccept.isNotEmpty ){
+        listInvoicesAccept.forEach((element) {
+          if(element.name_enterprise!.contains(searchKey,0)
+              || element.mobile!.contains(searchKey,0)
+          ||element.nameClient!.contains(searchKey,0)
+          )
+            _listInvoicesAccept.add(element);
+        });
+        listInvoicesAccept=_listInvoicesAccept;
+      }}
+    else getinvoice_Local("مشترك",'approved client');
+    notifyListeners();
+  }
+
+  void getfilterinvoice(String? regoin){
+    listInvoicesAccept=[];
+      if(regoin!=null){
+        if(regoin!='0'){
+          listinvoices.forEach((element) {
+            if(element.fk_regoin==regoin)
+              listInvoicesAccept.add(element);
+          });
+        }
+        else{//الكل لفلتر المنطقة
+          listinvoices.forEach((element) {
+            if( element.fk_country==usercurrent!.fkCountry)
+              listInvoicesAccept.add(element);
+          });
+        }
+      }
+      notifyListeners();
   }
   void getclienttype_filter(String filter,String? regoin,String tyype){
     // listInvoicesAccept=[];
@@ -115,6 +156,33 @@ class invoice_vm extends ChangeNotifier{
      listInvoicesAccept= _listInvoicesAccept;
     notifyListeners();
   }
+  void getfilterview(String? regoin,String tyype){
+
+    if(tyype=='only') getinvoice_Local("مشترك",'approved only');
+    if(tyype=='client') getinvoice_Local("مشترك",'approved client');
+    if(tyype=='not') getinvoice_Local("مشترك",'not approved');
+    List<InvoiceModel> _listInvoicesAccept=[];
+    if(regoin!='0')
+    listInvoicesAccept.forEach((element) {
+      if(element.fk_regoin==regoin) {
+        _listInvoicesAccept.add(element);
+        print('regoin الكل');
+
+      }
+    });
+    else{
+      listInvoicesAccept.forEach((element) {
+        if(element.fk_country==usercurrent!.fkCountry) {
+          _listInvoicesAccept.add(element);
+          print('regoin الكل');
+
+        }
+      });
+    }
+    listInvoicesAccept= _listInvoicesAccept;
+    notifyListeners();
+  }
+
   Future<void> getinvoice_Local(String searchfilter,String type
       // , List<ClientModel> list
       ) async {
@@ -134,10 +202,12 @@ class invoice_vm extends ChangeNotifier{
        if( element.stateclient==searchfilter && element.isApprove==null)
          listInvoicesAccept.add(element);
      });
+
     //listInvoicesAccept=listinvoices;
     // if(listInvoicesAccept.isEmpty)listInvoicesAccept=listinvoices;
     notifyListeners();
   }
+
   void addlistproductinvoic(value){
 
     listproductinvoic.add(value);
@@ -189,6 +259,7 @@ class invoice_vm extends ChangeNotifier{
     // if(listClient.isEmpty)
     //main list
     listinvoices = await Invoice_Service().getinvoice(usercurrent!.fkCountry.toString());
+
     notifyListeners();
   }
   Future<void> get_invoicesbyIduser(List<InvoiceModel> list) async {
@@ -241,6 +312,7 @@ class invoice_vm extends ChangeNotifier{
          .getinvoicebyregoin(usercurrent!.fkRegoin!);
      listinvoices=listinvoicebyregoin;
    }
+   // listinvoicesApproved=listinvoices;
 
     notifyListeners();
   }
@@ -248,7 +320,7 @@ class invoice_vm extends ChangeNotifier{
       Map<String, dynamic?> body,File? file) async {
 
        String res='';
-      InvoiceModel? data=  = await Invoice_Service().addInvoice(body,file);
+      InvoiceModel? data = await Invoice_Service().addInvoice(body,file);
      if(data !=null){
     listinvoices.insert(0,data);
     listinvoiceClient.insert(0, data);

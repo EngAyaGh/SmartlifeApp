@@ -1,9 +1,11 @@
 import 'package:crm_smart/constantsList.dart';
+import 'package:crm_smart/ui/screen/search/search_container.dart';
 import 'package:crm_smart/ui/widgets/cardapprove.dart';
 import 'package:crm_smart/ui/widgets/client_widget/cardapprove1.dart';
 import 'package:crm_smart/view_model/approve_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
+import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,16 +19,23 @@ class ApprovePage extends StatefulWidget {
 }
 
 class _ApprovePageState extends State<ApprovePage> {
+  String? regoin;
   @override
   void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_)async{
     if( Provider.of<privilge_vm>(context,listen: false)
         .checkprivlge('7'))
-          Provider.of<approve_vm>(context, listen: false)
-        .getApprovebyregoin();//getApprovebycountry
+       await   Provider.of<invoice_vm>(context, listen: false)
+        .get_invoicesbyRegoin([]);//getApprovebycountry
     if( Provider.of<privilge_vm>(context,listen: false)
         .checkprivlge('2'))
-          Provider.of<approve_vm>(context, listen: false)
-        .getApprovebycountry();
+      await    Provider.of<invoice_vm>(context, listen: false)
+        .getinvoices();
+///////////////////////////////////////////////////////
+      Provider.of<invoice_vm>(context, listen: false)
+          .getinvoice_Local('مشترك','not approved');
+
+    });
     //Provider.of<notifyvm>(context,listen: false).getNotification();
     super.initState();
   }
@@ -59,29 +68,85 @@ class _ApprovePageState extends State<ApprovePage> {
         textDirection: TextDirection.rtl,
         child: Padding(
             padding: const EdgeInsets.only(top: 10,bottom: 10),
-            child: Center(
-              child:
-              Consumer<invoice_vm> (
-                  builder: (context,value,child) {
-                    return value.listinvoices.length==0?
-                    Text('')
-                        :ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: value.listinvoices.length,
-                        itemBuilder: (context, index) {
-                          return SingleChildScrollView(
-                              child: Padding(
-                                padding: const EdgeInsets.all(2),
-                                child: cardapprove1(
-                                  itemapprove :
-                                  value.listinvoices[index],
-                                  //data: widget.data,
-                                ),
-                              ));
-                        });
-                  } ),
+            child: ListView(
+              children: [
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                  children: [
+                    // privilge.checkprivlge('1') == true ? //regoin
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8),
+                        child: Consumer<regoin_vm>(
+                          builder: (context, cart, child) {
+                            return
+                              DropdownButton(
+                                isExpanded: true,
+                                hint: Text("الفرع"),
+                                items: cart.listregoinfilter.map((level_one) {
+                                  return DropdownMenuItem(
+
+                                    child: Text(level_one.name_regoin),
+                                    //label of item
+                                    value: level_one
+                                        .id_regoin, //value of item
+                                  );
+                                }).toList(),
+                                value: cart.selectedValueLevel,
+                                onChanged: (value) {
+                                  //  setState(() {
+                                  cart.changeVal(value.toString());
+                                  regoin = value.toString();
+                                  filtershow();
+                                },
+                              );
+                            //);
+                          },
+                        ),
+                      ),
+                    ),// : Container(),
+                  ],
+                ),
+                search_widget(
+                  'wait',
+                  hintnamefilter,
+                  // Provider
+                  //     .of<invoice_vm>(context, listen: true)
+                  //     .listInvoicesAccept,
+                ),
+                Center(
+                  child:
+                  Consumer<invoice_vm> (
+                      builder: (context,value,child) {
+                        return value.listInvoicesAccept.length==0?
+                        Text('')
+                            :ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: value.listInvoicesAccept.length,
+                            itemBuilder: (context, index) {
+                              return SingleChildScrollView(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2),
+                                    child: cardapprove1(
+                                      itemapprove :
+                                      value.listInvoicesAccept[index],
+                                      //data: widget.data,
+                                    ),
+                                  ));
+                            });
+                      } ),
+                ),
+              ],
             )  ),
       ),
     );
+  }
+
+  void filtershow() {
+    Provider.of<invoice_vm>(context,listen: false).
+    getfilterview(regoin,'not');
+
   }
 }

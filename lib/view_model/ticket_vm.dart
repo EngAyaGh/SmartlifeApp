@@ -40,6 +40,7 @@ class ticket_vm extends ChangeNotifier{
     TicketModel tm=  TicketModel.fromJson(data[0]);
     listticket.add(tm);
     addvalue=false;
+    tickesearchlist=listticket;
     notifyListeners();
   }
   Future<void> searchProducts(
@@ -50,6 +51,7 @@ class ticket_vm extends ChangeNotifier{
 
     print('search');
     print(searchKey);
+    if(productName.isNotEmpty){
     if(listticket.isNotEmpty ){
       listticket.forEach((element) {
         if(element.nameEnterprise.contains(searchKey,0)
@@ -57,10 +59,10 @@ class ticket_vm extends ChangeNotifier{
             || element.mobile!.contains(searchKey,0) )
           ticketlistsearch.add(element);
       });
-    }
-
-    tickesearchlist=ticketlistsearch;
-    notifyListeners();
+      tickesearchlist=ticketlistsearch;
+    }}else
+      tickesearchlist=listticket;
+      notifyListeners();
   }
   Future<bool> updateTicketvm(Map<String, dynamic?> body,String? id_ticket)
   async {
@@ -73,6 +75,8 @@ class ticket_vm extends ChangeNotifier{
             (element) => element.idTicket==id_ticket);
 
     listticket[index]=TicketModel.fromJson(data[0]);
+    tickesearchlist=listticket;
+
     notifyListeners();
 
     return true;
@@ -86,6 +90,7 @@ class ticket_vm extends ChangeNotifier{
               (element) => element.idTicket==id_ticket);
     listticket[index]=TicketModel.fromJson(data[0]);
    // listticket.removeAt(index);
+   tickesearchlist=listticket;
       notifyListeners();
 
   }
@@ -120,7 +125,39 @@ void getclientticket_filter(String filter){
 
     notifyListeners();
 }
+  void gettypeticket_filter(String filter){
+    tickesearchlist=[];
+    if(listticket.isNotEmpty){
+      switch(filter){
+        case '0':
+          listticket.forEach((element) {
+            if( element.typeTicket=='مغلقة') {
+              tickesearchlist.add(element);
+            }
+          });
+          break;
 
+        case '1':
+          listticket.forEach((element) {
+            if( element.typeTicket=='قيد التنفيذ') {
+              tickesearchlist.add(element);
+            }
+          });
+          break;
+        case '2':
+          listticket.forEach((element) {
+            if( element.typeTicket=='جديدة') {
+              tickesearchlist.add(element);
+            }
+          });
+          break;
+      }
+
+    }
+
+    notifyListeners();
+  }
+//
 Future<void> getticket() async {
   var
   data=await Api()

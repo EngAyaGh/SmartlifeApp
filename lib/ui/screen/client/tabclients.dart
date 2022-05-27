@@ -67,7 +67,6 @@ class _tabclientsState extends State<tabclients> {
 
     // WidgetsBinding.instance?.addPostFrameCallback((_) {
   }
-
   @override
   void didChangeDependencies() {
 
@@ -207,7 +206,8 @@ class _tabclientsState extends State<tabclients> {
                                 },
                               ),
                             ),
-                          ):Container(),
+                          )
+                              :Container(),
                           // (   privilge.checkprivlge('16')==true
                           //     && privilge.checkprivlge('8')!=true
                           //     && privilge.checkprivlge('15')!=true )?
@@ -295,7 +295,7 @@ class _tabclientsState extends State<tabclients> {
                       SizedBox(height: 2,),
                       search_widget(
                         'client',
-                        "المؤسسة ,العميل , رقم الهاتف....",
+                        hintnamefilter,
                       ),
                       SizedBox(
                         height: 5,

@@ -89,13 +89,16 @@ class communication_vm extends ChangeNotifier{
   Future<CommunicationModel> addcommuncation(Map<String, dynamic?> body,String id_communication) async {
     print(id_communication);
   var result=  await Api()
-        .post(url:url+ 'care/updateCommunication.php?id_communication=$id_communication');
+        .post(url:url+ 'care/updateCommunication.php?id_communication=$id_communication',
+  body: body
+  );
   CommunicationModel data = CommunicationModel.fromJson(result[0]);
     int index= listCommunication.indexWhere((element) =>
     element.idCommunication==id_communication);
 
     listCommunication[index]=data;
-    notifyListeners();
+    getCommunicationInstall();
+    //notifyListeners();
     return data;
   }
   Future<void> getCommunicationall()async {

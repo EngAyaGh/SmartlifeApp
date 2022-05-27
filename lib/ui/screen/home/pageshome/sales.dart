@@ -1,4 +1,5 @@
 import 'package:crm_smart/ui/screen/client/Acceptpage.dart';
+import 'package:crm_smart/ui/screen/client/client_wating.dart';
 import 'package:crm_smart/ui/screen/client/myclient.dart';
 import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/screen/home/approvepage.dart';
@@ -90,9 +91,9 @@ class _salesState extends State<sales> {
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context)=>
-                        AcceptPage()   // support_view(type: 'client',)
+                        ClientWaiting(type_card: 'sales',) //AcceptPage()   // support_view(type: 'client',)
                     ));
-                  }, title:'العملاء المشتركين' ):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
+                  }, title:'فواتير العملاء' ):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
 
               // ),
               //:Container()

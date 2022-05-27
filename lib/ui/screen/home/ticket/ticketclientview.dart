@@ -20,7 +20,16 @@ class ticketclientview extends StatefulWidget {
 }
 
 class _ticketclientviewState extends State<ticketclientview> {
+
   late String typepayController;
+
+  @override void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_){
+      Provider.of<ticket_vm>(context, listen: false)
+        .getticket();
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,18 +44,21 @@ class _ticketclientviewState extends State<ticketclientview> {
             padding: EdgeInsets.all(2),
             child: ListView(
               children: [
-              ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          kMainColor)),
-                  onPressed: () async{
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context)=>
-                            ticketAdd(
-                              fk_client: null,
-                            )));
-                  },
-                  child: Text(' فتح تذكرة دعم ')) ,
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0,right: 8),
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            kMainColor)),
+                    onPressed: () async{
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context)=>
+                              ticketAdd(
+                                fk_client: null,
+                              )));
+                    },
+                    child: Text(' فتح تذكرة دعم ')),
+              ) ,
 
                 SizedBox(height: 2,),
                 search_widget(
@@ -68,6 +80,7 @@ class _ticketclientviewState extends State<ticketclientview> {
                             //setState(() {
                             typepayController=index.toString();
                             selectedProvider.changeticket(index);
+                            getfilter();
                             //});
                           }
                       );
@@ -119,5 +132,11 @@ class _ticketclientviewState extends State<ticketclientview> {
         ),
       ),
     );
+  }
+
+  void getfilter() {
+    Provider.of<ticket_vm>(context,listen: false).
+    gettypeticket_filter(typepayController);
+
   }
 }

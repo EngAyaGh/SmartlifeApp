@@ -100,7 +100,13 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(''),
+                        Text(
+                          widget.itemProd.name_regoin.toString(),
+                          style: TextStyle(
+                              fontFamily: kfontfamily2,
+                              color: kMainColor,
+                              fontSize: 12),
+                        ),
                         Text(
                           widget.itemProd.dateCreate.toString(),
                           style: TextStyle(

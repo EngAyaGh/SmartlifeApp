@@ -76,6 +76,25 @@ class client_vm extends ChangeNotifier {
     selectedclient=s;
     notifyListeners();
   }
+  void getfilterview(String? regoin){
+    listClientAccept=[];
+    if(regoin!=null){
+      if(regoin!='0'){
+        listClient.forEach((element) {
+          if(element.fkRegoin==regoin)
+            listClientAccept.add(element);
+        });
+      }
+      else{//الكل لفلتر المنطقة
+        listClient.forEach((element) {
+          if( element.fkcountry==usercurrent!.fkCountry)
+            listClientAccept.add(element);
+        });
+      }
+    }
+
+    notifyListeners();
+  }
   Future<void> getclientfilter_Local(
       String? searchfilter,String type,String? filter2,String? filter3
       // , List<ClientModel> list
@@ -87,15 +106,31 @@ class client_vm extends ChangeNotifier {
     if(type=="3"){
       print('kljkjk');
       if(filter2==null){
+        if(filter3 !='0')
       listClient.forEach((element) {
         if( element.fkUser==searchfilter&&element.fkRegoin==filter3)
           listClientfilter.add(element);
       });
+        else{
+          listClient.forEach((element) {
+            if( element.fkUser==searchfilter&&element.fkcountry==usercurrent!.fkCountry)
+              listClientfilter.add(element);
+          });
+        }
       }else{
+        if(filter3 !='0')
         listClient.forEach((element) {
-          if( element.fkUser==searchfilter&&element.typeClient==filter2&&element.fkRegoin==filter3)
+          if( element.fkUser==searchfilter&&element.typeClient==filter2
+              &&element.fkRegoin==filter3)
             listClientfilter.add(element);
         });
+        else{
+          listClient.forEach((element) {
+            if( element.fkUser==searchfilter&&element.typeClient==filter2
+                &&element.fkcountry==usercurrent!.fkCountry)
+              listClientfilter.add(element);
+          });
+        }
       }
     }
     if(type=="type"){
@@ -122,15 +157,29 @@ class client_vm extends ChangeNotifier {
     else {
       if(type=="regoin"){
         if(filter2==null) {
+          if(searchfilter!='0')
           listClient.forEach((element) {
             if (element.fkRegoin == searchfilter)
               listClientfilter.add(element);
           });
+          else{
+            listClient.forEach((element) {
+              if (element.fkcountry == usercurrent!.fkCountry)
+                listClientfilter.add(element);
+            });
+          }
         }else{
+          if(searchfilter!='0')
           listClient.forEach((element) {
             if (element.fkRegoin == searchfilter&&element.typeClient==filter2)
               listClientfilter.add(element);
           });
+          else{
+            listClient.forEach((element) {
+              if (element.fkcountry == usercurrent!.fkCountry &&element.typeClient==filter2)
+                listClientfilter.add(element);
+            });
+          }
         }
       }
     }
@@ -142,10 +191,15 @@ class client_vm extends ChangeNotifier {
    listClientfilter= listClient;
    notifyListeners();
   }
+  Future<void> getallclient()async{
+    listClient =
+        await ClientService().getAllClient(usercurrent!.fkCountry.toString());
+    listClientAccept = listClient;
+    notifyListeners();
+  }
   Future<void> getclient_vm(
      // List<PrivilgeModel> privilgelist
       ) async {
-
    // if(listClient.isEmpty)
     //main list
     bool res= privilgelist.firstWhere(
@@ -337,13 +391,15 @@ else{
     // productName[0].toUpperCase() +
     //   productName.substring(1);
 
-    if(listClient is List<ClientModel> ){
-      listClient.forEach((element) {
+    if(productName.isNotEmpty ){
+      listClientfilter.forEach((element) {
         if(element.nameEnterprise!.contains(searchKey,0)
             || element.nameClient!.contains(searchKey,0)
             || element.mobile!.contains(searchKey,0) )
           clientlistsearch.add(element);
       });
+      listClientfilter=clientlistsearch;
+
       // if(clientlistsearch.isEmpty){
       //   list.forEach((element) {
       //     if(element.nameClient!.contains(searchKey,0))
@@ -356,9 +412,29 @@ else{
       //         clientlistsearch.add(element);
       //     });
       //   }
-    }
+    }else getclient_vm();
 
-    listClientfilter=clientlistsearch;
+    notifyListeners();
+    //return clientlistsearch;
+  }
+  //listClientAccept
+  Future<void> searchclientAccept(
+      String productName) async {
+    List<ClientModel> clientlistsearch=[];
+    // code to convert the first character to uppercase
+    String searchKey =productName;//
+    // productName[0].toUpperCase() +
+    //   productName.substring(1);
+
+    if(productName.isNotEmpty ){
+      listClientAccept.forEach((element) {
+        if(element.nameEnterprise!.contains(searchKey,0)
+            || element.nameClient!.contains(searchKey,0)
+            || element.mobile!.contains(searchKey,0) )
+          clientlistsearch.add(element);
+      });
+      listClientAccept=clientlistsearch;
+    }else getclient_Local('مشترك');
     notifyListeners();
     //return clientlistsearch;
   }

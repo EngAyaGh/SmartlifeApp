@@ -40,7 +40,7 @@ class _ApprovePageState extends State<AcceptPage> {
       // Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
      listinvoice= Provider.of<invoice_vm>(context, listen: false)
           .listinvoices;
-
+     ///العملاء المشتركين بقسم المبيعات
       await Provider.of<client_vm>(context, listen: false)
             .getclient_Local('مشترك');
     });

@@ -8,6 +8,7 @@ import 'package:grouped_list/grouped_list.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../../../function_global.dart';
+import 'install_add.dart';
 
 class View_welcomeClient extends StatefulWidget {
   const View_welcomeClient({Key? key}) : super(key: key);
@@ -72,18 +73,15 @@ class _View_welcomeClientState extends State<View_welcomeClient> {
                           children: [
                             ListTile(
                               onTap: () {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder:
-                                //             (
-                                //             context) =>
-                                //             support_add(
-                                //                 idinvoice: value
-                                //                     .listInvoicesAccept[index]
-                                //                     .idInvoice
-                                //                     .toString()
-                                //             )));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder:
+                                            (
+                                            context) =>
+                                            installAdd(
+                                              com: element,
+                                            )));
                               },
                               title: Text(
                                 element.nameEnterprise

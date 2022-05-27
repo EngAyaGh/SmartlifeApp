@@ -123,37 +123,37 @@ class _support_viewState extends State<support_view> {
                         //     }
                         //
                         // ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20.0,right: 8),
-                            child: Consumer<typeclient>(
-                                builder: (context, cart, child){
-                                  return DropdownButton(
-                                    isExpanded: true,
-                                    hint: Text('الحالة'),
-                                    //hint: Text("حدد حالة العميل"),
-                                    items: cart.listtype_install.map((level_one) {
-                                      return DropdownMenuItem(
-                                        child: Text(level_one), //label of item
-                                        value: level_one, //value of item
-                                      );
-                                    }).toList(),
-                                    value:cart.selectedlisttype_install,
-                                    onChanged:(value) {
-                                      //namemanage=value.toString();
-                                      cart.changelisttype_install(value.toString());
-                                      typeclientvalue=value.toString();
-                                      filtershow();
-                                    },
-                                  );}
-                            ),
-                          ),
-                        ),
+                        // Expanded(
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.only(left: 20.0,right: 8),
+                        //     child: Consumer<typeclient>(
+                        //         builder: (context, cart, child){
+                        //           return DropdownButton(
+                        //             isExpanded: true,
+                        //             hint: Text('الحالة'),
+                        //             //hint: Text("حدد حالة العميل"),
+                        //             items: cart.listtype_install.map((level_one) {
+                        //               return DropdownMenuItem(
+                        //                 child: Text(level_one), //label of item
+                        //                 value: level_one, //value of item
+                        //               );
+                        //             }).toList(),
+                        //             value:cart.selectedlisttype_install,
+                        //             onChanged:(value) {
+                        //               //namemanage=value.toString();
+                        //               cart.changelisttype_install(value.toString());
+                        //               typeclientvalue=value.toString();
+                        //               filtershow();
+                        //             },
+                        //           );}
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                       search_widget(
                         'invoice',
-                        "المؤسسة....",
+                        hintnamefilter,
                         // Provider
                         //     .of<invoice_vm>(context, listen: true)
                         //     .listInvoicesAccept,
@@ -205,10 +205,11 @@ class _support_viewState extends State<support_view> {
 
     void filtershow(){
     print(regoin);
-    print(typeclientvalue);
-      Provider.of<invoice_vm>(context,listen: false)
-          .getclienttype_filter(typeclientvalue!,regoin,'only');
-
+    // print(typeclientvalue);
+    //   Provider.of<invoice_vm>(context,listen: false)
+    //       .getclienttype_filter(typeclientvalue!,regoin,'only');
+    Provider.of<invoice_vm>(context,listen: false)
+        .getfilterview(regoin,'only');
     //   if(regoin==null)
     //  Provider.of<invoice_vm>(context,listen: false).getclienttype_filter(typepayController,regoin);
     // else {

@@ -1,5 +1,7 @@
 import 'package:crm_smart/ui/screen/calendar/calendar.dart';
 import 'package:crm_smart/ui/screen/calendar/event_view_page.dart';
+import 'package:crm_smart/ui/screen/client/client_accept.dart';
+import 'package:crm_smart/ui/screen/client/client_wating.dart';
 import 'package:crm_smart/ui/screen/support/support_table.dart';
 import 'package:crm_smart/ui/screen/support/support_view.dart';
 import 'package:crm_smart/ui/widgets/widgetcalendar/task_widget.dart';
@@ -63,8 +65,21 @@ class _supportpageState extends State<supportpage> {
               //
                Navigator.push(context, MaterialPageRoute(
                    builder: (context)=>
-                      support_view(type: 'only',)));
+                   ClientAccept() // support_view(type: 'only',)
+               ));
             }, title: 'العملاء المشتركين'):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
+     privilge.checkprivlge('34')==true?
+           buildSelectCategory(
+               colorbag: Colors.white,
+               colortitle: Colors.black,
+               colorarrow: Colors.black,
+               onTap: () {
+              //
+               Navigator.push(context, MaterialPageRoute(
+                   builder: (context)=>
+                       ClientWaiting(type_card: 'support',) // support_view(type: 'only',)
+               ));
+            }, title: 'فواتير العملاء'):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
 
            privilge.checkprivlge('18')==true?
            buildSelectCategory(
@@ -75,7 +90,7 @@ class _supportpageState extends State<supportpage> {
               Navigator.push(context, MaterialPageRoute(
                   builder: (context)=>
                       support_table()));
-            }, title: 'جدول العملاء'):Container(),
+            }, title: 'جدول التركيب للعملاء'):Container(),
             // buildSelectCategory(onTap: () {
             //   //
             //   Navigator.push(context, MaterialPageRoute(

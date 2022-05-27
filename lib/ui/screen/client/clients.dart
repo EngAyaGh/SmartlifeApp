@@ -3,6 +3,7 @@ import 'package:crm_smart/model/approvemodel.dart';
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/usermodel.dart';
+import 'package:crm_smart/ui/screen/care/comment_view.dart';
 import 'package:crm_smart/ui/screen/client/clientView.dart';
 import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/screen/home/approvepage.dart';
@@ -27,8 +28,8 @@ import 'addClient.dart';
 import 'package:get/get.dart';
 
 class client_dashboard extends StatefulWidget {
-   client_dashboard({required this.itemapprove, Key? key}) : super(key: key);
-ApproveModel itemapprove;
+   client_dashboard({required this.invoiceModel, Key? key}) : super(key: key);
+   InvoiceModel invoiceModel;
 
 
   @override
@@ -39,7 +40,6 @@ ApproveModel itemapprove;
     late UserModel current ;
     final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
     late ClientModel _clientModel;
-    late InvoiceModel _invoiceModel;
     Widget _switchcaseBody(int _selectedIndex){
       var _selectedView;
       switch(_selectedIndex){
@@ -82,20 +82,20 @@ ApproveModel itemapprove;
     @override
     void initState()  {
       //check level user
-      Provider.of<client_vm>(context, listen: false)
-          .getclientByRegoin([]);//list empty that mean
-      //level user all client in country
       // Provider.of<client_vm>(context, listen: false)
-      //     . getclient_vm();
-      // Provider.of<invoice_vm>(context, listen: false)
-      //     .get_invoicesbyRegoin([]);
-
-      _invoiceModel= Provider.of<invoice_vm>(context, listen: false)
-          .get_byIdInvoice(widget.itemapprove.fk_invoice.toString())!;
-
-      _clientModel= Provider.of<client_vm>(context, listen: false)
-          .get_byIdClient(widget.itemapprove.fkClient.toString()
-      )!;
+      //     .getclientByRegoin([]);//list empty that mean
+      // //level user all client in country
+      // // Provider.of<client_vm>(context, listen: false)
+      // //     . getclient_vm();
+      // // Provider.of<invoice_vm>(context, listen: false)
+      // //     .get_invoicesbyRegoin([]);
+      //
+      // _invoiceModel= Provider.of<invoice_vm>(context, listen: false)
+      //     .get_byIdInvoice(widget.itemapprove.fk_invoice.toString())!;
+      //
+      // _clientModel= Provider.of<client_vm>(context, listen: false)
+      //     .get_byIdClient(widget.itemapprove.fkClient.toString()
+      //);
       print("init tabbar");
       super.initState();
   }
@@ -105,12 +105,15 @@ ApproveModel itemapprove;
   }
     @override
     Widget build(BuildContext context) {
+      _clientModel=Provider.of<client_vm>(context,listen: true)
+      .listClient.firstWhere((element) =>
+      element.idClients==widget.invoiceModel.fkIdClient);
 
       current = Provider.of<user_vm_provider>(context).currentUser!;
       int _tabBarIndex = 0;
-     TabController _tabcontroller=TabController(length: 2, vsync: this);
+     TabController _tabcontroller=TabController(length: 3, vsync: this);
       return DefaultTabController(
-      length: 2,
+      length: 3,
       child:Scaffold(
 
         appBar: AppBar(
@@ -157,7 +160,7 @@ ApproveModel itemapprove;
                   //   ],
                   // ),
                   Text(
-                    'بيانات العميل',
+                    'البيانات',
                     // style: TextStyle(
                     //     fontWeight: FontWeight.bold,
                     //     color: _tabBarIndex == 0 ?kMainColor : kUnActiveColor,
@@ -174,6 +177,7 @@ ApproveModel itemapprove;
                     //     decorationStyle: TextDecorationStyle.double
                     // ),
                   ),
+                  Text('التعليقات'),
 
                 ],
               ),
@@ -186,9 +190,15 @@ ApproveModel itemapprove;
               child: TabBarView(
                 controller: _tabcontroller,
                 children: <Widget>[
-                  ClientView(idclient: _clientModel.idClients.toString(), invoice: null,),
-                  InvoiceView(invoice:
-                  _invoiceModel, clientmodel: _clientModel,),
+                  ClientView(idclient:widget.invoiceModel.fkIdClient.toString(),
+                    invoice: widget.invoiceModel,),
+                  InvoiceView(
+                    type:'approved',
+                    invoice:
+                    widget.invoiceModel, clientmodel: _clientModel,),
+                  commentView(
+                      fk_client:_clientModel.idClients.toString(),
+                      nameEnterprise: _clientModel.nameEnterprise),
                   //Icon(Icons.add),
                 ],
               ),
