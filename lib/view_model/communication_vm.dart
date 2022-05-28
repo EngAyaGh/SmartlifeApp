@@ -97,7 +97,10 @@ class communication_vm extends ChangeNotifier{
     element.idCommunication==id_communication);
 
     listCommunication[index]=data;
+    if(listCommunication[index].typeCommuncation=='تركيب')
     getCommunicationInstall();
+    if(listCommunication[index].typeCommuncation=='ترحيب')
+      getCommunicationWelcome();
     //notifyListeners();
     return data;
   }

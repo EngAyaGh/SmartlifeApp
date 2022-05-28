@@ -23,10 +23,11 @@ import '../../../function_global.dart';
 import '../../../labeltext.dart';
 
 class InvoiceView extends StatefulWidget {
-  InvoiceView({this.type, required this.invoice, required this.clientmodel, Key? key})
+  InvoiceView({this.type, required this.invoice,
+    //required this.clientmodel,
+    Key? key})
       : super(key: key);
   //String idinvoice;
-  ClientModel clientmodel;
   //bool?  itemapprove;
   InvoiceModel? invoice;
   String? type;
@@ -42,6 +43,7 @@ class _InvoiceViewState extends State<InvoiceView> {
   final TextEditingController valueBackController = TextEditingController();
   final TextEditingController descresaonController = TextEditingController();
   late typeclient typeclient_provider;
+  late ClientModel clientmodel;
 
   Widget _product(String name,String price
      // List<ProductsInvoice>? products
@@ -101,6 +103,10 @@ class _InvoiceViewState extends State<InvoiceView> {
 
   @override void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
+      clientmodel=Provider.of<client_vm>(context,listen: false)
+          .listClient.firstWhere(
+              (element) => element.idClients==widget.invoice!.fkIdClient);
+
       typeclient_provider = Provider.of<typeclient>(context, listen: false);
       typeclient_provider.getreasons('client');
 
@@ -297,7 +303,7 @@ class _InvoiceViewState extends State<InvoiceView> {
     //     .firstWhere((element) => element.idInvoice==idinvoice,orElse: ()=>null);
 
     return Scaffold(
-        appBar: AppBar(elevation: 1,),
+        appBar: widget.type=='approved'? null:AppBar(elevation: 1,),
         body:
         Padding(
           padding: EdgeInsets.only(top:15,left: 10,right: 10),
@@ -394,7 +400,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                                   MaterialPageRoute(
                                       builder: (context) => addinvoice(
                                           invoice: widget.invoice,
-                                          itemClient: widget.clientmodel)));
+                                          itemClient:  clientmodel)));
                             },
                           ):Container(),
                           widget.invoice!.isApprove!=null ?
@@ -453,9 +459,9 @@ class _InvoiceViewState extends State<InvoiceView> {
                                                   nameClient:
                                                   widget.invoice!.nameClient.toString(),
                                                   nameEnterprise:
-                                                  widget.clientmodel.nameEnterprise,
+                                                   clientmodel.nameEnterprise,
                                                   mobileclient:
-                                                  widget.clientmodel.mobile,
+                                                   clientmodel.mobile,
                                                   //mobileuser:widget.itemClient. ,
                                                   // nameUser: widget.itemProd
                                                   //     .nameUser, //موظف المبيعات
@@ -471,7 +477,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                                               "fkUserdo":
                                               Provider.of<user_vm_provider>(context, listen: false).currentUser!
                                                   .idUser.toString(),
-                                              "name_enterprise": widget.clientmodel.nameEnterprise
+                                              "name_enterprise": clientmodel.nameEnterprise
                                                   .toString(),
                                               "nameUserdo":
                                               Provider.of<user_vm_provider>(context, listen: false).currentUser!
@@ -672,15 +678,23 @@ class _InvoiceViewState extends State<InvoiceView> {
     );
   }
 
+  // clear() {
+  //   // Provider.of<approve_vm>(context,listen: false)
+  //   //     .removeApproveClient(widget.itemapprove!.idApproveClient);
+  //   // setState(() {
+  //   //   widget.itemapprove=null;
+  //   // });
+  // }
+
+
   clear() {
-    // Provider.of<approve_vm>(context,listen: false)
-    //     .removeApproveClient(widget.itemapprove!.idApproveClient);
-    // setState(() {
-    //   widget.itemapprove=null;
-    // });
+
+    Navigator.of(context,rootNavigator: true).pop();
+    Navigator.pop(context);
   }
 
   error() {
-
+    Navigator.of(context,rootNavigator: true).pop();    Navigator.pop(context);
   }
+
 }

@@ -168,102 +168,7 @@ else{
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        // actions: [
-        //   _invoice!.idInvoice!=null? new IconButton(
-        //   icon: Icon(Icons.delete),
-        //   onPressed: () async {
-        //     bool result = await showDialog(
-        //       context: context,
-        //       builder: (context) {
-        //         return AlertDialog(
-        //           title: Text('التأكيد'),
-        //           content: Text('هل تريد حذف الفاتورة'),
-        //           actions: <Widget>[
-        //             new FlatButton(
-        //               onPressed: () {
-        //                 Navigator.of(context,
-        //                     rootNavigator: true)
-        //                     .pop(
-        //                     false); // dismisses only the dialog and returns false
-        //               },
-        //               child: Text('لا'),
-        //             ),
-        //             FlatButton(
-        //               onPressed: () async {
-        //                 Navigator.of(context,
-        //                     rootNavigator: true)
-        //                     .pop(true);
-        //                 // dismisses only the dialog and returns true
-        //                 // if(itemProd.idInvoice!=null)
-        //                 DateTime _currentDate = DateTime.now();
-        //                 final rt.DateFormat formatter =
-        //                 rt.DateFormat('yyyy-MM-dd');
-        //                 Provider.of<invoice_vm>(context,
-        //                     listen: false)
-        //                     .addlistinvoicedeleted(
-        //                     DeletedinvoiceModel(
-        //                       fkClient: _invoice!.fkIdClient.toString(),
-        //                       fkUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
-        //                           .idUser, //cuerrent user
-        //                       dateDelete:
-        //                       formatter.format(_currentDate),
-        //                       //city:itemProd.
-        //                       nameClient:
-        //                       _invoice!.nameClient.toString(),
-        //                       nameEnterprise:
-        //                       widget.itemClient.nameEnterprise,
-        //                       mobileclient:
-        //                       widget.itemClient.mobile,
-        //                       //mobileuser:widget.itemClient. ,
-        //                       // nameUser: widget.itemProd
-        //                       //     .nameUser, //موظف المبيعات
-        //                       nameUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
-        //                           .nameUser, //name user that doing delete
-        //                     ));
-        //                 Provider.of<invoice_vm>(context,
-        //                     listen: false)
-        //                     .delete_invoice({
-        //                   "id_invoice":
-        //                       _invoice!.idInvoice
-        //                       .toString(),
-        //                   "fkUserdo":
-        //                   Provider.of<user_vm_provider>(context, listen: false).currentUser!
-        //                       .idUser.toString(),
-        //                   "name_enterprise": widget
-        //                       .itemClient.nameEnterprise
-        //                       .toString(),
-        //                   "nameUserdo":
-        //                   Provider.of<user_vm_provider>(context, listen: false).currentUser!
-        //                       .nameUser.toString(),
-        //                 }, _invoice!.idInvoice);
-        //                 Navigator.pop(context);
-        //                 //     .then(
-        //                 //         (value) =>
-        //                 //             setState(() {
-        //                 //   _invoice=  InvoiceModel(products: []);
-        //                 //   widget.invoice=null;
-        //                 //   // Provider.of<invoice_vm>(context, listen: false)
-        //                 //   //     .listproductinvoic=[];
-        //                 //   //Provider.of<invoice_vm>(context,listen: false).total='0';
-        //                 //       //.set_total('0'.toString());
-        //                 //   renewController.text='';
-        //                 //   noteController.text='';
-        //                 //   imageController.text='';
-        //                 //   amount_paidController.text='';
-        //                 //   _resetState();
-        //                 // }));
-        //
-        //               },
-        //               child: Text('نعم'),
-        //             ),
-        //           ],
-        //         );
-        //       },
-        //     );
-        //   },
-        //   //onPressed: COPY,
-        // ):Container(),
-        // ],
+
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: kWhiteColor),
           onPressed: () {
@@ -633,7 +538,7 @@ else{
                                           //"date_changetype":,
                                         },invoiceID,_invoice!.path.toString().isNotEmpty?_myfile:null
                                         ).then((value) =>
-                                        value != false
+                                         value != false
                                             ? clear(context,invoiceID.toString(),_products)
                                             : error(context)
                                         );

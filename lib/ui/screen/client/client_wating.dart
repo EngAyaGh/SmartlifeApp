@@ -47,10 +47,11 @@ class _ClientWaitingState extends State<ClientWaiting> {
       //if(widget.type=='only')
       //  Provider.of<invoice_vm>(context, listen: false).getinvoice_Local("مشترك",'approved only');
       //if(widget.type=='client')
-        Provider.of<invoice_vm>(context, listen: false)
+      Provider.of<typeclient>(context,listen: false).changelisttype_install(null);
+      Provider.of<regoin_vm>(context,listen: false).changeVal(null);
+
+      Provider.of<invoice_vm>(context, listen: false)
             .getinvoice_Local("مشترك",'approved only');
-
-
 
     });
 
@@ -75,7 +76,6 @@ class _ClientWaitingState extends State<ClientWaiting> {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
                           children: [
                             // privilge.checkprivlge('1') == true ? //regoin
                             Expanded(
@@ -154,6 +154,9 @@ class _ClientWaitingState extends State<ClientWaiting> {
                                           //namemanage=value.toString();
                                           cart.changelisttype_install(value.toString());
                                           typeclientvalue=value.toString();
+                                          print('filter state'+value.toString());
+                                          print(typeclientvalue);
+
                                           filtershow();
                                         },
                                       );}
@@ -189,9 +192,9 @@ class _ClientWaitingState extends State<ClientWaiting> {
                                             scrollDirection: Axis.vertical,
                                             itemCount: value.listInvoicesAccept.length,
                                             itemBuilder: (context, index) {
-                                              itemClient=Provider.of<client_vm>(context,listen: false)
-                                                  .listClient.firstWhere(
-                                                      (element) => element.idClients==value.listInvoicesAccept[index].fkIdClient);
+                                              // itemClient=Provider.of<client_vm>(context,listen: false)
+                                              //     .listClient.firstWhere(
+                                              //         (element) => element.idClients==value.listInvoicesAccept[index].fkIdClient);
                                               return SingleChildScrollView(
                                                   child: Padding(
                                                     padding: const EdgeInsets.all(
@@ -202,7 +205,7 @@ class _ClientWaitingState extends State<ClientWaiting> {
                                                       value.listInvoicesAccept[index],
                                                     ):   CardInvoiceClient(
                                                       itemProd: value.listInvoicesAccept[index],
-                                                      itemClient :  itemClient,
+                                                      //itemClient :  itemClient,
 
                                                     )) ,
                                                   );
@@ -223,25 +226,25 @@ class _ClientWaitingState extends State<ClientWaiting> {
 
   void filtershow(){
     print(regoin);
-    // print(typeclientvalue);
+    print(typeclientvalue);
     //    Provider.of<invoice_vm>(context,listen: false)
     //       .getfilterinvoice(regoin);
     // Provider.of<client_vm>(context,listen: false)
     //     .getfilterview(regoin);
-     String filter='';
-     switch(typeclientvalue){
-       case '0':
-         filter='الكل';
-         break;
-       case '1':
-         filter='بالإنتظار';
-         break;
-       case '2':
-         filter='تم التركيب';
-         break;
-     }
+    //  String filter='';
+    //  switch(typeclientvalue){
+    //    case '0':
+    //      filter='الكل';
+    //      break;
+    //    case '1':
+    //      filter='بالإنتظار';
+    //      break;
+    //    case '2':
+    //      filter='تم التركيب';
+    //      break;
+    //  }
      Provider.of<invoice_vm>(context,listen: false)
-         .getclienttype_filter(filter,regoin,'only');
+         .getclienttype_filter(typeclientvalue,regoin,'only');
 
     // }
   }

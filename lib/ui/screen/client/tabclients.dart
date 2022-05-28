@@ -222,7 +222,6 @@ class _tabclientsState extends State<tabclients> {
                                       //hint: Text("حدد حالة العميل"),
                                       items: cart.type_of_client_filter.map((level_one) {
                                         return DropdownMenuItem(
-
                                           child: Text(level_one), //label of item
                                           value: level_one, //value of item
                                         );
@@ -232,6 +231,7 @@ class _tabclientsState extends State<tabclients> {
                                         //namemanage=value.toString();
                                         cart.changevaluefilter(value.toString());
                                         typeclientvalue=value.toString();
+                                        print(typeclientvalue);
                                         filtershow();
                                       },
                                     );}
@@ -347,7 +347,7 @@ class _tabclientsState extends State<tabclients> {
         );
   }
   void filtershow(){
-
+    print(typeclientvalue);
     if(typeclientvalue=='الكل'){
       Provider.of<client_vm>(context, listen: false) .resetlist();
     }

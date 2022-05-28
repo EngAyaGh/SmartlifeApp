@@ -79,7 +79,7 @@ class _invoicesState extends State<invoices> {
                          (context)=>
                          CardInvoiceClient(
                            itemProd: listinvoice[index],
-                           itemClient :  widget.itemClient,
+                           //itemClient :  widget.itemClient,
 
                            //scaffoldKey: _scaffoldKey,
                            //indexinvoice: index,

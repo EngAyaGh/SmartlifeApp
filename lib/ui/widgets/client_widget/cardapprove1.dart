@@ -37,8 +37,8 @@ class cardapprove1 extends StatelessWidget {
       ),
       child: Center(
         child: InkWell(
-          onTap: (){
-            Navigator.pushReplacement(context,
+          onTap: (){//pushReplacement
+            Navigator.push(context,
                 MaterialPageRoute(builder:
                     (context) =>
                         client_dashboard(
@@ -64,14 +64,14 @@ class cardapprove1 extends StatelessWidget {
                             itemapprove.name_regoin.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 10,
+                                fontSize: 12,
                                 fontFamily: kfontfamily2,
                                 color: kMainColor),
                           ),
                           Text(
                             itemapprove.dateCreate.toString(),
                             style: TextStyle(
-                                fontSize: 10,
+                                fontSize: 12,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: kfontfamily2,
                                 color: kMainColor),

@@ -18,10 +18,12 @@ class CardProduct_invoice extends StatefulWidget {
   CardProduct_invoice({
     required this.itemProd,index,
     required this.iduser,
+    required this.invoice,
     //required this.value_config,
     required this.idclient, Key? key}) : super(key: key);
   ProductsInvoice itemProd;
   String? idclient,iduser;
+  InvoiceModel? invoice;
 
   @override
   _CardProduct_invoiceState createState() => _CardProduct_invoiceState();
@@ -240,10 +242,50 @@ SizedBox(width: 15,),
                     //     .listproductinvoic[index].isdeleted=true,
                     // Provider.of<invoice_vm>(context,listen: false)
                     //     .removelistproductinvoic(index);
+                    double _total=0;
+                    List<ProductsInvoice>? pinv=
+                        Provider.of<invoice_vm>(context,listen: false)
+                            .listproductinvoic;
+                    for(int i=0; i<pinv.length;i++){
+                      _total=_total+double.parse(pinv[i].price.toString());
+                    }
+                    widget.invoice!.total=_total.toString();
+                    print('_total.toString();');
+                    print(_total.toString());
+                    Provider.of<invoice_vm>(context,listen: false).set_total(_total.toString());
+                    print(  widget.invoice!
+                        .total);
+                    widget.invoice!.products=pinv;
+                    /////////////
                     Provider.of<invoice_vm>(
                         context, listen: false)
                         .deleteProductInInvoice(widget.itemProd.idInvoiceProduct);
+//////////////////////////////////////////////////////////////
+                    String? invoiceID=widget.invoice!.idInvoice;
+                    Provider.of<invoice_vm>(
+                        context, listen: false)
+                        .update_invoiceclient_vm({
+                      "name_enterprise":widget.invoice!.name_enterprise.toString(),
+                      "name_client":widget.invoice!.nameClient.toString(),
+                      "nameUser":widget.invoice!.nameUser,
+                      //"renew_year": renewController.text,
+                      //"type_pay": typepayController,
+                      //"date_create": DateTime.now().toString(),
+                      //"type_installation": typeinstallController,
+                      //"amount_paid": amount_paidController.text,
 
+                      //"fk_idClient": widget.itemClient.idClients,
+                      //"fk_idUser": widget.itemClient.fkUser,
+                      //"image_record":imageController.text,
+                      "lastuserupdate":Provider.of<user_vm_provider>(
+                          context,listen: false).currentUser!.idUser.toString(),
+                      "total": widget.invoice!.total.toString(),
+                      //"notes": noteController.text,
+                      "id_invoice":invoiceID,
+                      'date_lastuserupdate':DateTime.now().toString(),
+                      //"date_changetype":,
+                    },invoiceID,null
+                    );
                   }
                   else
                   {
@@ -251,6 +293,7 @@ SizedBox(width: 15,),
                         .indexWhere((element) => element.idInvoiceProduct== widget.itemProd.idInvoiceProduct);
                     Provider.of<invoice_vm>(context,listen: false)
                         .removelistproductinvoic(index);
+
                   }
                   Navigator.of(context, rootNavigator: true)
                       .pop(false);

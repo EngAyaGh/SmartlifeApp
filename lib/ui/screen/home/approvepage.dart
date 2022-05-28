@@ -23,14 +23,16 @@ class _ApprovePageState extends State<ApprovePage> {
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_)async{
-    if( Provider.of<privilge_vm>(context,listen: false)
-        .checkprivlge('7'))
-       await   Provider.of<invoice_vm>(context, listen: false)
-        .get_invoicesbyRegoin([]);//getApprovebycountry
-    if( Provider.of<privilge_vm>(context,listen: false)
-        .checkprivlge('2'))
-      await    Provider.of<invoice_vm>(context, listen: false)
-        .getinvoices();
+      Provider.of<regoin_vm>(context,listen: false).changeVal(null);
+      // if( Provider.of<privilge_vm>(context,listen: false)
+      //     .checkprivlge('7'))
+      //   await Provider.of<invoice_vm>(context, listen: false)
+      //       .get_invoicesbyRegoin([]);//getApprovebycountry
+      // if( Provider.of<privilge_vm>(context,listen: false)
+      //     .checkprivlge('2'))
+      //   await
+     // await   Provider.of<invoice_vm>(context, listen: false)
+     //        .getinvoices();
 ///////////////////////////////////////////////////////
       Provider.of<invoice_vm>(context, listen: false)
           .getinvoice_Local('مشترك','not approved');
@@ -43,6 +45,8 @@ class _ApprovePageState extends State<ApprovePage> {
   void didChangeDependencies() {
 
     Future.delayed(Duration(milliseconds: 10)).then((_) async {
+
+
      // if( Provider.of<privilge_vm>(context,listen: false)
      //      .checkprivlge('7'))
      //  await    Provider.of<approve_vm>(context, listen: false)
@@ -116,26 +120,37 @@ class _ApprovePageState extends State<ApprovePage> {
                   //     .of<invoice_vm>(context, listen: true)
                   //     .listInvoicesAccept,
                 ),
-                Center(
+                Container(
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.73,
                   child:
                   Consumer<invoice_vm> (
                       builder: (context,value,child) {
                         return value.listInvoicesAccept.length==0?
                         Text('')
-                            :ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: value.listInvoicesAccept.length,
-                            itemBuilder: (context, index) {
-                              return SingleChildScrollView(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(2),
-                                    child: cardapprove1(
-                                      itemapprove :
-                                      value.listInvoicesAccept[index],
-                                      //data: widget.data,
-                                    ),
-                                  ));
-                            });
+                            :Column(
+                              children: [
+                                Expanded(
+                                 //flex: 1,
+                                  child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: value.listInvoicesAccept.length,
+                                  itemBuilder: (context, index) {
+                                    return SingleChildScrollView(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2),
+                                          child: cardapprove1(
+                                            itemapprove :
+                                            value.listInvoicesAccept[index],
+                                            //data: widget.data,
+                                          ),
+                                        ));
+                                  }),
+                                ),
+                              ],
+                            );
                       } ),
                 ),
               ],

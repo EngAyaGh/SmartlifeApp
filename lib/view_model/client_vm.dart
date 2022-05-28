@@ -52,6 +52,7 @@ class client_vm extends ChangeNotifier {
     // , List<InvoiceModel> list
       )
   async {
+    getclient_vm();
     // if(listClient.isEmpty)
     // List<ClientModel> lists=[];
     listClientAccept=[];
@@ -77,22 +78,23 @@ class client_vm extends ChangeNotifier {
     notifyListeners();
   }
   void getfilterview(String? regoin){
-    listClientAccept=[];
+    List<ClientModel> list=[];
+    getclient_Local('مشترك');
     if(regoin!=null){
       if(regoin!='0'){
-        listClient.forEach((element) {
+        listClientAccept.forEach((element) {
           if(element.fkRegoin==regoin)
-            listClientAccept.add(element);
+            list.add(element);
         });
       }
       else{//الكل لفلتر المنطقة
-        listClient.forEach((element) {
+        listClientAccept.forEach((element) {
           if( element.fkcountry==usercurrent!.fkCountry)
-            listClientAccept.add(element);
+            list.add(element);
         });
       }
     }
-
+    listClientAccept=list;
     notifyListeners();
   }
   Future<void> getclientfilter_Local(
@@ -102,6 +104,7 @@ class client_vm extends ChangeNotifier {
   async {
     // if(listClient.isEmpty)
     // List<ClientModel> lists=[];
+
     listClientfilter=[];
     if(type=="3"){
       print('kljkjk');

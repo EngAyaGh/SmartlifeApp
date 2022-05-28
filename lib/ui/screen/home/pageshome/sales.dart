@@ -138,6 +138,19 @@ class _salesState extends State<sales> {
                      },
                       title:  'الفواتير المحذوفة'):Container(),
 
+              Provider.of<privilge_vm>(context,listen: true)
+                  .checkprivlge('35')==true?
+              buildSelectCategory(
+                  colorbag: Colors.white,
+                  colortitle: Colors.black,
+                  colorarrow: Colors.black,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context)=>
+                            ClientWaiting(type_card: 'sales',) //AcceptPage()   // support_view(type: 'client',)
+                    ));
+                  }, title:'الفواتير المنسحبة' ):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
+
           ],),
       ),
      // },),

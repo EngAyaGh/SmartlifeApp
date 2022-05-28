@@ -117,94 +117,87 @@ class client_dashboard extends StatefulWidget {
       child:Scaffold(
 
         appBar: AppBar(
-          backgroundColor: kMainColor,title:Text('ملف العميل',style: TextStyle(color: kWhiteColor),) ,centerTitle: true,),
-        body: Column(
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 15,right: 15,top: 8),
-              child: Container(
-           margin: EdgeInsets.only(bottom: 8,),
-              child: TabBar(
-                labelPadding: const EdgeInsets.only(left: 10,right: 10,top: 2),
-                indicatorSize: TabBarIndicatorSize.tab,
-                controller: _tabcontroller,
-                indicatorColor: kWhiteColor,
-                indicatorWeight: 5,
-                indicator: BoxDecoration(
-                  color: kMainColor,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-                labelColor: Colors.white,
-                unselectedLabelColor: Colors.black,
-                //isScrollable: true,
-                tabs: <Widget>[
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   //crossAxisAlignment: CrossAxisAlignment.center,
-                  //   children: [
-                  //     Text('120',
-                  //       style: TextStyle(
-                  //       color: _tabBarIndex == 0 ? kMainColor : kUnActiveColor,
-                  //       fontSize: _tabBarIndex == 0 ? 10 : null,
-                  //           height:0.2,
-                  //           fontWeight: FontWeight.bold,
-                  //           //decoration: TextDecoration.underline,
-                  //           //decorationThickness: 2,
-                  //
-                  //           decorationStyle: TextDecorationStyle.double
-                  //     ),),
-                  //     //Icon(Icons.category,color: kMainColor,),
-                  //     SizedBox(width: 5,),
-                  //
-                  //   ],
-                  // ),
-                  Text(
-                    'البيانات',
-                    // style: TextStyle(
-                    //     fontWeight: FontWeight.bold,
-                    //     color: _tabBarIndex == 0 ?kMainColor : kUnActiveColor,
-                    //     fontSize: _tabBarIndex == 0 ? 20 : null,
-                    //     decorationStyle: TextDecorationStyle.double
-                    // ),
-                  ),
-                  Text(
-                    'الفاتورة ',
-                    // style: TextStyle(
-                    //     fontWeight: FontWeight.bold,
-                    //     color: _tabBarIndex == 1?kMainColor : kUnActiveColor,
-                    //     fontSize: _tabBarIndex == 1 ? 20 : null,
-                    //     decorationStyle: TextDecorationStyle.double
-                    // ),
-                  ),
-                  Text('التعليقات'),
-
-                ],
-              ),
+          backgroundColor: kMainColor,
+          title:Text('ملف العميل',style: TextStyle(color: kWhiteColor),)
+          ,centerTitle: true,
+        bottom:    TabBar(
+          labelPadding: const EdgeInsets.only(left: 10,right: 10,top: 2),
+          indicatorSize: TabBarIndicatorSize.tab,
+          controller: _tabcontroller,
+          indicatorColor: kWhiteColor,
+          indicatorWeight: 5,
+          indicator: BoxDecoration(
+            color: kMainColor,
+            borderRadius: BorderRadius.circular(2),
           ),
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.black,
+          //isScrollable: true,
+          tabs: <Widget>[
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   //crossAxisAlignment: CrossAxisAlignment.center,
+            //   children: [
+            //     Text('120',
+            //       style: TextStyle(
+            //       color: _tabBarIndex == 0 ? kMainColor : kUnActiveColor,
+            //       fontSize: _tabBarIndex == 0 ? 10 : null,
+            //           height:0.2,
+            //           fontWeight: FontWeight.bold,
+            //           //decoration: TextDecoration.underline,
+            //           //decorationThickness: 2,
+            //
+            //           decorationStyle: TextDecorationStyle.double
+            //     ),),
+            //     //Icon(Icons.category,color: kMainColor,),
+            //     SizedBox(width: 5,),
+            //
+            //   ],
+            // ),
+            Text(
+              'البيانات',
+              // style: TextStyle(
+              //     fontWeight: FontWeight.bold,
+              //     color: _tabBarIndex == 0 ?kMainColor : kUnActiveColor,
+              //     fontSize: _tabBarIndex == 0 ? 20 : null,
+              //     decorationStyle: TextDecorationStyle.double
+              // ),
             ),
-            Container(
-              margin: EdgeInsets.only(bottom: 1),
-              padding: const EdgeInsets.only(top:2,left: 15,right: 15),
-               height: MediaQuery.of(context).size.height*0.75,
-              child: TabBarView(
-                controller: _tabcontroller,
-                children: <Widget>[
-                  ClientView(idclient:widget.invoiceModel.fkIdClient.toString(),
-                    invoice: widget.invoiceModel,),
-                  InvoiceView(
-                    type:'approved',
-                    invoice:
-                    widget.invoiceModel, clientmodel: _clientModel,),
-                  commentView(
-                      fk_client:_clientModel.idClients.toString(),
-                      nameEnterprise: _clientModel.nameEnterprise),
-                  //Icon(Icons.add),
-                ],
-              ),
+            Text(
+              'الفاتورة ',
+              // style: TextStyle(
+              //     fontWeight: FontWeight.bold,
+              //     color: _tabBarIndex == 1?kMainColor : kUnActiveColor,
+              //     fontSize: _tabBarIndex == 1 ? 20 : null,
+              //     decorationStyle: TextDecorationStyle.double
+              // ),
             ),
-            //SizedBox(height: 6,),
+            Text('التعليقات'),
+
           ],
+        ),
+        ),
+        body: Container(
+          margin: EdgeInsets.only(bottom: 1),
+          padding: const EdgeInsets.only(top:2,left: 15,right: 15),
+           height: MediaQuery.of(context).size.height*0.75,
+          child: TabBarView(
+            controller: _tabcontroller,
+            children: <Widget>[
+              ClientView(idclient:widget.invoiceModel.fkIdClient.toString(),
+                invoice: widget.invoiceModel,),
+              InvoiceView(
+                type:'approved',
+                invoice:
+                widget.invoiceModel,
+                //clientmodel: _clientModel,
+              ),
+              commentView(
+                  fk_client:_clientModel.idClients.toString(),
+                  nameEnterprise: _clientModel.nameEnterprise),
+              //Icon(Icons.add),
+            ],
+          ),
         ),
        //  appBar: _switchcaseAppBar(0),
 

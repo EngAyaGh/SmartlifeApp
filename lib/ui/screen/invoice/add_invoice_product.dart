@@ -345,7 +345,8 @@ void calculate(){
                                         //value: listProduct[index].idProduct,
                                         //idInvoiceProduct: "null",
                                         priceProduct: listProduct[index].priceProduct,
-                                        taxtotal: listProduct[index].value_config==null?"null":listProduct[index].value_config
+                                        taxtotal: listProduct[index].value_config==null?
+                                        "null":listProduct[index].value_config
                                     );
                                     listAdded.add(pp);
                                     print(pp.nameProduct);
@@ -382,6 +383,7 @@ void calculate(){
                                       itemCount: data.listproductinvoic.length,
                                       itemBuilder: (context, index) {
                                         return CardProduct_invoice(
+                                          invoice: widget.invoice,
                                           itemProd: data.listproductinvoic[index],
                                           index: index,
                                           //value_config:  listProduct[index].value_config,

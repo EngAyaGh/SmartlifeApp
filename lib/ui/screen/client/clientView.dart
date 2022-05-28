@@ -164,10 +164,10 @@ class _ClientViewState extends State<ClientView> {
                 ],),
               ),
                 SizedBox(height: 15,),
-                Provider.of<privilge_vm>(context,listen: true)
-                    .checkprivlge('2')==true ||
-                    Provider.of<privilge_vm>(context,listen: true)
-                        .checkprivlge('7')==true?
+                // Provider.of<privilge_vm>(context,listen: true)
+                //     .checkprivlge('2')==true ||
+                //     Provider.of<privilge_vm>(context,listen: true)
+                //         .checkprivlge('7')==true?
                 widget.invoice!=null?
                 widget.invoice!.isApprove==null?
                 Center(
@@ -339,16 +339,22 @@ class _ClientViewState extends State<ClientView> {
 
                     ],
                   ),
-                ):Container():Container():Container(),
+                ):Container():Container(),//:Container(),
         ]),
           ),
       ),
     ));
   }
 
-  clear() {}
+  clear() {
 
-  error() {}
+    Navigator.of(context,rootNavigator: true).pop();
+    Navigator.pop(context);
+  }
+
+  error() {
+    Navigator.of(context,rootNavigator: true).pop();    Navigator.pop(context);
+  }
 
 
 

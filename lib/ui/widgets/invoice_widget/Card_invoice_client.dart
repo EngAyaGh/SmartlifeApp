@@ -20,13 +20,14 @@ import '../../../constants.dart';
 
 class CardInvoiceClient extends StatefulWidget {
   CardInvoiceClient(
-      {required this.itemClient,
+      {
+        //required this.itemClient,
         required this.itemProd,
         //required this.indexinvoice,
         Key? key})
       : super(key: key);
   InvoiceModel itemProd;
-  ClientModel itemClient;
+ // ClientModel itemClient;
   // int indexinvoice;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -62,7 +63,7 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
           onTap: () {
             Navigator.push(context, MaterialPageRoute(
                 builder: (context)=>InvoiceView(
-                  clientmodel: widget.itemClient,
+                  //clientmodel: widget.itemClient,
                   invoice:widget.itemProd ,
                 )));
             // InvoiceView(
