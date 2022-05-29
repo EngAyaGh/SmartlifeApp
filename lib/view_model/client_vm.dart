@@ -314,50 +314,28 @@ else{
       // });
 
       //listClientbyCurrentUser.insert(0, ClientModel.fromJson(body));
-      listClient.insert(0,res);// ClientModel.fromJson(body));
+      listClient.insert(0,res);
+      listClientfilter.insert(0, res);
+      // ClientModel.fromJson(body));
       notifyListeners();
     //}
     return "done";
   }
 
   Future<bool> updateclient_vm(Map<String, dynamic?> body,String? id_client) async {
-    ClientModel data = await ClientService().updateClient(body,id_client!);
+    ClientModel data = await ClientService().updateClient(
+        body,id_client!);
 
-     // int index=listClientbyCurrentUser.indexWhere((element)
-     // => element.idClients==id_client);
-     // listClient.forEach((elementclient) {
-     //    data.forEach((elementdata) {
-     //     int index= listClient.indexWhere((element) => element.id_invoice==elementdata.id_invoice);
-     //      if(index!=-1){
-     //        listClient[index]=elementdata;
-     //        print(listClient[index]);
-     //      }
-     //      });
+    int index= listClient.indexWhere((element) =>
+    element.idClients==id_client);
 
-          // if(elementclient.id_invoice== element.id_invoice)
-          //      elementclient=element;
-        //});
-      //});
-      // data.forEach((element) {
-      //       element.id_invoice
-      // });
-      // body.addAll({
-      //   'id_clients':id_client,
-      //   'date_create':listClientbyCurrentUser[index].dateCreate,
-      //   'nameUser':listClientbyCurrentUser[index].nameUser,
-      //   'name_regoin':listClientbyCurrentUser[index].name_regoin.toString(),
-      //   'fk_regoin':listClientbyCurrentUser[index].fkRegoin,
-      //   'fk_user':listClientbyCurrentUser[index].fkUser,
-      //   'nameCountry':listClientbyCurrentUser[index].nameCountry,
-      //   'date_price':listClientbyCurrentUser[index].date_price,
-      //   "amount_paid":listClientbyCurrentUser[index].amount_paid,
-      //   "total":listClientbyCurrentUser[index].total,
-      //
-      // });
-     int index= listClient.indexWhere((element) =>
-     element.idClients==id_client);
+    listClient[index]=data;
 
-     listClient[index]=data;//ClientModel.fromJson(body);
+    index= listClientfilter.indexWhere((element) =>
+    element.idClients==id_client);
+
+    listClientfilter[index]=data;
+    //ClientModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
 

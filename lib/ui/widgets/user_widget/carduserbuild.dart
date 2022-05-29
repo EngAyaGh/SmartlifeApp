@@ -35,7 +35,7 @@ class buildCardUsers extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  maxRadius: 30,
+                  radius: 30,
                  child:
                  usermodell.img_image.toString().trim().length==0
                      // ||usermodell.img_thumbnail.toString().trim().isEmpty
@@ -45,11 +45,15 @@ class buildCardUsers extends StatelessWidget {
                     size: 50,
                     color: Colors.lightBlueAccent,
                   ) : Text(usermodell.nameUser.toString().substring(0, 1))
-                      : CachedNetworkImage(
+                      : ClipRRect(
+                   borderRadius: BorderRadius.circular(45),
+
+                   child: CachedNetworkImage(
                     placeholder: (context, url) =>
                     const CircularProgressIndicator(),
                     imageUrl: usermodell.img_image!,
                   ),
+                      ),
                   // CachedNetworkImage(
                   //   progressIndicatorBuilder: (context, url, progress) => Center(
                   //     child: CircularProgressIndicator(

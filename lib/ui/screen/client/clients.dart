@@ -178,9 +178,9 @@ class client_dashboard extends StatefulWidget {
         ),
         ),
         body: Container(
-          margin: EdgeInsets.only(bottom: 1),
-          padding: const EdgeInsets.only(top:2,left: 15,right: 15),
-           height: MediaQuery.of(context).size.height*0.75,
+          margin: EdgeInsets.only(bottom: 5),
+          padding: const EdgeInsets.only(top:10,left: 15,right: 15),
+           height: MediaQuery.of(context).size.height*0.9,
           child: TabBarView(
             controller: _tabcontroller,
             children: <Widget>[

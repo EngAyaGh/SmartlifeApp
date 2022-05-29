@@ -187,7 +187,7 @@ void didChangeDependencies() {
           // "value_back": typeclient_provider.selectedValuemanag == "منسحب"
           //     ?valueBackController.text:"",
         });
-
+        print(nameEnterpriseController.text);
         Provider.of<client_vm>(context, listen: false)
             .updateclient_vm(body, widget.itemClient.idClients)
             .then((value) =>

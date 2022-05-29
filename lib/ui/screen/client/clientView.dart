@@ -48,7 +48,7 @@ class _ClientViewState extends State<ClientView> {
         child: Padding(
           padding: const EdgeInsets.only(
               left: 8,right: 8,
-              top:2,bottom: 2),
+              top:2,bottom: 10),
           child:SingleChildScrollView(
             child: Column(
               children: [

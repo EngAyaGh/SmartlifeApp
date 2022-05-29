@@ -27,7 +27,7 @@ class ImageProfile extends StatelessWidget {
         children: [
         //  Obx( () =>
         CircleAvatar(
-            radius: 80.0,
+            radius: 50.0,
             child:
             Provider.of<user_vm_provider>(context,listen: true)
                 .currentUser!.path!.isNotEmpty
@@ -35,12 +35,15 @@ class ImageProfile extends StatelessWidget {
                     .currentUser!.img_image!))
            : Provider.of<user_vm_provider>(context,listen: true)
                 .currentUser!.img_image!.isNotEmpty
-           ? CachedNetworkImage(
-              progressIndicatorBuilder: (context, url, progress) => Center(
-                child: CircularProgressIndicator(
-                  value: progress.progress,),),
-              imageUrl: Provider.of<user_vm_provider>(context,listen: true)
-                .currentUser!.img_image!       )
+           ? ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: CachedNetworkImage(
+                progressIndicatorBuilder: (context, url, progress) => Center(
+                  child: CircularProgressIndicator(
+                    value: progress.progress,),),
+                imageUrl: Provider.of<user_vm_provider>(context,listen: true)
+                  .currentUser!.img_image!       ),
+           )
                // Image.network( Provider.of<user_vm_provider>(context,listen: true)
                //  .currentUser!.img_image! ,
             //width: 200,height: 200,fit: BoxFit.fill,

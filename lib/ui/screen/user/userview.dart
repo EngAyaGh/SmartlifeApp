@@ -112,14 +112,18 @@ class _UserScreenState extends State<UserScreen> {
                               child:
                               useredit.img_image!.isNotEmpty
                                   ?
-                              CachedNetworkImage(
-                                progressIndicatorBuilder: (context, url, progress) => Center(
-                                  child: CircularProgressIndicator(
-                                    value: progress.progress,
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+
+                                child: CachedNetworkImage(
+                                    progressIndicatorBuilder: (context, url, progress) => Center(
+                                    child: CircularProgressIndicator(
+                                      value: progress.progress,
+                                    ),
                                   ),
-                                ),
-                                imageUrl:
-                                useredit.img_image!  )
+                                  imageUrl:
+                                  useredit.img_image!  ),
+                              )
                               // Image.network(
                               //   useredit.img_image! ,
                               //   //width: 200,height: 200,fit: BoxFit.fill,

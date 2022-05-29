@@ -97,11 +97,12 @@ class invoice_vm extends ChangeNotifier{
       }
       notifyListeners();
   }
-  void getclienttype_filter(String? filter,String? regoin,String tyype){
+  Future<void> getclienttype_filter(String? filter,String? regoin,String tyype)async{
     // listInvoicesAccept=[];
-    if(tyype=='only') getinvoice_Local("مشترك",'approved only');
-    if(tyype=='client') getinvoice_Local("مشترك",'approved client');
-    if(tyype=='not') getinvoice_Local("مشترك",'not approved');
+    if(tyype=='only')await getinvoice_Local("مشترك",'approved only');
+    if(tyype=='client')await getinvoice_Local("مشترك",'approved client');
+    if(tyype=='not')await getinvoice_Local("مشترك",'not approved');
+    if(tyype=='out')await getinvoice_Local("مستبعد",'out');
 
     List<InvoiceModel> _listInvoicesAccept=[];
     if(regoin==null){
@@ -161,11 +162,11 @@ class invoice_vm extends ChangeNotifier{
      listInvoicesAccept= _listInvoicesAccept;
     notifyListeners();
   }
-  void getfilterview(String? regoin,String tyype){
+  Future<void> getfilterview(String? regoin,String tyype)async{
 
-    if(tyype=='only') getinvoice_Local("مشترك",'approved only');
-    if(tyype=='client') getinvoice_Local("مشترك",'approved client');
-    if(tyype=='not') getinvoice_Local("مشترك",'not approved');
+    if(tyype=='only')await getinvoice_Local("مشترك",'approved only');
+    if(tyype=='client')await getinvoice_Local("مشترك",'approved client');
+    if(tyype=='not')await getinvoice_Local("مشترك",'not approved');
     List<InvoiceModel> _listInvoicesAccept=[];
     if(regoin!='0')
     listInvoicesAccept.forEach((element) {
@@ -191,7 +192,7 @@ class invoice_vm extends ChangeNotifier{
   Future<void> getinvoice_Local(String searchfilter,String type
       // , List<ClientModel> list
       ) async {
-    getinvoices();
+   await getinvoices();
     List<InvoiceModel> list=[];
     if(listInvoicesAccept.isNotEmpty) {
       if (type == 'approved only')
@@ -207,6 +208,11 @@ class invoice_vm extends ChangeNotifier{
       if (type == 'not approved')
         listInvoicesAccept.forEach((element) {
           if (element.stateclient == searchfilter && element.isApprove == null)
+            list.add(element);
+        });
+      if (type == 'out')
+        listInvoicesAccept.forEach((element) {
+          if (element.stateclient == searchfilter)
             list.add(element);
         });
     }
@@ -437,7 +443,6 @@ class invoice_vm extends ChangeNotifier{
       // listinvoices[index]= InvoiceModel.fromJson(body);
       // //listClient.removeAt(index);
       notifyListeners();
-
   }
 
   Future<void> setdatedone_vm(Map<String, dynamic?> body,String? id_invoice) async {

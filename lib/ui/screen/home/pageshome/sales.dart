@@ -1,6 +1,7 @@
 import 'package:crm_smart/ui/screen/client/Acceptpage.dart';
 import 'package:crm_smart/ui/screen/client/client_wating.dart';
 import 'package:crm_smart/ui/screen/client/myclient.dart';
+import 'package:crm_smart/ui/screen/client/outClient.dart';
 import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/screen/home/approvepage.dart';
 import 'package:crm_smart/ui/screen/home/widgethomeitem.dart';
@@ -147,7 +148,7 @@ class _salesState extends State<sales> {
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context)=>
-                            ClientWaiting(type_card: 'sales',) //AcceptPage()   // support_view(type: 'client',)
+                            OutClient() //AcceptPage()   // support_view(type: 'client',)
                     ));
                   }, title:'الفواتير المنسحبة' ):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
 

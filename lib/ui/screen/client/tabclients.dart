@@ -76,16 +76,7 @@ class _tabclientsState extends State<tabclients> {
 
      }
     );
-    // Future.delayed(Duration(milliseconds: 30)).then((_) async {
-    //   await Provider.of<user_vm_provider>(context,listen: false)
-    //       .getuser_vm();
-    //   print(Provider.of<user_vm_provider>(context,listen: false)
-    //       .userall.length);
-    //   Provider.of<regoin_vm>(context,listen: false).getregoin();
-    //   Provider.of<client_vm>(context, listen: false)
-    //       .getclientByRegoin([]);
-    // }
-    // );
+
     super.didChangeDependencies();
   }
 @override void dispose() {
