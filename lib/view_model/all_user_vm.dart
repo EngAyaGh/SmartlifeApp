@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AllUserVMController extends GetxController {
   var usersList = <UserModel>[].obs;
   var isLoading = true.obs;
-  var currentUser=UserModel().obs;
+  //var currentUser=UserModel(created_at: '').obs;
 
   @override
   void onInit() {
@@ -30,7 +30,7 @@ try {
 
   final index = usersList.indexWhere((element) => element.idUser == "1");
 
-  currentUser.value = usersList[index].obs.value;
+  // currentUser.value = usersList[index].obs.value;
 }
 catch(e){print('exp error is '+e.toString());}
   }

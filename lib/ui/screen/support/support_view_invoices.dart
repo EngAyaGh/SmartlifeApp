@@ -36,7 +36,7 @@ class support_view_invoicesState extends State<support_view_invoices> {
 
       // Add Your Code here.
       Provider.of<invoice_vm>(context,listen: false)
-          .get_invoiceclientlocal(widget.itemClient.idClients);
+          .get_invoiceclientlocal(widget.itemClient.idClients,'مشترك');
     });
     // print('init invoice  '+widget.itemClient.idClients);
     //.then((value) => _isLoading=false);

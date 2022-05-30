@@ -7,14 +7,15 @@ import '../constants.dart';
 
 class UserService{
 
-Future<String> addUser(body) async {
-  String data = await Api().post(
+Future<UserModel> addUser(body) async {
+  var data = await Api().post(
     url:url+'users/addUser.php',
     body:body,
     //token: '',
   );
-  return data;//UserModel.fromJson(data);
+  return UserModel.fromJson(data[0]);//UserModel.fromJson(data);
 }
+
 Future<UserModel> UpdateUser({
   required String? idUser,
   required Map<String, dynamic> body,
@@ -31,15 +32,17 @@ var data = await Api().postRequestWithFile('array',
   for (int i = 0; i < data.length; i++) {
   usersList.add(UserModel.fromJson(data[i]));
   }
+  // if(usersList.isNotEmpty)
   return usersList[0];
+  // else
+  //  return
+  //      UserModel(created_at: '',isActive: '0',
+  //      fkuserAdd: '', nameuserAdd: '',idUser: '0');
 
 }
 
-
-
 Future<List<UserModel>> usersServices() async {
   List<dynamic> data = await Api().get(url: url+'users/getUser.php');
-
   List<UserModel> usersList = [];
 
   for (int i = 0; i < data.length; i++) {

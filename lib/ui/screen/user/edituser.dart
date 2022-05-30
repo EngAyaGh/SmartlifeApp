@@ -1,6 +1,7 @@
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/provider/manage_provider.dart';
+import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/services/UserService.dart';
 import 'package:crm_smart/ui/widgets/combox_widget/levelcombox.dart';
 import 'package:crm_smart/ui/widgets/combox_widget/manage_widget.dart';
@@ -15,6 +16,7 @@ import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:group_button/group_button.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
@@ -49,6 +51,7 @@ class _EditUserState extends State<EditUser> {
 
    String? namemanage, fklevel, fkregoin = "";
    String? regoinname,levelname;
+   String isAcive='1';
  // late List<UserModel>   controllerUsers=[];
   @override void dispose() {
     super.dispose();
@@ -105,7 +108,7 @@ class _EditUserState extends State<EditUser> {
       // Provider.of<level_vm>(context,listen: false).selectedValueLevel =
       // //controllerUsers[widget.index]
       // widget.userModel.typeLevel.toString();
-
+      isAcive=widget.userModel.isActive;
       Provider.of<regoin_vm>(context,listen: false)
           .changeVal( widget.userModel.fkRegoin);
 
@@ -167,6 +170,7 @@ class _EditUserState extends State<EditUser> {
                   'fk_regoin': fkregoin != null ? fkregoin : "null",
                   'name_regoin':regoinname,
                   'name_level' :levelname,
+                  'isActive' :isAcive,
                 };
               Provider.of<user_vm_provider>(context,listen: false)
                   .updateuser_vm(body,
@@ -310,7 +314,31 @@ class _EditUserState extends State<EditUser> {
                     SizedBox(
                       height:20,
                     ),
+                   // Consumer<selected_button_provider>(
+                     //   builder: (context, selectedProvider, child) {
+                         // return
+                            GroupButton(
+                              controller: GroupButtonController(
+                                selectedIndex:int.parse(isAcive),
+                                //selectedProvider.isSelectedtypeinstall,
+                                // typeinstallController==null
+                                //     ? 0 :
+                                // int.tryParse( typeinstallController!)
+                              ),
+                              options: GroupButtonOptions(
+                                  buttonWidth: 110,
 
+                                  borderRadius: BorderRadius.circular(10)),
+                              buttons: ['غير نشط','نشط'],
+                              onSelected: (index,isselected) {
+                                print(index);
+                                setState(() {
+                                isAcive=index.toString();
+                                //selectedProvider.selectValuetypeinstall(index);
+                                  });
+                              }
+                          ),
+                       // }),
                     //show chose image
 
                     // Center(
@@ -350,6 +378,7 @@ class _EditUserState extends State<EditUser> {
     // emailController.text = "";
     _scaffoldKey.currentState!
         .showSnackBar(SnackBar(content: Text(label_Edituser)));
+    Navigator.pop(context);
   }
 
   error() {
@@ -357,5 +386,6 @@ class _EditUserState extends State<EditUser> {
     //     .changeboolUpdateUser(false);
     _scaffoldKey.currentState!
         .showSnackBar(SnackBar(content: Text(label_errorAddProd)));
+    Navigator.pop(context);
   }
 }

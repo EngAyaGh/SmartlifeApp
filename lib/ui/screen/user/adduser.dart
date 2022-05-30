@@ -266,13 +266,15 @@ class _addUserState extends State<addUser> {
                           'type_level': level,
                          'name_level' :levelname,
                           'name_regoin':regoinname,
+                          'fkuserAdd':Provider.of<user_vm_provider>
+                            (context,listen: false).currentUser!.idUser.toString(),
                           'fk_regoin': regoin != null ? regoin : "null",
                         };
                        Provider.of<user_vm_provider>(context,listen: false)
                         .adduser_vm(body)
                            .then((value) =>
                         value != "error"
-                            ? clear(body)
+                            ? clear()
                             :error()
                         );
                       }else
@@ -304,7 +306,7 @@ void error(){
       SnackBar(content: Text(label_errorAddProd)));
 }
 
-  void clear(body){
+  void clear(){
 
     Provider.of<LoadProvider>(context, listen: false)
         .changeboolValueUser(false);
@@ -318,5 +320,7 @@ void error(){
     _scaffoldKey.currentState!.showSnackBar(
         SnackBar(content: Text(label_Addeduser))
     );
+    Navigator.pop(context);
+
   }
 }

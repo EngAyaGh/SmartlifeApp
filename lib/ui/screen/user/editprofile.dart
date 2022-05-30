@@ -86,6 +86,8 @@ appBar: AppBar(
           //.then((value) => value != "error" //   ?
         _scaffoldKey.currentState!
             .showSnackBar(SnackBar(content: Text(label_Edituser)));
+        Navigator.pop(context);
+
         //   // : error());
         // } else {
         //   _scaffoldKey.currentState!.showSnackBar(SnackBar(

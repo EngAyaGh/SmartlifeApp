@@ -96,7 +96,7 @@ void route_notifyto(typeNotify,context,
           MaterialPageRoute(
               builder: (context) => ProfileClient(
                 //idinvoice: data==null?datanotify:  data['id_invoice'],
-                idclient: data!['idclient'],
+                idclient: data==null?datanotify: data['idclient'],
               )
           ));
       break;

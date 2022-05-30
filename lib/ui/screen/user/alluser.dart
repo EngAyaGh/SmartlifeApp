@@ -43,7 +43,7 @@ class _AllUserScreenState extends State<AllUserScreen> {
       appBar: AppBar(
         title: Text('الموظفين',style: TextStyle(color: kWhiteColor),),
 
-        //centerTitle: true,
+        centerTitle: true,
       ),
       body: Directionality(
         textDirection: TextDirection.rtl,
@@ -72,7 +72,7 @@ class _AllUserScreenState extends State<AllUserScreen> {
                     return Consumer<user_vm_provider>(
                         builder: (context, cart, child) {
                           return Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(2),
                             child: buildCardUsers(
                               usermodell: controllerUsers.listuserfilter[index],
                             ),
@@ -81,7 +81,7 @@ class _AllUserScreenState extends State<AllUserScreen> {
                   },
                   separatorBuilder: (context, index) {
                     return Padding(
-                      padding: EdgeInsets.only(right: 30, left: 20, bottom: 5),
+                      padding: EdgeInsets.only(right: 30, left: 20, bottom: 0),
                       child: Divider(
                         color: Colors.black12,
                         thickness: 1,

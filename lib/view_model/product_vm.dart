@@ -32,24 +32,24 @@ class product_vm extends ChangeNotifier {
   }
 
   Future<String> addproduct_vm(Map<String, dynamic?> body) async {
-    String res = await ProductService().addProduct(body);
-    if (res!="false") {
-      body.addAll({'id_product':res});
-      listProduct.insert(0, ProductModel.fromJson(body));
+    ProductModel res = await ProductService().addProduct(body);
+    // if (res!="false") {
+    //   body.addAll({'id_product':res});
+      listProduct.insert(0,res);
       //notifyListeners();
-    }
+   // }
     notifyListeners();
-    return res;
+    return "done";
   }
   Future<bool> updateproduct_vm(Map<String, dynamic?> body,String id_product) async {
-    bool res = await ProductService().updateProduct(body,id_product);
-    if (res) {
+    ProductModel res = await ProductService().updateProduct(body,id_product);
+
       final index=listProduct.indexWhere((element) => element.idProduct==id_product);
-      listProduct[index]=ProductModel.fromJson(body);
+      listProduct[index]=res;
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
-    }
-    return res;
+
+    return true;
   }
   Future<String> deleteProduct(String? id_product) async {
     //listProduct=[];

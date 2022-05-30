@@ -29,6 +29,11 @@ class _check_levelState extends State<check_level> {
    List<LevelModel> _listlevel= Provider.of<level_vm>
      (context,listen: true).listoflevel;
     return Scaffold(
+      appBar: AppBar(
+        title: Text('ادارة الصلاحيات',style: TextStyle(color: kWhiteColor),),
+
+        centerTitle: true,
+      ),
        floatingActionButton:FloatingActionButton(
          child:Icon(Icons.add),
          onPressed: (){

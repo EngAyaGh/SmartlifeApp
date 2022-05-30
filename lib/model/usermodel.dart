@@ -14,6 +14,10 @@ class UserModel {
   String? nameRegoin;
   String? name_level;
   String? currency;
+  String isActive;
+  String fkuserAdd;
+  String nameuserAdd;
+  String created_at;
   String? img_image = '';
   String? img_thumbnail = '';
   String? path = '';
@@ -30,6 +34,10 @@ class UserModel {
      this.fkRegoin,
      this.nameCountry,
      this.nameRegoin,
+      required  this.isActive,
+     required this.fkuserAdd,
+     required this.created_at,
+     required this.nameuserAdd,
     this.name_level,
     this.currency,
     this.img_image,
@@ -51,7 +59,11 @@ class UserModel {
       nameCountry: jsonData['nameCountry'],
       nameRegoin: jsonData['name_regoin'],
       name_level: jsonData['name_level'],
+      isActive: jsonData['isActive'],
       currency: jsonData['currency'],
+      fkuserAdd: jsonData['fkuserAdd'],
+      nameuserAdd: jsonData['nameuserAdd'],
+      created_at: jsonData['created_at'],
       img_image:jsonData['img_image'].toString().trim().isEmpty?
       jsonData['img_image']: urlimage+ jsonData['img_image'],
       img_thumbnail:urlimage+ jsonData['img_thumbnail'],
@@ -73,7 +85,11 @@ class UserModel {
      _data['nameCountry']=nameCountry;
      _data['name_regoin']=nameRegoin;
      _data['name_level']=name_level;
+     _data['isActive']=isActive;
      _data['currency']=currency;
+     _data['fkuserAdd']=fkuserAdd;
+     _data['created_at']=created_at;
+     _data['nameuserAdd']=nameuserAdd;
      _data['img_image']=img_image;
      _data['img_thumbnail']=img_thumbnail;
      _data['path']=path;

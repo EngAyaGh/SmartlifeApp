@@ -5,24 +5,22 @@ import '../constants.dart';
 
 class ProductService{
 
-  Future<String> addProduct( Map<String,dynamic?> body) async {
+  Future<ProductModel> addProduct( Map<String,dynamic?> body) async {
     print("$body");
-try{
-    String result = await Api()
+
+    var result = await Api()
         .post( url:url+"products/addProduct.php",
         body: body);
-    return result !="error"? result:"false";}
-    catch(e){
-    return "false";
-    }
+    return  ProductModel.fromJson(result[0]);//result !="error"? result:"false";}
+
   }
   //id_product
-  Future<bool> updateProduct( Map<String,dynamic> body,String idproduct) async {
-    String result = await Api()
+  Future<ProductModel> updateProduct( Map<String,dynamic> body,String idproduct) async {
+    var result = await Api()
         .post( url:url+"products/updateProduct.php?id_product=$idproduct",body:
     body
     );
-    return result=="done"? true:false;
+    return  ProductModel.fromJson(result[0]);//result=="done"? true:false;
   }
   Future<List<ProductModel>> getAllProduct(String fk_country) async {
     List<dynamic> data =[];

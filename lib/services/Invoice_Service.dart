@@ -112,7 +112,7 @@ class Invoice_Service {
     print(prodlist);
     return prodlist;
   }
-  Future<InvoiceModel?> addInvoice( Map<String,dynamic?> body,File? file) async {
+  Future<InvoiceModel> addInvoice( Map<String,dynamic?> body,File? file) async {
 
     try{
       var data = await Api()
@@ -122,7 +122,7 @@ class Invoice_Service {
       return  InvoiceModel.fromJson(data[0]);
     }
     catch(e) {
-    return null;
+    return InvoiceModel(products: []);
     }
 
   }

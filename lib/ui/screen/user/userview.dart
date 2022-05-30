@@ -34,7 +34,8 @@ class _UserScreenState extends State<UserScreen> {
   late int index;
   late var controllerUser;
   @override void initState() {
-     index = Provider.of<user_vm_provider>(context,listen: false).userall.indexWhere(
+     index = Provider.of<user_vm_provider>(context,listen: false)
+         .userall.indexWhere(
             (element) =>
         element.idUser ==widget.userModel.idUser );
      //controllerUser =Provider.of<user_vm_provider>(context,listen: false);
@@ -108,12 +109,12 @@ class _UserScreenState extends State<UserScreen> {
                           ),
                           child:
                           CircleAvatar(
-                              radius: 80.0,
+                              radius: 85.0,
                               child:
                               useredit.img_image!.isNotEmpty
                                   ?
                               ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(100),
 
                                 child: CachedNetworkImage(
                                     progressIndicatorBuilder: (context, url, progress) => Center(

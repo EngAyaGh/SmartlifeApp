@@ -27,7 +27,7 @@ class ImageProfile extends StatelessWidget {
         children: [
         //  Obx( () =>
         CircleAvatar(
-            radius: 50.0,
+            radius: 85.0,
             child:
             Provider.of<user_vm_provider>(context,listen: true)
                 .currentUser!.path!.isNotEmpty
@@ -36,7 +36,7 @@ class ImageProfile extends StatelessWidget {
            : Provider.of<user_vm_provider>(context,listen: true)
                 .currentUser!.img_image!.isNotEmpty
            ? ClipRRect(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(100),
               child: CachedNetworkImage(
                 progressIndicatorBuilder: (context, url, progress) => Center(
                   child: CircularProgressIndicator(

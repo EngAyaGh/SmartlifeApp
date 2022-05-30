@@ -394,8 +394,10 @@ class _EditProductState extends State<EditProduct> {
     // _textprice.text = "";
 
     _scaffoldKey.currentState!.showSnackBar(
-        SnackBar(content: Text(label_Edituser))
-    );
+        SnackBar(content: Text(label_Edituser)));
+
+    Navigator.pop(context);
+
   }
 
   error() {

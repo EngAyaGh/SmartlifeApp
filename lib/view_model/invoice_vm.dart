@@ -254,16 +254,24 @@ class invoice_vm extends ChangeNotifier{
   }
 
   // fk_idUser
-  Future<void> get_invoiceclientlocal(String? fk_client
+  Future<void> get_invoiceclientlocal(String? fk_client,String type
      // ,List<InvoiceModel> list
       ) async {
     //seacrh for invoice in list
-    int index=-1;
+    if(type=='مشترك'){
     listinvoiceClient=[];
     listinvoices.forEach((element) {
-      if( element.fkIdClient==fk_client)
+      if( element.fkIdClient==fk_client&&element.isApprove!=null)
       listinvoiceClient.add(element);
     });
+    }else{
+
+      listinvoiceClient=[];
+      listinvoices.forEach((element) {
+        if( element.fkIdClient==fk_client)
+          listinvoiceClient.add(element);
+      });
+    }
     // if(index !=-1)
     //   listinvoiceClient=[];
     notifyListeners();
@@ -332,14 +340,14 @@ class invoice_vm extends ChangeNotifier{
   Future<String> add_invoiceclient_vm(
       Map<String, dynamic?> body,File? file) async {
 
-       String res='';
-      InvoiceModel? data = await Invoice_Service().addInvoice(body,file);
-     if(data !=null){
+       String res='done';
+      InvoiceModel data = await Invoice_Service().addInvoice(body,file);
+   //  if(data !=null){
+       print('resssssssssssssss');
     listinvoices.insert(0,data);
     listinvoiceClient.insert(0, data);
     res=data.idInvoice.toString();
-    }
-     else res='false';
+   // } else res='false';
 
       notifyListeners();
     return res;

@@ -289,6 +289,9 @@ else{
                             if (value!.isEmpty) {
                               return label_empty;
                             }
+                            // else if(value.characters){
+                            //   return ;
+                            // }
                           },
                           controller: renewController, //اسم المؤسسة
                           label: label_renew,

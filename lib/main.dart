@@ -199,9 +199,19 @@ Widget build(BuildContext context) {
             );
           }
           else {
+
+            if(snapshot.data!.getString('id_user')=='0')
+              return MaterialApp(
+                home: Scaffold(
+                  body: Center(
+                    child: Text('غير مصرح لك الدخول'),
+                  ),
+                ),
+              );
+            // String idcurrentuser= snapshot.data!.getString("id_user").toString();
+          else {
             isUserLoggedIn =
                 snapshot.data!.getBool(kKeepMeLoggedIn) ?? false;
-           // String idcurrentuser= snapshot.data!.getString("id_user").toString();
             return
               MaterialApp(
 
@@ -216,7 +226,7 @@ Widget build(BuildContext context) {
                     textDirection: TextDirection.rtl,
                     child: isUserLoggedIn ? Home() : login(),
                   ),
-             );
+             );}
           }
         });
   }

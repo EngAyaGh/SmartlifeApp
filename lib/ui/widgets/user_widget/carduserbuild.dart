@@ -18,7 +18,7 @@ class buildCardUsers extends StatelessWidget {
     print('dd');
     print( usermodell.img_thumbnail.toString().trim().length);
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 10, top: 10),
+      padding: const EdgeInsets.only(left: 20, right: 10, top: 5),
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -30,7 +30,7 @@ class buildCardUsers extends StatelessWidget {
                   )));
         },
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
@@ -70,34 +70,53 @@ class buildCardUsers extends StatelessWidget {
                  // backgroundColor: Colors.grey.withOpacity(0.1),
                 ),
                 SizedBox(width: 15),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextUtilis(
-                      color: Colors.black87,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      textstring: usermodell.nameUser.toString(),
-                      underline: TextDecoration.none,
-                    ),
-                    TextUtilis(
-                      color: Colors.black87,
-                      fontSize: 25,
-                      fontWeight: FontWeight.normal,
-                      textstring: usermodell.typeAdministration.toString(),
-                      underline: TextDecoration.none,
-                    ),
-                  ],
-                ),
+
               ],
             ),
-            usermodell.fkRegoin==null?Text(''): Text(usermodell.nameRegoin.toString(),style: TextStyle(
-              fontFamily: kfontfamily2
-            ),),
+            Column(
+              //mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+
+              children: [
+               Row(
+                 // mainAxisAlignment: MainAxisAlignment.start,
+
+                 children: [
+                   TextUtilis(
+                     color: Colors.black87,
+                     fontSize: 30,
+                     fontWeight: FontWeight.bold,
+                     textstring: usermodell.nameUser.toString(),
+                     underline: TextDecoration.none,
+                   ),
+                 ],
+               ),
+               Row(
+                 // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                 //crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   TextUtilis(
+                     color: Colors.black87,
+                     fontSize: 25,
+                     fontWeight: FontWeight.normal,
+                     textstring: usermodell.typeAdministration.toString(),
+                     underline: TextDecoration.none,
+                   ),
+
+                   // SizedBox(width: 50,),
+                   usermodell.fkRegoin==null?Text(''): Text(usermodell.nameRegoin.toString(),style: TextStyle(
+                       fontFamily: kfontfamily2
+                   ),),
+                 ],
+               ),
+              ],
             // Icon(
             //   Icons.arrow_back_ios_new_outlined,
             //   color: Colors.black54,
             // ),
+           ) ,
+
+
           ],
         ),
       ),

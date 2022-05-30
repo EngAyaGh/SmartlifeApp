@@ -313,6 +313,8 @@ class _addProductState extends State<addProduct> {
     Provider.of<switch_provider>(context, listen: false).changeboolValue(false);
     _scaffoldKey.currentState!
         .showSnackBar(SnackBar(content: Text(label_doneAddProduct)));
+
+    Navigator.pop(context);
     // Fluttertoast.showToast(
     //   backgroundColor: Colors.lightBlueAccent,
     //

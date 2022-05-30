@@ -39,49 +39,36 @@ class user_vm_provider extends ChangeNotifier{
   Future<void> updateuser_vm(Map<String, String?> body,String? iduser,File? file) async {
     isupdate=true;
     notifyListeners();
-    final index = userall.indexWhere(
+    int index = userall.indexWhere(
             (element) =>
         element.idUser ==iduser );
-    userall[index] =await UserService()
+   UserModel ustemp =await UserService()
         .UpdateUser(body: body,idUser: iduser,file: file);
-    getcurrentuser();
-    //if(result!="error"){
+   //if(ustemp.idUser!='0'){
+     userall[index]=ustemp;
+     getcurrentuser();
+     userall[index].path="";
+   //}
+      listuserfilter=userall;
+      isupdate=false;
+     notifyListeners();
 
-    // body.addAll({
-    //
-    //   'nameUser': userall[index].nameUser,
-    //   'id_user': userall[index].idUser.toString(),
-    //   'code_verfiy': userall[index].codeVerfiy.toString(),
-    //   'fk_country': userall[index].fkCountry.toString(),
-    //   //'code_verfiy': controllerUsers.usersList[index].codeVerfiy.toString(),
-    //   'nameCountry':userall[index].nameCountry.toString(),
-    //   'currency':userall[index].currency,
-    //    //'name_regoin': userall![index].nameRegoin.toString(),
-    //   // 'name_level': userall![index].name_level.toString(),
-    // });
-    // print(body);
-    print('///////////');
-    //userall[index] = UserModel.fromJson(body);
-
-    userall[index].path="";
-    isupdate=false;
-    notifyListeners();
    // return result;
   }
     Future<String> adduser_vm(Map<String, String?> body) async {
-    String res = await UserService().addUser(body);
-    if (res!="false") {
-      body.addAll({
-        'id_user':res,
-        'img_image':'',
-        'img_thumbnail':''
-      });
-
-      userall.insert(0, UserModel.fromJson(body));
+    UserModel us= await UserService().addUser(body);
+    // if (res!="false") {
+    //   body.addAll({
+    //     'id_user':res,
+    //     'img_image':'',
+    //     'img_thumbnail':'',
+    //   });
+      userall.insert(0, us);
+      listuserfilter.insert(0, us);
       notifyListeners();
-    }
-    return res;
+        return "done";
   }
+
   Future<void> searchProducts(
       String productName) async {
     listuserfilter=[];
@@ -126,7 +113,10 @@ class user_vm_provider extends ChangeNotifier{
       String? id = preferences.getString('id_user');
       //print("in get user" + userall[0].nameUser.toString());
 
-      final index = userall.indexWhere((element) => element.idUser == id);
+      final index = userall.indexWhere(
+              (element) => element.idUser == id
+      && element.isActive=='1'
+      );
       if(index>=0){
       currentUser = userall[index];
       currentUser!.path="";
@@ -134,6 +124,11 @@ class user_vm_provider extends ChangeNotifier{
       print("preferences");
       print(preferences.containsKey('id_user'));
       return preferences;
+      }else {
+        SharedPreferences preferences  = await SharedPreferences.getInstance();
+        //preferences.setBool(kKeepMeLoggedIn, true);
+        preferences.setString("id_user",'0');
+        return preferences;
       }
     }
     catch(e){
