@@ -117,12 +117,14 @@ class _loginState extends State<login> {
                           preferences.setString("id_user",res!);
                           Provider.of<user_vm_provider>(context, listen: false)
                               .getcurrentuser();
+                          Provider.of<AuthProvider>(context,listen: false)
+                              .changeboolValueisLoading(false);
+
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Home()),
                                  (rouets)=>false);
-
 
                         }
                         else{

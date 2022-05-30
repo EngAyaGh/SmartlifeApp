@@ -199,8 +199,10 @@ Widget build(BuildContext context) {
             );
           }
           else {
-
-            if(snapshot.data!.getString('id_user')=='0')
+            isUserLoggedIn =
+                snapshot.data!.getBool(kKeepMeLoggedIn) ?? false;
+            if(snapshot.data!.getString('id_user1')=='0'
+            &&  ! isUserLoggedIn )
               return MaterialApp(
                 home: Scaffold(
                   body: Center(
@@ -210,8 +212,7 @@ Widget build(BuildContext context) {
               );
             // String idcurrentuser= snapshot.data!.getString("id_user").toString();
           else {
-            isUserLoggedIn =
-                snapshot.data!.getBool(kKeepMeLoggedIn) ?? false;
+
             return
               MaterialApp(
 

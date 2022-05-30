@@ -277,6 +277,10 @@ else{
                           onChanged: (val) {
                             // nameprod = val;
                           },
+                          inputType: TextInputType.number,
+                          inputformate: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
                         ),
                         SizedBox(
                           height: 5,
@@ -293,6 +297,10 @@ else{
                             //   return ;
                             // }
                           },
+                          inputType: TextInputType.number,
+                          inputformate: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
                           controller: renewController, //اسم المؤسسة
                           label: label_renew,
                           onChanged: (val) {
@@ -577,7 +585,7 @@ else{
                                         },_invoice!.path!.isNotEmpty?_myfile:null
                                         ).then((value) =>
                                         value != "false"
-                                            ?clear(context,value,_products)
+                                            ? clear(context,value,_products)
                                             : error(context)
                                         );
                                       }

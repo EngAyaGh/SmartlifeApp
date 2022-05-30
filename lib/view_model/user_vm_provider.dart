@@ -114,10 +114,8 @@ class user_vm_provider extends ChangeNotifier{
       //print("in get user" + userall[0].nameUser.toString());
 
       final index = userall.indexWhere(
-              (element) => element.idUser == id
-      && element.isActive=='1'
-      );
-      if(index>=0){
+              (element) => element.idUser == id && element.isActive=='1');
+      if(index>=0) {
       currentUser = userall[index];
       currentUser!.path="";
       notifyListeners();
@@ -127,7 +125,7 @@ class user_vm_provider extends ChangeNotifier{
       }else {
         SharedPreferences preferences  = await SharedPreferences.getInstance();
         //preferences.setBool(kKeepMeLoggedIn, true);
-        preferences.setString("id_user",'0');
+        preferences.setString("id_user1",'0');
         return preferences;
       }
     }

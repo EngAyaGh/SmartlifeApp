@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../constants.dart';
 
@@ -17,7 +18,7 @@ class EditTextFormField extends StatelessWidget {
   TextInputType? inputType;
    bool? read=null;
    EdgeInsetsGeometry? paddcustom;
-
+  List<TextInputFormatter>? inputformate;
   EditTextFormField(
        {
          this.ontap,
@@ -33,6 +34,7 @@ class EditTextFormField extends StatelessWidget {
          this.read,
          this.paddcustom,
 
+         this.inputformate,
         Key? key
        })
       : super(key: key);
@@ -50,7 +52,7 @@ class EditTextFormField extends StatelessWidget {
       onTap: ontap,
       keyboardType: inputType,
       readOnly: read==null?false:true,
-
+      inputFormatters: inputformate,
       decoration: InputDecoration(
 
         contentPadding:
