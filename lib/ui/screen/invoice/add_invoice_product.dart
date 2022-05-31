@@ -327,7 +327,7 @@ void calculate(){
                                             (element) => element.idProduct==selectedvalue);
                                     ProductModel pm=listProduct[index];
                                     ProductsInvoice  pp=ProductsInvoice(
-                                        //idInvoiceProduct: null,
+                                        idInvoiceProduct: "null",
                                         fkIdInvoice: widget.invoice!.idInvoice==null
                                             ? '0' :  widget.invoice!.idInvoice.toString(),
                                         fkclient:widget.invoice!.fkIdClient ,

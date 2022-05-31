@@ -19,7 +19,7 @@ class View_installedClient extends StatefulWidget {
 
 class _View_installedClientState extends State<View_installedClient> {
   List<CommunicationModel> listCommunicationinstall=[];
-
+  bool isload=false;
   @override void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_)async {
       Provider.of<communication_vm>(context, listen: false)
@@ -32,10 +32,27 @@ class _View_installedClientState extends State<View_installedClient> {
     listCommunicationinstall=Provider.of<communication_vm>
       (context, listen: true)
         .listCommunicationInstall;
+    isload=Provider.of<communication_vm>
+      (context, listen: true).isloading;
     return Scaffold(
 
-      appBar: AppBar(),
-      body: Padding(
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          'جودة التركيب والتدريب',
+          style: TextStyle(color: kWhiteColor, fontFamily: kfontfamily2),
+        ),
+      ),
+      body:
+      isload==true?
+
+        Center(
+        child: CircularProgressIndicator()):
+      listCommunicationinstall.length==0?
+      Center(
+          child: Text(messageNoData)
+      ) :Padding(
         padding: const EdgeInsets.all(8.0),
         child: Directionality(
           textDirection: TextDirection.rtl,

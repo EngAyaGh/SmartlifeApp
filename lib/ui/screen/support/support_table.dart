@@ -81,7 +81,7 @@ class _support_tableState extends State<support_table> {
       //   child: Icon(Icons.add),
       // ),
       appBar: AppBar(
-        title: Text(' جدول العملاء ',style: TextStyle(color: kWhiteColor),),
+        title: Text(' جدول التركيب للعملاء ',style: TextStyle(color: kWhiteColor),),
         centerTitle: true,
       ),
       body: SafeArea(

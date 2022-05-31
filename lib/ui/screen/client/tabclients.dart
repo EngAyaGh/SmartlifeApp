@@ -94,7 +94,9 @@ class _tabclientsState extends State<tabclients> {
           centerTitle: true,
           title: Text(
             'قائمة العملاء ',
-            style: TextStyle(color: kWhiteColor, fontFamily: kfontfamily2),
+            style: TextStyle(
+                color: kWhiteColor,
+                fontFamily: kfontfamily2),
           ),
         ),
         floatingActionButton: FloatingActionButton(
@@ -300,7 +302,9 @@ class _tabclientsState extends State<tabclients> {
                           child:
                               Consumer<client_vm>(builder: (context, value, child) {
                                  return value.listClientfilter.length==0?
-                                 Text(''):Column(
+                                 Center(
+                                     child: CircularProgressIndicator()
+                                 ):Column(
                                    children: [
                                      Expanded(
                               child: ListView.builder(

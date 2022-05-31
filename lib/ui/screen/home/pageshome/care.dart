@@ -62,8 +62,8 @@ class _carepageState extends State<carepage> {
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Text(
-          '',
-          style: TextStyle(
+          'العناية بالعملاء',
+          style: TextStyle(color: kWhiteColor,
               fontFamily: kfontfamily2),
         ),
         centerTitle: true,

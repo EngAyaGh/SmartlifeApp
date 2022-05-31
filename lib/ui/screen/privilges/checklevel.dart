@@ -47,10 +47,13 @@ class _check_levelState extends State<check_level> {
            );
          },
        backgroundColor: kMainColor,),
-      body: Padding(
+      body:
+      _listlevel.length==0?
+      Center(
+          child: CircularProgressIndicator()):
+      Padding(
         padding: const EdgeInsets.all(18.0),
         child: SingleChildScrollView(
-
           child:ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,

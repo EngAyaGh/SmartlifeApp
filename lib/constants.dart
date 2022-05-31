@@ -17,6 +17,7 @@ const urlfile='https://aya.mardin-cudi.com/api/imagesApp/filesinvoice/';
 const kKeepMeLoggedIn="loginstate";
 const String hintnamefilter=   "المؤسسة ,العميل , رقم الهاتف....";
 const Ktoast=Color(0xfff2c131);
+const String messageNoData='لا يوجد بيانات';
 List<String> listtext=[
   'مشرف مبيعات',
   'موظف مبيعات',

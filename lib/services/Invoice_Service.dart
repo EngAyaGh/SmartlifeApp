@@ -114,15 +114,16 @@ class Invoice_Service {
   }
   Future<InvoiceModel> addInvoice( Map<String,dynamic?> body,File? file) async {
 
-    try{
+    try {
       var data = await Api()
-          .postRequestWithFile('',  url+"client/invoice/addinvoice.php",
+          .postRequestWithFile('array',  url+"client/invoice/addinvoice.php",
            body, file);
 
       return  InvoiceModel.fromJson(data[0]);
     }
     catch(e) {
-    return InvoiceModel(products: []);
+      print(e.toString());
+       return InvoiceModel(products: []);
     }
 
   }
@@ -132,6 +133,7 @@ class Invoice_Service {
       String result = await Api()
           .post( url:url+"client/invoice/addinvoice_product.php",
           body: body);
+      print('result idproduct invoice');
       print(result);
       return result !="error"? result:"false";}
     catch(e){

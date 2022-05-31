@@ -16,7 +16,7 @@ class ticket_vm extends ChangeNotifier{
   List<TicketModel> listticket_clientfilter=[];
   List<TicketModel> tickesearchlist=[];
   UserModel? usercurrent;
-
+  bool isloading=false;
   void setvalue(user){
     usercurrent=user;
     notifyListeners();
@@ -94,8 +94,9 @@ class ticket_vm extends ChangeNotifier{
       notifyListeners();
 
   }
-void getclient_ticket(String fkIdClient){
+ Future< void> getclient_ticket(String fkIdClient)async{
     listticket_client=[];
+    await getticket();
     //notifyListeners();
     int index=0;
    if(listticket.isNotEmpty){
@@ -114,8 +115,9 @@ void getclient_ticket(String fkIdClient){
    notifyListeners();
 }
 
-void getclientticket_filter(String filter){
+ Future<void> getclientticket_filter(String filter)async{
   listticket_clientfilter=[];
+  await getticket();
   if(listticket.isNotEmpty){
     listticket.forEach((element) {
       if( element.typeTicket==filter) {
@@ -159,6 +161,8 @@ void getclientticket_filter(String filter){
   }
 //
 Future<void> getticket() async {
+  isloading=true;
+  notifyListeners();
   var
   data=await Api()
       .get(url:url+ 'ticket/view_ticket.php?fk_country=${usercurrent!.fkCountry}');
@@ -170,6 +174,7 @@ Future<void> getticket() async {
   }
   listticket=prodlist;
   tickesearchlist=listticket;
+  isloading=false;
   notifyListeners();
 
 }

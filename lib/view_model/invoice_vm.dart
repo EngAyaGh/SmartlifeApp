@@ -18,10 +18,12 @@ const CACHE_Invoice_Deleted_INTERVAL = 60 * 1000; // 30s in millis
 
 class invoice_vm extends ChangeNotifier{
   String total='0';
+
   void set_total(val){
     total=val;
     notifyListeners();
   }
+  bool isloading=false;
   UserModel? usercurrent;
   invoice_vm() {
     //get_invoicesbyRegoin("");
@@ -75,7 +77,7 @@ class invoice_vm extends ChangeNotifier{
         });
         listInvoicesAccept=_listInvoicesAccept;
       }}
-    else getinvoice_Local("مشترك",'approved client');
+    else getinvoice_Local("مشترك",'approved client',null);
     notifyListeners();
   }
 
@@ -99,10 +101,10 @@ class invoice_vm extends ChangeNotifier{
   }
   Future<void> getclienttype_filter(String? filter,String? regoin,String tyype)async{
     // listInvoicesAccept=[];
-    if(tyype=='only')await getinvoice_Local("مشترك",'approved only');
-    if(tyype=='client')await getinvoice_Local("مشترك",'approved client');
-    if(tyype=='not')await getinvoice_Local("مشترك",'not approved');
-    if(tyype=='out')await getinvoice_Local("مستبعد",'out');
+    if(tyype=='only')await getinvoice_Local("مشترك",'approved only',null);
+    if(tyype=='client')await getinvoice_Local("مشترك",'approved client',null);
+    if(tyype=='not')await getinvoice_Local("مشترك",'not approved',null);
+    if(tyype=='out')await getinvoice_Local("مستبعد",'out',null);
 
     List<InvoiceModel> _listInvoicesAccept=[];
     if(regoin==null){
@@ -163,10 +165,11 @@ class invoice_vm extends ChangeNotifier{
     notifyListeners();
   }
   Future<void> getfilterview(String? regoin,String tyype)async{
-
-    if(tyype=='only')await getinvoice_Local("مشترك",'approved only');
-    if(tyype=='client')await getinvoice_Local("مشترك",'approved client');
-    if(tyype=='not')await getinvoice_Local("مشترك",'not approved');
+    listInvoicesAccept=[];
+    notifyListeners();
+    if(tyype=='only')await getinvoice_Local("مشترك",'approved only',null);
+    if(tyype=='client')await getinvoice_Local("مشترك",'approved client',null);
+    if(tyype=='not')await getinvoice_Local("مشترك",'not approved',null);
     List<InvoiceModel> _listInvoicesAccept=[];
     if(regoin!='0')
     listInvoicesAccept.forEach((element) {
@@ -189,11 +192,15 @@ class invoice_vm extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> getinvoice_Local(String searchfilter,String type
+  Future<void> getinvoice_Local(String searchfilter,String type,String? approvetype
       // , List<ClientModel> list
       ) async {
-   await getinvoices();
     List<InvoiceModel> list=[];
+    listInvoicesAccept=[];
+    isloading=true;
+    notifyListeners();
+    if(approvetype!=null){
+   await getinvoices();
     if(listInvoicesAccept.isNotEmpty) {
       if (type == 'approved only')
         listInvoicesAccept.forEach((element) {
@@ -215,8 +222,16 @@ class invoice_vm extends ChangeNotifier{
           if (element.stateclient == searchfilter)
             list.add(element);
         });
+    }}else{
+      if(approvetype=='country')await getinvoices();
+      if(approvetype=='regoin')await get_invoicesbyRegoin([]);
+      listInvoicesAccept.forEach((element) {
+        if (element.stateclient == searchfilter && element.isApprove == null)
+          list.add(element);
+      });
     }
     listInvoicesAccept=list;
+    isloading=false;
     // if(listInvoicesAccept.isEmpty)listInvoicesAccept=listinvoices;
     notifyListeners();
   }
@@ -252,21 +267,23 @@ class invoice_vm extends ChangeNotifier{
 
     return true;
   }
-
   // fk_idUser
   Future<void> get_invoiceclientlocal(String? fk_client,String type
      // ,List<InvoiceModel> list
       ) async {
+    listinvoiceClient=[];
+    notifyListeners();
+    //await getinvoices();
     //seacrh for invoice in list
     if(type=='مشترك'){
-    listinvoiceClient=[];
+    //listinvoiceClient=[];
     listinvoices.forEach((element) {
       if( element.fkIdClient==fk_client&&element.isApprove!=null)
       listinvoiceClient.add(element);
     });
     }else{
 
-      listinvoiceClient=[];
+      //listinvoiceClient=[];
       listinvoices.forEach((element) {
         if( element.fkIdClient==fk_client)
           listinvoiceClient.add(element);
@@ -347,9 +364,9 @@ class invoice_vm extends ChangeNotifier{
     listinvoices.insert(0,data);
     listinvoiceClient.insert(0, data);
     res=data.idInvoice.toString();
+    print(res);
    // } else res='false';
-
-      notifyListeners();
+    notifyListeners();
     return res;
   }
   Future<String> add_invoiceProduct_vm(Map<String, dynamic?>? body) async {

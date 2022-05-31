@@ -23,10 +23,10 @@ class regoin_vm extends ChangeNotifier{
     if(val==null||val=="null")
    {
      selectedValueLevel=null;
-   print('nnnn');
+   print('regoin vm');
    }
     else
-      {selectedValueLevel=val;print('22222');}
+      {selectedValueLevel=val;print('regoin in vm');}
     notifyListeners();
   }
   void clearvalues() {
@@ -40,7 +40,9 @@ class regoin_vm extends ChangeNotifier{
     usercurrent=user;
     notifyListeners();
   }
+
   Future<void> getregoin()async {
+
     if (listregoin.isEmpty) {
       List<dynamic> data = [];
       data = await Api()

@@ -41,7 +41,7 @@ class _AllUserScreenState extends State<AllUserScreen> {
       child: Icon(Icons.add),
     ),
       appBar: AppBar(
-        title: Text('الموظفين',style: TextStyle(color: kWhiteColor),),
+        title: Text('إدارة المستخدمين',style: TextStyle(color: kWhiteColor),),
 
         centerTitle: true,
       ),
@@ -62,7 +62,7 @@ class _AllUserScreenState extends State<AllUserScreen> {
 
             controllerUsers.listuserfilter.length == 0?
     Center(
-    child: Text('لا يوجد مستخدمين')):
+    child: CircularProgressIndicator()):
             Directionality(
               textDirection: TextDirection.rtl,
               child: Expanded(
@@ -71,7 +71,12 @@ class _AllUserScreenState extends State<AllUserScreen> {
                   itemBuilder: (context, index) {
                     return Consumer<user_vm_provider>(
                         builder: (context, cart, child) {
-                          return Padding(
+                          return
+                          //   value.listClientfilter.length==0?
+                          // Center(
+                          //     child: CircularProgressIndicator()
+                          // ):
+                          Padding(
                             padding: const EdgeInsets.all(2),
                             child: buildCardUsers(
                               usermodell: controllerUsers.listuserfilter[index],

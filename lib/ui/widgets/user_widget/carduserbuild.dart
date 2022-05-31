@@ -30,7 +30,8 @@ class buildCardUsers extends StatelessWidget {
                   )));
         },
         child: Row(
-         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Row(
               children: [
@@ -74,7 +75,7 @@ class buildCardUsers extends StatelessWidget {
               ],
             ),
             Column(
-              //mainAxisAlignment: MainAxisAlignment.start,
+             // mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
@@ -104,9 +105,7 @@ class buildCardUsers extends StatelessWidget {
                    ),
 
                    // SizedBox(width: 50,),
-                   usermodell.fkRegoin==null?Text(''): Text(usermodell.nameRegoin.toString(),style: TextStyle(
-                       fontFamily: kfontfamily2
-                   ),),
+
                  ],
                ),
               ],
@@ -115,7 +114,58 @@ class buildCardUsers extends StatelessWidget {
             //   color: Colors.black54,
             // ),
            ) ,
+             Column(),
+             Column(),
+             Column(),
+             Column(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+            //  mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Row(
+                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextUtilis(
+                      color: Colors.black87,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      textstring: usermodell.isActive=='1'?
+                      'Active':'unActive',
+                      underline: TextDecoration.none,
+                    ),
+                    SizedBox(width: 5,),
+                    usermodell.isActive=='1'?
+            const SizedBox(
+            width: 15.0,
+              height: 15.0,
+              child: const DecoratedBox(
+                decoration: const BoxDecoration(
+                    color: Colors.green
+                ),
+              ),
+            ):
+      const SizedBox(
+      width: 15.0,
+      height: 15.0,
+      child: const DecoratedBox(
+        decoration: const BoxDecoration(
+            color: Colors.red
+        ),
+      ),
+    ),
 
+
+                ],),
+                SizedBox(height: 10,),
+                Row(
+                  children: [
+                    usermodell.fkRegoin==null?Text(''): Text(usermodell.nameRegoin.toString(),style: TextStyle(
+                        fontFamily: kfontfamily2
+                    ),),
+                  ],
+                ),
+              ],
+            )
 
           ],
         ),

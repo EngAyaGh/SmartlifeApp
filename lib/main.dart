@@ -201,8 +201,7 @@ Widget build(BuildContext context) {
           else {
             isUserLoggedIn =
                 snapshot.data!.getBool(kKeepMeLoggedIn) ?? false;
-            if(snapshot.data!.getString('id_user1')=='0'
-            &&  ! isUserLoggedIn )
+            if(snapshot.data!.getString('id_user1')=='0')
               return MaterialApp(
                 home: Scaffold(
                   body: Center(

@@ -679,21 +679,22 @@ else{
       }
     }
     //for loop
-  // int index1=  Provider.of<invoice_vm>(context,listen: false)
-  //     .listinvoices.indexWhere(
-  //         (element) => element.idInvoice==value);
-  // _invoice==Provider.of<invoice_vm>(context,listen: false)
+  int index1=  Provider.of<invoice_vm>(context,listen: false)
+      .listinvoices.indexWhere(
+          (element) => element.idInvoice==value);
+
+  // _invoice=Provider.of<invoice_vm>(context,listen: false)
   //     .listinvoices[index1];
   // _invoice!.idInvoice=value;
   //  _invoice!.products
   //    = Provider
   //        .of<invoice_vm>(context, listen: false)
   //        .listproductinvoic;
-  //
-  // Provider.of<invoice_vm>(context,listen: false)
-  //     .listinvoices[index1].products=_invoice!.products;
-  //     Provider
-  //         .of<invoice_vm>(context, listen: false).updatelistproducetInvoice();
+  // //
+  Provider.of<invoice_vm>(context,listen: false)
+      .listinvoices[index1].products=_invoice!.products;
+      Provider
+          .of<invoice_vm>(context, listen: false).updatelistproducetInvoice();
 
      Provider.of<LoadProvider>(context, listen: false)
          .changebooladdinvoice(false);

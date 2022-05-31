@@ -147,6 +147,9 @@ class _InvoiceViewState extends State<InvoiceView> {
 
   @override
   Widget build(BuildContext context) {
+    widget.invoice=Provider.of<invoice_vm>(context,listen: true)
+        .listinvoiceClient
+        .firstWhere((element) => element.idInvoice==widget.invoice!.idInvoice);
     final _globalKey = GlobalKey<FormState>();
     Widget dialog =
     SimpleDialog(
@@ -332,9 +335,11 @@ class _InvoiceViewState extends State<InvoiceView> {
                       ),
                     ),
                     SizedBox(height: 10,),
+                    widget.invoice!.date_approve.toString()==null?
                     cardRow(
                         title: 'تاريخ عقد الإشتراك',
-                        value: widget.invoice!.date_approve.toString()),
+                        value: widget.invoice!.date_approve.toString()):Container(),
+
                     cardRow(
                         title: 'المبلغ المدفوع',
                         value: widget.invoice!.amountPaid.toString()),

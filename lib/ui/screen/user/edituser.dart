@@ -108,7 +108,6 @@ class _EditUserState extends State<EditUser> {
       // Provider.of<level_vm>(context,listen: false).selectedValueLevel =
       // //controllerUsers[widget.index]
       // widget.userModel.typeLevel.toString();
-      isAcive=widget.userModel.isActive;
       Provider.of<regoin_vm>(context,listen: false)
           .changeVal( widget.userModel.fkRegoin);
 
@@ -117,6 +116,9 @@ class _EditUserState extends State<EditUser> {
       print('ddjksnsjncmdn');
       //print(widget.index);
 
+      setState(() {
+        isAcive=widget.userModel.isActive;
+      });
       print("init");
     });
 
@@ -327,7 +329,7 @@ class _EditUserState extends State<EditUser> {
                               ),
                               options: GroupButtonOptions(
                                   buttonWidth: 110,
-
+                                selectedColor: kMainColor,
                                   borderRadius: BorderRadius.circular(10)),
                               buttons: ['غير نشط','نشط'],
                               onSelected: (index,isselected) {

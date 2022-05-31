@@ -51,7 +51,7 @@ class _OutClientState extends State<OutClient> {
       Provider.of<regoin_vm>(context,listen: false).changeVal(null);
 
       Provider.of<invoice_vm>(context, listen: false)
-          .getinvoice_Local("مستبعد",'out');
+          .getinvoice_Local("منسحب",'out',null);
 
     });
 
@@ -130,9 +130,14 @@ class _OutClientState extends State<OutClient> {
                             padding: const EdgeInsets.all(8.0),
                             child: Consumer<invoice_vm>(
                                 builder: (context, value, child) {
-                                  return value.listInvoicesAccept.length == 0 ?
-                                  Center(child: Text('لا توجد بيانات'))
-                                      : Column(
+                                  return
+                                    value.isloading==true?
+                                    CircularProgressIndicator():
+                                    value.listInvoicesAccept.length == 0 ?
+                                  Center(
+                                      child: Text(messageNoData),
+                                  )
+                                          :Column(
                                     children: [
                                       Expanded(
                                         child: ListView.builder(

@@ -34,8 +34,16 @@ class _ApprovePageState extends State<ApprovePage> {
      // await   Provider.of<invoice_vm>(context, listen: false)
      //        .getinvoices();
 ///////////////////////////////////////////////////////
+      if( Provider.of<privilge_vm>(context,listen: false)
+          .checkprivlge('2')==true)
       Provider.of<invoice_vm>(context, listen: false)
-          .getinvoice_Local('مشترك','not approved');
+          .getinvoice_Local('مشترك','not approved','country');
+      else{
+        if( Provider.of<privilge_vm>(context,listen: false)
+            .checkprivlge('7')==true)
+          Provider.of<invoice_vm>(context, listen: false)
+              .getinvoice_Local('مشترك','not approved','regoin');
+      }
 
     });
     //Provider.of<notifyvm>(context,listen: false).getNotification();
@@ -80,6 +88,8 @@ class _ApprovePageState extends State<ApprovePage> {
 
                   children: [
                     // privilge.checkprivlge('1') == true ? //regoin
+                    Provider.of<privilge_vm>(context,listen: true)
+                        .checkprivlge('2')==true?
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8.0, right: 8),
@@ -110,7 +120,7 @@ class _ApprovePageState extends State<ApprovePage> {
                           },
                         ),
                       ),
-                    ),// : Container(),
+                    ):Container(),// : Container(),
                   ],
                 ),
                 search_widget(
@@ -128,9 +138,14 @@ class _ApprovePageState extends State<ApprovePage> {
                   child:
                   Consumer<invoice_vm> (
                       builder: (context,value,child) {
-                        return value.listInvoicesAccept.length==0?
-                        Text('')
-                            :Column(
+                        return
+                          value.isloading==true?
+                          Center(child: CircularProgressIndicator()):
+                          value.listInvoicesAccept.length==0?
+                        Center(
+                              child: Text(messageNoData)
+                          ):
+                    Column(
                               children: [
                                 Expanded(
                                  //flex: 1,

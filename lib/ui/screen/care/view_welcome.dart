@@ -19,7 +19,7 @@ class View_welcomeClient extends StatefulWidget {
 
 class _View_welcomeClientState extends State<View_welcomeClient> {
   List<CommunicationModel> listCommunicationwelcome=[];
-
+  bool isload=false;
   @override void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_)async {
       Provider.of<communication_vm>(context, listen: false)
@@ -32,10 +32,25 @@ class _View_welcomeClientState extends State<View_welcomeClient> {
     listCommunicationwelcome=Provider.of<communication_vm>
       (context, listen: true)
         .listCommunicationWelcome;
+  isload=Provider.of<communication_vm>
+    (context, listen: true).isloading;
     return Scaffold(
 
-      appBar: AppBar(),
-      body: Padding(
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          'الترحيب بالعملاء ',
+          style: TextStyle(color: kWhiteColor, fontFamily: kfontfamily2),
+        ),
+      ),
+      body:isload==true?
+      Center(
+          child: CircularProgressIndicator()):
+      listCommunicationwelcome.length==0?
+      Center(
+          child: Text(messageNoData)
+      ):  Padding(
         padding: const EdgeInsets.all(8.0),
         child: Directionality(
           textDirection: TextDirection.rtl,

@@ -34,6 +34,7 @@ class _ticketAddState extends State<ticketAdd> {
 
   @override
   void initState() {
+    Provider.of<client_vm>(context,listen: false).getclient_Local('مشترك');
     super.initState();
   }
 
@@ -87,7 +88,7 @@ class _ticketAddState extends State<ticketAdd> {
                                     user!.getfilteruser(filter!),
                                 //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
                                 // itemAsString: (UserModel u) => u.userAsStringByName(),
-                                items: cart.listClient,
+                                items: cart.listClientAccept,
                                 itemAsString: (u) => u!.userAsString(),
                                 onChanged: (data) {
                                   widget.fk_client = data!.idClients;

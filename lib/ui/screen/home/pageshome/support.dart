@@ -34,8 +34,8 @@ class _supportpageState extends State<supportpage> {
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Text(
-          '',
-          style: TextStyle(
+          'الدعم الفني',
+          style: TextStyle(color: kWhiteColor,
               fontFamily: kfontfamily2),
         ),
         centerTitle: true,

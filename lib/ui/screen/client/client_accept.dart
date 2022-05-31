@@ -179,9 +179,14 @@ class _ClientAcceptState extends State<ClientAccept> {
                             padding: const EdgeInsets.all(8.0),
                             child: Consumer<client_vm>(
                                 builder: (context, value, child) {
-                                  return value.listClientAccept.length == 0 ?
-                                  Center(child: Text('لا توجد بيانات'))
-                                      : Column(
+                                  return value.isloading==true?
+                                  Center(
+                                      child: CircularProgressIndicator()
+                                  ) :
+                                  value.listClientAccept.length == 0 ?
+                                  Center(
+                                      child: Text(messageNoData)
+                                  )  : Column(
                                     children: [
                                       Expanded(
                                         child: ListView.builder(

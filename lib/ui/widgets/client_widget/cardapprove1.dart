@@ -63,7 +63,7 @@ class cardapprove1 extends StatelessWidget {
                           Text(
                             itemapprove.name_regoin.toString(),
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                //fontWeight: FontWeight.bold,
                                 fontSize: 12,
                                 fontFamily: kfontfamily2,
                                 color: kMainColor),
@@ -72,7 +72,7 @@ class cardapprove1 extends StatelessWidget {
                             itemapprove.dateCreate.toString(),
                             style: TextStyle(
                                 fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                               // fontWeight: FontWeight.bold,
                                 fontFamily: kfontfamily2,
                                 color: kMainColor),
                           ),
@@ -85,7 +85,7 @@ class cardapprove1 extends StatelessWidget {
                             itemapprove.name_enterprise.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                //fontSize: 16,
+                                fontSize: 12,
                                 fontFamily: kfontfamily2,
                          ),
                           ),

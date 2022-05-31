@@ -121,6 +121,7 @@ class user_vm_provider extends ChangeNotifier{
       notifyListeners();
       print("preferences");
       print(preferences.containsKey('id_user'));
+      preferences.setString("id_user1",'-1');
       return preferences;
       }else {
         SharedPreferences preferences  = await SharedPreferences.getInstance();

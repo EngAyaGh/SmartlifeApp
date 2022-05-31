@@ -10,12 +10,14 @@ import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/user_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 
 import '../../../constants.dart';
+import '../../../function_global.dart';
 import 'edituser.dart';
 
 class UserScreen extends StatefulWidget {
@@ -88,12 +90,12 @@ class _UserScreenState extends State<UserScreen> {
             child: ContainerShadows(
 
               padding: EdgeInsets.only(
-                  top: 35,right: 1,left: 1,bottom: 10), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+                  top: 15,right: 1,left: 1,bottom: 5), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
 
               margin: EdgeInsets.only(
                   left: 1,
                   right: 1,
-                  top: 45,bottom: 45
+                  top: 20,bottom: 20
               ),
               width: double.infinity,
               //height: 500,
@@ -105,11 +107,11 @@ class _UserScreenState extends State<UserScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: 10,bottom: 10
+                            top: 5,bottom: 5
                           ),
                           child:
                           CircleAvatar(
-                              radius: 85.0,
+                              radius: 60.0,
                               child:
                               useredit.img_image!.isNotEmpty
                                   ?
@@ -141,160 +143,217 @@ class _UserScreenState extends State<UserScreen> {
                           child:
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                            child: Column(
-                              children: [
-                                ContainerShadows(
-                                    width: double.infinity,
-                                    height: 50,
-                                    margin: EdgeInsets.only(),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
-                                      ),
-                                      child: RowEdit(
-                                        des:
-                                        //controllerUser.userall![widget.index]
-                                        useredit.typeAdministration
-                                            .toString(),
-                                        name: 'الإدارات',
-                                      ),
-                                    )),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  ContainerShadows(
+                                      width: double.infinity,
+                                      height: 50,
+                                      margin: EdgeInsets.only(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                        ),
+                                        child: RowEdit(
+                                          des:
+                                          //controllerUser.userall![widget.index]
+                                          useredit.typeAdministration
+                                              .toString(),
+                                          name: 'الإدارات',
+                                        ),
+                                      )),
 
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                ContainerShadows(
-                                    width: double.infinity,
-                                    height: 50,
-                                    margin: EdgeInsets.only(),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
-                                      ),
-                                      child: RowEdit(
-                                        des:
-                                        //controllerUser.userall![widget.index]
-                                        useredit.nameRegoin.toString() ==
-                                            "null"
-                                            ? ""
-                                            :
-                                        //controllerUser.userall![widget.index]
-                                        useredit.nameRegoin.toString(),
-                                        name: 'المنطقة',
-                                      ),
-                                    )),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  ContainerShadows(
+                                      width: double.infinity,
+                                      height: 50,
+                                      margin: EdgeInsets.only(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                        ),
+                                        child: RowEdit(
+                                          des:
+                                          //controllerUser.userall![widget.index]
+                                          useredit.nameRegoin.toString() ==
+                                              "null"
+                                              ? ""
+                                              :
+                                          //controllerUser.userall![widget.index]
+                                          useredit.nameRegoin.toString(),
+                                          name: 'المنطقة',
+                                        ),
+                                      )),
 
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                ContainerShadows(
-                                    width: double.infinity,
-                                    height: 50,
-                                    margin: EdgeInsets.only(),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
-                                      ),
-                                      child: RowEdit(
-                                        des:
-                                        //controllerUser.userall![widget.index]
-                                        useredit.name_level.toString(),
-                                        name: 'المستوى',
-                                      ),
-                                    )),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  ContainerShadows(
+                                      width: double.infinity,
+                                      height: 50,
+                                      margin: EdgeInsets.only(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                        ),
+                                        child: RowEdit(
+                                          des:
+                                          //controllerUser.userall![widget.index]
+                                          useredit.name_level.toString(),
+                                          name: 'المستوى',
+                                        ),
+                                      )),
 
-                                SizedBox(
-                                  height: 10,
-                                ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
 
-                                // RowWidget(
-                                //   name: 'Added by',
-                                //   des: 'added',
-                                // ),
-                                ContainerShadows(
-                                    width: double.infinity,
-                                    height: 50,
-                                    margin: EdgeInsets.only(),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          TextUtilis(
-                                            color: Colors.black,
-                                            fontSize: 35,
-                                            fontWeight: FontWeight.bold,
-                                            textstring:
-                                            //controllerUser.userall![widget.index]
-                                            useredit.email.toString(),
-                                            underline: TextDecoration.none,
-                                          ),
-                                          IconButton(
-                                            onPressed: () {
-                                              // controllerUser.onPressEmail(
-                                              //     controllerUser.userall!index].email.toString());
-                                              //
-                                            },
-                                            icon: const Icon(
-                                              Icons.email,
-                                              size: 20,
-                                              color: kMainColor,
+                                  // RowWidget(
+                                  //   name: 'Added by',
+                                  //   des: 'added',
+                                  // ),
+                                  ContainerShadows(
+                                      width: double.infinity,
+                                      height: 50,
+                                      margin: EdgeInsets.only(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                        ),
+                                        child: RowEdit(
+                                          des:
+                                          //controllerUser.userall![widget.index]
+                                          useredit.isActive=="1"?'نشط':'غير نشط',
+                                          name: 'الحالة',
+                                        ),
+                                      )),
+                                  SizedBox(height: 10,),
+
+                                  ContainerShadows(
+                                      width: double.infinity,
+                                      height: 50,
+                                      margin: EdgeInsets.only(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            TextUtilis(
+                                              color: Colors.black,
+                                              fontSize: 35,
+                                              fontWeight: FontWeight.bold,
+                                              textstring:
+                                              //controllerUser.userall![widget.index]
+                                              useredit.email.toString(),
+                                              underline: TextDecoration.none,
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    )),
-
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                ContainerShadows(
-                                    width: double.infinity,
-                                    height: 50,
-                                    margin: EdgeInsets.only(),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          TextUtilis(
-                                            color: Colors.black,
-                                            fontSize: 35,
-                                            fontWeight: FontWeight.bold,
-                                            textstring: 'الهاتف',
-                                            underline: TextDecoration.none,
-                                          ),
-                                          TextButton(
-                                            onPressed: (){},
-                                            // onPressed: () async {
-                                            //   controllerUser.onPressPhone(
-                                            //       controllerUser.userall![index].mobile.toString());
-                                            // },
-                                            child:
-                                            Text( useredit.mobile.toString(),
-                                              style: TextStyle(
-
+                                            IconButton(
+                                              onPressed: () {
+                                                // controllerUser.onPressEmail(
+                                                //     controllerUser.userall!index].email.toString());
+                                                //
+                                              },
+                                              icon: const Icon(
+                                                Icons.email,
+                                                size: 20,
+                                                color: kMainColor,
                                               ),
                                             ),
+                                          ],
+                                        ),
+                                      )),
 
-                                          ),
-                                        ],
-                                      ),
-                                    )),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  ContainerShadows(
+                                      width: double.infinity,
+                                      height: 50,
+                                      margin: EdgeInsets.only(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            TextUtilis(
+                                              color: Colors.black,
+                                              fontSize: 35,
+                                              fontWeight: FontWeight.bold,
+                                              textstring: 'الهاتف',
+                                              underline: TextDecoration.none,
+                                            ),
+                                            TextButton(
+                                              onPressed: () async {
+                                                await FlutterPhoneDirectCaller
+                                                    .callNumber(useredit.mobile.toString());
+                                              },
+                                              // onPressed: () async {
+                                              //   controllerUser.onPressPhone(
+                                              //       controllerUser.userall![index].mobile.toString());
+                                              // },
+                                              child:
+                                              Text( useredit.mobile.toString(),
+                                                style: TextStyle(
 
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                              ],
+                                                ),
+                                              ),
+
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  ContainerShadows(
+                                      width: double.infinity,
+                                      height: 50,
+                                      margin: EdgeInsets.only(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                        ),
+                                        child: RowEdit(
+                                          des:
+                                          //controllerUser.userall![widget.index]
+                                          getnameshort(useredit.nameuserAdd.toString()),
+                                          name: 'تمت الإضافة من قبل ',
+                                        ),
+                                      )),
+                                  SizedBox(height: 10,),
+                                  ContainerShadows(
+                                      width: double.infinity,
+                                      height: 50,
+                                      margin: EdgeInsets.only(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                        ),
+                                        child: RowEdit(
+                                          des:
+                                          //controllerUser.userall![widget.index]
+                                          useredit.created_at.toString(),
+                                          name: 'تاريخ الإضافة',
+                                        ),
+                                      )),
+                                  SizedBox(height: 10,),
+                                ],
+                              ),
                             ),
                           ),
                           //info(context),

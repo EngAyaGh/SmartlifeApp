@@ -25,7 +25,7 @@ class ClientService{
   Future<ClientModel> updateClient( Map<String,dynamic> body,String idclient) async {
     var data = await Api()
         .post( url:url+"client/clientUpdate.php?id_clients=$idclient",
-        body: body );
+         body: body );
     return ClientModel.fromJson(data[0]);  // );//=="done"? true:false;
   }
 

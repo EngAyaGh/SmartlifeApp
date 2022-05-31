@@ -4,6 +4,7 @@ import 'package:crm_smart/ui/screen/home/ticket/ticketview.dart';
 import 'package:crm_smart/ui/screen/search/search_container.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/card_expansion.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,7 +36,10 @@ class _ticketclientviewState extends State<ticketclientview> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('تذاكر العميل'),
+        title: Text('تذاكر العميل',style: TextStyle(
+            color: kWhiteColor,
+            fontFamily: kfontfamily2),
+      ),
       ),
       body: SafeArea(
         child: Directionality(
@@ -44,7 +48,8 @@ class _ticketclientviewState extends State<ticketclientview> {
             padding: EdgeInsets.all(2),
             child: ListView(
               children: [
-              Padding(
+                Provider.of<privilge_vm>(context,listen: true)
+                    .checkprivlge('26')==true?   Padding(
                 padding: const EdgeInsets.only(left: 8.0,right: 8),
                 child: ElevatedButton(
                     style: ButtonStyle(
@@ -58,7 +63,7 @@ class _ticketclientviewState extends State<ticketclientview> {
                               )));
                     },
                     child: Text(' فتح تذكرة دعم ')),
-              ) ,
+              ):Container() ,
 
                 SizedBox(height: 2,),
                 search_widget(
@@ -95,8 +100,15 @@ class _ticketclientviewState extends State<ticketclientview> {
                         top:8.0,bottom: 20),
                     child:
                     Consumer<ticket_vm>(builder: (context, value, child) {
-                      return value.tickesearchlist.length==0?
-                      Text(''):Column(
+                      return
+                        value.isloading==true?
+                      Center(
+                          child: CircularProgressIndicator()
+                      ):
+                        value.tickesearchlist.length==0?
+                        Center(
+                            child: Text(messageNoData)
+                        ):Column(
                         children: [
                           Expanded(
                             child: ListView.builder(

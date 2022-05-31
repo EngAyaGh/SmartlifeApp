@@ -50,7 +50,8 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
         .getCommunicationall();
     Provider.of<invoice_vm>(context, listen: false)
         .get_invoiceclientlocal(widget.idclient,'');
-
+  // Provider.of<invoice_vm>(context,listen: false)
+  //     .get_invoiceclientlocal(widget.itemClient.idClients,'مشترك');
     Provider.of<communication_vm>(context, listen: false)
         .getCommunicationclient(widget.idclient.toString());
 

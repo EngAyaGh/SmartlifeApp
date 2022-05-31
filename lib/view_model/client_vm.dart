@@ -31,7 +31,7 @@ class client_vm extends ChangeNotifier {
   //   notifyListeners();
   // }
   UserModel? usercurrent;
-
+  bool isloading=false;
   void setvalue(user){
     print('in set usercurrent client vm');
 
@@ -52,15 +52,21 @@ class client_vm extends ChangeNotifier {
     // , List<InvoiceModel> list
       )
   async {
-    getclient_vm();
+    listClientAccept=[];
+    isloading=true;
+
+    notifyListeners();
+    List<ClientModel> _list=
+    await ClientService().getAllClient(usercurrent!.fkCountry.toString());
+    // getclient_vm();
     // if(listClient.isEmpty)
     // List<ClientModel> lists=[];
-    listClientAccept=[];
-    listClient.forEach((element) {
+
+    _list.forEach((element) {
       if( element.typeClient==searchfilter)
         listClientAccept.add(element);
     });
-
+isloading=false;
     notifyListeners();
   }
   bool getfilterclient(String filter){
@@ -203,6 +209,8 @@ class client_vm extends ChangeNotifier {
   Future<void> getclient_vm(
      // List<PrivilgeModel> privilgelist
       ) async {
+    listClientfilter=[];
+    notifyListeners();
    // if(listClient.isEmpty)
     //main list
     bool res= privilgelist.firstWhere(
@@ -210,6 +218,7 @@ class client_vm extends ChangeNotifier {
     if(res) {
       listClient =
       await ClientService().getAllClient(usercurrent!.fkCountry.toString());
+
       listClientfilter = listClient;
     }
     else {
@@ -333,7 +342,7 @@ else{
 
     index= listClientfilter.indexWhere((element) =>
     element.idClients==id_client);
-
+   if(index !=-1)
     listClientfilter[index]=data;
     //ClientModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));

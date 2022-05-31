@@ -23,6 +23,7 @@ class communication_vm extends ChangeNotifier{
     usercurrent=user;
     notifyListeners();
   }
+  bool isloading=false;
   int selectedtypeinstall=0;
 
   void changeinstall(int s){
@@ -62,8 +63,9 @@ class communication_vm extends ChangeNotifier{
      // notifyListeners();
   }
   void getCommunicationInstall() {
-
     listCommunicationInstall=[];
+    isloading=true;
+    notifyListeners();
     if(listCommunication.isNotEmpty){
       listCommunication.forEach((element) {
         if(element.typeCommuncation=='تركيب')//&&element.fkUser==null)
@@ -71,11 +73,14 @@ class communication_vm extends ChangeNotifier{
       });
     }
     getCommunicationInstallednumber();
+    isloading=false;
     notifyListeners();
   }
   void getCommunicationWelcome() {
 
     listCommunicationWelcome=[];
+    isloading=true;
+    notifyListeners();
     if(listCommunication.isNotEmpty){
       listCommunication.forEach((element) {
         if(element.typeCommuncation=='ترحيب')//&&element.fkUser==null)
@@ -83,6 +88,8 @@ class communication_vm extends ChangeNotifier{
       });
     }
     getCommunicationwelcomenumber();
+    isloading=false;
+
     notifyListeners();
   }
   //addcommuncation
