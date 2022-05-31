@@ -240,7 +240,9 @@ class _addClientState extends State<addClient> {
                                   'name_enterprise': nameEnterpriseController.text,
                                   'type_job':typejobController.text,
                                   'city': cityController.text,
-                                  'location':locationController.text==null?"null":locationController.text,
+                                  'location':
+                                  // locationController.text==null?"null":
+                                  locationController.text.toString(),
                                   "fk_regoin":_user.fkRegoin==null?"null":_user.fkRegoin,
                                   "date_create":Utils.toDate22(DateTime.now()),
                                 //DateTime.now().toString(),  //formatter.format(_currentDate),

@@ -63,10 +63,10 @@ class client_vm extends ChangeNotifier {
     // List<ClientModel> lists=[];
 
     _list.forEach((element) {
-      if( element.typeClient==searchfilter)
+      if( element.typeClient==searchfilter&&element.isApprove!=null)
         listClientAccept.add(element);
     });
-isloading=false;
+     isloading=false;
     notifyListeners();
   }
   bool getfilterclient(String filter){

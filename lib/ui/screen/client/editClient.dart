@@ -157,12 +157,11 @@ void didChangeDependencies() {
           'name_enterprise': nameEnterpriseController.text,
           'type_job': typejobController.text,
           'city': cityController.text,
-          'location': locationController.text == null
-              ? "null"
-              : locationController.text,
+          'location': locationController.text.toString(),
           //"fk_regoin":currentUser.fkRegoin==null?"null" :currentUser.fkRegoin,
           //"date_create": ,
-          "type_client": widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
+          "type_client": widget.itemClient.typeClient!="مشترك"
+              &&widget.itemClient.typeClient!="منسحب"?
           typeclient_provider.selectedValuemanag:widget.itemClient.typeClient!,
           //"fk_user":widget.fkuser,
           // "date_transfer":,
@@ -187,7 +186,7 @@ void didChangeDependencies() {
           // "value_back": typeclient_provider.selectedValuemanag == "منسحب"
           //     ?valueBackController.text:"",
         });
-        print(nameEnterpriseController.text);
+        print('$body');
         Provider.of<client_vm>(context, listen: false)
             .updateclient_vm(body, widget.itemClient.idClients)
             .then((value) =>

@@ -243,6 +243,9 @@ SizedBox(width: 15,),
                     // Provider.of<invoice_vm>(context,listen: false)
                     //     .removelistproductinvoic(index);
                     double _total=0;
+                    Provider.of<invoice_vm>(
+                        context, listen: false)
+                        .deleteProductInInvoice(widget.itemProd.idInvoiceProduct);
                     List<ProductsInvoice>? pinv=
                         Provider.of<invoice_vm>(context,listen: false)
                             .listproductinvoic;
@@ -257,9 +260,7 @@ SizedBox(width: 15,),
                         .total);
                     widget.invoice!.products=pinv;
                     /////////////
-                    Provider.of<invoice_vm>(
-                        context, listen: false)
-                        .deleteProductInInvoice(widget.itemProd.idInvoiceProduct);
+
 //////////////////////////////////////////////////////////////
                     String? invoiceID=widget.invoice!.idInvoice;
                     Provider.of<invoice_vm>(

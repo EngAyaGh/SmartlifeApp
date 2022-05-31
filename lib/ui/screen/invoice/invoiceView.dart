@@ -392,7 +392,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         //crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Provider.of<privilge_vm>(context,listen: true)
