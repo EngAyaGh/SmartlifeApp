@@ -28,6 +28,7 @@ class EventProvider extends ChangeNotifier {
       ) async {
     late Event event;//
     _events.clear();
+
     listinvoices.forEach((element) {
       if(element.dateinstall_task!=null && (element.isdoneinstall==null ||
           element.isdoneinstall!='0')&& (element.daterepaly==null)){

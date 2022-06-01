@@ -116,7 +116,14 @@ class _care_client_viewState extends State<care_client_view> {
 
              // else commview(listCommunication[i])
               listCommunication.isNotEmpty?
-              commview( listCommunication.firstWhere((element) => element.typeCommuncation=='دوري') )    :Container(),
+              commview( listCommunication.firstWhere((element) => element.typeCommuncation=='دوري',
+                  orElse: ()=> CommunicationModel(
+                    idCommunication: '',nameUser: '',nameEnterprise: '',
+                    clientRepeat: '',result: '',number_wrong: '',rate: '',
+                    typeCommuncation: '',mobile: '',notes: '',
+                    fkClient: '',fkUser: '',date_create: '',dateNext: '',
+                    dateCommunication: '',id_invoice: '',dateinstall_done: ''
+                  ) ) )    :Container(),
             ],
           ),
         ),
@@ -127,6 +134,7 @@ class _care_client_viewState extends State<care_client_view> {
 
   }
   Widget commview(CommunicationModel element) {
+    if(element.idCommunication!=''){
     return buildcardExpansion(
         get_title_care(element.typeCommuncation.toString())+'(فاتورة ${element.date_create})', '',
         Padding(
@@ -158,6 +166,7 @@ class _care_client_viewState extends State<care_client_view> {
             ],
           ),
         )
-    );
+    );}
+    else return Container();
   }
 }

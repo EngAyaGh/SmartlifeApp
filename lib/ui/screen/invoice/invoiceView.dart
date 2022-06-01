@@ -149,7 +149,13 @@ class _InvoiceViewState extends State<InvoiceView> {
   Widget build(BuildContext context) {
     widget.invoice=Provider.of<invoice_vm>(context,listen: true)
         .listinvoiceClient
-        .firstWhere((element) => element.idInvoice==widget.invoice!.idInvoice);
+        .firstWhere((element) => element.idInvoice==widget.invoice!.idInvoice
+    ,orElse: null);
+    if( widget.invoice==null)
+    widget.invoice=Provider.of<invoice_vm>(context,listen: true)
+        .listInvoicesAccept
+        .firstWhere((element) => element.idInvoice==widget.invoice!.idInvoice
+        ,orElse: null);
     final _globalKey = GlobalKey<FormState>();
     Widget dialog =
     SimpleDialog(
@@ -347,7 +353,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                         title: ' المبلغ المتبقي',
                         value: (double.parse(widget.invoice!.total.toString()) -
                             double.parse(widget.invoice!.amountPaid.toString()))
-                            .toString()),
+                            .toStringAsFixed(2).toString()),
                     cardRow(
                         title: ' التجديد السنوي',
                         value: widget.invoice!.renewYear.toString()),

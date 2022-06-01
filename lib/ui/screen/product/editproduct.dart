@@ -335,10 +335,13 @@ class _EditProductState extends State<EditProduct> {
                                               );
                                             else{
 
-                                              if(res=="done")
-                                                _scaffoldKey.currentState!.showSnackBar(
-                                                    SnackBar(content: Text("تم الحذف بنجاح")) );
-                                              else
+                                              if(res=="done") {
+                                                _scaffoldKey.currentState!
+                                                    .showSnackBar(
+                                                    SnackBar(content: Text(
+                                                        "تم الحذف بنجاح")));
+                                             Navigator.pop(context);
+                                              } else
                                               if(res=='bad requst')
                                                 _scaffoldKey.currentState!.showSnackBar(
                                                     SnackBar(content: Text("ارسال خاطئ")));

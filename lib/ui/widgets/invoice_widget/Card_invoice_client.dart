@@ -170,7 +170,7 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
                               (double.parse(widget.itemProd.total.toString()) -
                                   double.parse(widget.itemProd.amountPaid
                                       .toString()))
-                                  .toString(),
+                                  .toStringAsFixed(2).toString(),
                               style: TextStyle(
                                   fontFamily: kfontfamily2,
                                   color: kMainColor,

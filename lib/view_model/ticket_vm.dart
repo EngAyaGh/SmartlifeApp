@@ -41,6 +41,7 @@ class ticket_vm extends ChangeNotifier{
     listticket.add(tm);
     addvalue=false;
     tickesearchlist=listticket;
+    listticket_clientfilter=listticket;
     notifyListeners();
   }
   Future<void> searchProducts(
@@ -116,9 +117,10 @@ class ticket_vm extends ChangeNotifier{
 }
 
  Future<void> getclientticket_filter(String filter)async{
-  listticket_clientfilter=[];
   await getticket();
   if(listticket.isNotEmpty){
+    listticket_clientfilter=[];
+
     listticket.forEach((element) {
       if( element.typeTicket==filter) {
         listticket_clientfilter.add(element);
@@ -171,6 +173,7 @@ Future<void> getticket() async {
   for (int i = 0; i < data.length; i++) {
 
     prodlist.add(TicketModel.fromJson(data[i]));
+
   }
   listticket=prodlist;
   tickesearchlist=listticket;

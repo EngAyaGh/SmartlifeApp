@@ -109,7 +109,7 @@ class _EditUserState extends State<EditUser> {
       // //controllerUsers[widget.index]
       // widget.userModel.typeLevel.toString();
       Provider.of<regoin_vm>(context,listen: false)
-          .changeVal( widget.userModel.fkRegoin);
+          .changeValuser( widget.userModel.fkRegoin);
 
       print( widget.userModel.fkRegoin.toString());
 
@@ -141,7 +141,7 @@ class _EditUserState extends State<EditUser> {
           IconButton(
             onPressed: () {
               fkregoin = Provider.of<regoin_vm>(context, listen: false)
-                  .selectedValueLevel;
+                  .selectedValueuser;
               fklevel = Provider.of<level_vm>(context, listen: false)
                   .selectedValueLevel;
               regoinname=
@@ -291,10 +291,10 @@ class _EditUserState extends State<EditUser> {
                               value: level_one.id_regoin, //value of item
                             );
                           }).toList(),
-                          value:cart.selectedValueLevel,
+                          value:cart.selectedValueuser,
                           onChanged:(value) {
                             //  setState(() {
-                            cart.changeVal(value.toString());
+                            cart.changeValuser(value.toString());
                             // });
                           },
                         );},

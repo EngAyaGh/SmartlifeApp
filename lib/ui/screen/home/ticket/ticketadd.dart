@@ -34,7 +34,9 @@ class _ticketAddState extends State<ticketAdd> {
 
   @override
   void initState() {
-    Provider.of<client_vm>(context,listen: false).getclient_Local('مشترك');
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Provider.of<client_vm>(context,listen: false).getclient_Local('مشترك');
+    });
     super.initState();
   }
 
@@ -237,6 +239,7 @@ class _ticketAddState extends State<ticketAdd> {
   clear(BuildContext context) {
     _scaffoldKey.currentState!
         .showSnackBar(SnackBar(content: Text('تم إنشاء تذكرة جديد')));
+    Navigator.pop(context);
     // print("succ");
   }
 

@@ -29,6 +29,20 @@ class regoin_vm extends ChangeNotifier{
       {selectedValueLevel=val;print('regoin in vm');}
     notifyListeners();
   }
+  late String? selectedValueuser=null;
+
+  void changeValuser(String?  val){
+    print('inside regoin vm');
+    print(val);
+    if(val==null||val=="null")
+   {
+     selectedValueuser=null;
+   print('regoin vm');
+   }
+    else
+      {selectedValueuser=val;print('regoin in vm');}
+    notifyListeners();
+  }
   void clearvalues() {
     listregoin=[];
     selectedValueLevel=null;

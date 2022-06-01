@@ -142,10 +142,9 @@ class _ApprovePageState extends State<ApprovePage> {
                           value.isloading==true?
                           Center(child: CircularProgressIndicator()):
                           value.listInvoicesAccept.length==0?
-                        Center(
-                              child: Text(messageNoData)
-                          ):
-                    Column(
+                          Center(
+                              child: Text(messageNoData)):
+                          Column(
                               children: [
                                 Expanded(
                                  //flex: 1,

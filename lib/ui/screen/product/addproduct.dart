@@ -201,6 +201,7 @@ class _addProductState extends State<addProduct> {
                               label: label_name_price,
                               onChanged: (val) {
                                 price = double.parse(val.toString());
+                                print(price);
                               },
                             ),
                             SizedBox(

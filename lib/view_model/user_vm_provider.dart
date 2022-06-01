@@ -111,8 +111,10 @@ class user_vm_provider extends ChangeNotifier{
       if(userall.isEmpty)
       userall = await  UserService().usersServices();
       String? id = preferences.getString('id_user');
+      print('user id sss  ');
+      print(id);
       //print("in get user" + userall[0].nameUser.toString());
-
+      if(id!=null) {
       final index = userall.indexWhere(
               (element) => element.idUser == id && element.isActive=='1');
       if(index>=0) {
@@ -129,11 +131,12 @@ class user_vm_provider extends ChangeNotifier{
         preferences.setString("id_user1",'0');
         return preferences;
       }
+    }else{
+        return preferences;
+      }
     }
     catch(e){
-      print('exp error is '+e.toString());
-
-    }
+      print('exp error is '+e.toString());}
     notifyListeners();
     return preferences;
   }

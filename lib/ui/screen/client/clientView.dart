@@ -258,80 +258,67 @@ class _ClientViewState extends State<ClientView> {
                               backgroundColor: MaterialStateProperty.all(
                                   Colors.redAccent)),
                           onPressed: ()  async{
-                            Provider.of<invoice_vm>(context, listen: false)
-                                .setApproveclient_vm({
-                              "id_clients":widget.invoice!.fkIdClient,
-                              //'idApproveClient':widget.itemapprove!.idApproveClient,
-                              "fk_user":widget.invoice!.fkIdUser,
-                              "fk_regoin":widget.invoice!.fk_regoin,
-                              "regoin":widget.invoice!.name_regoin,
-                              "fk_country":widget.invoice!.fk_country,
-                              "isApprove": "0",
-                              "name_enterprise":widget.invoice!.name_enterprise,
-                              "fkusername":widget.invoice!.nameUser, //موظف المبيعات
-                              //"message":"",//
-                              "nameuserApproved":Provider.of<user_vm_provider>(context,listen: false)
-                                  .currentUser!.nameUser,
-                              "iduser_approve": Provider.of<user_vm_provider>(context,listen: false)
-                                  .currentUser!.idUser//معتمد الاشتراك
-                            }, widget.invoice!.idInvoice)
-                                .then((value) =>
-                            value!=false?
-                            clear()
-                                : error()// clear()
-                              // _scaffoldKey.currentState!.showSnackBar(
-                              //     SnackBar(content: Text('هناك مشكلة ما'))
-                              // )
-                            );
+
                             // Navigator.pushAndRemoveUntil(context,
                             //     MaterialPageRoute(builder: (context)=>Home()),
                             //         (route) => true
                             // );
-                            // bool result = await showDialog(
-                            //   context: context,
-                            //   builder: (context) {
-                            //     return AlertDialog(
-                            //       title: Text(''),
-                            //       content: Text('تأكيد العملية  '),
-                            //       actions: <Widget>[
-                            //         new ElevatedButton(
-                            //           style: ButtonStyle(
-                            //               backgroundColor: MaterialStateProperty.all(
-                            //                   kMainColor)),
-                            //           onPressed: () {
-                            //             Navigator.of(context,
-                            //                 rootNavigator: true)
-                            //                 .pop(
-                            //                 false); // dismisses only the dialog and returns false
-                            //           },
-                            //           child: Text('لا'),
-                            //         ),
-                            //         ElevatedButton(
-                            //           style: ButtonStyle(
-                            //               backgroundColor: MaterialStateProperty.all(
-                            //                   kMainColor)),
-                            //           onPressed: () async {
-                            //
-                            //             // Navigator.of(context,
-                            //             //     rootNavigator: true)
-                            //             //     .pop(true);
-                            //             Navigator.of(context,rootNavigator: true).pop();
-                            //
-                            //             // Navigator.pushReplacement(context,
-                            //             //     MaterialPageRoute(builder:
-                            //             //         (context)=>ApprovePage()));
-                            //
-                            //             Navigator.pushAndRemoveUntil(context,
-                            //                 MaterialPageRoute(builder: (context)=>Home()),
-                            //                     (route) => false
-                            //             );
-                            //           },
-                            //           child: Text('نعم'),
-                            //         ),
-                            //       ],
-                            //     );
-                            //   },
-                            // );
+                             await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text(''),
+                                  content: Text('تأكيد العملية  '),
+                                  actions: <Widget>[
+                                    new ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty.all(
+                                              kMainColor)),
+                                      onPressed: () {
+                                        Navigator.of(context,
+                                            rootNavigator: true)
+                                            .pop(
+                                            false); // dismisses only the dialog and returns false
+                                      },
+                                      child: Text('لا'),
+                                    ),
+                                    ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty.all(
+                                              kMainColor)),
+                                      onPressed: () async {
+                                        Provider.of<invoice_vm>(context, listen: false)
+                                            .setApproveclient_vm({
+                                          "id_clients":widget.invoice!.fkIdClient,
+                                          //'idApproveClient':widget.itemapprove!.idApproveClient,
+                                          "fk_user":widget.invoice!.fkIdUser,
+                                          "fk_regoin":widget.invoice!.fk_regoin,
+                                          "regoin":widget.invoice!.name_regoin,
+                                          "fk_country":widget.invoice!.fk_country,
+                                          "isApprove": "0",
+                                          "name_enterprise":widget.invoice!.name_enterprise,
+                                          "fkusername":widget.invoice!.nameUser, //موظف المبيعات
+                                          //"message":"",//
+                                          "nameuserApproved":Provider.of<user_vm_provider>(context,listen: false)
+                                              .currentUser!.nameUser,
+                                          "iduser_approve": Provider.of<user_vm_provider>(context,listen: false)
+                                              .currentUser!.idUser//معتمد الاشتراك
+                                        }, widget.invoice!.idInvoice)
+                                            .then((value) =>
+                                        value!=false?
+                                        clear()
+                                            : error()// clear()
+                                          // _scaffoldKey.currentState!.showSnackBar(
+                                          //     SnackBar(content: Text('هناك مشكلة ما'))
+                                          // )
+                                        );
+                                      },
+                                      child: Text('نعم'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                             //send notification
                             //Navigator.pop(context);
                           },

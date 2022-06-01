@@ -50,7 +50,7 @@ class _addUserState extends State<addUser> {
       Provider.of<level_vm>(context,listen: false).getlevel();
 
       //Provider.of<regoin_vm>(context,listen: false).getregoin();
-      Provider.of<regoin_vm>(context,listen: false).changeVal(null);
+      Provider.of<regoin_vm>(context,listen: false).changeValuser(null);
     }
     );
 
@@ -209,10 +209,10 @@ class _addUserState extends State<addUser> {
                             value: level_one.id_regoin, //value of item
                           );
                         }).toList(),
-                        value:cart.selectedValueLevel,
+                        value:cart.selectedValueuser,
                         onChanged:(value) {
                           //  setState(() {
-                          cart.changeVal(value.toString());
+                          cart.changeValuser(value.toString());
                           // });
                         },
                       );},
@@ -235,7 +235,7 @@ class _addUserState extends State<addUser> {
                      // style: ButtonStyle(backgroundColor:Color(Colors.lightBlue)),
                         onpress: () {
                           String? regoin= Provider.of<regoin_vm>(context,listen: false)
-                              .selectedValueLevel;
+                              .selectedValueuser;
                         String?  regoinname=
                         regoin==null?"":
                           Provider.of<regoin_vm>(context, listen: false)

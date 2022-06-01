@@ -13,6 +13,7 @@ import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
@@ -107,8 +108,9 @@ void calculate(){
         print(_textprice.text);
         double totalprice=double.parse(_textprice.text)
             *double.parse( _amount.text.isEmpty?'1':_amount.text);
-        //totalprice.floorToDouble();
+        // totalprice.floorToDouble();
         _textprice.text=totalprice.toString();
+        print( _textprice.text);
       }
 
     }
@@ -219,7 +221,12 @@ void calculate(){
                                     inputType: TextInputType.number,
                                     label: 'الكمية',
                                     // radius: 10,
-                                    controller:_amount, hintText: 'الكمية',),
+
+                                    controller:_amount, hintText: 'الكمية',
+                                    inputformate: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                  ),
                                 ],
                               )),
                           SizedBox(width: 10,),
@@ -228,13 +235,17 @@ void calculate(){
                                 children: [
                                   RowEdit(name: 'السعر', des: ''),
                                   EditTextFormField(
-                                    inputType: TextInputType.number,
+
                                     //ontap: calculate,
                                     //read: false,
                                     controller: _textprice,
                                     label: 'السعر',
                                     hintText: Provider.of<user_vm_provider>(context, listen: true)
                                         .currentUser!.currency.toString(),
+                                    inputType: TextInputType.number,
+                                   // inputformate: <TextInputFormatter>[
+                                   //   FilteringTextInputFormatter.digitsOnly
+                                   // ],
                                     //radius: 10
                                   ),
                                 ],

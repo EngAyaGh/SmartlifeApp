@@ -192,19 +192,26 @@ class invoice_vm extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> getinvoice_Local(String searchfilter,String type,String? approvetype
+  Future<void> getinvoice_Local(String searchfilter,String type
+      ,String? approvetype
       // , List<ClientModel> list
       ) async {
     List<InvoiceModel> list=[];
-    listInvoicesAccept=[];
     isloading=true;
     notifyListeners();
-    if(approvetype!=null){
+    listInvoicesAccept=[];
+
+    print('dcvcvvvvvvvvvvvvvvvvvvvvvvvvv');
+    print(approvetype);
+    if(approvetype==null){
+      print('dsklmckdsclks');
    await getinvoices();
     if(listInvoicesAccept.isNotEmpty) {
       if (type == 'approved only')
         listInvoicesAccept.forEach((element) {
-          if (element.stateclient == searchfilter && element.isApprove == "1")
+          print('dsadsadsa');
+          if (element.stateclient == searchfilter
+              && element.isApprove == "1")
             list.add(element);
         });
       if (type == 'approved client')
@@ -226,7 +233,8 @@ class invoice_vm extends ChangeNotifier{
       if(approvetype=='country')await getinvoices();
       if(approvetype=='regoin')await get_invoicesbyRegoin([]);
       listInvoicesAccept.forEach((element) {
-        if (element.stateclient == searchfilter && element.isApprove == null)
+        if (element.stateclient == searchfilter &&
+            element.isApprove == null)
           list.add(element);
       });
     }
@@ -258,11 +266,23 @@ class invoice_vm extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future<bool> setApproveclient_vm(Map<String, dynamic?> body,String? idInvoice) async {
-    InvoiceModel data = await Invoice_Service().setApproveClient(body,idInvoice!);
+  Future<bool> setApproveclient_vm(
+      Map<String, dynamic?> body,String? idInvoice) async {
 
-    int index=listinvoices.indexWhere((element) => element.idInvoice==idInvoice);
-    listinvoices[index]=data;
+    InvoiceModel? data = await Invoice_Service()
+        .setApproveClient(body,idInvoice!);
+    int index = listinvoices.indexWhere((element) =>
+    element.idInvoice == idInvoice);
+    int iindex=listInvoicesAccept.indexWhere((element) =>
+    element.idInvoice==idInvoice);
+    if(data!=null) {
+
+      listinvoices[index] = data;
+
+    }else{
+      listinvoices.removeAt(index);
+    }
+    listInvoicesAccept.removeAt(iindex);
     notifyListeners();
 
     return true;
@@ -406,7 +426,13 @@ class invoice_vm extends ChangeNotifier{
       listinvoiceClient[index]=data;//InvoiceModel.fromJson(body);
       final index1=listinvoices.indexWhere((element) => element.idInvoice==idInvoice);
 
-      listinvoices[index1]= data;//InvoiceModel.fromJson(body);
+      listinvoices[index1]= data;
+
+    int index2=listInvoicesAccept.indexWhere((element) => element.idInvoice==idInvoice);
+    if(index2!=-1)
+    listInvoicesAccept[index2]= data;
+
+    //InvoiceModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
 
@@ -458,11 +484,15 @@ class invoice_vm extends ChangeNotifier{
   }
   Future<void> set_state_back(Map<String, dynamic?> body,String? id_invoice) async {
 
+
+      InvoiceModel data= await Invoice_Service().setstate(body,id_invoice!);
       int index=listinvoices.indexWhere(
               (element) => element.idInvoice==id_invoice);
-      listinvoices[index]=
-      await Invoice_Service().setstate(body,id_invoice!);
-
+      listinvoices[index]=data;
+      index=listinvoiceClient.indexWhere(
+              (element) => element.idInvoice==id_invoice);
+      listinvoiceClient[index]=data;
+      // listinvoiceClient
       // body.addAll(
       //     InvoiceModel.fromJson(listinvoices[index]));
       // listinvoices[index]= InvoiceModel.fromJson(body);

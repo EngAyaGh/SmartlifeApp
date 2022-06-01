@@ -32,6 +32,7 @@ class communication_vm extends ChangeNotifier{
   }
   void getCommunicationclient(String fk_client) {
     listCommunicationClient=[];
+    notifyListeners();
     if(listCommunication.isNotEmpty){
       listCommunication.forEach((element) {
         if(element.fkClient==fk_client&&element.fkUser!=null)
@@ -43,6 +44,8 @@ class communication_vm extends ChangeNotifier{
   void getCommunicationInstallednumber() {
 
     listinstallnumber=[];
+    notifyListeners();
+
     if(listCommunicationInstall.isNotEmpty){
     listCommunicationInstall.forEach((element) {
     if(element.fkUser==null)
@@ -54,18 +57,21 @@ class communication_vm extends ChangeNotifier{
   void getCommunicationwelcomenumber() {
 
     listwelcomenumber=[];
+    notifyListeners();
+
     if(listCommunicationWelcome.isNotEmpty){
       listCommunicationWelcome.forEach((element) {
     if(element.fkUser==null)
       listwelcomenumber.add(element) ;
     });
     }
-     // notifyListeners();
+     notifyListeners();
   }
-  void getCommunicationInstall() {
+ Future <void> getCommunicationInstall() async{
     listCommunicationInstall=[];
     isloading=true;
     notifyListeners();
+    //await getCommunicationall();
     if(listCommunication.isNotEmpty){
       listCommunication.forEach((element) {
         if(element.typeCommuncation=='تركيب')//&&element.fkUser==null)
@@ -76,12 +82,13 @@ class communication_vm extends ChangeNotifier{
     isloading=false;
     notifyListeners();
   }
-  void getCommunicationWelcome() {
+  Future<void> getCommunicationWelcome()async {
 
-    listCommunicationWelcome=[];
     isloading=true;
     notifyListeners();
+     //await getCommunicationall();
     if(listCommunication.isNotEmpty){
+      listCommunicationWelcome=[];
       listCommunication.forEach((element) {
         if(element.typeCommuncation=='ترحيب')//&&element.fkUser==null)
           listCommunicationWelcome.add(element);

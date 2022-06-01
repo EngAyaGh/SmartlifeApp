@@ -79,7 +79,8 @@ class _editclientState extends State<editclient> {
 
     ////////////////////////////////////////
     //print( typeclient_provider.selectedValuemanag);
-    offerpriceController.text=widget.itemClient.offer_price==null||widget.itemClient.offer_price==""
+    offerpriceController.text=widget.itemClient.offer_price==null
+        ||widget.itemClient.offer_price==""
         ?"":widget.itemClient.offer_price!;
     print(offerpriceController.text);
     // resaonController.text=widget.itemClient.reasonChange==null||widget.itemClient.reasonChange==""
@@ -95,17 +96,24 @@ class _editclientState extends State<editclient> {
       // Add Your Code here.
       typeclient_provider=Provider.of<typeclient>(context,listen: false);
       typeclient_provider.type_of_client =
-      widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
+      // widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
+      widget.itemClient.typeClient=="تفاوض"&&widget.itemClient.typeClient=="عرض سعر"
+          || widget.itemClient.typeClient=="مستبعد" ?
       ['تفاوض','عرض سعر','مستبعد'] :[];
+      print( widget.itemClient.typeClient);
       // widget.itemClient.typeClient=="مشترك"?
       // ['منسحب','مشترك']//'مستبعد'
       //     :
       // widget.itemClient.typeClient=="منسحب"?
       // ['مشترك','منسحب']
       //     :['تفاوض','عرض سعر','مستبعد'];
-      widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
+      // widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
+      widget.itemClient.typeClient=="تفاوض"||widget.itemClient.typeClient=="عرض سعر"||
+      widget.itemClient.typeClient=="مستبعد"?
+
       typeclient_provider.selectedValuemanag=
           widget.itemClient.typeClient.toString():null;
+      typeclient_provider.changevalue(typeclient_provider.selectedValuemanag);
       //typeclient_provider.getreasons('client');
       // typeclient_provider.selectedValuemanag=
       //     widget.itemClient.typeClient.toString();
@@ -349,6 +357,7 @@ void didChangeDependencies() {
                       },
                     ):Container():Container(),
                       SizedBox(height: 2,),
+
                       // Provider.of<privilge_vm>(context,listen: true)
                       //     .checkprivlge('27')==true||  Provider.of<privilge_vm>(context,listen: true)
                       //     .checkprivlge('28')==true ?

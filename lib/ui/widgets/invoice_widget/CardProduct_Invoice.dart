@@ -10,6 +10,7 @@ import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
@@ -57,6 +58,7 @@ bool isepmty=false;
         _textprice.text=widget.itemProd.priceProduct!;
         String? taxCountry=widget.itemProd.taxtotal;
         print(taxCountry);
+
         if(taxCountry!=null||taxCountry!='null')
         {
           double pricewithtax=double.parse(_textprice.text)* double.parse(taxCountry!)/100;
@@ -120,7 +122,10 @@ bool isepmty=false;
       children: [
         Directionality(
           textDirection: TextDirection.rtl,
-          child: Form(
+          child:StatefulBuilder(
+
+              builder: (BuildContext context, void Function(void Function()) setState) {
+                return Form(
             key: _globalKey,
             child: Column(
 
@@ -138,11 +143,14 @@ bool isepmty=false;
                     print(val);
                     if(val==null)_amount_value='1';
                     _amount_value=val;
-                    calculate();
+                     setState(() { calculate();});
                   },
                   inputType: TextInputType.number,
                   label: 'الكمية',
                   // radius: 10,
+                  inputformate: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
                   controller:_amount, hintText: 'الكمية',),
                 //SizedBox(width: 10,),
 
@@ -168,7 +176,8 @@ bool isepmty=false;
                   //read: false,
                   onChanged: (val) {
                     _taxuser_value=val;
-                    calculate();
+                    setState(() { calculate();});
+
                   },
                   inputType: TextInputType.number,
 
@@ -183,7 +192,8 @@ bool isepmty=false;
                 EditTextFormField(
                   onChanged: (val) {
                     _taxadmin_value=val;
-                    calculate();
+                    setState(() { calculate();});
+
                   },
                   inputType: TextInputType.number,
 
@@ -194,8 +204,8 @@ bool isepmty=false;
                   //radius: 10
                 ),
 
-SizedBox(height: 5,),
-        Row(
+          SizedBox(height: 5,),
+         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
@@ -235,7 +245,7 @@ SizedBox(width: 15,),
                     backgroundColor: MaterialStateProperty.all(
                         kMainColor)),
                 child: Text('حذف'),
-                onPressed: ()   {
+                onPressed: ()   async {
                   if(widget.itemProd.idInvoiceProduct!=null)
                   {
                     // Provider.of<invoice_vm>(context,listen: false)
@@ -243,12 +253,13 @@ SizedBox(width: 15,),
                     // Provider.of<invoice_vm>(context,listen: false)
                     //     .removelistproductinvoic(index);
                     double _total=0;
-                    Provider.of<invoice_vm>(
+                   await Provider.of<invoice_vm>(
                         context, listen: false)
                         .deleteProductInInvoice(widget.itemProd.idInvoiceProduct);
                     List<ProductsInvoice>? pinv=
                         Provider.of<invoice_vm>(context,listen: false)
                             .listproductinvoic;
+
                     for(int i=0; i<pinv.length;i++){
                       _total=_total+double.parse(pinv[i].price.toString());
                     }
@@ -307,9 +318,9 @@ SizedBox(width: 15,),
                 SizedBox(height: 5,)
               ],
             ),
-          ),
+          );}
         )
-            ],
+        )],
     );
 
     return Padding(

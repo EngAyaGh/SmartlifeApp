@@ -18,13 +18,16 @@ class notify_pageview extends StatefulWidget {
 class _notify_pageviewState extends State<notify_pageview> {
   @override
   void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_)async{
+
+      Provider.of<notifyvm>(context, listen: false)
+        .getNotification();});
     //Provider.of<notifyvm>(context,listen: false).getNotification();
     super.initState();
   }
   @override
   void didChangeDependencies() {
-        Provider.of<notifyvm>(context, listen: false)
-         .getNotification();
+
     // Future.delayed(Duration(milliseconds: 10)).then((_) async {
     //   await    Provider.of<notifyvm>(context, listen: false)
     //       .getNotification();
