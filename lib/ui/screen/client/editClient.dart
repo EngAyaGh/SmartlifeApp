@@ -47,6 +47,7 @@ class _editclientState extends State<editclient> {
   final TextEditingController descresaonController = TextEditingController();
   late typeclient typeclient_provider;
   late final UserModel currentUser;
+  late String? namemanage;
   @override void dispose() {
     nameclientController.dispose();
     nameEnterpriseController.dispose();
@@ -97,7 +98,7 @@ class _editclientState extends State<editclient> {
       typeclient_provider=Provider.of<typeclient>(context,listen: false);
       typeclient_provider.type_of_client =
       // widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
-      widget.itemClient.typeClient=="تفاوض"&&widget.itemClient.typeClient=="عرض سعر"
+      widget.itemClient.typeClient=="تفاوض"||widget.itemClient.typeClient=="عرض سعر"
           || widget.itemClient.typeClient=="مستبعد" ?
       ['تفاوض','عرض سعر','مستبعد'] :[];
       print( widget.itemClient.typeClient);
@@ -160,6 +161,10 @@ void didChangeDependencies() {
         Map<String,dynamic> body={};
         if(typeclient_provider.selectedValuemanag == "عرض سعر")
         body={"date_price": formatter.format(DateTime.now()), };
+       if( namemanage!=null)
+         body.addAll({"date_changetype": //typeclient_provider.selectedValuemanag == "منسحب"?
+            formatter.format(_currentDate)},//:"null",
+          );
         body.addAll({
           'name_client': nameclientController.text,
           'name_enterprise': nameEnterpriseController.text,
@@ -174,8 +179,6 @@ void didChangeDependencies() {
           //"fk_user":widget.fkuser,
           // "date_transfer":,
           "mobile": mobileController.text,
-          "date_changetype": //typeclient_provider.selectedValuemanag == "منسحب"?
-          formatter.format(_currentDate),//:"null",
 
           "offer_price": offerpriceController.text,
           "reason_change":resaonController.text,
@@ -347,7 +350,7 @@ void didChangeDependencies() {
                           }).toList(),
                       value:typeclient_provider.selectedValuemanag,
                       onChanged:(value) {
-                        //namemanage=value.toString();
+                        namemanage=value.toString();
                         typeclient_provider.changevalue(value.toString());
                         // if(value=="منسحب") {
                         //   showDialog<void>(

@@ -1,3 +1,4 @@
+import 'package:crm_smart/ui/screen/care/care_page_view.dart';
 import 'package:crm_smart/ui/screen/care/view_installed.dart';
 import 'package:crm_smart/ui/screen/care/view_welcome.dart';
 import 'package:crm_smart/ui/screen/client/client_accept.dart';
@@ -96,7 +97,9 @@ class _carepageState extends State<carepage> {
               colortitle: Colors.black,
               colorarrow: Colors.black,
               onTap: () {
-
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context)=>
+                        care_page_view()));
           }, title: 'العناية بالعملاء'):Container(),
 
           Provider.of<privilge_vm>(context,listen: true)

@@ -30,7 +30,8 @@ class cardAccept extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //العملاء المشتركين
-    return Container(
+    return
+      Container(
 
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(

@@ -19,8 +19,7 @@ class _notify_pageviewState extends State<notify_pageview> {
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_)async{
-
-      Provider.of<notifyvm>(context, listen: false)
+     await Provider.of<notifyvm>(context, listen: false)
         .getNotification();});
     //Provider.of<notifyvm>(context,listen: false).getNotification();
     super.initState();

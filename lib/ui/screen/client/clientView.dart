@@ -107,6 +107,13 @@ class _ClientViewState extends State<ClientView> {
                 cardRow( title:' المدينة',value:clientModel.city.toString()),
                 cardRow( title:' النشاط',value:clientModel.typeJob.toString()),
                 cardRow( title:'حالة العميل',value:clientModel.typeClient.toString()),
+                clientModel.typeClient=='مستبعد'?
+                cardRow(value: 'قام بتحويل حالة العميل', title: clientModel.nameuserdoning.toString()):Container(),
+                clientModel.typeClient=='مستبعد'?
+                cardRow(value: 'تاريخ تحويل حالة العميل', title: clientModel.dateChangetype.toString()):Container(),
+                clientModel.typeClient=='مستبعد'?
+                cardRow(value: 'سبب الاستبعاد', title: clientModel.reasonChange.toString()):Container(),
+
                 clientModel.offer_price!=null&&clientModel.offer_price.toString().trim().isNotEmpty?
                 cardRow( title:'مبلغ عرض السعر',value:clientModel.offer_price.toString()):Container(),
                 clientModel.offer_price!=null&&clientModel.offer_price.toString().trim().isNotEmpty?

@@ -53,7 +53,7 @@ class client_vm extends ChangeNotifier {
       )
   async {
     listClientAccept=[];
-    notifyListeners();
+    // notifyListeners();
     isloading=true;
     notifyListeners();
     List<ClientModel> _list=

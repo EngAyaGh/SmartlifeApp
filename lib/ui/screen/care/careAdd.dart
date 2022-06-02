@@ -8,6 +8,7 @@ import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:group_button/group_button.dart';
 
 import '../../../constants.dart';
@@ -15,21 +16,19 @@ import 'package:provider/provider.dart';
 
 import 'card_comment.dart';
 
-class installAdd extends StatefulWidget {
-   installAdd({required this.com, Key? key}) : super(key: key);
-   CommunicationModel com;
+class careAdd extends StatefulWidget {
+  careAdd({required this.com, Key? key}) : super(key: key);
+ CommunicationModel com;
 
   @override
-  _installAddState createState() => _installAddState();
+  _careAddState createState() => _careAddState();
 }
 
-class _installAddState extends State<installAdd> {
+class _careAddState extends State<careAdd> {
   String? typepayController='0';
-
-  String?  titleWelcom='هذا عميل مشترك جديد , قم بالتواصل مع العميل والترحيب به ثم اكتب تعليق وانقر على زر تم الترحيب بالعميل';
-
-  String?  titleInstall='هذا العميل مشترك جديد , قم بالتواصل مع العميل والتأكد من جودة التركيب والتدريب له , ثم اكتب تعليق وانقر على زر تم التواصل';
-
+  bool numberwrong=false;
+  bool repeat=false;
+  double rate=0;
   @override void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_)async {
       Provider.of<comment_vm>(context, listen: false)
@@ -48,11 +47,7 @@ class _installAddState extends State<installAdd> {
           padding: const EdgeInsets.all(8.0),
           child: ListView(
             children: [
-              widget.com.dateCommunication==null?
-              Text(widget.com.typeCommuncation=='تركيب'?
-                   titleInstall.toString()
-                  :titleWelcom.toString() ):Container(),
-              Divider(thickness: 1,color: Colors.grey,),
+
               SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,51 +89,103 @@ class _installAddState extends State<installAdd> {
                 ],
               ),
               SizedBox(height: 10,),
-              widget.com.typeCommuncation=='تركيب'&& widget.com.dateCommunication==null?
-              RowEdit(name: 'هل العميل راضي عن خدمة التركيب والتدريب', des: 'required'):Container(),
+              Row(
+                children: [
+                Text('التقييم 1/5'),
+          RatingBar.builder(
+            initialRating: 3,
+            minRating: 1,
+            direction: Axis.horizontal,
+            allowHalfRating: true,
+            itemCount: 5,
+            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+            itemBuilder: (context, _) => Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
+            onRatingUpdate: (rating) {
+              print(rating);
+              setState(() {
+                rate=rating;
+              });
+            },
+          ),
+              ],),
+              widget.com.typeCommuncation=='دوري'&& widget.com.dateCommunication==null?
+              Consumer<communication_vm>(
+                  builder: (context, selectedProvider, child){
+                    return  GroupButton(
+                        controller: GroupButtonController(
+                          selectedIndex:selectedProvider.selectedtypeinstall,
 
-              widget.com.typeCommuncation=='تركيب'&& widget.com.dateCommunication==null?
-              // Container(
-              //   padding: EdgeInsets.only(left: 2,right: 2),
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.all( Radius.circular(12)),
-              //     boxShadow: <BoxShadow>[
-              //       BoxShadow(
-              //         offset: Offset(1.0, 1.0),
-              //         blurRadius: 8.0,
-              //         color: Colors.black87.withOpacity(0.2),
-              //       ),
-              //     ],
-              //     color: Colors.white38,
-              //   ),
-              //   child:
-                Consumer<communication_vm>(
-                    builder: (context, selectedProvider, child){
-                      return  GroupButton(
-                          controller: GroupButtonController(
-                            selectedIndex:selectedProvider.selectedtypeinstall,
+                        ),
+                        options: GroupButtonOptions(
+                            selectedColor: kMainColor,
+                            buttonWidth: 120,
+                            borderRadius: BorderRadius.circular(10)),
+                        buttons: ['لا يستخدم النظام','يستخدم النظام'],
+                        onSelected: (index,isselected){
+                          print(index);
+                          //setState(() {
+                          typepayController=index.toString();
+                          selectedProvider.changeinstall(index);
+                          //});
+                        }
+                    );
+                  }
 
-                          ),
-                          options: GroupButtonOptions(
-                              selectedColor: kMainColor,
-                              buttonWidth: 120,
-                              borderRadius: BorderRadius.circular(10)),
-                          buttons: ['غير راضي','راضي'],
-                          onSelected: (index,isselected){
-                            print(index);
-                            //setState(() {
-                            typepayController=index.toString();
-                            selectedProvider.changeinstall(index);
-                            //});
-                          }
-                      );
-                    }
-
-                )
-             // )
+              )
                   :Container(),
               SizedBox(height: 20,),
+              CheckboxListTile(
+                title: new Text('لايوجد رقم هاتف-أو الرقم خاطئ'),
+                value: numberwrong,// as bool,
+                onChanged: (bool? value) {
+                  setState(() {
+                    print(value);
+                    numberwrong=value!;
+                    //values[key] = value;
+                  });
+                },
+              ),
+              CheckboxListTile(
+                title: new Text('العميل متكرر'),
+                value:   repeat,// as bool,
+                onChanged: (bool? value) {
+                  setState(() {
+                    print(value);
+                    repeat=value!;
+                    //values[key] = value;
+                  });
+                },
+              ),
+              ElevatedButton(
+                  style: ButtonStyle(
 
+                      backgroundColor: MaterialStateProperty.all(
+                          widget.com.dateCommunication==null?kMainColor:kWhiteColor
+                      )),
+                  onPressed: () async{
+                    if(widget.com.dateCommunication==null) {
+
+                      Provider.of<communication_vm>
+                        (context,listen: false).addcommuncation({
+                         'fk_user':Provider.of<user_vm_provider>
+                          (context,listen: false).currentUser!.idUser.toString(),
+                         'date_communication':DateTime.now().toString(),
+                         'result':typepayController,//
+                         'rate':rate.toString(),
+                         'number_wrong':numberwrong.toString(),
+                         'client_repeat':repeat.toString(),
+                         //'date_next':widget.com.dateNext.toString(),
+                      },widget.com.idCommunication).then((value) =>
+
+                          clear(value)
+                      );
+                    }},
+                  child: Text(' تم التواصل ',
+
+                    style: TextStyle(color:widget.com.dateCommunication==null?kWhiteColor: kMainColor),)) ,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -155,34 +202,7 @@ class _installAddState extends State<installAdd> {
                       },
                       child: Text(' ملف العميل')) ,
 
-                  ElevatedButton(
-                      style: ButtonStyle(
-
-                          backgroundColor: MaterialStateProperty.all(
-                           widget.com.dateCommunication==null?kMainColor:kWhiteColor
-                          )),
-                      onPressed: () async{
-                        if(widget.com.dateCommunication==null) {
-
-                          Provider.of<communication_vm>
-                        (context,listen: false).addcommuncation({
-                        'fk_user':Provider.of<user_vm_provider>
-                           (context,listen: false).currentUser!.idUser.toString(),
-                        'date_communication':DateTime.now().toString(),
-                        'result':typepayController,//
-                        // 'rate':widget.com.rate.toString(),
-                        // 'number_wrong':widget.com.number_wrong.toString(),
-                        // 'client_repeat':widget.com.clientRepeat.toString(),
-                        // 'date_next':widget.com.dateNext.toString(),
-                      },widget.com.idCommunication).then((value) =>
-
-                       clear(value)
-                      );
-                      }},
-                      child: Text(' تم التواصل ',
-
-                        style: TextStyle(color:widget.com.dateCommunication==null?kWhiteColor: kMainColor),)) ,
-                ],
+              ],
               ),
               SizedBox(height: 10,),
               RowEdit(name: 'البيانات', des: ''),

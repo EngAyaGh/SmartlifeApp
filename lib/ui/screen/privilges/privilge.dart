@@ -115,7 +115,8 @@ class _privilge_pageState extends State<privilge_page> {
           itemBuilder: (c, element) {
             return Container(
                //children: _privilgelist.map(( key) {
-                 child: CheckboxListTile(
+                 child:
+                 CheckboxListTile(
                    title: new Text(element.name_privilege),
                    value:   element.isCheck=='1'?true:false,// as bool,
                    onChanged: (bool? value) {

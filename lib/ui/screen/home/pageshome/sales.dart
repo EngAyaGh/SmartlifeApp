@@ -7,6 +7,7 @@ import 'package:crm_smart/ui/screen/home/approvepage.dart';
 import 'package:crm_smart/ui/screen/home/widgethomeitem.dart';
 import 'package:crm_smart/ui/screen/invoice/get_deleted_invoice.dart';
 import 'package:crm_smart/ui/screen/support/support_view.dart';
+import 'package:crm_smart/ui/screen/target/target_page.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -119,13 +120,18 @@ class _salesState extends State<sales> {
                       ApprovePage()));
             }, title:  ' طلبات الموافقة '):Container(),
 
-    //           privilge.checkprivlge('5')==true?
-    //           buildSelectCategory(onTap: () {
-    //             Navigator.push(context, MaterialPageRoute(
-    //                 builder: (context)=>
-    //                     ApprovePage()));
-    //           }, title:  'تاركيت الموظف '):Container(),
-    //
+              Provider.of<privilge_vm>(context,listen: true)
+                  .checkprivlge('5')==true?
+              buildSelectCategory(
+                onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context)=>
+                        TargetPage()));
+              }, title:  'تاركيت الموظف ',
+                colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,):Container(),
+
               Provider.of<privilge_vm>(context,listen: true)
                 .checkprivlge('14')==true?
     buildSelectCategory(
