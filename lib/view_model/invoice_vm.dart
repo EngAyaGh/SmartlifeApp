@@ -451,6 +451,10 @@ class invoice_vm extends ChangeNotifier{
     index=listinvoices.indexWhere(
             (element) => element.idInvoice==id_invoice);
     listinvoices.removeAt(index);
+
+    index=listInvoicesAccept.indexWhere(
+            (element) => element.idInvoice==id_invoice);
+    listInvoicesAccept.removeAt(index);
       notifyListeners();
     //}
     return res;

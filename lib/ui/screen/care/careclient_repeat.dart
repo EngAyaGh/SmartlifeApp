@@ -85,8 +85,7 @@ class _careRepeatState extends State<careRepeat> {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context)=>
                                 careAdd(
-                                  com: listCommunication[1] ,
-                                )));
+                                  com: listCommunication[0],                              )));
                         },
                       child: Text(' خدمة العميل ',)) ,
                 ],

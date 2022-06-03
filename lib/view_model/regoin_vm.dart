@@ -56,7 +56,7 @@ class regoin_vm extends ChangeNotifier{
   }
 
   Future<void> getregoin()async {
-
+    listregoinfilter=[];
     if (listregoin.isEmpty) {
       List<dynamic> data = [];
       data = await Api()
@@ -70,7 +70,7 @@ class regoin_vm extends ChangeNotifier{
         }
       }
     }
-    listregoinfilter=listregoin;
+    listregoinfilter=List.from(listregoin);// [...listregoin];listregoin.tolist();
     listregoinfilter.insert(0,RegoinModel(
         id_regoin: '0', name_regoin: 'الكل'));
     notifyListeners();

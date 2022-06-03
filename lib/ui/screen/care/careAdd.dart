@@ -159,33 +159,40 @@ class _careAddState extends State<careAdd> {
                   });
                 },
               ),
-              ElevatedButton(
-                  style: ButtonStyle(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                      style: ButtonStyle(
 
-                      backgroundColor: MaterialStateProperty.all(
-                          widget.com.dateCommunication==null?kMainColor:kWhiteColor
-                      )),
-                  onPressed: () async{
-                    if(widget.com.dateCommunication==null) {
+                          backgroundColor: MaterialStateProperty.all(
+                              kMainColor
+                          )),
+                      onPressed: () async{
+                        if(widget.com.dateCommunication==null) {
 
-                      Provider.of<communication_vm>
-                        (context,listen: false).addcommuncation({
-                         'fk_user':Provider.of<user_vm_provider>
-                          (context,listen: false).currentUser!.idUser.toString(),
-                         'date_communication':DateTime.now().toString(),
-                         'result':typepayController,//
-                         'rate':rate.toString(),
-                         'number_wrong':numberwrong.toString(),
-                         'client_repeat':repeat.toString(),
-                         //'date_next':widget.com.dateNext.toString(),
-                      },widget.com.idCommunication).then((value) =>
+                          Provider.of<communication_vm>
+                            (context,listen: false).addcommuncation({
+                             'fk_user':Provider.of<user_vm_provider>
+                              (context,listen: false).currentUser!.idUser.toString(),
+                             'date_communication':DateTime.now().toString(),
+                             'result':typepayController,//
+                             'rate':rate.toString(),
+                             'number_wrong':numberwrong.toString(),
+                             'client_repeat':repeat.toString(),
+                             //'date_next':widget.com.dateNext.toString(),
+                          },widget.com.idCommunication).then((value) =>
 
-                          clear(value)
-                      );
-                    }},
-                  child: Text(' تم التواصل ',
+                              clear(value)
+                          );
+                        }},
+                      child: Text(' تم التواصل ',
 
-                    style: TextStyle(color:widget.com.dateCommunication==null?kWhiteColor: kMainColor),)) ,
+                        style: TextStyle(
+                            // color:widget.com.dateCommunication==null?
+                     color:   kWhiteColor),)),
+                ],
+              ) ,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

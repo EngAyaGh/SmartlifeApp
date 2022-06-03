@@ -106,7 +106,8 @@ class _InvoiceViewState extends State<InvoiceView> {
       clientmodel=Provider.of<client_vm>(context,listen: false)
           .listClient.firstWhere(
               (element) => element.idClients==widget.invoice!.fkIdClient);
-
+      Provider.of<invoice_vm>(context, listen: false)
+          .get_invoiceclientlocal(widget.invoice!.fkIdClient,'');
       typeclient_provider = Provider.of<typeclient>(context, listen: false);
       typeclient_provider.getreasons('client');
 
@@ -276,6 +277,7 @@ class _InvoiceViewState extends State<InvoiceView> {
 
                                 await Provider.of<invoice_vm>(context, listen: false)
                                     .set_state_back({
+                                  "fk_client":widget.invoice!.fkIdClient.toString(),
                                   "reason_back": typeclient_provider.selectedValueOut,
                                   "fkuser_back": Provider
                                       .of<user_vm_provider>(context, listen: false).currentUser!.idUser.toString(),

@@ -1,16 +1,17 @@
 import 'package:crm_smart/constantsList.dart';
+import 'package:crm_smart/model/targetmodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:flutter/material.dart';
 
 class TargetUser extends StatelessWidget {
-  UserModel userModel;
-  TargetUser({required this.userModel, Key? key}) : super(key: key);
+  TargetModel target;
+  TargetUser({required this.target, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(userModel.nameUser.toString()),
+          title: Text(target.nameUser.toString()),
           centerTitle: true,
           elevation: 0,
         ),
