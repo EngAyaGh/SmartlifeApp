@@ -22,15 +22,7 @@ class TargetPage extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
       ),
-      body: Column(children: [
-        CardTaget(),
-        // GroupButton(
-        //     buttons: ['buttons', '2'],
-        //     onSelected: (i, selected) {
-        //       // debugPrint('Button #$i $selected');
-        //       selected ? Get.to(TargetUser()) : Get.to(TargetEmployee());
-        //     })
-      ]),
+      body: CardTaget(),
     );
   }
 }

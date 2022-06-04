@@ -237,6 +237,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.0"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_pdfview:
     dependency: "direct main"
     description:
@@ -394,6 +399,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.0-nullsafety-1"
+  month_year_picker:
+    dependency: "direct main"
+    description:
+      name: month_year_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0+3"
   nested:
     dependency: transitive
     description:
@@ -608,14 +620,14 @@ packages:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "20.1.47"
+    version: "20.1.58+1"
   syncfusion_flutter_datepicker:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: syncfusion_flutter_datepicker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "20.1.47"
+    version: "20.1.58"
   synchronized:
     dependency: transitive
     description:

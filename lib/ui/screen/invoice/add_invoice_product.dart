@@ -110,7 +110,7 @@ void calculate(){
             *double.parse( _amount.text.isEmpty?'1':_amount.text);
         // totalprice.floorToDouble();
         _textprice.text=totalprice.toString();
-        print( _textprice.text);
+        print(totalprice.toStringAsFixed(2));
       }
 
     }
@@ -139,7 +139,7 @@ void calculate(){
             for(int i=0; i<pinv.length;i++){
               _total=_total+double.parse(pinv[i].price.toString());
             }
-            widget.invoice!.total=_total.toString();
+            widget.invoice!.total=_total.toStringAsFixed(2).toString();
             print('_total.toString();');
             print(_total.toString());
             Provider.of<invoice_vm>(context,listen: false).set_total(_total.toString());

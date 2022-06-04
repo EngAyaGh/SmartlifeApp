@@ -2,7 +2,7 @@
 
 class TargetModel{
   TargetModel({
-    required this.target,
+     this.target,
     required this.fk_idUser,
     required this.nameUser,
     required this.name_regoin,
@@ -13,12 +13,12 @@ class TargetModel{
     this.Q3,
     this.Q4,
   });
-  late  String target;
+  late  String? target;
   late final String fk_idUser;
   late final String nameUser;
   late final String name_regoin;
   late  String img_image;
-  late  String name_level;
+  late  String? name_level;
   late  String? Q1;
   late  String? Q2;
   late  String? Q3;

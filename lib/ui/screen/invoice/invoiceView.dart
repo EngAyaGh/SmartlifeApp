@@ -338,7 +338,9 @@ class _InvoiceViewState extends State<InvoiceView> {
                           Text('المبلغ الإجمالي   ',
                             style: TextStyle(fontFamily: kfontfamily3),),
                           //Spacer(),
-                          Text(widget.invoice!.total.toString(),style: TextStyle(fontFamily: kfontfamily2),),
+                          Text(
+                            widget.invoice!.total.toString(),
+                            style: TextStyle(fontFamily: kfontfamily2),),
                         ],
                       ),
                     ),

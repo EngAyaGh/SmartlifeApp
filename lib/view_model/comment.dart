@@ -43,7 +43,7 @@ bool isloadadd=false;
         'date_comment':Utils.toDateTime(DateTime.now()),//formatter.format(DateTime.now())
       });
       //listComments=[];
-      listComments.add(CommentModel.fromJson(body));
+      listComments.insert(0,CommentModel.fromJson(body));
       final index=listComments.indexWhere((element) => element.idComment==res);
       listComments[index].imgImage=imageurl.toString();
       isloadadd=false;

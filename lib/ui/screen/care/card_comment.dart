@@ -4,6 +4,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crm_smart/model/commentmodel.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
+import 'package:crm_smart/ui/widgets/widgetcalendar/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -86,7 +87,8 @@ class cardcomment extends StatelessWidget {
                                   color: Colors.black87,
                                   fontSize: 7,
                                   fontWeight: FontWeight.normal,
-                                  textstring: commentmodel.date_comment.toString(),
+                                  textstring: Utils.toDateTime(
+                                     DateTime.parse(commentmodel.date_comment)),
                                   underline: TextDecoration.none,
                                 ),
                               ],

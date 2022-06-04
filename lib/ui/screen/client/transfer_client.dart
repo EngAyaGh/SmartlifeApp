@@ -3,6 +3,7 @@ import 'package:crm_smart/api/fcm.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/screen/home/home.dart';
+import 'package:crm_smart/ui/screen/home/ticket/ticketclientview.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -118,7 +119,7 @@ class _transferClientState extends State<transferClient> {
 
                 //navigator to clients view page
                 Navigator.pushAndRemoveUntil(context,
-                    MaterialPageRoute(builder: (context)=>tabclients()),
+                    MaterialPageRoute(builder: (context)=>ticketclientview()),
                         (route) => false
                       );
               },

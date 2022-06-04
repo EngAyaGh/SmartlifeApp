@@ -1,5 +1,6 @@
 
 
+import 'package:crm_smart/function_global.dart';
 import 'package:crm_smart/model/approvemodel.dart';
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/communication_modle.dart';
@@ -98,7 +99,8 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
     int _tabBarIndex = 0;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kMainColor,title:Text('ملف العميل',
+        backgroundColor: kMainColor,
+        title:Text(getnameshort(_clientModel.nameEnterprise.toString()),
         style: TextStyle(color: kWhiteColor,fontFamily: kfontfamily2),) ,
         centerTitle: true,
         bottom: TabBar(

@@ -31,6 +31,7 @@ class buildCardTarget extends StatelessWidget {
                       )));
         },
         child: Container(
+          height:100,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: Colors.white,
@@ -40,7 +41,7 @@ class buildCardTarget extends StatelessWidget {
                     spreadRadius: 3.0,
                     blurRadius: 5.0)
               ]),
-          child: Container(
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -64,16 +65,18 @@ class buildCardTarget extends StatelessWidget {
                       child: CachedNetworkImage(
                         placeholder: (context, url) =>
                         const CircularProgressIndicator(),
-                        imageUrl: target.img_image!,
+                        imageUrl: target.img_image,
                       ),
                     ),
-                  
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding:
-                      EdgeInsets.only(left: size * 0.01, right: size * 0.01),
+                      EdgeInsets.only(left: size * 0.02, right: size * 0.02
+                      ,bottom: size*0.03
+                      ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -107,94 +110,100 @@ class buildCardTarget extends StatelessWidget {
                         ],
                       ),
 
+                      Row(
+                        children: [
+                          TextUtilis(
+                            color: Colors.black,
+                            fontSize: double.parse(fontsize.toString()),
+                            fontWeight: FontWeight.bold,
+                            textstring: 'Target :',
+                            underline: TextDecoration.none,
+                          ),
+                          TextUtilis(
+                            color: Colors.black38,
+                            fontSize: double.parse(fontsize.toString()),
+                            fontWeight: FontWeight.normal,
+                            textstring: target.target.toString(),
+                            underline: TextDecoration.none,
+                          ),
+                        ],),
+                   target.Q1!=null?Row(
+                        children: [
+                          TextUtilis(
+                            color: Colors.black,
+                            fontSize: double.parse(fontsize.toString()),
+                            fontWeight: FontWeight.bold,
+                            textstring: 'Q1 :',
+                            underline: TextDecoration.none,
+                          ),
+                          TextUtilis(
+                            color: Colors.black38,
+                            fontSize: double.parse(fontsize.toString()),
+                            fontWeight: FontWeight.normal,
+                            textstring: target.Q1.toString(),
+                            underline: TextDecoration.none,
+                          ),
+                        ],
+                      ):Container(),
+                      target.Q2!=null?    Row(
+                        children: [
+                          TextUtilis(
+                            color: Colors.black,
+                            fontSize: double.parse(fontsize.toString()),
+                            fontWeight: FontWeight.bold,
+                            textstring: 'Q2 :',
+                            underline: TextDecoration.none,
+                          ),
+                          TextUtilis(
+                            color: Colors.black38,
+                            fontSize: double.parse(fontsize.toString()),
+                            fontWeight: FontWeight.normal,
+                            textstring: target.Q2.toString(),
+                            underline: TextDecoration.none,
+                          ),
+                        ],
+                      ):Container(),
+                      target.Q3!=null? Row(
+                        children: [
+                          TextUtilis(
+                            color: Colors.black,
+                            fontSize: double.parse(fontsize.toString()),
+                            fontWeight: FontWeight.bold,
+                            textstring: 'Q3 :',
+                            underline: TextDecoration.none,
+                          ),
+                          TextUtilis(
+                            color: Colors.black38,
+                            fontSize: double.parse(fontsize.toString()),
+                            fontWeight: FontWeight.normal,
+                            textstring: target.Q3.toString(),
+                            underline: TextDecoration.none,
+                          ),
+                        ],
+                      ):Container(),
+                      target.Q4!=null?Row(
+                        children: [
+                          TextUtilis(
+                            color: Colors.black,
+                            fontSize: double.parse(fontsize.toString()),
+                            fontWeight: FontWeight.bold,
+                            textstring: 'Q4 :',
+                            underline: TextDecoration.none,
+                          ),
+                          TextUtilis(
+                            color: Colors.black38,
+                            fontSize:double.parse(fontsize.toString()),
+                            fontWeight: FontWeight.normal,
+                            textstring: target.Q4.toString(),
+                            underline: TextDecoration.none,
+                          ),
+                        ],
+                      ):Container(),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 7,
-                ),
 
-                // Directionality(
-                //   textDirection: TextDirection.ltr,
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //
-                //     ],
-                //   ),
-                // ),
-                Row(
-                  children: [
-                    TextUtilis(
-                      color: Colors.black,
-                      fontSize: double.parse(fontsize.toString()),
-                      fontWeight: FontWeight.bold,
-                      textstring: 'Q1 :',
-                      underline: TextDecoration.none,
-                    ),
-                    TextUtilis(
-                      color: Colors.black38,
-                      fontSize: double.parse(fontsize.toString()),
-                      fontWeight: FontWeight.normal,
-                      textstring: target.Q1.toString(),
-                      underline: TextDecoration.none,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    TextUtilis(
-                      color: Colors.black,
-                      fontSize: double.parse(fontsize.toString()),
-                      fontWeight: FontWeight.bold,
-                      textstring: 'Q2 :',
-                      underline: TextDecoration.none,
-                    ),
-                    TextUtilis(
-                      color: Colors.black38,
-                      fontSize: double.parse(fontsize.toString()),
-                      fontWeight: FontWeight.normal,
-                      textstring: target.Q2.toString(),
-                      underline: TextDecoration.none,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    TextUtilis(
-                      color: Colors.black,
-                      fontSize: double.parse(fontsize.toString()),
-                      fontWeight: FontWeight.bold,
-                      textstring: 'Q3 :',
-                      underline: TextDecoration.none,
-                    ),
-                    TextUtilis(
-                      color: Colors.black38,
-                      fontSize: double.parse(fontsize.toString()),
-                      fontWeight: FontWeight.normal,
-                      textstring: target.Q3.toString(),
-                      underline: TextDecoration.none,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    TextUtilis(
-                      color: Colors.black,
-                      fontSize: double.parse(fontsize.toString()),
-                      fontWeight: FontWeight.bold,
-                      textstring: 'Q4 :',
-                      underline: TextDecoration.none,
-                    ),
-                    TextUtilis(
-                      color: Colors.black38,
-                      fontSize:double.parse(fontsize.toString()),
-                      fontWeight: FontWeight.normal,
-                      textstring: target.Q4.toString(),
-                      underline: TextDecoration.none,
-                    ),
-                  ],
-                ),
+
                 // Directionality(
                 //   textDirection: TextDirection.ltr,
                 //   child: Row(

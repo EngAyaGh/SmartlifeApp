@@ -566,7 +566,8 @@ else{
                                             .add_invoiceclient_vm( {
                                           "name_enterprise":widget.itemClient.nameEnterprise,
                                           "name_client":widget.itemClient.nameClient,
-                                          "nameUser":widget.itemClient.nameUser,
+                                          "nameUser":Provider.of<user_vm_provider>
+                                            (context,listen: false).currentUser!.nameUser.toString(),//widget.itemClient.nameUser,
                                           "renew_year": renewController.text,
                                           "type_pay": typepayController,
                                           //"date_create":  formatter.format(_currentDate),

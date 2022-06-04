@@ -20,7 +20,9 @@ import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'dart:ui' as myui;
 
 class support_add extends StatefulWidget {
   support_add({required this.idinvoice, Key? key}) : super(key: key);
@@ -130,7 +132,10 @@ class _support_addState extends State<support_add> {
               ? 'تعيين الوقت والتاريخ' //_currentDate.toString()
               :
          //_currentDate.toString(),
-        Provider.of<datetime_vm>(context,listen: true).valuedateTime.toString(),
+          DateFormat('yyyy-MM-dd').format(
+              Provider.of<datetime_vm>(context,listen: true)
+                  .valuedateTime),
+
           //_invoice!.daterepaly.toString(),
           filled: true,
           fillColor: Colors.grey.shade200,
@@ -196,7 +201,7 @@ class _support_addState extends State<support_add> {
     print('builld');
     return SafeArea(
       child: Directionality(
-        textDirection: TextDirection.rtl,
+        textDirection: myui.TextDirection.rtl,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -230,7 +235,8 @@ class _support_addState extends State<support_add> {
                             hintText: _invoice!.dateinstall_task ==null
                                 &&  _currentDate == DateTime(1, 1, 1)
                                 ? 'تعيين الوقت والتاريخ' //_currentDate.toString()
-                                :_currentDate.toString(), //_invoice!.dateinstall_task.toString(),
+                                :DateFormat('yyyy-MM-dd').format(_currentDate),
+                            //_invoice!.dateinstall_task.toString(),
                             filled: true,
                             fillColor: Colors.grey.shade200,
                           ),

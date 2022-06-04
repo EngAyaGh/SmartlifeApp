@@ -58,7 +58,8 @@ appBar: AppBar(
                          buildcardExpansion('تاريخ فتح التذكرة  '+listticket_client[index].dateOpen,
                              listticket_client[index].nameEnterprise ,
                              TicketView(
-                           ticketModel: listticket_client[index],
+                               type:'1',
+                               ticketModel: listticket_client[index],
                            //idinvoice: listinvoice[index].idInvoice,
 
                          ))

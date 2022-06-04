@@ -119,6 +119,9 @@ class _ClientViewState extends State<ClientView> {
                 clientModel.offer_price!=null&&clientModel.offer_price.toString().trim().isNotEmpty?
                 cardRow( title:'تاريخ عرض السعر',value:clientModel.date_price.toString()):Container(),
 
+                clientModel.offer_price!=null&&clientModel.offer_price.toString().trim().isNotEmpty?
+                cardRow( title:'الموظف الذي قام بتغيير حالة العميل',value:clientModel.nameuserdoning.toString()):Container(),
+
                 cardRow( title:'الموظف',value:getnameshort(clientModel.nameUser.toString())),
                 cardRow( title:'رقم الموظف',value:clientModel.mobileuser.toString()),
                 clientModel.nameusertransfer!=null?

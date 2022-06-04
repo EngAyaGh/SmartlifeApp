@@ -26,6 +26,10 @@ class _ticketAddState extends State<ticketAdd> {
   final TextEditingController problem_desc = TextEditingController();
   //final TextEditingController notes = TextEditingController();
   final _globalKey = GlobalKey<FormState>();
+  late String name_enterprise;
+  late String name_regoin;
+  late String name_country;
+
   @override
   void dispose() {
     problem_desc.dispose();
@@ -95,6 +99,9 @@ class _ticketAddState extends State<ticketAdd> {
                                 onChanged: (data) {
                                   widget.fk_client = data!.idClients;
                                   cart.changevalueclient(data);
+                                  name_enterprise=data.nameEnterprise!;
+                                  name_regoin=data.name_regoin!;
+                                  name_country=data.nameCountry!;
                                   //filtershow();
                                 },
                                 selectedItem: cart.selectedclient,
@@ -195,6 +202,7 @@ class _ticketAddState extends State<ticketAdd> {
                                 if (widget.fk_client != null) {
                                   Provider.of<ticket_vm>(context, listen: false)
                                       .addticket({
+                                    'name_enterprise':name_enterprise,
                                     'fk_client': widget.fk_client.toString(),
                                     'type_problem': Provider.of<typeclient>(
                                             context,
@@ -211,7 +219,12 @@ class _ticketAddState extends State<ticketAdd> {
                                             .idUser
                                             .toString(),
                                     'date_open': DateTime.now().toString(),
-                                    'client_type': '0'
+                                    'client_type': '0',
+                                    'fk_regoin':'',
+                                    'fkcountry':'',
+                                    'nameUser':Provider.of<user_vm_provider>
+                                      (context,listen: false).currentUser!.nameUser.toString(),
+
                                   }).then((value) =>
                                               //value!="error"
                                               clear(context)
