@@ -24,7 +24,7 @@ class client_vm extends ChangeNotifier {
   List<ClientModel> listClientbyCurrentUser = [];
   List<ClientModel> listClientbyRegoin = [];
   List<ClientModel> listClientfilter = [];
-
+  List<ClientModel> listClientMarketing = [];
   // client_vm(UserModel? currentUser){
   //
   //   usercurrent=currentUser;
@@ -207,6 +207,7 @@ class client_vm extends ChangeNotifier {
     listClientAccept = listClient;
     notifyListeners();
   }
+
   Future<void> getclient_vm(
      // List<PrivilgeModel> privilgelist
       ) async {
@@ -254,6 +255,16 @@ class client_vm extends ChangeNotifier {
 
     return inv;
   }
+  Future<void> getclientMarketing() async {
+    //عملائي
+    listClientMarketing=[];
+    if(listClient.isNotEmpty){
+      listClient.forEach((element) {
+        if (element.ismarketing =='1' )
+          listClientMarketing.add(element);
+      } );
+    }}
+
   Future<void> getclientByIdUser_vm(List<ClientModel> list) async {
    //عملائي
     listClientbyCurrentUser=[];
@@ -404,6 +415,26 @@ else{
       //     });
       //   }
     }else getclient_vm();
+
+    notifyListeners();
+    //return clientlistsearch;
+  }
+  Future<void> searchmarket(
+      String productName) async {
+    List<ClientModel> clientlistsearch=[];
+    // code to convert the first character to uppercase
+    String searchKey =productName;//
+
+    if(productName.isNotEmpty ){
+      listClientMarketing.forEach((element) {
+        if(element.nameEnterprise!.contains(searchKey,0)
+            || element.nameClient!.contains(searchKey,0)
+            || element.mobile!.contains(searchKey,0) )
+          clientlistsearch.add(element);
+      });
+      listClientMarketing=clientlistsearch;
+
+    }else getclientMarketing();
 
     notifyListeners();
     //return clientlistsearch;

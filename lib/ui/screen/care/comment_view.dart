@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/ui/screen/care/card_comment.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/ui/widgets/widgetcalendar/utils.dart';
@@ -12,18 +13,21 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
 class commentView extends StatefulWidget {
-  commentView({required this.fk_client,required this.nameEnterprise, Key? key}) : super(key: key);
-  String fk_client;
-  String? nameEnterprise;
+  commentView({required this.client, Key? key}) : super(key: key);
+
+  ClientModel client;
   @override
   _commentViewState createState() => _commentViewState();
 }
 
 class _commentViewState extends State<commentView> {
   TextEditingController _comment = TextEditingController();
-
+  late String fk_client;
+  String? nameEnterprise;
   @override
   void initState() {
+    fk_client=widget.client.idClients.toString();
+    nameEnterprise=widget.client.nameEnterprise.toString();
     WidgetsBinding.instance!.addPostFrameCallback((_)async {
       // Provider.of<comment_vm>(context, listen: false)
       //     .getComment(widget.fk_client);
@@ -69,7 +73,9 @@ print('init in comment');
                               .currentUser!
                               .idUser
                               .toString(),
-                          'fk_client': widget.fk_client,
+                          'fk_client': fk_client,
+                          'fkuser_client':widget.client.fkUser.toString(),//صتحب العميل
+                          'nameUser':widget.client.nameUser.toString(),
                           'date_comment':
                           //Utils.toDateTime(
                               DateTime.now().toString(),
@@ -78,7 +84,7 @@ print('init in comment');
                               listen: false)
                               .currentUser!.nameUser,
                           'img_image':'',
-                          'name_enterprise':widget.nameEnterprise
+                          'name_enterprise':nameEnterprise
                         }, Provider.of<user_vm_provider>(context,
                             listen: false)
                             .currentUser!.img_image,);

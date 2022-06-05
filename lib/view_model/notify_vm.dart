@@ -49,8 +49,7 @@ class notifyvm extends ChangeNotifier {
     }
     listnotify=list;
     print(listnotify.length);
-    //notifyListeners();
-
+    notifyListeners();
   }
   Future<String> setRead_notify_vm() async {
     print('in setRead_notify_vm ');

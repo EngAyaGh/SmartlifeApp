@@ -24,14 +24,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
 import 'package:provider/provider.dart';
-class ClientWaiting extends StatefulWidget {
-  ClientWaiting({ required this.type_card, Key? key}) : super(key: key);
-  String type_card;
+class invoice_marketing extends StatefulWidget {
+  invoice_marketing({ Key? key}) : super(key: key);
+
   @override
-  _ClientWaitingState createState() => _ClientWaitingState();
+  _invoice_marketingState createState() => _invoice_marketingState();
 }
 
-class _ClientWaitingState extends State<ClientWaiting> {
+class _invoice_marketingState extends State<invoice_marketing> {
   String? regoin;
   String? typeclientvalue;
   late ClientModel itemClient;
@@ -52,8 +52,8 @@ class _ClientWaitingState extends State<ClientWaiting> {
       Provider.of<typeclient>(context,listen: false).changelisttype_install(null);
       Provider.of<regoin_vm>(context,listen: false).changeVal(null);
 
-    await  Provider.of<invoice_vm>(context, listen: false)
-            .getinvoice_Local("مشترك",'approved only',null);
+      Provider.of<invoice_vm>(context, listen: false)
+          .getinvoice_marketing();
 
     });
 
@@ -79,7 +79,6 @@ class _ClientWaitingState extends State<ClientWaiting> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            // privilge.checkprivlge('1') == true ? //regoin
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 8.0, right: 8),
@@ -110,32 +109,7 @@ class _ClientWaitingState extends State<ClientWaiting> {
                                   },
                                 ),
                               ),
-                            ),// : Container(),
-                            // Consumer<typeclient>(
-                            //     builder: (context, selectedProvider, child){
-                            //       return  GroupButton(
-                            //           controller: GroupButtonController(
-                            //             selectedIndex:selectedProvider.selectedinstall,
-                            //
-                            //           ),
-                            //           options: GroupButtonOptions(
-                            //               selectedColor: kMainColor,
-                            //
-                            //               buttonWidth: 110,
-                            //               borderRadius: BorderRadius.circular(10)),
-                            //           buttons: ['الكل','بالإنتظار','تم التركيب'],
-                            //           onSelected: (index,isselected){
-                            //             print(index);
-                            //             //setState(() {
-                            //             typepayController=index.toString();
-                            //             selectedProvider.changeinstall(index);
-                            //             filtershow();
-                            //             //});
-                            //           }
-                            //       );
-                            //     }
-                            //
-                            // ),
+                            ),
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 20.0,right: 8),
@@ -144,7 +118,6 @@ class _ClientWaitingState extends State<ClientWaiting> {
                                       return DropdownButton(
                                         isExpanded: true,
                                         hint: Text('الحالة'),
-                                        //hint: Text("حدد حالة العميل"),
                                         items: cart.listtype_install.map((level_one) {
                                           return DropdownMenuItem(
                                             child: Text(level_one), //label of item
@@ -153,7 +126,6 @@ class _ClientWaitingState extends State<ClientWaiting> {
                                         }).toList(),
                                         value:cart.selectedlisttype_install,
                                         onChanged:(value) {
-                                          //namemanage=value.toString();
                                           cart.changelisttype_install(value.toString());
                                           typeclientvalue=value.toString();
                                           print('filter state'+value.toString());
@@ -168,7 +140,7 @@ class _ClientWaitingState extends State<ClientWaiting> {
                           ],
                         ),
                         search_widget(
-                          'marketinvoice',
+                          'wait',
                           hintnamefilter,
                           // Provider
                           //     .of<invoice_vm>(context, listen: true)
@@ -188,7 +160,7 @@ class _ClientWaitingState extends State<ClientWaiting> {
                                   return value.isloading==true ?
                                   Center(
                                       child: CircularProgressIndicator()
-                                  ):value.listInvoicesAccept.length == 0?
+                                  ):value.listinvoicesMarketing.length == 0?
                                   Center(
                                       child: Text(messageNoData)
                                   ):Column(
@@ -196,25 +168,18 @@ class _ClientWaitingState extends State<ClientWaiting> {
                                       Expanded(
                                         child: ListView.builder(
                                             scrollDirection: Axis.vertical,
-                                            itemCount: value.listInvoicesAccept.length,
+                                            itemCount: value.listinvoicesMarketing.length,
                                             itemBuilder: (context, index) {
-                                              // itemClient=Provider.of<client_vm>(context,listen: false)
-                                              //     .listClient.firstWhere(
-                                              //         (element) => element.idClients==value.listInvoicesAccept[index].fkIdClient);
                                               return SingleChildScrollView(
-                                                  child: Padding(
+                                                child: Padding(
                                                     padding: const EdgeInsets.all(
                                                         2),
                                                     child:
-                                                    widget.type_card=='support'?cardWaiting(
-                                                      iteminvoice:
-                                                      value.listInvoicesAccept[index],
-                                                    ):   CardInvoiceClient(
-                                                      itemProd: value.listInvoicesAccept[index],
+                                                       CardInvoiceClient(
+                                                      itemProd: value.listinvoicesMarketing[index],
                                                       //itemClient :  itemClient,
-
                                                     )) ,
-                                                  );
+                                              );
                                             }),
                                       ),
                                     ],
@@ -223,8 +188,7 @@ class _ClientWaitingState extends State<ClientWaiting> {
                           ),
                         ),
                       ],
-                    )
-                ),
+                    )),
               ),
             );
           }),
@@ -234,24 +198,8 @@ class _ClientWaitingState extends State<ClientWaiting> {
   void filtershow(){
     print(regoin);
     print(typeclientvalue);
-    //    Provider.of<invoice_vm>(context,listen: false)
-    //       .getfilterinvoice(regoin);
-    // Provider.of<client_vm>(context,listen: false)
-    //     .getfilterview(regoin);
-    //  String filter='';
-    //  switch(typeclientvalue){
-    //    case '0':
-    //      filter='الكل';
-    //      break;
-    //    case '1':
-    //      filter='بالإنتظار';
-    //      break;
-    //    case '2':
-    //      filter='تم التركيب';
-    //      break;
-    //  }
-     Provider.of<invoice_vm>(context,listen: false)
-         .getclienttype_filter(typeclientvalue,regoin,'only');
+    Provider.of<invoice_vm>(context,listen: false)
+        .getclienttype_marketing(typeclientvalue,regoin,'only');
 
     // }
   }

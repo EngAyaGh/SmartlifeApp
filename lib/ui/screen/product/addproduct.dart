@@ -70,9 +70,11 @@ class _addProductState extends State<addProduct> {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       // idCountry = Provider.of<user_vm_provider>(context, listen: false).currentUser!.fkCountry;
       print("build add prod");
-
       Provider.of<config_vm>(context, listen: false).getAllConfig();
       print("build 2");
+      Provider.of<switch_provider>(
+          context,
+          listen: false).changeboolValue(false);
       //print(Provider.of<config_vm>(context, listen: false).listofconfig[0]);
     });
     super.initState();

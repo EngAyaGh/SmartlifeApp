@@ -100,6 +100,24 @@ void route_notifyto(typeNotify,context,
               )
           ));
       break;
+      case "AddComment":
+      Navigator.push(context,
+          MaterialPageRoute(
+              builder: (context) => ProfileClient(
+                //idinvoice: data==null?datanotify:  data['id_invoice'],
+                idclient: data==null?datanotify: data['idclient'],
+              )
+          ));
+      break;
+      case "OpenTicket":
+      Navigator.push(context,
+          MaterialPageRoute(
+              builder: (context) => ProfileClient(
+                //idinvoice: data==null?datanotify:  data['id_invoice'],
+                idclient: data==null?datanotify: data['idclient'],
+              )
+          ));
+      break;
   }
 
 }

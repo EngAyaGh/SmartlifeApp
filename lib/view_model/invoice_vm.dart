@@ -38,6 +38,7 @@ class invoice_vm extends ChangeNotifier{
   List<DeletedinvoiceModel> listdeleted=[];
   List<InvoiceModel> listinvoicebyregoin=[];
   List<InvoiceModel> listinvoices=[];
+  List<InvoiceModel> listinvoicesMarketing=[];
   List<InvoiceModel> listinvoicesApproved=[];
   List<InvoiceModel> listInvoicesAccept=[];//مشتركين
   //List<>
@@ -62,7 +63,7 @@ class invoice_vm extends ChangeNotifier{
      //else listInvoicesAccept=userall;
     notifyListeners();
   }
-  Future<void> searchwait(String productName) async {
+  Future<void> searchmarketing(String productName) async {
     List<InvoiceModel> _listInvoicesAccept=[];
     // code to convert the first character to uppercase
     String searchKey =productName;//
@@ -80,7 +81,36 @@ class invoice_vm extends ChangeNotifier{
     else getinvoice_Local("مشترك",'approved client',null);
     notifyListeners();
   }
+  Future<void> searchwait(String productName) async {
+    List<InvoiceModel> _listInvoicesAccept=[];
+    // code to convert the first character to uppercase
+    String searchKey =productName;//
+    if(productName.isNotEmpty){
+      if(listinvoicesMarketing.isNotEmpty ){
+        listinvoicesMarketing.forEach((element) {
+          if(element.name_enterprise!.contains(searchKey,0)
+              || element.mobile!.contains(searchKey,0)
+          ||element.nameClient!.contains(searchKey,0)
+          )
+            _listInvoicesAccept.add(element);
+        });
+        listinvoicesMarketing=_listInvoicesAccept;
+      }}
+    else getinvoice_marketing();//getinvoice_Local("مشترك",'approved client',null);
+    notifyListeners();
+  }
 
+  void getinvoice_marketing() {
+    listinvoicesMarketing=[];
+    isloading=true;
+    notifyListeners();
+        listinvoices.forEach((element) {
+          if( element.ismarketing=='1' && element.isApprove == "1")
+            listinvoicesMarketing.add(element);
+        });
+        isloading=false;
+    notifyListeners();
+  }
   void getfilterinvoice(String? regoin){
     listInvoicesAccept=[];
       if(regoin!=null){
@@ -164,6 +194,69 @@ class invoice_vm extends ChangeNotifier{
      listInvoicesAccept= _listInvoicesAccept;
     notifyListeners();
   }
+    Future<void> getclienttype_marketing(
+        String? filter,
+        String? regoin,String tyype) async {
+    getinvoice_marketing();
+    List<InvoiceModel> _listInvoicesAccept=[];
+    if(regoin==null){
+      print(filter);
+    if(listinvoicesMarketing.isNotEmpty){
+      if(filter=='الكل') {
+        _listInvoicesAccept = listinvoicesMarketing;
+        print('serch الكل');
+      }
+       if(filter=='بالإنتظار')
+         listinvoicesMarketing.forEach((element) {
+          print(element.isdoneinstall);
+        if( element.isdoneinstall==null) {
+          _listInvoicesAccept.add(element);
+          print('serch بالانتظار');
+
+        }
+      });
+      if(filter=='تم التركيب')
+        listinvoicesMarketing.forEach((element) {
+          if( element.isdoneinstall=='1') {
+            _listInvoicesAccept.add(element);
+            print('serch تم التركيب');
+
+          }
+        });
+    }}
+    else{
+      if(listinvoicesMarketing.isNotEmpty){
+        if(filter=='الكل')
+          listinvoicesMarketing.forEach((element) {
+            if(element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+              print('regoin الكل');
+
+            }
+          });
+
+        if(filter=='بالإنتظار')
+          listinvoicesMarketing.forEach((element) {
+            if( element.isdoneinstall.toString()==null
+                && element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+              print('regoin بالإنتظار');
+            }
+          });
+        if(filter=='تم التركيب')
+          listinvoicesMarketing.forEach((element) {
+            if( element.isdoneinstall=='1'&&element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+              print('regoin تم التركيب');
+
+            }
+          });
+      }
+    }
+    listinvoicesMarketing= _listInvoicesAccept;
+    notifyListeners();
+  }
+
   Future<void> getfilterview(String? regoin,String tyype)async{
     listInvoicesAccept=[];
     notifyListeners();

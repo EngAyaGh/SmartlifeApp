@@ -87,7 +87,7 @@ class _salesState extends State<sales> {
               Provider.of<privilge_vm>(context,listen: true)
                   .checkprivlge('19')==true?
               buildSelectCategory(
-                  colorbag: Colors.white,
+                  colorbag:   Colors.white,
                   colortitle: Colors.black,
                   colorarrow: Colors.black,
                   onTap: () {

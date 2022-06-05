@@ -24,7 +24,6 @@ class _supportpageState extends State<supportpage> {
 
     Future.delayed(Duration(milliseconds: 3)).then((_) async {
       Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
-
     });
     super.didChangeDependencies();
   }

@@ -123,6 +123,7 @@ appBar: AppBar(
                     ),
                     child:
                     ImageProfile(),
+
                   ),
             Form(
               key:_globalKey ,

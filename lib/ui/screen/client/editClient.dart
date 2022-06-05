@@ -1,6 +1,7 @@
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
+import 'package:crm_smart/provider/switch_provider.dart';
 import 'package:crm_smart/ui/screen/client/transfer_client.dart';
 import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
@@ -128,7 +129,9 @@ class _editclientState extends State<editclient> {
       //     ?widget.itemClient.dateChangetype.toString()
       //     :formatter.format(DateTime.now());
       //_currentDate=DateTime.parse(val);
-
+      Provider.of<switch_provider>(
+          context,
+          listen: false).changeboolValue(false);
     });
 
     super.initState();
@@ -185,7 +188,9 @@ void didChangeDependencies() {
           // typeclient_provider.selectedValuemanag == "منسحب"
           //     ? typeclient_provider.selectedValueOut
           //     :
-
+          "ismarketing":   Provider.of<switch_provider>(
+        context,
+        listen: false).isSwitched.toString(),
           "user_do": Provider
               .of<user_vm_provider>(context, listen: false)
               .currentUser!
@@ -328,7 +333,27 @@ void didChangeDependencies() {
                       SizedBox(
                         height: 15,
                       ),
-
+                      Center(
+                        child: Consumer<switch_provider>(
+                          builder: (context, isSwitched, child) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(marketlabel),
+                                Switch(
+                                    activeTrackColor:
+                                    kMainColor.withAlpha(90),
+                                    activeColor: kMainColor,
+                                    value: isSwitched.isSwitched,
+                                    onChanged: (value) {
+                                      //valtaxrate = value;
+                                      isSwitched.changeboolValue(value);
+                                    }),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
                       SizedBox(
                         height: 15,
                       ),

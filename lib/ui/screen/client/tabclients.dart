@@ -318,7 +318,8 @@ class _tabclientsState extends State<tabclients> {
                                           child:
                                           cardAllClient(
                                             clientModel:
-                                            value.listClientfilter[index] ,)
+                                            value.listClientfilter[index],
+                                          )
                                           //cardClientAccept(iteminvoice: null,)
                                           // cardClientnew(
                                           //     itemClient: value.listClientfilter[index],

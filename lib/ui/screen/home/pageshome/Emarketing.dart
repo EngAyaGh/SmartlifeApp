@@ -1,3 +1,5 @@
+import 'package:crm_smart/ui/screen/client/marketing/clientmarketing.dart';
+import 'package:crm_smart/ui/screen/client/marketing/invoice_marketing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -30,13 +32,31 @@ class marketingpage extends StatelessWidget {
               colortitle: Colors.black,
               colorarrow: Colors.black,
               onTap: () {
-
-          }, title: ''),
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context)=>
+                        clientmarketing()));
+          }, title: 'عملاء التسويق الإلكتروني'),
           buildSelectCategory(
               colorbag: Colors.white,
               colortitle: Colors.black,
               colorarrow: Colors.black,
-              onTap: () {  }, title: ''),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context)=>
+                        invoice_marketing()));
+              },
+              title: 'فواتير عملاء التسويق الإلكتروني'),
+          buildSelectCategory(
+              colorbag: Colors.white,
+              colortitle: Colors.black,
+              colorarrow: Colors.black,
+              onTap: () {
+                // Navigator.push(context, MaterialPageRoute(
+                //     builder: (context)=>
+                //         invoice_marketing()
+                // ));
+              },
+              title: 'تقرير التسويق الإلكتروني'),
 
         ],),
 

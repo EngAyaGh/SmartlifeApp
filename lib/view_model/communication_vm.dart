@@ -40,7 +40,108 @@ class communication_vm extends ChangeNotifier{
       });
     }
       notifyListeners();
-  } 
+  }
+  void getcommtype_filter(String? filter,String? regoin,String tyype)async{
+    // listInvoicesAccept=[];
+    await getCommunicationWelcome();
+    List<CommunicationModel> _listInvoicesAccept=[];
+    if(regoin==null){
+      print(filter);
+      if(listCommunicationWelcome.isNotEmpty){
+        if(filter=='الكل') {
+          _listInvoicesAccept = listCommunicationWelcome;
+          print('serch الكل');
+        }
+        if(filter=='تم الترحيب')
+          listCommunicationWelcome.forEach((element) {
+
+            if( element.dateCommunication!=null) {
+              _listInvoicesAccept.add(element);
+              print('serch بالانتظار');
+
+            }
+          });
+        if(filter=='لم يتم الترحيب')
+          listCommunicationWelcome.forEach((element) {
+            if( element.dateCommunication==null) {
+              _listInvoicesAccept.add(element);
+              print('serch تم التركيب');
+
+            }
+          });
+      }}
+    else{
+      if(listCommunicationWelcome.isNotEmpty){
+        if(filter=='الكل')
+          listCommunicationWelcome.forEach((element) {
+            if(element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+              print('regoin الكل');
+
+            }
+          });
+
+        if(filter=='تم الترحيب')
+          listCommunicationWelcome.forEach((element) {
+            if( element.dateCommunication!=null
+                && element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+              print('regoin بالإنتظار');
+            }
+          });
+        if(filter=='لم يتم الترحيب')
+          listCommunicationWelcome.forEach((element) {
+            if( element.dateCommunication==null
+                &&element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+              print('regoin تم التركيب');
+
+            }
+          });
+      }
+    }
+    listCommunicationWelcome= _listInvoicesAccept;
+    notifyListeners();
+  }
+  //searchwelcome
+  Future<void> searchwelcome(String productName,String type) async {
+    List<CommunicationModel> _listInvoicesAccept=[];
+    // code to convert the first character to uppercase
+    String searchKey =productName;//
+    switch(type){
+      case 'welcome':
+    if(productName.isNotEmpty){
+      if(listCommunicationWelcome.isNotEmpty ){
+        listCommunicationWelcome.forEach((element) {
+          if(element.nameEnterprise!.contains(searchKey,0)
+              || element.mobile!.contains(searchKey,0)
+              ||element.nameClient!.contains(searchKey,0)
+          )
+            _listInvoicesAccept.add(element);
+        });
+        listCommunicationWelcome=_listInvoicesAccept;
+      }}
+    else getCommunicationWelcome();
+    break;
+
+      case 'install':
+        if(productName.isNotEmpty){
+          if(listCommunicationInstall.isNotEmpty ){
+            listCommunicationInstall.forEach((element) {
+              if(element.nameEnterprise!.contains(searchKey,0)
+                  || element.mobile!.contains(searchKey,0)
+                  ||element.nameClient!.contains(searchKey,0)
+              )
+                _listInvoicesAccept.add(element);
+            });
+            listCommunicationInstall=_listInvoicesAccept;
+          }}
+        else getCommunicationInstall();
+        break;
+    }
+    //getinvoice_Local("مشترك",'approved client',null);
+    notifyListeners();
+  }
   void getCommunicationInstallednumber() {
 
     listinstallnumber=[];

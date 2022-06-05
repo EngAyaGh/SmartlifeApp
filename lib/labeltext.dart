@@ -13,6 +13,7 @@ const String  label_name_product="اسم المنتج";
 const String  label_name_price="سعر المنتج";
 const String  label_name_package="اسم الباقة ";
 const String label_turnVat="تفعيل الضريبة";
+const String marketlabel='عميل عن طريق التسويق الالكتروني';
 const String label_button_addProduct="إضافة منتج";
 ///////////label text product///////////
 const String label_errorAddProd="لقد حصل خطأ ما ";

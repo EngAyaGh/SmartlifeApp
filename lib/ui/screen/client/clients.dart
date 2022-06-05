@@ -193,9 +193,7 @@ class client_dashboard extends StatefulWidget {
                 //clientmodel: _clientModel,
               ),
               commentView(
-                  fk_client:_clientModel.idClients.toString(),
-                  nameEnterprise: _clientModel.nameEnterprise),
-              //Icon(Icons.add),
+                  client: _clientModel,),
             ],
           ),
         ),

@@ -198,8 +198,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
                 // clientmodel: _clientModel,
                 // ),
                 commentView(
-                    fk_client:_clientModel.idClients.toString(),
-                nameEnterprise: _clientModel.nameEnterprise),
+                    client:_clientModel ,),
                 support_view_invoices(
                   itemClient: _clientModel,
                 ),

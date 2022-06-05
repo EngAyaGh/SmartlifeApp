@@ -1,6 +1,7 @@
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/ui/screen/search/search_mv.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/communication_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -9,9 +10,11 @@ import 'package:provider/provider.dart';
 class search_widget extends StatelessWidget {
   search_widget(
       this.serch,
-      this.hint, {Key? key}) : super(key: key);
+      this.hint,
+      this.type,{Key? key}) : super(key: key);
   String hint='';
   String serch;
+  String? type;
   //List<dynamic> list;
   @override
   Widget build(BuildContext context) {
@@ -47,6 +50,10 @@ class search_widget extends StatelessWidget {
                     Provider.of<client_vm>(context,listen: false)
                         .searchProducts(pattern);
                     break;
+                    case 'clientmarketing':
+                    Provider.of<client_vm>(context,listen: false)
+                        .searchmarket(pattern);
+                    break;
                     case 'accept':
                     Provider.of<client_vm>(context,listen: false)
                         .searchclientAccept(pattern);
@@ -58,6 +65,14 @@ class search_widget extends StatelessWidget {
                   case 'user':
                     Provider.of<user_vm_provider>(context,listen: false)
                         .searchProducts(pattern);
+                    break;
+                    case 'marketinvoice':
+                    Provider.of<invoice_vm>(context,listen: false)
+                        .searchmarketing(pattern);
+                    break;
+                    case 'welcome':
+                    Provider.of<communication_vm>(context,listen: false)
+                        .searchwelcome(pattern,);
                     break;
                   // case 'invoice':
                   //   Provider.of<invoice_vm>(context,listen: false)
