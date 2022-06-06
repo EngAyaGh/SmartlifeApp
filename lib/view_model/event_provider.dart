@@ -1,6 +1,6 @@
 import 'package:crm_smart/model/calendar/event.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
-import 'package:dartz/dartz_unsafe.dart';
+// import 'package:dartz/dartz_unsafe.dart';
 import 'package:flutter/cupertino.dart';
 
 class EventProvider extends ChangeNotifier {

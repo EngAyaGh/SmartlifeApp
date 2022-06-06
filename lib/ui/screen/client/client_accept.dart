@@ -163,7 +163,7 @@ class _ClientAcceptState extends State<ClientAccept> {
                         ),
                         search_widget(
                           'accept',
-                          hintnamefilter,
+                          hintnamefilter,''
                           // Provider
                           //     .of<invoice_vm>(context, listen: true)
                           //     .listInvoicesAccept,

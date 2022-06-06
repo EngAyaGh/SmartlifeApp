@@ -174,7 +174,7 @@ class _care_page_viewState extends State<care_page_view> {
                         ),
                         search_widget(
                           'wait',
-                          hintnamefilter,
+                          hintnamefilter,''
                           // Provider
                           //     .of<invoice_vm>(context, listen: true)
                           //     .listInvoicesAccept,

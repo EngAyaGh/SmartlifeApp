@@ -169,7 +169,7 @@ class _ClientWaitingState extends State<ClientWaiting> {
                         ),
                         search_widget(
                           'marketinvoice',
-                          hintnamefilter,
+                          hintnamefilter,''
                           // Provider
                           //     .of<invoice_vm>(context, listen: true)
                           //     .listInvoicesAccept,

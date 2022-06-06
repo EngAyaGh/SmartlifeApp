@@ -288,7 +288,7 @@ class _clientmarketingState extends State<clientmarketing> {
                           SizedBox(height: 2,),
                           search_widget(
                             'clientmarketing',
-                            hintnamefilter,
+                            hintnamefilter,''
                           ),
                           SizedBox(
                             height: 5,

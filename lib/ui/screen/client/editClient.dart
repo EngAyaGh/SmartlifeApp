@@ -48,7 +48,7 @@ class _editclientState extends State<editclient> {
   final TextEditingController descresaonController = TextEditingController();
   late typeclient typeclient_provider;
   late final UserModel currentUser;
-  late String? namemanage;
+  late String? namemanage='';
   @override void dispose() {
     nameclientController.dispose();
     nameEnterpriseController.dispose();
@@ -78,7 +78,6 @@ class _editclientState extends State<editclient> {
     //////////////////////////////////////////////////////////
 
 
-
     ////////////////////////////////////////
     //print( typeclient_provider.selectedValuemanag);
     offerpriceController.text=widget.itemClient.offer_price==null
@@ -96,6 +95,10 @@ class _editclientState extends State<editclient> {
 
     WidgetsBinding.instance!.addPostFrameCallback((_){
       // Add Your Code here.
+      bool ism=widget.itemClient.ismarketing=='1'?true:false;
+      Provider.of<switch_provider>(
+          context,
+          listen: false).changeboolValue(ism);
       typeclient_provider=Provider.of<typeclient>(context,listen: false);
       typeclient_provider.type_of_client =
       // widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
@@ -129,9 +132,9 @@ class _editclientState extends State<editclient> {
       //     ?widget.itemClient.dateChangetype.toString()
       //     :formatter.format(DateTime.now());
       //_currentDate=DateTime.parse(val);
-      Provider.of<switch_provider>(
-          context,
-          listen: false).changeboolValue(false);
+      // Provider.of<switch_provider>(
+      //     context,
+      //     listen: false).changeboolValue(false);
     });
 
     super.initState();
@@ -161,6 +164,10 @@ void didChangeDependencies() {
         _globalKey.currentState!.save();
         Provider.of<LoadProvider>(context, listen: false)
             .changebooladdclient(true);
+        String ismarket= Provider.of<switch_provider>(
+            context,
+            listen: false).isSwitched==true?'1':'0';
+        print(ismarket);
         Map<String,dynamic> body={};
         if(typeclient_provider.selectedValuemanag == "عرض سعر")
         body={"date_price": formatter.format(DateTime.now()), };
@@ -188,9 +195,7 @@ void didChangeDependencies() {
           // typeclient_provider.selectedValuemanag == "منسحب"
           //     ? typeclient_provider.selectedValueOut
           //     :
-          "ismarketing":   Provider.of<switch_provider>(
-        context,
-        listen: false).isSwitched.toString(),
+          "ismarketing":  ismarket,
           "user_do": Provider
               .of<user_vm_provider>(context, listen: false)
               .currentUser!
@@ -339,16 +344,20 @@ void didChangeDependencies() {
                             return Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(marketlabel),
                                 Switch(
                                     activeTrackColor:
                                     kMainColor.withAlpha(90),
                                     activeColor: kMainColor,
                                     value: isSwitched.isSwitched,
                                     onChanged: (value) {
+                                      print(value);
+                                      print(value.toString());
+
                                       //valtaxrate = value;
                                       isSwitched.changeboolValue(value);
                                     }),
+                                Text(marketlabel),
+
                               ],
                             );
                           },

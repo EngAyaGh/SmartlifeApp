@@ -100,7 +100,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kMainColor,
-        title:Text(getnameshort(_clientModel.nameEnterprise.toString()),
+        title:Text(getnamelong(_clientModel.nameEnterprise.toString()),
         style: TextStyle(color: kWhiteColor,fontFamily: kfontfamily2),) ,
         centerTitle: true,
         bottom: TabBar(

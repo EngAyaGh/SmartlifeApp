@@ -125,10 +125,7 @@ class _ApprovePageState extends State<ApprovePage> {
                 ),
                 search_widget(
                   'wait',
-                  hintnamefilter,
-                  // Provider
-                  //     .of<invoice_vm>(context, listen: true)
-                  //     .listInvoicesAccept,
+                  hintnamefilter,''
                 ),
                 Container(
                   height: MediaQuery

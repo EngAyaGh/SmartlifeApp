@@ -129,9 +129,9 @@ class _ClientViewState extends State<ClientView> {
                 clientModel.nameusertransfer!=null?
                 cardRow( title:'تاريخ التحويل',value:clientModel.dateTransfer.toString()):Container(),
                 cardRow( title:' الموقع',value:clientModel.location.toString()),
-                clientModel.ismarketing!='0'?
+                clientModel.ismarketing=='1' ?
                 cardRow( title:' عميل تسويق الكتروني',
-                value:clientModel.ismarketing=='0'?'نعم':''):Container(),
+                value:clientModel.ismarketing=='1'?'نعم':''):Container(),
 
                 Center(
                 child: Row(

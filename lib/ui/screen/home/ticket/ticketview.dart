@@ -28,7 +28,7 @@ class _TicketViewState extends State<TicketView> {
   @override
   Widget build(BuildContext context) {
     return  Padding(
-        padding: const EdgeInsets.only(top: 10,bottom: 4,left: 10,right: 10),
+        padding: const EdgeInsets.only(top: 10,bottom: 10,left: 10,right: 10),
         // child:
         // ContainerShadows (
         //   margin: EdgeInsets.all(2),

@@ -153,10 +153,8 @@ class _support_viewState extends State<support_view> {
                     ),
                       search_widget(
                         'invoice',
-                        hintnamefilter,
-                        // Provider
-                        //     .of<invoice_vm>(context, listen: true)
-                        //     .listInvoicesAccept,
+                        hintnamefilter,''
+
                       ),
                       SizedBox(height: 5,),
                       Container(

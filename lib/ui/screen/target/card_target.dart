@@ -9,12 +9,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as rt;
 import 'package:intl/intl.dart';
-import 'package:month_year_picker/month_year_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+// import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'dart:ui' as myui;
 import 'buildCardTarget.dart';
 
@@ -67,7 +66,7 @@ class _CardTagetState extends State<CardTaget> {
     //       DateTime.now().subtract(const Duration(days: 4)),
     //       DateTime.now().add(const Duration(days: 3))),
     // );
-    YearPicker(
+    await YearPicker(
     firstDate: DateTime(DateTime.now().year - 100, 1),
     lastDate: DateTime(DateTime.now().year + 100, 1),
     initialDate: DateTime.now(),
@@ -135,7 +134,7 @@ class _CardTagetState extends State<CardTaget> {
               'datefrom':'2020/2/1',
               'dateto':'2023/9/9'
             });
-        }, child: Text('test'),
+        }, child: Text('test from to'),
         ),
             ElevatedButton(
         style: ButtonStyle(
@@ -168,7 +167,7 @@ class _CardTagetState extends State<CardTaget> {
               'd4':d4.toString(),
               'd44':d44.toString(),
             });
-        }, child: Text('test'),
+        }, child: Text('test Q'),
         ),
             Directionality(
               textDirection: myui.TextDirection.rtl,

@@ -114,7 +114,7 @@ class _OutClientState extends State<OutClient> {
                         ),
                         search_widget(
                           'wait',
-                          hintnamefilter,
+                          hintnamefilter,''
                           // Provider
                           //     .of<invoice_vm>(context, listen: true)
                           //     .listInvoicesAccept,

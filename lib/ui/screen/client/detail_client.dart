@@ -1,7 +1,7 @@
 import 'package:crm_smart/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 class Detail_Client extends StatelessWidget {
   const Detail_Client({Key? key}) : super(key: key);

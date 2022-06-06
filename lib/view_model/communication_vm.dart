@@ -104,7 +104,7 @@ class communication_vm extends ChangeNotifier{
     notifyListeners();
   }
   //searchwelcome
-  Future<void> searchwelcome(String productName,String type) async {
+  Future<void> searchwelcome(String productName,String? type) async {
     List<CommunicationModel> _listInvoicesAccept=[];
     // code to convert the first character to uppercase
     String searchKey =productName;//
@@ -113,7 +113,7 @@ class communication_vm extends ChangeNotifier{
     if(productName.isNotEmpty){
       if(listCommunicationWelcome.isNotEmpty ){
         listCommunicationWelcome.forEach((element) {
-          if(element.nameEnterprise!.contains(searchKey,0)
+          if(element.nameEnterprise.contains(searchKey,0)
               || element.mobile!.contains(searchKey,0)
               ||element.nameClient!.contains(searchKey,0)
           )
@@ -128,7 +128,7 @@ class communication_vm extends ChangeNotifier{
         if(productName.isNotEmpty){
           if(listCommunicationInstall.isNotEmpty ){
             listCommunicationInstall.forEach((element) {
-              if(element.nameEnterprise!.contains(searchKey,0)
+              if(element.nameEnterprise.contains(searchKey,0)
                   || element.mobile!.contains(searchKey,0)
                   ||element.nameClient!.contains(searchKey,0)
               )

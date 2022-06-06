@@ -72,7 +72,7 @@ class search_widget extends StatelessWidget {
                     break;
                     case 'welcome':
                     Provider.of<communication_vm>(context,listen: false)
-                        .searchwelcome(pattern,);
+                        .searchwelcome(pattern,type);
                     break;
                   // case 'invoice':
                   //   Provider.of<invoice_vm>(context,listen: false)

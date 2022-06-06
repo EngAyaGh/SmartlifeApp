@@ -288,7 +288,7 @@ class _tabclientsState extends State<tabclients> {
                       SizedBox(height: 2,),
                       search_widget(
                         'client',
-                        hintnamefilter,
+                        hintnamefilter,''
                       ),
                       SizedBox(
                         height: 5,

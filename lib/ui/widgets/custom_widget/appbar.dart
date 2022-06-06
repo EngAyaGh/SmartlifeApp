@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
-import 'package:google_fonts/google_fonts.dart';
 class customAppbar extends StatelessWidget implements PreferredSizeWidget{
    customAppbar({this.leading, Key? key}) : super(key: key);
    Widget? leading;

@@ -51,7 +51,8 @@ class _EditProductState extends State<EditProduct> {
 
 
     print(widget.productModel.fkConfig);
-    valtaxrate=widget.productModel.fkConfig==null||widget.productModel.fkConfig=="null"?false:true;
+    valtaxrate=widget.productModel.fkConfig==null
+        ||widget.productModel.fkConfig=="null"?false:true;
     print(valtaxrate);
     print(valtaxrate);
 

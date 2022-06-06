@@ -72,7 +72,7 @@ class _ApprovePageState extends State<AcceptPage> {
                 children: [
                    search_widget(
                      'client',
-                     "المؤسسة....",),
+                     "المؤسسة....",''),
                  SizedBox(height: 5,),
                   Container(
                     height: MediaQuery.of(context).size.height*0.8,

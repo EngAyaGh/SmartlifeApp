@@ -176,7 +176,8 @@ Future<void> getticket() async {
 
   }
   listticket=prodlist;
-  tickesearchlist=listticket;
+  gettypeticket_filter('2');
+  // tickesearchlist=listticket;
   isloading=false;
   notifyListeners();
 

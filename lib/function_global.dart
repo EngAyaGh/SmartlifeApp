@@ -19,6 +19,12 @@ String getnameshort(String name){
   '..'+ name.substring(0, 15).toString():
   name.toString();
   return nameshort;
+}String getnamelong(String name){
+
+  String nameshort=name.length>30?
+  '..'+ name.substring(0, 30).toString():
+  name.toString();
+  return nameshort;
 }
 String get_title_care(String type ){
   switch(type){

@@ -122,7 +122,8 @@ class _privilge_pageState extends State<privilge_page> {
                    onChanged: (bool? value) {
                      setState(() {
                        print(value);
-                       value ==true? element.isCheck="1": element.isCheck="0";
+                       value ==true?
+                       element.isCheck="1": element.isCheck="0";
                        //values[key] = value;
                      });
                     },
