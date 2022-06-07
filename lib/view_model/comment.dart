@@ -40,7 +40,7 @@ bool isloadadd=false;
     if (res!="error") {
       body.addAll({
         'id_comment':res,
-        'date_comment':Utils.toDateTime(DateTime.now()),//formatter.format(DateTime.now())
+        'date_comment':DateTime.now().toString(),//formatter.format(DateTime.now())
       });
       //listComments=[];
       listComments.insert(0,CommentModel.fromJson(body));

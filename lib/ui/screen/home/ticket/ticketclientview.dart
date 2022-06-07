@@ -25,9 +25,13 @@ class _ticketclientviewState extends State<ticketclientview> {
   late String typepayController;
 
   @override void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_){
-      Provider.of<ticket_vm>(context, listen: false)
+    WidgetsBinding.instance!.addPostFrameCallback((_)async{
+      await Provider.of<ticket_vm>(context, listen: false)
         .getticket();
+      Provider.of<ticket_vm>(context,listen: false).changeticket(2);
+      Provider.of<ticket_vm>(context,listen: false).
+      gettypeticket_filter('2');
+
     });
     super.initState();
   }
@@ -91,11 +95,11 @@ class _ticketclientviewState extends State<ticketclientview> {
               ),
               SizedBox(height: 2,),
               Container(
-                height: MediaQuery.of(context).size.height*0.75,
+                height: MediaQuery.of(context).size.height*0.8,
                 child: Padding(
                   padding: const EdgeInsets.only(
                       left: 8,right: 8,
-                      top:8.0,bottom: 25),
+                      top:8.0,bottom: 80),
                   child:
                   Consumer<ticket_vm>(builder: (context, value, child) {
                     return

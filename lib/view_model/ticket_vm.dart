@@ -30,9 +30,12 @@ class ticket_vm extends ChangeNotifier{
     notifyListeners();
   }
    bool addvalue=false;
-  Future<void> addticket(Map<String, dynamic?> body)async {
+  Future<bool> addticket(Map<String, dynamic?> body,String client)async {
     addvalue=true;
     notifyListeners();
+  bool isav=  await getclient_ticket_close(client);
+  print(isav);
+  if(isav){
     var data= await Api()
         .post( url:url+"ticket/add_ticket.php",body:
     body
@@ -43,6 +46,11 @@ class ticket_vm extends ChangeNotifier{
     tickesearchlist=listticket;
     listticket_clientfilter=listticket;
     notifyListeners();
+
+  }
+    addvalue=false;
+  notifyListeners();
+    return isav;
   }
   Future<void> searchProducts(
       String productName) async {
@@ -76,8 +84,9 @@ class ticket_vm extends ChangeNotifier{
             (element) => element.idTicket==id_ticket);
 
     listticket[index]=TicketModel.fromJson(data[0]);
-    tickesearchlist=listticket;
-
+    index=tickesearchlist.indexWhere(
+            (element) => element.idTicket==id_ticket);
+    tickesearchlist.removeAt(index);
     notifyListeners();
 
     return true;
@@ -116,6 +125,23 @@ class ticket_vm extends ChangeNotifier{
    notifyListeners();
 }
 
+  Future<bool> getclient_ticket_close(String client)async{
+    await getticket();
+
+    bool isavl=true;
+      listticket.forEach((element) {
+        if(element.fkClient==client)
+          {
+            if(element.typeTicket=='جديدة' ||
+                element.typeTicket=='قيد التنفيذ')
+              isavl=false;
+              //return false;
+          }
+      });
+
+    //notifyListeners();
+    return isavl;
+  }
  Future<void> getclientticket_filter(String filter)async{
   await getticket();
   if(listticket.isNotEmpty){
@@ -176,7 +202,7 @@ Future<void> getticket() async {
 
   }
   listticket=prodlist;
-  gettypeticket_filter('2');
+
   // tickesearchlist=listticket;
   isloading=false;
   notifyListeners();

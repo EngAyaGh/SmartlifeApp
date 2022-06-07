@@ -36,6 +36,11 @@ class user_vm_provider extends ChangeNotifier{
     listuserfilter=userall;
     notifyListeners();
   }
+  void setpath(String path){
+    currentUser!.path=path;
+    notifyListeners();
+
+  }
   Future<void> updateuser_vm(Map<String, String?> body,String? iduser,File? file) async {
     isupdate=true;
     notifyListeners();

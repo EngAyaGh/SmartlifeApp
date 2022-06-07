@@ -88,7 +88,8 @@ class cardcomment extends StatelessWidget {
                                   fontSize: 7,
                                   fontWeight: FontWeight.normal,
                                   textstring: Utils.toDateTime(
-                                     DateTime.parse(commentmodel.date_comment)),
+                                     DateTime.parse(
+                                         commentmodel.date_comment.toString())),
                                   underline: TextDecoration.none,
                                 ),
                               ],

@@ -7,7 +7,8 @@ import 'package:flutter/cupertino.dart';
 class typeclient extends ChangeNotifier{
   List<String> type_of_client=[];
   List<String> type_of_welcome=['الكل','تم الترحيب','لم يتم الترحيب'];
-  List<String> type_of_install_iso=['الكل','تم التأكد من جودة التركيب','لم يتم التأكد من جودة التركيب'];
+  List<String> type_of_install_iso=['الكل','تم التأكد من جودة التركيب',
+    'لم يتم التأكد من جودة التركيب'];
   List<String> type_of_client_filter=['الكل','مشترك','تفاوض','عرض سعر','مستبعد','منسحب'];
  // List<String> type_of_client=['تفاوض','عرض سعر','مستبعد','منسحب'];
   List<ReasonModel> type_of_out=[]; //أسباب الانسحاب

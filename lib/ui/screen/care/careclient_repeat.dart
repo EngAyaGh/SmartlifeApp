@@ -37,8 +37,10 @@ class _careRepeatState extends State<careRepeat> {
     WidgetsBinding.instance!.addPostFrameCallback((_)async {
       Provider.of<comment_vm>(context, listen: false)
           .getComment(widget.idclient.idClients.toString());
+
+
       Provider.of<communication_vm>(context, listen: false)
-          .getCommunicationclient(widget.idclient.idClients.toString());
+          .getCommunicationclientrepeat(widget.idclient.idClients.toString());
 
     });
     super.initState();
@@ -85,14 +87,17 @@ class _careRepeatState extends State<careRepeat> {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context)=>
                                 careAdd(
-                                  com: listCommunication[0],                              )));
+                                  com:
+                                  listCommunication.firstWhere  (
+                                          (element) => element.fkUser==null
+                                         ,orElse: ()=>listCommunication[0]),                              )));
                         },
-                      child: Text(' خدمة العميل ',)) ,
+                      child: Text(' خدمة العميل ',)),
                 ],
               ),
               SizedBox(height: 10,),
               for(int i=0;i<listCommunication.length;i++)
-                if(listCommunication[i].typeCommuncation=='دوري')
+                if(listCommunication[i].typeCommuncation=='دوري'&&listCommunication[i].fkUser!=null)
                   commview(listCommunication[i]) ,
 
               SizedBox(height: 10,),

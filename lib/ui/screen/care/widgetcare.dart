@@ -2,13 +2,18 @@ import 'package:crm_smart/model/communication_modle.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/RowWidget.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/card_expansion.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../function_global.dart';
 
 Widget commview(CommunicationModel element) {
   if(element.idCommunication!=''){
+    String? dateinvoice=element.date_create;
+    String val=dateinvoice!=null? '(فاتورة ${dateinvoice})':'';
     return buildcardExpansion(
-        get_title_care(element.typeCommuncation.toString())+'(فاتورة ${element.date_create})', '',
+
+        get_title_care(element.typeCommuncation.toString())+val, '',
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -32,7 +37,21 @@ Widget commview(CommunicationModel element) {
               element.typeCommuncation=='دوري'?
               cardRow(title:'تاريخ التقييم' ,value: element.dateCommunication.toString(),):Container(),
               element.typeCommuncation=='دوري'?
-              cardRow(title:'مستوى التقييم' ,value: element.rate.toString(),):Container(),
+              Row(children: [
+                Text('مستوى التقييم'),
+                RatingBar.builder(
+                  initialRating:double.parse(element.rate.toString()),
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ), onRatingUpdate: (double value) {  },
+                ),
+              ],):Container(),
 
 
             ],

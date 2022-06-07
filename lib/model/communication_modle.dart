@@ -34,7 +34,7 @@ class CommunicationModel {
   late final String? dateNext;
   late final String nameEnterprise;
   late final String? nameUser;
-  late final String id_invoice;
+  late final String? id_invoice;
   late final String? date_create;
   late final String? date_approve;
   late final String? dateinstall_done;

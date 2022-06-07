@@ -167,7 +167,9 @@ void didChangeDependencies() {
         String ismarket= Provider.of<switch_provider>(
             context,
             listen: false).isSwitched==true?'1':'0';
+
         print(ismarket);
+
         Map<String,dynamic> body={};
         if(typeclient_provider.selectedValuemanag == "عرض سعر")
         body={"date_price": formatter.format(DateTime.now()), };

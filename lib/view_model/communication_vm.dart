@@ -41,6 +41,19 @@ class communication_vm extends ChangeNotifier{
     }
       notifyListeners();
   }
+  void getCommunicationclientrepeat(String fk_client) {
+    listCommunicationClient=[];
+    notifyListeners();
+    if(listCommunication.isNotEmpty){
+      listCommunication.forEach((element) {
+        if(element.fkClient==fk_client && element.typeCommuncation=='دوري'
+            //&&element.fkUser==null
+        )
+          listCommunicationClient.add(element);
+      });
+    }
+      notifyListeners();
+  }
   void getcommtype_filter(String? filter,String? regoin,String tyype)async{
     // listInvoicesAccept=[];
     await getCommunicationWelcome();
@@ -101,6 +114,68 @@ class communication_vm extends ChangeNotifier{
       }
     }
     listCommunicationWelcome= _listInvoicesAccept;
+    notifyListeners();
+  }
+  void getinstalltype_filter(String? filter,String? regoin,String tyype)async{
+    // listInvoicesAccept=[];
+    await getCommunicationInstall();
+    List<CommunicationModel> _listInvoicesAccept=[];
+    if(regoin==null){
+      print(filter);
+      if(listCommunicationInstall.isNotEmpty){
+        if(filter=='الكل') {
+          _listInvoicesAccept = listCommunicationInstall;
+          print('serch الكل');
+        }
+        if(filter=='تم التأكد من جودة التركيب')
+          listCommunicationInstall.forEach((element) {
+
+            if( element.dateCommunication!=null) {
+              _listInvoicesAccept.add(element);
+              print('serch بالانتظار');
+
+            }
+          });
+        if(filter=='لم يتم التأكد من جودة التركيب')
+          listCommunicationInstall.forEach((element) {
+            if( element.dateCommunication==null) {
+              _listInvoicesAccept.add(element);
+              print('serch لم يتم التأكد ');
+
+            }
+          });
+      }}
+    else{
+      if(listCommunicationInstall.isNotEmpty){
+        if(filter=='الكل')
+          listCommunicationInstall.forEach((element) {
+            if(element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+              print('regoin الكل');
+
+            }
+          });
+
+        if(filter=='تم التأكد من جودة التركيب')
+          listCommunicationInstall.forEach((element) {
+            if( element.dateCommunication!=null
+                && element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+              print('regoin بالإنتظار');
+            }
+          });
+        if(filter=='لم يتم التأكد من جودة التركيب')
+          listCommunicationInstall.forEach((element) {
+            if( element.dateCommunication==null
+                &&element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+              print('regoin لم يتم التأكد ');
+
+            }
+          });
+      }
+    }
+    listCommunicationInstall= _listInvoicesAccept;
     notifyListeners();
   }
   //searchwelcome
@@ -197,7 +272,6 @@ class communication_vm extends ChangeNotifier{
     }
     getCommunicationwelcomenumber();
     isloading=false;
-
     notifyListeners();
   }
   //addcommuncation
@@ -216,7 +290,11 @@ class communication_vm extends ChangeNotifier{
     getCommunicationInstall();
     if(listCommunication[index].typeCommuncation=='ترحيب')
       getCommunicationWelcome();
-    //notifyListeners();
+    if(listCommunication[index].typeCommuncation=='دوري'){
+     index= listCommunicationClient.indexWhere((element) =>
+    element.idCommunication==id_communication);
+    listCommunicationClient[index]=data;
+    notifyListeners();}
     return data;
   }
   Future<void> getCommunicationall()async {

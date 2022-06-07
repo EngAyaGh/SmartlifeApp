@@ -40,6 +40,7 @@ class _ticketAddState extends State<ticketAdd> {
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       Provider.of<client_vm>(context,listen: false).getclient_Local('مشترك');
+      Provider.of<client_vm>(context,listen: false).changevalueclient(null);
     });
     super.initState();
   }
@@ -200,45 +201,60 @@ class _ticketAddState extends State<ticketAdd> {
                               if (_globalKey.currentState!.validate()) {
                                 _globalKey.currentState!.save();
                                 if (widget.fk_client != null) {
-                                  Provider.of<ticket_vm>(context, listen: false)
+
+
+                                // await  Provider.of<ticket_vm>(context,listen: false)
+                                //   .getclient_ticket_close(widget.fk_client.toString());
+
+                                  bool isav= await Provider.of<ticket_vm>(context, listen: false)
                                       .addticket({
-                                    'name_enterprise':name_enterprise,
+                                    'name_enterprise': name_enterprise,
                                     'fk_client': widget.fk_client.toString(),
-                                    'type_problem': Provider.of<typeclient>(
-                                            context,
-                                            listen: false)
+                                    'type_problem': Provider
+                                        .of<typeclient>(
+                                        context,
+                                        listen: false)
                                         .selectedValueOut
                                         .toString(),
                                     'details_problem': problem_desc.text,
                                     //'notes_ticket': notes.text,
                                     'type_ticket': 'جديدة',
                                     'fk_user_open':
-                                        Provider.of<user_vm_provider>(context,
-                                                listen: false)
-                                            .currentUser!
-                                            .idUser
-                                            .toString(),
+                                    Provider
+                                        .of<user_vm_provider>(context,
+                                        listen: false)
+                                        .currentUser!
+                                        .idUser
+                                        .toString(),
                                     'date_open': DateTime.now().toString(),
                                     'client_type': '0',
-                                    'fk_regoin':'',
-                                    'fkcountry':'',
-                                    'nameUser':Provider.of<user_vm_provider>
-                                      (context,listen: false).currentUser!.nameUser.toString(),
+                                    'fk_regoin': '',
+                                    'fkcountry': '',
+                                    'nameUser': Provider
+                                        .of<user_vm_provider>
+                                      (context, listen: false)
+                                        .currentUser!
+                                        .nameUser
+                                        .toString(),
 
-                                  }).then((value) =>
-                                              //value!="error"
-                                              clear(context)
-                                          // : error(context)
-                                          );
+                                  },widget.fk_client.toString()
+                                    // : error(context)
+                                  );
+                                  if(isav) {clear(context);}else{
+                                  _scaffoldKey.currentState!.showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                           'لا يمكن فتح تذكرة لعميل لديه تذكرة غير مغلقة')));
+                                }
                                 } else {
                                   _scaffoldKey.currentState!.showSnackBar(
                                       SnackBar(
                                           content: Text(
                                               'من فضلك تأكد من عملية الإدخال')));
-                                }
-                              }
+
+                              }}}
                               //child: Text(" حفظ"),
-                            }),
+                            ),
                       ],
                     ),
                   ),

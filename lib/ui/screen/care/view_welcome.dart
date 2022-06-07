@@ -27,7 +27,7 @@ class _View_welcomeClientState extends State<View_welcomeClient> {
   String? typeclientvalue;
   @override void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_)async {
-      Provider.of<typeclient>(context,listen: false).changelisttype_welcome(null);
+      Provider.of<typeclient>(context,listen: false).changelisttype_welcome('الكل');
       Provider.of<regoin_vm>(context,listen: false).changeVal(null);
       Provider.of<communication_vm>(context, listen: false)
           .getCommunicationWelcome();
@@ -51,7 +51,8 @@ class _View_welcomeClientState extends State<View_welcomeClient> {
           style: TextStyle(color: kWhiteColor, fontFamily: kfontfamily2),
         ),
       ),
-      body:isload==true?
+      body:
+      isload==true?
       Center(
           child: CircularProgressIndicator()):
       listCommunicationwelcome.length==0?
@@ -183,9 +184,6 @@ class _View_welcomeClientState extends State<View_welcomeClient> {
                                     scrollDirection: Axis.vertical,
                                     itemCount: value.listCommunicationWelcome.length,
                                     itemBuilder: (context, index) {
-                                      // itemClient=Provider.of<client_vm>(context,listen: false)
-                                      //     .listClient.firstWhere(
-                                      //         (element) => element.idClients==value.listInvoicesAccept[index].fkIdClient);
                                       return SingleChildScrollView(
                                         child: Container(
                                                   child:
@@ -203,18 +201,18 @@ class _View_welcomeClientState extends State<View_welcomeClient> {
                                                                         (
                                                                         context) =>
                                                                         installAdd(
-                                                                          com: listCommunicationwelcome[index],
+                                                                          com: value.listCommunicationWelcome[index],
                                                                         )));
                                                           },
                                                           title: Text(
-                                                            listCommunicationwelcome[index].nameEnterprise
+                                                            value.listCommunicationWelcome[index].nameEnterprise
                                                                 .toString(),
                                                             style: TextStyle(
                                                                 fontFamily: kfontfamily2
                                                             ),),
                                                           // leading:
                                                           trailing: Text(
-                                                            listCommunicationwelcome[index]
+                                                           value.listCommunicationWelcome[index]
                                                                 .date_approve
                                                                 .toString(),
                                                             style: TextStyle(

@@ -17,6 +17,7 @@ import 'package:crm_smart/ui/widgets/client_widget/clientCardNew.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/separatorLine.dart';
 import 'package:crm_smart/ui/widgets/invoice_widget/Card_invoice_client.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/communication_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
@@ -48,6 +49,8 @@ class _care_page_viewState extends State<care_page_view> {
       // await   Provider.of<invoice_vm>(context, listen: false).getinvoices();
       // Add Your Code here.
       // only
+      await  Provider.of<communication_vm>(context, listen: false)
+          .getCommunicationall();
       await Provider.of<privilge_vm>(context,listen: false)
           .getprivlg_usercurrent();
       List<PrivilgeModel> list=
@@ -60,6 +63,8 @@ class _care_page_viewState extends State<care_page_view> {
       //   .getallclient();
       Provider.of<client_vm>(context, listen: false)
           . getclient_Local('مشترك');
+
+
     });
 
     super.initState();

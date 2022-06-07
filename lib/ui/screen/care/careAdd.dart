@@ -1,4 +1,6 @@
 import 'package:crm_smart/model/communication_modle.dart';
+import 'package:crm_smart/model/configmodel.dart';
+import 'package:crm_smart/provider/config_vm.dart';
 import 'package:crm_smart/ui/screen/client/profileclient.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/RowWidget.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
@@ -13,7 +15,7 @@ import 'package:group_button/group_button.dart';
 
 import '../../../constants.dart';
 import 'package:provider/provider.dart';
-
+import 'package:jiffy/jiffy.dart';
 import 'card_comment.dart';
 
 class careAdd extends StatefulWidget {
@@ -28,11 +30,15 @@ class _careAddState extends State<careAdd> {
   String? typepayController='0';
   bool numberwrong=false;
   bool repeat=false;
-  double rate=0;
+  double rate=1.0;
+  late ConfigModel peroid;
   @override void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_)async {
       Provider.of<comment_vm>(context, listen: false)
           .getComment(widget.com.fkClient);
+      //period_commincation3
+
+
     });
     super.initState();
   }
@@ -93,7 +99,7 @@ class _careAddState extends State<careAdd> {
                 children: [
                 Text('التقييم 1/5'),
           RatingBar.builder(
-            initialRating: 3,
+            initialRating: 1,
             minRating: 1,
             direction: Axis.horizontal,
             allowHalfRating: true,
@@ -107,6 +113,7 @@ class _careAddState extends State<careAdd> {
               print(rating);
               setState(() {
                 rate=rating;
+                print(rate);
               });
             },
           ),
@@ -169,10 +176,34 @@ class _careAddState extends State<careAdd> {
                               kMainColor
                           )),
                       onPressed: () async{
-                        if(widget.com.dateCommunication==null) {
 
+                       await Provider.of<config_vm>(context, listen: false).getAllConfig();
+                        List<ConfigModel> _listconfg =
+                         Provider.of<config_vm>(context, listen: false)
+                            .listofconfig;
+
+                        peroid =
+                            _listconfg.firstWhere((element) =>
+                            element.name_config == 'period_commincation3');
+                        DateTime datanext=DateTime.now();
+
+                        int peroidtime= int.parse(peroid.value_config);
+                        datanext=Jiffy().add(days: peroidtime).dateTime;
+                        print(datanext.toString());
+                        // datanext.add(Duration(days: peroidtime));
+                        print(datanext);
+                        print( widget.com.dateCommunication.toString());
+                        print( widget.com.idCommunication);
+                        if(widget.com.dateCommunication==null) {
+                          //datanext.add( Duration(days: day+ pp));
+                          // int peroidtime= int.parse(peroid.value_config);
+                          // datanext=Jiffy().add(days: peroidtime).dateTime;
+                          // print(datanext.toString());
+                          // datanext.add(Duration(days: peroidtime));
+                          // print(datanext);
                           Provider.of<communication_vm>
                             (context,listen: false).addcommuncation({
+
                              'fk_user':Provider.of<user_vm_provider>
                               (context,listen: false).currentUser!.idUser.toString(),
                              'date_communication':DateTime.now().toString(),
@@ -180,11 +211,9 @@ class _careAddState extends State<careAdd> {
                              'rate':rate.toString(),
                              'number_wrong':numberwrong.toString(),
                              'client_repeat':repeat.toString(),
-                             //'date_next':widget.com.dateNext.toString(),
+                             'date_next':datanext.toString(),
                           },widget.com.idCommunication).then((value) =>
-
-                              clear(value)
-                          );
+                              clear(value));
                         }},
                       child: Text(' تم التواصل ',
 

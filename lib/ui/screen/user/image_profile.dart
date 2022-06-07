@@ -32,7 +32,9 @@ class ImageProfile extends StatelessWidget {
             Provider.of<user_vm_provider>(context,listen: true)
                 .currentUser!.path!.isNotEmpty
            ? Image.file(File(Provider.of<user_vm_provider>(context,listen: true)
-                    .currentUser!.img_image!))
+                  .currentUser!.path!),
+             // fit: BoxFit.fill,
+           )
            : Provider.of<user_vm_provider>(context,listen: true)
                 .currentUser!.img_image!.isNotEmpty
            ? ClipRRect(
@@ -169,10 +171,14 @@ class ImageProfile extends StatelessWidget {
     final pickedImage =
     await imagePicker.pickImage(source: source, imageQuality: 100);
     pickedFile = File(pickedImage!.path);
-    Provider.of<user_vm_provider>(context,listen: false).currentUser!.path=pickedFile!.path;
+    print(pickedFile!.path);
+    Provider.of<user_vm_provider>(context,listen: false)
+        .setpath(pickedFile!.path);
+        //.currentUser!.path=pickedFile!.path;
     // controllerUser.setProfileImagePath(pickedFile!.path);
     // Get.back();
-    // print(pickedFile);
+    print(Provider.of<user_vm_provider>(context,listen: false)
+        .currentUser!.path.toString());
      Navigator.of(context).pop();
   }
 }

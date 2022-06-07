@@ -1,7 +1,9 @@
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/function_global.dart';
+import 'package:crm_smart/model/configmodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/ticketmodel.dart';
+import 'package:crm_smart/provider/config_vm.dart';
 import 'package:crm_smart/ui/screen/home/ticket/ticketadd.dart';
 import 'package:crm_smart/ui/screen/home/ticket/ticketview.dart';
 import 'package:crm_smart/ui/screen/product/productView.dart';
@@ -21,6 +23,7 @@ import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
 import 'dart:ui' as myui;
 
@@ -128,7 +131,8 @@ class _support_addState extends State<support_add> {
           hintText:
           // _invoice!.daterepaly == null
           //     &&
-          Provider.of<datetime_vm>(context,listen: true).valuedateTime == DateTime(1, 1, 1)
+          Provider.of<datetime_vm>(context,listen: true).valuedateTime
+              == DateTime(1, 1, 1)
               ? 'تعيين الوقت والتاريخ' //_currentDate.toString()
               :
          //_currentDate.toString(),
@@ -321,7 +325,9 @@ class _support_addState extends State<support_add> {
                       ? Container()
                       : cardRow(
                       title: ' تاريخ التركيب ',
-                      value: _invoice!.dateinstall_done.toString()),
+                      value: DateFormat.yMMMd().
+                      format(DateTime.parse( _invoice!.dateinstall_done.toString()))
+                  ),
 
                   _invoice!.dateinstall_done == null
                       ? Container()
@@ -333,7 +339,8 @@ class _support_addState extends State<support_add> {
                   _invoice!.daterepaly != null
                       ? cardRow(
                       title: ' تاريخ إعادة الجدولة',
-                      value: _invoice!.daterepaly.toString())
+                      value:DateFormat.yMMMd().
+                      format(DateTime.parse( _invoice!.daterepaly.toString())))
                       : Container(),
                   _invoice!.daterepaly != null
                       ? cardRow(
@@ -349,7 +356,8 @@ class _support_addState extends State<support_add> {
                   _invoice!.dateinstall_task != null
                       ? cardRow(
                       title: ' تاريخ جدولة التركيب ',
-                      value: _invoice!.dateinstall_task.toString())
+                      value:DateFormat.yMMMd().
+                      format(DateTime.parse(_invoice!.dateinstall_task.toString())))
                       : Container(),
                   _invoice!.dateinstall_task != null
                       ? cardRow(
@@ -399,12 +407,26 @@ class _support_addState extends State<support_add> {
                                       MaterialStateProperty.all(
                                           kMainColor)),
                                   onPressed: () async {
+                                    await Provider.of<config_vm>(context, listen: false).getAllConfig();
+                                    List<ConfigModel> _listconfg =
+                                        Provider.of<config_vm>(context, listen: false)
+                                            .listofconfig;
+
+                                 ConfigModel   peroid =
+                                        _listconfg.firstWhere((element) =>
+                                        element.name_config == 'period_commincation3');
+                                    DateTime datanext=DateTime.now();
+                                    int peroidtime= int.parse(peroid.value_config);
+                                    datanext=Jiffy().add(days: peroidtime).dateTime;
+                                    print(datanext.toString());
                                     Navigator.of(context,
                                         rootNavigator: true)
                                         .pop(true);
                                     Provider.of<invoice_vm>(context,
                                         listen: false)
                                         .setdatedone_vm({
+
+                                      'datanext':datanext,
                                       'dateinstall_done':
                                       DateTime.now().toString(),
                                       'userinstall':
@@ -449,7 +471,7 @@ class _support_addState extends State<support_add> {
   Future<void> _selectDate(BuildContext context, DateTime currentDate) async {
     //String output = formatter.format(currentDate);
     // DateFormat('yyyy-MM-dd – kk:mm').format(now);
-    final DateTime? pickedDate = await showDatePicker(
+     DateTime? pickedDate = await showDatePicker(
         context: context,
         currentDate: currentDate,
         initialDate: currentDate,
@@ -460,13 +482,14 @@ class _support_addState extends State<support_add> {
         // _invoice.dateinstall_task=pickedDate.toString() ;
         _currentDate = pickedDate;
         print(_currentDate.toString());
-
+        
         final time = Duration(hours: DateTime.now().hour,
             minutes: DateTime.now().minute,seconds: DateTime.now().second);
-        _currentDate.add(time);
        print('timme');
-       print(_currentDate.hour.toString());
-       print(time.toString());
+       DateFormat.Hms().format(_currentDate);
+       _currentDate.add(Duration(hours: DateTime.now().hour));
+        print(time.toString());
+       print(_currentDate.toString());
         // _invoice!.dateinstall_task = _currentDate.toString();
         //_invoice!.daterepaly = _currentDate.toString();
         //_currentDate.hour=DateTime.now().hour;
