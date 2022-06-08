@@ -96,6 +96,15 @@ class _privilge_pageState extends State<privilge_page> {
               case 'support':
                 return 'الدعم الفني';
 
+             case 'market':
+                return 'التسويق الالكتروني';
+
+             case 'other':
+                return 'آخرى';
+
+             case 'notify':
+                return 'الإشعارات';
+
 
             }
             return '';

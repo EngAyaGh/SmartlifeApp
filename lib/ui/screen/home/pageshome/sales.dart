@@ -67,25 +67,19 @@ class _salesState extends State<sales> {
       padding: EdgeInsets.only(top: 50),
       child: Column(
             children: [
-    //           Consumer<privilge_vm>(
-    // builder: (context, privilge, child){
-    //   return
-
               Provider.of<privilge_vm>(context,listen: true)
-                  .checkprivlge('8')==true?
-    buildSelectCategory(
-        colorbag: Colors.white,
-        colortitle: Colors.black,
-        colorarrow: Colors.black,
+                  .checkprivlge('36')==true?
+              buildSelectCategory(
+              colorbag: Colors.white,
+              colortitle: Colors.black,
+              colorarrow: Colors.black,
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context)=>
                             tabclients()));
               }, title: ' قائمة العملاء') :Container(),
-   // ;}),
-
               Provider.of<privilge_vm>(context,listen: true)
-                  .checkprivlge('19')==true?
+                  .checkprivlge('39')==true?
               buildSelectCategory(
                   colorbag:   Colors.white,
                   colortitle: Colors.black,
@@ -93,7 +87,7 @@ class _salesState extends State<sales> {
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context)=>
-                        ClientWaiting(type_card: 'sales',) //AcceptPage()   // support_view(type: 'client',)
+                            invoicesAcceptclient() //AcceptPage()   // support_view(type: 'client',)
                     ));
                   }, title:'فواتير العملاء' ):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
 
@@ -107,9 +101,9 @@ class _salesState extends State<sales> {
             //           builder: (context)=>
             //               MyClientPage()));
             //     }, title:  'عملائي'),
-              Provider.of<privilge_vm>(context,listen: true)
-                  .checkprivlge('2')==true || Provider.of<privilge_vm>(context,listen: true)
-                  .checkprivlge('7')==true?
+
+                  Provider.of<privilge_vm>(context,listen: true)
+                  .checkprivlge('40')==true?
     buildSelectCategory(
         colorbag: Colors.white,
         colortitle: Colors.black,

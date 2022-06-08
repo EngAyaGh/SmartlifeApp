@@ -17,6 +17,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/ui/widgets/widgetcalendar/utils.dart';
 import 'package:crm_smart/view_model/datetime_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
+import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -278,6 +279,8 @@ class _support_addState extends State<support_add> {
                     ],
                   ) :  Container(),
 
+                Provider.of<privilge_vm>(context,listen: true)
+                    .checkprivlge('42')==true ?
                   _invoice!.dateinstall_task != null &&
                       _invoice!.dateinstall_done == null
                       ? ElevatedButton(
@@ -296,7 +299,7 @@ class _support_addState extends State<support_add> {
                     },
                     child: Text('إعادة تعيين تاريخ التركيب'),
                   )
-                      : Container(),
+                      : Container():Container(),
                   //  valueresoan==true?   Padding(
                   //   padding: const EdgeInsets.only(top:8.0),
                   //   child:Form(
@@ -374,7 +377,8 @@ class _support_addState extends State<support_add> {
                       value: _invoice!.dateinstall_done == null
                           ? 'بالانتظار'
                           : 'تم التركيب'),
-
+                Provider.of<privilge_vm>(context,listen: true)
+                    .checkprivlge('43')==true ?
                   _invoice!.dateinstall_done == null
                       ? ElevatedButton(
                       style: ButtonStyle(
@@ -455,7 +459,7 @@ class _support_addState extends State<support_add> {
                         //Navigator.push(context, MaterialPageRoute(builder: (context)=> second()));
                       },
                       child: Text('تم التركيب للعميل'))
-                      : Container(),
+                      : Container():Container(),
               ],
             ),
                 )),

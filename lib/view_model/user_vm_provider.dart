@@ -54,7 +54,7 @@ class user_vm_provider extends ChangeNotifier{
      getcurrentuser();
      userall[index].path="";
    //}
-      listuserfilter=userall;
+      listuserfilter=List.from(userall);
       isupdate=false;
      notifyListeners();
 

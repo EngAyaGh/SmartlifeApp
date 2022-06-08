@@ -99,8 +99,13 @@ class _tabclientsState extends State<tabclients> {
                 fontFamily: kfontfamily2),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
 
+        // Provider.of<privilge_vm>(context,listen: true)
+        //     .checkprivlge('47')==true ?
+        floatingActionButton:
+        Provider.of<privilge_vm>(context,listen: true)
+            .checkprivlge('47')==true ?
+        FloatingActionButton(
           backgroundColor: kMainColor,
           onPressed: () {
             Navigator.push(
@@ -108,7 +113,7 @@ class _tabclientsState extends State<tabclients> {
           },
           tooltip: 'إضافة عميل',
           child: Icon(Icons.add),
-        ),
+        ):Container(),
         body:
         Consumer<privilge_vm>(
             builder: (context, privilge, child){
@@ -235,7 +240,8 @@ class _tabclientsState extends State<tabclients> {
                       ),
 
                       //SizedBox(height: 2,),
-                      privilge.checkprivlge('15')==true|| privilge.checkprivlge('8')==true? //user
+                      privilge.checkprivlge('15')==true ||
+                          privilge.checkprivlge('8')==true? //user
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0,right: 8,),
                         child: Consumer<user_vm_provider>(
@@ -301,9 +307,14 @@ class _tabclientsState extends State<tabclients> {
                               top:8.0,bottom: 20),
                           child:
                               Consumer<client_vm>(builder: (context, value, child) {
-                                 return value.listClientfilter.length==0?
+                                 return
+                                   value.isloading==true?
+                                   Center(
+                                       child: CircularProgressIndicator()
+                                   ):
+                                   value.listClientfilter.length==0?
                                  Center(
-                                     child: CircularProgressIndicator()
+                                     child: Text(messageNoData)
                                  ):Column(
                                    children: [
                                      Expanded(

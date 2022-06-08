@@ -2,6 +2,7 @@
 import 'package:crm_smart/model/productmodel.dart';
 import 'package:crm_smart/ui/widgets/product_widget/cardProduct.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
+import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,7 +41,9 @@ void initState() {
     print(_listProd);
     return Scaffold(
       key: _scaffoldKey,
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton:
+      Provider.of<privilge_vm>(context,listen: true)
+          .checkprivlge('45')==true ? FloatingActionButton(
         backgroundColor: kMainColor,
         onPressed: () {
           Navigator.push(
@@ -48,7 +51,7 @@ void initState() {
         },
         tooltip: 'إضافة منتج',
         child: Icon(Icons.add),
-      ),
+      ):Container(),
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,

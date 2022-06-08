@@ -3,6 +3,7 @@ import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/invoice_widget/Card_invoice_client.dart';
+import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,10 +31,12 @@ class _invoicesState extends State<invoices> {
    // List<InvoiceModel> list= Provider.of<invoice_vm>(context,listen: false)
    //   .listinvoicebyregoin;
      //get info from list client_invoice فواتير العميل
-     WidgetsBinding.instance!.addPostFrameCallback((_){
+     WidgetsBinding.instance!.addPostFrameCallback((_)async{
+       // Provider.of<client_vm>(context,listen: false)
+       //     .getclientByIdUser_vm([]);
 
        // Add Your Code here.
-       Provider.of<invoice_vm>(context,listen: false)
+     await  Provider.of<invoice_vm>(context,listen: false)
            .get_invoiceclientlocal(widget.fkclient,'');
      });
      print('init invoice  '+widget.fkclient);

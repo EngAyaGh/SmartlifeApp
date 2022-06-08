@@ -42,11 +42,11 @@ class _ClientAcceptState extends State<ClientAccept> {
       await Provider.of<privilge_vm>(context,listen: false)
           .getprivlg_usercurrent();
       List<PrivilgeModel> list=
-      await   Provider.of<privilge_vm>(context,listen: false).privilgelist;
+         Provider.of<privilge_vm>(context,listen: false).privilgelist;
       Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
       //Provider.of<typeclient>(context,listen: false).changelisttype_install(null);
       Provider.of<regoin_vm>(context,listen: false).changeVal(null);
-        //
+
         // Provider.of<client_vm>(context, listen: false)
         //   .getallclient();
       Provider.of<client_vm>(context, listen: false)

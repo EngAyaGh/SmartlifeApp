@@ -12,6 +12,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/group_button.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
+import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -255,7 +256,10 @@ class _EditProductState extends State<EditProduct> {
                       children: [
                         _isLoading
                             ? CircularProgressIndicator()
-                            : CustomButton(
+                            :
+                        Provider.of<privilge_vm>(context,listen: true)
+                            .checkprivlge('46')==true ?
+                        CustomButton(
                           width: MediaQuery.of(context).size.width * 0.2,
                           text: "تعديل",
                           onTap: () async {
@@ -297,9 +301,10 @@ class _EditProductState extends State<EditProduct> {
                               );
                             }
                           },
-                        ),
+                        ):Container(),
 
-                        CustomButton(
+                        Provider.of<privilge_vm>(context,listen: true)
+                            .checkprivlge('48')==true ?   CustomButton(
                             width: MediaQuery.of(context).size.width * 0.2,
 
                             onTap: ()async{
@@ -367,7 +372,7 @@ class _EditProductState extends State<EditProduct> {
                               );
 
                             },
-                            text: 'حذف'),
+                            text: 'حذف'):Container(),
                       ],
                     )
 

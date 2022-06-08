@@ -1,7 +1,9 @@
 import 'package:crm_smart/ui/screen/client/marketing/clientmarketing.dart';
 import 'package:crm_smart/ui/screen/client/marketing/invoice_marketing.dart';
+import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constants.dart';
 import '../widgethomeitem.dart';
@@ -27,6 +29,8 @@ class marketingpage extends StatelessWidget {
         padding: EdgeInsets.only(top: 50),
         child:
         Column(children: [
+          Provider.of<privilge_vm>(context,listen: true)
+              .checkprivlge('53')==true ?
           buildSelectCategory(
               colorbag: Colors.white,
               colortitle: Colors.black,
@@ -35,7 +39,9 @@ class marketingpage extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(
                     builder: (context)=>
                         clientmarketing()));
-          }, title: 'عملاء التسويق الإلكتروني'),
+          }, title: 'عملاء التسويق الإلكتروني'):Container(),
+          Provider.of<privilge_vm>(context,listen: true)
+              .checkprivlge('54')==true ?
           buildSelectCategory(
               colorbag: Colors.white,
               colortitle: Colors.black,
@@ -45,8 +51,9 @@ class marketingpage extends StatelessWidget {
                     builder: (context)=>
                         invoice_marketing()));
               },
-              title: 'فواتير عملاء التسويق الإلكتروني'),
-          buildSelectCategory(
+              title: 'فواتير عملاء التسويق الإلكتروني'):Container(),
+          Provider.of<privilge_vm>(context,listen: true)
+              .checkprivlge('55')==true ? buildSelectCategory(
               colorbag: Colors.white,
               colortitle: Colors.black,
               colorarrow: Colors.black,
@@ -56,7 +63,7 @@ class marketingpage extends StatelessWidget {
                 //         invoice_marketing()
                 // ));
               },
-              title: 'تقرير التسويق الإلكتروني'),
+              title: 'تقرير التسويق الإلكتروني'):Container(),
 
         ],),
 

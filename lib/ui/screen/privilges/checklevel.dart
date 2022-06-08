@@ -34,7 +34,10 @@ class _check_levelState extends State<check_level> {
 
         centerTitle: true,
       ),
-       floatingActionButton:FloatingActionButton(
+       floatingActionButton:
+       Provider.of<privilge_vm>(context,listen: true)
+           .checkprivlge('51')==true ?
+       FloatingActionButton(
          child:Icon(Icons.add),
          onPressed: (){
            Navigator.push(
@@ -46,7 +49,7 @@ class _check_levelState extends State<check_level> {
              ),
            );
          },
-       backgroundColor: kMainColor,),
+       backgroundColor: kMainColor,):Container(),
       body:
       _listlevel.length==0?
       Center(

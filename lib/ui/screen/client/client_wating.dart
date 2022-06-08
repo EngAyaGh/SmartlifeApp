@@ -110,33 +110,8 @@ class _ClientWaitingState extends State<ClientWaiting> {
                                   },
                                 ),
                               ),
-                            ),// : Container(),
-                            // Consumer<typeclient>(
-                            //     builder: (context, selectedProvider, child){
-                            //       return  GroupButton(
-                            //           controller: GroupButtonController(
-                            //             selectedIndex:selectedProvider.selectedinstall,
-                            //
-                            //           ),
-                            //           options: GroupButtonOptions(
-                            //               selectedColor: kMainColor,
-                            //
-                            //               buttonWidth: 110,
-                            //               borderRadius: BorderRadius.circular(10)),
-                            //           buttons: ['الكل','بالإنتظار','تم التركيب'],
-                            //           onSelected: (index,isselected){
-                            //             print(index);
-                            //             //setState(() {
-                            //             typepayController=index.toString();
-                            //             selectedProvider.changeinstall(index);
-                            //             filtershow();
-                            //             //});
-                            //           }
-                            //       );
-                            //     }
-                            //
-                            // ),
-                            Expanded(
+                            ),///regoin
+                            Expanded( //state
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 20.0,right: 8),
                                 child: Consumer<typeclient>(
@@ -164,16 +139,14 @@ class _ClientWaitingState extends State<ClientWaiting> {
                                       );}
                                 ),
                               ),
-                            ),
+                            ),   //الحالة
                           ],
                         ),
                         search_widget(
-                          'marketinvoice',
-                          hintnamefilter,''
-                          // Provider
-                          //     .of<invoice_vm>(context, listen: true)
-                          //     .listInvoicesAccept,
+                            'wait',
+                            hintnamefilter,''
                         ),
+
                         SizedBox(height: 5,),
                         Container(
                           height: MediaQuery

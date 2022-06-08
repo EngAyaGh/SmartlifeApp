@@ -93,22 +93,12 @@ class _clientmarketingState extends State<clientmarketing> {
           elevation: 0,
           centerTitle: true,
           title: Text(
-            'قائمة العملاء ',
+            'قائمة عملاء التسويق الإلكتروني ',
             style: TextStyle(
                 color: kWhiteColor,
                 fontFamily: kfontfamily2),
           ),
         ),
-        // floatingActionButton: FloatingActionButton(
-        //
-        //   backgroundColor: kMainColor,
-        //   onPressed: () {
-        //     Navigator.push(
-        //         context, MaterialPageRoute(builder: (context) => addClient()));
-        //   },
-        //   tooltip: 'إضافة عميل',
-        //   child: Icon(Icons.add),
-        // ),
         body:
         Consumer<privilge_vm>(
             builder: (context, privilge, child){

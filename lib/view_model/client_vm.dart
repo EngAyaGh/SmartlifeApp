@@ -58,9 +58,6 @@ class client_vm extends ChangeNotifier {
     notifyListeners();
     List<ClientModel> _list=
     await ClientService().getAllClient(usercurrent!.fkCountry.toString());
-    // getclient_vm();
-    // if(listClient.isEmpty)
-    // List<ClientModel> lists=[];
     _list.forEach((element) {
       if( element.typeClient==searchfilter
           && element.isApprove!=null )
@@ -212,6 +209,7 @@ class client_vm extends ChangeNotifier {
      // List<PrivilgeModel> privilgelist
       ) async {
     listClientfilter=[];
+    isloading=true;
     notifyListeners();
    // if(listClient.isEmpty)
     //main list
@@ -220,7 +218,6 @@ class client_vm extends ChangeNotifier {
     if(res) {
       listClient =
       await ClientService().getAllClient(usercurrent!.fkCountry.toString());
-
       listClientfilter = listClient;
     }
     else {
@@ -241,6 +238,7 @@ class client_vm extends ChangeNotifier {
       }
     } }
     //listClient.where((element) => false)
+    isloading=false;
     notifyListeners();
   }
 

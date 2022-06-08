@@ -5,6 +5,7 @@
 import 'package:crm_smart/ui/screen/search/search_container.dart';
 import 'package:crm_smart/ui/widgets/user_widget/card_user.dart';
 import 'package:crm_smart/ui/widgets/user_widget/carduserbuild.dart';
+import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,14 @@ class AllUserScreen extends StatefulWidget {
 class _AllUserScreenState extends State<AllUserScreen> {
   @override
   void initState() {
-    Provider.of<user_vm_provider>(context, listen: false).getuser_vm();
+    WidgetsBinding.instance!.addPostFrameCallback((_)async {
+      // await   Provider.of<invoice_vm>(context, listen: false).getinvoices();
+      // Add Your Code here.
+      // only
+      await Provider.of<privilge_vm>(context, listen: false)
+          .getprivlg_usercurrent();
+      Provider.of<user_vm_provider>(context, listen: false).getuser_vm();
+    });
     super.initState();
   }
   @override
@@ -30,7 +38,10 @@ class _AllUserScreenState extends State<AllUserScreen> {
     final controllerUsers =
     Provider.of<user_vm_provider>(context, listen: true);
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton:
+      Provider.of<privilge_vm>(context,listen: true)
+          .checkprivlge('49')==true ?
+      FloatingActionButton(
       backgroundColor: kMainColor,
       onPressed: (){
         Navigator.push(context, MaterialPageRoute(builder: (context)=>addUser()));
@@ -39,7 +50,7 @@ class _AllUserScreenState extends State<AllUserScreen> {
       tooltip: 'إضافة موظف',
 
       child: Icon(Icons.add),
-    ),
+    ):Container(),
       appBar: AppBar(
         title: Text('إدارة المستخدمين',style: TextStyle(color: kWhiteColor),),
 

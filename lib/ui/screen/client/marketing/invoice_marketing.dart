@@ -140,11 +140,8 @@ class _invoice_marketingState extends State<invoice_marketing> {
                           ],
                         ),
                         search_widget(
-                          'wait',
-                          hintnamefilter,''
-                          // Provider
-                          //     .of<invoice_vm>(context, listen: true)
-                          //     .listInvoicesAccept,
+                            'marketinvoice',
+                            hintnamefilter,''
                         ),
                         SizedBox(height: 5,),
                         Container(

@@ -12,6 +12,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/country_vm.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
+import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/material.dart';
@@ -138,6 +139,8 @@ class _EditUserState extends State<EditUser> {
       key: _scaffoldKey,
       appBar: AppBar(
         actions: [
+          Provider.of<privilge_vm>(context,listen: true)
+              .checkprivlge('50')==true ?
           IconButton(
             onPressed: () {
               fkregoin = Provider.of<regoin_vm>(context, listen: false)
@@ -193,7 +196,7 @@ class _EditUserState extends State<EditUser> {
               }
             },
             icon: const Icon(Icons.check,color: kWhiteColor,),
-          ),
+          ):Container(),
         ],
         title: const Text(' ',style: TextStyle(color: kWhiteColor),),
         centerTitle: true,

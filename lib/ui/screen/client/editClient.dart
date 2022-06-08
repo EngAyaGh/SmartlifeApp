@@ -239,6 +239,7 @@ void didChangeDependencies() {
 
                     //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+
                       RowEdit(name: label_cliententerprise, des: 'required'),
 
                       EditTextFormField(
@@ -275,12 +276,10 @@ void didChangeDependencies() {
                         height: 5,
                       ),
                       Provider.of<privilge_vm>(context,listen: true)
-                          .checkprivlge('27')==true||  Provider.of<privilge_vm>(context,listen: true)
-                          .checkprivlge('28')==true ?
-                      RowEdit(name: label_client_typejob, des: 'Required'):Container(),
+                          .checkprivlge('27')==true ?Container():
+                      RowEdit(name: label_client_typejob, des: 'Required') ,
                       Provider.of<privilge_vm>(context,listen: true)
-                          .checkprivlge('27')==true||  Provider.of<privilge_vm>(context,listen: true)
-                          .checkprivlge('28')==true ?
+                          .checkprivlge('27')==true ?Container():
                       EditTextFormField(
                         hintText: label_client_typejob,
                         obscureText: false,
@@ -294,12 +293,13 @@ void didChangeDependencies() {
                         onChanged: (val) {
                           // nameprod = val;
                         },
-                      ):Container(),
+                      ),
                       SizedBox(
                         height: 5,
                       ),
 
                       //admin
+
                       RowEdit(name: label_clientcity, des: 'Required'),
                       EditTextFormField(
                         vaild: (value) {
@@ -330,8 +330,13 @@ void didChangeDependencies() {
                       SizedBox(
                         height: 15,
                       ),
+
+                      Provider.of<privilge_vm>(context,listen: true)
+                          .checkprivlge('27')==true ?Container():
                       RowEdit(name: label_clientlocation, des: ''),
-                      EditTextFormField(
+                      Provider.of<privilge_vm>(context,listen: true)
+                          .checkprivlge('27')==true ?
+                      Container():EditTextFormField(
                         hintText: 'location',
                         obscureText: false,
                         controller: locationController,
@@ -340,6 +345,8 @@ void didChangeDependencies() {
                       SizedBox(
                         height: 15,
                       ),
+                      Provider.of<privilge_vm>(context,listen: true)
+                          .checkprivlge('37')==true ?
                       Center(
                         child: Consumer<switch_provider>(
                           builder: (context, isSwitched, child) {
@@ -364,12 +371,16 @@ void didChangeDependencies() {
                             );
                           },
                         ),
-                      ),
+                      ):Container(),
                       SizedBox(
                         height: 15,
                       ),
+                      Provider.of<privilge_vm>(context,listen: true)
+                          .checkprivlge('27')==true ?Container():
                       widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
                       RowEdit(name: label_clienttype, des: ""):Container(),
+                      Provider.of<privilge_vm>(context,listen: true)
+                          .checkprivlge('27')==true ?Container():
                       widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
                       Provider.of<privilge_vm>(context,listen: true)
                           .checkprivlge('27')==true||  Provider.of<privilge_vm>(context,listen: true)
@@ -412,12 +423,16 @@ void didChangeDependencies() {
                       //   },
                       //   child: Text('خيارات الإنسحاب'),
                       // ):
+                      Provider.of<privilge_vm>(context,listen: true)
+                          .checkprivlge('27')==true ?Container():
                       typeclient_provider.selectedValuemanag=="عرض سعر"?
                       EditTextFormField(
                         hintText: 'عرض سعر',
                         obscureText: false,
                         controller: offerpriceController,
                       ):
+                      Provider.of<privilge_vm>(context,listen: true)
+                          .checkprivlge('27')==true ?Container():
                       typeclient_provider.selectedValuemanag=="مستبعد"?
                       EditTextFormField(
                         hintText: 'سبب الاستبعاد',

@@ -79,7 +79,7 @@ class _carepageState extends State<carepage> {
 
           children: [
             Provider.of<privilge_vm>(context,listen: true)
-                .checkprivlge('19')==true?
+                .checkprivlge('44')==true?
             buildSelectCategory(
                 colorbag: Colors.white,
                 colortitle: Colors.black,

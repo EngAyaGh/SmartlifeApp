@@ -3,6 +3,7 @@
 import 'package:crm_smart/Repository/invoice_repo/cach_data_source.dart';
 import 'package:crm_smart/model/deleteinvoicemodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
+import 'package:crm_smart/model/privilgemodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/Invoice_Service.dart';
 import 'package:flutter/cupertino.dart';
@@ -63,7 +64,7 @@ class invoice_vm extends ChangeNotifier{
      //else listInvoicesAccept=userall;
     notifyListeners();
   }
-  Future<void> searchmarketing(String productName) async {
+  Future<void> searchwait(String productName) async {
     List<InvoiceModel> _listInvoicesAccept=[];
     // code to convert the first character to uppercase
     String searchKey =productName;//
@@ -71,8 +72,8 @@ class invoice_vm extends ChangeNotifier{
       if(listInvoicesAccept.isNotEmpty ){
         listInvoicesAccept.forEach((element) {
           if(element.name_enterprise!.contains(searchKey,0)
-              || element.mobile!.contains(searchKey,0)
-          ||element.nameClient!.contains(searchKey,0)
+          || element.mobile!.contains(searchKey,0)
+          || element.nameClient!.contains(searchKey,0)
           )
             _listInvoicesAccept.add(element);
         });
@@ -81,7 +82,7 @@ class invoice_vm extends ChangeNotifier{
     else getinvoice_Local("مشترك",'approved client',null);
     notifyListeners();
   }
-  Future<void> searchwait(String productName) async {
+  Future<void>  searchmarketing(String productName) async {
     List<InvoiceModel> _listInvoicesAccept=[];
     // code to convert the first character to uppercase
     String searchKey =productName;//
@@ -128,6 +129,65 @@ class invoice_vm extends ChangeNotifier{
         }
       }
       notifyListeners();
+  }
+  Future<void> getfilterinvoicesclient(String? filter,String? regoin)async{
+    List<InvoiceModel> _listInvoicesAccept=[];
+    if(regoin==null){
+      print(filter);
+      if(listInvoicesAccept.isNotEmpty){
+        if(filter=='الكل') {
+          _listInvoicesAccept = listInvoicesAccept;
+          print('serch الكل');
+        }
+        if(filter=='بالإنتظار')
+          listInvoicesAccept.forEach((element) {
+            print(element.isdoneinstall);
+            if( element.isdoneinstall==null) {
+              _listInvoicesAccept.add(element);
+              print('serch بالانتظار');
+
+            }
+          });
+        if(filter=='تم التركيب')
+          listInvoicesAccept.forEach((element) {
+            if( element.isdoneinstall=='1') {
+              _listInvoicesAccept.add(element);
+              print('serch تم التركيب');
+
+            }
+          });
+      }}
+    else{
+      if(listInvoicesAccept.isNotEmpty){
+        if(filter=='الكل')
+          listInvoicesAccept.forEach((element) {
+            if(element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+              print('regoin الكل');
+
+            }
+          });
+
+        if(filter=='بالإنتظار')
+          listInvoicesAccept.forEach((element) {
+            if( element.isdoneinstall.toString()==null
+                && element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+              print('regoin بالإنتظار');
+            }
+          });
+        if(filter=='تم التركيب')
+          listInvoicesAccept.forEach((element) {
+            if( element.isdoneinstall=='1'&&element.fk_regoin==regoin) {
+              _listInvoicesAccept.add(element);
+              print('regoin تم التركيب');
+
+            }
+          });
+      }
+    }
+    listInvoicesAccept= _listInvoicesAccept;
+    notifyListeners();
   }
   Future<void> getclienttype_filter(String? filter,String? regoin,String tyype)async{
     // listInvoicesAccept=[];
@@ -284,7 +344,22 @@ class invoice_vm extends ChangeNotifier{
     listInvoicesAccept= _listInvoicesAccept;
     notifyListeners();
   }
+Future<void> getinvoice_Localwithprev() async{
+  List<InvoiceModel> list=[];
+  await getinvoiceswithprev();
+  isloading=true;
+  notifyListeners();
+  listInvoicesAccept.forEach((element) {
 
+          if (element.stateclient == 'مشترك'
+              && element.isApprove == "1")
+            list.add(element);
+        });
+  listInvoicesAccept=list;
+  isloading=false;
+  // if(listInvoicesAccept.isEmpty)listInvoicesAccept=listinvoices;
+  notifyListeners();
+}
   Future<void> getinvoice_Local(String searchfilter,String type
       ,String? approvetype
       // , List<ClientModel> list
@@ -299,33 +374,33 @@ class invoice_vm extends ChangeNotifier{
     if(approvetype==null){
       print('dsklmckdsclks');
    await getinvoices();
-    if(listInvoicesAccept.isNotEmpty) {
+    if(listinvoices.isNotEmpty) {
       if (type == 'approved only')
-        listInvoicesAccept.forEach((element) {
-          print('dsadsadsa');
+        listinvoices.forEach((element) {
+
           if (element.stateclient == searchfilter
               && element.isApprove == "1")
             list.add(element);
         });
       if (type == 'approved client')
-        listInvoicesAccept.forEach((element) {
+        listinvoices.forEach((element) {
           if (element.type_client == searchfilter && element.isApprove == "1")
             list.add(element);
         });
       if (type == 'not approved')
-        listInvoicesAccept.forEach((element) {
+        listinvoices.forEach((element) {
           if (element.stateclient == searchfilter && element.isApprove == null)
             list.add(element);
         });
       if (type == 'out')
-        listInvoicesAccept.forEach((element) {
+        listinvoices.forEach((element) {
           if (element.stateclient == searchfilter)
             list.add(element);
         });
     }}else{
       if(approvetype=='country')await getinvoices();
       if(approvetype=='regoin')await get_invoicesbyRegoin([]);
-      listInvoicesAccept.forEach((element) {
+      listinvoices.forEach((element) {
         if (element.stateclient == searchfilter &&
             element.isApprove == null)
           list.add(element);
@@ -406,10 +481,39 @@ class invoice_vm extends ChangeNotifier{
     //   listinvoiceClient=[];
     notifyListeners();
   }
+  void setvaluepriv(privilgelistparam){
+    print('in set privilge client vm');
+    privilgelist=privilgelistparam;
+    notifyListeners();
+  }
+
+  List<PrivilgeModel> privilgelist=[];
   Future<void> getinvoices() async {
+    listinvoices = await Invoice_Service().getinvoice(usercurrent!.fkCountry.toString());
+    listInvoicesAccept=listinvoices;
+    notifyListeners();
+  }
+
+  Future<void> getinvoiceswithprev() async {
     // if(listClient.isEmpty)
     //main list
+    bool res= privilgelist.firstWhere(
+            (element) => element.fkPrivileg=='1').isCheck=='1'?true:false;
+    if(res) {
     listinvoices = await Invoice_Service().getinvoice(usercurrent!.fkCountry.toString());
+    }
+    else{
+      res= privilgelist.firstWhere(
+            (element) => element.fkPrivileg=='6').isCheck=='1'?true:false;
+    if(res) {
+    listinvoices = await Invoice_Service().getinvoice(usercurrent!.fkCountry.toString());
+    }else{
+      res= privilgelist.firstWhere(
+              (element) => element.fkPrivileg=='38').isCheck=='1'?true:false;
+      if(res) {
+        listinvoices = listinvoicebyregoin = await Invoice_Service()
+            .getinvoicebyregoin(usercurrent!.fkRegoin!);
+      }}}
     listInvoicesAccept=listinvoices;
     notifyListeners();
   }

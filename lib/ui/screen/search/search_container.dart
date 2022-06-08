@@ -46,7 +46,7 @@ class search_widget extends StatelessWidget {
                 //         pattern, list)));
 
                 switch(serch){
-                  case 'client':
+                    case 'client':
                     Provider.of<client_vm>(context,listen: false)
                         .searchProducts(pattern);
                     break;
@@ -54,15 +54,18 @@ class search_widget extends StatelessWidget {
                     Provider.of<client_vm>(context,listen: false)
                         .searchmarket(pattern);
                     break;
+
                     case 'accept':
                     Provider.of<client_vm>(context,listen: false)
                         .searchclientAccept(pattern);
                     break;
-                  case 'ticket':
+
+                    case 'ticket':
                     Provider.of<ticket_vm>(context,listen: false)
                         .searchProducts(pattern);
                     break;
-                  case 'user':
+
+                    case 'user':
                     Provider.of<user_vm_provider>(context,listen: false)
                         .searchProducts(pattern);
                     break;

@@ -418,6 +418,8 @@ class _InvoiceViewState extends State<InvoiceView> {
                                           itemClient:  clientmodel)));
                             },
                           ):Container(),
+                          Provider.of<privilge_vm>(context,listen: true)
+                              .checkprivlge('41')==true ?
                           widget.invoice!.isApprove!=null ?
                           CustomButton(
                             //width: MediaQuery.of(context).size.width * 0.2,
@@ -427,9 +429,9 @@ class _InvoiceViewState extends State<InvoiceView> {
                                   context: context,
                                   builder: (context) => dialog);
                             },
-                          ):Container(),
+                          ):Container():Container(),
                           Provider.of<privilge_vm>(context,listen: true)
-                              .checkprivlge('31')==true?
+                              .checkprivlge('32')==true?
                           CustomButton(
                             //width: MediaQuery.of(context).size.width * 0.2,
                               text: 'حذف الفاتورة',
