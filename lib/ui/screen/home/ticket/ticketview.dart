@@ -82,7 +82,7 @@ class _TicketViewState extends State<TicketView> {
                           Provider.of<ticket_vm>(context,listen: false)
                               .updateTicketvm({
                             'fk_user_recive':Provider.of<user_vm_provider>
-                              (context,listen: false).currentUser!.idUser.toString(),
+                              (context,listen: false).currentUser.idUser.toString(),
                             'date_recive':DateTime.now().toString(),
                             'type_ticket':'قيد التنفيذ'
 
@@ -101,7 +101,7 @@ class _TicketViewState extends State<TicketView> {
                           Provider.of<ticket_vm>(context,listen: false)
                               .updateTicketvm({
                             'fk_user_close':Provider.of<user_vm_provider>
-                              (context,listen: false).currentUser!.idUser.toString(),
+                              (context,listen: false).currentUser.idUser.toString(),
                             'date_close':DateTime.now().toString(),
                             'type_ticket':'مغلقة'
                           },  widget.ticketModel.idTicket);

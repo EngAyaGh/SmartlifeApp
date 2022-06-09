@@ -75,7 +75,7 @@ class _EditProductState extends State<EditProduct> {
     price=double.parse(_textprice.text.toString());
     valtype_product=int.parse( widget.productModel.type);
     idCountry=Provider.of<user_vm_provider>(context,listen: false)
-    .currentUser!.fkCountry.toString();
+    .currentUser.fkCountry.toString();
     //valtype_product == 0 ? 1 : 0;
 
     super.initState();

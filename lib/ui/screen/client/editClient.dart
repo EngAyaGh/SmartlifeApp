@@ -67,7 +67,7 @@ class _editclientState extends State<editclient> {
   void initState()  {
 
     currentUser=Provider.of<user_vm_provider>(context,listen: false)
-        .currentUser!;
+        .currentUser;
     nameclientController.text=widget.itemClient.nameClient!.toString();
     nameEnterpriseController.text=widget.itemClient.nameEnterprise!.toString();
     mobileController.text=widget.itemClient.mobile!.toString();
@@ -200,7 +200,7 @@ void didChangeDependencies() {
           "ismarketing":  ismarket,
           "user_do": Provider
               .of<user_vm_provider>(context, listen: false)
-              .currentUser!
+              .currentUser
               .idUser
               .toString(),
           // "desc_reason":  typeclient_provider.selectedValuemanag == "منسحب"

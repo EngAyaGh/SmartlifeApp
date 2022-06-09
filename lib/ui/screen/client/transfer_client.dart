@@ -92,10 +92,10 @@ class _transferClientState extends State<transferClient> {
                        'fk_client':widget.idclient,
                         'nameusertransfer':
                         Provider.of<user_vm_provider>(context,listen: false)
-                            .currentUser!.nameUser.toString(),//الموظف الذي حول العميل
+                            .currentUser.nameUser.toString(),//الموظف الذي حول العميل
                         'name_enterprise':widget.name_enterprise,
                         'fkusertrasfer':    Provider.of<user_vm_provider>(context,listen: false)
-                            .currentUser!.idUser.toString(),
+                            .currentUser.idUser.toString(),
                         //'idclient':
                       },widget.idticket
                   );
@@ -108,10 +108,10 @@ class _transferClientState extends State<transferClient> {
                         'fkuser':iduser,//user reciept
                         'nameusertransfer':
                         Provider.of<user_vm_provider>(context,listen: false)
-                            .currentUser!.nameUser.toString(),//الموظف الذي حول العميل
+                            .currentUser.nameUser.toString(),//الموظف الذي حول العميل
                         'name_enterprise':widget.name_enterprise,
                         'fkusertrasfer':    Provider.of<user_vm_provider>(context,listen: false)
-                            .currentUser!.idUser.toString(),
+                            .currentUser.idUser.toString(),
                         //'idclient':
                       },widget.idclient
                   );

@@ -22,7 +22,7 @@ class user_vm_provider extends ChangeNotifier{
     notifyListeners();
   }
 
-  UserModel? currentUser;
+  late UserModel currentUser;
   //List<PrivilgeModel> privilgelist=[];
 
   // UserModel(
@@ -37,7 +37,7 @@ class user_vm_provider extends ChangeNotifier{
     notifyListeners();
   }
   void setpath(String path){
-    currentUser!.path=path;
+    currentUser.path=path;
     notifyListeners();
 
   }
@@ -124,7 +124,7 @@ class user_vm_provider extends ChangeNotifier{
               (element) => element.idUser == id && element.isActive=='1');
       if(index>=0) {
       currentUser = userall[index];
-      currentUser!.path="";
+      currentUser.path="";
       notifyListeners();
       print("preferences");
       print(preferences.containsKey('id_user'));

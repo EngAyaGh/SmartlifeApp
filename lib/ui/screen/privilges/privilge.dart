@@ -64,95 +64,100 @@ class _privilge_pageState extends State<privilge_page> {
               }, icon:Icon( Icons.check_rounded,color: kWhiteColor,)),
         ],
       ),
-      body: Padding(
-        // StickyGroupedListView<CustomObject, DateTime>(
-        //   elements: pedidos,
-        //   order: StickyGroupedListOrder.ASC,
-        //   groupBy: (CustomObject element) => DateTime(
-        //       element.dateGroup.year,
-        //       element.dateGroup.month,
-        //       element.dateGroup.day),
-        //   groupSeparatorBuilder: (CustomObject element) =>
-        //       renderDataCabecalho(element),
-        //   itemBuilder: (context, element) {
-        //     return _buildPedidoItemView(element, context);
-        //   },
-        // ),
-        padding: const EdgeInsets.all(16.0),
-        child:GroupedListView<PrivilgeModel, String>(
-          elements:  _privilgelist,
-          groupBy: (element) {
-            switch(element.type_prv)
-            {
-              case 'sales':
-                return 'المبيعات';
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Padding(
+          // StickyGroupedListView<CustomObject, DateTime>(
+          //   elements: pedidos,
+          //   order: StickyGroupedListOrder.ASC,
+          //   groupBy: (CustomObject element) => DateTime(
+          //       element.dateGroup.year,
+          //       element.dateGroup.month,
+          //       element.dateGroup.day),
+          //   groupSeparatorBuilder: (CustomObject element) =>
+          //       renderDataCabecalho(element),
+          //   itemBuilder: (context, element) {
+          //     return _buildPedidoItemView(element, context);
+          //   },
+          // ),
+          padding: const EdgeInsets.all(16.0),
+          child:GroupedListView<PrivilgeModel, String>(
+            elements:  _privilgelist,
+            groupBy: (element) {
+              switch(element.type_prv)
+              {
+                case 'sales':
+                  return 'المبيعات';
 
-              case 'manage':
-                return 'الإدارة';
+                case 'manage':
+                  return 'الإدارة';
 
-              case 'care':
-                return 'العناية بالعملاء';
+                case 'care':
+                  return 'العناية بالعملاء';
 
-              case 'support':
-                return 'الدعم الفني';
+                case 'support':
+                  return 'الدعم الفني';
 
-             case 'market':
-                return 'التسويق الالكتروني';
+               case 'market':
+                  return 'التسويق الالكتروني';
 
-             case 'other':
-                return 'آخرى';
+               case 'other':
+                  return 'آخرى';
 
-             case 'notify':
-                return 'الإشعارات';
+               case 'notify':
+                  return 'الإشعارات';
 
 
-            }
-            return '';
-            },
-          groupComparator: (value1, value2) => value2.compareTo(value1),
-          itemComparator: (item1, item2) => item1.name_privilege.compareTo(item2.name_privilege),
-          order: GroupedListOrder.DESC,
-          useStickyGroupSeparators: true,
-          groupSeparatorBuilder: (String value) => Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              value,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              }
+              return '';
+              },
+            groupComparator: (value1, value2) =>
+                value2.compareTo(value1),
+            itemComparator: (item1, item2) =>
+                item1.periorty.compareTo(item2.periorty),
+             order: GroupedListOrder.ASC,
+            useStickyGroupSeparators: true,
+            groupSeparatorBuilder: (String value) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                value,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
+            itemBuilder: (c, element) {
+              return Container(
+                 //children: _privilgelist.map(( key) {
+                   child:
+                   CheckboxListTile(
+                     title: new Text(element.name_privilege),
+                     value:   element.isCheck=='1'?true:false,// as bool,
+                     onChanged: (bool? value) {
+                       setState(() {
+                         print(value);
+                         value ==true?
+                         element.isCheck="1": element.isCheck="0";
+                         //values[key] = value;
+                       });
+                      },
+                   ));
+              //   Card(
+              //   elevation: 8.0,
+              //   margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+              //   child: Container(
+              //     child: ListTile(
+              //       contentPadding:
+              //       EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              //       leading: Icon(Icons.account_circle),
+              //       title: Text(element['name']),
+              //       trailing: Icon(Icons.arrow_forward),
+              //     ),
+              //   ),
+              // );
+            },
           ),
-          itemBuilder: (c, element) {
-            return Container(
-               //children: _privilgelist.map(( key) {
-                 child:
-                 CheckboxListTile(
-                   title: new Text(element.name_privilege),
-                   value:   element.isCheck=='1'?true:false,// as bool,
-                   onChanged: (bool? value) {
-                     setState(() {
-                       print(value);
-                       value ==true?
-                       element.isCheck="1": element.isCheck="0";
-                       //values[key] = value;
-                     });
-                    },
-                 ));
-            //   Card(
-            //   elevation: 8.0,
-            //   margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-            //   child: Container(
-            //     child: ListTile(
-            //       contentPadding:
-            //       EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-            //       leading: Icon(Icons.account_circle),
-            //       title: Text(element['name']),
-            //       trailing: Icon(Icons.arrow_forward),
-            //     ),
-            //   ),
-            // );
-          },
-        ),
 
+        ),
       ),
     );
   }

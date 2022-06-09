@@ -2,6 +2,7 @@
 
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/clientmodel.dart';
+import 'package:crm_smart/model/communication_modle.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/ui/screen/client/detail_client.dart';
 import 'package:crm_smart/ui/screen/client/editClient.dart';
@@ -19,12 +20,16 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
-class cardWaiting extends StatelessWidget {
-  cardWaiting(
-      { Key? key,
-        required this.iteminvoice}) : super(key: key);
+import 'install_add.dart';
 
-  InvoiceModel iteminvoice;
+class cardcommalltype extends StatelessWidget {
+  cardcommalltype(
+      { Key? key,
+        // required this.iduser,
+        required this.itemcom}) : super(key: key);
+  ///ClientModel itemClient;
+  CommunicationModel itemcom;
+  //String iduser;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +52,15 @@ class cardWaiting extends StatelessWidget {
       child: Center(
         child: InkWell(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) =>
-                    ProfileClient(
-                        tabindex:3, //move to tab support in profile client
-                        idclient:
-                        iteminvoice.fkIdClient.toString())
-                ));
+             Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder:
+                                    (
+                                    context) =>
+                                    installAdd(
+                                      com: itemcom,
+                                    )));
           },
           child: Container(
             decoration: BoxDecoration(
@@ -70,7 +77,7 @@ class cardWaiting extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        iteminvoice.date_approve.toString(),
+                        itemcom.date_approve.toString(),
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: kfontfamily2,color: kMainColor),),
@@ -80,12 +87,13 @@ class cardWaiting extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                          child: Text(iteminvoice.name_enterprise.toString(),
+                          child: Text(itemcom.nameEnterprise.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: kfontfamily2),),
                         ),
                       ]),
+                  //Row(),
                 ],
               ),
             ),

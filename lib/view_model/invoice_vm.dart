@@ -42,11 +42,8 @@ class invoice_vm extends ChangeNotifier{
   List<InvoiceModel> listinvoicesMarketing=[];
   List<InvoiceModel> listinvoicesApproved=[];
   List<InvoiceModel> listInvoicesAccept=[];//مشتركين
-  //List<>
-  //List<>
   Future<void> searchProducts(String productName) async {
     List<InvoiceModel> _listInvoicesAccept=[];
-
     // code to convert the first character to uppercase
     String searchKey =productName;//
     if(productName.isNotEmpty){
@@ -130,6 +127,7 @@ class invoice_vm extends ChangeNotifier{
       }
       notifyListeners();
   }
+
   Future<void> getfilterinvoicesclient(String? filter,String? regoin)async{
     List<InvoiceModel> _listInvoicesAccept=[];
     if(regoin==null){
@@ -346,9 +344,11 @@ class invoice_vm extends ChangeNotifier{
   }
 Future<void> getinvoice_Localwithprev() async{
   List<InvoiceModel> list=[];
-  await getinvoiceswithprev();
+  listInvoicesAccept=[];
   isloading=true;
   notifyListeners();
+  await getinvoiceswithprev();
+
   listInvoicesAccept.forEach((element) {
 
           if (element.stateclient == 'مشترك'
@@ -366,8 +366,9 @@ Future<void> getinvoice_Localwithprev() async{
       ) async {
     List<InvoiceModel> list=[];
     isloading=true;
-    notifyListeners();
     listInvoicesAccept=[];
+
+    notifyListeners();
 
     print('dcvcvvvvvvvvvvvvvvvvvvvvvvvvv');
     print(approvetype);
@@ -443,42 +444,51 @@ Future<void> getinvoice_Localwithprev() async{
     element.idInvoice == idInvoice);
     int iindex=listInvoicesAccept.indexWhere((element) =>
     element.idInvoice==idInvoice);
+    if(index!=-1){
     if(data!=null) {
 
       listinvoices[index] = data;
 
     }else{
       listinvoices.removeAt(index);
-    }
+    }}
+    if(iindex!=-1)
     listInvoicesAccept.removeAt(iindex);
     notifyListeners();
 
     return true;
   }
-  // fk_idUser
-  Future<void> get_invoiceclientlocal(String? fk_client,String type
-     // ,List<InvoiceModel> list
-      ) async {
+  Future<void> get_byIdClient(String fkclient) async {
+    // InvoiceModel? inv;
+    // bool res=true;
+    //
+    // inv= listinvoices.firstWhere((element) =>element.fkIdClient==fkclient
+    //     ,orElse:null);
+    // if(inv==null) inv=
+    // listinvoices.add(inv!);
+    // notifyListeners();
+  }
+  Future<void> get_invoiceclientlocal(String? fk_client,String type) async {
+    List<InvoiceModel> list=[];
+    print('sdsjnhksjhdushdijksljflsdjlfkjljlj');
     listinvoiceClient=[];
     notifyListeners();
+    list= await Invoice_Service().getinvoicebyclient(fk_client!);
+    if(list.isNotEmpty){
     //await getinvoices();
     //seacrh for invoice in list
     if(type=='مشترك'){
-    //listinvoiceClient=[];
-    listinvoices.forEach((element) {
-      if( element.fkIdClient==fk_client&&element.isApprove!=null)
+      list.forEach((element) {
+      if( element.fkIdClient ==fk_client && element.isApprove!=null)
       listinvoiceClient.add(element);
     });
     }else{
-
-      //listinvoiceClient=[];
-      listinvoices.forEach((element) {
+      list.forEach((element) {
         if( element.fkIdClient==fk_client)
           listinvoiceClient.add(element);
       });
-    }
-    // if(index !=-1)
-    //   listinvoiceClient=[];
+    }}
+    print('length list invoice client '+listinvoiceClient.length.toString());
     notifyListeners();
   }
   void setvaluepriv(privilgelistparam){
@@ -500,20 +510,25 @@ Future<void> getinvoice_Localwithprev() async{
     bool res= privilgelist.firstWhere(
             (element) => element.fkPrivileg=='1').isCheck=='1'?true:false;
     if(res) {
-    listinvoices = await Invoice_Service().getinvoice(usercurrent!.fkCountry.toString());
+    listinvoices = await Invoice_Service().getinvoice
+      (usercurrent!.fkCountry.toString());
+    print('indddddd');
     }
     else{
       res= privilgelist.firstWhere(
-            (element) => element.fkPrivileg=='6').isCheck=='1'?true:false;
+            (element) => element.fkPrivileg=='38').isCheck=='1'?true:false;
     if(res) {
-    listinvoices = await Invoice_Service().getinvoice(usercurrent!.fkCountry.toString());
+    listinvoices = await Invoice_Service()
+        .getinvoicebyregoin(usercurrent!.fkRegoin!);
+
     }else{
       res= privilgelist.firstWhere(
-              (element) => element.fkPrivileg=='38').isCheck=='1'?true:false;
+              (element) => element.fkPrivileg=='6').isCheck=='1'?true:false;
       if(res) {
-        listinvoices = listinvoicebyregoin = await Invoice_Service()
-            .getinvoicebyregoin(usercurrent!.fkRegoin!);
-      }}}
+        listinvoices  = await Invoice_Service()
+            .getinvoicebyiduser(usercurrent!.idUser.toString());
+      }}
+    }
     listInvoicesAccept=listinvoices;
     notifyListeners();
   }
@@ -525,7 +540,6 @@ Future<void> getinvoice_Localwithprev() async{
         if( element.fkIdUser==usercurrent!.idUser)
           listinvoicebyregoin.add(element);
       });
-
     }
     else{
       listinvoices = await Invoice_Service()
@@ -619,10 +633,10 @@ Future<void> getinvoice_Localwithprev() async{
       //
       //   "products":listproductinvoic.map((e)=>e.toJson()).toList()
       // });
-
+       if(index!=-1)
       listinvoiceClient[index]=data;//InvoiceModel.fromJson(body);
       final index1=listinvoices.indexWhere((element) => element.idInvoice==idInvoice);
-
+    if(index1!=-1)
       listinvoices[index1]= data;
 
     int index2=listInvoicesAccept.indexWhere((element) => element.idInvoice==idInvoice);

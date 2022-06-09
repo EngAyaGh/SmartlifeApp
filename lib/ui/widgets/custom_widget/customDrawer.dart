@@ -35,13 +35,13 @@ return  Drawer(
             color:Colors.white24 //Color(0xFF56ccf2),
           ),
                accountName:
-                   Text(controllerUsers.currentUser!.nameUser.toString(),
+                   Text(controllerUsers.currentUser.nameUser.toString(),
                      style: TextStyle(
                          fontFamily: kfontfamily2),
                    ),
 
                    accountEmail:
-                   Text(controllerUsers.currentUser!.email.toString(),
+                   Text(controllerUsers.currentUser.email.toString(),
                  style: TextStyle(
                      fontFamily: kfontfamily2),
                ),
@@ -52,7 +52,7 @@ return  Drawer(
                 ? Color(0xFF56ccf2)
                 : Colors.grey,
             child:  Provider.of<user_vm_provider>(context,listen: true)
-                .currentUser!.img_image!.isNotEmpty
+                .currentUser.img_image!.isNotEmpty
                 ?
             ClipRRect(
               borderRadius: BorderRadius.circular(45),
@@ -64,7 +64,8 @@ return  Drawer(
                   ),
                 ),
                 imageUrl:
-                Provider.of<user_vm_provider>(context,listen: true).currentUser!.img_image!    ),
+                Provider.of<user_vm_provider>(context,listen: true)
+                    .currentUser.img_image!    ),
             )
             // Image.network(Provider.of<user_vm_provider>(context,listen: true)
             //     .currentUser!.img_image! ,
@@ -74,7 +75,7 @@ return  Drawer(
             //     File(Provider.of<user_vm_provider>(context,listen: true).currentUser!.img_image!))
             //     as ImageProvider
                 :Text(Provider.of<user_vm_provider>(context,listen: true)
-                .currentUser!.nameUser
+                .currentUser.nameUser
                 .toString()
                 .substring(0, 1))),
             // Provider.of<user_vm_provider>(context,listen: false).currentUser!.img_image!.isNotEmpty
@@ -117,8 +118,12 @@ return  Drawer(
                      context,
                      MaterialPageRoute<void>(
                        builder: (BuildContext context)
-                       => edit_profile(),
-                       fullscreenDialog: true,
+                       => UserScreen(
+                         ismyprofile: 'yes',
+                           userModel: Provider.of<user_vm_provider>
+                             (context,listen: false).currentUser
+                         //index: index,
+                       )
                      ),
                    );
                    // ProductView();

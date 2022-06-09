@@ -536,12 +536,18 @@ else{
                                           //"date_create": DateTime.now().toString(),
                                           "type_installation": typeinstallController,
                                           "amount_paid": amount_paidController.text,
+                                          'fk_regoin':widget.invoice!.fk_regoin.toString(),
+                                          'fkcountry':widget.invoice!.fk_country.toString(),
 
                                           "fk_idClient": widget.itemClient.idClients,
                                           "fk_idUser": widget.itemClient.fkUser,
                                           "image_record":imageController.text,
                                           "lastuserupdate":Provider.of<user_vm_provider>(
-                                              context,listen: false).currentUser!.idUser.toString(),
+                                              context,listen: false).currentUser
+                                              .idUser.toString(),
+                                          "lastnameuser":Provider.of<user_vm_provider>(
+                                              context,listen: false).currentUser
+                                              .nameUser.toString(),
                                           "total": totalController,
                                           "notes": noteController.text,
                                           "id_invoice":invoiceID,
@@ -567,7 +573,7 @@ else{
                                           "name_enterprise":widget.itemClient.nameEnterprise,
                                           "name_client":widget.itemClient.nameClient,
                                           "nameUser":Provider.of<user_vm_provider>
-                                            (context,listen: false).currentUser!.nameUser.toString(),//widget.itemClient.nameUser,
+                                            (context,listen: false).currentUser.nameUser.toString(),//widget.itemClient.nameUser,
                                           "renew_year": renewController.text,
                                           "type_pay": typepayController,
                                           //"date_create":  formatter.format(_currentDate),

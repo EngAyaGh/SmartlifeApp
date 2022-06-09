@@ -13,6 +13,7 @@ class PrivilgeModel {
   late  String isCheck;
   late final String name_privilege;
   late final String type_prv;
+  late  String periorty='0';
 
   PrivilgeModel.fromJson(Map<String, dynamic> json){
     idPrivgUser = json['id_privg_user'];
@@ -21,6 +22,7 @@ class PrivilgeModel {
     isCheck = json['is_check'];
     name_privilege = json['name_privilege'];
     type_prv = json['type_prv'];
+    periorty = json['periorty'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,6 +33,7 @@ class PrivilgeModel {
     _data['is_check'] = isCheck;
     _data['name_privilege'] = name_privilege;
     _data['type_prv'] = type_prv;
+    _data['periorty'] = periorty;
     return _data;
   }
 }

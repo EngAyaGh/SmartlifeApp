@@ -205,7 +205,8 @@ class _careAddState extends State<careAdd> {
                             (context,listen: false).addcommuncation({
 
                              'fk_user':Provider.of<user_vm_provider>
-                              (context,listen: false).currentUser!.idUser.toString(),
+                              (context,listen: false).
+                             currentUser.idUser.toString(),
                              'date_communication':DateTime.now().toString(),
                              'result':typepayController,//
                              'rate':rate.toString(),

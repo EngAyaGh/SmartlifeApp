@@ -233,7 +233,7 @@ class _addClientState extends State<addClient> {
                                   .changebooladdclient(true);
                               UserModel _user=
                                   Provider.of<user_vm_provider>
-                                    (context,listen: false).currentUser!;
+                                    (context,listen: false).currentUser;
                               Provider.of<client_vm>(context,listen: false)
                                   .addclient_vm({
                                   'name_client': nameclientController.text,

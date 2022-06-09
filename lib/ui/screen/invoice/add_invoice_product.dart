@@ -241,7 +241,7 @@ void calculate(){
                                     controller: _textprice,
                                     label: 'السعر',
                                     hintText: Provider.of<user_vm_provider>(context, listen: true)
-                                        .currentUser!.currency.toString(),
+                                        .currentUser.currency.toString(),
                                     inputType: TextInputType.number,
                                    // inputformate: <TextInputFormatter>[
                                    //   FilteringTextInputFormatter.digitsOnly

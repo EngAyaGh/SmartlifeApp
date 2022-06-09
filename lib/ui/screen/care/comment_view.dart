@@ -70,7 +70,7 @@ print('init in comment');
                           'content': _comment.text,
                           'fk_user':  await Provider.of<user_vm_provider>(context,
                                   listen: false)
-                              .currentUser!
+                              .currentUser
                               .idUser
                               .toString(),
                           'fk_client': fk_client,
@@ -82,12 +82,12 @@ print('init in comment');
                           //),
                           'nameUser': Provider.of<user_vm_provider>(context,
                               listen: false)
-                              .currentUser!.nameUser,
+                              .currentUser.nameUser,
                           'img_image':'',
                           'name_enterprise':nameEnterprise
                         }, Provider.of<user_vm_provider>(context,
                             listen: false)
-                            .currentUser!.img_image,);
+                            .currentUser.img_image,);
                         _comment.text='';
                       },
                       icon: Icon(Icons.send, color: kMainColor)),

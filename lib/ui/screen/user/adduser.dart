@@ -248,7 +248,7 @@ class _addUserState extends State<addUser> {
 
                           String? id_country=
                               Provider.of<user_vm_provider>(context,listen: false)
-                                  .currentUser!.fkCountry;
+                                  .currentUser.fkCountry;
                       if( level!=null && emailController.text.isNotEmpty&&nameController.text.isNotEmpty) {
                         Provider.of<LoadProvider>(context, listen: false)
                             .changeboolValueUser(true);
@@ -267,7 +267,7 @@ class _addUserState extends State<addUser> {
                          'name_level' :levelname,
                           'name_regoin':regoinname,
                           'fkuserAdd':Provider.of<user_vm_provider>
-                            (context,listen: false).currentUser!.idUser.toString(),
+                            (context,listen: false).currentUser.idUser.toString(),
                           'fk_regoin': regoin != null ? regoin : "null",
                         };
                        Provider.of<user_vm_provider>(context,listen: false)

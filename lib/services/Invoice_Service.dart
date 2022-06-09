@@ -50,7 +50,6 @@ class Invoice_Service {
     for (int i = 0; i < data.length; i++) {
       print(i);
 
-      //print("data "+ "[" + data[i] + "]");
       prodlist.add(InvoiceModel.fromJson(data[i]));
     }
     print(prodlist);

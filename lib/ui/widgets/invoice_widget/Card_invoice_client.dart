@@ -54,7 +54,8 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
   @override
   Widget build(BuildContext context) {
     _currentUser =
-    Provider.of<user_vm_provider>(context, listen: true).currentUser!;
+    Provider.of<user_vm_provider>(context, listen: true)
+        .currentUser;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
@@ -62,21 +63,11 @@ class _CardInvoiceClientState extends State<CardInvoiceClient> {
           //splashColor: Colors.blue.withAlpha(30),
           onTap: () {
             Navigator.push(context, MaterialPageRoute(
-                builder: (context)=>InvoiceView(
+                builder: (context)=>
+                    InvoiceView(
                   //clientmodel: widget.itemClient,
                   invoice:widget.itemProd ,
                 )));
-            // InvoiceView(
-            // idinvoice:
-            // _invoiceModel==null?'':
-            // _invoiceModel!.idInvoice.toString(),
-            // clientmodel: _clientModel,
-            // ),
-            // Navigator.push(context, MaterialPageRoute(
-            //     builder: (context)=>addinvoice(
-            //         itemClient: widget.itemClient,
-            //         invoice:widget.itemProd ,
-            //     )));
           },
           child: Directionality(
             textDirection: TextDirection.rtl,

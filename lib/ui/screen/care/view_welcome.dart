@@ -11,6 +11,7 @@ import 'package:grouped_list/grouped_list.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../../../function_global.dart';
+import 'cardcommAlltype.dart';
 import 'install_add.dart';
 
 class View_welcomeClient extends StatefulWidget {
@@ -190,39 +191,42 @@ class _View_welcomeClientState extends State<View_welcomeClient> {
                                                   Padding(
                                                     padding: const EdgeInsets.all(
                                                         2),
-                                                    child: Column(
-                                                      children: [
-                                                        ListTile(
-                                                          onTap: () {
-                                                            Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (
-                                                                        context) =>
-                                                                        installAdd(
-                                                                          com: value.listCommunicationWelcome[index],
-                                                                        )));
-                                                          },
-                                                          title: Text(
-                                                            value.listCommunicationWelcome[index].nameEnterprise
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                fontFamily: kfontfamily2
-                                                            ),),
-                                                          // leading:
-                                                          trailing: Text(
-                                                           value.listCommunicationWelcome[index]
-                                                                .date_approve
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                fontFamily: kfontfamily2
-                                                            ),),
-                                                        ),
-                                                        // const MySeparator(color: Colors.grey),
-                                                        Divider(thickness: 2,),
-                                                      ],
-                                                    ),
+                                                    child: cardcommalltype(
+                                                        itemcom:
+                                                        value.listCommunicationWelcome[index]),
+                                                    // child: Column(
+                                                    //   children: [
+                                                    //     ListTile(
+                                                    //       onTap: () {
+                                                    //         Navigator.push(
+                                                    //             context,
+                                                    //             MaterialPageRoute(
+                                                    //                 builder:
+                                                    //                     (
+                                                    //                     context) =>
+                                                    //                     installAdd(
+                                                    //                       com: value.listCommunicationWelcome[index],
+                                                    //                     )));
+                                                    //       },
+                                                    //       title: Text(
+                                                    //         value.listCommunicationWelcome[index].nameEnterprise
+                                                    //             .toString(),
+                                                    //         style: TextStyle(
+                                                    //             fontFamily: kfontfamily2
+                                                    //         ),),
+                                                    //       // leading:
+                                                    //       trailing: Text(
+                                                    //        value.listCommunicationWelcome[index]
+                                                    //             .date_approve
+                                                    //             .toString(),
+                                                    //         style: TextStyle(
+                                                    //             fontFamily: kfontfamily2
+                                                    //         ),),
+                                                    //     ),
+                                                    //     // const MySeparator(color: Colors.grey),
+                                                    //     Divider(thickness: 2,),
+                                                    //   ],
+                                                    // ),
                                                   )
                                               )
                                       );

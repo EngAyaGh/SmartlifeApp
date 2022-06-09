@@ -51,6 +51,26 @@ class ClientService{
     print(prodlist);
     return prodlist;
   }
+  Future<ClientModel> getclientid(String? id_clients) async {
+    var
+    data=await Api()
+        .get(url:url+ 'client/getclientid.php?id_clients=$id_clients');
+
+    return ClientModel.fromJson(data[0]);
+  }
+  Future<List<ClientModel>> getAcceptClient(String? fkcountry) async {
+    List<dynamic> data =[];
+    data=await Api()
+        .get(url:url+ 'client/getAcceptClient.php?fk_country=$fkcountry');
+
+    List<ClientModel> prodlist = [];
+
+    for (int i = 0; i < data.length; i++) {
+      prodlist.add(ClientModel.fromJson(data[i]));
+    }
+    print(prodlist);
+    return prodlist;
+  }
   Future<List<ClientModel>> getClientbyuser(String? fk_user) async {
     List<dynamic> data =[];
     data=await Api()

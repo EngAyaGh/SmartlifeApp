@@ -40,7 +40,11 @@ Widget buildSelectCategory({
                 ),
                 Row(
                   children: [
-                    subtitle!=null?Text(subtitle.toString()):Container(),
+                    subtitle!=null? Text(
+                        subtitle.toString(),
+                      style: TextStyle(),
+                    )
+                        :Container(),
                     Icon(
                       Icons.arrow_back_ios_new,
                       color: colorarrow,

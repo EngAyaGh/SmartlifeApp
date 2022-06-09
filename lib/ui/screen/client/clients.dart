@@ -109,7 +109,7 @@ class client_dashboard extends StatefulWidget {
       .listClient.firstWhere((element) =>
       element.idClients==widget.invoiceModel.fkIdClient);
 
-      current = Provider.of<user_vm_provider>(context).currentUser!;
+      current = Provider.of<user_vm_provider>(context).currentUser;
       int _tabBarIndex = 0;
      TabController _tabcontroller=TabController(length: 3, vsync: this);
       return DefaultTabController(

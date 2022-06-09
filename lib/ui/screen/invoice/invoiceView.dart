@@ -45,11 +45,7 @@ class _InvoiceViewState extends State<InvoiceView> {
   late typeclient typeclient_provider;
   late ClientModel clientmodel;
 
-  Widget _product(String name,String price
-     // List<ProductsInvoice>? products
-      ) {
-
-   // for(int index=0;index<products!.length;index++){
+  Widget _product(String name,String price ) {
    return    Column(
         children: [
           Row(
@@ -66,48 +62,17 @@ class _InvoiceViewState extends State<InvoiceView> {
 
         ],
       );
-
-    //}
-
-    // return Expanded(
-    //   child: ListView.builder(
-    //    padding: EdgeInsets.all(1),
-    //
-    //     itemCount: products!.length,
-    //     itemBuilder: (context, index) {
-    //       return
-    //         // Consumer<user_vm_provider>(
-    //         //   builder: (context, cart, child) {
-    //         //     return
-    //         // cardRow(
-    //         //     title: products[index].nameProduct.toString(),
-    //         //     value: products[index].price.toString());
-    //       Column(
-    //         children: [
-    //           Row(
-    //             children: [
-    //               Text(products[index].nameProduct.toString(),style: TextStyle(fontFamily: kfontfamily3),),
-    //               Spacer(),
-    //               Text( products[index].price.toString(),style: TextStyle(fontFamily: kfontfamily2),),
-    //             ],
-    //           ),
-    //           Divider(thickness: 2,color: Colors.black54,),
-    //
-    //         ],
-    //       );
-    //       //});
-    //     },
-    //   ),
-    // );
   }
 
   @override void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_)async {
       clientmodel=Provider.of<client_vm>(context,listen: false)
           .listClient.firstWhere(
               (element) => element.idClients==widget.invoice!.fkIdClient);
-      Provider.of<invoice_vm>(context, listen: false)
-          .get_invoiceclientlocal(widget.invoice!.fkIdClient,'');
+
+     // await Provider.of<invoice_vm>(context, listen: false)
+     //      .get_invoiceclientlocal(widget.invoice!.fkIdClient,'');
+
       typeclient_provider = Provider.of<typeclient>(context, listen: false);
       typeclient_provider.getreasons('client');
 
@@ -138,25 +103,26 @@ class _InvoiceViewState extends State<InvoiceView> {
         currentDate: currentDate,
         initialDate: currentDate,
         firstDate: DateTime(2015),
-        lastDate: DateTime(2080));
+        lastDate: DateTime(3000));
     if (pickedDate != null )//&& pickedDate != currentDate)
       setState(() {
         _currentDate = pickedDate;});
     Provider.of<datetime_vm>(context,listen: false).setdatetimevalue(_currentDate);
-     // });
   }
 
   @override
   Widget build(BuildContext context) {
-    widget.invoice=Provider.of<invoice_vm>(context,listen: true)
-        .listinvoiceClient
-        .firstWhere((element) => element.idInvoice==widget.invoice!.idInvoice
-    ,orElse: null);
-    if( widget.invoice==null)
-    widget.invoice=Provider.of<invoice_vm>(context,listen: true)
+    // widget.invoice=Provider.of<invoice_vm>(context,listen: true)
+    //     .listinvoiceClient
+    //     .firstWhere((element) => element.idInvoice==widget.invoice!.idInvoice
+    // ,orElse: null);
+    //
+    // if( widget.invoice==null)
+         widget.invoice=Provider.of<invoice_vm>(context,listen: true)
         .listInvoicesAccept
         .firstWhere((element) => element.idInvoice==widget.invoice!.idInvoice
         ,orElse: null);
+
     final _globalKey = GlobalKey<FormState>();
     Widget dialog =
     SimpleDialog(
@@ -277,10 +243,21 @@ class _InvoiceViewState extends State<InvoiceView> {
 
                                 await Provider.of<invoice_vm>(context, listen: false)
                                     .set_state_back({
+                                  'fk_regoin':widget.invoice!.fk_regoin.toString(),
+                                  'fkcountry':widget.invoice!.fk_country.toString(),
+                                  "fkUserdo":
+                                  Provider.of<user_vm_provider>(context, listen: false)
+                                      .currentUser
+                                      .idUser.toString(),
+                                  "name_enterprise": clientmodel.nameEnterprise
+                                      .toString(),
+                                  "nameUserdo":
+                                  Provider.of<user_vm_provider>(context, listen: false).currentUser
+                                      .nameUser.toString(),
                                   "fk_client":widget.invoice!.fkIdClient.toString(),
                                   "reason_back": typeclient_provider.selectedValueOut,
                                   "fkuser_back": Provider
-                                      .of<user_vm_provider>(context, listen: false).currentUser!.idUser.toString(),
+                                      .of<user_vm_provider>(context, listen: false).currentUser.idUser.toString(),
                                   "desc_reason_back": descresaonController.text,
                                   "date_change_back": _currentDate.toString(),//DateTime.now().toString(),
                                   "value_back": valueBackController.text,
@@ -304,15 +281,6 @@ class _InvoiceViewState extends State<InvoiceView> {
 
       ],
     );
-    // if(invoice!=null||idinvoice!=''){
-    //   int index=Provider.of<invoice_vm>(context,listen: true)
-    //       .listinvoices.indexWhere((element) => element.idInvoice==idinvoice);
-    // if(index!=-1) invoice=Provider.of<invoice_vm>(context,listen: true)
-    //     .listinvoices[index];
-    // }
-    // invoice=Provider.of<invoice_vm>(context,listen: true).listinvoices
-    //     .firstWhere((element) => element.idInvoice==idinvoice,orElse: ()=>null);
-
     return Scaffold(
         appBar: widget.type=='approved'? null:AppBar(elevation: 1,),
         body:
@@ -468,7 +436,8 @@ class _InvoiceViewState extends State<InvoiceView> {
                                                 .addlistinvoicedeleted(
                                                 DeletedinvoiceModel(
                                                   fkClient: widget.invoice!.fkIdClient.toString(),
-                                                  fkUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
+                                                  fkUser: Provider.of<user_vm_provider>
+                                                    (context, listen: false).currentUser
                                                       .idUser, //cuerrent user
                                                   dateDelete:
                                                   formatter.format(_currentDate),
@@ -482,7 +451,8 @@ class _InvoiceViewState extends State<InvoiceView> {
                                                   //mobileuser:widget.itemClient. ,
                                                   // nameUser: widget.itemProd
                                                   //     .nameUser, //موظف المبيعات
-                                                  nameUser: Provider.of<user_vm_provider>(context, listen: false).currentUser!
+                                                  nameUser: Provider.of<user_vm_provider>
+                                                    (context, listen: false).currentUser
                                                       .nameUser, //name user that doing delete
                                                 ));
                                             Provider.of<invoice_vm>(context,
@@ -491,13 +461,17 @@ class _InvoiceViewState extends State<InvoiceView> {
                                               "id_invoice":
                                               widget.invoice!.idInvoice
                                                   .toString(),
+                                              'fk_regoin':widget.invoice!.fk_regoin.toString(),
+                                              'fkcountry':widget.invoice!.fk_country.toString(),
                                               "fkUserdo":
-                                              Provider.of<user_vm_provider>(context, listen: false).currentUser!
+                                              Provider.of<user_vm_provider>
+                                                (context, listen: false).currentUser
                                                   .idUser.toString(),
                                               "name_enterprise": clientmodel.nameEnterprise
                                                   .toString(),
                                               "nameUserdo":
-                                              Provider.of<user_vm_provider>(context, listen: false).currentUser!
+                                              Provider.of<user_vm_provider>(context, listen: false).
+                                              currentUser
                                                   .nameUser.toString(),
                                             }, widget.invoice!.idInvoice);
                                             Navigator.pop(context);
@@ -569,9 +543,9 @@ class _InvoiceViewState extends State<InvoiceView> {
                                               //"message":"",//
                                               "nameuserApproved":
                                               Provider.of<user_vm_provider>(context,listen: false)
-                                                  .currentUser!.nameUser,
+                                                  .currentUser.nameUser,
                                               "iduser_approve":  Provider.of<user_vm_provider>(context,listen: false)
-                                                  .currentUser!.idUser//معتمد الاشتراك
+                                                  .currentUser.idUser//معتمد الاشتراك
                                             }, widget.invoice!.idInvoice).then((value) => value!=false?
                                             clear() : error()// clear()
                                               // _scaffoldKey.currentState!.showSnackBar(
@@ -618,9 +592,9 @@ class _InvoiceViewState extends State<InvoiceView> {
                                   "fkusername":widget.invoice!.nameUser, //موظف المبيعات
                                   //"message":"",//
                                   "nameuserApproved":Provider.of<user_vm_provider>(context,listen: false)
-                                      .currentUser!.nameUser,
+                                      .currentUser.nameUser,
                                   "iduser_approve": Provider.of<user_vm_provider>(context,listen: false)
-                                      .currentUser!.idUser//معتمد الاشتراك
+                                      .currentUser.idUser//معتمد الاشتراك
                                 }, widget.invoice!.idInvoice)
                                     .then((value) =>
                                 value!=false?

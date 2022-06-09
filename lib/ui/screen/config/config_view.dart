@@ -66,7 +66,7 @@ class _config_viewState extends State<config_view> {
               .value_config;
       _controllerinstall.text =
           _listconfg
-              .firstWhere((element) => element.name_config == 'period_install')
+              .firstWhere((element) => element.name_config == 'ticket')
               .value_config;
       _controllercomplete_install.text =
           _listconfg
@@ -150,7 +150,7 @@ class _config_viewState extends State<config_view> {
                           Provider.of<config_vm>(context,listen: false)
                               .listofconfig[i].id_config);
                       break;
-                      case 'period_install':
+                      case 'ticket':
                       Provider.of<config_vm>(context,listen: false)
                           .updateConfig_vm({'value_config':_controllerinstall.text},
                           Provider.of<config_vm>(context,listen: false)
@@ -221,34 +221,34 @@ class _config_viewState extends State<config_view> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 15,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-
-                        children: [
-                          Text('التاركيت         '),
-                          Flexible(
-                            child: CustomFormField(
-                              read: false,
-                              radius: 10,
-                              //maxline: 3,
-                              vaild: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a value ';
-                                }
-                              },
-                              con: _controllertarget,
-                              label: "تاركيت ",
-                              hintText: '',
-                            ),
-                          ),
-                          Text(' * 6 '),
-                        ],
-                      ),
+                      // SizedBox(height: 15,),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //
+                      //   children: [
+                      //     Text('التاركيت         '),
+                      //     Flexible(
+                      //       child: CustomFormField(
+                      //         read: false,
+                      //         radius: 10,
+                      //         //maxline: 3,
+                      //         vaild: (value) {
+                      //           if (value!.isEmpty) {
+                      //             return 'Please enter a value ';
+                      //           }
+                      //         },
+                      //         con: _controllertarget,
+                      //         label: "تاركيت ",
+                      //         hintText: '',
+                      //       ),
+                      //     ),
+                      //     Text(' * 6 '),
+                      //   ],
+                      // ),
                       SizedBox(height: 15,),
 
                       RowEdit(name: '   الدعم الفني', des: ''),
-                      Text('  فترة السماح للدعم الفني تحديد موعد التركيب للعميل'),
+                      Text('  فترة السماح لتحديد موعد التركيب للعميل'),
                       CustomFormField(
                         read: false,
                         radius: 10,
@@ -262,20 +262,7 @@ class _config_viewState extends State<config_view> {
                         label: " ساعة",
                         hintText: 'ساعة',
                       ),
-                      Text('فترة السماح للدعم الفني التركيب مع العميل '),
-                      CustomFormField(
-                        read: false,
-                        radius: 10,
-                        // maxline: 3,
-                        vaild: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter a value ';
-                          }
-                        },
-                        con: _controllerinstall,
-                        label: " ساعة",
-                        hintText: 'ساعة',
-                      ),
+
                       Text('فترة السماح لإتمام التركيب للعميل '),
                       CustomFormField(
                         read: false,
@@ -294,7 +281,7 @@ class _config_viewState extends State<config_view> {
                       SizedBox(height: 15,),
 
                       RowEdit(name: 'العناية بالعملاء ', des: ''),
-                      Text('فترة السماح للتواصل الأول مع العميل الجديد بعد الاشتراك'),
+                      Text('فترة السماح للترحيب مع العميل'),
                       CustomFormField(
                         read: false,
                         radius: 10,
@@ -305,10 +292,10 @@ class _config_viewState extends State<config_view> {
                           }
                         },
                         con: _controllerperiod_commincation1,
-                        label: "يوم ",
-                        hintText: 'يوم',
+                        label: "ساعة",
+                        hintText: 'ساعة',
                       ),
-                      Text('فترة السماح للتواصل الثاني مع العميل الجديد بعد التركيب'),
+                      Text('فترة السماح لجودة التركيب والتدريب'),
                       CustomFormField(
                         read: false,
                         radius: 10,
@@ -319,10 +306,10 @@ class _config_viewState extends State<config_view> {
                           }
                         },
                         con: _controllerperiod_commincation2,
-                        label: "يوم ",
-                        hintText: 'يوم',
+                        label: "ساعة ",
+                        hintText: 'ساعة',
                       ),
-                      Text('فترة السماح للتواصل الثالث "الاتصال الدوري" للعميل'),
+                      Text('فترة السماح للاتصال الدوري للعميل'),
                       CustomFormField(
                         read: false,
                         radius: 10,
@@ -336,7 +323,21 @@ class _config_viewState extends State<config_view> {
                         label: "يوم ",
                         hintText: 'يوم',
                       ),
-                      Text('عدد ساعات التركيب والتدريب الافتراضية'),
+                      Text('فترة السماح لاستلام التذكرة الجديدة '),
+                      CustomFormField(
+                        read: false,
+                        radius: 10,
+                        // maxline: 3,
+                        vaild: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter a value ';
+                          }
+                        },
+                        con: _controllerinstall,
+                        label: " يوم",
+                        hintText: 'يوم',
+                      ),
+                      Text('فترة السماح للتحصيل من العميل'),
                       CustomFormField(
                         read: false,
                         radius: 10,
@@ -347,8 +348,8 @@ class _config_viewState extends State<config_view> {
                           }
                         },
                         con: _controller_counter,
-                        label: "ساعة ",
-                        hintText: 'ساعة',
+                        label: "يوم ",
+                        hintText: 'يوم',
                       ),
 //فترة السماح للتواصل الثالث "الاتصال الدوري" للعميل
                     ],

@@ -264,7 +264,7 @@ class _addProductState extends State<addProduct> {
                                           'priceProduct': price.toString(),
                                           'type': valtype_product.toString(),
                                           'fk_country': Provider.of<user_vm_provider>(context,listen: false)
-                                          .currentUser!.fkCountry.toString(),
+                                          .currentUser.fkCountry.toString(),
                                           'fk_config': valtaxrate
                                               ? taxrate.id_config
                                               : "null",

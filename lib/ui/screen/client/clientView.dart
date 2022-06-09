@@ -235,9 +235,9 @@ class _ClientViewState extends State<ClientView> {
                                           //"message":"",//
                                           "nameuserApproved":
                                           Provider.of<user_vm_provider>(context,listen: false)
-                                              .currentUser!.nameUser,
+                                              .currentUser.nameUser,
                                           "iduser_approve":  Provider.of<user_vm_provider>(context,listen: false)
-                                              .currentUser!.idUser//معتمد الاشتراك
+                                              .currentUser.idUser//معتمد الاشتراك
                                         }, widget.invoice!.idInvoice).then((value) => value!=false?
                                         clear() : error()// clear()
                                           // _scaffoldKey.currentState!.showSnackBar(
@@ -313,9 +313,9 @@ class _ClientViewState extends State<ClientView> {
                                           "fkusername":widget.invoice!.nameUser, //موظف المبيعات
                                           //"message":"",//
                                           "nameuserApproved":Provider.of<user_vm_provider>(context,listen: false)
-                                              .currentUser!.nameUser,
+                                              .currentUser.nameUser,
                                           "iduser_approve": Provider.of<user_vm_provider>(context,listen: false)
-                                              .currentUser!.idUser//معتمد الاشتراك
+                                              .currentUser.idUser//معتمد الاشتراك
                                         }, widget.invoice!.idInvoice)
                                             .then((value) =>
                                         value!=false?

@@ -11,6 +11,7 @@ import 'package:crm_smart/services/ProductService.dart';
 import 'package:crm_smart/services/clientService.dart';
 import 'package:crm_smart/ui/widgets/widgetcalendar/utils.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'country_vm.dart';
@@ -52,9 +53,10 @@ class client_vm extends ChangeNotifier {
     // , List<InvoiceModel> list
       )
   async {
+    isloading=true;
     listClientAccept=[];
     // notifyListeners();
-    isloading=true;
+
     notifyListeners();
     List<ClientModel> _list=
     await ClientService().getAllClient(usercurrent!.fkCountry.toString());
@@ -64,7 +66,7 @@ class client_vm extends ChangeNotifier {
         listClientAccept.add(element);
     });
      isloading=false;
-    notifyListeners();
+     notifyListeners();
   }
 
   bool getfilterclient(String filter){
@@ -102,7 +104,8 @@ class client_vm extends ChangeNotifier {
     notifyListeners();
   }
   Future<void> getclientfilter_Local(
-      String? searchfilter,String type,String? filter2,String? filter3
+      String? searchfilter,String type,
+      String? filter2,String? filter3
       // , List<ClientModel> list
       )
   async {
@@ -204,6 +207,41 @@ class client_vm extends ChangeNotifier {
     listClientAccept = listClient;
     notifyListeners();
   }
+  Future<void> getallclientAccept()async{
+    listClient =
+        await ClientService()
+            .getAcceptClient(usercurrent!.fkCountry.toString());
+    listClientAccept = listClient;
+    notifyListeners();
+  }
+  Future<void> getallclientAcceptwithprev()async{
+    listClient=[];
+    bool res= privilgelist.firstWhere(
+            (element) => element.fkPrivileg=='1').isCheck=='1'?true:false;
+    if(res) {
+      listClient = listClientAccept;
+    }
+    else{
+      res= privilgelist.firstWhere(
+              (element) => element.fkPrivileg=='6').isCheck=='1'?true:false;
+      if(res) {
+          listClientAccept.forEach((element) {
+            if(element.fkUser==usercurrent!.idUser.toString());
+            listClient.add(element);
+          });
+      }else{
+        res= privilgelist.firstWhere(
+                (element) => element.fkPrivileg=='38').isCheck=='1'?true:false;
+        if(res) {
+          listClientAccept.forEach((element) {
+            if(element.fkRegoin==usercurrent!.fkRegoin.toString());
+            listClient.add(element);
+          });
+        }}}
+
+    listClientAccept = listClient;
+    notifyListeners();
+  }
 
   Future<void> getclient_vm(
      // List<PrivilgeModel> privilgelist
@@ -242,16 +280,16 @@ class client_vm extends ChangeNotifier {
     notifyListeners();
   }
 
-  ClientModel? get_byIdClient(String idClient,)  {
+  Future<void> get_byIdClient(String idClient) async {
 
     ClientModel? inv;
-    listClient.forEach((element) {
-        if( element.idClients==idClient)
-          inv= element;
-      });
-    if(inv==null) getclient_vm();
+    bool res=true;
 
-    return inv;
+   inv= listClient.firstWhere((element) =>element.idClients==idClient
+       ,orElse:null);
+    if(inv==null) inv=await ClientService().getclientid(idClient);
+      listClient.add(inv);
+    notifyListeners();
   }
   Future<void> getclientMarketing() async {
     //عملائي

@@ -24,7 +24,6 @@ class _AllUserScreenState extends State<AllUserScreen> {
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_)async {
-      // await   Provider.of<invoice_vm>(context, listen: false).getinvoices();
       // Add Your Code here.
       // only
       await Provider.of<privilge_vm>(context, listen: false)

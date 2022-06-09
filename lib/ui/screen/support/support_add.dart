@@ -184,9 +184,18 @@ class _support_addState extends State<support_add> {
               // 'fk_idUser':,
               // 'type_date':,
               // 'date_install':,
+              'fk_regoin':_invoice!.fk_regoin.toString(),
+              'fkcountry':_invoice!.fk_country.toString(),
+              "namedatareplay":
+              Provider.of<user_vm_provider>(context, listen: false)
+                  .currentUser
+                  .nameUser.toString(),
+              "name_enterprise": _invoice!.name_enterprise.toString()
+                  .toString(),
               'daterepaly': _currentDate.toString(),
-              'fkuserdatareplay':Provider.of<user_vm_provider>(context,listen: false)
-                  .currentUser!.idUser,
+              'fkuserdatareplay':Provider.of<user_vm_provider>
+                (context,listen: false)
+                  .currentUser.idUser,
               'reason_date': _textsupport.text.toString()
             }, _invoice!.idInvoice).then((value) => clear());
           }
@@ -261,7 +270,7 @@ class _support_addState extends State<support_add> {
                               'dateinstall_task': _currentDate
                                   .toString(), //_invoice.dateinstall_task.toString()
                               'fkusertask':Provider.of<user_vm_provider>(context,listen: false)
-                                  .currentUser!.idUser,
+                                  .currentUser.idUser,
                               // 'nameusertask':Provider.of<user_vm_provider>(context,listen: false)
                               //     .currentUser!.nameUser,
                             }, _invoice!.idInvoice).then(
@@ -436,13 +445,13 @@ class _support_addState extends State<support_add> {
                                       'userinstall':
                                       Provider.of<user_vm_provider>(
                                           context,
-                                          listen: false).currentUser!.idUser.toString(),
+                                          listen: false).currentUser.idUser.toString(),
                                       'isdoneinstall': '1',
                                       'fkIdClient': _invoice!.fkIdClient,
                                       'nameuserinstall':
                                       Provider.of<user_vm_provider>(
                                           context,
-                                          listen: false).currentUser!.nameUser.toString(),
+                                          listen: false).currentUser.nameUser.toString(),
                                       'name_enterprise':
                                       _invoice!.name_enterprise,
                                       'fkcountry': _invoice!.fk_country,

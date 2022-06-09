@@ -7,6 +7,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
 
 import 'package:crm_smart/view_model/all_user_vm.dart';
+import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/user_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +19,15 @@ import 'package:get/get.dart';
 
 import '../../../constants.dart';
 import '../../../function_global.dart';
+import 'editprofile.dart';
 import 'edituser.dart';
 
 class UserScreen extends StatefulWidget {
   final UserModel userModel;
   //final int index;
+  String? ismyprofile;
   UserScreen({
+    this.ismyprofile,
      required this.userModel,
     //required this.index,
     Key? key,
@@ -49,13 +53,28 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     // bool isupdate=
-    UserModel useredit=  Provider.of<user_vm_provider>(context,listen: true)
-        .userall[index];
+    UserModel useredit=  Provider.of<user_vm_provider>
+      (context,listen: true).userall[index];
     //return Obx(() {
       return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           actions: [
+            //edit_profile(),
+            //
+            //                        fullscreenDialog: true,
+          widget.ismyprofile!=null?
+            IconButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context)=>
+                          edit_profile()));
+                },
+                icon:
+                const Icon(Icons.edit,
+                  color: kWhiteColor,)):
+            Provider.of<privilge_vm>(context,listen: true)
+                .checkprivlge('50')==true ?
             IconButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(
@@ -70,7 +89,10 @@ class _UserScreenState extends State<UserScreen> {
                   //   //userModel: controllerUsers.usersList[index],
                   // ));
                 },
-                icon: const Icon(Icons.edit,color: kWhiteColor,)),
+                icon:
+                const Icon(Icons.edit,
+                  color: kWhiteColor,)):Container(),
+
           ],
           title: TextUtilis(
             color: Colors.white,

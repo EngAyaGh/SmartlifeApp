@@ -11,6 +11,7 @@ import 'package:grouped_list/grouped_list.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../../../function_global.dart';
+import 'cardcommAlltype.dart';
 import 'install_add.dart';
 
 class View_installedClient extends StatefulWidget {
@@ -183,52 +184,13 @@ class _View_installedClientState extends State<View_installedClient> {
                                                   itemBuilder:
                                                       (context, index) {
                                                     return SingleChildScrollView(
-                                                        child: Container(
-                                                            child: Padding(
+                                                        child: Container( child: Padding(
                                                       padding:
                                                           const EdgeInsets.all(
                                                               2),
-                                                      child: Column(
-                                                        children: [
-                                                          ListTile(
-                                                            onTap: () {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (context) =>
-                                                                          installAdd(
-                                                                            com:
-                                                                                value.listCommunicationInstall[index],
-                                                                          )));
-                                                            },
-                                                            title: Text(
-                                                              value
-                                                                  .listCommunicationInstall[
-                                                                      index]
-                                                                  .nameEnterprise
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  fontFamily:
-                                                                      kfontfamily2),
-                                                            ),
-                                                            // leading:
-                                                            trailing: Text(
-                                                              value
-                                                                  .listCommunicationInstall[
-                                                                      index]
-                                                                  .date_approve
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  fontFamily:
-                                                                      kfontfamily2),
-                                                            ),
-                                                          ),
-                                                          // const MySeparator(color: Colors.grey),
-                                                          Divider(
-                                                            thickness: 2,
-                                                          ),
-                                                        ],
-                                                      ),
+                                                      child: cardcommalltype(
+                                                          itemcom:
+                                                          value.listCommunicationWelcome[index]),
                                                     )));
                                                   }),
                                             ),

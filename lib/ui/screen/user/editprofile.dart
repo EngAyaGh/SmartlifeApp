@@ -16,7 +16,6 @@ class edit_profile extends StatefulWidget {
   @override
   _edit_profileState createState() => _edit_profileState();
 }
-
 class _edit_profileState extends State<edit_profile> {
    final TextEditingController nameuserController = TextEditingController();
 
@@ -29,11 +28,11 @@ class _edit_profileState extends State<edit_profile> {
 
    @override void initState() {
      nameuserController.text= Provider.of<user_vm_provider>(context,listen: false)
-         .currentUser!.nameUser.toString();
+         .currentUser.nameUser.toString();
      mobileController.text= Provider.of<user_vm_provider>(context,listen: false)
-         .currentUser!.mobile.toString();
+         .currentUser.mobile.toString();
      emailController.text= Provider.of<user_vm_provider>(context,listen: false)
-         .currentUser!.email.toString();
+         .currentUser.email.toString();
     super.initState();
   }
    @override void dispose() {
@@ -76,11 +75,11 @@ appBar: AppBar(
               .updateuser_vm(
               body,
               Provider.of<user_vm_provider>(context,listen: false)
-                  .currentUser!.idUser,
+                  .currentUser.idUser,
               Provider.of<user_vm_provider>(context,listen: false)
-                  .currentUser!.path!.isNotEmpty?
+                  .currentUser.path!.isNotEmpty?
               File(Provider.of<user_vm_provider>(context,listen: false)
-                      .currentUser!.path!):null
+                      .currentUser.path!):null
 
           );
           //.then((value) => value != "error" //   ?

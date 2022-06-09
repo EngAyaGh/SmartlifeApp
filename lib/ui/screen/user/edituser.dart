@@ -139,8 +139,7 @@ class _EditUserState extends State<EditUser> {
       key: _scaffoldKey,
       appBar: AppBar(
         actions: [
-          Provider.of<privilge_vm>(context,listen: true)
-              .checkprivlge('50')==true ?
+
           IconButton(
             onPressed: () {
               fkregoin = Provider.of<regoin_vm>(context, listen: false)
@@ -196,7 +195,7 @@ class _EditUserState extends State<EditUser> {
               }
             },
             icon: const Icon(Icons.check,color: kWhiteColor,),
-          ):Container(),
+          )
         ],
         title: const Text(' ',style: TextStyle(color: kWhiteColor),),
         centerTitle: true,

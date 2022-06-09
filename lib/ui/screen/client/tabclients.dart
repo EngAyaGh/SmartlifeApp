@@ -146,7 +146,9 @@ class _tabclientsState extends State<tabclients> {
                           privilge.checkprivlge('8')==true? //regoin
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0,right: 8),
+                              padding: const EdgeInsets.only(
+
+                                  left: 8.0,right: 8),
                               child: Consumer<regoin_vm>(
                                 builder: (context, cart, child){
                                   return

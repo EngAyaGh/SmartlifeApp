@@ -100,7 +100,8 @@ class _HomeState extends State<Home> {
   @override
   void didChangeDependencies() {
      Future.delayed(Duration(milliseconds: 60)).then((_) async {
-      await Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
+      await Provider.of<privilge_vm>
+        (context,listen: false).getprivlg_usercurrent();
 
       await Provider.of<notifyvm>(context, listen: false)
           .getNotification();
@@ -110,7 +111,7 @@ class _HomeState extends State<Home> {
       Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
 
       await Provider.of<client_vm>(context, listen: false)
-          .getclient_vm();
+          .getallclient();//getclient_vm();
 
     });
     super.didChangeDependencies();

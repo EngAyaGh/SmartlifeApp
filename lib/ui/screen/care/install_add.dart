@@ -167,7 +167,7 @@ class _installAddState extends State<installAdd> {
                           Provider.of<communication_vm>
                         (context,listen: false).addcommuncation({
                         'fk_user':Provider.of<user_vm_provider>
-                           (context,listen: false).currentUser!.idUser.toString(),
+                           (context,listen: false).currentUser.idUser.toString(),
                         'date_communication':DateTime.now().toString(),
                         'result':typepayController,//
                         // 'rate':widget.com.rate.toString(),

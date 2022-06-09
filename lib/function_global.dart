@@ -124,6 +124,34 @@ void route_notifyto(typeNotify,context,
               )
           ));
       break;
+      case "InvoiceUpdated":
+      Navigator.push(context,
+          MaterialPageRoute(
+              builder: (context) => ProfileClient(
+                tabindex: 1,
+                //idinvoice: data==null?datanotify:  data['id_invoice'],
+                idclient: data==null?datanotify: data['idclient'],
+              )
+          ));
+      break;
+      case "InvoiceBack":
+      Navigator.push(context,
+          MaterialPageRoute(
+              builder: (context) => ProfileClient(
+                //idinvoice: data==null?datanotify:  data['id_invoice'],
+                idclient: data==null?datanotify: data['idclient'],
+              )
+          ));
+      break;
+      case "InvoiceReplay":
+      Navigator.push(context,
+          MaterialPageRoute(
+              builder: (context) => ProfileClient(
+                tabindex: 3,
+                idclient: data==null?datanotify: data['idclient'],
+              )
+          ));
+      break;
   }
 
 }

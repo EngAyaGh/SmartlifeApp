@@ -223,7 +223,7 @@ class _ticketAddState extends State<ticketAdd> {
                                     Provider
                                         .of<user_vm_provider>(context,
                                         listen: false)
-                                        .currentUser!
+                                        .currentUser
                                         .idUser
                                         .toString(),
                                     'date_open': DateTime.now().toString(),
@@ -233,7 +233,7 @@ class _ticketAddState extends State<ticketAdd> {
                                     'nameUser': Provider
                                         .of<user_vm_provider>
                                       (context, listen: false)
-                                        .currentUser!
+                                        .currentUser
                                         .nameUser
                                         .toString(),
 

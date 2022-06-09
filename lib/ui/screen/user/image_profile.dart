@@ -26,18 +26,21 @@ class ImageProfile extends StatelessWidget {
       child: Stack(
         children: [
         //  Obx( () =>
-          ClipOval(
-            clipBehavior: Clip.antiAlias,
-              //radius: 85.0,
+        CircleAvatar( //ClipOval(
+              //clipBehavior: Clip.hardEdge,
+              radius: 85.0,
               child:
               Provider.of<user_vm_provider>(context,listen: true)
-                  .currentUser!.path!.isNotEmpty
-                  ? Image.file(File(Provider.of<user_vm_provider>(context,listen: true)
-                  .currentUser!.path!),
+                  .currentUser.path!.isNotEmpty
+                  ? ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                    child: Image.file(File(Provider.of<user_vm_provider>(context,listen: true)
+                    .currentUser.path!),
                 // fit: BoxFit.fill,
-              )
+              ),
+                  )
                   : Provider.of<user_vm_provider>(context,listen: true)
-                  .currentUser!.img_image!.isNotEmpty
+                  .currentUser.img_image!.isNotEmpty
                   ? ClipRRect(
                 borderRadius: BorderRadius.circular(100),
                 child: CachedNetworkImage(
@@ -45,10 +48,10 @@ class ImageProfile extends StatelessWidget {
                       child: CircularProgressIndicator(
                         value: progress.progress,),),
                     imageUrl: Provider.of<user_vm_provider>(context,listen: true)
-                        .currentUser!.img_image!       ),
+                        .currentUser.img_image!       ),
               )
                   :Text(Provider.of<user_vm_provider>(context,listen: true)
-                  .currentUser!.nameUser
+                  .currentUser.nameUser
                   .toString()
                   .substring(0, 1))),
         // CircleAvatar(
@@ -196,7 +199,7 @@ class ImageProfile extends StatelessWidget {
     // controllerUser.setProfileImagePath(pickedFile!.path);
     // Get.back();
     print(Provider.of<user_vm_provider>(context,listen: false)
-        .currentUser!.path.toString());
+        .currentUser.path.toString());
      Navigator.of(context).pop();
   }
 }

@@ -5,6 +5,7 @@ import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/screen/user/alluser.dart';
 import 'package:crm_smart/ui/screen/user/userview.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,11 +20,18 @@ class managmentpage extends StatefulWidget {
 }
 
 class _managmentpageState extends State<managmentpage> {
-  @override void didChangeDependencies() {
-    Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
+  @override void didChangeDependencies()async {
+
     Provider.of<config_vm>(context, listen: false).getAllConfig();
 
     super.didChangeDependencies();
+  }
+  @override void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_)async {
+      await Provider.of<privilge_vm>(context, listen: false)
+          .getprivlg_usercurrent();
+    });
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {
@@ -97,6 +105,53 @@ class _managmentpageState extends State<managmentpage> {
                 ),
               );
             }, title: 'ملف الإعدادات '):Container(),
+            privilge.checkprivlge('52')==true?
+            buildSelectCategory(
+                subtitle:Provider.of<user_vm_provider>
+                  (context,listen:  false).currentUser.nameCountry,
+                colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,
+                onTap: () {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute<void>(
+                  //     builder: (BuildContext context)
+                  //     => config_view(),
+                  //
+                  //   ),
+                  // );
+                }, title: 'تغيير الدولة'):Container(),
+            privilge.checkprivlge('63')==true?
+            buildSelectCategory(
+                colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,
+                onTap: () {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute<void>(
+                  //     builder: (BuildContext context)
+                  //     => config_view(),
+                  //
+                  //   ),
+                  // );
+                }, title: 'إداراة الفروع'):Container(),
+            privilge.checkprivlge('64')==true?
+        buildSelectCategory(
+                colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,
+                onTap: () {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute<void>(
+                  //     builder: (BuildContext context)
+                  //     => config_view(),
+                  //
+                  //   ),
+                  // );
+                }, title: 'إضافة الإدارات'):Container(),
 
             //config_view
           ],);}
