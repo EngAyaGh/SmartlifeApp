@@ -14,8 +14,9 @@ import 'package:grouped_list/grouped_list.dart';
 import '../../../constants.dart';
 
 class privilge_page extends StatefulWidget {
-   privilge_page({required this.fk_level,Key? key}) : super(key: key);
+   privilge_page({required this.namelevel, required this.fk_level,Key? key}) : super(key: key);
 String fk_level;
+String namelevel;
   @override
   _privilge_pageState createState() => _privilge_pageState();
 }
@@ -31,7 +32,7 @@ class _privilge_pageState extends State<privilge_page> {
   ];
   @override void initState() {
     Provider.of<privilge_vm>(context,listen: false)
-        .getPrivilge(widget.fk_level);
+        .getPrivilgepage(widget.fk_level);
     super.initState();
   }
   @override void didChangeDependencies() {
@@ -41,22 +42,25 @@ class _privilge_pageState extends State<privilge_page> {
   }
   @override
   Widget build(BuildContext context) {
-    List<PrivilgeModel> _privilgelist =Provider.of<privilge_vm>(context,listen: true)
-        .privilgelist;
+    List<PrivilgeModel> _privilgelist =Provider.of<privilge_vm>
+      (context,listen: true)
+        .privilgelistpage;
     return Scaffold(
       appBar: AppBar(
+        title: Text(widget.namelevel.toString()),
+        centerTitle: true,
         actions: [
 
           IconButton(
               onPressed: (){
                 for(int i=0;i< Provider.of<privilge_vm>(context,listen: false)
-                .privilgelist.length;i++){
+                .privilgelistpage.length;i++){
                   Provider.of<privilge_vm>(context,listen: false)
                       .updatepriv_vm(
                       Provider.of<privilge_vm>(context,listen: false)
-                      .privilgelist[i].idPrivgUser,
+                      .privilgelistpage[i].idPrivgUser,
                       Provider.of<privilge_vm>(context,listen: false)
-                          .privilgelist[i].isCheck);
+                          .privilgelistpage[i].isCheck);
                 }
 
                 Navigator.pop(context);

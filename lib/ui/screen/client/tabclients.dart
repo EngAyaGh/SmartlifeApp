@@ -57,7 +57,7 @@ class _tabclientsState extends State<tabclients> {
       Provider.of<typeclient>(context,listen: false).changevaluefilter(null);
       // Add Your Code here.
       // Provider.of<regoin_vm>(context,listen: false).getregoin();
-
+      Provider.of<client_vm>(context, listen: false).clear();
       List<PrivilgeModel> list=
           await   Provider.of<privilge_vm>(context,listen: false).privilgelist;
       Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
@@ -69,16 +69,11 @@ class _tabclientsState extends State<tabclients> {
   }
   @override
   void didChangeDependencies() {
-
-    // List<ClientModel> list= Provider.of<client_vm>(context, listen: false)
-    // .listClientbyRegoin;
     Future.delayed(Duration(milliseconds: 30)).then((_) async {
-
-     }
-    );
-
+    });
     super.didChangeDependencies();
   }
+
 @override void dispose() {
   // Provider.of<typeclient>(context,listen: false).changevalue(null);
     super.dispose();
@@ -302,11 +297,11 @@ class _tabclientsState extends State<tabclients> {
                         height: 5,
                       ),
                       Container(
-                        height: MediaQuery.of(context).size.height*0.75,
+                        height: MediaQuery.of(context).size.height*0.73,
                         child: Padding(
                           padding: const EdgeInsets.only(
                               left: 8,right: 8,
-                              top:8.0,bottom: 20),
+                              top:8.0,bottom: 40),
                           child:
                               Consumer<client_vm>(builder: (context, value, child) {
                                  return

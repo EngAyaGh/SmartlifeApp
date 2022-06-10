@@ -1,3 +1,4 @@
+import 'package:crm_smart/model/managmodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/provider/manage_provider.dart';
@@ -66,7 +67,7 @@ class _EditUserState extends State<EditUser> {
       // controllerUsers= Provider.of<user_vm_provider>
       //   (context,listen: false).userall!;
        Provider.of<level_vm>(context,listen: false).getlevel();
-
+       Provider.of<manage_provider>(context,listen: false).getmanage();
        //Provider.of<regoin_vm>(context,listen: false).getregoin();
     }
     );
@@ -93,6 +94,11 @@ class _EditUserState extends State<EditUser> {
       widget.userModel.typeAdministration.toString();
       Provider.of<manage_provider>(context, listen: false)
           .changevalue(namemanage!);
+      //
+      // Provider.of<manage_provider>(context,listen: false)
+      //     .changevalue(widget.userModel.typeAdministration.toString());
+      // namemanage=widget.userModel.typeAdministration.toString();
+
       print("after manage provider in main");
       emailController.text =
       //controllerUsers[widget.index]
@@ -169,7 +175,7 @@ class _EditUserState extends State<EditUser> {
                       : "",
                   //'fk_country': id_country,
                   'type_administration':
-                  namemanage != null ? namemanage : "",
+                  namemanage ,//!= null ? namemanage : "",
                   'type_level': fklevel,
                   'fk_regoin': fkregoin != null ? fkregoin : "null",
                   'name_regoin':regoinname,
@@ -237,8 +243,8 @@ class _EditUserState extends State<EditUser> {
                         hint: Text("حددالإدارة"),
                         items: mangelist.listtext.map((level_one) {
                           return DropdownMenuItem(
-                            child: Text(level_one), //label of item
-                            value: level_one, //value of item
+                            child: Text(level_one.name_mange), //label of item
+                            value: level_one.idmange, //value of item
                           );
                         }).toList(),
                         value: mangelist.selectedValuemanag,

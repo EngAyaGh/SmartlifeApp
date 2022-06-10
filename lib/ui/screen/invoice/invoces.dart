@@ -36,8 +36,8 @@ class _invoicesState extends State<invoices> {
        //     .getclientByIdUser_vm([]);
 
        // Add Your Code here.
-     await  Provider.of<invoice_vm>(context,listen: false)
-           .get_invoiceclientlocal(widget.fkclient,'');
+     // await  Provider.of<invoice_vm>(context,listen: false)
+     //       .get_invoiceclientlocal(widget.fkclient,'');
      });
      print('init invoice  '+widget.fkclient);
      //.then((value) => _isLoading=false);

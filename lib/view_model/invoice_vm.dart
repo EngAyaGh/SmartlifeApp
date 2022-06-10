@@ -34,6 +34,7 @@ class invoice_vm extends ChangeNotifier{
     notifyListeners();
   }
   List<InvoiceModel> listinvoiceClient=[];
+  List<InvoiceModel> listforme=[];
   List<DeletedinvoiceModel> listdeletedinvoice=[];
   List<ProductsInvoice> listproductinvoic=[];
   List<DeletedinvoiceModel> listdeleted=[];
@@ -103,7 +104,8 @@ class invoice_vm extends ChangeNotifier{
     isloading=true;
     notifyListeners();
         listinvoices.forEach((element) {
-          if( element.ismarketing=='1' && element.isApprove == "1")
+          if( element.ismarketing=='1' )
+              //&& element.isApprove == "1")
             listinvoicesMarketing.add(element);
         });
         isloading=false;
@@ -129,16 +131,18 @@ class invoice_vm extends ChangeNotifier{
   }
 
   Future<void> getfilterinvoicesclient(String? filter,String? regoin)async{
+
     List<InvoiceModel> _listInvoicesAccept=[];
+
     if(regoin==null){
       print(filter);
-      if(listInvoicesAccept.isNotEmpty){
+      if(listforme.isNotEmpty){
         if(filter=='الكل') {
-          _listInvoicesAccept = listInvoicesAccept;
+          _listInvoicesAccept = List.from(listforme);
           print('serch الكل');
         }
         if(filter=='بالإنتظار')
-          listInvoicesAccept.forEach((element) {
+          listforme.forEach((element) {
             print(element.isdoneinstall);
             if( element.isdoneinstall==null) {
               _listInvoicesAccept.add(element);
@@ -147,7 +151,7 @@ class invoice_vm extends ChangeNotifier{
             }
           });
         if(filter=='تم التركيب')
-          listInvoicesAccept.forEach((element) {
+          listforme.forEach((element) {
             if( element.isdoneinstall=='1') {
               _listInvoicesAccept.add(element);
               print('serch تم التركيب');
@@ -156,35 +160,59 @@ class invoice_vm extends ChangeNotifier{
           });
       }}
     else{
-      if(listInvoicesAccept.isNotEmpty){
+
+      if(listforme.isNotEmpty){
+
         if(filter=='الكل')
-          listInvoicesAccept.forEach((element) {
-            if(element.fk_regoin==regoin) {
-              _listInvoicesAccept.add(element);
-              print('regoin الكل');
-
-            }
-          });
-
-        if(filter=='بالإنتظار')
-          listInvoicesAccept.forEach((element) {
-            if( element.isdoneinstall.toString()==null
-                && element.fk_regoin==regoin) {
-              _listInvoicesAccept.add(element);
-              print('regoin بالإنتظار');
-            }
-          });
-        if(filter=='تم التركيب')
-          listInvoicesAccept.forEach((element) {
-            if( element.isdoneinstall=='1'&&element.fk_regoin==regoin) {
-              _listInvoicesAccept.add(element);
-              print('regoin تم التركيب');
-
-            }
-          });
+        {
+          if(regoin!='0'){
+            listforme.forEach((element) {
+              if(element.fk_regoin==regoin) {
+                _listInvoicesAccept.add(element);
+                print('regoin الكل');}
+            });}
+          else {
+            _listInvoicesAccept=List.from(listforme);
+          }
+        }
+        if(filter=='بالإنتظار'){
+          if(regoin!='0') {
+            listforme.forEach((element) {
+              if (element.isdoneinstall.toString() == null
+                  && element.fk_regoin == regoin) {
+                _listInvoicesAccept.add(element);
+                print('regoin بالإنتظار');
+              }
+            });
+          }else{
+            listforme.forEach((element) {
+              if (element.isdoneinstall.toString() == null) {
+                _listInvoicesAccept.add(element);
+                print('regoin بالإنتظار');
+              }
+            });
+          }
+        }
+        if(filter=='تم التركيب'){
+          if(regoin!='0'){
+            listforme.forEach((element) {
+              if( element.isdoneinstall=='1'&&element.fk_regoin==regoin) {
+                _listInvoicesAccept.add(element);
+                print('regoin تم التركيب');
+              }
+            });
+          }else{
+            listforme.forEach((element) {
+              if( element.isdoneinstall=='1') {
+                _listInvoicesAccept.add(element);
+                print('regoin تم التركيب');
+              }
+            });
+          }
+        }
       }
     }
-    listInvoicesAccept= _listInvoicesAccept;
+    listInvoicesAccept= List.from(_listInvoicesAccept);
     notifyListeners();
   }
   Future<void> getclienttype_filter(String? filter,String? regoin,String tyype)async{
@@ -221,32 +249,57 @@ class invoice_vm extends ChangeNotifier{
         });
     }}
     else{
+
       if(listInvoicesAccept.isNotEmpty){
+
         if(filter=='الكل')
+          {
+            if(regoin!='0'){
           listInvoicesAccept.forEach((element) {
             if(element.fk_regoin==regoin) {
               _listInvoicesAccept.add(element);
-              print('regoin الكل');
-
+              print('regoin الكل');}
+          });}
+            else {
+              _listInvoicesAccept=listInvoicesAccept;
             }
-          });
+          }
 
-        if(filter=='بالإنتظار')
-          listInvoicesAccept.forEach((element) {
-            if( element.isdoneinstall.toString()==null
-                && element.fk_regoin==regoin) {
-              _listInvoicesAccept.add(element);
-              print('regoin بالإنتظار');
-            }
-          });
-        if(filter=='تم التركيب')
+        if(filter=='بالإنتظار'){
+          if(regoin!='0') {
+            listInvoicesAccept.forEach((element) {
+              if (element.isdoneinstall.toString() == null
+                  && element.fk_regoin == regoin) {
+                _listInvoicesAccept.add(element);
+                print('regoin بالإنتظار');
+              }
+            });
+          }else{
+            listInvoicesAccept.forEach((element) {
+              if (element.isdoneinstall.toString() == null) {
+                _listInvoicesAccept.add(element);
+                print('regoin بالإنتظار');
+              }
+            });
+          }
+        }
+        if(filter=='تم التركيب'){
+          if(regoin!='0'){
           listInvoicesAccept.forEach((element) {
             if( element.isdoneinstall=='1'&&element.fk_regoin==regoin) {
               _listInvoicesAccept.add(element);
               print('regoin تم التركيب');
-
             }
           });
+          }else{
+            listInvoicesAccept.forEach((element) {
+              if( element.isdoneinstall=='1') {
+                _listInvoicesAccept.add(element);
+                print('regoin تم التركيب');
+              }
+            });
+          }
+        }
       }
     }
      listInvoicesAccept= _listInvoicesAccept;
@@ -327,7 +380,6 @@ class invoice_vm extends ChangeNotifier{
       if(element.fk_regoin==regoin) {
         _listInvoicesAccept.add(element);
         print('regoin الكل');
-
       }
     });
     else{
@@ -356,6 +408,7 @@ Future<void> getinvoice_Localwithprev() async{
             list.add(element);
         });
   listInvoicesAccept=list;
+  listforme=List.from(list);
   isloading=false;
   // if(listInvoicesAccept.isEmpty)listInvoicesAccept=listinvoices;
   notifyListeners();
@@ -374,11 +427,10 @@ Future<void> getinvoice_Localwithprev() async{
     print(approvetype);
     if(approvetype==null){
       print('dsklmckdsclks');
-   await getinvoices();
+    await getinvoices();
     if(listinvoices.isNotEmpty) {
       if (type == 'approved only')
         listinvoices.forEach((element) {
-
           if (element.stateclient == searchfilter
               && element.isApprove == "1")
             list.add(element);
@@ -500,7 +552,7 @@ Future<void> getinvoice_Localwithprev() async{
   List<PrivilgeModel> privilgelist=[];
   Future<void> getinvoices() async {
     listinvoices = await Invoice_Service().getinvoice(usercurrent!.fkCountry.toString());
-    listInvoicesAccept=listinvoices;
+    listInvoicesAccept=List.from(listinvoices);
     notifyListeners();
   }
 
@@ -529,7 +581,7 @@ Future<void> getinvoice_Localwithprev() async{
             .getinvoicebyiduser(usercurrent!.idUser.toString());
       }}
     }
-    listInvoicesAccept=listinvoices;
+    listInvoicesAccept=List.from(listinvoices);
     notifyListeners();
   }
   Future<void> get_invoicesbyIduser(List<InvoiceModel> list) async {

@@ -30,7 +30,9 @@ class _ClientAcceptState extends State<ClientAccept> {
   String? typeclientvalue;
   // late String typepayController;
   @override void didChangeDependencies() async {
-
+    Future.delayed(Duration(milliseconds: 30)).then((_) async {
+      Provider.of<client_vm>(context, listen: false).clear();
+    });
     super.didChangeDependencies();
   }
   @override void initState() {
@@ -46,11 +48,12 @@ class _ClientAcceptState extends State<ClientAccept> {
       Provider.of<client_vm>(context, listen: false).setvaluepriv(list);
       //Provider.of<typeclient>(context,listen: false).changelisttype_install(null);
       Provider.of<regoin_vm>(context,listen: false).changeVal(null);
-
+      Provider.of<client_vm>(context, listen: false).listClientAccept=[];
         // Provider.of<client_vm>(context, listen: false)
         //   .getallclient();
       Provider.of<client_vm>(context, listen: false)
           . getclient_Local('مشترك');
+
     });
 
     super.initState();

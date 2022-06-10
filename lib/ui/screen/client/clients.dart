@@ -17,6 +17,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/tabview.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/approve_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/comment.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -81,6 +82,10 @@ class client_dashboard extends StatefulWidget {
 
     @override
     void initState()  {
+      WidgetsBinding.instance!.addPostFrameCallback((_)async {
+        Provider.of<comment_vm>(context, listen: false)
+            .getComment(widget.invoiceModel.fkIdClient.toString());
+      });
       //check level user
       // Provider.of<client_vm>(context, listen: false)
       //     .getclientByRegoin([]);//list empty that mean

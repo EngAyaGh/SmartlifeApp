@@ -31,6 +31,15 @@ class client_vm extends ChangeNotifier {
   //   usercurrent=currentUser;
   //   notifyListeners();
   // }
+  clear(){
+    listClient=[];
+    listClientAccept = [];
+    listClientbyCurrentUser = [];
+    listClientbyRegoin = [];
+    listClientfilter = [];
+    listClientMarketing = [];
+    notifyListeners();
+  }
   UserModel? usercurrent;
   bool isloading=false;
   void setvalue(user){
@@ -114,7 +123,6 @@ class client_vm extends ChangeNotifier {
 
     listClientfilter=[];
     if(type=="3"){
-      print('kljkjk');
       if(filter2==null){
         if(filter3 !='0')
       listClient.forEach((element) {
@@ -246,6 +254,7 @@ class client_vm extends ChangeNotifier {
   Future<void> getclient_vm(
      // List<PrivilgeModel> privilgelist
       ) async {
+    clear();
     listClientfilter=[];
     isloading=true;
     notifyListeners();
@@ -256,7 +265,7 @@ class client_vm extends ChangeNotifier {
     if(res) {
       listClient =
       await ClientService().getAllClient(usercurrent!.fkCountry.toString());
-      listClientfilter = listClient;
+      listClientfilter = List.from(listClient);
     }
     else {
     res= privilgelist.firstWhere(
@@ -264,7 +273,7 @@ class client_vm extends ChangeNotifier {
     if(res) {
       listClient =
       await ClientService().getAllClientByRegoin(usercurrent!.fkRegoin.toString());
-      listClientfilter = listClient;
+      listClientfilter = List.from(listClient);
     } else{
 
       res= privilgelist.firstWhere(
@@ -272,7 +281,7 @@ class client_vm extends ChangeNotifier {
       if(res) {
         listClient =
         await ClientService().getClientbyuser(usercurrent!.idUser.toString());
-        listClientfilter = listClient;
+        listClientfilter =List.from(listClient);
       }
     } }
     //listClient.where((element) => false)
@@ -285,11 +294,14 @@ class client_vm extends ChangeNotifier {
     ClientModel? inv;
     bool res=true;
 
-   inv= listClient.firstWhere((element) =>element.idClients==idClient
+   inv= listClient.firstWhere((element) =>
+   element.idClients==idClient
        ,orElse:null);
-    if(inv==null) inv=await ClientService().getclientid(idClient);
+    if(inv==null) {
+      inv=await ClientService().getclientid(idClient);
       listClient.add(inv);
-    notifyListeners();
+    }
+      notifyListeners();
   }
   Future<void> getclientMarketing() async {
     //عملائي

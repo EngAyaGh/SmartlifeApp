@@ -28,10 +28,10 @@ class _commentViewState extends State<commentView> {
   void initState() {
     fk_client=widget.client.idClients.toString();
     nameEnterprise=widget.client.nameEnterprise.toString();
-    WidgetsBinding.instance!.addPostFrameCallback((_)async {
-      // Provider.of<comment_vm>(context, listen: false)
-      //     .getComment(widget.fk_client);
-    });
+    // WidgetsBinding.instance!.addPostFrameCallback((_)async {
+    //   Provider.of<comment_vm>(context, listen: false)
+    //       .getComment(widget.fk_client);
+    // });
 print('init in comment');
     super.initState();
   }

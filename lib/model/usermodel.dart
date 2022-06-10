@@ -8,6 +8,7 @@ class UserModel {
   String? codeVerfiy;
   String? fkCountry;
   String? typeAdministration;
+  String? name_mange;
   String? typeLevel;
   String? fkRegoin;
   String? nameCountry;
@@ -30,6 +31,7 @@ class UserModel {
      this.codeVerfiy,
      this.fkCountry,
      this.typeAdministration,
+     this.name_mange,
      this.typeLevel,
      this.fkRegoin,
      this.nameCountry,
@@ -54,6 +56,7 @@ class UserModel {
       codeVerfiy: jsonData!['code_verfiy'],
       fkCountry: jsonData['fk_country'],
       typeAdministration: jsonData['type_administration'],
+      name_mange: jsonData['name_mange'],
       typeLevel: jsonData['type_level'],
       fkRegoin: jsonData['fk_regoin'],
       nameCountry: jsonData['nameCountry'],
@@ -80,6 +83,7 @@ class UserModel {
      _data['code_verfiy']=codeVerfiy;
      _data['fk_country']=fkCountry;
      _data['type_administration']=typeAdministration;
+     _data['name_mange']=name_mange;
      _data['type_level']=typeLevel;
      _data['fk_regoin']=fkRegoin;
      _data['nameCountry']=nameCountry;

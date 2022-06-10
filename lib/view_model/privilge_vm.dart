@@ -11,6 +11,7 @@ import '../constants.dart';
 class privilge_vm extends ChangeNotifier{
 
 List<PrivilgeModel> privilgelist=[];
+List<PrivilgeModel> privilgelistpage=[];
 UserModel? usercurrent;
  
 void setvalue(user){
@@ -33,6 +34,20 @@ Future< List<PrivilgeModel> > getPrivilge(String level) async {
 
   notifyListeners();
 return list;
+}Future< List<PrivilgeModel> > getPrivilgepage(String level) async {
+  List<dynamic> data =[];
+  data=await Api()
+      .get(url:url+
+      'privilge/privGet.php?fk_level=$level');
+  List<PrivilgeModel> list=[];
+  for (int i = 0; i < data.length; i++) {
+    list.add(PrivilgeModel.fromJson(data[i]));
+    print(data[i]);
+  }
+  privilgelistpage=list;
+
+  notifyListeners();
+return list;
 }
 
 
@@ -42,7 +57,7 @@ Future<String> updatepriv_vm(
       url: url+'privilge/privUpdate.php?id_privg_user=$fk_privileg',
       body: {'is_check':is_check});
   //if (res) {
-    int index=privilgelist.indexWhere((element)
+    int index=privilgelistpage.indexWhere((element)
     => element.isCheck==is_check);
     // body.addAll({
     //

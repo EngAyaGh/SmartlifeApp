@@ -180,7 +180,7 @@ class _UserScreenState extends State<UserScreen> {
                                         child: RowEdit(
                                           des:
                                           //controllerUser.userall![widget.index]
-                                          useredit.typeAdministration
+                                          useredit.name_mange
                                               .toString(),
                                           name: 'الإدارات',
                                         ),

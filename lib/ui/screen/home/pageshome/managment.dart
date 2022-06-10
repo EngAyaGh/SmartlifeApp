@@ -1,5 +1,6 @@
 import 'package:crm_smart/provider/config_vm.dart';
 import 'package:crm_smart/ui/screen/config/config_view.dart';
+import 'package:crm_smart/ui/screen/privilges/addmanage.dart';
 import 'package:crm_smart/ui/screen/privilges/checklevel.dart';
 import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/screen/user/alluser.dart';
@@ -143,14 +144,14 @@ class _managmentpageState extends State<managmentpage> {
                 colortitle: Colors.black,
                 colorarrow: Colors.black,
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute<void>(
-                  //     builder: (BuildContext context)
-                  //     => config_view(),
-                  //
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context)
+                      => addmanage(),
+
+                    ),
+                  );
                 }, title: 'إضافة الإدارات'):Container(),
 
             //config_view

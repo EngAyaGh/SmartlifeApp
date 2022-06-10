@@ -95,6 +95,7 @@ class addLevel extends StatelessWidget {
      _scaffoldKey.currentState!.showSnackBar(
          SnackBar(content: Text('تم إنشاء مستوى جديد'))
      );
+     Navigator.pop(context);
      // print("succ");
    }
 

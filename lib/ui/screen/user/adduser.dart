@@ -41,13 +41,14 @@ class _addUserState extends State<addUser> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   late final  controllerUsers;
 
-  String? namemanage='موظف مبيعات';
+  String? namemanage='1';
   //var _list=_maptext.to;
   @override void didChangeDependencies() {
     Future.delayed(Duration(milliseconds: 30)).then((_) async {
       // controllerUsers= Provider.of<user_vm_provider>
       //   (context,listen: false).userall!;
       Provider.of<level_vm>(context,listen: false).getlevel();
+      Provider.of<manage_provider>(context,listen: false).getmanage();
 
       //Provider.of<regoin_vm>(context,listen: false).getregoin();
       Provider.of<regoin_vm>(context,listen: false).changeValuser(null);
@@ -130,8 +131,8 @@ class _addUserState extends State<addUser> {
                       hint: Text("حددالإدارة"),
                       items: mangelist.listtext.map((level_one) {
                         return DropdownMenuItem(
-                          child: Text(level_one), //label of item
-                          value: level_one, //value of item
+                          child: Text(level_one.name_mange), //label of item
+                          value: level_one.idmange, //value of item
                         );
                       }).toList(),
                       value: mangelist.selectedValuemanag,
@@ -260,9 +261,10 @@ class _addUserState extends State<addUser> {
                           'mobile': mobileController.text != null ? mobileController
                               .text : "",
                           'fk_country': id_country,
-                          'type_administration': namemanage != null
-                              ? namemanage
-                              : "",
+                          'type_administration': namemanage ,
+                              // != null
+                              // ? namemanage
+                              // : "",
                           'type_level': level,
                          'name_level' :levelname,
                           'name_regoin':regoinname,

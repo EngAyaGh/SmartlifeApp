@@ -100,7 +100,7 @@ class buildCardUsers extends StatelessWidget {
                      color: Colors.black87,
                      fontSize: 25,
                      fontWeight: FontWeight.normal,
-                     textstring: usermodell.typeAdministration.toString(),
+                     textstring: usermodell.name_mange.toString(),
                      underline: TextDecoration.none,
                    ),
 

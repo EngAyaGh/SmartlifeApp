@@ -55,17 +55,17 @@ class _check_levelState extends State<check_level> {
       Center(
           child: CircularProgressIndicator()):
       Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: SingleChildScrollView(
-          child:ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: _listlevel.length,
-            itemBuilder: (BuildContext context, int index) =>
-                Builder(
-                    builder: (context) =>
+        padding: const EdgeInsets.all(10.0),
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: _listlevel.length,
+          itemBuilder: (BuildContext context, int index) =>
+              Builder(
+                  builder: (context) =>
 
-                          Padding(
+                        SingleChildScrollView(
+                          child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Center(
                               child: InkWell(
@@ -73,7 +73,7 @@ class _check_levelState extends State<check_level> {
                                   Navigator.push(context,
                                       MaterialPageRoute(
                                           builder: (context)=>privilge_page(
-
+                                            namelevel:_listlevel[index].nameLevel,
                                             fk_level: _listlevel[index].idLevel,
                                           )));
                                 },
@@ -102,19 +102,24 @@ class _check_levelState extends State<check_level> {
                                        //color: kMainColor,
                                        child: Padding(
                                             padding: EdgeInsets.all(4),
-                                            child: Center(child: Text(_listlevel[index].nameLevel)),
+                                            child: Center(
+                                                child:
+                                            Text(_listlevel[index].nameLevel,
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontFamily: kfontfamily2),),),
                                           ),
                                      ),
                                    ),
-                       ),
+                     ),
                               ),
                             ),
-                          )
-                ),
-            //     _listProd.map(
-            //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
-            // ).toList(),
-          )
+                          ),
+                        )
+              ),
+          //     _listProd.map(
+          //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
+          // ).toList(),
         ),
       ),
     );
