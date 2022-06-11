@@ -50,7 +50,7 @@ class _OutClientState extends State<OutClient> {
       Provider.of<typeclient>(context,listen: false).changelisttype_install(null);
       Provider.of<regoin_vm>(context,listen: false).changeVal(null);
 
-     await Provider.of<invoice_vm>(context, listen: false)
+      Provider.of<invoice_vm>(context, listen: false)
           .getinvoice_Local("منسحب",'out',null);
 
     });
@@ -113,7 +113,7 @@ class _OutClientState extends State<OutClient> {
                           ],
                         ),
                         search_widget(
-                          'wait',
+                          'waitout',
                           hintnamefilter,''
                           // Provider
                           //     .of<invoice_vm>(context, listen: true)

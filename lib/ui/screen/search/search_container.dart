@@ -85,6 +85,18 @@ class search_widget extends StatelessWidget {
                     Provider.of<invoice_vm>(context,listen: false)
                         .searchwait(pattern);
                     break;
+                    case 'waitout':
+                    Provider.of<invoice_vm>(context,listen: false)
+                        .searchwaitout(pattern);
+                    break;
+                    case 'withprev':
+                    Provider.of<invoice_vm>(context,listen: false)
+                        .searchwaitwithprev(pattern);
+                    break;
+                    case 'waitsupport':
+                    Provider.of<invoice_vm>(context,listen: false)
+                        .searchwaitsupport(pattern);
+                    break;
                 }
                 //.search(productName: pattern);
 //changeScreen(context, ProductSearchScreen());

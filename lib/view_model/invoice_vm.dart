@@ -77,7 +77,73 @@ class invoice_vm extends ChangeNotifier{
         });
         listInvoicesAccept=_listInvoicesAccept;
       }}
-    else getinvoice_Local("مشترك",'approved client',null);
+    else {
+      if(  privilgelist
+          .firstWhere(
+              (element) => element.fkPrivileg == 2)==true)
+      getinvoice_Local('مشترك','not approved','country');
+      else{
+        if( privilgelist
+            .firstWhere(
+                (element) => element.fkPrivileg == 7)==true)
+          getinvoice_Local('مشترك','not approved','regoin');
+      }
+    }
+    //getinvoice_Local("مشترك",'approved client',null);
+    notifyListeners();
+  }
+  Future<void> searchwaitsupport(String productName) async {
+    List<InvoiceModel> _listInvoicesAccept=[];
+    // code to convert the first character to uppercase
+    String searchKey =productName;//
+    if(productName.isNotEmpty){
+      if(listInvoicesAccept.isNotEmpty ){
+        listInvoicesAccept.forEach((element) {
+          if(element.name_enterprise!.contains(searchKey,0)
+          || element.mobile!.contains(searchKey,0)
+          || element.nameClient!.contains(searchKey,0)
+          )
+            _listInvoicesAccept.add(element);
+        });
+        listInvoicesAccept=_listInvoicesAccept;
+      }}
+    else getinvoice_Local("مشترك",'approved only',null);
+    notifyListeners();
+  }
+  Future<void> searchwaitout(String productName) async {
+    List<InvoiceModel> _listInvoicesAccept=[];
+    // code to convert the first character to uppercase
+    String searchKey =productName;//
+    if(productName.isNotEmpty){
+      if(listInvoicesAccept.isNotEmpty ){
+        listInvoicesAccept.forEach((element) {
+          if(element.name_enterprise!.contains(searchKey,0)
+          || element.mobile!.contains(searchKey,0)
+          || element.nameClient!.contains(searchKey,0)
+          )
+            _listInvoicesAccept.add(element);
+        });
+        listInvoicesAccept=_listInvoicesAccept;
+      }}
+    else getinvoice_Local("منسحب",'out',null);
+    notifyListeners();
+  }
+  Future<void> searchwaitwithprev(String productName) async {
+    List<InvoiceModel> _listInvoicesAccept=[];
+    // code to convert the first character to uppercase
+    String searchKey =productName;//
+    if(productName.isNotEmpty){
+      if(listInvoicesAccept.isNotEmpty ){
+        listInvoicesAccept.forEach((element) {
+          if(element.name_enterprise!.contains(searchKey,0)
+          || element.mobile!.contains(searchKey,0)
+          || element.nameClient!.contains(searchKey,0)
+          )
+            _listInvoicesAccept.add(element);
+        });
+        listInvoicesAccept=_listInvoicesAccept;
+      }}
+    else getinvoice_Localwithprev();
     notifyListeners();
   }
   Future<void>  searchmarketing(String productName) async {
@@ -373,16 +439,15 @@ class invoice_vm extends ChangeNotifier{
     notifyListeners();
     if(tyype=='only')await getinvoice_Local("مشترك",'approved only',null);
     if(tyype=='client')await getinvoice_Local("مشترك",'approved client',null);
-    if(tyype=='not')await getinvoice_Local("مشترك",'not approved',null);
+    if(tyype=='not')await getinvoice_Local("مشترك",'not approved',null);//طلبات الموافقة
     List<InvoiceModel> _listInvoicesAccept=[];
     if(regoin!='0')
     listInvoicesAccept.forEach((element) {
       if(element.fk_regoin==regoin) {
         _listInvoicesAccept.add(element);
         print('regoin الكل');
-      }
-    });
-    else{
+      }});
+    else {
       listInvoicesAccept.forEach((element) {
         if(element.fk_country==usercurrent!.fkCountry) {
           _listInvoicesAccept.add(element);
@@ -486,10 +551,11 @@ Future<void> getinvoice_Localwithprev() async{
     listdeletedinvoice.removeAt(index);
     notifyListeners();
   }
-
+  bool isapproved=false;
   Future<bool> setApproveclient_vm(
       Map<String, dynamic?> body,String? idInvoice) async {
-
+     isapproved=true;
+     notifyListeners();
     InvoiceModel? data = await Invoice_Service()
         .setApproveClient(body,idInvoice!);
     int index = listinvoices.indexWhere((element) =>
@@ -506,6 +572,7 @@ Future<void> getinvoice_Localwithprev() async{
     }}
     if(iindex!=-1)
     listInvoicesAccept.removeAt(iindex);
+     isapproved=false;
     notifyListeners();
 
     return true;

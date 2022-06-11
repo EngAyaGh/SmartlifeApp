@@ -316,7 +316,10 @@ class _EditProductState extends State<EditProduct> {
                                         .isLoadingdelete,
 
                                     child: AlertDialog(
-                                      title: Text('تأكيد'),
+                                      titlePadding:const EdgeInsets.fromLTRB(24.0, 1.0, 24.0, 10.0) ,
+                                      insetPadding:  EdgeInsets.only(left: 10,right: 10,bottom: 10),
+                                      contentPadding: EdgeInsets.only(left: 10,right: 10,bottom: 10),
+                                      title: Center(child: Text('تأكيد')),
                                       content: Text('هل تريد الحذف'),
                                       actions: <Widget>[
                                         new FlatButton(

@@ -28,9 +28,9 @@ class _ticketclientviewState extends State<ticketclientview> {
     WidgetsBinding.instance!.addPostFrameCallback((_)async{
       await Provider.of<ticket_vm>(context, listen: false)
         .getticket();
-      Provider.of<ticket_vm>(context,listen: false).changeticket(2);
+      Provider.of<ticket_vm>(context,listen: false).changeticket(0);
       Provider.of<ticket_vm>(context,listen: false).
-      gettypeticket_filter('2');
+      gettypeticket_filter('0');
 
     });
     super.initState();
@@ -71,27 +71,30 @@ class _ticketclientviewState extends State<ticketclientview> {
               search_widget(
                 'ticket',
                 "المؤسسة ,العميل , رقم الهاتف....",''),
-              Consumer<ticket_vm>(
-                  builder: (context, selectedProvider, child){
-                    return  GroupButton(
-                        controller: GroupButtonController(
-                          selectedIndex:selectedProvider.selectedtypeticket,
-                        ),
-                        options: GroupButtonOptions(
-                          selectedColor: kMainColor,
-                            buttonWidth: 110,
-                            borderRadius: BorderRadius.circular(10)),
-                        buttons: ['مغلقة','مستلمة','جديدة'],
-                        onSelected: (index,isselected){
-                          print(index);
-                          //setState(() {
-                          typepayController=index.toString();
-                          selectedProvider.changeticket(index);
-                          getfilter();
-                          //});
-                        }
-                    );
-                  }
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: Consumer<ticket_vm>(
+                    builder: (context, selectedProvider, child){
+                      return  GroupButton(
+                          controller: GroupButtonController(
+                            selectedIndex:selectedProvider.selectedtypeticket,
+                          ),
+                          options: GroupButtonOptions(
+                            selectedColor: kMainColor,
+                              buttonWidth: 110,
+                              borderRadius: BorderRadius.circular(10)),
+                          buttons: ['جديدة','مستلمة','مغلقة'],
+                          onSelected: (index,isselected){
+                            print(index);
+                            //setState(() {
+                            typepayController=index.toString();
+                            selectedProvider.changeticket(index);
+                            getfilter();
+                            //});
+                          }
+                      );
+                    }
+                ),
               ),
               SizedBox(height: 2,),
               Container(

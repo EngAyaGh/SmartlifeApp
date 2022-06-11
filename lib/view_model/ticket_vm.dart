@@ -161,7 +161,7 @@ class ticket_vm extends ChangeNotifier{
       switch(filter){
         case '0':
           listticket.forEach((element) {
-            if( element.typeTicket=='مغلقة') {
+            if( element.typeTicket=='جديدة') {
               tickesearchlist.add(element);
             }
           });
@@ -176,7 +176,7 @@ class ticket_vm extends ChangeNotifier{
           break;
         case '2':
           listticket.forEach((element) {
-            if( element.typeTicket=='جديدة') {
+            if( element.typeTicket=='مغلقة') {
               tickesearchlist.add(element);
             }
           });

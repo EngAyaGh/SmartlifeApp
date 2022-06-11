@@ -147,7 +147,7 @@ class _ClientWaitingState extends State<ClientWaiting> {
                           ],
                         ),
                         search_widget(
-                            'wait',
+                            'waitsupport',
                             hintnamefilter,''
                         ),
 

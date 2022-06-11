@@ -145,7 +145,7 @@ class _invoicesAcceptclientState extends State<invoicesAcceptclient> {
                         ),
 
                         search_widget(
-                            'wait',
+                            'waitwithprev',
                             hintnamefilter,''
                         ),
 

@@ -73,7 +73,6 @@ class _transferClientState extends State<transferClient> {
                   border: OutlineInputBorder(),
                 ),
                 );
-
               },
             ),
             SizedBox(height: 5,),

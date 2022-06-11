@@ -18,6 +18,7 @@ import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
@@ -196,66 +197,78 @@ class _ClientViewState extends State<ClientView> {
                             await showDialog(
                               context: context,
                               builder: (context) {
-                                return AlertDialog(
-                                  title: Text(''),
-                                  content: Text('تأكيد العملية'),
-                                  actions: <Widget>[
-                                    new ElevatedButton(
-                                      style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.all(
-                                              kMainColor)),
-                                      onPressed: () {
-                                        Navigator.of(context,
-                                            rootNavigator: true)
-                                            .pop(
-                                            false); // dismisses only the dialog and returns false
-                                      },
-                                      child: Text('لا'),
+                                return ModalProgressHUD(
+                                  inAsyncCall: Provider.of<invoice_vm>(context)
+                                      .isapproved,
+                                  child: Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: AlertDialog(
+
+                                      titlePadding:const EdgeInsets.fromLTRB(24.0, 10.0, 24.0, 15.0) ,
+                                      insetPadding:  EdgeInsets.only(left: 10,right: 10,bottom: 10),
+                                      contentPadding: EdgeInsets.only(left: 24,right: 24,bottom: 10),
+                                      title: Center(child: Text('Confirmation')),
+                                      content: Text(' هل تريد تأكيد العملية؟  '),
+                                      actions: <Widget>[
+
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(
+                                                  kMainColor)),
+                                          onPressed: () async {
+                                            // Navigator.of(context,
+                                            //     rootNavigator: true)
+                                            //     .pop(true);
+                                            // update client to approved client
+                                            Provider.of<invoice_vm>(context, listen: false)
+                                                .setApproveclient_vm({
+                                              "id_clients":widget.invoice!.fkIdClient,
+                                              //'idApproveClient':widget.itemapprove!.idApproveClient,
+                                              "fk_user":widget.invoice!.fkIdUser,//صاحب العميل
+                                              "fk_regoin":widget.invoice!.fk_regoin,
+                                              "regoin":widget.invoice!.name_regoin,
+                                              "fk_country":widget.invoice!.fk_country,
+                                              "isApprove": "1",
+                                              "name_enterprise":widget.invoice!.name_enterprise,
+                                              "fkusername":widget.invoice!.nameUser, //موظف المبيعات
+                                              //"message":"",//
+                                              "nameuserApproved":
+                                              Provider.of<user_vm_provider>(context,listen: false)
+                                                  .currentUser.nameUser,
+                                              "iduser_approve":  Provider.of<user_vm_provider>(context,listen: false)
+                                                  .currentUser.idUser//معتمد الاشتراك
+                                            }, widget.invoice!.idInvoice).then((value) => value!=false?
+                                            clear() : error()// clear()
+                                              // _scaffoldKey.currentState!.showSnackBar(
+                                              //     SnackBar(content: Text('هناك مشكلة ما')))
+                                            );
+                                            //Navigator.of(context,rootNavigator: true).pop();
+                                            // Navigator.pop(context);
+                                            // Navigator.pushAndRemoveUntil(context,
+                                            //     MaterialPageRoute(builder: (context)=>Home()),
+                                            //         (route) => true
+                                            // );//this is active
+                                            //  Navigator.pushReplacement(context,
+                                            //      MaterialPageRoute(builder:
+                                            //          (context)=>ApprovePage()));
+                                          },
+                                          child: Text('نعم'),
+                                        ),
+                                        new ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(
+                                                  kMainColor)),
+                                          onPressed: () {
+                                            Navigator.of(context,
+                                                rootNavigator: true)
+                                                .pop(
+                                                false); // dismisses only the dialog and returns false
+                                          },
+                                          child: Text('لا'),
+                                        ),
+                                      ],
                                     ),
-                                    ElevatedButton(
-                                      style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.all(
-                                              kMainColor)),
-                                      onPressed: () async {
-                                        // Navigator.of(context,
-                                        //     rootNavigator: true)
-                                        //     .pop(true);
-                                        // update client to approved client
-                                        Provider.of<invoice_vm>(context, listen: false)
-                                            .setApproveclient_vm({
-                                          "id_clients":widget.invoice!.fkIdClient,
-                                          //'idApproveClient':widget.itemapprove!.idApproveClient,
-                                          "fk_user":widget.invoice!.fkIdUser,//صاحب العميل
-                                          "fk_regoin":widget.invoice!.fk_regoin,
-                                          "regoin":widget.invoice!.name_regoin,
-                                          "fk_country":widget.invoice!.fk_country,
-                                          "isApprove": "1",
-                                          "name_enterprise":widget.invoice!.name_enterprise,
-                                          "fkusername":widget.invoice!.nameUser, //موظف المبيعات
-                                          //"message":"",//
-                                          "nameuserApproved":
-                                          Provider.of<user_vm_provider>(context,listen: false)
-                                              .currentUser.nameUser,
-                                          "iduser_approve":  Provider.of<user_vm_provider>(context,listen: false)
-                                              .currentUser.idUser//معتمد الاشتراك
-                                        }, widget.invoice!.idInvoice).then((value) => value!=false?
-                                        clear() : error()// clear()
-                                          // _scaffoldKey.currentState!.showSnackBar(
-                                          //     SnackBar(content: Text('هناك مشكلة ما')))
-                                        );
-                                        //Navigator.of(context,rootNavigator: true).pop();
-                                        // Navigator.pop(context);
-                                        // Navigator.pushAndRemoveUntil(context,
-                                        //     MaterialPageRoute(builder: (context)=>Home()),
-                                        //         (route) => true
-                                        // );//this is active
-                                        //  Navigator.pushReplacement(context,
-                                        //      MaterialPageRoute(builder:
-                                        //          (context)=>ApprovePage()));
-                                      },
-                                      child: Text('نعم'),
-                                    ),
-                                  ],
+                                  ),
                                 );
                               },
                             );
@@ -279,56 +292,68 @@ class _ClientViewState extends State<ClientView> {
                              await showDialog(
                               context: context,
                               builder: (context) {
-                                return AlertDialog(
-                                  title: Text(''),
-                                  content: Text('تأكيد العملية  '),
-                                  actions: <Widget>[
-                                    new ElevatedButton(
-                                      style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.all(
-                                              kMainColor)),
-                                      onPressed: () {
-                                        Navigator.of(context,
-                                            rootNavigator: true)
-                                            .pop(
-                                            false); // dismisses only the dialog and returns false
-                                      },
-                                      child: Text('لا'),
+                                return ModalProgressHUD(
+                                  inAsyncCall: Provider.of<invoice_vm>(context)
+                                      .isapproved,
+                                  child: Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: AlertDialog(
+                                      titlePadding:const EdgeInsets.fromLTRB(24.0, 10.0, 24.0, 15.0) ,
+                                      insetPadding:  EdgeInsets.only(left: 10,right: 10,bottom: 10),
+                                      contentPadding: EdgeInsets.only(left: 24,right: 24,bottom: 10),
+                                      title: Center(child: Text('Confirmation')),
+                                      content: Text(' هل تريد تأكيد العملية؟  '),
+                                      actions: <Widget>[
+                                        new
+
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(
+                                                  kMainColor)),
+                                          onPressed: () async {
+                                            Provider.of<invoice_vm>(context, listen: false)
+                                                .setApproveclient_vm({
+                                              "id_clients":widget.invoice!.fkIdClient,
+                                              //'idApproveClient':widget.itemapprove!.idApproveClient,
+                                              "fk_user":widget.invoice!.fkIdUser,
+                                              "fk_regoin":widget.invoice!.fk_regoin,
+                                              "regoin":widget.invoice!.name_regoin,
+                                              "fk_country":widget.invoice!.fk_country,
+                                              "isApprove": "0",
+                                              "name_enterprise":widget.invoice!.name_enterprise,
+                                              "fkusername":widget.invoice!.nameUser, //موظف المبيعات
+                                              //"message":"",//
+                                              "nameuserApproved":Provider.of<user_vm_provider>(context,listen: false)
+                                                  .currentUser.nameUser,
+                                              "iduser_approve": Provider.of<user_vm_provider>(context,listen: false)
+                                                  .currentUser.idUser//معتمد الاشتراك
+                                            }, widget.invoice!.idInvoice)
+                                                .then((value) =>
+                                            value!=false?
+                                            clear()
+                                                : error()// clear()
+                                              // _scaffoldKey.currentState!.showSnackBar(
+                                              //     SnackBar(content: Text('هناك مشكلة ما'))
+                                              // )
+                                            );
+                                          },
+                                          child: Text('نعم'),
+                                        ),
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(
+                                                  kMainColor)),
+                                          onPressed: () {
+                                            Navigator.of(context,
+                                                rootNavigator: true)
+                                                .pop(
+                                                false); // dismisses only the dialog and returns false
+                                          },
+                                          child: Text('لا'),
+                                        ),
+                                      ],
                                     ),
-                                    ElevatedButton(
-                                      style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.all(
-                                              kMainColor)),
-                                      onPressed: () async {
-                                        Provider.of<invoice_vm>(context, listen: false)
-                                            .setApproveclient_vm({
-                                          "id_clients":widget.invoice!.fkIdClient,
-                                          //'idApproveClient':widget.itemapprove!.idApproveClient,
-                                          "fk_user":widget.invoice!.fkIdUser,
-                                          "fk_regoin":widget.invoice!.fk_regoin,
-                                          "regoin":widget.invoice!.name_regoin,
-                                          "fk_country":widget.invoice!.fk_country,
-                                          "isApprove": "0",
-                                          "name_enterprise":widget.invoice!.name_enterprise,
-                                          "fkusername":widget.invoice!.nameUser, //موظف المبيعات
-                                          //"message":"",//
-                                          "nameuserApproved":Provider.of<user_vm_provider>(context,listen: false)
-                                              .currentUser.nameUser,
-                                          "iduser_approve": Provider.of<user_vm_provider>(context,listen: false)
-                                              .currentUser.idUser//معتمد الاشتراك
-                                        }, widget.invoice!.idInvoice)
-                                            .then((value) =>
-                                        value!=false?
-                                        clear()
-                                            : error()// clear()
-                                          // _scaffoldKey.currentState!.showSnackBar(
-                                          //     SnackBar(content: Text('هناك مشكلة ما'))
-                                          // )
-                                        );
-                                      },
-                                      child: Text('نعم'),
-                                    ),
-                                  ],
+                                  ),
                                 );
                               },
                             );
