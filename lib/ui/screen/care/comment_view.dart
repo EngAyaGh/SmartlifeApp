@@ -11,6 +11,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../labeltext.dart';
 
 class commentView extends StatefulWidget {
   commentView({required this.client, Key? key}) : super(key: key);
@@ -21,6 +22,8 @@ class commentView extends StatefulWidget {
 }
 
 class _commentViewState extends State<commentView> {
+  final _globalKey = GlobalKey<FormState>();
+
   TextEditingController _comment = TextEditingController();
   late String fk_client;
   String? nameEnterprise;
@@ -56,40 +59,56 @@ print('init in comment');
                 //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Flexible(
-                    child: EditTextFormField(
-                      maxline: 3,
-                      paddcustom: EdgeInsets.only(top: 20,left: 3,right: 3,bottom: 3),
-                      controller: _comment, hintText: 'إضافة تعليق',
-                     // keyboardType: TextInputType.multiline,
+                    child: Form(
+                      key: _globalKey,
+                      child: EditTextFormField(
+                        vaild:  (value) {
+                          if (value!.isEmpty) {
+                            return label_empty;
+                          }
+                        },
+                        maxline: 3,
+                        paddcustom: EdgeInsets.only(top: 20,left: 3,right: 3,bottom: 3),
+                        controller: _comment, hintText: 'إضافة تعليق',
+                       // keyboardType: TextInputType.multiline,
+                      ),
                     ),
                   ),
                   IconButton(
                       onPressed: () async {
-                        Provider.of<comment_vm>(context, listen: false)
-                            .addComment_vm({
-                          'content': _comment.text,
-                          'fk_user':  await Provider.of<user_vm_provider>(context,
-                                  listen: false)
-                              .currentUser
-                              .idUser
-                              .toString(),
-                          'fk_client': fk_client,
-                          'fkuser_client':widget.client.fkUser.toString(),//صتحب العميل
-                          'nameUser':widget.client.nameUser.toString(),
-                          'date_comment':
-                          //Utils.toDateTime(
-                              DateTime.now().toString(),
-                          //),
-                          'nameUser': Provider.of<user_vm_provider>(context,
-                              listen: false)
-                              .currentUser.nameUser,
-                          'img_image':'',
-                          'name_enterprise':nameEnterprise
-                        }, Provider.of<user_vm_provider>(context,
-                            listen: false)
-                            .currentUser.img_image,);
-                        _comment.text='';
-                      },
+      if(_globalKey.currentState!.validate()) {
+        _globalKey.currentState!.save();
+
+        Provider.of<comment_vm>(context, listen: false)
+            .addComment_vm({
+          'content': _comment.text,
+          'fk_user': await Provider
+              .of<user_vm_provider>(context,
+              listen: false)
+              .currentUser
+              .idUser
+              .toString(),
+          'fk_client': fk_client,
+          'fkuser_client': widget.client.fkUser.toString(), //صتحب العميل
+          'nameUser': widget.client.nameUser.toString(),
+          'date_comment':
+          //Utils.toDateTime(
+          DateTime.now().toString(),
+          //),
+          'nameUser': Provider
+              .of<user_vm_provider>(context,
+              listen: false)
+              .currentUser
+              .nameUser,
+          'img_image': '',
+          'name_enterprise': nameEnterprise
+        }, Provider
+            .of<user_vm_provider>(context,
+            listen: false)
+            .currentUser
+            .img_image,);
+        _comment.text = '';
+      }},
                       icon: Icon(Icons.send, color: kMainColor)),
 
                 ],

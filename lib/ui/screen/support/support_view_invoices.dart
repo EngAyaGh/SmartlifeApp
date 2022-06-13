@@ -33,19 +33,17 @@ class support_view_invoicesState extends State<support_view_invoices> {
     //   .listinvoicebyregoin;
     //get info from list client_invoice فواتير العميل
     WidgetsBinding.instance!.addPostFrameCallback((_){
-
       // Add Your Code here.
-      Provider.of<invoice_vm>(context,listen: false)
-          .get_invoiceclientlocal(widget.itemClient.idClients,'مشترك');
+      // Provider.of<invoice_vm>(context,listen: false)
+      //     .get_invoiceclientlocal(widget.itemClient.idClients,'مشترك');
     });
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     listinvoice=Provider.of<invoice_vm>(context,listen: true)
-        .listinvoiceClient;
+        .listinvoiceClientSupport;
 
     return Scaffold(
       key: _scaffoldKey,

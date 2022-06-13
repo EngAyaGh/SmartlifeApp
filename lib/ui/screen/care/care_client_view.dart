@@ -118,14 +118,15 @@ class _care_client_viewState extends State<care_client_view> {
 
              // else commview(listCommunication[i])
               listCommunication.isNotEmpty?
-              commview( listCommunication.firstWhere((element) => element.typeCommuncation=='دوري',
+              commview( listCommunication
+                  .firstWhere((element) => element.typeCommuncation=='دوري',
                   orElse: ()=> CommunicationModel(
                     idCommunication: '',nameUser: '',nameEnterprise: '',
                     clientRepeat: '',result: '',number_wrong: '',rate: '',
                     typeCommuncation: '',mobile: '',notes: '',
                     fkClient: '',fkUser: '',date_create: '',dateNext: '',
                     dateCommunication: '',id_invoice: '',dateinstall_done: ''
-                  ) ) )    :Container(),
+                  ) ) ) :Container(),
             ],
           ),
         ),

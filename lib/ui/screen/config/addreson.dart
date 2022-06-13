@@ -7,20 +7,19 @@ import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
+import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
-class addmanage extends StatelessWidget {
-  addmanage({Key? key}) : super(key: key);
-
+class addresaon extends StatelessWidget {
+  addresaon({required this.type, Key? key}) : super(key: key);
+  String type;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  final TextEditingController namelevel = TextEditingController();
+  final TextEditingController namereson = TextEditingController();
   final _globalKey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +53,7 @@ class addmanage extends StatelessWidget {
                         }
                       },
                       hintText: '',
-                      controller: namelevel,
+                      controller: namereson,
                     ),
                     SizedBox(height: 15,),
                     CustomButton(
@@ -66,9 +65,10 @@ class addmanage extends StatelessWidget {
                           _globalKey.currentState!.save();
                           Provider.of<LoadProvider>(context, listen: false)
                               .changebooladdclient(true);
-                          Provider.of<manage_provider>(context,listen: false)
-                              .addmanage_vm({
-                            'name_mange':namelevel.text
+                          Provider.of<typeclient>(context,listen: false)
+                              .addReson_vm({
+                            'name_reason':namereson.text,
+                            'type':type,
                           }).then(
                                   (value) =>  value!="error"
                                   ? clear(context)
@@ -94,7 +94,7 @@ class addmanage extends StatelessWidget {
 
     Provider.of<LoadProvider>(context, listen: false)
         .changebooladdclient(false);
-    namelevel.text="";
+    namereson.text="";
     _scaffoldKey.currentState!.showSnackBar(
         SnackBar(content: Text('تمت الإضافة بنجاح'))
     );

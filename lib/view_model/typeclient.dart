@@ -1,8 +1,11 @@
 
 
+import 'package:crm_smart/api/api.dart';
 import 'package:crm_smart/model/reasonmodel.dart';
 import 'package:crm_smart/services/configService.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../constants.dart';
 
 class typeclient extends ChangeNotifier{
   List<String> type_of_client=[];
@@ -64,4 +67,18 @@ class typeclient extends ChangeNotifier{
      type_of_out = await config_service().getreason(type);
   notifyListeners();
  }
+  Future<String> addReson_vm(Map<String, dynamic?> body) async {
+
+    String res = await Api().post(
+        url: url+'config/addreson.php',//users/addmangemt.php
+        body: body);
+    if (res!="error") {
+      body.addAll({
+        'id_reason':res,
+      });
+      type_of_out.insert(0,ReasonModel.fromJson(body));
+      notifyListeners();
+    }
+    return res;
+  }
 }

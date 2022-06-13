@@ -1,4 +1,5 @@
 import 'package:crm_smart/provider/config_vm.dart';
+import 'package:crm_smart/ui/screen/config/addreson.dart';
 import 'package:crm_smart/ui/screen/config/config_view.dart';
 import 'package:crm_smart/ui/screen/privilges/addmanage.dart';
 import 'package:crm_smart/ui/screen/privilges/checklevel.dart';
@@ -153,6 +154,36 @@ class _managmentpageState extends State<managmentpage> {
                     ),
                   );
                 }, title: 'إضافة الإدارات'):Container(),
+            privilge.checkprivlge('73')==true?
+        buildSelectCategory(
+                colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context)
+                      => addresaon(type:'client'),
+
+                    ),
+                  );
+                }, title: 'أسباب الانسحاب'):Container(),
+           privilge.checkprivlge('74')==true?
+        buildSelectCategory(
+                colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context)
+                      => addresaon(type:'ticket'),
+
+                    ),
+                  );
+                }, title: 'أنواع التذاكر'):Container(),
 
             //config_view
           ],);}

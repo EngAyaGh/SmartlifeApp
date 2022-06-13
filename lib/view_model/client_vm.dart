@@ -75,6 +75,7 @@ class client_vm extends ChangeNotifier {
         listClientAccept.add(element);
     });
      isloading=false;
+    listClient=List.from(listClientAccept);
      notifyListeners();
   }
 
@@ -293,7 +294,7 @@ class client_vm extends ChangeNotifier {
 
     ClientModel? inv;
     bool res=true;
-
+//errror
    inv= listClient.firstWhere((element) =>
    element.idClients==idClient
        ,orElse:null);
@@ -385,6 +386,7 @@ else{
       //listClientbyCurrentUser.insert(0, ClientModel.fromJson(body));
       listClient.insert(0,res);
       listClientfilter.insert(0, res);
+      listClientAccept.insert(0, res);
       // ClientModel.fromJson(body));
       notifyListeners();
     //}
@@ -404,6 +406,11 @@ else{
     element.idClients==id_client);
    if(index !=-1)
     listClientfilter[index]=data;
+
+   index= listClientAccept.indexWhere((element) =>
+    element.idClients==id_client);
+   if(index !=-1)
+     listClientAccept[index]=data;
     //ClientModel.fromJson(body);
       //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();

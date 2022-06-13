@@ -382,9 +382,7 @@ void didChangeDependencies() {
                       Provider.of<privilge_vm>(context,listen: true)
                           .checkprivlge('27')==true ?Container():
                       widget.itemClient.typeClient!="مشترك"&&widget.itemClient.typeClient!="منسحب"?
-                      Provider.of<privilge_vm>(context,listen: true)
-                          .checkprivlge('27')==true||  Provider.of<privilge_vm>(context,listen: true)
-                          .checkprivlge('28')==true ?
+
                       DropdownButton(
                       isExpanded: true,
                       //hint: Text("حدد حالة العميل"),
@@ -405,7 +403,7 @@ void didChangeDependencies() {
                         //       builder: (context) => dialog);
                         // }
                       },
-                    ):Container():Container(),
+                    ):Container(),
                       SizedBox(height: 2,),
 
                       // Provider.of<privilge_vm>(context,listen: true)

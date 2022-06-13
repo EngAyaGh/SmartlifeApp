@@ -247,7 +247,7 @@ class communication_vm extends ChangeNotifier{
     listCommunicationInstall=[];
     isloading=true;
     notifyListeners();
-    //await getCommunicationall();
+    await getCommunicationall('dateinvoice');
     if(listCommunication.isNotEmpty){
       listCommunication.forEach((element) {
         if(element.typeCommuncation=='تركيب')//&&element.fkUser==null)
@@ -262,8 +262,8 @@ class communication_vm extends ChangeNotifier{
 
     isloading=true;
     notifyListeners();
-     //await getCommunicationall();
-    if(listCommunication.isNotEmpty){
+     await getCommunicationall('dateinvoice');
+    if(listCommunication.isNotEmpty) {
       listCommunicationWelcome=[];
       listCommunication.forEach((element) {
         if(element.typeCommuncation=='ترحيب')//&&element.fkUser==null)
@@ -297,21 +297,20 @@ class communication_vm extends ChangeNotifier{
     notifyListeners();}
     return data;
   }
-  Future<void> getCommunicationall()async {
+
+  Future<void> getCommunicationall(String? type)async {
     listCommunication=[];
     // if(listComments.isEmpty){
     List<dynamic> data=[];
-    //viewcommunicationAll.php
+
     data= await Api()
-        .get(url:url+ 'care/viewcommunicationAll.php?fkcountry=${usercurrent!.fkCountry}');
+        .get(url:url+ 'care/viewcommunicationAll.php?fkcountry=${usercurrent!.fkCountry}&type=$type');
     print(data);
     if(data.length.toString().isNotEmpty) {
       for (int i = 0; i < data.length; i++) {
         listCommunication.add(CommunicationModel.fromJson(data[i]));
       }
-      //}
       notifyListeners();
-      //return data;
     }
   }
 }

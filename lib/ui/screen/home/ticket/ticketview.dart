@@ -1,9 +1,11 @@
+import 'package:crm_smart/model/privilgemodel.dart';
 import 'package:crm_smart/model/ticketmodel.dart';
 import 'package:crm_smart/ui/screen/client/profileclient.dart';
 import 'package:crm_smart/ui/screen/client/transfer_client.dart';
 import 'package:crm_smart/ui/screen/home/ticket/ticketadd.dart';
 import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/RowWidget.dart';
+import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -72,6 +74,8 @@ class _TicketViewState extends State<TicketView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   widget.ticketModel.dateRecive==null?
+                  Provider.of<privilge_vm>(context,listen: false)
+                      .checkprivlge('71') == true ?
                   Padding(
                     padding: const EdgeInsets.only(right: 5.0),
                     child: ElevatedButton(
@@ -91,6 +95,8 @@ class _TicketViewState extends State<TicketView> {
                         child: Text('استلام التذكرة')),
                   )
                       :  widget.ticketModel.dateClose==null?
+              Provider.of<privilge_vm>(context,listen: false)
+                  .checkprivlge('72') == true ? //regoin
                   Padding(
                     padding: const EdgeInsets.only(right: 5),
                     child: ElevatedButton(
@@ -107,7 +113,7 @@ class _TicketViewState extends State<TicketView> {
                           },  widget.ticketModel.idTicket);
                         },
                         child: Text('اغلاق التذكرة')),
-                  ):Container(),
+                  ):Container():Container():Container(),
                   widget.ticketModel.dateRecive!=null &&
                       widget.ticketModel.dateClose==null?
                   Padding(

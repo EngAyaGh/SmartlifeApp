@@ -34,6 +34,7 @@ class invoice_vm extends ChangeNotifier{
     notifyListeners();
   }
   List<InvoiceModel> listinvoiceClient=[];
+  List<InvoiceModel> listinvoiceClientSupport=[];
   List<InvoiceModel> listforme=[];
   List<DeletedinvoiceModel> listdeletedinvoice=[];
   List<ProductsInvoice> listproductinvoic=[];
@@ -589,25 +590,29 @@ Future<void> getinvoice_Localwithprev() async{
   }
   Future<void> get_invoiceclientlocal(String? fk_client,String type) async {
     List<InvoiceModel> list=[];
+    // listinvoiceClientSupport=[];
+    // listinvoiceClient=[];
     print('sdsjnhksjhdushdijksljflsdjlfkjljlj');
-    listinvoiceClient=[];
     notifyListeners();
     list= await Invoice_Service().getinvoicebyclient(fk_client!);
-    if(list.isNotEmpty){
+    if(list.isNotEmpty) {
     //await getinvoices();
     //seacrh for invoice in list
     if(type=='مشترك'){
+      listinvoiceClientSupport=[];
       list.forEach((element) {
       if( element.fkIdClient ==fk_client && element.isApprove!=null)
-      listinvoiceClient.add(element);
+        listinvoiceClientSupport.add(element);
     });
-    }else{
+    } else{
+      listinvoiceClient=[];
       list.forEach((element) {
-        if( element.fkIdClient==fk_client)
+        if(element.fkIdClient==fk_client)
           listinvoiceClient.add(element);
       });
     }}
     print('length list invoice client '+listinvoiceClient.length.toString());
+    print('length list invoice client '+listinvoiceClientSupport.length.toString());
     notifyListeners();
   }
   void setvaluepriv(privilgelistparam){
@@ -806,9 +811,14 @@ Future<void> getinvoice_Localwithprev() async{
 
       int index=listinvoices.indexWhere(
               (element) => element.idInvoice==id_invoice);
-      listinvoices[index]=
-      await Invoice_Service().setdate(body,id_invoice!);
 
+     int index1=listinvoiceClientSupport.indexWhere(
+              (element) => element.idInvoice==id_invoice);
+      InvoiceModel te= await Invoice_Service().setdate(body,id_invoice!);
+      listinvoices[index]=te;
+      listinvoiceClientSupport[index1]=te;
+
+      // listinvoiceClientSupport
       // body.addAll(
       //     InvoiceModel.fromJson(listinvoices[index]));
       // listinvoices[index]= InvoiceModel.fromJson(body);
@@ -833,14 +843,14 @@ Future<void> getinvoice_Localwithprev() async{
       // //listClient.removeAt(index);
       notifyListeners();
   }
-
+bool isloadingdone=false;
   Future<void> setdatedone_vm(Map<String, dynamic?> body,String? id_invoice) async {
-
+    isloadingdone=true;
     int index=listinvoices.indexWhere(
             (element) => element.idInvoice==id_invoice);
 
     listinvoices[index]= await Invoice_Service().setdatedone(body,id_invoice!);
-
+    isloadingdone=false;
       // listClient.removeAt(index);
       notifyListeners();
 

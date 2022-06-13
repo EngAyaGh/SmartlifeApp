@@ -50,7 +50,7 @@ class _care_page_viewState extends State<care_page_view> {
       // Add Your Code here.
       // only
       await  Provider.of<communication_vm>(context, listen: false)
-          .getCommunicationall();
+          .getCommunicationall('');
       await Provider.of<privilge_vm>(context,listen: false)
           .getprivlg_usercurrent();
       List<PrivilgeModel> list=

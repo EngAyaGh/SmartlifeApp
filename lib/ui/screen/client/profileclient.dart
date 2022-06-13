@@ -47,8 +47,10 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
 @override void initState() {
     indextab= (widget.tabindex==null?0: widget.tabindex)!;
   WidgetsBinding.instance!.addPostFrameCallback((_)async {
+    await Provider.of<invoice_vm>(context,listen: false)
+        .get_invoiceclientlocal(widget.idclient,'مشترك');
   await  Provider.of<communication_vm>(context, listen: false)
-        .getCommunicationall();
+        .getCommunicationall('');
      Provider.of<client_vm>(context,listen: false)
      .get_byIdClient(widget.idclient.toString());
 
@@ -65,7 +67,6 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
     // Provider.of<ticket_vm>(context, listen: false)
     //     .getclient_ticket(widget.idclient.toString());
         //.getclient_ticket(_invoice!.fkIdClient.toString());
-
     Provider.of<ticket_vm>(context, listen: false)
         .getclient_ticket( widget.idclient.toString());
   });
@@ -81,7 +82,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
   Widget build(BuildContext context) {
     _clientModel=Provider.of<client_vm>
       (context,listen: true).listClient
-        .firstWhere((element)
+        .firstWhere((element)//error
     => element.idClients==widget.idclient);
 
    //  final index=Provider.of<invoice_vm>(context,listen: true)

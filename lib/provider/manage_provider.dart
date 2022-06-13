@@ -44,7 +44,7 @@ class manage_provider extends ChangeNotifier{
    Future<String> addmanage_vm(Map<String, dynamic?> body) async {
      //name_mange
      String res = await Api().post(
-         url: url+'users/addmangemt.php',
+         url: url+'users/addmangemt.php',//users/addmangemt.php
          body: body);
        if (res!="error") {
        body.addAll({

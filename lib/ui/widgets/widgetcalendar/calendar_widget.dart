@@ -27,7 +27,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   @override
   Widget build(BuildContext context) {
     final events = Provider.of<EventProvider>(context,listen: true).events;
-
     return SfCalendar(
       view: CalendarView.month,
       dataSource: EventDataSource(events),
