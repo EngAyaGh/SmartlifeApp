@@ -14,13 +14,26 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
-class addresaon extends StatelessWidget {
-  addresaon({required this.type, Key? key}) : super(key: key);
+class addresaon extends StatefulWidget {
+  addresaon({ required this.nameReason,required this.idReason, required this.type, Key? key}) : super(key: key);
   String type;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  final TextEditingController namereson = TextEditingController();
-  final _globalKey = GlobalKey<FormState>();
+  String? nameReason;
+  String? idReason;
 
+  @override
+  _addresaonState createState() => _addresaonState();
+}
+
+class _addresaonState extends State<addresaon> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  final TextEditingController namereson = TextEditingController();
+
+  final _globalKey = GlobalKey<FormState>();
+  @override void initState() {
+    namereson.text=widget.nameReason==null?'':widget.nameReason.toString();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +56,7 @@ class addresaon extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(height: 15,),
-                    RowEdit(name: 'الإدارات', des: 'REQUIRED'),
+                    RowEdit(name: widget.type=='client'?'السبب':'نوع', des: 'REQUIRED'),
                     SizedBox(height: 15,),
 
                     EditTextFormField(
@@ -65,15 +78,28 @@ class addresaon extends StatelessWidget {
                           _globalKey.currentState!.save();
                           Provider.of<LoadProvider>(context, listen: false)
                               .changebooladdclient(true);
+                          if(widget.idReason==null){
                           Provider.of<typeclient>(context,listen: false)
                               .addReson_vm({
                             'name_reason':namereson.text,
-                            'type':type,
+                            'type':widget.type,
                           }).then(
                                   (value) =>  value!="error"
                                   ? clear(context)
                                   : error(context)
                           );
+                          }
+                          else{
+                            Provider.of<typeclient>(context,listen: false)
+                                .update_resoan({
+                              'name_reason':namereson.text,
+                              'type':widget.type,
+                            },widget.idReason.toString()).then(
+                                    (value) =>  value!="error"
+                                    ? clear(context)
+                                    : error(context)
+                            );
+                          }
                         }else {
                           _scaffoldKey.currentState!.showSnackBar(
                               SnackBar(content: Text('الحقل فارغ  '))
@@ -90,6 +116,7 @@ class addresaon extends StatelessWidget {
           ),
         ));
   }
+
   clear(BuildContext context) {
 
     Provider.of<LoadProvider>(context, listen: false)

@@ -1,6 +1,11 @@
+import 'dart:ffi';
+
 import 'package:crm_smart/provider/config_vm.dart';
 import 'package:crm_smart/ui/screen/config/addreson.dart';
 import 'package:crm_smart/ui/screen/config/config_view.dart';
+import 'package:crm_smart/ui/screen/config/manageview.dart';
+import 'package:crm_smart/ui/screen/config/regoin_view.dart';
+import 'package:crm_smart/ui/screen/config/reson_view.dart';
 import 'package:crm_smart/ui/screen/privilges/addmanage.dart';
 import 'package:crm_smart/ui/screen/privilges/checklevel.dart';
 import 'package:crm_smart/ui/screen/product/productView.dart';
@@ -130,14 +135,14 @@ class _managmentpageState extends State<managmentpage> {
                 colortitle: Colors.black,
                 colorarrow: Colors.black,
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute<void>(
-                  //     builder: (BuildContext context)
-                  //     => config_view(),
-                  //
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context)
+                      => regoinview(),
+
+                    ),
+                  );
                 }, title: 'إداراة الفروع'):Container(),
             privilge.checkprivlge('64')==true?
         buildSelectCategory(
@@ -149,8 +154,7 @@ class _managmentpageState extends State<managmentpage> {
                     context,
                     MaterialPageRoute<void>(
                       builder: (BuildContext context)
-                      => addmanage(),
-
+                      => managview(),
                     ),
                   );
                 }, title: 'إضافة الإدارات'):Container(),
@@ -164,7 +168,7 @@ class _managmentpageState extends State<managmentpage> {
                     context,
                     MaterialPageRoute<void>(
                       builder: (BuildContext context)
-                      => addresaon(type:'client'),
+                      => resoan_view(type:'client'),
 
                     ),
                   );
@@ -179,7 +183,7 @@ class _managmentpageState extends State<managmentpage> {
                     context,
                     MaterialPageRoute<void>(
                       builder: (BuildContext context)
-                      => addresaon(type:'ticket'),
+                      => resoan_view(type:'ticket'),
 
                     ),
                   );

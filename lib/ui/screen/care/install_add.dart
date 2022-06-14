@@ -2,6 +2,7 @@ import 'package:crm_smart/model/communication_modle.dart';
 import 'package:crm_smart/ui/screen/client/profileclient.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/RowWidget.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/comment.dart';
 import 'package:crm_smart/view_model/communication_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -13,7 +14,9 @@ import 'package:group_button/group_button.dart';
 import '../../../constants.dart';
 import 'package:provider/provider.dart';
 
+import '../../../labeltext.dart';
 import 'card_comment.dart';
+import 'comment_view.dart';
 
 class installAdd extends StatefulWidget {
    installAdd({required this.com, Key? key}) : super(key: key);
@@ -24,6 +27,9 @@ class installAdd extends StatefulWidget {
 }
 
 class _installAddState extends State<installAdd> {
+  final _globalKey = GlobalKey<FormState>();
+  TextEditingController _comment = TextEditingController();
+
   String? typepayController='0';
 
   String?  titleWelcom='هذا عميل مشترك جديد , قم بالتواصل مع العميل والترحيب به ثم اكتب تعليق وانقر على زر تم الترحيب بالعميل';
@@ -202,6 +208,64 @@ class _installAddState extends State<installAdd> {
               //     title: 'تاريخ التدريب',
               //     value:widget.com.dateCommunication.toString()),
               SizedBox(height: 10,),
+              Row(
+                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Form(
+                      key: _globalKey,
+                      child: EditTextFormField(
+                        vaild:  (value) {
+                          if (value!.isEmpty) {
+                            return label_empty;
+                          }
+                        },
+                        maxline: 3,
+                        paddcustom: EdgeInsets.only(top: 20,left: 3,right: 3,bottom: 3),
+                        controller: _comment, hintText: 'إضافة تعليق',
+                        // keyboardType: TextInputType.multiline,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () async {
+                        if(_globalKey.currentState!.validate()) {
+                          _globalKey.currentState!.save();
+
+                          Provider.of<comment_vm>(context, listen: false)
+                              .addComment_vm({
+                            'content': _comment.text,
+                            'fk_user': await Provider
+                                .of<user_vm_provider>(context,
+                                listen: false)
+                                .currentUser
+                                .idUser
+                                .toString(),
+                            'fk_client': widget.com.fkClient,
+                            'fkuser_client': widget.com.fkUser.toString(), //صتحب العميل
+                            'nameUser': widget.com.nameUser.toString(),
+                            'date_comment':
+                            //Utils.toDateTime(
+                            DateTime.now().toString(),
+                            //),
+                            'nameUser': Provider
+                                .of<user_vm_provider>(context,
+                                listen: false)
+                                .currentUser
+                                .nameUser,
+                            'img_image': '',
+                            'name_enterprise': widget.com.nameEnterprise
+                          }, Provider
+                              .of<user_vm_provider>(context,
+                              listen: false)
+                              .currentUser
+                              .img_image,);
+                          _comment.text = '';
+                        }},
+                      icon: Icon(Icons.send, color: kMainColor)),
+
+                ],
+              ),
               Container(
                 height: MediaQuery.of(context).size.height* 0.45,
                 child: Padding(
@@ -233,6 +297,7 @@ class _installAddState extends State<installAdd> {
                   }),
                 ),
               ),
+              // commentView(client: widget.com.fkClient.toString(),),
             ],
           ),
         ),

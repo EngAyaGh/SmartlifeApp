@@ -223,6 +223,13 @@ class client_vm extends ChangeNotifier {
     listClientAccept = listClient;
     notifyListeners();
   }
+  Future<void> getallclientTransfer()async{
+    listClient =
+        await ClientService()
+            .getTransfer(usercurrent!.idUser.toString());
+    listClientAccept =List.from(listClient);
+    notifyListeners();
+  }
   Future<void> getallclientAcceptwithprev()async{
     listClient=[];
     bool res= privilgelist.firstWhere(
@@ -252,9 +259,7 @@ class client_vm extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getclient_vm(
-     // List<PrivilgeModel> privilgelist
-      ) async {
+  Future<void> getclient_vm() async {
     clear();
     listClientfilter=[];
     isloading=true;

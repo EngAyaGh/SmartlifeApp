@@ -7,23 +7,25 @@ import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
+import 'package:crm_smart/view_model/regoin_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
-class addmanage extends StatefulWidget {
-  addmanage({
-    required this.name_mange,
-    required this.idmange, Key? key}) : super(key: key);
-  String? idmange,name_mange;
+class addregoin extends StatefulWidget {
+  addregoin({
+    required this.nameregoin,
+    required this.idregoin, Key? key}) : super(key: key);
+  String? idregoin,nameregoin;
 
   @override
-  _addmanageState createState() => _addmanageState();
+  _addregoinState createState() => _addregoinState();
 }
 
-class _addmanageState extends State<addmanage> {
+class _addregoinState extends State<addregoin> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   final TextEditingController namelevel = TextEditingController();
@@ -32,7 +34,8 @@ class _addmanageState extends State<addmanage> {
 
   @override void initState() {
 
-    namelevel.text=widget.name_mange==null?'':widget.name_mange.toString();
+    namelevel.text=widget.idregoin==null?''
+        :widget.nameregoin.toString();
 
     super.initState();
   }
@@ -58,7 +61,7 @@ class _addmanageState extends State<addmanage> {
                 child: Column(
                   children: [
                     SizedBox(height: 15,),
-                    RowEdit(name: 'الإدارات', des: 'REQUIRED'),
+                    RowEdit(name: 'الفروع', des: 'REQUIRED'),
                     SizedBox(height: 15,),
 
                     EditTextFormField(
@@ -80,20 +83,22 @@ class _addmanageState extends State<addmanage> {
                           _globalKey.currentState!.save();
                           Provider.of<LoadProvider>(context, listen: false)
                               .changebooladdclient(true);
-                          if(widget.name_mange==null){
-                          Provider.of<manage_provider>(context,listen: false)
-                              .addmanage_vm({
-                            'name_mange':namelevel.text
-                          }).then(
-                                  (value) =>  value!="error"
-                                  ? clear(context)
-                                  : error(context)
-                          );}
+                          if(widget.idregoin==null){
+                            Provider.of<regoin_vm>(context,listen: false)
+                                .addRegoin_vm({
+                              'name_regoin':namelevel.text,
+                              'fk_country':Provider.of<user_vm_provider>
+                                (context,listen: false).currentUser.fkCountry.toString(),
+                            }).then(
+                                    (value) =>  value!="error"
+                                    ? clear(context)
+                                    : error(context)
+                            );}
                           else{
-                            Provider.of<manage_provider>(context,listen: false)
-                                .update_manage({
-                              'name_mange':namelevel.text
-                            },widget.idmange.toString()).then(
+                            Provider.of<regoin_vm>(context,listen: false)
+                                .update_regoin({
+                              'name_regoin':namelevel.text
+                            },widget.idregoin.toString()).then(
                                     (value) =>  value!="error"
                                     ? clear(context)
                                     : error(context)

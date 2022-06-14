@@ -56,7 +56,15 @@ class manage_provider extends ChangeNotifier{
      }
      return res;
    }
+   Future<String> update_manage(Map<String, dynamic?> body,String idmanag) async {
+     //name_mange
+     String res = await Api().post(
+         url: url+'users/update_manage.php?idmange=${idmanag}',//users/addmangemt.php
+         body: body);
+       listtext.add(ManageModel.fromJson(body));
+       notifyListeners();
 
-
+     return res;
+   }
 
 }

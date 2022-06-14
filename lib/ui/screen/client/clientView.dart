@@ -25,9 +25,10 @@ import '../../../constants.dart';
 import '../../../function_global.dart';
 
 class ClientView extends StatefulWidget {
-  ClientView( { required this.invoice, required this.idclient, Key? key}) : super(key: key);
+  ClientView( {this.clienttransfer, required this.invoice, required this.idclient, Key? key}) : super(key: key);
   String idclient;
   InvoiceModel? invoice;
+  String? clienttransfer;
   //bool? itemapprove;
   @override
   _ClientViewState createState() => _ClientViewState();
@@ -182,6 +183,168 @@ class _ClientViewState extends State<ClientView> {
                 //     .checkprivlge('2')==true ||
                 //     Provider.of<privilge_vm>(context,listen: true)
                 //         .checkprivlge('7')==true?
+
+               widget.clienttransfer==null?Container():
+               Center(
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                     ElevatedButton(
+                         style: ButtonStyle(
+                             backgroundColor:
+                             MaterialStateProperty.all(kMainColor)),
+                         onPressed: () async{
+
+                           await showDialog(
+                             context: context,
+                             builder: (context) {
+                               return ModalProgressHUD(
+                                 inAsyncCall: Provider.of<invoice_vm>(context)
+                                     .isapproved,
+                                 child: Directionality(
+                                   textDirection: TextDirection.rtl,
+                                   child: AlertDialog(
+
+                                     titlePadding:const EdgeInsets.fromLTRB(24.0, 10.0, 24.0, 15.0) ,
+                                     insetPadding:  EdgeInsets.only(left: 10,right: 10,bottom: 10),
+                                     contentPadding: EdgeInsets.only(left: 24,right: 24,bottom: 10),
+                                     title: Center(child: Text('Confirmation')),
+                                     content: Text(' هل تريد تأكيد العملية؟  '),
+                                     actions: <Widget>[
+
+                                       ElevatedButton(
+                                         style: ButtonStyle(
+                                             backgroundColor: MaterialStateProperty.all(
+                                                 kMainColor)),
+                                         onPressed: () async {
+                                           String? reason_transfer=null;
+                                           //update fkuser to new user
+                                           Provider.of<client_vm>(context,listen: false)
+                                               .setfkUserApprove(
+                                               {
+                                                 'reason_transfer':reason_transfer.toString(),
+                                                 'fkuser':iduser,//user reciept
+                                                 'nameusertransfer':
+                                                 Provider.of<user_vm_provider>(context,listen: false)
+                                                     .currentUser.nameUser.toString(),//الموظف الذي حول العميل
+                                                 'name_enterprise':widget.name_enterprise,
+                                                 'fkusertrasfer':    Provider.of<user_vm_provider>(context,listen: false)
+                                                     .currentUser.idUser.toString(),
+                                                 //'idclient':
+                                               },widget.idclient
+                                           );
+                                         },
+                                         child: Text('نعم'),
+                                       ),
+                                       new ElevatedButton(
+                                         style: ButtonStyle(
+                                             backgroundColor: MaterialStateProperty.all(
+                                                 kMainColor)),
+                                         onPressed: () {
+                                           Navigator.of(context,
+                                               rootNavigator: true)
+                                               .pop(
+                                               false); // dismisses only the dialog and returns false
+                                         },
+                                         child: Text('لا'),
+                                       ),
+                                     ],
+                                   ),
+                                 ),
+                               );
+                             },
+                           );
+
+                           //Navigator.pop(context);
+                         },
+                         child: Text('قبول تحويل العميل')),
+                     SizedBox(
+                       width: 4,
+                     ),
+                     ElevatedButton(
+                         style: ButtonStyle(
+                             backgroundColor: MaterialStateProperty.all(
+                                 Colors.redAccent)),
+                         onPressed: ()  async{
+
+                           // Navigator.pushAndRemoveUntil(context,
+                           //     MaterialPageRoute(builder: (context)=>Home()),
+                           //         (route) => true
+                           // );
+                           await showDialog(
+                             context: context,
+                             builder: (context) {
+                               return ModalProgressHUD(
+                                 inAsyncCall: Provider.of<invoice_vm>(context)
+                                     .isapproved,
+                                 child: Directionality(
+                                   textDirection: TextDirection.rtl,
+                                   child: AlertDialog(
+                                     titlePadding:const EdgeInsets.fromLTRB(24.0, 10.0, 24.0, 15.0) ,
+                                     insetPadding:  EdgeInsets.only(left: 10,right: 10,bottom: 10),
+                                     contentPadding: EdgeInsets.only(left: 24,right: 24,bottom: 10),
+                                     title: Center(child: Text('Confirmation')),
+                                     content: Text(' هل تريد تأكيد العملية؟  '),
+                                     actions: <Widget>[
+                                       new
+
+                                       ElevatedButton(
+                                         style: ButtonStyle(
+                                             backgroundColor: MaterialStateProperty.all(
+                                                 kMainColor)),
+                                         onPressed: () async {
+                                           Provider.of<client_vm>(context, listen: false)
+                                               .setApproveclient_vm({
+                                             "id_clients":widget.invoice!.fkIdClient,
+                                             //'idApproveClient':widget.itemapprove!.idApproveClient,
+                                             "fk_user":widget.invoice!.fkIdUser,
+                                             "fk_regoin":widget.invoice!.fk_regoin,
+                                             "regoin":widget.invoice!.name_regoin,
+                                             "fk_country":widget.invoice!.fk_country,
+                                             "isApprove": "0",
+                                             "name_enterprise":widget.invoice!.name_enterprise,
+                                             "fkusername":widget.invoice!.nameUser, //موظف المبيعات
+                                             //"message":"",//
+                                             "nameuserApproved":Provider.of<user_vm_provider>(context,listen: false)
+                                                 .currentUser.nameUser,
+                                             "iduser_approve": Provider.of<user_vm_provider>(context,listen: false)
+                                                 .currentUser.idUser//معتمد الاشتراك
+                                           }, widget.invoice!.idInvoice)
+                                               .then((value) =>
+                                           value!=false?
+                                           clear()
+                                               : error()// clear()
+                                             // _scaffoldKey.currentState!.showSnackBar(
+                                             //     SnackBar(content: Text('هناك مشكلة ما'))
+                                             // )
+                                           );
+                                         },
+                                         child: Text('نعم'),
+                                       ),
+                                       ElevatedButton(
+                                         style: ButtonStyle(
+                                             backgroundColor: MaterialStateProperty.all(
+                                                 kMainColor)),
+                                         onPressed: () {
+                                           Navigator.of(context,
+                                               rootNavigator: true)
+                                               .pop(
+                                               false); // dismisses only the dialog and returns false
+                                         },
+                                         child: Text('لا'),
+                                       ),
+                                     ],
+                                   ),
+                                 ),
+                               );
+                             },
+                           );
+                         },
+                         child: Text('رفض تحويل العميل')),
+
+                   ],
+                 ),
+               ),
                 widget.invoice!=null?
                 widget.invoice!.isApprove==null?
                 Center(
@@ -242,15 +405,7 @@ class _ClientViewState extends State<ClientView> {
                                               // _scaffoldKey.currentState!.showSnackBar(
                                               //     SnackBar(content: Text('هناك مشكلة ما')))
                                             );
-                                            //Navigator.of(context,rootNavigator: true).pop();
-                                            // Navigator.pop(context);
-                                            // Navigator.pushAndRemoveUntil(context,
-                                            //     MaterialPageRoute(builder: (context)=>Home()),
-                                            //         (route) => true
-                                            // );//this is active
-                                            //  Navigator.pushReplacement(context,
-                                            //      MaterialPageRoute(builder:
-                                            //          (context)=>ApprovePage()));
+
                                           },
                                           child: Text('نعم'),
                                         ),

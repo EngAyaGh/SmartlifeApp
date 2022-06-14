@@ -2,47 +2,47 @@
 
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/levelmodel.dart';
+import 'package:crm_smart/model/managmodel.dart';
 import 'package:crm_smart/model/privilgemodel.dart';
-import 'package:crm_smart/model/reasonmodel.dart';
+import 'package:crm_smart/model/regoin_model.dart';
+import 'package:crm_smart/provider/manage_provider.dart';
+import 'package:crm_smart/ui/screen/privilges/addmanage.dart';
 import 'package:crm_smart/ui/screen/privilges/privilge.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
-import 'package:crm_smart/view_model/typeclient.dart';
+import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'addreson.dart';
-class resoan_view extends StatefulWidget {
-  resoan_view({required this.type, Key? key}) : super(key: key);
-  String type;
+import 'add_regoin.dart';
+
+class regoinview extends StatefulWidget {
+  const regoinview({Key? key}) : super(key: key);
 
   @override
-  _resoan_viewState createState() => _resoan_viewState();
+  _regoinviewState createState() => _regoinviewState();
 }
 
-class _resoan_viewState extends State<resoan_view> {
+class _regoinviewState extends State<regoinview> {
   @override void initState() {
-
-    Provider.of<typeclient>
-      (context,listen: false).getreasons(widget.type);
+    Provider.of<regoin_vm>
+      (context,listen: false).getregoin();
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-    List<ReasonModel> _listlevel= Provider.of<typeclient>
-      (context,listen: true).type_of_out;
+    List<RegoinModel> _listlevel= Provider.of<regoin_vm>
+      (context,listen: true).listregoin;
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.type=='client'?
-        'أسباب الانسحاب':'أنواع التذاكر',style: TextStyle(color: kWhiteColor),),
+        title: Text('الفروع',style: TextStyle(color: kWhiteColor),),
 
         centerTitle: true,
       ),
       floatingActionButton:
-          widget.type=='client'?
-      Provider.of<privilge_vm>(context,listen: true)
-          .checkprivlge('73')==true ?
+      // Provider.of<privilge_vm>(context,listen: true)
+      //     .checkprivlge('64')==true ?
       FloatingActionButton(
         child:Icon(Icons.add),
         onPressed: (){
@@ -50,32 +50,16 @@ class _resoan_viewState extends State<resoan_view> {
             context,
             MaterialPageRoute<void>(
               builder: (BuildContext context)
-              => addresaon(
-                idReason: null,
-                nameReason: null,
-                type: widget.type,),
+              => addregoin(
+                idregoin: null,
+                nameregoin: null,
+              ),
               fullscreenDialog: true,
             ),
           );
         },
-        backgroundColor: kMainColor,):Container():
-          Provider.of<privilge_vm>(context,listen: true)
-              .checkprivlge('74')==true ? FloatingActionButton(
-            child:Icon(Icons.add),
-            onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context)
-                  => addresaon(
-                    type: widget.type,
-                    idReason: null,
-                    nameReason: null,),
-                  fullscreenDialog: true,
-                ),
-              );
-            },
-            backgroundColor: kMainColor,):Container(),
+        backgroundColor: kMainColor,),
+            //:Container(),
       body:
       _listlevel.length==0?
       Center(
@@ -98,10 +82,10 @@ class _resoan_viewState extends State<resoan_view> {
                               onTap: (){
                                 Navigator.push(context,
                                     MaterialPageRoute(
-                                        builder: (context)=>addresaon(
-                                          nameReason:_listlevel[index].nameReason,
-                                          idReason: _listlevel[index].idReason,
-                                          type: widget.type,
+                                        builder: (context)=>addregoin(
+                                          nameregoin:
+                                          _listlevel[index].name_regoin,
+                                          idregoin: _listlevel[index].id_regoin,
                                         )));
                               },
                               child: Container(
@@ -131,7 +115,7 @@ class _resoan_viewState extends State<resoan_view> {
                                       padding: EdgeInsets.all(4),
                                       child: Center(
                                         child:
-                                        Text(_listlevel[index].nameReason,
+                                        Text(_listlevel[index].name_regoin,
                                           style: TextStyle(
                                               fontSize: 14,
                                               fontFamily: kfontfamily2),),),

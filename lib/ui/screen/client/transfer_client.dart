@@ -88,22 +88,24 @@ class _transferClientState extends State<transferClient> {
                       {
                         'fk_user_recive':iduser,
                         'fkuser':iduser,//user reciept
-                       'fk_client':widget.idclient,
+                        'fk_client':widget.idclient,
                         'nameusertransfer':
-                        Provider.of<user_vm_provider>(context,listen: false)
+                         Provider.of<user_vm_provider>(context,listen: false)
                             .currentUser.nameUser.toString(),//الموظف الذي حول العميل
                         'name_enterprise':widget.name_enterprise,
-                        'fkusertrasfer':    Provider.of<user_vm_provider>(context,listen: false)
+                        'fkusertrasfer':Provider.of<user_vm_provider>(context,listen: false)
                             .currentUser.idUser.toString(),
                         //'idclient':
                       },widget.idticket
                   );
                 }
                 else{
+                  String? reason_transfer=null;
                   //update fkuser to new user
                   Provider.of<client_vm>(context,listen: false)
                       .setfkUserclient_vm(
                       {
+                        'reason_transfer':reason_transfer.toString(),
                         'fkuser':iduser,//user reciept
                         'nameusertransfer':
                         Provider.of<user_vm_provider>(context,listen: false)
@@ -115,8 +117,6 @@ class _transferClientState extends State<transferClient> {
                       },widget.idclient
                   );
                 }
-
-                //navigator to clients view page
                 Navigator.pushAndRemoveUntil(context,
                     MaterialPageRoute(builder: (context)=>ticketclientview()),
                         (route) => false

@@ -1,4 +1,5 @@
 import 'package:crm_smart/ui/screen/client/Acceptpage.dart';
+import 'package:crm_smart/ui/screen/client/approve_type_user.dart';
 import 'package:crm_smart/ui/screen/client/client_wating.dart';
 import 'package:crm_smart/ui/screen/client/myclient.dart';
 import 'package:crm_smart/ui/screen/client/outClient.dart';
@@ -92,18 +93,19 @@ class _salesState extends State<sales> {
                     ));
                   }, title:'فواتير العملاء' ):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
 
-              // ),
-              //:Container()
-              // ;}),
-            //AcceptPage
-            // buildSelectCategory(
-            //     onTap: () {
-            //       Navigator.push(context, MaterialPageRoute(
-            //           builder: (context)=>
-            //               MyClientPage()));
-            //     }, title:  'عملائي'),
+              buildSelectCategory(
+                  colorbag:   Colors.white,
+                  colortitle: Colors.black,
+                  colorarrow: Colors.black,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context)=>
+                            TransferPage() //AcceptPage()   // support_view(type: 'client',)
+                    ));
+                  }, title:'موافقات تحويل العملاء' ),//تاريخ الفاتورة جنبو اسم المؤسسة
 
-                  Provider.of<privilge_vm>(context,listen: true)
+
+              Provider.of<privilge_vm>(context,listen: true)
                   .checkprivlge('40')==true?
     buildSelectCategory(
         colorbag: Colors.white,

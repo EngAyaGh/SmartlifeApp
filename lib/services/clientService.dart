@@ -71,6 +71,19 @@ class ClientService{
     print(prodlist);
     return prodlist;
   }
+  Future<List<ClientModel>> getTransfer(String? iduser) async {
+    List<dynamic> data =[];
+    data=await Api()
+        .get(url:url+ 'client/get_approveTransfer.php?iduser=$iduser');
+
+    List<ClientModel> prodlist = [];
+
+    for (int i = 0; i < data.length; i++) {
+      prodlist.add(ClientModel.fromJson(data[i]));
+    }
+    print(prodlist);
+    return prodlist;
+  }
   Future<List<ClientModel>> getClientbyuser(String? fk_user) async {
     List<dynamic> data =[];
     data=await Api()

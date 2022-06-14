@@ -72,12 +72,35 @@ class regoin_vm extends ChangeNotifier{
     }
     listregoinfilter=List.from(listregoin);// [...listregoin];listregoin.tolist();
     listregoinfilter.insert(0,RegoinModel(
-        id_regoin: '0', name_regoin: 'الكل'));
+        id_regoin: '0', name_regoin: 'الكل', fk_country: ''));
     notifyListeners();
     //var  data=await RegoinService().getRegoinByCountry("1");
     //listregoin= data as  List<RegoinModel>;
   }
+  Future<String> addRegoin_vm(Map<String, dynamic?> body) async {
 
+    String res = await Api().post(
+        url: url+'users/add_regoin.php',//users/addmangemt.php
+        body: body);
+    if (res!="error") {
+      body.addAll({
+        'id_reason':res,
+      });
+      listregoin.insert(0,RegoinModel.fromJson(body));
+      notifyListeners();
+    }
+    return res;
+  }
+  Future<String> update_regoin(Map<String, dynamic?> body, String idmanag) async {
+    //name_mange
+    String res = await Api().post(
+        url: url+'users/update_regoin.php?id_regoin=${idmanag}',//users/addmangemt.php
+        body: body);
+    listregoin.add(RegoinModel.fromJson(body));
+    notifyListeners();
+
+    return res;
+  }
 
   //}
 

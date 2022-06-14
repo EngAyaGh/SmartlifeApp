@@ -81,4 +81,16 @@ class typeclient extends ChangeNotifier{
     }
     return res;
   }
+  Future<String> update_resoan(Map<String, dynamic?> body,
+      String idmanag) async {
+    //name_mange
+    String res = await Api().post(
+        url: url+'users/update_resoan.php?id_reason=${idmanag}',//users/addmangemt.php
+        body: body);
+    type_of_out.add(ReasonModel.fromJson(body));
+    notifyListeners();
+
+    return res;
+  }
+  //update_resoan
 }

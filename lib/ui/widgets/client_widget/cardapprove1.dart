@@ -23,8 +23,9 @@ class cardapprove1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     current = Provider.of<user_vm_provider>(context).currentUser;
-    return Container(
-      decoration: BoxDecoration(
+    return
+      Container(
+        decoration: BoxDecoration(
         borderRadius: BorderRadius.only(bottomRight: Radius.circular(30)),
         boxShadow: <BoxShadow>[
           BoxShadow(

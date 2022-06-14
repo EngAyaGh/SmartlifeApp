@@ -55,9 +55,7 @@ class cardcommalltype extends StatelessWidget {
              Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder:
-                                    (
-                                    context) =>
+                                builder: (context) =>
                                     installAdd(
                                       com: itemcom,
                                     )));
