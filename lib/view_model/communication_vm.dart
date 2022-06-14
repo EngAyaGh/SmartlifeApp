@@ -70,15 +70,14 @@ class communication_vm extends ChangeNotifier{
 
             if( element.dateCommunication!=null) {
               _listInvoicesAccept.add(element);
-              print('serch بالانتظار');
-
+              print('serch تم');
             }
           });
         if(filter=='لم يتم الترحيب')
           listCommunicationWelcome.forEach((element) {
             if( element.dateCommunication==null) {
               _listInvoicesAccept.add(element);
-              print('serch تم التركيب');
+              print('serch لم يتم الترحيب');
 
             }
           });
@@ -176,6 +175,7 @@ class communication_vm extends ChangeNotifier{
       }
     }
     listCommunicationInstall= _listInvoicesAccept;
+    isloading=false;
     notifyListeners();
   }
   //searchwelcome
@@ -239,8 +239,7 @@ class communication_vm extends ChangeNotifier{
       listCommunicationWelcome.forEach((element) {
     if(element.fkUser==null)
       listwelcomenumber.add(element) ;
-    });
-    }
+    });}
      notifyListeners();
   }
  Future <void> getCommunicationInstall() async{
@@ -259,7 +258,7 @@ class communication_vm extends ChangeNotifier{
     notifyListeners();
   }
   Future<void> getCommunicationWelcome()async {
-
+    listCommunicationWelcome=[];
     isloading=true;
     notifyListeners();
      await getCommunicationall('dateinvoice');
@@ -275,8 +274,11 @@ class communication_vm extends ChangeNotifier{
     notifyListeners();
   }
   //addcommuncation
+  bool isload=false;
   Future<CommunicationModel> addcommuncation(Map<String, dynamic?> body,String id_communication) async {
     print(id_communication);
+    isload=true;
+    notifyListeners();
   var result=  await Api()
         .post(url:url+ 'care/updateCommunication.php?id_communication=$id_communication',
   body: body
@@ -286,15 +288,36 @@ class communication_vm extends ChangeNotifier{
     element.idCommunication==id_communication);
 
     listCommunication[index]=data;
-    if(listCommunication[index].typeCommuncation=='تركيب')
-    getCommunicationInstall();
-    if(listCommunication[index].typeCommuncation=='ترحيب')
-      getCommunicationWelcome();
-    if(listCommunication[index].typeCommuncation=='دوري'){
-     index= listCommunicationClient.indexWhere((element) =>
-    element.idCommunication==id_communication);
-    listCommunicationClient[index]=data;
-    notifyListeners();}
+    String value=listCommunication[index].typeCommuncation.toString();
+    switch(value){
+      case 'تركيب':
+        getCommunicationInstall();
+        break;
+      case 'ترحيب':
+        getCommunicationWelcome();
+        break;
+        case 'دوري':
+          index= listCommunicationClient.indexWhere((element) =>
+          element.idCommunication==id_communication);
+          listCommunicationClient[index]=data;
+          notifyListeners();
+        break;
+    }
+    isload=false;
+    notifyListeners();
+    // if(listCommunication[index].typeCommuncation=='تركيب')
+    // getCommunicationInstall();
+    //
+    // if(listCommunication[index].typeCommuncation=='ترحيب')
+    //   getCommunicationWelcome();
+    //
+    // if(listCommunication[index].typeCommuncation=='دوري'){
+    //  index= listCommunicationClient.indexWhere((element) =>
+    // element.idCommunication==id_communication);
+    // listCommunicationClient[index]=data;
+    // notifyListeners();
+    // }
+
     return data;
   }
 
@@ -304,7 +327,7 @@ class communication_vm extends ChangeNotifier{
     List<dynamic> data=[];
 
     data= await Api()
-        .get(url:url+ 'care/viewcommunicationAll.php?fkcountry=${usercurrent!.fkCountry}&type=$type');
+        .get(url:url+ 'care/viewcommunicationAll.php?fkcountry=${usercurrent!.fkCountry}&&type=$type');
     print(data);
     if(data.length.toString().isNotEmpty) {
       for (int i = 0; i < data.length; i++) {

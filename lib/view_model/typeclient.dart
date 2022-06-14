@@ -61,9 +61,10 @@ class typeclient extends ChangeNotifier{
   }
   //
  Future<void> getreasons(String type) async {
+
   selectedValueOut=null;
    notifyListeners();
-  if(type_of_out.isEmpty)
+  //if(type_of_out.isEmpty)
      type_of_out = await config_service().getreason(type);
   notifyListeners();
  }

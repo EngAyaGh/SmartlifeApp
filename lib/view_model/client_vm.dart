@@ -22,10 +22,12 @@ const CACHE_ClientByUser_INTERVAL = 60 * 1000; // 1 MINUTE IN MILLIS
 class client_vm extends ChangeNotifier {
   List<ClientModel> listClient = [];
   List<ClientModel> listClientAccept = [];
+  List<ClientModel> listClientAprroveTransfer = [];
   List<ClientModel> listClientbyCurrentUser = [];
   List<ClientModel> listClientbyRegoin = [];
   List<ClientModel> listClientfilter = [];
   List<ClientModel> listClientMarketing = [];
+  bool isapproved=false;
   // client_vm(UserModel? currentUser){
   //
   //   usercurrent=currentUser;
@@ -224,10 +226,9 @@ class client_vm extends ChangeNotifier {
     notifyListeners();
   }
   Future<void> getallclientTransfer()async{
-    listClient =
-        await ClientService()
-            .getTransfer(usercurrent!.idUser.toString());
-    listClientAccept =List.from(listClient);
+    listClient = await ClientService()
+        .getTransfer(usercurrent!.idUser.toString());//=List.from(listClient);
+    listClientAprroveTransfer=List.from(listClient);
     notifyListeners();
   }
   Future<void> getallclientAcceptwithprev()async{
@@ -289,7 +290,8 @@ class client_vm extends ChangeNotifier {
         await ClientService().getClientbyuser(usercurrent!.idUser.toString());
         listClientfilter =List.from(listClient);
       }
-    } }
+    }
+    }
     //listClient.where((element) => false)
     isloading=false;
     notifyListeners();
@@ -311,13 +313,19 @@ class client_vm extends ChangeNotifier {
   }
   Future<void> getclientMarketing() async {
     //عملائي
+    // await get
     listClientMarketing=[];
-    if(listClient.isNotEmpty){
-      listClient.forEach((element) {
-        if (element.ismarketing =='1' )
-          listClientMarketing.add(element);
-      } );
-    }}
+    notifyListeners();
+    listClient= await ClientService()
+        .getAllClientmarket(usercurrent!.fkCountry.toString());
+    listClientMarketing=List.from(listClient);
+    // if(listClient.isNotEmpty){
+    //   listClient.forEach((element) {
+    //     if (element.ismarketing =='1' )
+    //       listClientMarketing.add(element);
+    //   } );
+    notifyListeners();
+    }
 
   Future<void> getclientByIdUser_vm(List<ClientModel> list) async {
    //عملائي
@@ -416,27 +424,53 @@ else{
     element.idClients==id_client);
    if(index !=-1)
      listClientAccept[index]=data;
-    //ClientModel.fromJson(body);
-      //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
-
     return true;
   }
+
+  Future<bool> setfkUserApprove(Map<String, dynamic?> body,String? id_client) async {
+    isapproved=true;
+    notifyListeners();
+     await ClientService().setfkuserApprovetransfer(
+        body,id_client!);
+    // int index= listClient.indexWhere((element) =>
+    // element.idClients==id_client);
+    // if(index!=-1)
+    // listClient[index]=data;
+    // // index= listClientfilter.indexWhere((element) =>
+    // // element.idClients==id_client);
+    // // if(index !=-1)
+    // //   listClientfilter[index]=data;
+    //
+    int index= listClientAprroveTransfer.indexWhere((element) =>
+     element.idClients==id_client);
+    // if(index !=-1)
+    //  {
+    //    listClientAccept[index]=data;
+    listClientAprroveTransfer.removeAt(index);
+     // }
+     isapproved=false;
+    notifyListeners();
+    return true;
+  }
+
   void getudate(){
     listClientfilter=listClient;
     notifyListeners();
   }
 
   Future<bool> setfkUserclient_vm(Map<String, dynamic?> body,String? id_client) async {
-    bool res = await ClientService().setfkuserClient(body,id_client!);
-    if (res) {
-      int index=listClient.indexWhere(
-              (element) => element.idClients==id_client);
-      listClient.removeAt(index);
+    bool res = await ClientService()
+        .setfkuserClient(body,id_client!);
+    // if (res) {
+    //   int index=listClient.indexWhere(
+    //           (element) => element.idClients==id_client);
+    //   listClient.removeAt(index);
       notifyListeners();
-    }
+    // }
     return res;
   }
+  //isapproved
   void removeclient(idclient){
     int index=listClient.indexWhere(
             (element) => element.idClients==idclient);

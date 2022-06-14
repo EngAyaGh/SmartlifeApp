@@ -30,9 +30,9 @@ class _View_installedClientState extends State<View_installedClient> {
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       Provider.of<typeclient>(context, listen: false)
-          .changelisttype_welcome('الكل');
+          .changelisttype_install_iso('الكل');
       Provider.of<regoin_vm>(context, listen: false).changeVal(null);
-      Provider.of<communication_vm>(context, listen: false)
+     await Provider.of<communication_vm>(context, listen: false)
           .getCommunicationInstall();
     });
     super.initState();
@@ -190,7 +190,7 @@ class _View_installedClientState extends State<View_installedClient> {
                                                               2),
                                                       child: cardcommalltype(
                                                           itemcom:
-                                                          value.listCommunicationWelcome[index]),
+                                                          value.listCommunicationInstall[index]),
                                                     )));
                                                   }),
                                             ),
@@ -212,6 +212,7 @@ class _View_installedClientState extends State<View_installedClient> {
 
     Provider.of<communication_vm>(context, listen: false)
         .getinstalltype_filter(typeclientvalue, regoin, 'only');
+
 
     // }
   }

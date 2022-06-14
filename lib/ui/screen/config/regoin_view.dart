@@ -26,8 +26,9 @@ class regoinview extends StatefulWidget {
 
 class _regoinviewState extends State<regoinview> {
   @override void initState() {
-    Provider.of<regoin_vm>
-      (context,listen: false).getregoin();
+    WidgetsBinding.instance!.addPostFrameCallback((_)async{
+      Provider.of<regoin_vm>
+      (context,listen: false).getregoin();});
     super.initState();
   }
   @override

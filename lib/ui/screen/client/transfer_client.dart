@@ -100,12 +100,12 @@ class _transferClientState extends State<transferClient> {
                   );
                 }
                 else{
-                  String? reason_transfer=null;
+                  String? reason_transfer='transfer';
                   //update fkuser to new user
                   Provider.of<client_vm>(context,listen: false)
                       .setfkUserclient_vm(
                       {
-                        'reason_transfer':reason_transfer.toString(),
+                        'reason_transfer':iduser,
                         'fkuser':iduser,//user reciept
                         'nameusertransfer':
                         Provider.of<user_vm_provider>(context,listen: false)
@@ -113,7 +113,7 @@ class _transferClientState extends State<transferClient> {
                         'name_enterprise':widget.name_enterprise,
                         'fkusertrasfer':    Provider.of<user_vm_provider>(context,listen: false)
                             .currentUser.idUser.toString(),
-                        //'idclient':
+
                       },widget.idclient
                   );
                 }

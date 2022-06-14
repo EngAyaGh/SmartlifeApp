@@ -102,7 +102,4 @@ class regoin_vm extends ChangeNotifier{
     return res;
   }
 
-  //}
-
-
 }

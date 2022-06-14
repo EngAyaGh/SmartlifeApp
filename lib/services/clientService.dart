@@ -31,7 +31,16 @@ class ClientService{
 
   Future<bool> setfkuserClient( Map<String,dynamic> body,String idclient) async {
     String result = await Api()
-        .post( url:url+"client/set_fkuser_transfer.php?id_clients=$idclient",body:
+        .post( url:url
+        +"client/set_fkuser_transfer.php?id_clients=$idclient",
+        body: body );
+    //client/setApproveClient.php
+    return result=="done"? true:false;
+  }
+  Future<bool> setfkuserApprovetransfer(
+      Map<String,dynamic> body,String idclient) async {
+    String result = await Api()
+        .post( url:url+"client/set_transferApprove.php?id_clients=$idclient",body:
     body
     );
     //client/setApproveClient.php
@@ -42,6 +51,19 @@ class ClientService{
     List<dynamic> data =[];
     data=await Api()
         .get(url:url+ 'client/getClientAll.php?fk_country=$fkcountry');
+
+    List<ClientModel> prodlist = [];
+
+    for (int i = 0; i < data.length; i++) {
+      prodlist.add(ClientModel.fromJson(data[i]));
+    }
+    print(prodlist);
+    return prodlist;
+  }
+  Future<List<ClientModel>> getAllClientmarket(String? fkcountry) async {
+    List<dynamic> data =[];
+    data=await Api()
+        .get(url:url+ 'client/getclientmarketing.php?fk_country=$fkcountry');
 
     List<ClientModel> prodlist = [];
 

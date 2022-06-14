@@ -22,8 +22,11 @@ class managview extends StatefulWidget {
 
 class _managviewState extends State<managview> {
   @override void initState() {
-    Provider.of<manage_provider>
-      (context,listen: false).getmanage();
+    WidgetsBinding.instance!.addPostFrameCallback((_)async{
+
+      Provider.of<manage_provider>
+      (context,listen: false).getmanage();});
+
     super.initState();
   }
   @override

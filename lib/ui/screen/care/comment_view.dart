@@ -63,7 +63,7 @@ print('init in comment');
                       key: _globalKey,
                       child: EditTextFormField(
                         vaild:  (value) {
-                          if (value!.isEmpty) {
+                          if (value!.toString().trim().isEmpty) {
                             return label_empty;
                           }
                         },

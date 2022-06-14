@@ -808,7 +808,8 @@ Future<void> getinvoice_Localwithprev() async{
     return res;
   }
   Future<void> setdate_vm(Map<String, dynamic?> body,String? id_invoice) async {
-
+      isloading=true;
+      notifyListeners();
       int index=listinvoices.indexWhere(
               (element) => element.idInvoice==id_invoice);
 
@@ -823,6 +824,7 @@ Future<void> getinvoice_Localwithprev() async{
       //     InvoiceModel.fromJson(listinvoices[index]));
       // listinvoices[index]= InvoiceModel.fromJson(body);
       // //listClient.removeAt(index);
+      isloading=false;
       notifyListeners();
 
   }

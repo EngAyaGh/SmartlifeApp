@@ -27,14 +27,14 @@ class _carepageState extends State<carepage> {
   @override void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
 
-      await    Provider.of<communication_vm>(context, listen: false)
-           .getCommunicationall('');
+      // await    Provider.of<communication_vm>(context, listen: false)
+      //      .getCommunicationall('');
       Provider.of<privilge_vm>(context, listen: false).getprivlg_usercurrent();
       Provider.of<ticket_vm>(context,listen: false)
           .getclientticket_filter('جديدة');
-      Provider.of<communication_vm>(context, listen: false)
+     await Provider.of<communication_vm>(context, listen: false)
           .getCommunicationInstall();
-      Provider.of<communication_vm>(context, listen: false)
+     await Provider.of<communication_vm>(context, listen: false)
           .getCommunicationWelcome();
 //////////////////////////////////////////////
 //       Provider.of<communication_vm>(

@@ -29,7 +29,8 @@ Widget commview(CommunicationModel element) {
               element.typeCommuncation=='تركيب'?
               cardRow(title:'تاريخ التأكد من التركيب للعميل' ,value: element.dateCommunication.toString(),):Container(),
               element.typeCommuncation=='تركيب'?
-              cardRow(title:' نتيجة التواصل' ,value: element.result.toString(),):Container(),
+              cardRow(title:' نتيجة التواصل' ,value:
+              element.result.toString()=='1'?'راضي':'غير راضي',):Container(),
 
 
               element.typeCommuncation=='دوري'?

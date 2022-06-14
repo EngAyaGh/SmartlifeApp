@@ -50,9 +50,10 @@ class _support_addState extends State<support_add> {
     _textsupport.dispose();
     super.dispose();
   }
-
+ late TimeOfDay timinit;
   @override
   void initState() {
+    timinit=TimeOfDay.now();
     // if (widget.idinvoice != '') {
     //   // _invoice = Provider
     //   //     .of<invoice_vm>(context, listen: false)
@@ -66,11 +67,12 @@ class _support_addState extends State<support_add> {
         // formatDate(
         // DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute),
         // [hh, ':', nn, " ", am]).toString();
+
       WidgetsBinding.instance!.addPostFrameCallback((_)async {
 
       //_ticketModel=_list.firstWhere((element) => element.fkClient)
         Provider.of<datetime_vm>(context,listen: false)
-            .setdatetimevalue(DateTime(1, 1, 1));
+            .setdatetimevalue(DateTime(1, 1, 1),TimeOfDay(hour: -1, minute: 00));
 
       //  Provider.of<typeclient>(context,listen: false).getreasons('ticket');
       });
@@ -119,150 +121,161 @@ class _support_addState extends State<support_add> {
         contentPadding: EdgeInsets.only(left: 10,right: 10,bottom: 10),
         title: Center(child: Text('إعادة جدولة',style:TextStyle(fontFamily: kfontfamily2))),
         children:[
-          StatefulBuilder(
-            builder: (BuildContext context,
-                void Function(void Function()) setState) {
-             return  Form(
-  key: _globalKey,
-  child:    Form(
-    key: _globalKey,
-    child: Column(
-      children: [
-        Row(children: [
-          Flexible(
-            child: TextField(
-              decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.date_range,
-                  color: kMainColor,
-                ),
-                hintStyle:
-                const TextStyle(
-                    color: Colors.black45,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
-                hintText:
-                // _invoice!.daterepaly == null
-                //     &&
-                Provider.of<datetime_vm>(context,listen: true).valuedateTime
-                    == DateTime(1, 1, 1)
-                    ? 'تعيين الوقت والتاريخ' //_currentDate.toString()
-                    :
-                //_currentDate.toString(),
-                DateFormat('yyyy-MM-dd').format(
-                    Provider.of<datetime_vm>(context,listen: true)
-                        .valuedateTime),
+          ModalProgressHUD(
+            inAsyncCall:   Provider.of<invoice_vm>(context,listen: true)
+                .isloading,
+            child: StatefulBuilder(
+              builder: (BuildContext context,
+                  void Function(void Function()) setState) {
+                selectedTime == TimeOfDay(hour: -1, minute: 00);
+              return
+                 Directionality(
+                 textDirection: myui.TextDirection.rtl,
+                 child:   Form(
+                   key: _globalKey,
+                   child:Column(
+                     children: [
+                       Row(children: [
+                         Flexible(
+                           child: TextFormField(
+                             decoration: InputDecoration(
+                               prefixIcon: Icon(
+                                 Icons.date_range,
+                                 color: kMainColor,
+                               ),
+                               hintStyle:
+                               const TextStyle(
+                                   color: Colors.black45,
+                                   fontSize: 16,
+                                   fontWeight: FontWeight.w500),
+                               hintText:
+                               // _invoice!.daterepaly == null
+                               //     &&
+                               Provider.of<datetime_vm>(context,listen: true).valuedateTime
+                                   == DateTime(1, 1, 1)
+                                   ? 'تعيين التاريخ' //_currentDate.toString()
+                                   :
+                               //_currentDate.toString(),
+                               DateFormat('yyyy-MM-dd').format(
+                                   Provider.of<datetime_vm>(context,listen: true)
+                                       .valuedateTime),
 
-                //_invoice!.daterepaly.toString(),
-                filled: true,
-                fillColor: Colors.grey.shade200,
-              ),
-              readOnly:  true,
-              onTap: () {
-                setState((){
-                  _selectDate(context,
-                      DateTime.now());
-                  print('before on tap '+_currentDate.toString());
-                });
-              },
-            ),
-          ),
-          Flexible(
-            child: TextFormField(
-              validator: (value) {
-                if (selectedTime == TimeOfDay(hour: -1, minute: 00)) {
-                  return 'يرجى تعيين الوقت ';
-                }},
-              decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.date_range,
-                  color: kMainColor,
-                ),
-                hintStyle: const TextStyle(
-                    color: Colors.black45,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
-                hintText: _invoice!.dateinstall_task ==null
-                    &&  selectedTime == TimeOfDay(hour: -1, minute: 00)
-                    ?   'الوقت ' //_currentDate.toString()
-                    :
-                selectedTime.minute.toString()
-                    +' : '+ selectedTime.hour.toInt().toString(),
-                //_invoice!.dateinstall_task.toString(),
-                filled: true,
-                fillColor: Colors.grey.shade200,
+                               //_invoice!.daterepaly.toString(),
+                               filled: true,
+                               fillColor: Colors.grey.shade200,
+                             ),
+                             readOnly:  true,
+                             onTap: () {
+                               setState((){
+                                 _selectDate(context,
+                                     DateTime.now());
+                                 print('before on tap '+_currentDate.toString());
+                               });
+                             },
+                           ),
+                         ),
+                         SizedBox(width: 10,),
+                         Flexible(
+                           child: TextFormField(
+                             validator: (value) {
+                               if (selectedTime
+                                   == TimeOfDay(hour: -1, minute: 00)) {
+                                 return 'يرجى تعيين الوقت ';
+                               }},
+                             decoration: InputDecoration(
+                               prefixIcon: Icon(
+                                 Icons.date_range,
+                                 color: kMainColor,
+                               ),
+                               hintStyle: const TextStyle(
+                                   color: Colors.black45,
+                                   fontSize: 16,
+                                   fontWeight: FontWeight.w500),
+                               hintText: _invoice!.daterepaly ==null
+                                   &&     Provider.of<datetime_vm>(context,listen: true)
+                .selectedTime == TimeOfDay(hour: -1, minute: 00)
+                                   ?   'الوقت ' //_currentDate.toString()
+                                   :
+                  Provider.of<datetime_vm>(context,listen: true).
+                  selectedTime.minute.toString()
+                                   +' : '+ Provider.of<datetime_vm>(context,listen: true)
+                  .selectedTime.hour.toInt().toString(),
+                               //_invoice!.dateinstall_task.toString(),
+                               filled: true,
+                               fillColor: Colors.grey.shade200,
 
-              ),
-              // / controller: _timeController,
-              readOnly: true,
-              onTap: () {
-                 setState((){
-                _selectTime(context);
-                 });
-              },
-            ),
-          ),
-        ],),
+                             ),
+                             // / controller: _timeController,
+                             readOnly: true,
+                             onTap: () {
+                                setState((){
+                               _selectTime(context,timinit);
+                                });
+                             },
+                           ),
+                         ),
+                       ],),
 
-        SizedBox(height: 5,),
-        EditTextFormField(
-          maxline: 4,
-          paddcustom: EdgeInsets.all(10),
-          hintText:
-          'أسباب إعادة الجدولة',
-          obscureText: false,
-          controller: _textsupport,
-          vaild: (value) {
-            if (value!.isEmpty) {
-              return 'الحقل فارغ';
-            }
-          },
-        ),
-        SizedBox(height: 10,),
-        CustomButton(
-          text: "تثبيت",
-          onTap:() async {
-    DateTime datetask = DateTime(
-    _currentDate.year, _currentDate.month,
-    _currentDate.day,
-    selectedTime.hour, selectedTime.minute);
+                       SizedBox(height: 5,),
+                       EditTextFormField(
+                         maxline: 4,
+                         paddcustom: EdgeInsets.all(10),
+                         hintText:
+                         'أسباب إعادة الجدولة',
+                         obscureText: false,
+                         controller: _textsupport,
+                         vaild: (value) {
+                           if (value!.isEmpty) {
+                             return 'الحقل فارغ';
+                           }
+                         },
+                       ),
+                       SizedBox(height: 10,),
+                       CustomButton(
+                         text: "تثبيت",
+                         onTap:() async {
+                   DateTime datetask = DateTime(
+                   _currentDate.year, _currentDate.month,
+                   _currentDate.day,
+                   selectedTime.hour, selectedTime.minute);
 
-    if (_globalKey.currentState!
-                .validate()) {
-              _globalKey.currentState!.save();
-              Provider.of<invoice_vm>(context, listen: false)
-                  .setdate_vm({
-                // 'fk_invoice':,
-                // 'fk_idClient':,
-                // 'fk_idUser':,
-                // 'type_date':,
-                // 'date_install':,
-                'fk_regoin':_invoice!.fk_regoin.toString(),
-                'fkcountry':_invoice!.fk_country.toString(),
-                "namedatareplay":
-                Provider.of<user_vm_provider>(context, listen: false)
-                    .currentUser
-                    .nameUser.toString(),
-                "name_enterprise": _invoice!.name_enterprise.toString()
-                    .toString(),
-                'daterepaly': datetask.toString(),
-                'fkuserdatareplay':Provider.of<user_vm_provider>
-                  (context,listen: false)
-                    .currentUser.idUser,
-                'reason_date': _textsupport.text.toString()
-              }, _invoice!.idInvoice).then((value) => clear());
-            }
-            Navigator.of(context, rootNavigator: true)
-                .pop(false);
-          },
-        ),
+                   if (_globalKey.currentState!
+                               .validate()) {
+                     Navigator.of(context, rootNavigator: true)
+                         .pop(false);
+                             _globalKey.currentState!.save();
+                             Provider.of<invoice_vm>(context, listen: false)
+                                 .setdate_vm({
+                               // 'fk_invoice':,
+                               // 'fk_idClient':,
+                               // 'fk_idUser':,
+                               // 'type_date':,
+                               // 'date_install':,
+                               'fk_client':_invoice!.fkIdClient.toString(),
+                               'fk_regoin':_invoice!.fk_regoin.toString(),
+                               'fkcountry':_invoice!.fk_country.toString(),
+                               "namedatareplay":
+                               Provider.of<user_vm_provider>(context, listen: false)
+                                   .currentUser
+                                   .nameUser.toString(),
+                               "name_enterprise": _invoice!.name_enterprise.toString()
+                                   .toString(),
+                               'daterepaly': datetask.toString(),
+                               'fkuserdatareplay':Provider.of<user_vm_provider>
+                                 (context,listen: false)
+                                   .currentUser.idUser,
+                               'reason_date': _textsupport.text.toString()
+                             }, _invoice!.idInvoice).then((value) => clear());
+                           }
 
-      ],
-    ),
-  ),
-);
-            },
+                         },
+                       ),
 
+                     ],
+                   ),
+                 ),
+               );
+              },),
           ),
 
         ]);
@@ -324,7 +337,8 @@ class _support_addState extends State<support_add> {
                         Flexible(
                           child: TextFormField(
                             validator: (value) {
-                                      if (selectedTime == TimeOfDay(hour: -1, minute: 00)) {
+                                      if (selectedTime == TimeOfDay(hour: -1, minute: 00))
+                                      {
                                         return 'يرجى تعيين الوقت ';
                                       }},
                             decoration: InputDecoration(
@@ -350,7 +364,7 @@ class _support_addState extends State<support_add> {
                            // / controller: _timeController,
                             readOnly: true,
                             onTap: () {
-                               _selectTime(context);
+                               _selectTime(context,timinit);
                             },
                           ),
                         ),
@@ -381,7 +395,7 @@ class _support_addState extends State<support_add> {
                                         (value) => clear()  );
                                 // _invoice!.dateinstall_task =
                                 //     _currentDate.toString();
-                                _currentDate = DateTime(1, 1, 1);
+                                 _currentDate = DateTime(1, 1, 1);
                                   selectedTime = TimeOfDay(hour: -1, minute: 00);
                               } else {
 
@@ -445,8 +459,8 @@ class _support_addState extends State<support_add> {
                       ? Container()
                       : cardRow(
                       title: ' تاريخ التركيب ',
-                      value: DateFormat.yMMMd().
-                      format(DateTime.parse( _invoice!.dateinstall_done.toString()))
+                      value: DateFormat('yyyy-MM-dd HH:mm').format(
+                          DateTime.parse( _invoice!.dateinstall_done.toString()))
                   ),
 
                   _invoice!.dateinstall_done == null
@@ -459,8 +473,8 @@ class _support_addState extends State<support_add> {
                   _invoice!.daterepaly != null
                       ? cardRow(
                       title: ' تاريخ إعادة الجدولة',
-                      value:DateFormat.yMMMd().
-                      format(DateTime.parse( _invoice!.daterepaly.toString())))
+                      value:DateFormat('yyyy-MM-dd HH:mm').format(
+                          DateTime.parse( _invoice!.daterepaly.toString())))
                       : Container(),
                   _invoice!.daterepaly != null
                       ? cardRow(
@@ -602,10 +616,10 @@ class _support_addState extends State<support_add> {
   late String _setTime, _setDate;
 
   late String _hour, _minute, _time;
-  Future<Null> _selectTime(BuildContext context) async {
+  Future<Null> _selectTime(BuildContext context,TimeOfDay stime) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: selectedTime,
+      initialTime: stime,
     );
     if (picked != null)
       setState(() {
@@ -622,7 +636,10 @@ class _support_addState extends State<support_add> {
             // formatDate(
             // DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
             // [hh, ':', nn, " ", am]).toString();
-      });   
+      });
+    Provider.of<datetime_vm>(context,listen: false)
+        .setdatetimevalue(_currentDate,selectedTime);
+
   }   
   Future<void> _selectDate(BuildContext context, DateTime currentDate) async {
     //String output = formatter.format(currentDate);
@@ -652,10 +669,26 @@ class _support_addState extends State<support_add> {
         //_invoice!.daterepaly = _currentDate.toString();
         //_currentDate.hour=DateTime.now().hour;
       });
-    Provider.of<datetime_vm>(context,listen: false).setdatetimevalue(_currentDate);
+    Provider.of<datetime_vm>(context,listen: false).setdatetimevalue(
+        _currentDate,selectedTime);
   }
   clear() {
+
     _currentDate = DateTime(1, 1, 1);
+    selectedTime = TimeOfDay(hour: -1, minute: 00);
+    Provider.of<datetime_vm>(context,listen: false).setdatetimevalue(
+        DateTime(1, 1, 1),TimeOfDay(hour: -1, minute: 00)
+    );
+    // _scaffoldKey.currentState!.showSnackBar(SnackBar(content: Text('تم التثبيت بنجاح')));
+  }
+  clear2() {
+    Navigator.of(context, rootNavigator: true)
+        .pop(false);
+    _currentDate = DateTime(1, 1, 1);
+    selectedTime = TimeOfDay(hour: -1, minute: 00);
+    Provider.of<datetime_vm>(context,listen: false).setdatetimevalue(
+        DateTime(1, 1, 1),TimeOfDay(hour: -1, minute: 00)
+    );
     // _scaffoldKey.currentState!.showSnackBar(SnackBar(content: Text('تم التثبيت بنجاح')));
   }
 

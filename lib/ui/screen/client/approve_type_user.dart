@@ -30,7 +30,6 @@ class _TransferPageState extends State<TransferPage> {
     WidgetsBinding.instance!.addPostFrameCallback((_)async{
       Provider.of<client_vm>(context,listen: false)
           .getallclientTransfer();
-
     });
     //Provider.of<notifyvm>(context,listen: false).getNotification();
     super.initState();
@@ -70,7 +69,7 @@ class _TransferPageState extends State<TransferPage> {
                         return
                           value.isloading==true?
                           Center(child: CircularProgressIndicator()):
-                          value.listClientAccept.length==0?
+                          value.listClientAprroveTransfer.length==0?
                           Center(
                               child: Text(messageNoData)):
                           Column(
@@ -79,7 +78,7 @@ class _TransferPageState extends State<TransferPage> {
                                 //flex: 1,
                                 child: ListView.builder(
                                     scrollDirection: Axis.vertical,
-                                    itemCount: value.listClientAccept.length,
+                                    itemCount: value.listClientAprroveTransfer.length,
                                     itemBuilder: (context, index) {
                                       return SingleChildScrollView(
                                           child: Padding(
@@ -103,8 +102,9 @@ class _TransferPageState extends State<TransferPage> {
                                             MaterialPageRoute(builder:
                                             (context) =>
                                                 ProfileClient(
-
-                                                  idclient:value.listClientAccept[index]
+                                                  clienttransfer: 'transfer',
+                                                  idclient:
+                                                  value.listClientAprroveTransfer[index]
                                                   .idClients,
                                                 )));
                                             },
@@ -125,7 +125,7 @@ class _TransferPageState extends State<TransferPage> {
                                       Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                       Text(
-                                        value.listClientAccept[index].nameusertransfer.toString(),
+                                        value.listClientAprroveTransfer[index].nameusertransfer.toString(),
                                       style: TextStyle(
                                       //fontWeight: FontWeight.bold,
                                       fontSize: 12,
@@ -133,7 +133,7 @@ class _TransferPageState extends State<TransferPage> {
                                       color: kMainColor),
                                       ),
                                       Text(
-                                        value.listClientAccept[index].dateTransfer.toString(),
+                                        value.listClientAprroveTransfer[index].dateTransfer.toString(),
                                       style: TextStyle(
                                       fontSize: 12,
                                       // fontWeight: FontWeight.bold,
@@ -146,7 +146,7 @@ class _TransferPageState extends State<TransferPage> {
                                       //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
                                       Text(
-                                      value.listClientAccept[index].nameEnterprise.toString(),
+                                      value.listClientAprroveTransfer[index].nameEnterprise.toString(),
                                       style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12,

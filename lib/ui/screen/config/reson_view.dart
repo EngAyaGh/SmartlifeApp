@@ -23,9 +23,10 @@ class resoan_view extends StatefulWidget {
 
 class _resoan_viewState extends State<resoan_view> {
   @override void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_)async{
 
-    Provider.of<typeclient>
-      (context,listen: false).getreasons(widget.type);
+     await Provider.of<typeclient>
+      (context,listen: false).getreasons(widget.type);});
     super.initState();
   }
   @override

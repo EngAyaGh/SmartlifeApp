@@ -189,7 +189,8 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
               controller: _tabcontroller,
               children: <Widget>[
                 ClientView(
-                  clienttransfer:widget.clienttransfer
+
+                  clienttransfer:widget.clienttransfer,
                   idclient: _clientModel.idClients.toString(),
                   invoice:null,//widget.invoiceModel,
                 ),

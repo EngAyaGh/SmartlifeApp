@@ -126,9 +126,12 @@ class _ClientViewState extends State<ClientView> {
 
                 cardRow( title:'الموظف',value:getnameshort(clientModel.nameUser.toString())),
                 cardRow( title:'رقم الموظف',value:clientModel.mobileuser.toString()),
-                clientModel.nameusertransfer!=null?
-                cardRow( title:'قام بتحويل العميل',value:getnameshort(clientModel.nameusertransfer.toString())):Container(),
-                clientModel.nameusertransfer!=null?
+                (clientModel.reasonTransfer==null||
+                    clientModel.reasonTransfer=="null")&&clientModel.fkusertrasfer!=null?
+                cardRow( title:'قام بتحويل العميل',value:getnameshort(
+              clientModel.nameusertransfer.toString())):Container(),
+                (clientModel.reasonTransfer==null||
+                    clientModel.reasonTransfer=="null")&&clientModel.fkusertrasfer!=null?
                 cardRow( title:'تاريخ التحويل',value:clientModel.dateTransfer.toString()):Container(),
                 cardRow( title:' الموقع',value:clientModel.location.toString()),
                 clientModel.ismarketing=='1' ?
@@ -199,7 +202,7 @@ class _ClientViewState extends State<ClientView> {
                              context: context,
                              builder: (context) {
                                return ModalProgressHUD(
-                                 inAsyncCall: Provider.of<invoice_vm>(context)
+                                 inAsyncCall: Provider.of<client_vm>(context)
                                      .isapproved,
                                  child: Directionality(
                                    textDirection: TextDirection.rtl,
@@ -222,17 +225,19 @@ class _ClientViewState extends State<ClientView> {
                                            Provider.of<client_vm>(context,listen: false)
                                                .setfkUserApprove(
                                                {
+                                                 'approve':'1',
                                                  'reason_transfer':reason_transfer.toString(),
-                                                 'fkuser':iduser,//user reciept
-                                                 'nameusertransfer':
-                                                 Provider.of<user_vm_provider>(context,listen: false)
-                                                     .currentUser.nameUser.toString(),//الموظف الذي حول العميل
-                                                 'name_enterprise':widget.name_enterprise,
-                                                 'fkusertrasfer':    Provider.of<user_vm_provider>(context,listen: false)
-                                                     .currentUser.idUser.toString(),
+                                                 'fkuser':Provider.of<user_vm_provider>(context,listen:
+                                                 false).currentUser.idUser.toString(),//user reciept
+                                                 // 'nameusertransfer':
+                                                 // Provider.of<user_vm_provider>(context,listen: false)
+                                                 //     .currentUser.nameUser.toString(),//الموظف الذي حول العميل
+                                                 'name_enterprise':clientModel.nameEnterprise,
                                                  //'idclient':
                                                },widget.idclient
-                                           );
+                                           ).then((value) =>
+                                           value!=false?
+                                           clear() : error());
                                          },
                                          child: Text('نعم'),
                                        ),
@@ -271,11 +276,12 @@ class _ClientViewState extends State<ClientView> {
                            //     MaterialPageRoute(builder: (context)=>Home()),
                            //         (route) => true
                            // );
+                           String? reason_transfer=null;
                            await showDialog(
                              context: context,
                              builder: (context) {
                                return ModalProgressHUD(
-                                 inAsyncCall: Provider.of<invoice_vm>(context)
+                                 inAsyncCall: Provider.of<client_vm>(context)
                                      .isapproved,
                                  child: Directionality(
                                    textDirection: TextDirection.rtl,
@@ -294,22 +300,12 @@ class _ClientViewState extends State<ClientView> {
                                                  kMainColor)),
                                          onPressed: () async {
                                            Provider.of<client_vm>(context, listen: false)
-                                               .setApproveclient_vm({
-                                             "id_clients":widget.invoice!.fkIdClient,
-                                             //'idApproveClient':widget.itemapprove!.idApproveClient,
-                                             "fk_user":widget.invoice!.fkIdUser,
-                                             "fk_regoin":widget.invoice!.fk_regoin,
-                                             "regoin":widget.invoice!.name_regoin,
-                                             "fk_country":widget.invoice!.fk_country,
-                                             "isApprove": "0",
-                                             "name_enterprise":widget.invoice!.name_enterprise,
-                                             "fkusername":widget.invoice!.nameUser, //موظف المبيعات
-                                             //"message":"",//
-                                             "nameuserApproved":Provider.of<user_vm_provider>(context,listen: false)
-                                                 .currentUser.nameUser,
-                                             "iduser_approve": Provider.of<user_vm_provider>(context,listen: false)
-                                                 .currentUser.idUser//معتمد الاشتراك
-                                           }, widget.invoice!.idInvoice)
+                                               .setfkUserApprove({
+                                              'reason_transfer':reason_transfer.toString(),
+                                              'fkusertrasfer':reason_transfer.toString(),
+                                              'date_transfer':reason_transfer.toString(),
+                                              'name_enterprise':clientModel.nameEnterprise,
+                                           }, widget.idclient)
                                                .then((value) =>
                                            value!=false?
                                            clear()
