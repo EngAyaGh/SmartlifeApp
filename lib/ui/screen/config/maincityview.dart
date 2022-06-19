@@ -33,13 +33,15 @@ class _maincityviewState extends State<maincityview> {
   @override void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_)async{
       Provider.of<maincity_vm>
-        (context,listen: false).getcity('config/getcity.php?fk_maincity');
+        (context,listen: false).getmaincity();
+          //.getcity('config/getcity.php?fk_maincity');
     });
     super.initState();
   }
+  List<MainCityModel> _listlevel=[];
   @override
   Widget build(BuildContext context) {
-    List<MainCityModel> _listlevel= Provider.of<maincity_vm>
+    _listlevel= Provider.of<maincity_vm>
       (context,listen: true).listmaincity;
     return Scaffold(
       appBar: AppBar(

@@ -3,6 +3,7 @@
 import 'package:crm_smart/api/api.dart';
 import 'package:crm_smart/model/maincitymodel.dart';
 import 'package:crm_smart/model/managmodel.dart';
+import 'package:crm_smart/model/usermodel.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../constants.dart';
@@ -10,9 +11,17 @@ import '../constants.dart';
 class maincity_vm extends ChangeNotifier{
   List<MainCityModel> listmaincity=[];
   List<CityModel> listcity=[];
+
   late String? selectedValuemanag=null;
-  void changevalue(String s){
+  void changevalue(String? s){
     selectedValuemanag=s;
+    notifyListeners();
+  }
+  UserModel? usercurrent;
+
+  void setvalue(user){
+    print('in set usercurrent in product vm');
+    usercurrent=user;
     notifyListeners();
   }
   bool isloading=false;
@@ -21,7 +30,7 @@ class maincity_vm extends ChangeNotifier{
     if(listmaincity.isEmpty){
       List<dynamic> data=[];
       data= await Api()
-          .get(url:url+ 'users/getmanagment.php');
+          .get(url:url+ 'config/getmaincity.php?fk_country=${usercurrent!.fkCountry}');
       print(data);
       if(data !=null) {
         for (int i = 0; i < data.length; i++) {
@@ -29,7 +38,6 @@ class maincity_vm extends ChangeNotifier{
         }}
       selectedValuemanag='1';
       notifyListeners();
-      //return data;
     }
   }
   Future<String> addmaincity_vm(Map<String, dynamic?> body) async {
@@ -58,7 +66,10 @@ class maincity_vm extends ChangeNotifier{
     String res = await Api().post(
         url: url+'config/update_maincity.php?id_maincity=${id_maincity}',//users/addmangemt.php
         body: body);
-    listmaincity.add(MainCityModel.fromJson(body));
+    final index=listmaincity.indexWhere((element)
+    => element.id_maincity==id_maincity);
+    listmaincity[index]=MainCityModel.fromJson(body);
+
     isloading=false;
     notifyListeners();
 
@@ -90,24 +101,42 @@ class maincity_vm extends ChangeNotifier{
     String res = await Api().post(
         url: url+'config/updatecity.php?id_city=${id_city}',//users/addmangemt.php
         body: body);
-    listcity.add(CityModel.fromJson(body));
+    final index=listcity.indexWhere((element)
+    => element.id_city==id_city);
+    listcity[index]=CityModel.fromJson(body);
     isloading=false;
     notifyListeners();
 
     return res;
   }
-  Future<void> getcity(String urlstring)async {
+  Future<void> getcity(String fkmain)async {
 
     if(listcity.isEmpty){
       List<dynamic> data=[];
       data= await Api()
-          .get(url:url+ urlstring);
+          .get(url:url+ 'config/getcity.php?fk_maincity=${fkmain}');
       print(data);
       if(data !=null) {
         for (int i = 0; i < data.length; i++) {
           listcity.add(CityModel.fromJson(data[i]));
         }}
-      selectedValuemanag='1';
+      // selectedValuemanag='1';
+      notifyListeners();
+      //return data;
+    }
+  }
+  Future<void> getcityAll()async {
+//
+    if(listcity.isEmpty){
+      List<dynamic> data=[];
+      data= await Api()
+          .get(url:url+ 'config/getcity.php?fk_country=${usercurrent!.fkCountry}');
+      print(data);
+      if(data !=null) {
+        for (int i = 0; i < data.length; i++) {
+          listcity.add(CityModel.fromJson(data[i]));
+        }}
+
       notifyListeners();
       //return data;
     }

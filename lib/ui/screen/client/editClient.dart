@@ -8,6 +8,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/maincity_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -72,7 +73,6 @@ class _editclientState extends State<editclient> {
     nameEnterpriseController.text=widget.itemClient.nameEnterprise!.toString();
     mobileController.text=widget.itemClient.mobile!.toString();
     typejobController.text=widget.itemClient.typeJob!.toString();
-    cityController.text=widget.itemClient.city!.toString();
     locationController.text=widget.itemClient.location!.toString();
     regoinController.text=widget.itemClient.name_regoin!.toString();
     //////////////////////////////////////////////////////////
@@ -93,7 +93,13 @@ class _editclientState extends State<editclient> {
     // descresaonController.text=widget.itemClient.desc_reason==null||widget.itemClient.desc_reason==""
     //     ?"":widget.itemClient.desc_reason!.toString();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_){
+    WidgetsBinding.instance!.addPostFrameCallback((_)async{
+     await Provider.of<maincity_vm>(context,listen: false).getcityAll();
+      Provider.of<maincity_vm>(context,listen: false)
+      .changevalue(widget.itemClient.city.toString());
+      cityController.text=Provider.of<maincity_vm>(context,listen: false)
+          .selectedValuemanag.toString();
+      //widget.itemClient.city!.toString();
       // Add Your Code here.
       bool ism=widget.itemClient.ismarketing=='1'?true:false;
       Provider.of<switch_provider>(
@@ -162,6 +168,8 @@ void didChangeDependencies() {
         onPressed: () {
         if (_globalKey.currentState!.validate()) {
         _globalKey.currentState!.save();
+        if(Provider.of<maincity_vm>(context,listen: false)
+          .selectedValuemanag!=null) {
         Provider.of<LoadProvider>(context, listen: false)
             .changebooladdclient(true);
         String ismarket= Provider.of<switch_provider>(
@@ -219,7 +227,10 @@ void didChangeDependencies() {
             ? clear(context)
             : error(context)
         );
-      }
+      }}else{
+          _scaffoldKey.currentState!.showSnackBar(
+              SnackBar(content: Text('من فضلك حدد مدينة')));
+        }
       }, icon: Icon(Icons.check,color: kWhiteColor)),
           ],
         ),
@@ -248,7 +259,7 @@ void didChangeDependencies() {
                         obscureText: false,
                         hintText: label_cliententerprise,
                         vaild: (value) {
-                          if (value!.isEmpty) {
+                          if (value!.toString().trim().isEmpty) {
                             return label_empty;
                           }
                         },
@@ -265,7 +276,7 @@ void didChangeDependencies() {
                       RowEdit(name: label_clientname, des: 'required'),
                       EditTextFormField(
                         vaild: (value) {
-                          if (value!.isEmpty) {
+                          if (value!.toString().trim().isEmpty) {
                             return label_empty;
                           }
                         },
@@ -303,16 +314,39 @@ void didChangeDependencies() {
                       //admin
 
                       RowEdit(name: label_clientcity, des: 'Required'),
-                      EditTextFormField(
-                        vaild: (value) {
-                          if (value!.isEmpty) {
-                            return label_empty;
-                          }
-                        },
-                        hintText: label_clientcity,
-                        obscureText: false,
-                        controller: cityController,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0,right: 8),
+                          child: Consumer<maincity_vm>(
+                              builder: (context, cart, child){
+                                return DropdownButton(
+                                  isExpanded: true,
+                                  hint: Text(label_clientcity),
+                                  items: cart.listcity.map((city) {
+                                    return DropdownMenuItem(
+                                      child: Text(city.name_city), //label of item
+                                      value: city.id_city, //value of item
+                                    );
+                                  }).toList(),
+                                  value:cart.selectedValuemanag,
+                                  onChanged:(value) {
+                                    cityController.text=value.toString();
+                                    cart.changevalue(value.toString());
+                                  },
+                                );}
+                          ),
+                        ),
                       ),
+                      // EditTextFormField(
+                      //   vaild: (value) {
+                      //     if (value!.toString().trim().isEmpty) {
+                      //       return label_empty;
+                      //     }
+                      //   },
+                      //   hintText: label_clientcity,
+                      //   obscureText: false,
+                      //   controller: cityController,
+                      // ),
                       //manage
                       SizedBox(
                         height: 5,
@@ -320,7 +354,7 @@ void didChangeDependencies() {
                       RowEdit(name: label_clientmobile, des: 'Required'),
                       EditTextFormField(
                         vaild: (value) {
-                          if (value!.isEmpty) {
+                          if (value!.toString().trim().isEmpty) {
                             return label_empty;
                           }
                         },

@@ -87,7 +87,7 @@ class regoin_vm extends ChangeNotifier{
         body: body);
     if (res!="error") {
       body.addAll({
-        'id_reason':res,
+        '	id_regoin':res,
       });
       listregoin.insert(0,RegoinModel.fromJson(body));
       isloading=false;
@@ -102,7 +102,9 @@ class regoin_vm extends ChangeNotifier{
         url: url+'users/update_regoin.php?id_regoin=${idmanag}',//users/addmangemt.php
         body: body);
 
-    listregoin.add(RegoinModel.fromJson(body));
+    final index=listregoin.indexWhere((element) => element.id_regoin==idmanag);
+    listregoin[index]=RegoinModel.fromJson(body);
+    // listregoin.add(RegoinModel.fromJson(body));
     isloading=false;
     notifyListeners();
 

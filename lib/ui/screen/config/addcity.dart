@@ -62,7 +62,7 @@ class _addcityState extends State<addcity> {
                 child: Column(
                   children: [
                     SizedBox(height: 15,),
-                    RowEdit(name: 'المنطقة', des: 'REQUIRED'),
+                    RowEdit(name: 'المدينة', des: 'REQUIRED'),
                     SizedBox(height: 15,),
 
                     EditTextFormField(
@@ -88,7 +88,7 @@ class _addcityState extends State<addcity> {
                                 .addcity_vm({
                               'name_city':namelevel.text,
                               'fk_maincity':
-                             widget.,
+                             widget.fkmain,
                             }).then(
                                     (value) =>  value!="error"
                                     ? clear(context)
@@ -110,20 +110,15 @@ class _addcityState extends State<addcity> {
                           );
                         }
                       },
-                      //child: Text(" حفظ"),
                     ),
                   ],
                 ),
               ),
-
             ),
           ),
         ));
   }
-
   clear(BuildContext context) {
-
-
     namelevel.text="";
     _scaffoldKey.currentState!.showSnackBar(
         SnackBar(content: Text('تمت الإضافة بنجاح'))

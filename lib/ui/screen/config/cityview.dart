@@ -32,17 +32,18 @@ class cityview extends StatefulWidget {
 
   @override void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_)async{
-      Provider.of<maincity_vm>
+     await Provider.of<maincity_vm>
         (context,listen: false)
-          .getcity('config/getcity.php?fk_maincity=${widget.fkmain}');
+          .getcity(widget.fkmain);
     });
     super.initState();
   }
+  List<CityModel> _listlevel=[];
   @override
   Widget build(BuildContext context) {
-    List<CityModel> _listlevel=
-        Provider.of<maincity_vm>
-      (context,listen: true).listmaincity;
+
+    _listlevel= Provider.of<maincity_vm>
+      (context,listen: true).listcity;
     return Scaffold(
       appBar: AppBar(
         title: Text('المدن',style: TextStyle(color: kWhiteColor),),
@@ -59,7 +60,8 @@ class cityview extends StatefulWidget {
             context,
             MaterialPageRoute<void>(
               builder: (BuildContext context)
-              => addmaincity(
+              => addcity(
+                fkmain: widget.fkmain,
                 idregoin: null,
                 nameregoin: null,
               ),
@@ -92,15 +94,15 @@ class cityview extends StatefulWidget {
                                 Navigator.push(context,
                                     MaterialPageRoute(
                                         builder: (context)=>addcity(
+                                          fkmain: widget.fkmain,
                                           nameregoin:
-                                          _listlevel[index].namemaincity,
+                                          _listlevel[index].name_city,
                                           idregoin:
-                                          _listlevel[index].id_maincity,
+                                          _listlevel[index].id_city,
                                         )));
                               },
                               child: Container(
                                 width: double.infinity,
-
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   boxShadow: <BoxShadow>[
@@ -125,7 +127,7 @@ class cityview extends StatefulWidget {
                                       padding: EdgeInsets.all(4),
                                       child: Center(
                                         child:
-                                        Text(_listlevel[index].namemaincity,
+                                        Text(_listlevel[index].name_city,
                                           style: TextStyle(
                                               fontSize: 14,
                                               fontFamily: kfontfamily2),),),

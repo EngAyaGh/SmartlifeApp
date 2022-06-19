@@ -2,6 +2,7 @@
 
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
+import 'package:crm_smart/ui/screen/config/cityview.dart';
 import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/custom_button_new.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/customformtext.dart';
@@ -10,6 +11,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/ui/widgets/widgetcalendar/utils.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
+import 'package:crm_smart/view_model/maincity_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +62,14 @@ class _addClientState extends State<addClient> {
 
     super.dispose();
   }
+  @override void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_)async{
 
+    await  Provider.of<maincity_vm>(context,listen: false).getcityAll();
+      Provider.of<maincity_vm>(context,listen: false).changevalue(null);
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
      //final controllerUsers = Get.find<AllUserVMController>();
@@ -106,7 +115,7 @@ class _addClientState extends State<addClient> {
                         obscureText: false,
                         hintText: label_cliententerprise,
                         vaild: (value) {
-                          if (value!.isEmpty) {
+                          if (value!.toString().trim().isEmpty) {
                             return label_empty;
                           }
                         },
@@ -125,7 +134,7 @@ class _addClientState extends State<addClient> {
                       ),
                       EditTextFormField(
                         vaild: (value) {
-                          if (value!.isEmpty) {
+                          if (value!.toString().trim().isEmpty) {
                             return label_empty;
                           }
                         },
@@ -144,7 +153,7 @@ class _addClientState extends State<addClient> {
                         hintText: label_client_typejob,
                         obscureText: false,
                         vaild: (value) {
-                          if (value!.isEmpty) {
+                          if (value!.toString().trim().isEmpty) {
                             return label_empty;
                           }
                         },
@@ -163,16 +172,39 @@ class _addClientState extends State<addClient> {
                       SizedBox(
                         height: 5,
                       ),
-                      EditTextFormField(
-                        vaild: (value) {
-                          if (value!.isEmpty) {
-                            return label_empty;
-                          }
-                        },
-                        hintText: label_clientcity,
-                        obscureText: false,
-                        controller: cityController,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0,right: 8),
+                          child: Consumer<maincity_vm>(
+                              builder: (context, cart, child){
+                                return DropdownButton(
+                                  isExpanded: true,
+                                  hint: Text(label_clientcity),
+                                  items: cart.listcity.map((city) {
+                                    return DropdownMenuItem(
+                                      child: Text(city.name_city), //label of item
+                                      value: city.id_city, //value of item
+                                    );
+                                  }).toList(),
+                                  value:cart.selectedValuemanag,
+                                  onChanged:(value) {
+                                    cityController.text=value.toString();
+                                  cart.changevalue(value.toString());
+                                  },
+                                );}
+                          ),
+                        ),
                       ),
+                      // EditTextFormField(
+                      //   vaild: (value) {
+                      //     if (value!.isEmpty) {
+                      //       return label_empty;
+                      //     }
+                      //   },
+                      //   hintText: label_clientcity,
+                      //   obscureText: false,
+                      //   controller: cityController,
+                      // ),
                       //manage
                       SizedBox(
                         height: 15,
@@ -183,7 +215,7 @@ class _addClientState extends State<addClient> {
                       ),
                       EditTextFormField(
                         vaild: (value) {
-                          if (value!.isEmpty) {
+                          if (value!.toString().trim().isEmpty) {
                             return label_empty;
                           }
                         },
@@ -228,43 +260,54 @@ class _addClientState extends State<addClient> {
 
                             if (_globalKey.currentState!.validate()) {
                               _globalKey.currentState!.save();
-
-                              Provider.of<LoadProvider>(context, listen: false)
-                                  .changebooladdclient(true);
-                              UserModel _user=
-                                  Provider.of<user_vm_provider>
-                                    (context,listen: false).currentUser;
-                              Provider.of<client_vm>(context,listen: false)
-                                  .addclient_vm({
+                              if(Provider.of<maincity_vm>(context,listen: false)
+                              .selectedValuemanag!=null) {
+                                Provider.of<LoadProvider>(
+                                    context, listen: false)
+                                    .changebooladdclient(true);
+                                UserModel _user =
+                                    Provider
+                                        .of<user_vm_provider>
+                                      (context, listen: false)
+                                        .currentUser;
+                                Provider.of<client_vm>(context, listen: false)
+                                    .addclient_vm({
                                   'name_client': nameclientController.text,
-                                  'name_enterprise': nameEnterpriseController.text,
-                                  'type_job':typejobController.text,
+                                  'name_enterprise': nameEnterpriseController
+                                      .text,
+                                  'type_job': typejobController.text,
                                   'city': cityController.text,
                                   'location':
                                   // locationController.text==null?"null":
                                   locationController.text.toString(),
-                                  "fk_regoin":_user.fkRegoin==null?"null":_user.fkRegoin,
-                                  "date_create":Utils.toDate22(DateTime.now()),
-                                //DateTime.now().toString(),  //formatter.format(_currentDate),
-                                  "type_client":"تفاوض",
-                                  "fk_user":_user.idUser,
+                                  "fk_regoin": _user.fkRegoin == null
+                                      ? "null"
+                                      : _user.fkRegoin,
+                                  "date_create": Utils.toDate22(DateTime.now()),
+                                  //DateTime.now().toString(),  //formatter.format(_currentDate),
+                                  "type_client": "تفاوض",
+                                  "fk_user": _user.idUser,
                                   // "date_transfer":,
-                                  "mobile":mobileController.text,
+                                  "mobile": mobileController.text,
                                   //"date_changetype":,
-                                },_user.nameUser.toString(),
-                                  _user.nameRegoin.toString()
-                              ).then((value) => value!="false"
-                                  ? clear(context)
-                                  : error(context)
-                                // Fluttertoast.showToast(
-                                //  backgroundColor:
-                                //      Colors.lightBlueAccent,
-                                //  msg: label_errorAddProd, // message
-                                //  toastLength:
-                                //      Toast.LENGTH_SHORT, // length
-                                //  gravity: ToastGravity.CENTER, //
-                              );
-
+                                }, _user.nameUser.toString(),
+                                    _user.nameRegoin.toString()
+                                ).then((value) =>
+                                value != "false"
+                                    ? clear(context)
+                                    : error(context)
+                                  // Fluttertoast.showToast(
+                                  //  backgroundColor:
+                                  //      Colors.lightBlueAccent,
+                                  //  msg: label_errorAddProd, // message
+                                  //  toastLength:
+                                  //      Toast.LENGTH_SHORT, // length
+                                  //  gravity: ToastGravity.CENTER, //
+                                );
+                              }else{
+                                _scaffoldKey.currentState!.showSnackBar(
+                                    SnackBar(content: Text('من فضلك حدد مدينة')));
+                              }
                             }
                           },
                         ),

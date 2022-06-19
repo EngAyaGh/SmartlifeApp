@@ -18,6 +18,7 @@ import 'package:crm_smart/view_model/datetime_vm.dart';
 import 'package:crm_smart/view_model/event_provider.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
+import 'package:crm_smart/view_model/maincity_vm.dart';
 import 'package:crm_smart/view_model/notify_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/product_vm.dart';
@@ -139,6 +140,11 @@ void main() async {
         ),
         ChangeNotifierProxyProvider<user_vm_provider,invoice_vm>(
           create: (_)=> invoice_vm(),
+          update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
+
+        ),
+        ChangeNotifierProxyProvider<user_vm_provider,maincity_vm>(
+          create: (_)=> maincity_vm(),
           update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
 
         ),

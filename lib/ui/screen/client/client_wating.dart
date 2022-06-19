@@ -17,6 +17,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/separatorLine.dart';
 import 'package:crm_smart/ui/widgets/invoice_widget/Card_invoice_client.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
+import 'package:crm_smart/view_model/maincity_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
@@ -50,9 +51,13 @@ class _ClientWaitingState extends State<ClientWaiting> {
       //  Provider.of<invoice_vm>(context, listen: false).getinvoice_Local("مشترك",'approved only');
       //if(widget.type=='client')
       Provider.of<invoice_vm>(context,listen: false).listInvoicesAccept=[];
-
+      Provider.of<maincity_vm>
+        (context,listen: false)
+          .getcityAll();
+      Provider.of<maincity_vm>
+        (context,listen: false).changevalue(null);
       Provider.of<typeclient>(context,listen: false).changelisttype_install(null);
-      Provider.of<regoin_vm>(context,listen: false).changeVal(null);
+      //Provider.of<regoin_vm>(context,listen: false).changeVal(null);
       await Provider.of<client_vm>(context,listen: false)
           .getallclientAccept();
 
@@ -87,25 +92,25 @@ class _ClientWaitingState extends State<ClientWaiting> {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 8.0, right: 8),
-                                child: Consumer<regoin_vm>(
+                                child: Consumer<maincity_vm>(
                                   builder: (context, cart, child) {
                                     return
                                       DropdownButton(
                                         isExpanded: true,
-                                        hint: Text("الفرع"),
-                                        items: cart.listregoinfilter.map((level_one) {
+                                        hint: Text("المناطق"),
+                                        items: cart.listmaincity.map((level_one) {
                                           return DropdownMenuItem(
 
-                                            child: Text(level_one.name_regoin),
+                                            child: Text(level_one.namemaincity),
                                             //label of item
                                             value: level_one
-                                                .id_regoin, //value of item
+                                                .id_maincity, //value of item
                                           );
                                         }).toList(),
-                                        value: cart.selectedValueLevel,
+                                        value: cart.selectedValuemanag,
                                         onChanged: (value) {
                                           //  setState(() {
-                                          cart.changeVal(value.toString());
+                                          cart.changevalue(value.toString());
                                           regoin = value.toString();
                                           filtershow();
                                         },

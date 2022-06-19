@@ -93,7 +93,9 @@ class typeclient extends ChangeNotifier{
     String res = await Api().post(
         url: url+'users/update_resoan.php?id_reason=${idmanag}',//users/addmangemt.php
         body: body);
-    type_of_out.add(ReasonModel.fromJson(body));
+    final index=type_of_out.indexWhere((element)
+    => element.idReason==idmanag);
+    type_of_out[index]=ReasonModel.fromJson(body);
     isloading =false;
     notifyListeners();
 
