@@ -323,7 +323,7 @@ class invoice_vm extends ChangeNotifier{
           {
             if(regoin!='0'){
           listInvoicesAccept.forEach((element) {
-            if(element.fk_regoin==regoin) {
+            if(element.id_maincity==regoin) {
               _listInvoicesAccept.add(element);
               print('regoin الكل');}
           });}
@@ -336,7 +336,7 @@ class invoice_vm extends ChangeNotifier{
           if(regoin!='0') {
             listInvoicesAccept.forEach((element) {
               if (element.isdoneinstall.toString() == null
-                  && element.fk_regoin == regoin) {
+                  && element.id_maincity == regoin) {
                 _listInvoicesAccept.add(element);
                 print('regoin بالإنتظار');
               }
@@ -353,7 +353,7 @@ class invoice_vm extends ChangeNotifier{
         if(filter=='تم التركيب'){
           if(regoin!='0'){
           listInvoicesAccept.forEach((element) {
-            if( element.isdoneinstall=='1'&&element.fk_regoin==regoin) {
+            if( element.isdoneinstall=='1'&&element.id_maincity==regoin) {
               _listInvoicesAccept.add(element);
               print('regoin تم التركيب');
             }

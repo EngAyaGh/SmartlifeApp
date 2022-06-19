@@ -57,6 +57,11 @@ class InvoiceModel extends CacheRepository{
     this.isApprove,
     this.mobile,
     this.ismarketing,
+    this.city,
+    this.name_city,
+    this.namemaincity,
+    this.id_maincity,
+    //name_city,mcit.namemaincity,mcit.id_maincity
     // this.nameuserApprove,
     // this.date_approve,
 
@@ -109,6 +114,10 @@ class InvoiceModel extends CacheRepository{
     String? date_approve;
     String? mobile;//mobile client
     String? ismarketing;
+    String?  city,
+  name_city,
+  namemaincity,
+  id_maincity;
 
   //Map<String, dynamic> products;
    List<ProductsInvoice>? products;
@@ -169,7 +178,10 @@ class InvoiceModel extends CacheRepository{
     date_approve=jsondata['date_approve'];
     mobile=jsondata['mobile'];
     ismarketing=jsondata['ismarketing'];
-
+    city = jsondata['city'];
+    name_city = jsondata['name_city'];
+    namemaincity = jsondata['namemaincity'];
+    id_maincity = jsondata['id_maincity'];
     products=getproud(jsondata['products']);
       //  json.decode(
        // jsondata['products']
@@ -252,7 +264,10 @@ class InvoiceModel extends CacheRepository{
     _data['nameuserApprove'] = nameuserApprove;
     _data['mobile'] = mobile;
     _data['ismarketing'] = ismarketing;
-
+    _data['city'] = city;
+    _data['name_city'] = name_city;
+    _data['namemaincity'] = namemaincity;
+    _data['id_maincity'] = id_maincity;
     _data['products'] =
         products!.map((e)=>e.toJson()).toList();
     return _data;
