@@ -17,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../labeltext.dart';
 
 class add_invoiceProduct extends StatefulWidget {
   add_invoiceProduct(
@@ -235,7 +236,16 @@ void calculate(){
                                 children: [
                                   RowEdit(name: 'السعر', des: ''),
                                   EditTextFormField(
-
+                                    vaild: (value) {
+                                      if (value.toString().trim()!.isEmpty) {
+                                        return label_empty;
+                                      }
+                                      if(double.tryParse(value.toString()) == null)
+                                        return 'من فضلك ادخل عدد';
+                                      // else if(value.characters){
+                                      //   return ;
+                                      // }
+                                    },
                                     //ontap: calculate,
                                     //read: false,
                                     controller: _textprice,

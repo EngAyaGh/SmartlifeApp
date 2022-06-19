@@ -20,8 +20,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'dart:ui' as myui;
 
@@ -268,9 +270,11 @@ else{
                           obscureText: false,
                           hintText: label_amount_paid,
                           vaild: (value) {
-                            if (value!.isEmpty) {
+                            if (value.toString().trim()!.isEmpty) {
                               return label_empty;
                             }
+                            if(double.tryParse(value.toString()) == null)
+                              return 'من فضلك ادخل عدد';
                           },
                           controller: amount_paidController, //اسم المؤسسة
                           //label: label_client,
@@ -278,9 +282,9 @@ else{
                             // nameprod = val;
                           },
                           inputType: TextInputType.number,
-                          inputformate: <TextInputFormatter>[
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
+                          // inputformate: <TextInputFormatter>[
+                          //   FilteringTextInputFormatter.digitsOnly
+                          // ],
                         ),
                         SizedBox(
                           height: 5,
@@ -290,17 +294,19 @@ else{
                           hintText: label_renew,
                           obscureText: false,
                           vaild: (value) {
-                            if (value!.isEmpty) {
+                            if (value.toString().trim()!.isEmpty) {
                               return label_empty;
                             }
+                            if(double.tryParse(value.toString()) == null)
+                              return 'من فضلك ادخل عدد';
                             // else if(value.characters){
                             //   return ;
                             // }
                           },
                           inputType: TextInputType.number,
-                          inputformate: <TextInputFormatter>[
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
+                          // inputformate: <TextInputFormatter>[
+                          //   FilteringTextInputFormatter.digitsOnly
+                          // ],
                           controller: renewController, //اسم المؤسسة
                           label: label_renew,
                           onChanged: (val) {
@@ -422,25 +428,35 @@ else{
                           icon: Icons.camera,
                           hintText: label_image,
                           ontap: ()async{
+                            ImagePicker imagePicker = ImagePicker();
+                            final pickedImage =
+                            await imagePicker.pickImage(
+                              source: ImageSource.gallery,
+                              imageQuality: 100,);
+                            File?   pickedFile = File(pickedImage!.path);
+                            print(pickedFile!.path);
+                            _myfile=pickedFile;
+                            _invoice!.path=pickedFile.path;
 
-                             FilePickerResult? result
-                             = await FilePicker.platform.pickFiles(
-                              // allowedExtensions: ['pdf'],
-                             );
+                            Navigator.of(context).pop();
+                            //  FilePickerResult? result
+                            //  = await FilePicker.platform.pickFiles(
+                            //   // allowedExtensions: ['pdf'],
+                            //  );
+                            // //
+                            //  if (result != null) {
+                            //   File? file = File(result.files.single.path.toString());
+                            //  _myfile=file;
+                            //   imageController.text=file.path;
+                            //   _invoice!.path=file.path;
+                            //   //   _pickFiles();
+                            // //   _saveFile();
+                            // } else {
+                            //   // User canceled the picker
+                            // }
+                            //  setState(() {
                             //
-                             if (result != null) {
-                              File? file = File(result.files.single.path.toString());
-                             _myfile=file;
-                              imageController.text=file.path;
-                              _invoice!.path=file.path;
-                              //   _pickFiles();
-                            //   _saveFile();
-                            } else {
-                              // User canceled the picker
-                            }
-                             setState(() {
-
-                             });
+                            //  });
                           },
                           obscureText: false,
                           controller:imageController,
@@ -455,32 +471,35 @@ else{
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('فتح الملف'),
-                              IconButton(
-                                iconSize: 50,
-                                   onPressed: ()async {
-                                //await FilePicker.platform.
-                                if( _invoice!.imageRecord.toString().isNotEmpty){
-                                  Provider.of<LoadProvider>(context, listen: false)
-                                      .changebooladdinvoice(true);
-                                File? filee=await  createFileOfPdfUrl(_invoice!.imageRecord.toString());
-                                  Provider.of<LoadProvider>(context, listen: false)
-                                      .changebooladdinvoice(false);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => PDFScreen(
-                                            path: filee.path),
-                                      ),
-                                    );
-                                  //   String url =_invoice!.imageRecord.toString();
-                                  //   if (await canLaunch(url)) {
-                                  //     await launch(url);
-                                  //   } else {
-                                  //     throw 'Could not launch $url';
-                                     }
-
-                              }, icon:Icon( Icons.image)),
+                          PhotoView(
+                          imageProvider:
+                          Image.network(_invoice!.imageRecord.toString()).image,)
+                              // Text('فتح الملف'),
+                              // IconButton(
+                              //   iconSize: 50,
+                              //      onPressed: ()async {
+                              //   //await FilePicker.platform.
+                              //   if( _invoice!.imageRecord.toString().isNotEmpty){
+                              //     Provider.of<LoadProvider>(context, listen: false)
+                              //         .changebooladdinvoice(true);
+                              //   File? filee=await  createFileOfPdfUrl(_invoice!.imageRecord.toString());
+                              //     Provider.of<LoadProvider>(context, listen: false)
+                              //         .changebooladdinvoice(false);
+                              //       Navigator.push(
+                              //         context,
+                              //         MaterialPageRoute(
+                              //           builder: (context) => PDFScreen(
+                              //               path: filee.path),
+                              //         ),
+                              //       );
+                              //     //   String url =_invoice!.imageRecord.toString();
+                              //     //   if (await canLaunch(url)) {
+                              //     //     await launch(url);
+                              //     //   } else {
+                              //     //     throw 'Could not launch $url';
+                              //        }
+                              //
+                              // }, icon:Icon( Icons.image)),
                             ],
                           ),
                         ):Container(),
@@ -533,7 +552,7 @@ else{
                                           "nameUser":widget.itemClient.nameUser,
                                           "renew_year": renewController.text,
                                           "type_pay": typepayController,
-                                          //"date_create": DateTime.now().toString(),
+                                          "date_create": DateTime.now().toString(),
                                           "type_installation": typeinstallController,
                                           "amount_paid": amount_paidController.text,
                                           'fk_regoin':widget.invoice!.fk_regoin.toString(),

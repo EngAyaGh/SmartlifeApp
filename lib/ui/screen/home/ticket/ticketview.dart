@@ -116,6 +116,8 @@ class _TicketViewState extends State<TicketView> {
                   ):Container():Container():Container(),
                   widget.ticketModel.dateRecive!=null &&
                       widget.ticketModel.dateClose==null?
+                  Provider.of<privilge_vm>(context,listen: true)
+                      .checkprivlge('75')==true?
                   Padding(
                     padding: const EdgeInsets.only(right: 5.0),
                     child: ElevatedButton(
@@ -135,7 +137,7 @@ class _TicketViewState extends State<TicketView> {
                       },
                       child: Text('تحويل التذكرة'),
                     ),
-                  ):Container(),
+                  ):Container():Container(),
 
                   ElevatedButton(
                     style: ButtonStyle(

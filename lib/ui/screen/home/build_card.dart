@@ -31,11 +31,8 @@ class BuildCard extends StatelessWidget {
                              builder: (context)=>
                              listwidget[index]
                      ))
-              );
-                        },
-
+              );},
             ),
-
     ));
   }
 

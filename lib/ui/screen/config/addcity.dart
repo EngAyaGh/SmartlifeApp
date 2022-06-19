@@ -7,31 +7,37 @@ import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
-import 'package:crm_smart/view_model/typeclient.dart';
+import 'package:crm_smart/view_model/maincity_vm.dart';
+import 'package:crm_smart/view_model/regoin_vm.dart';
+import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
-class addresaon extends StatefulWidget {
-  addresaon({ required this.nameReason,required this.idReason, required this.type, Key? key}) : super(key: key);
-  String type;
-  String? nameReason;
-  String? idReason;
+class addcity extends StatefulWidget {
+  addcity({
+    this.fkmain,
+    required this.nameregoin,
+    required this.idregoin, Key? key}) : super(key: key);
+  String? idregoin,nameregoin,fkmain;
 
   @override
-  _addresaonState createState() => _addresaonState();
+  _addcityState createState() => _addcityState();
 }
-
-class _addresaonState extends State<addresaon> {
+class _addcityState extends State<addcity> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  final TextEditingController namereson = TextEditingController();
+  final TextEditingController namelevel = TextEditingController();
 
   final _globalKey = GlobalKey<FormState>();
+
   @override void initState() {
-    namereson.text=widget.nameReason==null?'':widget.nameReason.toString();
+
+    namelevel.text=widget.idregoin==null?''
+        :widget.nameregoin.toString();
+
     super.initState();
   }
   @override
@@ -39,7 +45,7 @@ class _addresaonState extends State<addresaon> {
     return Scaffold(
         key:_scaffoldKey,
         body:ModalProgressHUD(
-          inAsyncCall: Provider.of<typeclient>(context)
+          inAsyncCall: Provider.of<maincity_vm>(context)
               .isloading,
           child : Form(
             key: _globalKey,
@@ -56,17 +62,17 @@ class _addresaonState extends State<addresaon> {
                 child: Column(
                   children: [
                     SizedBox(height: 15,),
-                    RowEdit(name: widget.type=='client'?'السبب':'نوع', des: 'REQUIRED'),
+                    RowEdit(name: 'المنطقة', des: 'REQUIRED'),
                     SizedBox(height: 15,),
 
                     EditTextFormField(
                       vaild: (value) {
-                        if (value!.isEmpty) {
+                        if (value!.toString().trim().isEmpty) {
                           return 'الحقل فارغ';
                         }
                       },
                       hintText: '',
-                      controller: namereson,
+                      controller: namelevel,
                     ),
                     SizedBox(height: 15,),
                     CustomButton(
@@ -76,25 +82,23 @@ class _addresaonState extends State<addresaon> {
                       onTap: () async {
                         if (_globalKey.currentState!.validate()) {
                           _globalKey.currentState!.save();
-                          // Provider.of<LoadProvider>(context, listen: false)
-                          //     .changebooladdclient(true);
-                          if(widget.idReason==null){
-                          Provider.of<typeclient>(context,listen: false)
-                              .addReson_vm({
-                            'name_reason':namereson.text,
-                            'type':widget.type,
-                          }).then(
-                                  (value) =>  value!="error"
-                                  ? clear(context)
-                                  : error(context)
-                          );
-                          }
+
+                          if(widget.idregoin==null){
+                            Provider.of<maincity_vm>(context,listen: false)
+                                .addcity_vm({
+                              'name_city':namelevel.text,
+                              'fk_maincity':
+                             widget.,
+                            }).then(
+                                    (value) =>  value!="error"
+                                    ? clear(context)
+                                    : error(context)
+                            );}
                           else{
-                            Provider.of<typeclient>(context,listen: false)
-                                .update_resoan({
-                              'name_reason':namereson.text,
-                              'type':widget.type,
-                            },widget.idReason.toString()).then(
+                            Provider.of<maincity_vm>(context,listen: false)
+                                .update_city({
+                              'name_city':namelevel.text
+                            },widget.idregoin.toString()).then(
                                     (value) =>  value!="error"
                                     ? clear(context)
                                     : error(context)
@@ -119,9 +123,8 @@ class _addresaonState extends State<addresaon> {
 
   clear(BuildContext context) {
 
-    // Provider.of<LoadProvider>(context, listen: false)
-    //     .changebooladdclient(false);
-    namereson.text="";
+
+    namelevel.text="";
     _scaffoldKey.currentState!.showSnackBar(
         SnackBar(content: Text('تمت الإضافة بنجاح'))
     );
@@ -130,8 +133,7 @@ class _addresaonState extends State<addresaon> {
   }
 
   error(context) {
-    Provider.of<LoadProvider>(context, listen: false)
-        .changebooladdclient(false);
+
     _scaffoldKey.currentState!.showSnackBar(
         SnackBar(content: Text('هناك خطأ ما'))
     );

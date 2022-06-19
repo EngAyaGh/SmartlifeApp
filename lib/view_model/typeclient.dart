@@ -68,8 +68,10 @@ class typeclient extends ChangeNotifier{
      type_of_out = await config_service().getreason(type);
   notifyListeners();
  }
+ bool isloading=false;
   Future<String> addReson_vm(Map<String, dynamic?> body) async {
-
+    isloading =true;
+    notifyListeners();
     String res = await Api().post(
         url: url+'config/addreson.php',//users/addmangemt.php
         body: body);
@@ -78,6 +80,7 @@ class typeclient extends ChangeNotifier{
         'id_reason':res,
       });
       type_of_out.insert(0,ReasonModel.fromJson(body));
+      isloading=false;
       notifyListeners();
     }
     return res;
@@ -85,10 +88,13 @@ class typeclient extends ChangeNotifier{
   Future<String> update_resoan(Map<String, dynamic?> body,
       String idmanag) async {
     //name_mange
+    isloading=true;
+    notifyListeners();
     String res = await Api().post(
         url: url+'users/update_resoan.php?id_reason=${idmanag}',//users/addmangemt.php
         body: body);
     type_of_out.add(ReasonModel.fromJson(body));
+    isloading =false;
     notifyListeners();
 
     return res;

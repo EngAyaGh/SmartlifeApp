@@ -33,7 +33,7 @@ class user_vm_provider extends ChangeNotifier{
     isLoading=true;
     userall = await  UserService().usersServices();
     isLoading=false;
-    listuserfilter=userall;
+    listuserfilter=List.from(userall);
     notifyListeners();
   }
   void setpath(String path){

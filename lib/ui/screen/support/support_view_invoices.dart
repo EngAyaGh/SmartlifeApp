@@ -60,17 +60,8 @@ class support_view_invoicesState extends State<support_view_invoices> {
                     (context)=>
                     support_add(
                       idinvoice: listinvoice[index].idInvoice,
-                      // itemProd: listinvoice[index],
-                      // itemClient :  widget.itemClient,
-                      //scaffoldKey: _scaffoldKey,
-                      //indexinvoice: index,
                     )) ,
-            //     _listProd.map(
-            //         (item) => Builder(builder: (context)=>CardProduct( itemProd: item,)) ,
-            // ).toList(),
-          ),
-        ):
-        Padding(
+          ),): Padding(
           padding: EdgeInsets.only(top: 10,bottom: 50,right: 10,left: 10),
 
           child: Container(

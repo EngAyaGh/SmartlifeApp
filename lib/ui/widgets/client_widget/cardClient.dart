@@ -149,9 +149,7 @@ ${itemClient.nameEnterprise.toString().substring(45,itemClient.nameEnterprise.to
                                             fkclient:  itemClient.idClients.toString(),
                                             fkuser:    itemClient.fkUser.toString(),
                                           )
-
                                   ));
-
                             },
                           ),
 

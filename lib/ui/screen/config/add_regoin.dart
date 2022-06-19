@@ -24,7 +24,6 @@ class addregoin extends StatefulWidget {
   @override
   _addregoinState createState() => _addregoinState();
 }
-
 class _addregoinState extends State<addregoin> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -44,8 +43,8 @@ class _addregoinState extends State<addregoin> {
     return Scaffold(
         key:_scaffoldKey,
         body:ModalProgressHUD(
-          inAsyncCall: Provider.of<LoadProvider>(context)
-              .isLoadingAddclient,
+          inAsyncCall: Provider.of<regoin_vm>(context)
+              .isloading,
           child : Form(
             key: _globalKey,
             child: Padding(
@@ -81,8 +80,7 @@ class _addregoinState extends State<addregoin> {
                       onTap: () async {
                         if (_globalKey.currentState!.validate()) {
                           _globalKey.currentState!.save();
-                          Provider.of<LoadProvider>(context, listen: false)
-                              .changebooladdclient(true);
+
                           if(widget.idregoin==null){
                             Provider.of<regoin_vm>(context,listen: false)
                                 .addRegoin_vm({
@@ -123,8 +121,6 @@ class _addregoinState extends State<addregoin> {
 
   clear(BuildContext context) {
 
-    Provider.of<LoadProvider>(context, listen: false)
-        .changebooladdclient(false);
     namelevel.text="";
     _scaffoldKey.currentState!.showSnackBar(
         SnackBar(content: Text('تمت الإضافة بنجاح'))
@@ -134,8 +130,7 @@ class _addregoinState extends State<addregoin> {
   }
 
   error(context) {
-    Provider.of<LoadProvider>(context, listen: false)
-        .changebooladdclient(false);
+
     _scaffoldKey.currentState!.showSnackBar(
         SnackBar(content: Text('هناك خطأ ما'))
     );

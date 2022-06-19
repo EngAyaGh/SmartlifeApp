@@ -320,7 +320,7 @@ class _installAddState extends State<installAdd> {
 
   clear(value) {
 
-    Navigator.pop(context);
+   // Navigator.pop(context);
     // setState(() {
     //   widget.com=value;
     // });

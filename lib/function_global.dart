@@ -1,5 +1,6 @@
 
 
+import 'package:crm_smart/ui/screen/client/approve_type_user.dart';
 import 'package:crm_smart/ui/screen/client/clientView.dart';
 import 'package:crm_smart/ui/screen/client/detail_client.dart';
 import 'package:crm_smart/ui/screen/client/profileclient.dart';
@@ -52,7 +53,19 @@ String showtext(String typeNotify){
       return "حذف فاتورة";
     case "Install":
       return "تم التركيب للعميل";
-
+      ////////////////////////////
+      case "TransferRefuse":
+      return " رفض تحويل العميل";
+      case "AddComment":
+      return " إضافة تعليق";
+      case "OpenTicket":
+      return "فتح تذكرة";
+      case "InvoiceUpdated":
+      return "تعديل فاتورة العميل  ";
+      case "InvoiceBack":
+      return "انسحاب العميل";
+      case "InvoiceReplay":
+      return "إعادة جدولة العميل  ";
   }
   return "";
 }
@@ -69,8 +82,17 @@ void route_notifyto(typeNotify,context,
     case "Transfer" :
       Navigator.push(context,
           MaterialPageRoute(
+              builder: (context) => TransferPage(
+               // idclient:data==null?datanotify: data['idclient'],
+              )
+          ));
+      break;
+      case "TransferRefuse" :
+      Navigator.push(context,
+          MaterialPageRoute(
               builder: (context) => ProfileClient(
-                idclient:data==null?datanotify: data['idclient'],
+                idclient: data==null?datanotify:data['idclient'],
+               // idclient:data==null?datanotify: data['idclient'],
               )
           ));
       break;
@@ -143,6 +165,7 @@ void route_notifyto(typeNotify,context,
               )
           ));
       break;
+
       case "InvoiceReplay":
       Navigator.push(context,
           MaterialPageRoute(
@@ -152,6 +175,7 @@ void route_notifyto(typeNotify,context,
               )
           ));
       break;
+
   }
 
 }

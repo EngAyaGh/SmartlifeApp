@@ -105,8 +105,8 @@ class _ClientViewState extends State<ClientView> {
                 cardRow(  title: 'المؤسسة',value:clientModel.nameEnterprise.toString(),
                   isExpanded: true,),
                 cardRow( title:'اسم العميل',value:clientModel.nameClient.toString(),isExpanded: true,),
-                cardRow( title:' المنطقة',value:clientModel.name_regoin.toString()),
-                cardRow( title:' المدينة',value:clientModel.city.toString()),
+                cardRow( title:' الفرع',value:clientModel.name_regoin.toString()),
+                cardRow( title:' مدينة العميل',value:clientModel.city.toString()),
                 cardRow( title:' النشاط',value:clientModel.typeJob.toString()),
                 cardRow( title:'حالة العميل',value:clientModel.typeClient.toString()),
                 clientModel.typeClient=='مستبعد'?
@@ -301,6 +301,9 @@ class _ClientViewState extends State<ClientView> {
                                          onPressed: () async {
                                            Provider.of<client_vm>(context, listen: false)
                                                .setfkUserApprove({
+                                             'userrefuse':Provider.of<user_vm_provider>
+                                               (context,listen: false).currentUser.nameUser,
+                                              'fkuserclient':clientModel.fkUser.toString(),//صاحب العميل
                                               'reason_transfer':reason_transfer.toString(),
                                               'fkusertrasfer':reason_transfer.toString(),
                                               'date_transfer':reason_transfer.toString(),

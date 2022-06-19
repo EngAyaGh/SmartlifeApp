@@ -299,7 +299,7 @@ class _careAddState extends State<careAdd> {
 
   clear(value) {
 
-    Navigator.pop(context);
+   // Navigator.pop(context);
     // setState(() {
     //   widget.com=value;
     // });

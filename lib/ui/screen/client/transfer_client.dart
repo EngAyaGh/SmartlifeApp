@@ -86,6 +86,7 @@ class _transferClientState extends State<transferClient> {
                   Provider.of<ticket_vm>(context,listen: false)
                       .setfTicketclient_vm(
                       {
+                        'date_assign':DateTime.now().toString(),
                         'fk_user_recive':iduser,
                         'fkuser':iduser,//user reciept
                         'fk_client':widget.idclient,
@@ -98,6 +99,10 @@ class _transferClientState extends State<transferClient> {
                         //'idclient':
                       },widget.idticket
                   );
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (context)=>ticketclientview()),
+                          (route) => false
+                  );
                 }
                 else{
                   String? reason_transfer='transfer';
@@ -105,6 +110,7 @@ class _transferClientState extends State<transferClient> {
                   Provider.of<client_vm>(context,listen: false)
                       .setfkUserclient_vm(
                       {
+                        'date_transfer':DateTime.now().toString(),
                         'reason_transfer':iduser,
                         'fkuser':iduser,//user reciept
                         'nameusertransfer':
@@ -116,11 +122,13 @@ class _transferClientState extends State<transferClient> {
 
                       },widget.idclient
                   );
+                  Navigator.pop(context);
+                  // Navigator.pushAndRemoveUntil(context,
+                  //     MaterialPageRoute(builder: (context)=>ticketclientview()),
+                  //         (route) => false
+                  // );
                 }
-                Navigator.pushAndRemoveUntil(context,
-                    MaterialPageRoute(builder: (context)=>ticketclientview()),
-                        (route) => false
-                      );
+
               },
               child: Text('تأكيد العملية'),
             ),

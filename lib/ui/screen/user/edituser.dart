@@ -163,7 +163,8 @@ class _EditUserState extends State<EditUser> {
               //String id_country=Provider.of<country_vm>(context,listen: false).id_country;
               print("level in update button" + levelname.toString());
               print("regoin in update button" + regoinname.toString());
-              if (levelname != null) {
+              if (levelname != null &&
+                  emailController.text.toString().trim().isNotEmpty) {
                 // Provider.of<LoadProvider>(context, listen: false)
                 //     .changeboolUpdateUser(true);
                 Map<String,String?> body = {

@@ -119,6 +119,8 @@ class _addUserState extends State<addUser> {
                   RowEdit(name:'Email', des: 'Required'),
                   SizedBox(height: 2,),
                   EditTextFormField(
+
+
                     hintText: 'Email',
                     obscureText: false,
                     controller: emailController,
@@ -250,7 +252,9 @@ class _addUserState extends State<addUser> {
                           String? id_country=
                               Provider.of<user_vm_provider>(context,listen: false)
                                   .currentUser.fkCountry;
-                      if( level!=null && emailController.text.isNotEmpty&&nameController.text.isNotEmpty) {
+                      if( level!=null &&
+                          emailController.text.toString().trim().isNotEmpty
+                          &&nameController.text.toString().trim().isNotEmpty) {
                         Provider.of<LoadProvider>(context, listen: false)
                             .changeboolValueUser(true);
                        Map<String,String?> body={

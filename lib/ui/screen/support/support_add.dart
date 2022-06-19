@@ -98,20 +98,12 @@ class _support_addState extends State<support_add> {
 
   @override
   Widget build(BuildContext context) {
-    // if (widget.idinvoice != '') {
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
     _invoice = Provider.of<invoice_vm>(context, listen: true)
         .listinvoices
         .firstWhere((element) => element.idInvoice == widget.idinvoice);
-    // int index=Provider.of<invoice_vm>(context,listen: true)
-    //     .listinvoices.indexWhere((element) => element.idInvoice==widget.idinvoice);
-    // if(index!=-1){ _invoice=Provider.of<invoice_vm>(context,listen: true)
-    //     .listinvoices[index];
-    //   fk_client= _invoice!.fkIdClient;}
-    // // Provider.of<ticket_vm>(context, listen: true)
-    // //     .getclient_ticket( fk_client.toString());
-    // }
+
     final _globalKey = GlobalKey<FormState>();
 
     Widget dialog =
@@ -286,7 +278,8 @@ class _support_addState extends State<support_add> {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: buildcardExpansion('فاتورة  '+_invoice!.dateCreate.toString(),'',
+            child:
+            buildcardExpansion('فاتورة  '+_invoice!.dateCreate.toString(),'',
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0,right: 8.0,bottom: 5),
                   child: Column(
@@ -431,31 +424,11 @@ class _support_addState extends State<support_add> {
                     child: Text('إعادة تعيين تاريخ التركيب'),
                   )
                       : Container():Container(),
-                  //  valueresoan==true?   Padding(
-                  //   padding: const EdgeInsets.only(top:8.0),
-                  //   child:Form(
-                  //     key:_globalKey ,
-                  //     child: EditTextFormField(
-                  //       maxline: 4,
-                  //       hintText: 'أسباب إعادة الجدولة',
-                  //       obscureText: false,
-                  //       controller: _textsupport,
-                  //       vaild: (value) {
-                  //         if (value!.isEmpty) {
-                  //           return 'الحقل فارغ';
-                  //         }
-                  //       },
-                  //     ),
-                  //   ),
-                  // ):Container(),
+
                   SizedBox(
                     height: 20,
                   ),
-
-                  // cardRow(title: 'اسم المؤسسة',value: _invoice!.name_enterprise.toString()),
-                  // cardRow(title: 'معتمد الاشتراك ',value:_invoice!.nameuserApprove==null?'':
-                  // _invoice!.nameuserApprove.toString()),
-                  _invoice!.dateinstall_done == null
+                _invoice!.dateinstall_done == null
                       ? Container()
                       : cardRow(
                       title: ' تاريخ التركيب ',

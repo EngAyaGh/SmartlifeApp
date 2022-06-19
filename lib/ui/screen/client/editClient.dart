@@ -174,8 +174,10 @@ void didChangeDependencies() {
         if(typeclient_provider.selectedValuemanag == "عرض سعر")
         body={"date_price": formatter.format(DateTime.now()), };
        if( namemanage!=null)
-         body.addAll({"date_changetype": //typeclient_provider.selectedValuemanag == "منسحب"?
-            formatter.format(_currentDate)},//:"null",
+         body.addAll({
+           "date_changetype": //typeclient_provider.selectedValuemanag == "منسحب"?
+            formatter.format(_currentDate)
+         },//:"null",
           );
         body.addAll({
           'name_client': nameclientController.text,
@@ -492,7 +494,7 @@ void didChangeDependencies() {
 
   }
   DateTime _currentDate = DateTime.now();
-  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  final DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm:ss');
 
   Future<void> _selectDate(BuildContext context, DateTime currentDate) async {
     String output = formatter.format(currentDate);

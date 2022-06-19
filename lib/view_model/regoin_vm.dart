@@ -77,8 +77,11 @@ class regoin_vm extends ChangeNotifier{
     //var  data=await RegoinService().getRegoinByCountry("1");
     //listregoin= data as  List<RegoinModel>;
   }
+  bool isloading=false;
   Future<String> addRegoin_vm(Map<String, dynamic?> body) async {
 
+    isloading=true;
+    notifyListeners();
     String res = await Api().post(
         url: url+'users/add_regoin.php',//users/addmangemt.php
         body: body);
@@ -87,16 +90,20 @@ class regoin_vm extends ChangeNotifier{
         'id_reason':res,
       });
       listregoin.insert(0,RegoinModel.fromJson(body));
+      isloading=false;
       notifyListeners();
     }
     return res;
   }
   Future<String> update_regoin(Map<String, dynamic?> body, String idmanag) async {
-    //name_mange
+    isloading=true;
+    notifyListeners();
     String res = await Api().post(
         url: url+'users/update_regoin.php?id_regoin=${idmanag}',//users/addmangemt.php
         body: body);
+
     listregoin.add(RegoinModel.fromJson(body));
+    isloading=false;
     notifyListeners();
 
     return res;

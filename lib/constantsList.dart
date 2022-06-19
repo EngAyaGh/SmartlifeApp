@@ -45,7 +45,6 @@ final List<Widget> listwidget=[
   marketingpage(),
   managmentpage(),
   financepage()
-
 ];
 final List<dynamic> listHome = [
   [

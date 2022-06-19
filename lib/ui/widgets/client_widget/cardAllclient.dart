@@ -19,7 +19,8 @@ class cardAllClient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Container(
+    return
+      Container(
       //color: itemNotify.isread==0?Colors.black12: Colors.white30,
 
       decoration: BoxDecoration(

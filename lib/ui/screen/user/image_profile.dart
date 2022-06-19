@@ -190,7 +190,8 @@ class ImageProfile extends StatelessWidget {
 
   void takePhoto(ImageSource source,context) async {
     final pickedImage =
-    await imagePicker.pickImage(source: source, imageQuality: 100);
+    await imagePicker.pickImage(
+        source: source, imageQuality: 100,);
     pickedFile = File(pickedImage!.path);
     print(pickedFile!.path);
     Provider.of<user_vm_provider>(context,listen: false)
