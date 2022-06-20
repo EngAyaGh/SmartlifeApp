@@ -217,7 +217,7 @@ class _support_addState extends State<support_add> {
                          obscureText: false,
                          controller: _textsupport,
                          vaild: (value) {
-                           if (value!.isEmpty) {
+                           if (value.toString().trim().isEmpty) {
                              return 'الحقل فارغ';
                            }
                          },

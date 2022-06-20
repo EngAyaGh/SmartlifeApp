@@ -68,11 +68,10 @@ class _TicketViewState extends State<TicketView> {
                 //cardRow(title: 'وصف المشكلة',value: widget.ticketModel.detailsProblem.toString(),isExpanded: true,),
                 cardRow(title: 'تفاصيل التذكرة',value: widget.ticketModel.detailsProblem.toString(),isExpanded: true,),
                 SizedBox(height: 10,),
-
                 widget.type==null?
                 Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                   widget.ticketModel.dateRecive==null?
                   Provider.of<privilge_vm>(context,listen: false)
                       .checkprivlge('71') == true ?

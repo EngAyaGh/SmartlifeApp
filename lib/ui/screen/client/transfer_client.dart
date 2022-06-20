@@ -4,6 +4,7 @@ import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/screen/home/home.dart';
 import 'package:crm_smart/ui/screen/home/ticket/ticketclientview.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -26,6 +27,7 @@ class transferClient extends StatefulWidget {
 
 class _transferClientState extends State<transferClient> {
   late final String iduser;
+  TextEditingController _textresoan =TextEditingController();
 
   @override
   Future<void> didChangeDependencies() async {
@@ -76,6 +78,21 @@ class _transferClientState extends State<transferClient> {
               },
             ),
             SizedBox(height: 5,),
+            widget.type=="ticket"?
+            EditTextFormField(
+              maxline: 4,
+              paddcustom: EdgeInsets.all(10),
+              hintText:
+              'أسباب إعادة الجدولة',
+              obscureText: false,
+              controller: _textresoan,
+              vaild: (value) {
+                if (value.toString().trim().isEmpty) {
+                  return 'الحقل فارغ';
+                }
+              },
+            ) :Container(),
+            SizedBox(height: 5,),
             ElevatedButton(
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
@@ -86,6 +103,7 @@ class _transferClientState extends State<transferClient> {
                   Provider.of<ticket_vm>(context,listen: false)
                       .setfTicketclient_vm(
                       {
+                        'resoan_transfer':_textresoan.text,
                         'date_assign':DateTime.now().toString(),
                         'fk_user_recive':iduser,
                         'fkuser':iduser,//user reciept
@@ -104,7 +122,7 @@ class _transferClientState extends State<transferClient> {
                           (route) => false
                   );
                 }
-                else{
+                else {
                   String? reason_transfer='transfer';
                   //update fkuser to new user
                   Provider.of<client_vm>(context,listen: false)

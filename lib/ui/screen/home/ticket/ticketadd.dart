@@ -201,11 +201,6 @@ class _ticketAddState extends State<ticketAdd> {
                               if (_globalKey.currentState!.validate()) {
                                 _globalKey.currentState!.save();
                                 if (widget.fk_client != null) {
-
-
-                                // await  Provider.of<ticket_vm>(context,listen: false)
-                                //   .getclient_ticket_close(widget.fk_client.toString());
-
                                   bool isav= await Provider.of<ticket_vm>(context, listen: false)
                                       .addticket({
                                     'name_enterprise': name_enterprise,

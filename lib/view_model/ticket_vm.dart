@@ -43,8 +43,8 @@ class ticket_vm extends ChangeNotifier{
     TicketModel tm=  TicketModel.fromJson(data[0]);
     listticket.add(tm);
     addvalue=false;
-    tickesearchlist=listticket;
-    listticket_clientfilter=listticket;
+    tickesearchlist=List.from(listticket);
+    listticket_clientfilter=List.from(listticket);
     notifyListeners();
 
   }
