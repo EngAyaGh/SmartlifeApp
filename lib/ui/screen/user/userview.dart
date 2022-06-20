@@ -141,7 +141,9 @@ class _UserScreenState extends State<UserScreen> {
                                 borderRadius: BorderRadius.circular(100),
 
                                 child: CachedNetworkImage(
-                                    progressIndicatorBuilder: (context, url, progress) => Center(
+                                    width: 500,height: 500,fit: BoxFit.fill,
+                                    progressIndicatorBuilder: (context, url, progress) =>
+                                        Center(
                                     child: CircularProgressIndicator(
                                       value: progress.progress,
                                     ),

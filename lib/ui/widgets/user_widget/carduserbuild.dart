@@ -50,6 +50,7 @@ class buildCardUsers extends StatelessWidget {
                    borderRadius: BorderRadius.circular(45),
 
                    child: CachedNetworkImage(
+                       width: 500,height: 500,fit: BoxFit.fill,
                     placeholder: (context, url) =>
                     const CircularProgressIndicator(),
                     imageUrl: usermodell.img_image!,

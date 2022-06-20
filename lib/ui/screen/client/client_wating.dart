@@ -51,9 +51,9 @@ class _ClientWaitingState extends State<ClientWaiting> {
       //  Provider.of<invoice_vm>(context, listen: false).getinvoice_Local("مشترك",'approved only');
       //if(widget.type=='client')
       Provider.of<invoice_vm>(context,listen: false).listInvoicesAccept=[];
-      Provider.of<maincity_vm>
+      await Provider.of<maincity_vm>
         (context,listen: false)
-          .getcityAll();
+          .getmaincity();
       Provider.of<maincity_vm>
         (context,listen: false).changevalue(null);
       Provider.of<typeclient>(context,listen: false).changelisttype_install(null);

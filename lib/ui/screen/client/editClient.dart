@@ -314,27 +314,25 @@ void didChangeDependencies() {
                       //admin
 
                       RowEdit(name: label_clientcity, des: 'Required'),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0,right: 8),
-                          child: Consumer<maincity_vm>(
-                              builder: (context, cart, child){
-                                return DropdownButton(
-                                  isExpanded: true,
-                                  hint: Text(label_clientcity),
-                                  items: cart.listcity.map((city) {
-                                    return DropdownMenuItem(
-                                      child: Text(city.name_city), //label of item
-                                      value: city.id_city, //value of item
-                                    );
-                                  }).toList(),
-                                  value:cart.selectedValuemanag,
-                                  onChanged:(value) {
-                                    cityController.text=value.toString();
-                                    cart.changevalue(value.toString());
-                                  },
-                                );}
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0,right: 8),
+                        child: Consumer<maincity_vm>(
+                            builder: (context, cart, child){
+                              return DropdownButton(
+                                isExpanded: true,
+                                hint: Text(label_clientcity),
+                                items: cart.listcity.map((city) {
+                                  return DropdownMenuItem(
+                                    child: Text(city.name_city), //label of item
+                                    value: city.id_city, //value of item
+                                  );
+                                }).toList(),
+                                value:cart.selectedValuemanag,
+                                onChanged:(value) {
+                                  cityController.text=value.toString();
+                                  cart.changevalue(value.toString());
+                                },
+                              );}
                         ),
                       ),
                       // EditTextFormField(

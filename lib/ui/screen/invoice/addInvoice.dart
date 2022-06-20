@@ -270,7 +270,7 @@ else{
                           obscureText: false,
                           hintText: label_amount_paid,
                           vaild: (value) {
-                            if (value.toString().trim()!.isEmpty) {
+                            if (value.toString().trim().isEmpty) {
                               return label_empty;
                             }
                             if(double.tryParse(value.toString()) == null)
@@ -294,7 +294,7 @@ else{
                           hintText: label_renew,
                           obscureText: false,
                           vaild: (value) {
-                            if (value.toString().trim()!.isEmpty) {
+                            if (value.toString().trim().isEmpty) {
                               return label_empty;
                             }
                             if(double.tryParse(value.toString()) == null)
@@ -434,11 +434,11 @@ else{
                               source: ImageSource.gallery,
                               imageQuality: 100,);
                             File?   pickedFile = File(pickedImage!.path);
-                            print(pickedFile!.path);
+                            print(pickedFile.path);
                             _myfile=pickedFile;
                             _invoice!.path=pickedFile.path;
 
-                            Navigator.of(context).pop();
+                            //Navigator.of(context).pop();
                             //  FilePickerResult? result
                             //  = await FilePicker.platform.pickFiles(
                             //   // allowedExtensions: ['pdf'],

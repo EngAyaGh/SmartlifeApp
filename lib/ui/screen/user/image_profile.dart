@@ -34,8 +34,9 @@ class ImageProfile extends StatelessWidget {
                   .currentUser.path!.isNotEmpty
                   ? ClipRRect(
                 borderRadius: BorderRadius.circular(100),
-                    child: Image.file(File(Provider.of<user_vm_provider>(context,listen: true)
-                    .currentUser.path!),
+                    child: Image.file(
+                      File(Provider.of<user_vm_provider>(context,listen: true)
+                    .currentUser.path!),width: 1000,height: 1000,fit: BoxFit.fill,
                 // fit: BoxFit.fill,
               ),
                   )
@@ -44,6 +45,7 @@ class ImageProfile extends StatelessWidget {
                   ? ClipRRect(
                 borderRadius: BorderRadius.circular(100),
                 child: CachedNetworkImage(
+                    width: 1000,height: 1000,fit: BoxFit.fill,
                     progressIndicatorBuilder: (context, url, progress) => Center(
                       child: CircularProgressIndicator(
                         value: progress.progress,),),
@@ -191,7 +193,7 @@ class ImageProfile extends StatelessWidget {
   void takePhoto(ImageSource source,context) async {
     final pickedImage =
     await imagePicker.pickImage(
-        source: source, imageQuality: 100,);
+        source: source, imageQuality: 100,maxHeight:1000,maxWidth: 1000 );
     pickedFile = File(pickedImage!.path);
     print(pickedFile!.path);
     Provider.of<user_vm_provider>(context,listen: false)

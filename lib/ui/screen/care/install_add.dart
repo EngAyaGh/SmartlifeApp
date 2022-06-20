@@ -204,7 +204,11 @@ class _installAddState extends State<installAdd> {
                 cardRow(
                     title: 'تاريخ التركيب',
                     value:widget.com.dateinstall_done.toString()):Container(),
-
+                  SizedBox(height: 10,),
+                widget.com.typeCommuncation=='تركيب'&&widget.com.dateCommunication!=null?
+                cardRow(
+                    title: 'تاريخ التركيب',
+                    value:widget.com.dateCommunication.toString()):Container(),
 
                 widget.com.typeCommuncation=='ترحيب'&&widget.com.dateCommunication!=null?
                 cardRow(
@@ -321,9 +325,9 @@ class _installAddState extends State<installAdd> {
   clear(value) {
 
    // Navigator.pop(context);
-    // setState(() {
-    //   widget.com=value;
-    // });
+    setState(() {
+      widget.com=value;
+    });
   }
 
 }

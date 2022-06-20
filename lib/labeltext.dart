@@ -49,7 +49,7 @@ const String label_typepay='طريقة الدفع';
 const String label_typeinstall='طريقة التركيب للعميل';
 
 const String label_note='ملاحظات المبيعات';
-const String label_image=' ملف pdf لصورة السجل التجاري';
+const String label_image='  صورة السجل التجاري';
 const String label_total='إجمالي الفاتورة';
 const String label_addinvoice='حفظ';
 

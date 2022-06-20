@@ -65,6 +65,7 @@ class cardcomment extends StatelessWidget {
                                   :  ClipRRect(
                                 borderRadius: BorderRadius.circular(45),
                                     child: CachedNetworkImage(
+                                      width: 1000,height: 1000,fit: BoxFit.fill,
                                 placeholder: (context, url) =>
                                 const CircularProgressIndicator(),
                                 imageUrl: commentmodel.imgImage.toString(),

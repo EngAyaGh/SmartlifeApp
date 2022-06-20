@@ -237,7 +237,7 @@ void calculate(){
                                   RowEdit(name: 'السعر', des: ''),
                                   EditTextFormField(
                                     vaild: (value) {
-                                      if (value.toString().trim()!.isEmpty) {
+                                      if (value.toString().trim().isEmpty) {
                                         return label_empty;
                                       }
                                       if(double.tryParse(value.toString()) == null)

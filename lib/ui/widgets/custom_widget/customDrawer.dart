@@ -58,6 +58,7 @@ return  Drawer(
               borderRadius: BorderRadius.circular(45),
 
               child: CachedNetworkImage(
+                  width: 500,height: 500,fit: BoxFit.fill,
                 progressIndicatorBuilder: (context, url, progress) => Center(
                   child: CircularProgressIndicator(
                     value: progress.progress,
