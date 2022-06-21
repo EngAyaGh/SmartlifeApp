@@ -26,6 +26,7 @@ import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/ticket_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
+import 'package:crm_smart/view_model/usertest_vm.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -119,6 +120,10 @@ void main() async {
 
         ChangeNotifierProxyProvider<user_vm_provider,client_vm>(
              create: (_)=> client_vm(),
+            update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
+        ),
+        ChangeNotifierProxyProvider<user_vm_provider,usertest_vm>(
+             create: (_)=> usertest_vm(),
             update: (ctx,value,prev)=>prev!..setvalue(value.currentUser),
         ),
 

@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:crm_smart/provider/config_vm.dart';
 import 'package:crm_smart/ui/screen/config/addreson.dart';
 import 'package:crm_smart/ui/screen/config/config_view.dart';
+import 'package:crm_smart/ui/screen/config/maincityview.dart';
 import 'package:crm_smart/ui/screen/config/manageview.dart';
 import 'package:crm_smart/ui/screen/config/regoin_view.dart';
 import 'package:crm_smart/ui/screen/config/reson_view.dart';
@@ -173,7 +174,22 @@ class _managmentpageState extends State<managmentpage> {
                     ),
                   );
                 }, title: 'أسباب الانسحاب'):Container(),
-           privilge.checkprivlge('74')==true?
+           privilge.checkprivlge('77')==true?
+        buildSelectCategory(
+                colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context)
+                      => maincityview(),
+
+                    ),
+                  );
+                }, title: ' ادارة المناطق والمدن'):Container(),
+  privilge.checkprivlge('74')==true?
         buildSelectCategory(
                 colorbag: Colors.white,
                 colortitle: Colors.black,

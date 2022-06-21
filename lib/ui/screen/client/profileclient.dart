@@ -9,6 +9,7 @@ import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/ui/screen/care/careView.dart';
 import 'package:crm_smart/ui/screen/care/care_client_view.dart';
 import 'package:crm_smart/ui/screen/care/comment_view.dart';
+import 'package:crm_smart/ui/screen/home/ticket/ticketprofile.dart';
 import 'package:crm_smart/ui/screen/invoice/invoces.dart';
 import 'package:crm_smart/ui/screen/invoice/invoiceView.dart';
 import 'package:crm_smart/ui/screen/support/support_add.dart';
@@ -49,30 +50,30 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
   WidgetsBinding.instance!.addPostFrameCallback((_)async {
     await Provider.of<invoice_vm>(context,listen: false)
         .get_invoiceclientlocal(widget.idclient,'مشترك');
+
   await  Provider.of<communication_vm>(context, listen: false)
         .getCommunicationall('');
+
      Provider.of<client_vm>(context,listen: false)
      .get_byIdClient(widget.idclient.toString());
 
-    Provider.of<invoice_vm>(context, listen: false)
+     Provider.of<invoice_vm>(context, listen: false)
         .get_invoiceclientlocal(widget.idclient,'');
-    // Provider.of<invoice_vm>(context,listen: false)
-    //     .get_invoiceclientlocal(widget.itemClient.idClients,'مشترك');
-    Provider.of<communication_vm>(context, listen: false)
+
+      Provider.of<communication_vm>(context, listen: false)
         .getCommunicationclient(widget.idclient.toString());
 
     Provider.of<comment_vm>(context, listen: false)
         .getComment(widget.idclient.toString());
 
-    // Provider.of<ticket_vm>(context, listen: false)
-    //     .getclient_ticket(widget.idclient.toString());
-        //.getclient_ticket(_invoice!.fkIdClient.toString());
     Provider.of<ticket_vm>(context, listen: false)
         .getclient_ticket( widget.idclient.toString());
   });
 
   super.initState();
-    _tabcontroller= TabController(length: 5, vsync: this,initialIndex:indextab);
+    _tabcontroller= TabController(
+        length: 6, vsync: this,
+        initialIndex:indextab);
 }
 @override void didChangeDependencies() {
 
@@ -115,7 +116,7 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
           indicatorSize: TabBarIndicatorSize.label,
           controller: _tabcontroller,
           indicatorColor: kWhiteColor,
-          indicatorWeight: 5,
+          indicatorWeight: 6,
 
           // indicator: BoxDecoration(
           //   color: kWhiteColor,
@@ -176,6 +177,16 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
                 //decorationStyle: TextDecorationStyle.double
               ),
             ),
+            Text(
+              'التذاكر ',
+              style: TextStyle(
+                fontFamily: kfontfamily2,
+                //fontWeight: FontWeight.bold,
+                //color: _tabBarIndex == 1?kMainColor : kUnActiveColor,
+                //fontSize: _tabBarIndex == 3 ? 20 : null,
+                //decorationStyle: TextDecorationStyle.double
+              ),
+            ),
           ],
         ),
       ),
@@ -215,7 +226,10 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
                 //   idinvoice:_invoiceModel==null?'': _invoiceModel!.idInvoice,
                 //
                 // ),
-                care_client_view(   fk_client:_clientModel.idClients.toString(),),
+                care_client_view(
+                  fk_client:_clientModel.idClients.toString(),),
+
+                ticketprofile(itemClient: _clientModel,),
                 //InvoiceView(invoice: _invoiceModel,),
                 //Icon(Icons.add),
               ],

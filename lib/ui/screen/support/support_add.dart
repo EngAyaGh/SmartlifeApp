@@ -39,6 +39,7 @@ class support_add extends StatefulWidget {
 
 class _support_addState extends State<support_add> {
   TextEditingController _textsupport = TextEditingController();
+  TextEditingController _textnameuserclient = TextEditingController();
   TextEditingController _timeController = TextEditingController();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -48,6 +49,8 @@ class _support_addState extends State<support_add> {
   @override
   void dispose() {
     _textsupport.dispose();
+    _textnameuserclient.dispose();
+    _timeController.dispose();
     super.dispose();
   }
  late TimeOfDay timinit;
@@ -230,7 +233,6 @@ class _support_addState extends State<support_add> {
                    _currentDate.year, _currentDate.month,
                    _currentDate.day,
                    selectedTime.hour, selectedTime.minute);
-
                    if (_globalKey.currentState!
                                .validate()) {
                      Navigator.of(context, rootNavigator: true)
@@ -503,65 +505,87 @@ class _support_addState extends State<support_add> {
                                 title: Text('التأكيد'),
                                 content: Text('هل تريد تأكيد عملية التركيب'),
                                 actions: <Widget>[
-                                  new ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                        MaterialStateProperty.all(
-                                            kMainColor)),
-                                    onPressed: () {
-                                      Navigator.of(context,
-                                          rootNavigator: true)
-                                          .pop(
-                                          false); // dismisses only the dialog and returns false
-                                    },
-                                    child: Text('لا'),
-                                  ),
-                                  ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                        MaterialStateProperty.all(
-                                            kMainColor)),
-                                    onPressed: () async {
-                                      await Provider.of<config_vm>(context, listen: false).getAllConfig();
-                                      List<ConfigModel> _listconfg =
-                                          Provider.of<config_vm>(context, listen: false)
-                                              .listofconfig;
+                                  Column(
+                                    children: [
+                                      EditTextFormField(
+                                        maxline: 4,
+                                        paddcustom: EdgeInsets.all(10),
+                                        hintText:
+                                        ' يوزر العميل',
+                                        obscureText: false,
+                                        controller: _textnameuserclient,
+                                        vaild: (value) {
+                                          if (value.toString().trim().isEmpty) {
+                                            return 'الحقل فارغ';
+                                          }
+                                        },
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Row(
+                                        children: [
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  kMainColor)),
+                                          onPressed: () {
+                                            Navigator.of(context,
+                                                rootNavigator: true)
+                                                .pop(
+                                                false); // dismisses only the dialog and returns false
+                                          },
+                                          child: Text('لا'),
+                                        ),
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  kMainColor)),
+                                          onPressed: () async {
+                                            await Provider.of<config_vm>(context, listen: false).getAllConfig();
+                                            List<ConfigModel> _listconfg =
+                                                Provider.of<config_vm>(context, listen: false)
+                                                    .listofconfig;
 
-                                   ConfigModel   peroid =
-                                          _listconfg.firstWhere((element) =>
-                                          element.name_config == 'period_commincation3');//تواصل دوري
-                                      DateTime datanext=DateTime.now();
-                                      int peroidtime= int.parse(peroid.value_config);
-                                      datanext=Jiffy().add(days: peroidtime).dateTime;
-                                      print(datanext.toString());
-                                      Navigator.of(context,
-                                          rootNavigator: true)
-                                          .pop(true);
-                                      Provider.of<invoice_vm>(context,
-                                          listen: false)
-                                          .setdatedone_vm({
-                                        'datanext':datanext.toString(),
-                                        'dateinstall_done':
-                                        DateTime.now().toString(),
-                                        'userinstall':
-                                        Provider.of<user_vm_provider>(
-                                            context,
-                                            listen: false).currentUser.idUser.toString(),
-                                        'isdoneinstall': '1',
-                                        'fkIdClient': _invoice!.fkIdClient,
-                                        'nameuserinstall':
-                                        Provider.of<user_vm_provider>(
-                                            context,
-                                            listen: false).currentUser.nameUser.toString(),
-                                        'name_enterprise':
-                                        _invoice!.name_enterprise,
-                                        'fkcountry': _invoice!.fk_country,
-                                        'fk_regoin': _invoice!.fk_regoin
-                                      }, _invoice!.idInvoice).then(
-                                              (value) => clear());
-                                    },
-                                    child: Text('نعم'),
+                                            ConfigModel   peroid =
+                                            _listconfg.firstWhere((element) =>
+                                            element.name_config == 'period_commincation3');//تواصل دوري
+                                            DateTime datanext=DateTime.now();
+                                            int peroidtime= int.parse(peroid.value_config);
+                                            datanext=Jiffy().add(days: peroidtime).dateTime;
+                                            print(datanext.toString());
+                                            Navigator.of(context,
+                                                rootNavigator: true)
+                                                .pop(true);
+                                            Provider.of<invoice_vm>(context,
+                                                listen: false)
+                                                .setdatedone_vm({
+                                              'datanext':datanext.toString(),
+                                              'dateinstall_done':
+                                              DateTime.now().toString(),
+                                              'userinstall':
+                                              Provider.of<user_vm_provider>(
+                                                  context,
+                                                  listen: false).currentUser.idUser.toString(),
+                                              'isdoneinstall': '1',
+                                              'fkIdClient': _invoice!.fkIdClient,
+                                              'nameuserinstall':
+                                              Provider.of<user_vm_provider>(
+                                                  context,
+                                                  listen: false).currentUser.nameUser.toString(),
+                                              'name_enterprise':
+                                              _invoice!.name_enterprise,
+                                              'fkcountry': _invoice!.fk_country,
+                                              'fk_regoin': _invoice!.fk_regoin
+                                            }, _invoice!.idInvoice).then(
+                                                    (value) => clear());
+                                          },
+                                          child: Text('نعم'),
+                                        ),
+                                      ],)
+                                    ],
                                   ),
+
                                 ],
                               ),
                             );

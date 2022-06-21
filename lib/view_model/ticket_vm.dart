@@ -13,6 +13,7 @@ class ticket_vm extends ChangeNotifier{
 
   List<TicketModel> listticket=[];
   List<TicketModel> listticket_client=[];
+  List<TicketModel> listticket_clientprofile=[];
   List<TicketModel> listticket_clientfilter=[];
   List<TicketModel> tickesearchlist=[];
   UserModel? usercurrent;
@@ -41,9 +42,9 @@ class ticket_vm extends ChangeNotifier{
     body
     );
     TicketModel tm=  TicketModel.fromJson(data[0]);
-    listticket.add(tm);
+    listticket.insert(0,tm);
     addvalue=false;
-    tickesearchlist=List.from(listticket);
+    tickesearchlist.insert(0, tm);//List.from(listticket);
     listticket_clientfilter=List.from(listticket);
     notifyListeners();
 
@@ -75,6 +76,8 @@ class ticket_vm extends ChangeNotifier{
   }
   Future<bool> updateTicketvm(Map<String, dynamic?> body,String? id_ticket)
   async {
+    isloading=true;
+    notifyListeners();
     var data = await Api()
         .post(
         url:url+"ticket/recive_ticket.php?id_ticket=$id_ticket",
@@ -86,13 +89,16 @@ class ticket_vm extends ChangeNotifier{
     listticket[index]=TicketModel.fromJson(data[0]);
     index=tickesearchlist.indexWhere(
             (element) => element.idTicket==id_ticket);
+    tickesearchlist[index]=TicketModel.fromJson(data[0]);
     tickesearchlist.removeAt(index);
+    isloading=false;
     notifyListeners();
-
     return true;
   }
-  Future<void> setfTicketclient_vm(Map<String, dynamic?> body,String? id_ticket) async {
 
+  Future<void> setfTicketclient_vm(Map<String, dynamic?> body,String? id_ticket) async {
+   isloading=true;
+   notifyListeners();
    var data= await Api()
         .post( url:url+"ticket/trasfer_ticket.php?id_ticket=$id_ticket",
         body: body
@@ -101,7 +107,8 @@ class ticket_vm extends ChangeNotifier{
               (element) => element.idTicket==id_ticket);
     listticket[index]=TicketModel.fromJson(data[0]);
    // listticket.removeAt(index);
-   tickesearchlist=listticket;
+   tickesearchlist=List.from( listticket);
+   isloading=false;
       notifyListeners();
 
   }
@@ -200,7 +207,6 @@ Future<void> getticket() async {
   for (int i = 0; i < data.length; i++) {
 
     prodlist.add(TicketModel.fromJson(data[i]));
-
   }
   listticket=prodlist;
 

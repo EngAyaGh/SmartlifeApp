@@ -66,6 +66,8 @@ String showtext(String typeNotify){
       return "انسحاب العميل";
       case "InvoiceReplay":
       return "إعادة جدولة العميل  ";
+      case "TransferTicket":
+      return "تحويل تذكرة العميل";
   }
   return "";
 }
@@ -141,6 +143,7 @@ void route_notifyto(typeNotify,context,
       Navigator.push(context,
           MaterialPageRoute(
               builder: (context) => ProfileClient(
+                tabindex: 5,
                 //idinvoice: data==null?datanotify:  data['id_invoice'],
                 idclient: data==null?datanotify: data['idclient'],
               )
@@ -171,6 +174,15 @@ void route_notifyto(typeNotify,context,
           MaterialPageRoute(
               builder: (context) => ProfileClient(
                 tabindex: 3,
+                idclient: data==null?datanotify: data['idclient'],
+              )
+          ));
+      break;
+      case "TransferTicket":
+      Navigator.push(context,
+          MaterialPageRoute(
+              builder: (context) => ProfileClient(
+                tabindex: 5,
                 idclient: data==null?datanotify: data['idclient'],
               )
           ));

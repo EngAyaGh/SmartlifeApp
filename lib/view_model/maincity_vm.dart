@@ -110,7 +110,7 @@ class maincity_vm extends ChangeNotifier{
     return res;
   }
   Future<void> getcity(String fkmain)async {
-
+    listcity=[];
     if(listcity.isEmpty){
       List<dynamic> data=[];
       data= await Api()

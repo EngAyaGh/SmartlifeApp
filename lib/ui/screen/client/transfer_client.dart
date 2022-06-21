@@ -11,6 +11,7 @@ import 'package:crm_smart/view_model/user_vm_provider.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import '../../../constants.dart';
@@ -48,109 +49,115 @@ class _transferClientState extends State<transferClient> {
         icon: Icon(Icons.arrow_back, color: kWhiteColor),
     onPressed: () => Navigator.of(context).pop(),
     )),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Text("من فضلك اختر اسم الموظف الذي ترغب بتحويل العميل إليه"),
-            SizedBox(height: 10,),
-            Consumer<user_vm_provider>(
-              builder: (context, cart, child){
-              return  DropdownSearch<UserModel>(
-                mode: Mode.DIALOG,
-                  label: "Name",
-                  //onFind: (String filter) => cart.getfilteruser(filter),
-               filterFn: (user, filter) => user!.getfilteruser(filter!),
-                //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
-                 // itemAsString: (UserModel u) => u.userAsStringByName(),
-                items: cart.userall,
-                itemAsString:
-                    ( u) => u!.userAsString(),
-               // selectedItem: cart.currentUser,
-                  onChanged: (data) => iduser=data!.idUser!,//print(data!.nameUser),
-                showSearchBox: true,
-                dropdownSearchDecoration: InputDecoration(
-                  labelText: "choose a user",
-                  contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
-                  border: OutlineInputBorder(),
-                ),
-                );
-              },
-            ),
-            SizedBox(height: 5,),
-            widget.type=="ticket"?
-            EditTextFormField(
-              maxline: 4,
-              paddcustom: EdgeInsets.all(10),
-              hintText:
-              'أسباب إعادة الجدولة',
-              obscureText: false,
-              controller: _textresoan,
-              vaild: (value) {
-                if (value.toString().trim().isEmpty) {
-                  return 'الحقل فارغ';
-                }
-              },
-            ) :Container(),
-            SizedBox(height: 5,),
-            ElevatedButton(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      kMainColor)),
-              onPressed: () {
-                if(widget.type=="ticket"){
-                  //update fkuser to new user
-                  Provider.of<ticket_vm>(context,listen: false)
-                      .setfTicketclient_vm(
-                      {
-                        'resoan_transfer':_textresoan.text,
-                        'date_assign':DateTime.now().toString(),
-                        'fk_user_recive':iduser,
-                        'fkuser':iduser,//user reciept
-                        'fk_client':widget.idclient,
-                        'nameusertransfer':
-                         Provider.of<user_vm_provider>(context,listen: false)
-                            .currentUser.nameUser.toString(),//الموظف الذي حول العميل
-                        'name_enterprise':widget.name_enterprise,
-                        'fkusertrasfer':Provider.of<user_vm_provider>(context,listen: false)
-                            .currentUser.idUser.toString(),
-                        //'idclient':
-                      },widget.idticket
+      body: ModalProgressHUD(
+        inAsyncCall: Provider.of<ticket_vm>(context,listen: false)
+        .isloading,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Text("من فضلك اختر اسم الموظف الذي ترغب بتحويل العميل إليه"),
+              SizedBox(height: 10,),
+              Consumer<user_vm_provider>(
+                builder: (context, cart, child){
+                return  DropdownSearch<UserModel>(
+                  mode: Mode.DIALOG,
+                    label: "Name",
+                    //onFind: (String filter) => cart.getfilteruser(filter),
+                 filterFn: (user, filter) => user!.getfilteruser(filter!),
+                  //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
+                   // itemAsString: (UserModel u) => u.userAsStringByName(),
+                  items: cart.userall,
+                  itemAsString:
+                      ( u) => u!.userAsString(),
+                 // selectedItem: cart.currentUser,
+                    onChanged: (data) => iduser=data!.idUser!,//print(data!.nameUser),
+                  showSearchBox: true,
+                  dropdownSearchDecoration: InputDecoration(
+                    labelText: "choose a user",
+                    contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    border: OutlineInputBorder(),
+                  ),
                   );
-                  Navigator.pushAndRemoveUntil(context,
-                      MaterialPageRoute(builder: (context)=>ticketclientview()),
-                          (route) => false
-                  );
-                }
-                else {
-                  String? reason_transfer='transfer';
-                  //update fkuser to new user
-                  Provider.of<client_vm>(context,listen: false)
-                      .setfkUserclient_vm(
-                      {
-                        'date_transfer':DateTime.now().toString(),
-                        'reason_transfer':iduser,
-                        'fkuser':iduser,//user reciept
-                        'nameusertransfer':
-                        Provider.of<user_vm_provider>(context,listen: false)
-                            .currentUser.nameUser.toString(),//الموظف الذي حول العميل
-                        'name_enterprise':widget.name_enterprise,
-                        'fkusertrasfer':    Provider.of<user_vm_provider>(context,listen: false)
-                            .currentUser.idUser.toString(),
+                },
+              ),
+              SizedBox(height: 5,),
+              widget.type=="ticket"?
+              EditTextFormField(
+                maxline: 4,
+                paddcustom: EdgeInsets.all(10),
+                hintText:
+                'أسباب إعادة الجدولة',
+                obscureText: false,
+                controller: _textresoan,
+                vaild: (value) {
+                  if (value.toString().trim().isEmpty) {
+                    return 'الحقل فارغ';
+                  }
+                },
+              ) :Container(),
+              SizedBox(height: 5,),
+              ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        kMainColor)),
+                onPressed: () async{
+                  if(widget.type=="ticket"){
+                    //update fkuser to new user
+                   await Provider.of<ticket_vm>(context,listen: false)
+                        .setfTicketclient_vm(
+                        {
+                          'resoan_transfer':_textresoan.text,
+                          'date_assigntr':DateTime.now().toString(),
+                          'fk_user_recive':iduser,
+                          'fkuser':iduser,//user reciept
+                          'fk_client':widget.idclient,
+                          'nameusertransfer':
+                           Provider.of<user_vm_provider>(context,listen: false)
+                              .currentUser.nameUser.toString(),//الموظف الذي حول العميل
+                          'name_enterprise':widget.name_enterprise,
+                          'fkusertrasfer':Provider.of<user_vm_provider>(context,listen: false)
+                              .currentUser.idUser.toString(),
+                          //'idclient':
+                        },widget.idticket
+                    );
+                    Navigator.pop(context);
+                    // Navigator.pushAndRemoveUntil(context,
+                    //     MaterialPageRoute(
+                    //         builder: (context)=>ticketclientview()),
+                    //         (route) => false
+                    // );
+                  }
+                  else {
+                    String? reason_transfer='transfer';
+                    //update fkuser to new user
+                    Provider.of<client_vm>(context,listen: false)
+                        .setfkUserclient_vm(
+                        {
+                          'date_transfer':DateTime.now().toString(),
+                          'reason_transfer':iduser,
+                          'fkuser':iduser,//user reciept
+                          'nameusertransfer':
+                          Provider.of<user_vm_provider>(context,listen: false)
+                              .currentUser.nameUser.toString(),//الموظف الذي حول العميل
+                          'name_enterprise':widget.name_enterprise,
+                          'fkusertrasfer':    Provider.of<user_vm_provider>(context,listen: false)
+                              .currentUser.idUser.toString(),
 
-                      },widget.idclient
-                  );
-                  Navigator.pop(context);
-                  // Navigator.pushAndRemoveUntil(context,
-                  //     MaterialPageRoute(builder: (context)=>ticketclientview()),
-                  //         (route) => false
-                  // );
-                }
+                        },widget.idclient
+                    );
+                    Navigator.pop(context);
+                    // Navigator.pushAndRemoveUntil(context,
+                    //     MaterialPageRoute(builder: (context)=>ticketclientview()),
+                    //         (route) => false
+                    // );
+                  }
 
-              },
-              child: Text('تأكيد العملية'),
-            ),
-          ],
+                },
+                child: Text('تأكيد العملية'),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -21,14 +21,14 @@ class TicketModel {
     required this.nameuserrecive,
     required this.nameuserclose,
     required this.fk_country,
-     this.nameusertransfer,
-     this.fkusertrasfer,
+
      this.mobile,
+     this.transferticket,
 
   });
   late final String idTicket;
   late final String fkClient;
-  late final String typeProblem;
+  late final String? typeProblem;
   late final String? detailsProblem;
   late final String? notesTicket;
   late final String typeTicket;
@@ -47,9 +47,9 @@ class TicketModel {
   late final String? nameuserrecive;
   late final String? nameuserclose;
   late final String fk_country;
-  late final String? nameusertransfer;
-  late final String? fkusertrasfer;
+
   late final String? mobile;
+  late List<TransferTicket>? transferticket=[];
 
   TicketModel.fromJson(Map<String, dynamic> json){
     idTicket = json['id_ticket'];
@@ -73,9 +73,9 @@ class TicketModel {
     nameuserrecive = json['nameuserrecive'];
     nameuserclose = json['nameuserclose'];
     fk_country = json['fk_country'];
-    nameusertransfer = json['nameusertransfer'];
-    fkusertrasfer = json['fkusertrasfer'];
+
     mobile = json['mobile'];
+    transferticket=getproud(json['transferticket']);
   }
 
   Map<String, dynamic> toJson() {
@@ -101,9 +101,69 @@ class TicketModel {
     _data['nameuserrecive'] = nameuserrecive;
     _data['nameuserclose'] = nameuserclose;
     _data['fk_country'] = fk_country;
-    _data['nameusertransfer'] = nameusertransfer;
-    _data['fkusertrasfer'] = fkusertrasfer;
+
     _data['mobile'] = mobile;
+    _data['transferticket'] =
+        transferticket!.map((e)=>e.toJson()).toList();
+    return _data;
+  }
+  List<TransferTicket> getproud(data){
+    List<TransferTicket> prodlist = [];
+    if(data!=null){
+      for (int i = 0; i < data.length; i++) {
+        prodlist.add(TransferTicket.fromJson(data[i]));
+      }
+    }
+    return prodlist;
+
+  }
+}
+class TransferTicket{
+  TransferTicket({
+    required this.id_tr_ticket,
+    required this.	resoantransfer_ticket,
+    required this.	fkuser_to,
+    required this.fkuserfrom,
+    required this.date_assigntr,
+    required this.fk_ticket,
+    required this.nameuserto,
+    required this.nameuserfrom,
+  });
+  late  String? id_tr_ticket;
+  late  String? 	resoantransfer_ticket;
+  late  String? 	fkuser_to;
+  late  String? fkuserfrom;
+  late  String? date_assigntr;
+  late  String? fk_ticket;
+  late  String? nameuserto;
+  late  String? nameuserfrom;
+
+
+
+  TransferTicket.fromJson(Map<String, dynamic> json){
+
+    id_tr_ticket = json['id_tr_ticket'];
+    resoantransfer_ticket = json['resoantransfer_ticket'];
+    fkuser_to = json['fkuser_to'];
+    fkuserfrom = json['fkuserfrom'];
+    date_assigntr = json['date_assigntr'];
+    fk_ticket = json['fk_ticket'];
+    nameuserfrom = json['nameuserfrom'];
+    nameuserto = json['nameuserto'];
+
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id_tr_ticket'] = id_tr_ticket;
+    _data['resoantransfer_ticket'] = 	resoantransfer_ticket;
+    _data['fkuser_to'] = 	fkuser_to;
+    _data['fkuserfrom'] = fkuserfrom;
+    _data['date_assigntr'] = date_assigntr;
+    _data['fk_ticket'] = fk_ticket;
+    _data['nameuserfrom'] = nameuserfrom;
+    _data['nameuserto'] = nameuserto;
+
     return _data;
   }
 }

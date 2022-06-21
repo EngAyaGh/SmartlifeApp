@@ -44,11 +44,11 @@ class _TicketViewState extends State<TicketView> {
                 // cardRow(title: 'اسم المؤسسة',value:widget.ticketModel.nameEnterprise.toString()),
                  cardRow(title: 'المدينة',value: widget.ticketModel.nameRegoin.toString()),
 
-                widget.ticketModel.dateAssign!=null?
-                cardRow(title: 'تم تحويل التذكرة إلى ',value: getnameshort( widget.ticketModel.nameusertransfer.toString())):Container(),
-
-                widget.ticketModel.dateAssign!=null?
-                cardRow(title: 'تاريخ تحويل التذكرة ',value:  widget.ticketModel.dateAssign.toString()):Container(),
+                // widget.ticketModel.dateAssign!=null?
+                // cardRow(title: 'تم تحويل التذكرة إلى ',value: getnameshort( widget.ticketModel.nameusertransfer.toString())):Container(),
+                //
+                // widget.ticketModel.dateAssign!=null?
+                // cardRow(title: 'تاريخ تحويل التذكرة ',value:  widget.ticketModel.dateAssign.toString()):Container(),
 
                 //////////////////////////////////////////////////
                 widget.ticketModel.dateClose!=null?

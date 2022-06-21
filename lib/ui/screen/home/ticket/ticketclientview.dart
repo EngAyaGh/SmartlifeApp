@@ -1,5 +1,6 @@
 import 'package:crm_smart/ui/screen/home/ticket/ticket_all.dart';
 import 'package:crm_smart/ui/screen/home/ticket/ticketadd.dart';
+import 'package:crm_smart/ui/screen/home/ticket/ticketdetail.dart';
 import 'package:crm_smart/ui/screen/home/ticket/ticketview.dart';
 import 'package:crm_smart/ui/screen/search/search_container.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/card_expansion.dart';
@@ -31,6 +32,7 @@ class _ticketclientviewState extends State<ticketclientview> {
       Provider.of<ticket_vm>(context,listen: false).changeticket(0);
       Provider.of<ticket_vm>(context,listen: false).
       gettypeticket_filter('0');
+      Provider.of<typeclient>(context, listen: false).getreasons('ticket');
 
     });
     super.initState();
@@ -121,20 +123,79 @@ class _ticketclientviewState extends State<ticketclientview> {
                               itemCount: value.tickesearchlist.length,
                               itemBuilder: (context, index) {
 
-                                return SingleChildScrollView(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(2),
-                                      child:
-                                      buildcardExpansion(
-                                          'تاريخ فتح التذكرة  '+
-                                              value.tickesearchlist[index].dateOpen,
-                                          value.tickesearchlist[index].nameEnterprise ,
-                                          TicketView(
-                                            ticketModel: value.tickesearchlist[index],
-                                            //idinvoice: listinvoice[index].idInvoice,
+                                return Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: SingleChildScrollView(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(2),
+                                        child:
+                                          Container(
+                                        decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                        bottomRight: Radius.circular(0)
+                                        ),
+                                        boxShadow: <BoxShadow>[
+                                        BoxShadow(
+                                        offset: Offset(1.0, 1.0),
+                                        blurRadius: 8.0,
+                                        color: Colors.black87.withOpacity(0.2),
+                                        ),
+                                        ],
+                                        color:  Colors.white30,),
+                                            child: Center(
+                                              child: InkWell(
+                                                onTap: (){
+                                                  Navigator.push(context, MaterialPageRoute(
+                                                      builder: (context)=>
+                                                          ticketdetail(
+                                                            ticketModel: value.tickesearchlist[index],) // support_view(type: 'only',)
+                                                  ));
+                                                },
+                                                child: Container(
+                                                  decoration: BoxDecoration(color: kWhiteColor),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text('#'+value.tickesearchlist[index].idTicket
+                                                            ,style: TextStyle(color: kMainColor,
+                                                                  fontFamily:kfontfamily2 ),
+                                                            ),
+                                                            Text('تاريخ فتح التذكرة  '+
+                                                                value.tickesearchlist[index].dateOpen
+                                                            ,style: TextStyle(color: kMainColor,
+                                                                  fontFamily:kfontfamily2),
+                                                            ),
 
-                                          ))
-                                    ));
+                                                          ],
+                                                        ),
+                                                        Text(value.tickesearchlist[index].nameEnterprise
+                                                        ,style: TextStyle( fontFamily:kfontfamily2,
+                                                          fontWeight: FontWeight.bold
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        // buildcardExpansion(
+                                        //     'تاريخ فتح التذكرة  '+
+                                        //         value.tickesearchlist[index].dateOpen,
+                                        //     value.tickesearchlist[index].nameEnterprise ,
+                                        //     TicketView(
+                                        //       ticketModel: value.tickesearchlist[index],
+                                        //       //idinvoice: listinvoice[index].idInvoice,
+                                        //
+                                        //     ))
+                                      )),
+                                );
                               }),
                         ),
                       ],

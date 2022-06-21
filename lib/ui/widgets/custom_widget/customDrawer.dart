@@ -6,6 +6,7 @@ import 'package:crm_smart/ui/screen/product/productView.dart';
 import 'package:crm_smart/ui/screen/selectCountryScreen.dart';
 import 'package:crm_smart/ui/screen/user/alluser.dart';
 import 'package:crm_smart/ui/screen/user/editprofile.dart';
+import 'package:crm_smart/ui/screen/user/usertest_view.dart';
 import 'package:crm_smart/ui/screen/user/userview.dart';
 import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
@@ -125,6 +126,22 @@ return  Drawer(
                              (context,listen: false).currentUser
                          //index: index,
                        )
+                     ),
+                   );
+                   // ProductView();
+                 },
+               ),
+               ListTile(
+                 title: Text('يوزرات تجريبية',  style: TextStyle(
+                     fontFamily: kfontfamily2),
+                 ),
+                 leading: Icon(Icons.supervised_user_circle,color: kMainColor,),
+                 onTap: () {
+                   Navigator.push(
+                     context,
+                     MaterialPageRoute<void>(
+                       builder: (BuildContext context)
+                       => usertest_view()
                      ),
                    );
                    // ProductView();

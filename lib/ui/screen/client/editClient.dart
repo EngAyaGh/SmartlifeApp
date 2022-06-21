@@ -41,6 +41,7 @@ class _editclientState extends State<editclient> {
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController typejobController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
+  final TextEditingController usernameclientController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
   final TextEditingController regoinController = TextEditingController();
   final TextEditingController offerpriceController = TextEditingController();
@@ -62,6 +63,7 @@ class _editclientState extends State<editclient> {
     resaonController.dispose();
     valueBackController.dispose();
     descresaonController.dispose();
+    usernameclientController.dispose();
     super.dispose();
   }
   @override
@@ -75,9 +77,8 @@ class _editclientState extends State<editclient> {
     typejobController.text=widget.itemClient.typeJob!.toString();
     locationController.text=widget.itemClient.location!.toString();
     regoinController.text=widget.itemClient.name_regoin!.toString();
+    usernameclientController.text=widget.itemClient.clientusername!.toString();
     //////////////////////////////////////////////////////////
-
-
     ////////////////////////////////////////
     //print( typeclient_provider.selectedValuemanag);
     offerpriceController.text=widget.itemClient.offer_price==null
@@ -201,7 +202,7 @@ void didChangeDependencies() {
           //"fk_user":widget.fkuser,
           // "date_transfer":,
           "mobile": mobileController.text,
-
+          "clientusername":usernameclientController.text,
           "offer_price": offerpriceController.text,
           "reason_change":resaonController.text,
           // typeclient_provider.selectedValuemanag == "منسحب"
@@ -335,16 +336,7 @@ void didChangeDependencies() {
                               );}
                         ),
                       ),
-                      // EditTextFormField(
-                      //   vaild: (value) {
-                      //     if (value!.toString().trim().isEmpty) {
-                      //       return label_empty;
-                      //     }
-                      //   },
-                      //   hintText: label_clientcity,
-                      //   obscureText: false,
-                      //   controller: cityController,
-                      // ),
+
                       //manage
                       SizedBox(
                         height: 5,
@@ -375,6 +367,18 @@ void didChangeDependencies() {
                         obscureText: false,
                         controller: locationController,
                       ),
+                      Provider.of<privilge_vm>(context,listen: true)
+                          .checkprivlge('76')==true ?
+                      EditTextFormField(
+                        vaild: (value) {
+                          if (value!.toString().trim().isEmpty) {
+                            return label_empty;
+                          }
+                        },
+                        hintText: label_usernameclient,
+                        obscureText: false,
+                        controller: usernameclientController,
+                      ):Container(),
                       ////////////////////////////////////////////////
                       SizedBox(
                         height: 15,

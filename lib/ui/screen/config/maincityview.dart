@@ -89,17 +89,11 @@ class _maincityviewState extends State<maincityview> {
                           child: Center(
                             child: InkWell(
                               onTap: (){
-                                // Navigator.push(context,
-                                //     MaterialPageRoute(
-                                //         builder: (context)=>addmaincity(
-                                //           nameregoin:
-                                //           _listlevel[index].namemaincity,
-                                //           idregoin:
-                                //           _listlevel[index].id_maincity,
-                                //         )));
+
                                 Navigator.push(context,
                                     MaterialPageRoute(
-                                        builder: (context)=>cityview(
+                                        builder: (context)=>
+                                            cityview(
                                           fkmain: _listlevel[index].id_maincity,
                                         )));
                               },

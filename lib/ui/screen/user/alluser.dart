@@ -76,7 +76,8 @@ class _AllUserScreenState extends State<AllUserScreen> {
             Directionality(
               textDirection: TextDirection.rtl,
               child: Expanded(
-                child: ListView.separated(
+                child:
+                ListView.separated(
                   itemCount: controllerUsers.listuserfilter.length,
                   itemBuilder: (context, index) {
                     return Consumer<user_vm_provider>(

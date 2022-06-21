@@ -20,8 +20,7 @@ class product_vm extends ChangeNotifier {
   }
 
   Future<void> getproduct_vm() async {
-    //if(listProduct.isEmpty)
-    //listProduct=[];
+
     listProduct.clear();
     print('after clear');
     print(listProduct.length);
@@ -46,7 +45,6 @@ class product_vm extends ChangeNotifier {
 
       final index=listProduct.indexWhere((element) => element.idProduct==id_product);
       listProduct[index]=res;
-      //listProduct.insert(0, ProductModel.fromJson(body));
       notifyListeners();
 
     return true;
@@ -56,7 +54,9 @@ class product_vm extends ChangeNotifier {
     String res = await ProductService().deleteProductById(id_product!);
     print(res);
       if(res=="done"){
-        final index=listProduct.indexWhere((element) => element.idProduct==id_product);
+        final index=listProduct.indexWhere(
+                (element) =>
+        element.idProduct==id_product);
         listProduct.removeAt(index);
         notifyListeners();
 

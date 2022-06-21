@@ -87,7 +87,7 @@ class regoin_vm extends ChangeNotifier{
         body: body);
     if (res!="error") {
       body.addAll({
-        '	id_regoin':res,
+        'id_regoin':res,
       });
       listregoin.insert(0,RegoinModel.fromJson(body));
       isloading=false;
