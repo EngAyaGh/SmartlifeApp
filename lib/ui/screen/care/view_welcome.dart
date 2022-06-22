@@ -37,8 +37,7 @@ class _View_welcomeClientState extends State<View_welcomeClient> {
   }
   @override
   Widget build(BuildContext context) {
-    listCommunicationwelcome=Provider.of<communication_vm>
-      (context, listen: true)
+    listCommunicationwelcome=Provider.of<communication_vm>(context, listen: true)
         .listCommunicationWelcome;
   isload=Provider.of<communication_vm>
     (context, listen: true).isloading;
@@ -160,6 +159,20 @@ class _View_welcomeClientState extends State<View_welcomeClient> {
                 search_widget(
                   'welcome',
                   hintnamefilter,'welcome'
+                ),
+                SizedBox(height: 5,),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0,right: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                    Text('عدد العملاء',style: TextStyle(
+                        fontFamily: kfontfamily2,fontWeight: FontWeight.bold
+                    ),),
+                    Text(listCommunicationwelcome.length.toString(),style: TextStyle(
+                      fontFamily: kfontfamily2,fontWeight: FontWeight.bold
+                    ),),
+                  ],),
                 ),
                 SizedBox(height: 5,),
                 Container(

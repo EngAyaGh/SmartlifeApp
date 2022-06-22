@@ -149,6 +149,20 @@ class _invoicesAcceptclientState extends State<invoicesAcceptclient> {
                             hintnamefilter,''
                         ),
 
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30.0,right: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('عدد العملاء',style: TextStyle(
+                                  fontFamily: kfontfamily2,fontWeight: FontWeight.bold
+                              ),),
+                              Text(
+                                Provider.of<invoice_vm>(context,listen: true).listInvoicesAccept.length.toString(),style: TextStyle(
+                                  fontFamily: kfontfamily2,fontWeight: FontWeight.bold
+                              ),),
+                            ],),
+                        ),
                         SizedBox(height: 5,),
                         Container(
                           height: MediaQuery

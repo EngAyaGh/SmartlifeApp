@@ -8,10 +8,12 @@ import 'package:flutter/services.dart';
 class testuser_show extends StatelessWidget {
   testuser_show({required this.userTestModel, Key? key}) : super(key: key);
   UserTestModel userTestModel;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+       key:_scaffoldKey ,
       appBar: AppBar(
         title:
         Text(
@@ -33,20 +35,25 @@ class testuser_show extends StatelessWidget {
       body:SingleChildScrollView(
         child: Directionality(
           textDirection: TextDirection.rtl,
-          child: Column(
-            children: [
-              Text(userTestModel.des_usertest.toString()),
-              SizedBox(height: 15,),
-              CustomButton(
-                width:double.infinity,
-                text: 'نسخ البيانات ورابط الدخول',
-                onTap: () async {
-                  Clipboard.setData(
-                      ClipboardData(
-                      text:userTestModel.des_usertest.toString()));
-                },
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                Text(userTestModel.des_usertest.toString()),
+                SizedBox(height: 15,),
+                CustomButton(
+                  width:double.infinity,
+                  text: 'نسخ البيانات ورابط الدخول',
+                  onTap: () async {
+                    Clipboard.setData(
+                        ClipboardData(
+                        text:userTestModel.des_usertest.toString()));
+
+                    _scaffoldKey.currentState!.showSnackBar(SnackBar(content: Text('تم النسخ بنجاح')));
+                    },
+                ),
+              ],
+            ),
           ),
         ),
       ) ,

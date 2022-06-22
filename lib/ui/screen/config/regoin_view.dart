@@ -52,6 +52,7 @@ class _regoinviewState extends State<regoinview> {
             MaterialPageRoute<void>(
               builder: (BuildContext context)
               => addregoin(
+                fk_country: null,
                 idregoin: null,
                 nameregoin: null,
               ),
@@ -84,6 +85,7 @@ class _regoinviewState extends State<regoinview> {
                                 Navigator.push(context,
                                     MaterialPageRoute(
                                         builder: (context)=>addregoin(
+                                          fk_country: _listlevel[index].fk_country,
                                           nameregoin:
                                           _listlevel[index].name_regoin,
                                           idregoin: _listlevel[index].id_regoin,

@@ -107,6 +107,7 @@ class _ClientViewState extends State<ClientView> {
                 cardRow( title:'اسم العميل',value:clientModel.nameClient.toString(),isExpanded: true,),
                 cardRow( title:' الفرع',value:clientModel.name_regoin.toString()),
                 cardRow( title:' مدينة العميل',value:clientModel.name_city.toString()),
+                cardRow( title:' المنطقة',value:clientModel.namemaincity.toString()),
                 cardRow( title:' النشاط',value:clientModel.typeJob.toString()),
                 cardRow( title:'حالة العميل',value:clientModel.typeClient.toString()),
                 clientModel.typeClient=='مستبعد'?
@@ -137,6 +138,12 @@ class _ClientViewState extends State<ClientView> {
                 clientModel.ismarketing=='1' ?
                 cardRow( title:' عميل تسويق الكتروني',
                 value:clientModel.ismarketing=='1'?'نعم':''):Container(),
+              Provider.of<privilge_vm>(context,listen: true)
+                  .checkprivlge('76')==true  ?
+                cardRow( title:'يوزر العميل',
+                value:
+                clientModel.clientusername==null?'':
+                clientModel.clientusername.toString()):Container(),
 
                 Center(
                 child: Row(

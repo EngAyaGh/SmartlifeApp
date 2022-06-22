@@ -36,7 +36,6 @@ class _managviewState extends State<managview> {
     return Scaffold(
       appBar: AppBar(
         title: Text('الإدارات',style: TextStyle(color: kWhiteColor),),
-
         centerTitle: true,
       ),
       floatingActionButton:
@@ -50,6 +49,7 @@ class _managviewState extends State<managview> {
             MaterialPageRoute<void>(
               builder: (BuildContext context)
               => addmanage(
+                fk_country: null,
                 idmange: null,
                 name_mange: null,
             ),
@@ -81,6 +81,7 @@ class _managviewState extends State<managview> {
                                 Navigator.push(context,
                                     MaterialPageRoute(
                                         builder: (context)=>addmanage(
+                                          fk_country: _listlevel[index].fk_country,
                                           name_mange:_listlevel[index].name_mange,
                                           idmange: _listlevel[index].idmange,
                                         )));

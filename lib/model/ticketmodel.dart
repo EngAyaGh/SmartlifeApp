@@ -13,7 +13,7 @@ class TicketModel {
     required this.dateClose,
     required this.dateRecive,
     required this.clientType,
-    this.dateAssign,
+
     required this.nameClient,
     required this.nameEnterprise,
     required this.nameRegoin,
@@ -27,29 +27,29 @@ class TicketModel {
 
   });
   late final String idTicket;
-  late final String fkClient;
+  late final String? fkClient;
   late final String? typeProblem;
   late final String? detailsProblem;
   late final String? notesTicket;
-  late final String typeTicket;
+  late final String? typeTicket;
   late final String? fkUserOpen;
   late final String? fkUserClose;
   late final String? fkUserRecive;
-  late final String dateOpen;
+  late final String? dateOpen;
   late final String? dateClose;
   late final String? dateRecive;
-  late final String clientType;
-  late final String? dateAssign;
-  late final String nameClient;
-  late final String nameEnterprise;
-  late final String nameRegoin;
-  late final String nameuseropen;
+  late final String?  clientType;
+
+  late final String? nameClient;
+  late final String? nameEnterprise;
+  late final String? nameRegoin;
+  late final String? nameuseropen;
   late final String? nameuserrecive;
   late final String? nameuserclose;
-  late final String fk_country;
+  late final String? fk_country;
 
   late final String? mobile;
-  late List<TransferTicket>? transferticket=[];
+  late List<TransferTicket?>? transferticket=[];
 
   TicketModel.fromJson(Map<String, dynamic> json){
     idTicket = json['id_ticket'];
@@ -65,7 +65,6 @@ class TicketModel {
     dateClose = json['date_close'];
     dateRecive = json['date_recive'];
     clientType = json['client_type'];
-    dateAssign = json['dateAssign'];
     nameClient = json['name_client'];
     nameEnterprise = json['name_enterprise'];
     nameRegoin = json['name_regoin'];
@@ -93,7 +92,7 @@ class TicketModel {
     _data['date_close'] = dateClose;
     _data['date_recive'] = dateRecive;
     _data['client_type'] = clientType;
-    _data['date_assign'] = dateAssign;
+
     _data['name_client'] = nameClient;
     _data['name_enterprise'] = nameEnterprise;
     _data['name_regoin'] = nameRegoin;
@@ -104,7 +103,7 @@ class TicketModel {
 
     _data['mobile'] = mobile;
     _data['transferticket'] =
-        transferticket!.map((e)=>e.toJson()).toList();
+        transferticket!.map((e)=>e!.toJson()).toList();
     return _data;
   }
   List<TransferTicket> getproud(data){

@@ -6,6 +6,7 @@ import 'package:crm_smart/ui/screen/support/support_add.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/separatorLine.dart';
 import 'package:crm_smart/ui/widgets/widgetcalendar/calendar_widget.dart';
 import 'package:crm_smart/view_model/event_provider.dart';
+import 'package:crm_smart/view_model/maincity_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -71,35 +72,65 @@ class _support_tableState extends State<support_table> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+                      // Expanded(
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.only(
+                      //         top: 15,
+                      //         left: 8.0, right: 8),
+                      //     child: Consumer<regoin_vm>(
+                      //       builder: (context, cart, child) {
+                      //         return
+                      //           DropdownButton(
+                      //             isExpanded: true,
+                      //             hint: Text("الفرع"),
+                      //             items: cart.listregoinfilter.map((level_one) {
+                      //               return DropdownMenuItem(
+                      //
+                      //                 child: Text(level_one.name_regoin),
+                      //                 //label of item
+                      //                 value: level_one
+                      //                     .id_regoin, //value of item
+                      //               );
+                      //             }).toList(),
+                      //             value: cart.selectedValueLevel,
+                      //             onChanged: (value) {
+                      //               //  setState(() {
+                      //               cart.changeVal(value.toString());
+                      //               // Provider.of<client_vm>(context, listen: false)
+                      //               //     .getclientfilter_Local(value.toString(),"regoin");
+                      //               Provider.of<EventProvider>(context, listen: false)
+                      //                   .getevents(value.toString(),"regoin");
+                      //
+                      //             },
+                      //           );
+                      //         //);
+                      //       },
+                      //     ),
+                      //   ),
+                      // ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 15,
-                              left: 8.0, right: 8),
-                          child: Consumer<regoin_vm>(
+                          padding: const EdgeInsets.only(left: 8.0, right: 8),
+                          child: Consumer<maincity_vm>(
                             builder: (context, cart, child) {
                               return
                                 DropdownButton(
                                   isExpanded: true,
-                                  hint: Text("الفرع"),
-                                  items: cart.listregoinfilter.map((level_one) {
+                                  hint: Text("المناطق"),
+                                  items: cart.listmaincity.map((level_one) {
                                     return DropdownMenuItem(
-
-                                      child: Text(level_one.name_regoin),
+                                      child: Text(level_one.namemaincity),
                                       //label of item
                                       value: level_one
-                                          .id_regoin, //value of item
+                                          .id_maincity, //value of item
                                     );
                                   }).toList(),
-                                  value: cart.selectedValueLevel,
+                                  value: cart.selectedValuemanag,
                                   onChanged: (value) {
                                     //  setState(() {
-                                    cart.changeVal(value.toString());
-                                    // Provider.of<client_vm>(context, listen: false)
-                                    //     .getclientfilter_Local(value.toString(),"regoin");
-                                    Provider.of<EventProvider>(context, listen: false)
-                                        .getevents(value.toString(),"regoin");
-
+                                  cart.changevalue(value.toString());
+                                        Provider.of<EventProvider>(context, listen: false)
+                                          .getevents(value.toString(),"regoin");
                                   },
                                 );
                               //);

@@ -848,6 +848,7 @@ Future<void> getinvoice_Localwithprev() async{
 bool isloadingdone=false;
   Future<void> setdatedone_vm(Map<String, dynamic?> body,String? id_invoice) async {
     isloadingdone=true;
+    notifyListeners();
     int index=listinvoices.indexWhere(
             (element) => element.idInvoice==id_invoice);
 

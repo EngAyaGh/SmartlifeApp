@@ -1,6 +1,7 @@
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/model/ticketmodel.dart';
+import 'package:crm_smart/ui/screen/home/ticket/ticket_all.dart';
 import 'package:crm_smart/ui/screen/invoice/addInvoice.dart';
 import 'package:crm_smart/ui/screen/support/support_add.dart';
 import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
@@ -12,6 +13,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../constants.dart';
+import '../widgethomeitem.dart';
 import 'card_ticket.dart';
 
 
@@ -55,20 +58,41 @@ class ticketprofileState extends State<ticketprofile> {
         child:
         Directionality(
           textDirection: TextDirection.rtl,
-          child: Container(
-            //height: MediaQuery.of(context).size.height * 1,
-            child:
-            ListView.builder(
-              itemCount: list_ticket.length,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  list_ticket.isNotEmpty?
+                  buildSelectCategory(
+                    colorbag: kMainColor,
+                    colorarrow: kWhiteColor,
+                    colortitle: kWhiteColor,
+                    onTap: () async{
+                      // Navigator.push(context,
+                      //     MaterialPageRoute(builder: (context)=>
+                      //         ticketall()));
+                    },
+                    title:
+                    'عدد التذاكر التي فتحت للعميل   '+list_ticket.length.toString(),
+                  ):Container(),
+                ],),
+              Container(
+                //height: MediaQuery.of(context).size.height * 1,
+                child:
+                ListView.builder(
+                  itemCount: list_ticket.length,
 
-              itemBuilder: (BuildContext context, int index)=>
-                  Builder
-                    (builder:
-                      (context)=>
-                          cardticket(
-                        ticketModel: list_ticket[index],
-                      )) ,
-            ),
+                  itemBuilder: (BuildContext context, int index)=>
+                      Builder
+                        (builder:
+                          (context)=>
+                              cardticket(
+                            ticketModel: list_ticket[index],
+                          )) ,
+                ),
+              ),
+            ],
           ),
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:crm_smart/ui/screen/client/client_wating.dart';
 import 'package:crm_smart/ui/screen/support/support_table.dart';
 import 'package:crm_smart/ui/screen/support/support_view.dart';
 import 'package:crm_smart/ui/widgets/widgetcalendar/task_widget.dart';
+import 'package:crm_smart/view_model/maincity_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,14 @@ class _supportpageState extends State<supportpage> {
       Provider.of<privilge_vm>(context,listen: false).getprivlg_usercurrent();
     });
     super.didChangeDependencies();
+  }
+  @override void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_)async{
+
+      await Provider.of <maincity_vm>
+      (context,listen: false)
+        .getmaincity();});
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {

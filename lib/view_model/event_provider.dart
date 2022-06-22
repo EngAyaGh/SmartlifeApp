@@ -97,7 +97,7 @@ class EventProvider extends ChangeNotifier {
          listinvoices.forEach((element) {
            if(element.dateinstall_task!=null && (element.isdoneinstall!=null ||
                        element.isdoneinstall!='0')){
-             if(element.fk_regoin==searchfilter){
+             if(element.id_maincity==searchfilter){
              DateTime temp= DateTime.parse(element.dateinstall_task.toString()).hour>=21
                  ? DateTime.parse(element.dateinstall_task.toString())
                  .subtract(Duration(hours: 3)): DateTime.parse(element.dateinstall_task.toString());

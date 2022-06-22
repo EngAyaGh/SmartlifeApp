@@ -166,14 +166,14 @@ class _ticketclientviewState extends State<ticketclientview> {
                                                                   fontFamily:kfontfamily2 ),
                                                             ),
                                                             Text('تاريخ فتح التذكرة  '+
-                                                                value.tickesearchlist[index].dateOpen
+                                                                value.tickesearchlist[index].dateOpen.toString()
                                                             ,style: TextStyle(color: kMainColor,
                                                                   fontFamily:kfontfamily2),
                                                             ),
 
                                                           ],
                                                         ),
-                                                        Text(value.tickesearchlist[index].nameEnterprise
+                                                        Text(value.tickesearchlist[index].nameEnterprise.toString()
                                                         ,style: TextStyle( fontFamily:kfontfamily2,
                                                           fontWeight: FontWeight.bold
                                                           ),

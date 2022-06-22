@@ -51,8 +51,8 @@ class cityview extends StatefulWidget {
         centerTitle: true,
       ),
       floatingActionButton:
-      // Provider.of<privilge_vm>(context,listen: true)
-      //     .checkprivlge('64')==true ?
+      Provider.of<privilge_vm>(context,listen: true)
+          .checkprivlge('79')==true ?
       FloatingActionButton(
         child:Icon(Icons.add),
         onPressed: (){
@@ -69,12 +69,11 @@ class cityview extends StatefulWidget {
             ),
           );
         },
-        backgroundColor: kMainColor,),
-      //:Container(),
+        backgroundColor: kMainColor,):Container(),
       body:
       _listlevel.length==0?
       Center(
-          child: CircularProgressIndicator()):
+          child: Text('')):
       Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView.builder(
@@ -121,8 +120,6 @@ class cityview extends StatefulWidget {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.all( Radius.circular(5)),),
-
-                                    //color: kMainColor,
                                     child: Padding(
                                       padding: EdgeInsets.all(4),
                                       child: Center(

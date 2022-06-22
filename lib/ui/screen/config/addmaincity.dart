@@ -19,8 +19,9 @@ import '../../../constants.dart';
 class addmaincity extends StatefulWidget {
   addmaincity({
     required this.nameregoin,
+    required this.fkcountry,
     required this.idregoin, Key? key}) : super(key: key);
-  String? idregoin,nameregoin;
+  String? idregoin,nameregoin,fkcountry;
 
   @override
   _addmaincityState createState() => _addmaincityState();
@@ -57,7 +58,7 @@ class _addmaincityState extends State<addmaincity> {
                 width: double.infinity,
                 //height: 400,
                 margin: EdgeInsets.only(),
-                padding:EdgeInsets.only(top: 50,left: 20,right: 20) ,
+                padding:EdgeInsets.only(top: 50,left: 20,right: 20,bottom: 20) ,
                 child: Column(
                   children: [
                     SizedBox(height: 15,),
@@ -96,7 +97,8 @@ class _addmaincityState extends State<addmaincity> {
                           else{
                             Provider.of<maincity_vm>(context,listen: false)
                                 .update_maincity({
-                              'namemaincity':namelevel.text
+                              'namemaincity':namelevel.text,
+                              'fk_country':widget.fkcountry,
                             },widget.idregoin.toString()).then(
                                     (value) =>  value!="error"
                                     ? clear(context)

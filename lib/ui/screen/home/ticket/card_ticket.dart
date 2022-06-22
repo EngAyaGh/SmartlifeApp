@@ -50,21 +50,24 @@ class cardticket extends StatelessWidget {
                       ),
 
                       Text(
-                          ticketModel.typeTicket
+                          ticketModel.typeTicket.toString()
                         ,style: TextStyle(color: kMainColor,
                             fontFamily:kfontfamily2),
                       ),
                       Text('تاريخ فتح التذكرة  '+
-                          ticketModel.dateOpen
+                          ticketModel.dateOpen.toString()
                         ,style: TextStyle(color: kMainColor,
                             fontFamily:kfontfamily2),
                       ),
 
                     ],
                   ),
-                  Text(ticketModel.detailsProblem.toString()
-                    ,style: TextStyle( fontFamily:kfontfamily2,
-                       // fontWeight: FontWeight.bold
+                  Text(
+                      ticketModel.dateClose==null?
+                      ticketModel.detailsProblem.toString():
+                      ticketModel.notesTicket.toString()
+                     ,style: TextStyle( fontFamily:kfontfamily2,
+                        // fontWeight: FontWeight.bold
                     ),
                   ),
                 ],

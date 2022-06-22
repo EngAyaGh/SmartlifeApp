@@ -1,5 +1,6 @@
 
 
+import 'package:crm_smart/model/maincitymodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/ui/screen/config/cityview.dart';
@@ -13,6 +14,7 @@ import 'package:crm_smart/view_model/all_user_vm.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/maincity_vm.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -45,7 +47,7 @@ class _addClientState extends State<addClient> {
 
   final TextEditingController typejobController = TextEditingController();
 
-  final TextEditingController cityController = TextEditingController();
+  String? cityController ;
 
   final TextEditingController locationController = TextEditingController();
 
@@ -56,7 +58,6 @@ class _addClientState extends State<addClient> {
     nameEnterpriseController.dispose();
     mobileController.dispose();
     typejobController.dispose();
-    cityController.dispose();
     locationController.dispose();
     regoinController.dispose();
 
@@ -172,27 +173,53 @@ class _addClientState extends State<addClient> {
                       SizedBox(
                         height: 5,
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0,right: 8),
-                          child: Consumer<maincity_vm>(
-                              builder: (context, cart, child){
-                                return DropdownButton(
-                                  isExpanded: true,
-                                  hint: Text(label_clientcity),
-                                  items: cart.listcity.map((city) {
-                                    return DropdownMenuItem(
-                                      child: Text(city.name_city), //label of item
-                                      value: city.id_city, //value of item
-                                    );
-                                  }).toList(),
-                                  value:cart.selectedValuemanag,
-                                  onChanged:(value) {
-                                    cityController.text=value.toString();
-                                  cart.changevalue(value.toString());
-                                  },
-                                );}
-                          ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(left: 20.0,right: 8),
+                      //   child: Consumer<maincity_vm>(
+                      //       builder: (context, cart, child){
+                      //         return DropdownButton(
+                      //           isExpanded: true,
+                      //           hint: Text(label_clientcity),
+                      //           items: cart.listcity.map((city) {
+                      //             return DropdownMenuItem(
+                      //               child: Text(city.name_city), //label of item
+                      //               value: city.id_city, //value of item
+                      //             );
+                      //           }).toList(),
+                      //           value:cart.selectedValuemanag,
+                      //           onChanged:(value) {
+                      //             cityController=value.toString();
+                      //           cart.changevalue(value.toString());
+                      //           },
+                      //         );}
+                      //   ),
+                      // ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Consumer<maincity_vm>(
+                          builder: (context, cart, child){
+                            return  DropdownSearch<CityModel>(
+                              mode: Mode.DIALOG,
+                              label: "المدن",
+                              validator: (val){
+
+                                if(val==null)
+                                  return 'من فضلك حدد اسم مدينة';
+                              },
+                              filterFn: (user, filter) => user!.getfilteruser(filter!),
+                              items: cart.listcity,
+                              itemAsString:
+                                  ( u) => u!.userAsString(),
+                              onChanged: (data) =>
+                              cityController=data!.id_city,//print(data!.nameUser),
+                              showSearchBox: true,
+                              dropdownSearchDecoration: InputDecoration(
+                                labelText: "حدد مدينة",
+                                contentPadding: EdgeInsets.fromLTRB(12, 12, 5, 5),
+                                border: OutlineInputBorder(),
+                              ),
+                            );
+                          },
                         ),
                       ),
                       // EditTextFormField(
@@ -260,8 +287,6 @@ class _addClientState extends State<addClient> {
 
                             if (_globalKey.currentState!.validate()) {
                               _globalKey.currentState!.save();
-                              if(Provider.of<maincity_vm>(context,listen: false)
-                              .selectedValuemanag!=null) {
                                 Provider.of<LoadProvider>(
                                     context, listen: false)
                                     .changebooladdclient(true);
@@ -276,15 +301,17 @@ class _addClientState extends State<addClient> {
                                   'name_enterprise': nameEnterpriseController
                                       .text,
                                   'type_job': typejobController.text,
-                                  'city': cityController.text,
+                                  'city': cityController.toString(),
                                   'location':
                                   // locationController.text==null?"null":
                                   locationController.text.toString(),
                                   "fk_regoin": _user.fkRegoin == null
                                       ? "null"
                                       : _user.fkRegoin,
-                                  "date_create": Utils.toDate22(DateTime.now()),
-                                  //DateTime.now().toString(),  //formatter.format(_currentDate),
+                                  "date_create": DateTime.now().toString(),
+
+                                  //Utils.toDate22(DateTime.now()),
+                                  //,  //formatter.format(_currentDate),
                                   "type_client": "تفاوض",
                                   "fk_user": _user.idUser,
                                   // "date_transfer":,
@@ -304,10 +331,10 @@ class _addClientState extends State<addClient> {
                                   //      Toast.LENGTH_SHORT, // length
                                   //  gravity: ToastGravity.CENTER, //
                                 );
-                              }else{
-                                _scaffoldKey.currentState!.showSnackBar(
-                                    SnackBar(content: Text('من فضلك حدد مدينة')));
-                              }
+                              // }else{
+                              //   _scaffoldKey.currentState!.showSnackBar(
+                              //       SnackBar(content: Text('من فضلك حدد مدينة')));
+                              // }
                             }
                           },
                         ),

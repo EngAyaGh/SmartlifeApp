@@ -51,7 +51,7 @@ class usertest_view extends StatefulWidget {
            child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(20),
                   child:
                   Container(
                     height: 90,
@@ -78,18 +78,20 @@ class usertest_view extends StatefulWidget {
                                                       )));
 
                                         },
-                                        child: Column(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  list_ticket[index].nameusertest.toString()
-                                              ,style: TextStyle(fontFamily: kfontfamily2
+                                        child: Container(
+                                          child: Column(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                    list_ticket[index].nameusertest.toString()
+                                                ,style: TextStyle(fontFamily: kfontfamily2
 
-                                              ,fontSize: 16),
+                                                ,fontSize: 16),
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),

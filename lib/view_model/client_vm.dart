@@ -95,13 +95,35 @@ class client_vm extends ChangeNotifier {
     selectedclient=s;
     notifyListeners();
   }
-  void getfilterview(String? regoin){
+  Future<void> getfilterview(String? regoin)async{
     List<ClientModel> list=[];
-    getclient_Local('مشترك');
+   await getclient_Local('مشترك');
     if(regoin!=null){
       if(regoin!='0'){
         listClientAccept.forEach((element) {
           if(element.fkRegoin==regoin)
+            list.add(element);
+        });
+      }
+      else{//الكل لفلتر المنطقة
+        listClientAccept.forEach((element) {
+          if( element.fkcountry==usercurrent!.fkCountry)
+            list.add(element);
+        });
+      }
+    }
+    listClientAccept=list;
+    notifyListeners();
+  }
+  Future<void> getfilterviewSupport(String? regoin)async{
+    List<ClientModel> list=[];
+   await getclient_Local('مشترك');
+    if(regoin!=null){
+      if(regoin!='0'){
+        listClientAccept.forEach((element) {
+          print(element.id_maincity);
+          print(regoin);
+          if(element.id_maincity==regoin)
             list.add(element);
         });
       }
@@ -460,12 +482,15 @@ else{
   }
 
   Future<bool> setfkUserclient_vm(Map<String, dynamic?> body,String? id_client) async {
+  isloading=true;
+  notifyListeners();
     bool res = await ClientService()
         .setfkuserClient(body,id_client!);
     // if (res) {
     //   int index=listClient.indexWhere(
     //           (element) => element.idClients==id_client);
     //   listClient.removeAt(index);
+  isloading=false;
       notifyListeners();
     // }
     return res;

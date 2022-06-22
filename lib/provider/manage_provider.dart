@@ -61,6 +61,10 @@ class manage_provider extends ChangeNotifier{
      String res = await Api().post(
          url: url+'users/update_manage.php?idmange=${idmanag}',//users/addmangemt.php
          body: body);
+       body.addAll({
+         'idmange':idmanag,
+
+       });
        listtext.add(ManageModel.fromJson(body));
        notifyListeners();
 

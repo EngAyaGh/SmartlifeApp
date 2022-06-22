@@ -1,27 +1,21 @@
 
-
-import 'package:crm_smart/provider/loadingprovider.dart';
-import 'package:crm_smart/provider/manage_provider.dart';
 import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/view_model/level_vm.dart';
 import 'package:crm_smart/view_model/maincity_vm.dart';
-import 'package:crm_smart/view_model/regoin_vm.dart';
-import 'package:crm_smart/view_model/user_vm_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-import '../../../constants.dart';
 
 class addcity extends StatefulWidget {
   addcity({
     this.fkmain,
     required this.nameregoin,
     required this.idregoin, Key? key}) : super(key: key);
-  String? idregoin,nameregoin,fkmain;
+    String? idregoin,nameregoin,fkmain;
 
   @override
   _addcityState createState() => _addcityState();
@@ -87,8 +81,7 @@ class _addcityState extends State<addcity> {
                             Provider.of<maincity_vm>(context,listen: false)
                                 .addcity_vm({
                               'name_city':namelevel.text,
-                              'fk_maincity':
-                             widget.fkmain,
+                              'fk_maincity': widget.fkmain,
                             }).then(
                                     (value) =>  value!="error"
                                     ? clear(context)
@@ -97,7 +90,9 @@ class _addcityState extends State<addcity> {
                           else{
                             Provider.of<maincity_vm>(context,listen: false)
                                 .update_city({
-                              'name_city':namelevel.text
+                              'name_city':namelevel.text,
+                              'fk_maincity':widget.fkmain,
+                              'id_city':widget.idregoin,
                             },widget.idregoin.toString()).then(
                                     (value) =>  value!="error"
                                     ? clear(context)

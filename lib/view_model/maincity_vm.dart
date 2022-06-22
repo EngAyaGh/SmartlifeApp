@@ -20,18 +20,17 @@ class maincity_vm extends ChangeNotifier{
   UserModel? usercurrent;
 
   void setvalue(user){
-    print('in set usercurrent in product vm');
     usercurrent=user;
     notifyListeners();
   }
   bool isloading=false;
   Future<void> getmaincity()async {
-
+    listmaincity=[];
+    notifyListeners();
     if(listmaincity.isEmpty){
       List<dynamic> data=[];
       data= await Api()
           .get(url:url+ 'config/getmaincity.php?fk_country=${usercurrent!.fkCountry}');
-      print(data);
       if(data !=null) {
         for (int i = 0; i < data.length; i++) {
           listmaincity.add(MainCityModel.fromJson(data[i]));
@@ -66,6 +65,9 @@ class maincity_vm extends ChangeNotifier{
     String res = await Api().post(
         url: url+'config/update_maincity.php?id_maincity=${id_maincity}',//users/addmangemt.php
         body: body);
+    body.addAll({
+      'id_maincity':id_maincity,
+    });
     final index=listmaincity.indexWhere((element)
     => element.id_maincity==id_maincity);
     listmaincity[index]=MainCityModel.fromJson(body);
@@ -77,7 +79,7 @@ class maincity_vm extends ChangeNotifier{
   }
 //////////////////////////////////////////
   Future<String> addcity_vm(Map<String, dynamic?> body) async {
-    //name_mange
+
     isloading=true;
     notifyListeners();
     String res = await Api().post(
@@ -87,7 +89,6 @@ class maincity_vm extends ChangeNotifier{
       body.addAll({
         'id_city':res,
       });
-      //listoflevel=[];
       listcity.add(CityModel.fromJson(body));
       isloading=false;
       notifyListeners();
@@ -119,14 +120,17 @@ class maincity_vm extends ChangeNotifier{
       if(data !=null) {
         for (int i = 0; i < data.length; i++) {
           listcity.add(CityModel.fromJson(data[i]));
-        }}
+        }
+      }
       // selectedValuemanag='1';
       notifyListeners();
       //return data;
     }
   }
   Future<void> getcityAll()async {
-//
+
+    listcity=[];
+    notifyListeners();
     if(listcity.isEmpty){
       List<dynamic> data=[];
       data= await Api()
@@ -139,7 +143,7 @@ class maincity_vm extends ChangeNotifier{
         }}
 
       notifyListeners();
-      //return data;
+
     }
   }
 }

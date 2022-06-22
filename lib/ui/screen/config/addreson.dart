@@ -52,63 +52,66 @@ class _addresaonState extends State<addresaon> {
                 width: double.infinity,
                 //height: 400,
                 margin: EdgeInsets.only(),
-                padding:EdgeInsets.only(top: 50,left: 20,right: 20) ,
-                child: Column(
-                  children: [
-                    SizedBox(height: 15,),
-                    RowEdit(name: widget.type=='client'?'السبب':'نوع', des: 'REQUIRED'),
-                    SizedBox(height: 15,),
+                padding:EdgeInsets.only(top: 50,left: 20,right: 20,bottom:20) ,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 15,),
+                      RowEdit(name: widget.type=='client'?'السبب':'نوع', des: 'REQUIRED'),
+                      SizedBox(height: 15,),
 
-                    EditTextFormField(
-                      vaild: (value) {
-                        if (value!.isEmpty) {
-                          return 'الحقل فارغ';
-                        }
-                      },
-                      hintText: '',
-                      controller: namereson,
-                    ),
-                    SizedBox(height: 15,),
-                    CustomButton(
-                      width:double.infinity,
-                      //MediaQuery.of(context).size.width * 0.2,
-                      text: 'حفظ',
-                      onTap: () async {
-                        if (_globalKey.currentState!.validate()) {
-                          _globalKey.currentState!.save();
-                          // Provider.of<LoadProvider>(context, listen: false)
-                          //     .changebooladdclient(true);
-                          if(widget.idReason==null){
-                          Provider.of<typeclient>(context,listen: false)
-                              .addReson_vm({
-                            'name_reason':namereson.text,
-                            'type':widget.type,
-                          }).then(
-                                  (value) =>  value!="error"
-                                  ? clear(context)
-                                  : error(context)
-                          );
+                      EditTextFormField(
+                        vaild: (value) {
+                          if (value!.isEmpty) {
+                            return 'الحقل فارغ';
                           }
-                          else{
+                        },
+                        hintText: '',
+                        controller: namereson,
+                      ),
+                      SizedBox(height: 15,),
+                      CustomButton(
+                        width:double.infinity,
+                        //MediaQuery.of(context).size.width * 0.2,
+                        text: 'حفظ',
+                        onTap: () async {
+                          if (_globalKey.currentState!.validate()) {
+                            _globalKey.currentState!.save();
+                            // Provider.of<LoadProvider>(context, listen: false)
+                            //     .changebooladdclient(true);
+                            if(widget.idReason==null){
                             Provider.of<typeclient>(context,listen: false)
-                                .update_resoan({
+                                .addReson_vm({
                               'name_reason':namereson.text,
                               'type':widget.type,
-                            },widget.idReason.toString()).then(
+                            }).then(
                                     (value) =>  value!="error"
                                     ? clear(context)
                                     : error(context)
                             );
+                            }
+                            else{
+                              Provider.of<typeclient>(context,listen: false)
+                                  .update_resoan({
+
+                                'name_reason':namereson.text,
+                                'type':widget.type,
+                              },widget.idReason.toString()).then(
+                                      (value) =>  value!="error"
+                                      ? clear(context)
+                                      : error(context)
+                              );
+                            }
+                          }else {
+                            _scaffoldKey.currentState!.showSnackBar(
+                                SnackBar(content: Text('الحقل فارغ  '))
+                            );
                           }
-                        }else {
-                          _scaffoldKey.currentState!.showSnackBar(
-                              SnackBar(content: Text('الحقل فارغ  '))
-                          );
-                        }
-                      },
-                      //child: Text(" حفظ"),
-                    ),
-                  ],
+                        },
+                        //child: Text(" حفظ"),
+                      ),
+                    ],
+                  ),
                 ),
               ),
 

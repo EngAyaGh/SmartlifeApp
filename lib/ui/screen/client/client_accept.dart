@@ -11,6 +11,7 @@ import 'package:crm_smart/ui/widgets/client_widget/clientCardNew.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/separatorLine.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
+import 'package:crm_smart/view_model/maincity_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
@@ -54,6 +55,8 @@ class _ClientAcceptState extends State<ClientAccept> {
       Provider.of<client_vm>(context, listen: false)
           . getclient_Local('مشترك');
 
+      Provider.of<maincity_vm>
+        (context,listen: false).changevalue(null);
     });
 
     super.initState();
@@ -80,29 +83,61 @@ class _ClientAcceptState extends State<ClientAccept> {
 
                           children: [
                             // privilge.checkprivlge('1') == true ? //regoin
+                            // Expanded(
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.only(left: 8.0, right: 8),
+                            //     child: Consumer<regoin_vm>(
+                            //       builder: (context, cart, child) {
+                            //         return
+                            //           DropdownButton(
+                            //             isExpanded: true,
+                            //             hint: Text("الفرع"),
+                            //             items: cart.listregoinfilter.map((level_one) {
+                            //               return DropdownMenuItem(
+                            //
+                            //                 child: Text(level_one.name_regoin),
+                            //                 //label of item
+                            //                 value: level_one
+                            //                     .id_regoin, //value of item
+                            //               );
+                            //             }).toList(),
+                            //             value: cart.selectedValueLevel,
+                            //             onChanged: (value) {
+                            //               //  setState(() {
+                            //               cart.changeVal(value.toString());
+                            //               regoin = value.toString();
+                            //               filtershow();
+                            //             },
+                            //           );
+                            //         //);
+                            //       },
+                            //     ),
+                            //   ),
+                            // ),
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 8.0, right: 8),
-                                child: Consumer<regoin_vm>(
+                                child: Consumer<maincity_vm>(
                                   builder: (context, cart, child) {
                                     return
                                       DropdownButton(
                                         isExpanded: true,
-                                        hint: Text("الفرع"),
-                                        items: cart.listregoinfilter.map((level_one) {
+                                        hint: Text("المناطق"),
+                                        items: cart.listmaincity.map((level_one) {
                                           return DropdownMenuItem(
 
-                                            child: Text(level_one.name_regoin),
+                                            child: Text(level_one.namemaincity),
                                             //label of item
                                             value: level_one
-                                                .id_regoin, //value of item
+                                                .id_maincity, //value of item
                                           );
                                         }).toList(),
-                                        value: cart.selectedValueLevel,
+                                        value: cart.selectedValuemanag,
                                         onChanged: (value) {
                                           //  setState(() {
-                                          cart.changeVal(value.toString());
+                                          cart.changevalue(value.toString());
                                           regoin = value.toString();
+                                          print('regoin'+regoin.toString());
                                           filtershow();
                                         },
                                       );
@@ -110,7 +145,7 @@ class _ClientAcceptState extends State<ClientAccept> {
                                   },
                                 ),
                               ),
-                            ),// : Container(),
+                            ),
                             // Consumer<typeclient>(
                             //     builder: (context, selectedProvider, child){
                             //       return  GroupButton(
@@ -136,32 +171,7 @@ class _ClientAcceptState extends State<ClientAccept> {
                             //     }
                             //
                             // ),
-                            // Expanded(
-                            //   child: Padding(
-                            //     padding: const EdgeInsets.only(left: 20.0,right: 8),
-                            //     child: Consumer<typeclient>(
-                            //         builder: (context, cart, child){
-                            //           return DropdownButton(
-                            //             isExpanded: true,
-                            //             hint: Text('الحالة'),
-                            //             //hint: Text("حدد حالة العميل"),
-                            //             items: cart.listtype_install.map((level_one) {
-                            //               return DropdownMenuItem(
-                            //                 child: Text(level_one), //label of item
-                            //                 value: level_one, //value of item
-                            //               );
-                            //             }).toList(),
-                            //             value:cart.selectedlisttype_install,
-                            //             onChanged:(value) {
-                            //               //namemanage=value.toString();
-                            //               cart.changelisttype_install(value.toString());
-                            //               typeclientvalue=value.toString();
-                            //               filtershow();
-                            //             },
-                            //           );}
-                            //     ),
-                            //   ),
-                            // ),
+
                           ],
                         ),
                         search_widget(
@@ -170,6 +180,21 @@ class _ClientAcceptState extends State<ClientAccept> {
                           // Provider
                           //     .of<invoice_vm>(context, listen: true)
                           //     .listInvoicesAccept,
+                        ),
+                        SizedBox(height: 5,),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30.0,right: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('عدد العملاء',style: TextStyle(
+                                  fontFamily: kfontfamily2,fontWeight: FontWeight.bold
+                              ),),
+                              Text(
+                                Provider.of<client_vm>(context,listen: true).listClientAccept.length.toString(),style: TextStyle(
+                                  fontFamily: kfontfamily2,fontWeight: FontWeight.bold
+                              ),),
+                            ],),
                         ),
                         SizedBox(height: 5,),
                         Container(
@@ -227,7 +252,7 @@ class _ClientAcceptState extends State<ClientAccept> {
     //   Provider.of<invoice_vm>(context,listen: false)
     //       .getclienttype_filter(typeclientvalue!,regoin,'only');
     Provider.of<client_vm>(context,listen: false)
-        .getfilterview(regoin);
+        .getfilterviewSupport(regoin);
     //   if(regoin==null)
     //  Provider.of<invoice_vm>(context,listen: false).getclienttype_filter(typepayController,regoin);
     // else {

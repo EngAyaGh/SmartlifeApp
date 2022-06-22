@@ -93,7 +93,7 @@ class _loginState extends State<login> {
                       if (val.sendcode) {
                         Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(true);
 
-                        if (await AuthServices().send_otp(valEmail)) {
+                        if (await AuthServices().send_otp(valEmail.trim())) {
                           _textcontroller!.text="";
                           val.changeboolValue();
                           Provider.of<AuthProvider>(context,listen: false).changeboolValueisLoading(false);

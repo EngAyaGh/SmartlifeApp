@@ -1,4 +1,5 @@
 import 'package:crm_smart/model/clientmodel.dart';
+import 'package:crm_smart/model/maincitymodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/provider/switch_provider.dart';
@@ -12,6 +13,7 @@ import 'package:crm_smart/view_model/maincity_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
 import 'package:crm_smart/view_model/user_vm_provider.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +42,12 @@ class _editclientState extends State<editclient> {
 
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController typejobController = TextEditingController();
-  final TextEditingController cityController = TextEditingController();
+  String? cityController =null;
+  late CityModel citymodel=
+  CityModel(
+      id_city: widget.itemClient.city.toString(),
+      name_city: widget.itemClient.name_city.toString(),
+      fk_maincity: widget.itemClient.id_maincity.toString());
   final TextEditingController usernameclientController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
   final TextEditingController regoinController = TextEditingController();
@@ -56,7 +63,6 @@ class _editclientState extends State<editclient> {
     nameEnterpriseController.dispose();
     mobileController.dispose();
     typejobController.dispose();
-    cityController.dispose();
     locationController.dispose();
     regoinController.dispose();
     offerpriceController.dispose();
@@ -77,7 +83,8 @@ class _editclientState extends State<editclient> {
     typejobController.text=widget.itemClient.typeJob!.toString();
     locationController.text=widget.itemClient.location!.toString();
     regoinController.text=widget.itemClient.name_regoin!.toString();
-    usernameclientController.text=widget.itemClient.clientusername!.toString();
+    usernameclientController.text=widget.itemClient.clientusername==null?'':
+        widget.itemClient.clientusername.toString();
     //////////////////////////////////////////////////////////
     ////////////////////////////////////////
     //print( typeclient_provider.selectedValuemanag);
@@ -98,9 +105,13 @@ class _editclientState extends State<editclient> {
      await Provider.of<maincity_vm>(context,listen: false).getcityAll();
       Provider.of<maincity_vm>(context,listen: false)
       .changevalue(widget.itemClient.city.toString());
-      cityController.text=Provider.of<maincity_vm>(context,listen: false)
-          .selectedValuemanag.toString();
-      //widget.itemClient.city!.toString();
+      cityController=
+          // Provider.of<maincity_vm>(context,listen: false).selectedValuemanag.toString();
+      widget.itemClient.city!.toString();
+      citymodel=CityModel(
+         id_city: widget.itemClient.city.toString(),
+         name_city: widget.itemClient.name_city.toString(),
+         fk_maincity: widget.itemClient.id_maincity.toString());
       // Add Your Code here.
       bool ism=widget.itemClient.ismarketing=='1'?true:false;
       Provider.of<switch_provider>(
@@ -192,7 +203,7 @@ void didChangeDependencies() {
           'name_client': nameclientController.text,
           'name_enterprise': nameEnterpriseController.text,
           'type_job': typejobController.text,
-          'city': cityController.text,
+          'city': cityController,
           'location': locationController.text.toString(),
           //"fk_regoin":currentUser.fkRegoin==null?"null" :currentUser.fkRegoin,
           //"date_create": ,
@@ -315,28 +326,56 @@ void didChangeDependencies() {
                       //admin
 
                       RowEdit(name: label_clientcity, des: 'Required'),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(left: 20.0,right: 8),
+                      //   child: Consumer<maincity_vm>(
+                      //       builder: (context, cart, child){
+                      //         return DropdownButton(
+                      //           isExpanded: true,
+                      //           hint: Text(label_clientcity),
+                      //           items: cart.listcity.map((city) {
+                      //             return DropdownMenuItem(
+                      //               child: Text(city.name_city), //label of item
+                      //               value: city.id_city, //value of item
+                      //             );
+                      //           }).toList(),
+                      //           value:cart.selectedValuemanag,
+                      //           onChanged:(value) {
+                      //             cityController.text=value.toString();
+                      //             cart.changevalue(value.toString());
+                      //           },
+                      //         );}
+                      //   ),
+                      // ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 20.0,right: 8),
+                        padding: const EdgeInsets.all(8.0),
                         child: Consumer<maincity_vm>(
-                            builder: (context, cart, child){
-                              return DropdownButton(
-                                isExpanded: true,
-                                hint: Text(label_clientcity),
-                                items: cart.listcity.map((city) {
-                                  return DropdownMenuItem(
-                                    child: Text(city.name_city), //label of item
-                                    value: city.id_city, //value of item
-                                  );
-                                }).toList(),
-                                value:cart.selectedValuemanag,
-                                onChanged:(value) {
-                                  cityController.text=value.toString();
-                                  cart.changevalue(value.toString());
-                                },
-                              );}
+                          builder: (context, cart, child){
+                            return  DropdownSearch<CityModel>(
+                              mode: Mode.DIALOG,
+                              label: "المدن",
+                              validator: (val){
+
+                                if(val==null)
+                                  return 'من فضلك حدد اسم مدينة';
+                              },
+                              selectedItem: citymodel,
+                              filterFn: (user, filter) => user!.getfilteruser(filter!),
+                              items: cart.listcity,
+                              itemAsString:
+                                  ( u) => u!.userAsString(),
+                              onChanged: (data) =>
+                              cityController=data!.id_city,//print(data!.nameUser),
+                              showSearchBox: true,
+                              dropdownSearchDecoration: InputDecoration(
+                                labelText: "حدد مدينة",
+                                contentPadding: EdgeInsets.fromLTRB(12, 12, 5, 5),
+                                border: OutlineInputBorder(),
+                              ),
+                            );
+                          },
                         ),
                       ),
-
                       //manage
                       SizedBox(
                         height: 5,

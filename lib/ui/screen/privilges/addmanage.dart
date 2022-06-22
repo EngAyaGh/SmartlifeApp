@@ -16,8 +16,9 @@ import '../../../constants.dart';
 class addmanage extends StatefulWidget {
   addmanage({
     required this.name_mange,
+    required this.fk_country,
     required this.idmange, Key? key}) : super(key: key);
-  String? idmange,name_mange;
+  String? idmange,name_mange,fk_country;
 
   @override
   _addmanageState createState() => _addmanageState();
@@ -92,6 +93,7 @@ class _addmanageState extends State<addmanage> {
                           else{
                             Provider.of<manage_provider>(context,listen: false)
                                 .update_manage({
+                              'fk_country':widget.fk_country,
                               'name_mange':namelevel.text
                             },widget.idmange.toString()).then(
                                     (value) =>  value!="error"

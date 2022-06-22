@@ -60,7 +60,7 @@ class ticketdetail extends StatelessWidget {
         titlePadding:const EdgeInsets.fromLTRB(24.0, 1.0, 24.0, 10.0) ,
         insetPadding:  EdgeInsets.only(left: 10,right: 10,bottom: 10),
         contentPadding: EdgeInsets.only(left: 10,right: 10,bottom: 10),
-        title: Center(child: Text('إعادة جدولة',style:TextStyle(fontFamily: kfontfamily2))),
+        title: Center(child: Text('',style:TextStyle(fontFamily: kfontfamily2))),
         children:[
           ModalProgressHUD(
             inAsyncCall:   Provider.of<ticket_vm>(context,listen: true)
@@ -68,7 +68,6 @@ class ticketdetail extends StatelessWidget {
             child: StatefulBuilder(
               builder: (BuildContext context,
                   void Function(void Function()) setState) {
-
                 return
                   Directionality(
                     textDirection: TextDirection.rtl,
@@ -235,10 +234,10 @@ class ticketdetail extends StatelessWidget {
                 cardRow(title: '  ملاحظات إغلاق التذكرة ',value: ticketModel.notesTicket.toString()):Container(),
 
                 for(int i=0;i<ticketModel.transferticket!.length;i++)
-               _tranferall(ticketModel.transferticket![i].nameuserto.toString(),
-                   ticketModel.transferticket![i].nameuserfrom.toString(),
-                   ticketModel.transferticket![i].date_assigntr.toString(),
-                   ticketModel.transferticket![i].resoantransfer_ticket.toString()
+               _tranferall(ticketModel.transferticket![i]!.nameuserto.toString(),
+                   ticketModel.transferticket![i]!.nameuserfrom.toString(),
+                   ticketModel.transferticket![i]!.date_assigntr.toString(),
+                   ticketModel.transferticket![i]!.resoantransfer_ticket.toString()
                ),
                ticketModel.dateRecive!=null?
                 cardRow(title: 'قام باستلام التذكرة ',value: getnameshort( ticketModel.nameuserrecive.toString())):Container(),

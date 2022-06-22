@@ -595,7 +595,7 @@ else{
                                             (context,listen: false).currentUser.nameUser.toString(),//widget.itemClient.nameUser,
                                           "renew_year": renewController.text,
                                           "type_pay": typepayController,
-                                          //"date_create":  formatter.format(_currentDate),
+                                          "date_create": DateTime.now().toString(), //formatter.format(_currentDate),
                                           "type_installation": typeinstallController,
                                           "amount_paid": amount_paidController.text,
                                           "image_record":imageController.text,

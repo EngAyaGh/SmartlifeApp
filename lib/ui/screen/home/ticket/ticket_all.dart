@@ -55,7 +55,8 @@ appBar: AppBar(
                   itemBuilder: (BuildContext context, int index)=>
                       Builder(builder:
                           (context)=>
-                         buildcardExpansion('تاريخ فتح التذكرة  '+listticket_client[index].dateOpen,
+                         buildcardExpansion('تاريخ فتح التذكرة  '+
+                             listticket_client[index].dateOpen.toString(),
                              listticket_client[index].nameEnterprise ,
                              TicketView(
                                type:'1',

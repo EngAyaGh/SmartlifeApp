@@ -18,8 +18,9 @@ import '../../../constants.dart';
 class addregoin extends StatefulWidget {
   addregoin({
     required this.nameregoin,
+    required this.fk_country,
     required this.idregoin, Key? key}) : super(key: key);
-  String? idregoin,nameregoin;
+  String? idregoin,nameregoin,fk_country;
 
   @override
   _addregoinState createState() => _addregoinState();
@@ -95,7 +96,9 @@ class _addregoinState extends State<addregoin> {
                           else{
                             Provider.of<regoin_vm>(context,listen: false)
                                 .update_regoin({
-                              'name_regoin':namelevel.text
+                              'name_regoin':namelevel.text,
+                              'id_regoin':widget.idregoin,
+                              'fk_country':widget.fk_country,
                             },widget.idregoin.toString()).then(
                                     (value) =>  value!="error"
                                     ? clear(context)

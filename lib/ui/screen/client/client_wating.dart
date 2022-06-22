@@ -51,9 +51,9 @@ class _ClientWaitingState extends State<ClientWaiting> {
       //  Provider.of<invoice_vm>(context, listen: false).getinvoice_Local("مشترك",'approved only');
       //if(widget.type=='client')
       Provider.of<invoice_vm>(context,listen: false).listInvoicesAccept=[];
-      await Provider.of<maincity_vm>
-        (context,listen: false)
-          .getmaincity();
+      // await Provider.of <maincity_vm>
+      //   (context,listen: false)
+      //     .getmaincity();
       Provider.of<maincity_vm>
         (context,listen: false).changevalue(null);
       Provider.of<typeclient>(context,listen: false).changelisttype_install(null);
@@ -137,7 +137,6 @@ class _ClientWaitingState extends State<ClientWaiting> {
                                         }).toList(),
                                         value:cart.selectedlisttype_install,
                                         onChanged:(value) {
-                                          //namemanage=value.toString();
                                           cart.changelisttype_install(value.toString());
                                           typeclientvalue=value.toString();
                                           print('filter state'+value.toString());
@@ -155,7 +154,20 @@ class _ClientWaitingState extends State<ClientWaiting> {
                             'waitsupport',
                             hintnamefilter,''
                         ),
-
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30.0,right: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('عدد العملاء',style: TextStyle(
+                                  fontFamily: kfontfamily2,fontWeight: FontWeight.bold
+                              ),),
+                              Text(
+                                Provider.of<invoice_vm>(context,listen: true).listInvoicesAccept.length.toString(),style: TextStyle(
+                                  fontFamily: kfontfamily2,fontWeight: FontWeight.bold
+                              ),),
+                            ],),
+                        ),
                         SizedBox(height: 5,),
                         Container(
                           height: MediaQuery

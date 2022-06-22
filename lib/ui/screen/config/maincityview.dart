@@ -50,8 +50,8 @@ class _maincityviewState extends State<maincityview> {
         centerTitle: true,
       ),
       floatingActionButton:
-      // Provider.of<privilge_vm>(context,listen: true)
-      //     .checkprivlge('64')==true ?
+      Provider.of<privilge_vm>(context,listen: true)
+          .checkprivlge('78')==true ?
       FloatingActionButton(
         child:Icon(Icons.add),
         onPressed: (){
@@ -60,6 +60,7 @@ class _maincityviewState extends State<maincityview> {
             MaterialPageRoute<void>(
               builder: (BuildContext context)
               => addmaincity(
+                fkcountry: null,
                 idregoin: null,
                 nameregoin: null,
               ),
@@ -67,12 +68,11 @@ class _maincityviewState extends State<maincityview> {
             ),
           );
         },
-        backgroundColor: kMainColor,),
-      //:Container(),
+        backgroundColor: kMainColor,):Container(),
       body:
       _listlevel.length==0?
       Center(
-          child: CircularProgressIndicator()):
+          child: Text('')):
       Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView.builder(
@@ -82,7 +82,6 @@ class _maincityviewState extends State<maincityview> {
           itemBuilder: (BuildContext context, int index) =>
               Builder(
                   builder: (context) =>
-
                       SingleChildScrollView(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -120,14 +119,45 @@ class _maincityviewState extends State<maincityview> {
                                       borderRadius: BorderRadius.all( Radius.circular(5)),),
 
                                     //color: kMainColor,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(4),
-                                      child: Center(
-                                        child:
-                                        Text(_listlevel[index].namemaincity,
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontFamily: kfontfamily2),),),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.all(4),
+                                              child: Center(
+                                                child:
+                                                Text(_listlevel[index].namemaincity,
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontFamily: kfontfamily2),),),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                             IconButton(
+                                              icon: Icon(Icons.edit, color: kMainColor,),
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute<void>(
+                                                    builder: (BuildContext context)
+                                                    => addmaincity(
+                                                      fkcountry: _listlevel[index].fk_country,
+                                                      idregoin: _listlevel[index].id_maincity,
+                                                      nameregoin: _listlevel[index].namemaincity,
+                                                    ),
+                                                    fullscreenDialog: true,
+                                                  ),
+                                                );
+                                            },
+                                              //onPressed: BOOKMARK,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),

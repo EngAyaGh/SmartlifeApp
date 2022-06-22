@@ -64,8 +64,8 @@ class ticket_vm extends ChangeNotifier{
     if(productName.isNotEmpty){
     if(listticket.isNotEmpty ){
       listticket.forEach((element) {
-        if(element.nameEnterprise.contains(searchKey,0)
-            || element.nameClient.contains(searchKey,0)
+        if(element.nameEnterprise!.contains(searchKey,0)
+            || element.nameClient!.contains(searchKey,0)
             || element.mobile!.contains(searchKey,0) )
           ticketlistsearch.add(element);
       });
@@ -202,18 +202,15 @@ Future<void> getticket() async {
   var
   data=await Api()
       .get(url:url+ 'ticket/view_ticket.php?fk_country=${usercurrent!.fkCountry}');
-   print('tickets print'); print(data);
+   print('tickets print');
+   print(data);
   List<TicketModel> prodlist = [];
   for (int i = 0; i < data.length; i++) {
-
     prodlist.add(TicketModel.fromJson(data[i]));
   }
   listticket=prodlist;
-
-  // tickesearchlist=listticket;
   isloading=false;
   notifyListeners();
-
 }
 
 

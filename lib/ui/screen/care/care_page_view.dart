@@ -185,6 +185,21 @@ class _care_page_viewState extends State<care_page_view> {
                           //     .listInvoicesAccept,
                         ),
                         SizedBox(height: 5,),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30.0,right: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('عدد العملاء',style: TextStyle(
+                                  fontFamily: kfontfamily2,fontWeight: FontWeight.bold
+                              ),),
+                              Text(
+                               Provider.of<client_vm>(context,listen: true).listClientAccept.length.toString(),style: TextStyle(
+                                  fontFamily: kfontfamily2,fontWeight: FontWeight.bold
+                              ),),
+                            ],),
+                        ),
+                        SizedBox(height: 5,),
                         Container(
                           height: MediaQuery
                               .of(context)

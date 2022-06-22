@@ -39,4 +39,13 @@ class CityModel{
       fk_maincity: json["fk_maincity"],
     );
   }
+  String userAsString() {
+    return "${this.name_city}";
+    // return '#${this.idUser} ${this.nameUser}';
+  }
+
+  ///this method will prevent the override of toString
+  bool getfilteruser(String filter) {
+    return this.name_city.toString().contains(filter);
+  }
 }

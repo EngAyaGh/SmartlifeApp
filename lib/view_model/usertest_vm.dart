@@ -17,6 +17,7 @@ class usertest_vm  extends ChangeNotifier{
   bool isloading=false;
 
   Future<void> getusertest_vm() async {
+    listProduct=[];
     isloading = true;
     notifyListeners();
     var data = await Api()
