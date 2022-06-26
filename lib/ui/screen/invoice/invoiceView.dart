@@ -366,7 +366,51 @@ class _InvoiceViewState extends State<InvoiceView> {
                         title: 'سبب الإنسحاب',
                         value:
                          widget.invoice!.desc_reason_back.toString(),isExpanded: true,):Container(),
+                    cardRow(
+                        title: 'عدد الفروع',
+                        value: widget.invoice!.numbarnch != null
+                            ? widget.invoice!.numbarnch.toString()
+                            : ''),
+                    cardRow(
+                        title: 'عدد المستودعات ',
+                        value: widget.invoice!.nummostda != null
+                            ? widget.invoice!.nummostda.toString()
+                            : ''),
+                    cardRow(
+                        title: 'عدد المستخدمين',
+                        value: widget.invoice!.numusers != null
+                            ? widget.invoice!.numusers.toString()
+                            : ''),
+                    cardRow(
+                        title: 'شعار المؤسسة',
+                        value: widget.invoice!.imagelogo != null
+                            ? widget.invoice!.imagelogo.toString()
+                            : ''),
+                      Column(
+                      //mainAxisAlignment: MainAxisAlignment.start,
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text('شعار المؤسسة',style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontFamily: kfontfamily2),),
+                            SizedBox(width: 50,),
+                            //image logo
+                            //Spacer(flex: 1,),
+                            //Text(value,style: TextStyle( fontWeight: FontWeight.w500,fontFamily: kfontfamily2),),
+                          ],
+                        ),
+                        //Spacer(),
+                        Divider(thickness: 1,color: Colors.grey,),
+                        //const MySeparator(color: Colors.grey),
+                        SizedBox(height: 5,),
 
+                      ],
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(

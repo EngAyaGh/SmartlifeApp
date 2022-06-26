@@ -41,8 +41,8 @@ class EditTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-
+    return
+      TextFormField(
       maxLines:maxline ,
       onChanged: onChanged,
       validator: vaild,
@@ -54,7 +54,7 @@ class EditTextFormField extends StatelessWidget {
       readOnly: read==null?false:true,
       inputFormatters: inputformate,
       decoration: InputDecoration(
-
+      //icon: ,
         contentPadding:
         paddcustom==null?
          EdgeInsets.all(2):paddcustom,

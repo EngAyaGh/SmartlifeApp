@@ -25,7 +25,7 @@ Future<UserModel> UpdateUser({
 var data = await Api().postRequestWithFile('array',
    url+'users/updateuser_patch.php?id_user=$idUser',
    body,
-   file,
+   file,null,
   );
   List<UserModel> usersList = [];
 

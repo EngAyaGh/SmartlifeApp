@@ -303,7 +303,7 @@ class _support_addState extends State<support_add> {
                           child: TextFormField(
                             validator:  (value) {
                   if (_currentDate == DateTime(1, 1, 1)) {
-                  return 'يرجى تعيين التاريخ ';
+                       return 'يرجى تعيين التاريخ ';
                   }},
                             decoration: InputDecoration(
                               prefixIcon: Icon(
@@ -674,6 +674,7 @@ class _support_addState extends State<support_add> {
     Provider.of<datetime_vm>(context,listen: false).setdatetimevalue(
         _currentDate,selectedTime);
   }
+
   clear() {
 
     _currentDate = DateTime(1, 1, 1);

@@ -115,6 +115,7 @@ class _loginState extends State<login> {
                           SharedPreferences preferences  = await SharedPreferences.getInstance();
                           preferences.setBool(kKeepMeLoggedIn, true);
                           preferences.setString("id_user",res!);
+                          // preferences.set("map_clientlist",res!);
                           Provider.of<user_vm_provider>(context, listen: false)
                               .getcurrentuser();
                           Provider.of<AuthProvider>(context,listen: false)

@@ -82,7 +82,6 @@ class _supportpageState extends State<supportpage> {
                colortitle: Colors.black,
                colorarrow: Colors.black,
                onTap: () {
-              //
                Navigator.push(context, MaterialPageRoute(
                    builder: (context)=>
                        ClientWaiting(type_card: 'support',) // support_view(type: 'only',)

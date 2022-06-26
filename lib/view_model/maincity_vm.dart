@@ -10,11 +10,17 @@ import '../constants.dart';
 
 class maincity_vm extends ChangeNotifier{
   List<MainCityModel> listmaincity=[];
+  List<MainCityModel> listmaincityfilter=[];
   List<CityModel> listcity=[];
 
   late String? selectedValuemanag=null;
   void changevalue(String? s){
     selectedValuemanag=s;
+    notifyListeners();
+  }
+  late List<MainCityModel> selecteditemmaincity;
+  void changeitemlist(List<MainCityModel> s){
+    selecteditemmaincity=s;
     notifyListeners();
   }
   UserModel? usercurrent;
@@ -34,7 +40,11 @@ class maincity_vm extends ChangeNotifier{
       if(data !=null) {
         for (int i = 0; i < data.length; i++) {
           listmaincity.add(MainCityModel.fromJson(data[i]));
-        }}
+        }
+      }
+      listmaincityfilter=List.from(listmaincity);// [...listregoin];listregoin.tolist();
+      listmaincityfilter.insert(0,MainCityModel(
+          id_maincity: '0', namemaincity: 'الكل', fk_country: ''));
       selectedValuemanag='1';
       notifyListeners();
     }

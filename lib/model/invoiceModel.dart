@@ -13,6 +13,7 @@ class InvoiceModel extends CacheRepository{
      this.renewYear,
      this.typeInstallation,
      this.imageRecord,
+     this.imagelogo,
      this.fkIdClient,
      this.fkIdUser,
      this.amountPaid,
@@ -61,6 +62,9 @@ class InvoiceModel extends CacheRepository{
     this.name_city,
     this.namemaincity,
     this.id_maincity,
+    this.numbarnch,
+    this.numusers,
+    this.nummostda,
     //name_city,mcit.namemaincity,mcit.id_maincity
     // this.nameuserApprove,
     // this.date_approve,
@@ -72,6 +76,7 @@ class InvoiceModel extends CacheRepository{
     String? renewYear;
     String? typeInstallation;
     String? imageRecord='';
+    String? imagelogo='';
     String? fkIdClient;
     String? fkIdUser;
     String? amountPaid;
@@ -114,6 +119,9 @@ class InvoiceModel extends CacheRepository{
     String? date_approve;
     String? mobile;//mobile client
     String? ismarketing;
+    String? numbarnch;
+    String? numusers;
+    String? nummostda;
     String?  city,
   name_city,
   namemaincity,
@@ -135,6 +143,10 @@ class InvoiceModel extends CacheRepository{
     ||jsondata['image_record']==null
     ? jsondata['image_record']
     : urlfile+ jsondata['image_record'];
+    imagelogo = jsondata['imagelogo'].toString().trim().isEmpty
+    ||jsondata['imagelogo']==null
+    ? jsondata['imagelogo']
+    : urlfile+ jsondata['imagelogo'];
     fkIdClient = jsondata['fk_idClient'];
     fkIdUser = jsondata['fk_idUser'];
     amountPaid = jsondata['amount_paid'];
@@ -182,6 +194,9 @@ class InvoiceModel extends CacheRepository{
     name_city = jsondata['name_city'];
     namemaincity = jsondata['namemaincity'];
     id_maincity = jsondata['id_maincity'];
+    numbarnch = jsondata['numbarnch'];
+    numusers = jsondata['numusers'];
+    nummostda = jsondata['nummostda'];
     products=getproud(jsondata['products']);
       //  json.decode(
        // jsondata['products']
@@ -220,6 +235,7 @@ class InvoiceModel extends CacheRepository{
     _data['renew_year'] = renewYear;
     _data['type_installation'] = typeInstallation;
     _data['image_record'] = imageRecord;
+    _data['imagelogo'] = imagelogo;
     _data['fk_idClient'] = fkIdClient;
     _data['fk_idUser'] = fkIdUser;
     _data['amount_paid'] = amountPaid;
@@ -268,6 +284,9 @@ class InvoiceModel extends CacheRepository{
     _data['name_city'] = name_city;
     _data['namemaincity'] = namemaincity;
     _data['id_maincity'] = id_maincity;
+    _data['numbarnch'] = numbarnch;
+    _data['nummostda'] = nummostda;
+    _data['numusers'] = numusers;
     _data['products'] =
         products!.map((e)=>e.toJson()).toList();
     return _data;

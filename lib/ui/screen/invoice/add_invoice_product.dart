@@ -181,7 +181,6 @@ void calculate(){
                     mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(
-
                     children: [
                       DropdownButton(
                         isExpanded: true,

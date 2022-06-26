@@ -5,6 +5,7 @@ import 'dart:ffi';
 
 import 'package:crm_smart/constants.dart';
 import 'package:crm_smart/model/clientmodel.dart';
+import 'package:crm_smart/model/maincitymodel.dart';
 import 'package:crm_smart/model/privilgemodel.dart';
 import 'package:crm_smart/ui/screen/client/profileclient.dart';
 import 'package:crm_smart/ui/screen/search/search_container.dart';
@@ -21,6 +22,7 @@ import 'package:crm_smart/view_model/maincity_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
@@ -36,6 +38,8 @@ class _ClientWaitingState extends State<ClientWaiting> {
   String? regoin;
   String? typeclientvalue;
   late ClientModel itemClient;
+  late List<MainCityModel>? selecteditemmaincity=null;
+
   // late String typepayController;
   @override void didChangeDependencies() async {
 
@@ -92,30 +96,76 @@ class _ClientWaitingState extends State<ClientWaiting> {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 8.0, right: 8),
-                                child: Consumer<maincity_vm>(
-                                  builder: (context, cart, child) {
-                                    return
-                                      DropdownButton(
-                                        isExpanded: true,
-                                        hint: Text("المناطق"),
-                                        items: cart.listmaincity.map((level_one) {
-                                          return DropdownMenuItem(
+                                child:
+                                // Consumer<maincity_vm>(
+                                //   builder: (context, cart, child) {
+                                //     return
+                                //       DropdownButton(
+                                //         isExpanded: true,
+                                //         hint: Text("المناطق"),
+                                //         items: cart.listmaincity.map((level_one) {
+                                //           return DropdownMenuItem(
+                                //             child: Text(level_one.namemaincity),
+                                //             //label of item
+                                //             value: level_one
+                                //                 .id_maincity, //value of item
+                                //           );
+                                //         }).toList(),
+                                //         value: cart.selectedValuemanag,
+                                //         onChanged: (value) {
+                                //           //  setState(() {
+                                //           cart.changevalue(value.toString());
+                                //           regoin = value.toString();
+                                //           filtershow();
+                                //         },
+                                //       );
+                                //     //);
+                                //   },
+                                // ),
+                                Consumer<maincity_vm>(
+                                  builder: (context, cart, child){
+                                    return  DropdownSearch<MainCityModel>.multiSelection(
+                                      mode: Mode.DIALOG,
+                                      filterFn: (user, filter) => user!.getfilteruser(filter!),
+                                      //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
+                                      // itemAsString: (UserModel u) => u.userAsStringByName(),
+                                      items: cart.listmaincityfilter,
+                                      showSelectedItems: true,
+                                      selectedItems: cart.selecteditemmaincity,
+                                      itemAsString: (u) => u!.userAsString(),
+                                      onChanged: (data) {
+                                        selecteditemmaincity=data;
+                                        cart.changeitemlist(data);
+                                        filtershow();
+                                      } ,
+                                      //selectedItem: cart.selecteduser,
+                                      showSearchBox: true,
+                                      dropdownSearchDecoration:
+                                      InputDecoration(
 
-                                            child: Text(level_one.namemaincity),
-                                            //label of item
-                                            value: level_one
-                                                .id_maincity, //value of item
-                                          );
-                                        }).toList(),
-                                        value: cart.selectedValuemanag,
-                                        onChanged: (value) {
-                                          //  setState(() {
-                                          cart.changevalue(value.toString());
-                                          regoin = value.toString();
-                                          filtershow();
-                                        },
-                                      );
-                                    //);
+                                        //filled: true,
+                                        isCollapsed: true,
+                                        hintText: 'المنطقة',
+                                        alignLabelWithHint: true,
+                                        fillColor:  Colors.grey.withOpacity(0.2),
+                                        //labelText: "choose a user",
+                                        contentPadding: EdgeInsets.all(0),
+                                        //contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                        // focusedBorder: OutlineInputBorder(
+                                        //     borderRadius: BorderRadius.circular(10),
+                                        //     borderSide: const BorderSide(color: Colors.white)),
+                                        border:
+                                        UnderlineInputBorder(
+                                            borderSide: const BorderSide(  color: Colors.grey)
+                                        ),
+                                        // OutlineInputBorder(
+                                        //     borderRadius: BorderRadius.circular(10),
+                                        //     borderSide: const BorderSide( color: Colors.white)),
+                                      ),
+                                      // InputDecoration(border: InputBorder.none),
+
+                                    );
+
                                   },
                                 ),
                               ),
@@ -141,7 +191,6 @@ class _ClientWaitingState extends State<ClientWaiting> {
                                           typeclientvalue=value.toString();
                                           print('filter state'+value.toString());
                                           print(typeclientvalue);
-
                                           filtershow();
                                         },
                                       );}
@@ -245,7 +294,8 @@ class _ClientWaitingState extends State<ClientWaiting> {
     //      break;
     //  }
      Provider.of<invoice_vm>(context,listen: false)
-         .getclienttype_filter(typeclientvalue,regoin,'only');
+    .getfilter_maincity(selecteditemmaincity,'');
+         //.getclienttype_filter(typeclientvalue,regoin,'only');
 
     // }
   }

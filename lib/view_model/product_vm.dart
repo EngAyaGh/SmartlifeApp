@@ -20,13 +20,10 @@ class product_vm extends ChangeNotifier {
   }
 
   Future<void> getproduct_vm() async {
-
     listProduct.clear();
     print('after clear');
     print(listProduct.length);
-    // notifyListeners();
     listProduct = await ProductService().getAllProduct(usercurrent!.fkCountry.toString());
-
     notifyListeners();
   }
 

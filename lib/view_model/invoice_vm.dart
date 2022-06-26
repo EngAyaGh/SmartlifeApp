@@ -1,8 +1,10 @@
 
 
+
 import 'package:crm_smart/Repository/invoice_repo/cach_data_source.dart';
 import 'package:crm_smart/model/deleteinvoicemodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
+import 'package:crm_smart/model/maincitymodel.dart';
 import 'package:crm_smart/model/privilgemodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/Invoice_Service.dart';
@@ -282,6 +284,25 @@ class invoice_vm extends ChangeNotifier{
     listInvoicesAccept= List.from(_listInvoicesAccept);
     notifyListeners();
   }
+  Future<void> getfilter_maincity(List<MainCityModel>? list,type)async{
+    switch(type){
+      case 'allmaincity':
+        break;
+      case 'allstate':
+        break;
+      case 'allmix':
+        break;
+      case '':
+        break;
+      case '':
+        break;
+    }
+    listInvoicesAccept = await Invoice_Service()
+        .getinvoicemaincity(usercurrent!.fkCountry.toString(),list);
+    //listInvoicesAccept=//List.from(listinvoices);
+    notifyListeners();
+  }
+
   Future<void> getclienttype_filter(String? filter,String? regoin,String tyype)async{
     // listInvoicesAccept=[];
     if(tyype=='only')await getinvoice_Local("مشترك",'approved only',null);
@@ -479,6 +500,10 @@ Future<void> getinvoice_Localwithprev() async{
   // if(listInvoicesAccept.isEmpty)listInvoicesAccept=listinvoices;
   notifyListeners();
 }
+  Future<void> getClientWaiting()async{
+
+    notifyListeners();
+  }
   Future<void> getinvoice_Local(String searchfilter,String type
       ,String? approvetype
       // , List<ClientModel> list
@@ -710,10 +735,10 @@ Future<void> getinvoice_Localwithprev() async{
     notifyListeners();
   }
   Future<String> add_invoiceclient_vm(
-      Map<String, dynamic?> body,File? file) async {
+      Map<String, dynamic?> body,File? file, File? myfilelogo) async {
 
        String res='done';
-      InvoiceModel data = await Invoice_Service().addInvoice(body,file);
+      InvoiceModel data = await Invoice_Service().addInvoice(body,file,myfilelogo);
    //  if(data !=null){
        print('resssssssssssssss');
     listinvoices.insert(0,data);
@@ -747,8 +772,9 @@ Future<void> getinvoice_Localwithprev() async{
   }
 
   Future<bool> update_invoiceclient_vm(
-      Map<String, dynamic?> body,String? idInvoice,File? file) async {
-    InvoiceModel data=  await Invoice_Service().updateInvoice(body,idInvoice!,file);
+      Map<String, dynamic?> body,String? idInvoice,File? file, File? myfilelogo) async {
+    InvoiceModel data=  await Invoice_Service()
+        .updateInvoice(body,idInvoice!,file,myfilelogo);
       final index=listinvoiceClient.indexWhere(
               (element) => element.idInvoice==idInvoice);
       // body.addAll({

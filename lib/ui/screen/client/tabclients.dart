@@ -241,9 +241,11 @@ class _tabclientsState extends State<tabclients> {
                           privilge.checkprivlge('8')==true? //user
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0,right: 8,),
-                        child: Consumer<user_vm_provider>(
+                        child:
+                        Consumer<user_vm_provider>(
                           builder: (context, cart, child){
                             return  DropdownSearch<UserModel>(
+
                               mode: Mode.DIALOG,
                               // label: " الموظف ",
                               //hint: 'الموظف',

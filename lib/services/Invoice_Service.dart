@@ -2,6 +2,7 @@
 import 'package:crm_smart/api/api.dart';
 import 'package:crm_smart/model/deleteinvoicemodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
+import 'package:crm_smart/model/maincitymodel.dart';
 
 import '../constants.dart';
 import 'dart:io';
@@ -11,6 +12,25 @@ class Invoice_Service {
     var
     data=await Api()
         .get(url:url+ 'client/invoice/getinvoice.php?fk_country=$fk_country');
+    print(data);
+    List<InvoiceModel> prodlist = [];
+    // final json = "[" + data[i] + "]";
+    for (int i = 0; i < data.length; i++) {
+      print(i);
+
+      //print("data "+ "[" + data[i] + "]");
+      prodlist.add(InvoiceModel.fromJson(data[i]));
+    }
+    print(prodlist);
+    return prodlist;
+  }
+  Future<List<InvoiceModel>> getinvoicemaincity(
+      String fk_country ,List<MainCityModel>? list) async {
+    var
+    data=await Api()
+        .get(url:url+
+        'client/invoice/getinvoicemaincity.php?'
+            'fk_country=$fk_country&maincity_fks=$list');
     print(data);
     List<InvoiceModel> prodlist = [];
     // final json = "[" + data[i] + "]";
@@ -113,12 +133,13 @@ class Invoice_Service {
     print(prodlist);
     return prodlist;
   }
-  Future<InvoiceModel> addInvoice( Map<String,dynamic?> body,File? file) async {
-
+  Future<InvoiceModel> addInvoice( Map<String,dynamic?> body,
+      File? file,File? filelogo) async {
     try {
       var data = await Api()
-          .postRequestWithFile('array',  url+"client/invoice/addinvoice.php",
-           body, file);
+          .postRequestWithFile('array',
+          url+"client/invoice/addinvoice.php",
+           body, file,filelogo);
 
       return  InvoiceModel.fromJson(data[0]);
     }
@@ -144,11 +165,11 @@ class Invoice_Service {
   }
 
   Future<InvoiceModel> updateInvoice( Map<String,dynamic> body,
-      String idInvoice,File? file) async {
+      String idInvoice,File? file,File? filelogo) async {
     var result = await Api()
         .postRequestWithFile('array',
         url+"client/invoice/updateinvoice.php",
-        body,file
+        body,file,filelogo
     );
     return InvoiceModel.fromJson(result[0]) ;//=="done"? true:false;
   }
@@ -183,7 +204,8 @@ class Invoice_Service {
   Future<List<DeletedinvoiceModel>> getinvoice_deleted(String fk_regoin) async {
     List<dynamic> data =[];
     data=await Api()
-        .get(url:url+ 'client/invoice/get_invoice_deleted.php?fk_regoin=$fk_regoin');
+        .get(url:url+
+        'client/invoice/get_invoice_deleted.php?fk_regoin=$fk_regoin');
 
     List<DeletedinvoiceModel> prodlist = [];
 

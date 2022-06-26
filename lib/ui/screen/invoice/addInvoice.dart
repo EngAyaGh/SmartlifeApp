@@ -67,6 +67,11 @@ class _addinvoiceState extends State<addinvoice> {
    late String typeinstallController='0';
 
    final TextEditingController noteController = TextEditingController();
+   final TextEditingController numbranchController = TextEditingController();
+   final TextEditingController numuserController = TextEditingController();
+   final TextEditingController nummostawdaController = TextEditingController();
+   final TextEditingController numTaxController = TextEditingController();
+   // final TextEditingController numTaxController = TextEditingController();
 
    final TextEditingController imageController = TextEditingController();
    final _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
@@ -80,6 +85,7 @@ class _addinvoiceState extends State<addinvoice> {
    bool _multiPick = false;
    FileType _pickingType = FileType.any;
   late File? _myfile=null;
+  late File? _myfilelogo=null;
   InvoiceModel? _invoice=null;
 
 @override
@@ -421,6 +427,102 @@ else{
                         SizedBox(
                           height: 15,
                         ),
+                        Row(
+                          children: [
+                            Column(
+                              children: [
+                                RowEdit(name: 'عدد الفروع', des: ''),
+                                EditTextFormField(
+                                  paddcustom: EdgeInsets.all(16),
+                                  hintText: label_note,
+                                  obscureText: false,
+                                  controller: numbranchController,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                RowEdit(name: 'عدد المستودعات', des: ''),
+                                EditTextFormField(
+                                  paddcustom: EdgeInsets.all(16),
+                                  hintText: label_note,
+                                  obscureText: false,
+                                  controller: nummostawdaController,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Column(
+                              children: [
+                                RowEdit(name: 'عدد المستخدمين', des: ''),
+                                EditTextFormField(
+                                  paddcustom: EdgeInsets.all(16),
+                                  hintText: label_note,
+                                  obscureText: false,
+                                  controller: numuserController,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                RowEdit(name: 'الرقم الضريبي', des: ''),
+                                EditTextFormField(
+                                  paddcustom: EdgeInsets.all(16),
+                                  hintText: label_note,
+                                  obscureText: false,
+                                  controller: numTaxController,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        RowEdit(name: 'شعار المؤسسة', des: ''),
+                       TextFormField(
+
+                    obscureText: false,
+
+                    cursorColor: Colors.black,
+                    onTap: ()async{
+                      ImagePicker imagePicker = ImagePicker();
+                      final pickedImage =
+                          await imagePicker.pickImage(
+                        source: ImageSource.gallery,
+                        imageQuality: 100,);
+                      File?   pickedFile = File(pickedImage!.path);
+                      print(pickedFile.path);
+                      _myfilelogo=pickedFile;
+                      // _invoice!.path=pickedFile.path;
+                    },
+                    decoration: InputDecoration(
+                      //icon: ,
+                      contentPadding:
+                      EdgeInsets.all(2) ,
+                      prefixIcon: Icon(
+                        Icons.add_photo_alternate,
+                        color: kMainColor,
+                      ),
+                      hintStyle: const TextStyle(
+                          color: Colors.black45, fontSize: 16, fontWeight: FontWeight.w500),
+                      hintText: '',
+                      filled: true,
+                      fillColor: Colors.grey.shade200,
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.white)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.white)),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.white)),
+                      focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.white)),
+                    ),
+                  ),
                         RowEdit(name: label_image, des: ''),
                         //show chose image
                         EditTextFormField(
@@ -473,7 +575,9 @@ else{
                             children: [
                           PhotoView(
                           imageProvider:
-                          Image.network(_invoice!.imageRecord.toString()).image,)
+                          Image.network(
+                              _invoice!.imageRecord.toString()
+                           ).image,)
                               // Text('فتح الملف'),
                               // IconButton(
                               //   iconSize: 50,
@@ -570,9 +674,15 @@ else{
                                           "total": totalController,
                                           "notes": noteController.text,
                                           "id_invoice":invoiceID,
+                                          // 'imagelogo':'',
+                                          'numbarnch':numbranchController.text,
+                                          'nummostda':nummostawdaController.text,
+                                          'numusers':numuserController.text,
                                           'date_lastuserupdate':DateTime.now().toString(),
                                           //"date_changetype":,
-                                        },invoiceID,_invoice!.path.toString().isNotEmpty?_myfile:null
+                                        },invoiceID,
+                                            _invoice!.path.toString().isNotEmpty?_myfile:null,
+                                            _myfilelogo
                                         ).then((value) =>
                                          value != false
                                             ? clear(context,invoiceID.toString(),_products)
@@ -605,10 +715,14 @@ else{
                                           "notes": noteController.text,
                                           'fk_regoin':widget.itemClient.fkRegoin,
                                           'fkcountry':widget.itemClient.fkcountry,
+                                          'numbarnch':numbranchController.text,
+                                          'nummostda':nummostawdaController.text,
+                                          'numusers':numuserController.text,
                                           //'date_lastuserupdate':DateTime.now().toString(),
                                           //"date_changetype":,
                                           //'message':"",
                                         },_invoice!.path!.isNotEmpty?_myfile:null
+                                        ,_myfilelogo
                                         ).then((value) =>
                                         value != "false"
                                             ? clear(context,value,_products)

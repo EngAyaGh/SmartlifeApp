@@ -21,6 +21,7 @@ class user_vm_provider extends ChangeNotifier{
     selecteduser=s;
     notifyListeners();
   }
+  late SharedPreferences prefs;
 
   late UserModel currentUser;
   //List<PrivilgeModel> privilgelist=[];
@@ -39,8 +40,8 @@ class user_vm_provider extends ChangeNotifier{
   void setpath(String path){
     currentUser.path=path;
     notifyListeners();
-
   }
+
   Future<void> updateuser_vm(Map<String, String?> body,String? iduser,File? file) async {
     isupdate=true;
     notifyListeners();
@@ -96,13 +97,14 @@ class user_vm_provider extends ChangeNotifier{
     UserModel? user;
     userall.map(
             (e) {
-              e.nameUser!.contains(filter);return true;
+              e.nameUser!.contains(filter);
+              return true;
             }
     );
     return false;
   }
   Future<bool> tryAutoLogin()async{
-    final prefs=await SharedPreferences.getInstance();
+    // prefs=await SharedPreferences.getInstance();
     if(!prefs.containsKey('id_user')){
       return false;
     }
@@ -111,11 +113,11 @@ class user_vm_provider extends ChangeNotifier{
     return true;
   }
   Future<SharedPreferences> getcurrentuser() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
+    prefs = await SharedPreferences.getInstance();
     try {
       if(userall.isEmpty)
       userall = await  UserService().usersServices();
-      String? id = preferences.getString('id_user');
+      String? id = prefs.getString('id_user');
       print('user id sss  ');
       print(id);
       //print("in get user" + userall[0].nameUser.toString());
@@ -127,9 +129,9 @@ class user_vm_provider extends ChangeNotifier{
       currentUser.path="";
       notifyListeners();
       print("preferences");
-      print(preferences.containsKey('id_user'));
-      preferences.setString("id_user1",'-1');
-      return preferences;
+      print(prefs.containsKey('id_user'));
+      prefs.setString("id_user1",'-1');
+      return prefs;
       }else {
         SharedPreferences preferences  = await SharedPreferences.getInstance();
         //preferences.setBool(kKeepMeLoggedIn, true);
@@ -137,13 +139,13 @@ class user_vm_provider extends ChangeNotifier{
         return preferences;
       }
     }else{
-        return preferences;
+        return prefs;
       }
     }
     catch(e){
       print('exp error is '+e.toString());}
     notifyListeners();
-    return preferences;
+    return prefs;
   }
 
 }

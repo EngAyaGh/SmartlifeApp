@@ -21,6 +21,13 @@ class MainCityModel{
 
     );
   }
+  bool getfilteruser(String filter) {
+    return this.namemaincity.toString().contains(filter);
+  }
+  String userAsString() {
+    return "${this.namemaincity}";
+    // return '#${this.idUser} ${this.nameUser}';
+  }
 }
 
 class CityModel{

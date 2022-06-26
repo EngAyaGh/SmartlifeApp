@@ -2,11 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:path/path.dart';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/retry.dart';
 
 class Api {
   // headers: {
@@ -83,7 +81,7 @@ class Api {
 
   Future<dynamic> postRequestWithFile(
       String type,
-      String url ,Map<String,dynamic> data,File? file) async{
+      String url ,Map<String,dynamic> data,File? file,File? filelogo) async{
     var reguest=http.MultipartRequest("POST",  Uri.parse(url));
     if(file !=null){
       var length=await file.length();
@@ -91,6 +89,15 @@ class Api {
       var multipartFile=http.MultipartFile(
           "file",stream,length,
           filename:basename(file.path)
+      );
+      reguest.files.add(multipartFile);
+    }
+    if(filelogo !=null){
+      var length=await filelogo.length();
+      var stream=http.ByteStream(filelogo.openRead());
+      var multipartFile=http.MultipartFile(
+          "filelogo",stream,length,
+          filename:basename(filelogo.path)
       );
       reguest.files.add(multipartFile);
     }

@@ -1,3 +1,4 @@
+import 'package:crm_smart/ui/screen/care/care_clientaccept.dart';
 import 'package:crm_smart/ui/screen/care/care_page_view.dart';
 import 'package:crm_smart/ui/screen/care/view_installed.dart';
 import 'package:crm_smart/ui/screen/care/view_welcome.dart';
@@ -88,7 +89,7 @@ class _carepageState extends State<carepage> {
                   //
                   Navigator.push(context, MaterialPageRoute(
                       builder: (context)=>
-                          ClientAccept()));
+                          Care_ClientAccept()));
                 }, title: 'العملاء المشتركين'):Container(),//تاريخ الفاتورة جنبو اسم المؤسسة
 
             Provider.of<privilge_vm>(context,listen: true)
