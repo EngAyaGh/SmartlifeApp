@@ -65,6 +65,7 @@ class InvoiceModel extends CacheRepository{
     this.numbarnch,
     this.numusers,
     this.nummostda,
+    this.numTax,
     //name_city,mcit.namemaincity,mcit.id_maincity
     // this.nameuserApprove,
     // this.date_approve,
@@ -122,6 +123,7 @@ class InvoiceModel extends CacheRepository{
     String? numbarnch;
     String? numusers;
     String? nummostda;
+    String? numTax;
     String?  city,
   name_city,
   namemaincity,
@@ -146,7 +148,7 @@ class InvoiceModel extends CacheRepository{
     imagelogo = jsondata['imagelogo'].toString().trim().isEmpty
     ||jsondata['imagelogo']==null
     ? jsondata['imagelogo']
-    : urlfile+ jsondata['imagelogo'];
+    : urlfilelogo+ jsondata['imagelogo'];
     fkIdClient = jsondata['fk_idClient'];
     fkIdUser = jsondata['fk_idUser'];
     amountPaid = jsondata['amount_paid'];
@@ -197,6 +199,7 @@ class InvoiceModel extends CacheRepository{
     numbarnch = jsondata['numbarnch'];
     numusers = jsondata['numusers'];
     nummostda = jsondata['nummostda'];
+    numTax = jsondata['numTax'];
     products=getproud(jsondata['products']);
       //  json.decode(
        // jsondata['products']
@@ -287,6 +290,7 @@ class InvoiceModel extends CacheRepository{
     _data['numbarnch'] = numbarnch;
     _data['nummostda'] = nummostda;
     _data['numusers'] = numusers;
+    _data['numTax'] = numTax;
     _data['products'] =
         products!.map((e)=>e.toJson()).toList();
     return _data;

@@ -14,6 +14,7 @@ const kfontfamily3='Amiri';
 const url='https://aya.mardin-cudi.com/api/';
 const urlimage='https://aya.mardin-cudi.com/api/imagesApp/profile/';
 const urlfile='https://aya.mardin-cudi.com/api/imagesApp/filesinvoice/';
+const urlfilelogo='https://aya.mardin-cudi.com/api/imagesApp/logoclient/';
 const kKeepMeLoggedIn="loginstate";
 const String hintnamefilter=   "المؤسسة ,العميل , رقم الهاتف....";
 const Ktoast=Color(0xfff2c131);

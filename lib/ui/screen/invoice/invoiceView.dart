@@ -66,6 +66,8 @@ class _InvoiceViewState extends State<InvoiceView> {
 
   @override void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_)async {
+
+     await Provider.of<invoice_vm>(context,listen: false).getinvoices();
       clientmodel=Provider.of<client_vm>(context,listen: false)
           .listClient.firstWhere(
               (element) => element.idClients==widget.invoice!.fkIdClient);
@@ -82,7 +84,8 @@ class _InvoiceViewState extends State<InvoiceView> {
           ? widget.invoice!.date_change_back.toString()
           : formatter.format(DateTime.now());
       _currentDate=DateTime.parse(val);
-       Provider.of<datetime_vm>(context,listen: false).setdatetimevalue(_currentDate,null);
+       Provider.of<datetime_vm>(context,listen: false)
+           .setdatetimevalue(_currentDate,null);
     });
     super.initState();
   }

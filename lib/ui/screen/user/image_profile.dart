@@ -44,7 +44,8 @@ class ImageProfile extends StatelessWidget {
                   .currentUser.img_image!.isNotEmpty
                   ? ClipRRect(
                 borderRadius: BorderRadius.circular(100),
-                child: CachedNetworkImage(
+                child:
+                CachedNetworkImage(
                     width: 1000,height: 1000,fit: BoxFit.fill,
                     progressIndicatorBuilder: (context, url, progress) => Center(
                       child: CircularProgressIndicator(

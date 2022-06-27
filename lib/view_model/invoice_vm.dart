@@ -284,21 +284,58 @@ class invoice_vm extends ChangeNotifier{
     listInvoicesAccept= List.from(_listInvoicesAccept);
     notifyListeners();
   }
-  Future<void> getfilter_maincity(List<MainCityModel>? list,type)async{
-    switch(type){
+  Future<void> getfilter_maincity(List<MainCityModel>? listparam, String? state)async{
+    String type='';
+    int idexist=-1;
+    // if(listparam!.isNotEmpty)
+     idexist= listparam!.indexWhere((element) => element.id_maincity=='0');
+     print(idexist);
+     print(state);
+     print('idexist');
+    if(idexist!=-1 && state=='الكل')
+      type='all';
+    else{
+      if(idexist==-1 && state=='الكل')
+        type='allstate';
+      if(idexist==-1 && state!='الكل')
+        type='allmix';
+        if(idexist!=-1 && state!='الكل')
+          type='allmaincity';
+
+    }
+    if(state=='بالإنتظار')state=null;
+    else if(state=='تم التركيب')state='1';
+    print(type);
+    switch(type) {
       case 'allmaincity':
+        listInvoicesAccept = await Invoice_Service()
+            .getinvoicemaincity(
+            'client/invoice/getinvoicemaincity.php?fk_country=${usercurrent!.fkCountry.toString()}&state=$state'
+       ,{'allmaincity':'allmaincity'}
+        );
         break;
+
       case 'allstate':
+        listInvoicesAccept = await Invoice_Service()
+            .getinvoicemaincity('client/invoice/getinvoicemaincity.php?fk_country=${usercurrent!.fkCountry.toString()}&maincity_fks=$listparam'
+        ,{'allstate':'allstate'}
+        );
         break;
       case 'allmix':
+        listInvoicesAccept = await Invoice_Service()
+            .getinvoicemaincity('client/invoice/getinvoicemaincity.php?fk_country=${usercurrent!.fkCountry.toString()}&state=$state&maincity_fks=$listparam'
+        ,{'allmix':'allmix'});
         break;
-      case '':
+      case 'all':
+        listInvoicesAccept = await Invoice_Service()
+            .getinvoicemaincity(
+            'client/invoice/getinvoicemaincity.php?fk_country=${usercurrent!.fkCountry.toString()}'
+            ,{'all':'all'});
         break;
       case '':
         break;
     }
-    listInvoicesAccept = await Invoice_Service()
-        .getinvoicemaincity(usercurrent!.fkCountry.toString(),list);
+
     //listInvoicesAccept=//List.from(listinvoices);
     notifyListeners();
   }
@@ -501,7 +538,12 @@ Future<void> getinvoice_Localwithprev() async{
   notifyListeners();
 }
   Future<void> getClientWaiting()async{
-
+    // element.stateclient == searchfilter
+    //     && element.isApprove == "1"
+    listInvoicesAccept = await Invoice_Service()
+        .getinvoicemaincity(
+        'client/invoice/getinvoicemaincity.php?fk_country=${usercurrent!.fkCountry.toString()}'
+        ,{'all':'all'});
     notifyListeners();
   }
   Future<void> getinvoice_Local(String searchfilter,String type

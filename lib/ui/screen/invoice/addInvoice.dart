@@ -10,6 +10,7 @@ import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
+import 'package:crm_smart/ui/widgets/photoviewcustom.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
 import 'package:crm_smart/view_model/notify_vm.dart';
@@ -94,6 +95,10 @@ void dispose() async{
   noteController.dispose();
   imageController.dispose();
   amount_paidController.dispose();
+  numuserController.dispose();
+  nummostawdaController.dispose();
+  numbranchController.dispose();
+  numTaxController.dispose();
   print('in dispos add invoice *****************');
   //_resetState();
   //await FilePicker.platform.clearTemporaryFiles();
@@ -117,21 +122,24 @@ void dispose() async{
   if(_invoice!=null){
     print('in if invoice');
   //in mode edit
-  totalController=_invoice!.total.toString();
-  // Provider.of<invoice_vm>(context,listen: false).set_total(totalController.toString());
+     totalController=_invoice!.total.toString();
+     // Provider.of<invoice_vm>(context,listen: false).set_total(totalController.toString());
+    numuserController.text=_invoice!.numusers.toString();
+    nummostawdaController.text=_invoice!.nummostda.toString();
+    numbranchController.text=_invoice!.numbarnch.toString();
+    numTaxController.text=_invoice!.numTax.toString();
 
-  amount_paidController.text=_invoice!.amountPaid.toString();
-  renewController.text=_invoice!.renewYear.toString();
+    amount_paidController.text=_invoice!.amountPaid.toString();
+    renewController.text=_invoice!.renewYear.toString();
 
     typepayController=_invoice!.typePay.toString();
     print(typepayController.toString());
     typeinstallController=_invoice!.typeInstallation.toString();
-  print(typeinstallController);
+    print(typeinstallController);
 
-  noteController.text=_invoice!.notes.toString();
-  imageController.text=_invoice!.imageRecord.toString();
-
-  Provider.of<invoice_vm>(context,listen: false)
+    noteController.text=_invoice!.notes.toString();
+    imageController.text=_invoice!.imageRecord.toString();
+    Provider.of<invoice_vm>(context,listen: false)
       .listproductinvoic= _invoice!.products!;
 }
 else{
@@ -429,61 +437,67 @@ else{
                         ),
                         Row(
                           children: [
-                            Column(
-                              children: [
-                                RowEdit(name: 'عدد الفروع', des: ''),
-                                EditTextFormField(
-                                  paddcustom: EdgeInsets.all(16),
-                                  hintText: label_note,
-                                  obscureText: false,
-                                  controller: numbranchController,
-                                ),
-                              ],
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  RowEdit(name: 'عدد الفروع', des: ''),
+                                  EditTextFormField(
+                                    paddcustom: EdgeInsets.all(16),
+                                    hintText: '',
+                                    obscureText: false,
+                                    controller: numbranchController,
+                                  ),
+                                ],
+                              ),
                             ),
-                            Column(
-                              children: [
-                                RowEdit(name: 'عدد المستودعات', des: ''),
-                                EditTextFormField(
-                                  paddcustom: EdgeInsets.all(16),
-                                  hintText: label_note,
-                                  obscureText: false,
-                                  controller: nummostawdaController,
-                                ),
-                              ],
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  RowEdit(name: 'عدد المستودعات', des: ''),
+                                  EditTextFormField(
+                                    paddcustom: EdgeInsets.all(16),
+                                    hintText: '',
+                                    obscureText: false,
+                                    controller: nummostawdaController,
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                         Row(
                           children: [
-                            Column(
-                              children: [
-                                RowEdit(name: 'عدد المستخدمين', des: ''),
-                                EditTextFormField(
-                                  paddcustom: EdgeInsets.all(16),
-                                  hintText: label_note,
-                                  obscureText: false,
-                                  controller: numuserController,
-                                ),
-                              ],
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  RowEdit(name: 'عدد المستخدمين', des: ''),
+                                  EditTextFormField(
+                                    paddcustom: EdgeInsets.all(16),
+                                    hintText: '',
+                                    obscureText: false,
+                                    controller: numuserController,
+                                  ),
+                                ],
+                              ),
                             ),
-                            Column(
-                              children: [
-                                RowEdit(name: 'الرقم الضريبي', des: ''),
-                                EditTextFormField(
-                                  paddcustom: EdgeInsets.all(16),
-                                  hintText: label_note,
-                                  obscureText: false,
-                                  controller: numTaxController,
-                                ),
-                              ],
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  RowEdit(name: 'الرقم الضريبي', des: ''),
+                                  EditTextFormField(
+                                    paddcustom: EdgeInsets.all(16),
+                                    hintText: '',
+                                    obscureText: false,
+                                    controller: numTaxController,
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                         RowEdit(name: 'شعار المؤسسة', des: ''),
                        TextFormField(
-
                     obscureText: false,
-
                     cursorColor: Colors.black,
                     onTap: ()async{
                       ImagePicker imagePicker = ImagePicker();
@@ -497,7 +511,7 @@ else{
                       // _invoice!.path=pickedFile.path;
                     },
                     decoration: InputDecoration(
-                      //icon: ,
+                      // icon: ,
                       contentPadding:
                       EdgeInsets.all(2) ,
                       prefixIcon: Icon(
@@ -529,7 +543,7 @@ else{
                           read: true,
                           icon: Icons.camera,
                           hintText: label_image,
-                          ontap: ()async{
+                          ontap: () async {
                             ImagePicker imagePicker = ImagePicker();
                             final pickedImage =
                             await imagePicker.pickImage(
@@ -539,7 +553,7 @@ else{
                             print(pickedFile.path);
                             _myfile=pickedFile;
                             _invoice!.path=pickedFile.path;
-
+                            imageController.text=_myfile!.path;
                             //Navigator.of(context).pop();
                             //  FilePickerResult? result
                             //  = await FilePicker.platform.pickFiles(
@@ -566,18 +580,21 @@ else{
                         SizedBox(
                           height: 15,
                         ),
-
-
                         _invoice!.imageRecord.toString().isNotEmpty?
                         Center(
-                          child: Row(
+                          child:
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                          PhotoView(
-                          imageProvider:
-                          Image.network(
-                              _invoice!.imageRecord.toString()
-                           ).image,)
+                              IconButton(
+                                iconSize: 50,
+                                   onPressed: ()async {
+                                     Navigator.push(context, MaterialPageRoute(
+                                         builder: (context)=>
+                                             photoviewcustom(
+                                               urlimagecon: _invoice!.imageRecord.toString(),) // support_view(type: 'only',)
+                                     ));
+                              }, icon:Icon( Icons.image))
                               // Text('فتح الملف'),
                               // IconButton(
                               //   iconSize: 50,
@@ -661,7 +678,6 @@ else{
                                           "amount_paid": amount_paidController.text,
                                           'fk_regoin':widget.invoice!.fk_regoin.toString(),
                                           'fkcountry':widget.invoice!.fk_country.toString(),
-
                                           "fk_idClient": widget.itemClient.idClients,
                                           "fk_idUser": widget.itemClient.fkUser,
                                           "image_record":imageController.text,
@@ -678,8 +694,9 @@ else{
                                           'numbarnch':numbranchController.text,
                                           'nummostda':nummostawdaController.text,
                                           'numusers':numuserController.text,
+                                          'numTax':numTaxController.text,
                                           'date_lastuserupdate':DateTime.now().toString(),
-                                          //"date_changetype":,
+                                           //"date_changetype":,
                                         },invoiceID,
                                             _invoice!.path.toString().isNotEmpty?_myfile:null,
                                             _myfilelogo

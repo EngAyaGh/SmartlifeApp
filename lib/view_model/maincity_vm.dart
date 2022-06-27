@@ -18,11 +18,12 @@ class maincity_vm extends ChangeNotifier{
     selectedValuemanag=s;
     notifyListeners();
   }
-  late List<MainCityModel> selecteditemmaincity;
+  late List<MainCityModel> selecteditemmaincity=[];
   void changeitemlist(List<MainCityModel> s){
     selecteditemmaincity=s;
     notifyListeners();
   }
+
   UserModel? usercurrent;
 
   void setvalue(user){

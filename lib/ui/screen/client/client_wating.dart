@@ -38,7 +38,7 @@ class _ClientWaitingState extends State<ClientWaiting> {
   String? regoin;
   String? typeclientvalue;
   late ClientModel itemClient;
-  late List<MainCityModel>? selecteditemmaincity=null;
+  late List<MainCityModel>? selecteditemmaincity=[];
 
   // late String typepayController;
   @override void didChangeDependencies() async {
@@ -58,16 +58,21 @@ class _ClientWaitingState extends State<ClientWaiting> {
       // await Provider.of <maincity_vm>
       //   (context,listen: false)
       //     .getmaincity();
-      Provider.of<maincity_vm>
-        (context,listen: false).changevalue(null);
-      Provider.of<typeclient>(context,listen: false).changelisttype_install(null);
+      // Provider.of<maincity_vm>
+      //   (context,listen: false).changeitemlist(
+      //     MainCityModel(fk_country: '',id_maincity: '0',namemaincity: 'الكل'));
+
+      Provider.of<typeclient>
+        (context,listen: false).changelisttype_install('الكل');
+      typeclientvalue='الكل';
       //Provider.of<regoin_vm>(context,listen: false).changeVal(null);
       await Provider.of<client_vm>(context,listen: false)
           .getallclientAccept();
 
      await  Provider.of<invoice_vm>(context, listen: false)
-            .getinvoice_Local("مشترك",'approved only',null);
+    .getClientWaiting();
 
+      //.getinvoice_Local("مشترك",'approved only',null);
     });
 
     super.initState();
@@ -127,13 +132,16 @@ class _ClientWaitingState extends State<ClientWaiting> {
                                     return  DropdownSearch<MainCityModel>.multiSelection(
                                       mode: Mode.DIALOG,
                                       filterFn: (user, filter) => user!.getfilteruser(filter!),
-                                      //compareFn: (item, selectedItem) => item?.id == selectedItem?.id,
+                                      compareFn: (item, selectedItem) => item?.id_maincity == selectedItem?.id_maincity,
                                       // itemAsString: (UserModel u) => u.userAsStringByName(),
                                       items: cart.listmaincityfilter,
                                       showSelectedItems: true,
                                       selectedItems: cart.selecteditemmaincity,
                                       itemAsString: (u) => u!.userAsString(),
                                       onChanged: (data) {
+                                        for(int i=0;i<data.length;i++)
+                                         print(data[i].id_maincity);
+                                        print(data);
                                         selecteditemmaincity=data;
                                         cart.changeitemlist(data);
                                         filtershow();
@@ -142,7 +150,6 @@ class _ClientWaitingState extends State<ClientWaiting> {
                                       showSearchBox: true,
                                       dropdownSearchDecoration:
                                       InputDecoration(
-
                                         //filled: true,
                                         isCollapsed: true,
                                         hintText: 'المنطقة',
@@ -294,7 +301,7 @@ class _ClientWaitingState extends State<ClientWaiting> {
     //      break;
     //  }
      Provider.of<invoice_vm>(context,listen: false)
-    .getfilter_maincity(selecteditemmaincity,'');
+    .getfilter_maincity(selecteditemmaincity,typeclientvalue);
          //.getclienttype_filter(typeclientvalue,regoin,'only');
 
     // }

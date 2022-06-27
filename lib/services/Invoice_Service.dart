@@ -25,12 +25,9 @@ class Invoice_Service {
     return prodlist;
   }
   Future<List<InvoiceModel>> getinvoicemaincity(
-      String fk_country ,List<MainCityModel>? list) async {
-    var
-    data=await Api()
-        .get(url:url+
-        'client/invoice/getinvoicemaincity.php?'
-            'fk_country=$fk_country&maincity_fks=$list');
+      String urlstring,Map<String,dynamic> body) async {
+    var data=await Api()
+        .post(url:url+urlstring,body: body);
     print(data);
     List<InvoiceModel> prodlist = [];
     // final json = "[" + data[i] + "]";
