@@ -8,7 +8,7 @@ Widget buildSelectCategory({
   required Color colorbag,
   required Color colorarrow,
   required Color colortitle,
-
+  bool isicon=true,
   String? subtitle
 }) {
   return Padding(
@@ -45,10 +45,11 @@ Widget buildSelectCategory({
                       style: TextStyle(),
                     )
                         :Container(),
-                    Icon(
+                  isicon==true?
+                  Icon(
                       Icons.arrow_back_ios_new,
                       color: colorarrow,
-                    ),
+                    ):Container(),
                   ],
                 )
               ],

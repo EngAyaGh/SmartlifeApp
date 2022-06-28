@@ -9,7 +9,8 @@ class CustomLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
-      child: Container(
+      child:
+      Container(
         height: MediaQuery.of(context).size.height* .2,
         child: Stack(
           alignment: Alignment.center,

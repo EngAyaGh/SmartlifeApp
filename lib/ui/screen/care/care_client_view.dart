@@ -49,59 +49,59 @@ class _care_client_viewState extends State<care_client_view> {
               //   child: Text('عدد التذاكر التي فتحت للعميل '+listticket_client.length.toString()),
               // ),
               SizedBox(height: 8,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                // listticket_client.isNotEmpty||
-                //     listticket_client.firstWhere(
-                //             (element) =>
-                //         element.typeTicket=='قيد التنفيذ' ||   element.typeTicket=='جديدة',
-                //         orElse: ()=>TicketModel(
-                //             idTicket: '',
-                //             fkClient: '',
-                //             typeProblem: '',
-                //             detailsProblem: '',
-                //             notesTicket: '',
-                //             typeTicket: '',
-                //             fkUserOpen: '',
-                //             fkUserClose: '',
-                //             fkUserRecive: '',
-                //             dateOpen: '',
-                //             dateClose: '',
-                //             dateRecive: '',
-                //             clientType: '',
-                //             nameClient: '',
-                //             nameEnterprise: '',
-                //             nameRegoin: '',
-                //             nameuseropen: '',
-                //             nameuserrecive: '', nameuserclose: '',
-                //             fk_country: '')).idTicket!=''?
-                //       Text('توجد تذكرة دعم فني مفتوحة حالياً')
-                //     : ElevatedButton(
-                //     style: ButtonStyle(
-                //         backgroundColor: MaterialStateProperty.all(
-                //             kMainColor)),
-                //     onPressed: () async{
-                //       Navigator.push(context,
-                //           MaterialPageRoute(builder: (context)=>
-                //               ticketAdd(fk_client: widget.fk_client.toString(),)));
-                //     },
-                //     child: Text(' فتح تذكرة دعم ')) ,
-                   //SizedBox(width: 5,),
-                  listticket_client.isNotEmpty?
-                  buildSelectCategory(
-                    colorbag: kMainColor,
-                    colorarrow: kWhiteColor,
-                    colortitle: kWhiteColor,
-                    onTap: () async{
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context)=>
-                              ticketall()));
-                    },
-                    title:
-                    'عدد التذاكر التي فتحت للعميل   '+listticket_client.length.toString(),
-                  ):Container(),
-              ],),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //   // listticket_client.isNotEmpty||
+              //   //     listticket_client.firstWhere(
+              //   //             (element) =>
+              //   //         element.typeTicket=='قيد التنفيذ' ||   element.typeTicket=='جديدة',
+              //   //         orElse: ()=>TicketModel(
+              //   //             idTicket: '',
+              //   //             fkClient: '',
+              //   //             typeProblem: '',
+              //   //             detailsProblem: '',
+              //   //             notesTicket: '',
+              //   //             typeTicket: '',
+              //   //             fkUserOpen: '',
+              //   //             fkUserClose: '',
+              //   //             fkUserRecive: '',
+              //   //             dateOpen: '',
+              //   //             dateClose: '',
+              //   //             dateRecive: '',
+              //   //             clientType: '',
+              //   //             nameClient: '',
+              //   //             nameEnterprise: '',
+              //   //             nameRegoin: '',
+              //   //             nameuseropen: '',
+              //   //             nameuserrecive: '', nameuserclose: '',
+              //   //             fk_country: '')).idTicket!=''?
+              //   //       Text('توجد تذكرة دعم فني مفتوحة حالياً')
+              //   //     : ElevatedButton(
+              //   //     style: ButtonStyle(
+              //   //         backgroundColor: MaterialStateProperty.all(
+              //   //             kMainColor)),
+              //   //     onPressed: () async{
+              //   //       Navigator.push(context,
+              //   //           MaterialPageRoute(builder: (context)=>
+              //   //               ticketAdd(fk_client: widget.fk_client.toString(),)));
+              //   //     },
+              //   //     child: Text(' فتح تذكرة دعم ')) ,
+              //      //SizedBox(width: 5,),
+              //     listticket_client.isNotEmpty?
+              //     buildSelectCategory(
+              //       colorbag: kMainColor,
+              //       colorarrow: kWhiteColor,
+              //       colortitle: kWhiteColor,
+              //       onTap: () async{
+              //         Navigator.push(context,
+              //             MaterialPageRoute(builder: (context)=>
+              //                 ticketall()));
+              //       },
+              //       title:
+              //       'عدد التذاكر التي فتحت للعميل   '+listticket_client.length.toString(),
+              //     ):Container(),
+              // ],),
           //     listCommunication.isNotEmpty?
           // Text(''):ContainerShadows(
           // margin: EdgeInsets.only(),

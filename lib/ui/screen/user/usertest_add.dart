@@ -52,86 +52,88 @@ class _addusertestState extends State<addusertest> {
         body:ModalProgressHUD(
           inAsyncCall: Provider.of<maincity_vm>(context)
               .isloading,
-          child : Form(
-            key: _globalKey,
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: 150,
-                  right: 20,
-                  left: 20,bottom: 150),
-              child: ContainerShadows(
-                width: double.infinity,
-                //height: 400,
-                margin: EdgeInsets.only(),
-                padding:EdgeInsets.only(top: 50,left: 20,right: 20) ,
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 15,),
-                      RowEdit(name: 'العنوان', des: 'REQUIRED'),
-                      SizedBox(height: 15,),
-                      EditTextFormField(
-                        vaild: (value) {
-                          if (value!.toString().trim().isEmpty) {
-                            return 'الحقل فارغ';
-                          }
-                        },
-                        hintText: '',
-                        controller: nameusertest,
-                      ),
-                      SizedBox(height: 15,),
-                      RowEdit(name: 'الوصف', des: 'REQUIRED'),
-                      EditTextFormField(
-                        maxline: 6,
-                        vaild: (value) {
-                          if (value!.toString().trim().isEmpty) {
-                            return 'الحقل فارغ';
-                          }
-                        },
-                        hintText: '',
-                        controller: desusertest,
-                      ),
-                      SizedBox(height: 15,),
-                      CustomButton(
-                        width:double.infinity,
-                        //MediaQuery.of(context).size.width * 0.2,
-                        text: 'حفظ',
-                        onTap: () async {
-                          if (_globalKey.currentState!.validate()) {
-                            _globalKey.currentState!.save();
+          child : SingleChildScrollView(
+            child: Form(
+              key: _globalKey,
+              child: Padding(
+                padding: EdgeInsets.only(
+                    top: 150,
+                    right: 20,
+                    left: 20,bottom: 150),
+                child: ContainerShadows(
+                  width: double.infinity,
+                  //height: 400,
+                  margin: EdgeInsets.only(),
+                  padding:EdgeInsets.only(top: 50,left: 20,right: 20,bottom: 30) ,
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Column(
+                      children: [
+                        SizedBox(height: 15,),
+                        RowEdit(name: 'العنوان', des: 'REQUIRED'),
+                        SizedBox(height: 15,),
+                        EditTextFormField(
+                          vaild: (value) {
+                            if (value!.toString().trim().isEmpty) {
+                              return 'الحقل فارغ';
+                            }
+                          },
+                          hintText: '',
+                          controller: nameusertest,
+                        ),
+                        SizedBox(height: 15,),
+                        RowEdit(name: 'الوصف', des: 'REQUIRED'),
+                        EditTextFormField(
+                          maxline: 6,
+                          vaild: (value) {
+                            if (value!.toString().trim().isEmpty) {
+                              return 'الحقل فارغ';
+                            }
+                          },
+                          hintText: '',
+                          controller: desusertest,
+                        ),
+                        SizedBox(height: 15,),
+                        CustomButton(
+                          width:double.infinity,
+                          //MediaQuery.of(context).size.width * 0.2,
+                          text: 'حفظ',
+                          onTap: () async {
+                            if (_globalKey.currentState!.validate()) {
+                              _globalKey.currentState!.save();
 
-                            if(widget.idregoin==null){
-                              Provider.of<usertest_vm>(context,listen: false)
-                                  .addusertest_vm({
-                                'nameusertest':nameusertest.text,
-                                'des_usertest': desusertest.text,
-                                'fk_country':Provider.of<user_vm_provider>
-                                  (context,listen: false).currentUser.fkCountry
-                              }).then(
-                                      (value) =>  value!="error"
-                                      ? clear(context)
-                                      : error(context)
-                              );}
-                            else{
-                              Provider.of<usertest_vm>(context,listen: false)
-                                  .updateusertest_vm({
-                                'nameusertest':nameusertest.text,
-                                'des_usertest': desusertest.text,
-                              },widget.idregoin.toString()).then(
-                                      (value) =>  value!="error"
-                                      ? clear(context)
-                                      : error(context)
+                              if(widget.idregoin==null){
+                                Provider.of<usertest_vm>(context,listen: false)
+                                    .addusertest_vm({
+                                  'nameusertest':nameusertest.text,
+                                  'des_usertest': desusertest.text,
+                                  'fk_country':Provider.of<user_vm_provider>
+                                    (context,listen: false).currentUser.fkCountry
+                                }).then(
+                                        (value) =>  value!="error"
+                                        ? clear(context)
+                                        : error(context)
+                                );}
+                              else{
+                                Provider.of<usertest_vm>(context,listen: false)
+                                    .updateusertest_vm({
+                                  'nameusertest':nameusertest.text,
+                                  'des_usertest': desusertest.text,
+                                },widget.idregoin.toString()).then(
+                                        (value) =>  value!="error"
+                                        ? clear(context)
+                                        : error(context)
+                                );
+                              }
+                            }else {
+                              _scaffoldKey.currentState!.showSnackBar(
+                                  SnackBar(content: Text('الحقل فارغ  '))
                               );
                             }
-                          }else {
-                            _scaffoldKey.currentState!.showSnackBar(
-                                SnackBar(content: Text('الحقل فارغ  '))
-                            );
-                          }
-                        },
-                      ),
-                    ],
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

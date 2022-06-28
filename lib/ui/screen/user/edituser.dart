@@ -288,7 +288,7 @@ class _EditUserState extends State<EditUser> {
                     ),
 
                     //admin
-                    RowEdit(name: label_regoin, des: 'Required'),
+                    RowEdit(name: 'الفرع', des: 'Required'),
                     Consumer<regoin_vm>(
                       builder: (context, cart, child){
                         return DropdownButton(

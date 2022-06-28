@@ -6,6 +6,7 @@ import 'package:crm_smart/ui/widgets/custom_widget/RowWidget.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
+import 'package:crm_smart/ui/widgets/widgetlogo.dart';
 import 'package:crm_smart/view_model/client_vm.dart';
 import 'package:crm_smart/view_model/datetime_vm.dart';
 import 'package:crm_smart/view_model/invoice_vm.dart';
@@ -115,6 +116,9 @@ class _InvoiceViewState extends State<InvoiceView> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.invoice!.path.toString());
+    print(widget.invoice!.imageRecord.toString());
+    print(widget.invoice!.imagelogo.toString());
     // widget.invoice=Provider.of<invoice_vm>(context,listen: true)
     //     .listinvoiceClient
     //     .firstWhere((element) => element.idInvoice==widget.invoice!.idInvoice
@@ -369,51 +373,27 @@ class _InvoiceViewState extends State<InvoiceView> {
                         title: 'سبب الإنسحاب',
                         value:
                          widget.invoice!.desc_reason_back.toString(),isExpanded: true,):Container(),
+                    widget.invoice!.numbarnch.toString().trim().isNotEmpty?
                     cardRow(
                         title: 'عدد الفروع',
-                        value: widget.invoice!.numbarnch != null
-                            ? widget.invoice!.numbarnch.toString()
-                            : ''),
+                        value:   widget.invoice!.numbarnch.toString()
+                           ):Container(),
+                    //widget.invoice!.nummostda != null||
+                        widget.invoice!.nummostda.toString().trim().isNotEmpty?
                     cardRow(
                         title: 'عدد المستودعات ',
-                        value: widget.invoice!.nummostda != null
-                            ? widget.invoice!.nummostda.toString()
-                            : ''),
+                        value: widget.invoice!.nummostda.toString()):Container(),
+                    widget.invoice!.numusers.toString().trim().isNotEmpty?
                     cardRow(
                         title: 'عدد المستخدمين',
-                        value: widget.invoice!.numusers != null
-                            ? widget.invoice!.numusers.toString()
-                            : ''),
-                    cardRow(
+                        value:  widget.invoice!.numusers.toString()
+                             ):Container(),
+                    widget.invoice!.imagelogo != null?
+                    widgetlogo(
                         title: 'شعار المؤسسة',
-                        value: widget.invoice!.imagelogo != null
-                            ? widget.invoice!.imagelogo.toString()
-                            : ''),
-                      Column(
-                      //mainAxisAlignment: MainAxisAlignment.start,
-                      // crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text('شعار المؤسسة',style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontFamily: kfontfamily2),),
-                            SizedBox(width: 50,),
-                            //image logo
-                            //Spacer(flex: 1,),
-                            //Text(value,style: TextStyle( fontWeight: FontWeight.w500,fontFamily: kfontfamily2),),
-                          ],
-                        ),
-                        //Spacer(),
-                        Divider(thickness: 1,color: Colors.grey,),
-                        //const MySeparator(color: Colors.grey),
-                        SizedBox(height: 5,),
+                        value: widget.invoice!.imagelogo.toString()
+                    ):Container(),
 
-                      ],
-                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(

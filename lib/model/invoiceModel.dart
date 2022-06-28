@@ -145,10 +145,12 @@ class InvoiceModel extends CacheRepository{
     ||jsondata['image_record']==null
     ? jsondata['image_record']
     : urlfile+ jsondata['image_record'];
+
     imagelogo = jsondata['imagelogo'].toString().trim().isEmpty
     ||jsondata['imagelogo']==null
     ? jsondata['imagelogo']
     : urlfilelogo+ jsondata['imagelogo'];
+
     fkIdClient = jsondata['fk_idClient'];
     fkIdUser = jsondata['fk_idUser'];
     amountPaid = jsondata['amount_paid'];

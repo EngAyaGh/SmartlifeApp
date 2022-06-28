@@ -7,6 +7,8 @@ import 'package:crm_smart/model/invoiceModel.dart';
 import 'package:crm_smart/provider/loadingprovider.dart';
 import 'package:crm_smart/provider/selected_button_provider.dart';
 import 'package:crm_smart/ui/widgets/container_boxShadows.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/custombutton.dart';
+import 'package:crm_smart/ui/widgets/custom_widget/customlogo.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/row_edit.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_form.dart';
 import 'package:crm_smart/ui/widgets/custom_widget/text_uitil.dart';
@@ -75,6 +77,7 @@ class _addinvoiceState extends State<addinvoice> {
    // final TextEditingController numTaxController = TextEditingController();
 
    final TextEditingController imageController = TextEditingController();
+   final TextEditingController logoController = TextEditingController();
    final _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
    String? _fileName;
    String? _saveAsFileName;
@@ -124,10 +127,10 @@ void dispose() async{
   //in mode edit
      totalController=_invoice!.total.toString();
      // Provider.of<invoice_vm>(context,listen: false).set_total(totalController.toString());
-    numuserController.text=_invoice!.numusers.toString();
-    nummostawdaController.text=_invoice!.nummostda.toString();
-    numbranchController.text=_invoice!.numbarnch.toString();
-    numTaxController.text=_invoice!.numTax.toString();
+    numuserController.text=_invoice!.numusers==null?'':_invoice!.numusers.toString();
+    nummostawdaController.text=_invoice!.nummostda==null?'':_invoice!.nummostda.toString();
+    numbranchController.text=_invoice!.numbarnch==null?'':_invoice!.numbarnch.toString();
+    numTaxController.text=_invoice!.numTax==null?'':_invoice!.numTax.toString();
 
     amount_paidController.text=_invoice!.amountPaid.toString();
     renewController.text=_invoice!.renewYear.toString();
@@ -495,23 +498,30 @@ else{
                             ),
                           ],
                         ),
+                        //CustomButton(text: 'd',width: 50,onTap: (){},),
                         RowEdit(name: 'شعار المؤسسة', des: ''),
                        TextFormField(
+                         controller: logoController,
                     obscureText: false,
                     cursorColor: Colors.black,
-                    onTap: ()async{
+                    onTap: () async{
                       ImagePicker imagePicker = ImagePicker();
                       final pickedImage =
                           await imagePicker.pickImage(
                         source: ImageSource.gallery,
                         imageQuality: 100,);
                       File?   pickedFile = File(pickedImage!.path);
-                      print(pickedFile.path);
-                      _myfilelogo=pickedFile;
-                      // _invoice!.path=pickedFile.path;
+                      setState(() {
+                        print(pickedFile.path);
+                        _myfilelogo=pickedFile;
+                        logoController.text=pickedFile.path;
+                      });
+
+                     // _invoice!.path=pickedFile.path;
                     },
+                         readOnly: true,
                     decoration: InputDecoration(
-                      // icon: ,
+
                       contentPadding:
                       EdgeInsets.all(2) ,
                       prefixIcon: Icon(
@@ -537,6 +547,27 @@ else{
                           borderSide: const BorderSide(color: Colors.white)),
                     ),
                   ),
+                        _invoice!.imagelogo!=null?
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child:
+                          Container(
+                            height:40,
+                            width: 50,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Image.network(_invoice!.imagelogo.toString()),
+                                // Positioned(
+                                //     bottom: 0,
+                                //     child: Text(
+                                //       'smart life',
+                                //       style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'Pacifico'),)
+                                // )
+                              ],
+                            ),
+                          ),
+                        ):Container(),
                         RowEdit(name: label_image, des: ''),
                         //show chose image
                         EditTextFormField(
@@ -594,7 +625,7 @@ else{
                                              photoviewcustom(
                                                urlimagecon: _invoice!.imageRecord.toString(),) // support_view(type: 'only',)
                                      ));
-                              }, icon:Icon( Icons.image))
+                              }, icon:Icon( Icons.image,color: kMainColor,))
                               // Text('فتح الملف'),
                               // IconButton(
                               //   iconSize: 50,

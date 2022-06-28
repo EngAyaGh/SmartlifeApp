@@ -1,6 +1,7 @@
 
 
 import 'package:crm_smart/constants.dart';
+import 'package:crm_smart/model/maincitymodel.dart';
 import 'package:crm_smart/model/privilgemodel.dart';
 import 'package:crm_smart/ui/screen/client/profileclient.dart';
 import 'package:crm_smart/ui/screen/search/search_container.dart';
@@ -15,6 +16,7 @@ import 'package:crm_smart/view_model/maincity_vm.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
 import 'package:crm_smart/view_model/regoin_vm.dart';
 import 'package:crm_smart/view_model/typeclient.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
@@ -29,6 +31,7 @@ class ClientAccept extends StatefulWidget {
 class _ClientAcceptState extends State<ClientAccept> {
   String? regoin;
   String? typeclientvalue;
+  late List<MainCityModel>? selecteditemmaincity=[];
   // late String typepayController;
   @override void didChangeDependencies() async {
     Future.delayed(Duration(milliseconds: 30)).then((_) async {
@@ -82,95 +85,60 @@ class _ClientAcceptState extends State<ClientAccept> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
                           children: [
-                            // privilge.checkprivlge('1') == true ? //regoin
-                            // Expanded(
-                            //   child: Padding(
-                            //     padding: const EdgeInsets.only(left: 8.0, right: 8),
-                            //     child: Consumer<regoin_vm>(
-                            //       builder: (context, cart, child) {
-                            //         return
-                            //           DropdownButton(
-                            //             isExpanded: true,
-                            //             hint: Text("الفرع"),
-                            //             items: cart.listregoinfilter.map((level_one) {
-                            //               return DropdownMenuItem(
-                            //
-                            //                 child: Text(level_one.name_regoin),
-                            //                 //label of item
-                            //                 value: level_one
-                            //                     .id_regoin, //value of item
-                            //               );
-                            //             }).toList(),
-                            //             value: cart.selectedValueLevel,
-                            //             onChanged: (value) {
-                            //               //  setState(() {
-                            //               cart.changeVal(value.toString());
-                            //               regoin = value.toString();
-                            //               filtershow();
-                            //             },
-                            //           );
-                            //         //);
-                            //       },
-                            //     ),
-                            //   ),
-                            // ),
+
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 8.0, right: 8),
+                                padding: const EdgeInsets.all(8.0),
                                 child: Consumer<maincity_vm>(
-                                  builder: (context, cart, child) {
-                                    return
-                                      DropdownButton(
-                                        isExpanded: true,
-                                        hint: Text("المناطق"),
-                                        items: cart.listmaincity.map((level_one) {
-                                          return DropdownMenuItem(
+                                  builder: (context, cart, child){
+                                    return  DropdownSearch<MainCityModel>.multiSelection(
+                                      mode: Mode.DIALOG,
+                                      filterFn: (user, filter) => user!.getfilteruser(filter!),
+                                      compareFn: (item, selectedItem) => item?.id_maincity == selectedItem?.id_maincity,
+                                      // itemAsString: (UserModel u) => u.userAsStringByName(),
+                                      items: cart.listmaincityfilter,
+                                      showSelectedItems: true,
+                                      selectedItems: cart.selecteditemmaincity,
+                                      itemAsString: (u) => u!.userAsString(),
+                                      onChanged: (data) {
+                                        for(int i=0;i<data.length;i++)
+                                          print(data[i].id_maincity);
+                                        print(data);
+                                        selecteditemmaincity=data;
+                                        cart.changeitemlist(data);
+                                        filtershow();
+                                      } ,
+                                      //selectedItem: cart.selecteduser,
+                                      showSearchBox: true,
+                                      dropdownSearchDecoration:
+                                      InputDecoration(
+                                        //filled: true,
+                                        isCollapsed: true,
+                                        hintText: 'المنطقة',
+                                        alignLabelWithHint: true,
+                                        fillColor:  Colors.grey.withOpacity(0.2),
+                                        //labelText: "choose a user",
+                                        contentPadding: EdgeInsets.all(0),
+                                        //contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                        // focusedBorder: OutlineInputBorder(
+                                        //     borderRadius: BorderRadius.circular(10),
+                                        //     borderSide: const BorderSide(color: Colors.white)),
+                                        border:
+                                        UnderlineInputBorder(
+                                            borderSide: const BorderSide(  color: Colors.grey)
+                                        ),
+                                        // OutlineInputBorder(
+                                        //     borderRadius: BorderRadius.circular(10),
+                                        //     borderSide: const BorderSide( color: Colors.white)),
+                                      ),
+                                      // InputDecoration(border: InputBorder.none),
 
-                                            child: Text(level_one.namemaincity),
-                                            //label of item
-                                            value: level_one
-                                                .id_maincity, //value of item
-                                          );
-                                        }).toList(),
-                                        value: cart.selectedValuemanag,
-                                        onChanged: (value) {
-                                          //  setState(() {
-                                          cart.changevalue(value.toString());
-                                          regoin = value.toString();
-                                          print('regoin'+regoin.toString());
-                                          filtershow();
-                                        },
-                                      );
-                                    //);
+                                    );
+
                                   },
                                 ),
                               ),
                             ),
-                            // Consumer<typeclient>(
-                            //     builder: (context, selectedProvider, child){
-                            //       return  GroupButton(
-                            //           controller: GroupButtonController(
-                            //             selectedIndex:selectedProvider.selectedinstall,
-                            //
-                            //           ),
-                            //           options: GroupButtonOptions(
-                            //               selectedColor: kMainColor,
-                            //
-                            //               buttonWidth: 110,
-                            //               borderRadius: BorderRadius.circular(10)),
-                            //           buttons: ['الكل','بالإنتظار','تم التركيب'],
-                            //           onSelected: (index,isselected){
-                            //             print(index);
-                            //             //setState(() {
-                            //             typepayController=index.toString();
-                            //             selectedProvider.changeinstall(index);
-                            //             filtershow();
-                            //             //});
-                            //           }
-                            //       );
-                            //     }
-                            //
-                            // ),
 
                           ],
                         ),
@@ -252,7 +220,7 @@ class _ClientAcceptState extends State<ClientAccept> {
     //   Provider.of<invoice_vm>(context,listen: false)
     //       .getclienttype_filter(typeclientvalue!,regoin,'only');
     Provider.of<client_vm>(context,listen: false)
-        .getfilterviewSupport(regoin);
+        .getfilterviewSupport(selecteditemmaincity);
     //   if(regoin==null)
     //  Provider.of<invoice_vm>(context,listen: false).getclienttype_filter(typepayController,regoin);
     // else {

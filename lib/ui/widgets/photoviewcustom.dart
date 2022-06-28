@@ -16,9 +16,9 @@ class _photoviewcustomState extends State<photoviewcustom> {
     return Container(
       child: PhotoView(
           imageProvider:
-          NetworkImage(
+          Image.network(
           widget.urlimagecon,
-      )),
+      ).image),
     );
   }
 }

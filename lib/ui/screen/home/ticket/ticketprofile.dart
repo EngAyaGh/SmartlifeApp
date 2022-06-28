@@ -65,6 +65,7 @@ class ticketprofileState extends State<ticketprofile> {
                 children: [
                   list_ticket.isNotEmpty?
                   buildSelectCategory(
+                    isicon: false,
                     colorbag: kMainColor,
                     colorarrow: kWhiteColor,
                     colortitle: kWhiteColor,
@@ -80,16 +81,18 @@ class ticketprofileState extends State<ticketprofile> {
               Container(
                 //height: MediaQuery.of(context).size.height * 1,
                 child:
-                ListView.builder(
-                  itemCount: list_ticket.length,
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: list_ticket.length,
 
-                  itemBuilder: (BuildContext context, int index)=>
-                      Builder
-                        (builder:
-                          (context)=>
-                              cardticket(
-                            ticketModel: list_ticket[index],
-                          )) ,
+                    itemBuilder: (BuildContext context, int index)=>
+                        Builder
+                          (builder:
+                            (context)=>
+                                cardticket(
+                              ticketModel: list_ticket[index],
+                            )) ,
+                  ),
                 ),
               ),
             ],

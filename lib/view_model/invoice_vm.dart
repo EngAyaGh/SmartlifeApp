@@ -286,6 +286,8 @@ class invoice_vm extends ChangeNotifier{
   }
   Future<void> getfilter_maincity(List<MainCityModel>? listparam, String? state)async{
     String type='';
+    isloading=true;
+    notifyListeners();
     int idexist=-1;
     // if(listparam!.isNotEmpty)
      idexist= listparam!.indexWhere((element) => element.id_maincity=='0');
@@ -335,7 +337,7 @@ class invoice_vm extends ChangeNotifier{
       case '':
         break;
     }
-
+    isloading=false;
     //listInvoicesAccept=//List.from(listinvoices);
     notifyListeners();
   }

@@ -192,7 +192,7 @@ class _addUserState extends State<addUser> {
                   SizedBox(height: 15,),
 
                   //admin
-                  RowEdit(name:label_regoin, des: 'Required'),
+                  RowEdit(name:'الفرع', des: 'Required'),
                   //RegoinCombox(
                   //   selected: _selectedregoin,
                   //   onChanged:

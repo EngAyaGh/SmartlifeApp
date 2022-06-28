@@ -51,13 +51,13 @@ class _ProfileClientState extends State<ProfileClient> with TickerProviderStateM
     await Provider.of<invoice_vm>(context,listen: false)
         .get_invoiceclientlocal(widget.idclient,'مشترك');
 
-  await  Provider.of<communication_vm>(context, listen: false)
+    await  Provider.of<communication_vm>(context, listen: false)
         .getCommunicationall('');
 
-     Provider.of<client_vm>(context,listen: false)
+     await Provider.of<client_vm>(context,listen: false)
      .get_byIdClient(widget.idclient.toString());
 
-     Provider.of<invoice_vm>(context, listen: false)
+   await  Provider.of<invoice_vm>(context, listen: false)
         .get_invoiceclientlocal(widget.idclient,'');
 
       Provider.of<communication_vm>(context, listen: false)

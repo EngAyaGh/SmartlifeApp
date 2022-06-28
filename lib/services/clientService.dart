@@ -1,5 +1,6 @@
 import 'package:crm_smart/api/api.dart';
 import 'package:crm_smart/model/clientmodel.dart';
+import 'package:crm_smart/model/maincitymodel.dart';
 import 'package:crm_smart/model/productmodel.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -51,6 +52,23 @@ class ClientService{
     List<dynamic> data =[];
     data=await Api()
         .get(url:url+ 'client/getClientAll.php?fk_country=$fkcountry');
+
+    List<ClientModel> prodlist = [];
+
+    for (int i = 0; i < data.length; i++) {
+      prodlist.add(ClientModel.fromJson(data[i]));
+    }
+    print(prodlist);
+    return prodlist;
+  }
+  Future<List<ClientModel>> getAllClientsupport(String? fkcountry,List<MainCityModel>? listparam) async {
+    List<dynamic> data =[];
+    if(listparam!=null)
+    data=await Api()
+        .get(url:url+ 'client/getclientfilteraccept.php?fk_country=$fkcountry&maincity=$listparam');
+
+   else data=await Api()
+        .get(url:url+ 'client/getclientfilteraccept.php?fk_country=$fkcountry');
 
     List<ClientModel> prodlist = [];
 

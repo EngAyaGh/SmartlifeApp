@@ -5,6 +5,7 @@
 import 'package:crm_smart/Repository/invoice_repo/cach_data_source.dart';
 import 'package:crm_smart/model/clientmodel.dart';
 import 'package:crm_smart/model/invoiceModel.dart';
+import 'package:crm_smart/model/maincitymodel.dart';
 import 'package:crm_smart/model/privilgemodel.dart';
 import 'package:crm_smart/model/usermodel.dart';
 import 'package:crm_smart/services/ProductService.dart';
@@ -115,26 +116,41 @@ class client_vm extends ChangeNotifier {
     listClientAccept=list;
     notifyListeners();
   }
-  Future<void> getfilterviewSupport(String? regoin)async{
-    List<ClientModel> list=[];
-   await getclient_Local('مشترك');
-    if(regoin!=null){
-      if(regoin!='0'){
-        listClientAccept.forEach((element) {
-          print(element.id_maincity);
-          print(regoin);
-          if(element.id_maincity==regoin)
-            list.add(element);
-        });
-      }
-      else{//الكل لفلتر المنطقة
-        listClientAccept.forEach((element) {
-          if( element.fkcountry==usercurrent!.fkCountry)
-            list.add(element);
-        });
-      }
-    }
-    listClientAccept=list;
+  Future<void> getfilterviewSupport(List<MainCityModel>? listparam)async{
+
+    isloading=true;
+    listClientAccept=[];
+    notifyListeners();
+    int idexist=-1;
+    print(listparam!.length);
+    // if(listparam!.isNotEmpty)
+    idexist= listparam.indexWhere((element) => element.id_maincity=='0');
+    print(idexist);
+    if(idexist!=-1)
+    listClientAccept=  await ClientService()
+        .getAllClientsupport(usercurrent!.fkCountry.toString(),null);
+    else     listClientAccept=  await ClientService()
+        .getAllClientsupport(usercurrent!.fkCountry.toString(),listparam);
+   //  List<ClientModel> list=[];
+   // await getclient_Local('مشترك');
+   //  if(regoin!=null){
+   //    if(regoin!='0'){
+   //      listClientAccept.forEach((element) {
+   //        print(element.id_maincity);
+   //        print(regoin);
+   //        if(element.id_maincity==regoin)
+   //          list.add(element);
+   //      });
+   //    }
+   //    else{//الكل لفلتر المنطقة
+   //      listClientAccept.forEach((element) {
+   //        if( element.fkcountry==usercurrent!.fkCountry)
+   //          list.add(element);
+   //      });
+   //    }
+   //  }
+   //  listClientAccept=list;
+    isloading=false;
     notifyListeners();
   }
   Future<void> getclientfilter_Local(

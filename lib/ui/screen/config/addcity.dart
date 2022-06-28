@@ -52,7 +52,7 @@ class _addcityState extends State<addcity> {
                 width: double.infinity,
                 //height: 400,
                 margin: EdgeInsets.only(),
-                padding:EdgeInsets.only(top: 50,left: 20,right: 20) ,
+                padding:EdgeInsets.only(top: 50,left: 20,right: 20,bottom: 30) ,
                 child: Column(
                   children: [
                     SizedBox(height: 15,),
