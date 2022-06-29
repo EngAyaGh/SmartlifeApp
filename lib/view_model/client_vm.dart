@@ -117,20 +117,35 @@ class client_vm extends ChangeNotifier {
     notifyListeners();
   }
   Future<void> getfilterviewSupport(List<MainCityModel>? listparam)async{
-
     isloading=true;
     listClientAccept=[];
+    List<int> listval=[];
+    List<ClientModel> _list=[];
     notifyListeners();
-    int idexist=-1;
-    print(listparam!.length);
-    // if(listparam!.isNotEmpty)
-    idexist= listparam.indexWhere((element) => element.id_maincity=='0');
-    print(idexist);
-    if(idexist!=-1)
-    listClientAccept=  await ClientService()
+    if(listparam!.isEmpty) _list=  await ClientService()
         .getAllClientsupport(usercurrent!.fkCountry.toString(),null);
-    else     listClientAccept=  await ClientService()
-        .getAllClientsupport(usercurrent!.fkCountry.toString(),listparam);
+    else {
+
+      int idexist = -1;
+      print('length'+listparam!.length.toString());
+      // if(listparam!.isNotEmpty)
+      idexist = listparam.indexWhere((element) => element.id_maincity == '0');
+      print(idexist);
+      if (idexist != -1)
+        _list = await ClientService()
+            .getAllClientsupport(usercurrent!.fkCountry.toString(), null);
+      else
+        {
+          for(int i=0;i<listparam.length;i++)
+            listval.add(int.parse( listparam[i].id_maincity));
+        _list = await ClientService()
+            .getAllClientsupport(usercurrent!.fkCountry.toString(), listval);
+        }
+    }
+    _list.forEach((element) {
+      if(element.isApprove!=null )
+        listClientAccept.add(element);
+    });
    //  List<ClientModel> list=[];
    // await getclient_Local('مشترك');
    //  if(regoin!=null){

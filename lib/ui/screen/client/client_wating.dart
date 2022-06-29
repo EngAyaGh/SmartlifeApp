@@ -69,8 +69,10 @@ class _ClientWaitingState extends State<ClientWaiting> {
       await Provider.of<client_vm>(context,listen: false)
           .getallclientAccept();
 
-     await  Provider.of<invoice_vm>(context, listen: false)
-    .getClientWaiting();
+    //  await  Provider.of<invoice_vm>(context, listen: false)
+    // .getClientWaiting();
+      Provider.of<invoice_vm>(context,listen: false)
+          .getfilter_maincity(selecteditemmaincity,typeclientvalue);
 
       //.getinvoice_Local("مشترك",'approved only',null);
     });
@@ -302,6 +304,7 @@ class _ClientWaitingState extends State<ClientWaiting> {
     //  }
      Provider.of<invoice_vm>(context,listen: false)
     .getfilter_maincity(selecteditemmaincity,typeclientvalue);
+
          //.getclienttype_filter(typeclientvalue,regoin,'only');
 
     // }

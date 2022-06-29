@@ -445,6 +445,10 @@ else{
                                 children: [
                                   RowEdit(name: 'عدد الفروع', des: ''),
                                   EditTextFormField(
+                                    inputType: TextInputType.number,
+                                    inputformate: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
                                     paddcustom: EdgeInsets.all(16),
                                     hintText: '',
                                     obscureText: false,
@@ -458,6 +462,10 @@ else{
                                 children: [
                                   RowEdit(name: 'عدد المستودعات', des: ''),
                                   EditTextFormField(
+                                    inputType: TextInputType.number,
+                                    inputformate: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
                                     paddcustom: EdgeInsets.all(16),
                                     hintText: '',
                                     obscureText: false,
@@ -475,6 +483,10 @@ else{
                                 children: [
                                   RowEdit(name: 'عدد المستخدمين', des: ''),
                                   EditTextFormField(
+                                    inputType: TextInputType.number,
+                                    inputformate: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
                                     paddcustom: EdgeInsets.all(16),
                                     hintText: '',
                                     obscureText: false,
@@ -488,6 +500,10 @@ else{
                                 children: [
                                   RowEdit(name: 'الرقم الضريبي', des: ''),
                                   EditTextFormField(
+                                    inputType: TextInputType.number,
+                                    inputformate: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
                                     paddcustom: EdgeInsets.all(16),
                                     hintText: '',
                                     obscureText: false,
@@ -547,7 +563,7 @@ else{
                           borderSide: const BorderSide(color: Colors.white)),
                     ),
                   ),
-                        _invoice!.imagelogo!=null?
+                        _invoice!.imagelogo!=null&& widget.invoice!.imagelogo.toString().isNotEmpty?
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child:
@@ -879,12 +895,13 @@ else{
   //        .of<invoice_vm>(context, listen: false)
   //        .listproductinvoic;
   // //
-  Provider.of<invoice_vm>(context,listen: false)
+      Provider.of<invoice_vm>(context,listen: false)
       .listinvoices[index1].products=_invoice!.products;
+
       Provider
           .of<invoice_vm>(context, listen: false).updatelistproducetInvoice();
 
-     Provider.of<LoadProvider>(context, listen: false)
+      Provider.of<LoadProvider>(context, listen: false)
          .changebooladdinvoice(false);
      Navigator.pop(context);
      // _scaffoldKey.currentState!.showSnackBar(

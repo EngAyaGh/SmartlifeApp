@@ -388,7 +388,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                         title: 'عدد المستخدمين',
                         value:  widget.invoice!.numusers.toString()
                              ):Container(),
-                    widget.invoice!.imagelogo != null?
+                    widget.invoice!.imagelogo != null&& widget.invoice!.imagelogo.toString().isNotEmpty?
                     widgetlogo(
                         title: 'شعار المؤسسة',
                         value: widget.invoice!.imagelogo.toString()

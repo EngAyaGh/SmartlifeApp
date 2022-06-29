@@ -28,6 +28,7 @@ class Api {
         "Cache-Control": "no-cache"
       }
     );
+    print(json.decode(response.body));
     if (json.decode(response.body)["code"] == "200") {
       print(jsonDecode(response.body)["message"]);
       return jsonDecode(response.body)["message"];

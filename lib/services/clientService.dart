@@ -14,7 +14,7 @@ class ClientService{
       var result = await Api()
           .post( url:url+"client/clientAdd.php",
           body: body);
-    //   print(result);
+      print(result);
     //   return result !="error"? result:"false";}
     // catch(e){
     //   print(e);
@@ -61,11 +61,11 @@ class ClientService{
     print(prodlist);
     return prodlist;
   }
-  Future<List<ClientModel>> getAllClientsupport(String? fkcountry,List<MainCityModel>? listparam) async {
+  Future<List<ClientModel>> getAllClientsupport(String? fkcountry,List<int>? listparam) async {
     List<dynamic> data =[];
     if(listparam!=null)
     data=await Api()
-        .get(url:url+ 'client/getclientfilteraccept.php?fk_country=$fkcountry&maincity=$listparam');
+        .get(url:url+ 'client/getclientfilteraccept.php?fk_country=$fkcountry&&maincity=$listparam');
 
    else data=await Api()
         .get(url:url+ 'client/getclientfilteraccept.php?fk_country=$fkcountry');

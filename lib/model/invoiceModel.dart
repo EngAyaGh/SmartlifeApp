@@ -66,6 +66,7 @@ class InvoiceModel extends CacheRepository{
     this.numusers,
     this.nummostda,
     this.numTax,
+    this.imagelogopath,
     //name_city,mcit.namemaincity,mcit.id_maincity
     // this.nameuserApprove,
     // this.date_approve,
@@ -78,6 +79,7 @@ class InvoiceModel extends CacheRepository{
     String? typeInstallation;
     String? imageRecord='';
     String? imagelogo='';
+    String? imagelogopath='';
     String? fkIdClient;
     String? fkIdUser;
     String? amountPaid;

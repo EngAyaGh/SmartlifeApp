@@ -55,11 +55,15 @@ class _ClientAcceptState extends State<ClientAccept> {
       Provider.of<client_vm>(context, listen: false).listClientAccept=[];
         // Provider.of<client_vm>(context, listen: false)
         //   .getallclient();
-      Provider.of<client_vm>(context, listen: false)
-          . getclient_Local('مشترك');
+      // Provider.of<client_vm>(context, listen: false). getclient_Local('مشترك');
 
-      Provider.of<maincity_vm>
-        (context,listen: false).changevalue(null);
+      // Provider.of<maincity_vm>
+      //   (context,listen: false).changevalue(null);
+      await Provider.of<client_vm>(context,listen: false)
+          .getallclientAccept();
+
+      Provider.of<client_vm>(context,listen: false)
+          .getfilterviewSupport(selecteditemmaincity);
     });
 
     super.initState();
@@ -92,12 +96,13 @@ class _ClientAcceptState extends State<ClientAccept> {
                                 child: Consumer<maincity_vm>(
                                   builder: (context, cart, child){
                                     return  DropdownSearch<MainCityModel>.multiSelection(
+                                      showFavoriteItems: true,
                                       mode: Mode.DIALOG,
                                       filterFn: (user, filter) => user!.getfilteruser(filter!),
                                       compareFn: (item, selectedItem) => item?.id_maincity == selectedItem?.id_maincity,
                                       // itemAsString: (UserModel u) => u.userAsStringByName(),
                                       items: cart.listmaincityfilter,
-                                      showSelectedItems: true,
+                                      // showSelectedItems: true,
                                       selectedItems: cart.selecteditemmaincity,
                                       itemAsString: (u) => u!.userAsString(),
                                       onChanged: (data) {
