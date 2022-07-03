@@ -7,6 +7,7 @@ import 'package:crm_smart/ui/screen/client/tabclients.dart';
 import 'package:crm_smart/ui/screen/home/approvepage.dart';
 import 'package:crm_smart/ui/screen/home/widgethomeitem.dart';
 import 'package:crm_smart/ui/screen/invoice/get_deleted_invoice.dart';
+import 'package:crm_smart/ui/screen/report/chart.dart';
 import 'package:crm_smart/ui/screen/support/support_view.dart';
 import 'package:crm_smart/ui/screen/target/target_page.dart';
 import 'package:crm_smart/view_model/privilge_vm.dart';
@@ -125,6 +126,17 @@ class _salesState extends State<sales> {
                     builder: (context)=>
                         TargetPage()));
               }, title:  'تاركيت الموظف ',
+                colorbag: Colors.white,
+                colortitle: Colors.black,
+                colorarrow: Colors.black,):Container(),
+              Provider.of<privilge_vm>(context,listen: true)
+                  .checkprivlge('5')==true?
+              buildSelectCategory(
+                onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context)=>
+                        BarChartAPI()));
+              }, title:  ' تقارير المبيعات ',
                 colorbag: Colors.white,
                 colortitle: Colors.black,
                 colorarrow: Colors.black,):Container(),

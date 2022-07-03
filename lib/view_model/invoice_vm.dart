@@ -285,6 +285,7 @@ class invoice_vm extends ChangeNotifier{
     notifyListeners();
   }
   Future<void> getfilter_maincity(List<MainCityModel>? listparam, String? state)async{
+    print(state);
     String type='';
     List<int> listval=[];
     isloading=true;
@@ -297,7 +298,6 @@ class invoice_vm extends ChangeNotifier{
           ,{'all':'all'});
     }
     else{
-
     idexist= listparam.indexWhere((element) => element.id_maincity=='0');
      print(idexist);
      print(state);
@@ -311,9 +311,8 @@ class invoice_vm extends ChangeNotifier{
         type='allmix';
         if(idexist!=-1 && state!='الكل')
           type='allmaincity';
-
     }
-    if(state=='بالإنتظار')state=null;
+    if(state=='بالإنتظار')state='0';
     else if(state=='تم التركيب')state='1';
     print(type);
     switch(type) {
@@ -326,10 +325,13 @@ class invoice_vm extends ChangeNotifier{
         break;
 
       case 'allstate':
+        print('21321321');
         for(int i=0;i<listparam.length;i++)
-          listval.add(int.parse( listparam[i].id_maincity));
+         { listval.add(int.parse( listparam[i].id_maincity));
+         print( listparam[i].id_maincity);
+         }
         listInvoicesAccept = await Invoice_Service()
-            .getinvoicemaincity('client/invoice/getinvoicemaincity.php?fk_country=${usercurrent!.fkCountry.toString()}&&maincity_fks=$listval'
+            .getinvoicemaincity('client/invoice/getinvoicemaincity.php?fk_country=${usercurrent!.fkCountry.toString()}&&maincity_fks=$listparam'
         ,{'allstate':'allstate'}
         );
         break;

@@ -367,7 +367,6 @@ class _support_addState extends State<support_add> {
                         _invoice!.dateinstall_task == null//first time for set date for client
                             ? IconButton(
                             onPressed: () {
-
                               // if( selectedTime != TimeOfDay(hour: -10, minute: 00)
                               //     && _currentDate!= DateTime(1, 1, 1)) {
                                 if(_globalKey.currentState!.validate()){
@@ -647,6 +646,7 @@ class _support_addState extends State<support_add> {
     //String output = formatter.format(currentDate);
     // DateFormat('yyyy-MM-dd – kk:mm').format(now);
      DateTime? pickedDate = await showDatePicker(
+       // initialDatePickerMode: DatePickerMode.year,
         context: context,
         currentDate: currentDate,
         initialDate: currentDate,
