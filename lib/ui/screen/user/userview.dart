@@ -113,7 +113,6 @@ class _UserScreenState extends State<UserScreen> {
 
               padding: EdgeInsets.only(
                   top: 15,right: 1,left: 1,bottom: 5), // EdgeInsets.symmetric(horizontal: 50, vertical: 50),
-
               margin: EdgeInsets.only(
                   left: 1,
                   right: 1,

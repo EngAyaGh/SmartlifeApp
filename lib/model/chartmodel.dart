@@ -17,10 +17,12 @@ class BarModel {
     required this.countclient,
     required this.y,
     required this.colorval,
+    // required this.nameUser,
 
   });
 
   String x;
+  // String nameUser;
   int countclient;
   double y;
   Color colorval;
@@ -30,6 +32,7 @@ class BarModel {
   factory BarModel.fromJson(Map<String, dynamic> json) => BarModel(
     colorval:Colors.primaries[Random().nextInt(Colors.primaries.length)] ,
     x: json["x"],
+    // nameUser: json["nameUser"],
     countclient:int.parse( json["countclient"]),
     y: double.parse( json["y"]),
     // probability: json["probability"].toDouble(),
@@ -38,6 +41,7 @@ class BarModel {
 
   Map<String, dynamic> toJson() => {
     "x": x,
+    // "nameUser": nameUser,
     "countclient": countclient,
     "y": y,
   };
